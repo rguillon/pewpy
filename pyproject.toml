@@ -18,6 +18,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "numpy>=2.2.6",
     "panda3d>=1.10.16",
 ]
 

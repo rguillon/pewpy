@@ -177,6 +177,18 @@
 
 ## Decisions made
 
+### 2026-09-30 — Faster loading: voxel meshes built with numpy (chosen by the user in chat)
+- Decision (the user's, out of several options: a disk cache of built meshes, background loading, more pure-Python
+  tuning, numpy): build the voxel meshes with numpy. `numpy` is now a dependency.
+- How: `MeshBuilder.cells` (`models.py`) works on every cube at once: an occupancy grid finds the visible faces and
+  their corner shading (`occlusion_level`), `merged_faces` merges them into rectangles in the same order as before,
+  and the vertices are written into Panda3D in one copy (`build`). Shapes built a triangle at a time (boxes,
+  spheres, water) are unchanged. Every mesh the game builds (ships, pickups, bosses and their parts, rocks, planet,
+  nebula, the grounds of every biome) was checked to come out identical, triangle for triangle.
+- Result (software rendering, this machine): level starts went from a median of about 480 ms to 145 ms (slowest
+  820 to 285 ms), building all boss models from 3.8 to 0.8 s, game startup from about 460 to 320 ms.
+- Recorded in 06-technical.md ("Extra libraries allowed").
+
 ### 2026-09-30 — Merged voxel faces (asked by the user in chat)
 - Decision (the user's): adjacent cube faces of the same color make a single polygon.
 - How: greedy meshing in `MeshBuilder.cells` (`models.py`): the visible faces of each flat layer are covered with

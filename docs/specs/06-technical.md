@@ -5,7 +5,7 @@
 - Python: 3.10+ (from `pyproject.toml`)
 - Panda3D version: TBD (1.10.x is currently installed)
 - Extra libraries allowed (e.g. panda3d-gltf, numpy): `types-panda3d` (dev only, so `ty` can type-check
-  Panda3D); others: TBD
+  Panda3D); `numpy` (building the voxel meshes, see decisions.md); others: TBD
 
 ## Performance
 

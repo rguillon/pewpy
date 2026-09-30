@@ -2,6 +2,7 @@ import math
 from functools import partial
 from importlib import resources
 
+import numpy as np
 import pytest
 from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
@@ -121,12 +122,8 @@ def test_voxel_corners_next_to_other_voxels_are_darkened():
     ],
 )
 def test_occlusion_counts_the_voxels_in_front_of_a_corner(side_a, side_b, corner, expected):
-    def key(offset: Vec3) -> tuple[int, ...]:
-        return tuple(round(value) for value in offset)
-
-    normal, u, w = Vec3(0, 0, 1), Vec3(1, 0, 0), Vec3(0, 1, 0)
-    filled = {key(normal + u): side_a, key(normal + w): side_b, key(normal + u + w): corner}
-    assert models.occlusion(lambda offset: filled[key(offset)], normal, u, w) == expected
+    level = models.occlusion_level(np.array([side_a]), np.array([side_b]), np.array([corner]))
+    assert models.OCCLUSION_BRIGHTNESS[level[0]] == expected
 
 
 def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes():

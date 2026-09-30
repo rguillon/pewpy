@@ -16,11 +16,12 @@ import itertools
 import json
 import math
 import random
-from collections.abc import Callable
 from dataclasses import dataclass
 from importlib import resources
 from typing import Any
 
+import numpy as np
+from numpy.typing import NDArray
 from panda3d.core import (
     CardMaker,
     ColorBlendAttrib,
@@ -30,7 +31,6 @@ from panda3d.core import (
     GeomVertexData,
     GeomVertexFormat,
     GeomVertexReader,
-    GeomVertexWriter,
     NodePath,
     PandaNode,
     PNMImage,
@@ -48,6 +48,10 @@ Palette = dict[str, tuple[Color, int]]  # character -> (color, thickness in voxe
 Cell = tuple[int, int, int]  # (column, row going down the screen, depth layer going away from the camera)
 UV = tuple[float, float]
 Vertex = tuple[Vec3, Color, UV]
+Direction = tuple[int, int, int]
+FloatArray = NDArray[np.float64]
+IntArray = NDArray[np.int64]
+BoolArray = NDArray[np.bool_]
 NO_BEVEL: UV = (0.5, 0.5)  # texture coordinate of shapes that aren't voxels: the shader bevels no edge
 # Voxel faces: texture coordinates count cubes from 0 across the face (a merged face covers several cubes, see
 # MeshBuilder.cells), and the shader bevels every cube. One cube's face:
@@ -58,7 +62,6 @@ GLOW_UVS: tuple[UV, UV, UV, UV] = ((-2, 0), (-1, 0), (-1, 1), (-2, 1))
 WATER_UV: UV = (-3.5, 0.5)  # water: the shader makes waves on it
 # Burning voxel faces (lava, flames): they shine all over, flickering.
 BURN_UVS: tuple[UV, UV, UV, UV] = ((-6, 0), (-5, 0), (-5, 1), (-6, 1))
-FaceKey = tuple[Color, tuple[float, float, float, float]]  # a face's color and the brightness of its 4 corners
 
 EMPTY = ".", " "
 FACE_DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
@@ -90,10 +93,29 @@ class MeshBuilder:
     callers don't have to care about winding order.
     Voxel faces get texture coordinates counting cubes across the face, which the shader (lighting.py) uses to
     bevel the edges of each cube; other shapes get `NO_BEVEL`.
+
+    Shapes made a triangle at a time (boxes, spheres, water) are kept as Python tuples. Voxels (`cells`), which make
+    up nearly every model and ground, are worked out in bulk with numpy and kept as arrays.
     """
 
     def __init__(self) -> None:
-        self.triangles: list[tuple[Vertex, Vertex, Vertex]] = []
+        self._triangles: list[tuple[Vertex, Vertex, Vertex]] = []
+        # Voxel triangles, a block per `cells` call: corner positions (n, 3, 3), normals (n, 3), corner colors
+        # (n, 3, 4) and corner texture coordinates (n, 3, 2).
+        self._blocks: list[tuple[FloatArray, FloatArray, FloatArray, FloatArray]] = []
+
+    @property
+    def triangles(self) -> list[tuple[Vertex, Vertex, Vertex]]:
+        """Every triangle so far, as (position, color, texture coordinate) corners."""
+        result = list(self._triangles)
+        for positions, _, colors, uvs in self._blocks:
+            for corners, rgbas, coordinates in zip(positions.tolist(), colors.tolist(), uvs.tolist(), strict=True):
+                a, b, c = [
+                    (Vec3(x, y, z), (red, green, blue, alpha), (s, t))
+                    for (x, y, z), (red, green, blue, alpha), (s, t) in zip(corners, rgbas, coordinates, strict=True)
+                ]
+                result.append((a, b, c))
+        return result
 
     def triangle(
         self,
@@ -114,7 +136,7 @@ class MeshBuilder:
         ]
         if normal.dot((a + b + c) / 3 - inside) < 0:
             vb, vc = vc, vb  # face away from the shape's center (counter-clockwise seen from outside)
-        self.triangles.append((va, vb, vc))
+        self._triangles.append((va, vb, vc))
 
     def quad(
         self,
@@ -198,123 +220,224 @@ class MeshBuilder:
         `context` lists cells drawn elsewhere (e.g. the next strip of ground): they hide faces and shade corners
         like the others, but aren't drawn. Cells in `glowing` light up on their own as a pane (see GLOW_UVS), cells
         in `burning` all over (BURN_UVS).
+
+        Works on every cube at once (numpy): which faces show, how dark their corners are, then faces that look
+        alike are merged into rectangles (fewer triangles, same look, see `merged_faces`).
         """
-        half = size / 2
-        corners = ((-1, -1), (1, -1), (1, 1), (-1, 1))
-        # Visible faces, by the plane they lie in (direction, depth along it): (along u, along w) -> FaceKey. Faces
-        # that look alike are then merged into rectangles (fewer triangles, same look).
-        planes: dict[tuple[tuple[int, int, int], int], dict[tuple[int, int], FaceKey]] = {}
-        for (column, row, layer), color in cells.items():
-
-            def filled(offset: Vec3, column: int = column, row: int = row, layer: int = layer) -> bool:
-                # `offset` is always a sum of unit direction vectors, so its components are exact integers:
-                # int() (no rounding needed) is noticeably cheaper than round() in this very hot loop.
-                cell = (column + int(offset.x), row - int(offset.z), layer + int(offset.y))
-                return cell in cells or cell in context
-
-            middle = origin + Vec3(column * size, layer * size, -row * size)
-            position = Vec3(column, layer, -row)  # in cubes, along the model's X, Y and Z
-            for direction in FACE_DIRECTIONS:
-                # The face's own visibility check is by far the most frequent lookup here (most voxels are fully
-                # buried and stop right here), so it skips `filled` and its Vec3 unpacking: `direction`'s
-                # components are already plain ints, so the neighbor cell is direct integer arithmetic.
-                dx, dy, dz = direction
-                if (column + dx, row - dz, layer + dy) in cells:
-                    continue
-                normal, u, w = _FACE_BASIS[direction]
-                if filled(normal):
-                    continue
-                special = GLOW_UVS if (column, row, layer) in glowing else None
-                special = BURN_UVS if (column, row, layer) in burning else special
-                if special:
-                    face = middle + normal * half
-                    a, b, c, d = (face + (u * su + w * sw) * half for su, sw in corners)
-                    self.quad(a, b, c, d, color, middle, uvs=special)
-                    continue
-                ba, bb, bc, bd = [occlusion(filled, normal, u * su, w * sw) for su, sw in corners]
-                # normal, u and w are axis-aligned unit vectors, so these dot products are exact integers too.
-                plane = planes.setdefault((direction, int(position.dot(normal))), {})
-                plane[int(position.dot(u)), int(position.dot(w))] = (color, (ba, bb, bc, bd))
-        for (direction, depth), faces in planes.items():
-            self._merged_faces(direction, depth, faces, size, origin)
-
-    def _merged_faces(
-        self,
-        direction: tuple[int, int, int],
-        depth: int,
-        faces: dict[tuple[int, int], FaceKey],
-        size: float,
-        origin: Vec3,
-    ) -> None:
-        """Cover one plane's faces with as few rectangles as possible (greedy meshing), each made of faces with the
-        same color and corner shading. A rectangle only grows along a direction where its shading doesn't change,
-        so the GPU blends it the same as the faces it replaces."""
-        normal, u, w = _FACE_BASIS[direction]
-        half = size / 2
-        left = dict(faces)
-        for a, b in sorted(faces):
-            key = left.get((a, b))
-            if key is None:
-                continue  # already in a rectangle
-            color, (ba, bb, bc, bd) = key
-            width = 1
-            if ba == bb and bd == bc:  # the same shading at both ends along u
-                while left.get((a + width, b)) == key:
-                    width += 1
-            height = 1
-            if ba == bd and bb == bc:  # the same along w
-                while all(left.get((a + i, b + height)) == key for i in range(width)):
-                    height += 1
-            for i in range(width):
-                for j in range(height):
-                    del left[a + i, b + j]
-            first = origin + (u * a + w * b + normal * depth) * size  # the middle of the first cube
-            corner = first + (normal - u - w) * half
-            along_u, along_w = u * (width * size), w * (height * size)
-            inside = corner + (along_u + along_w) / 2 - normal * half
-            uvs = ((0.0, 0.0), (float(width), 0.0), (float(width), float(height)), (0.0, float(height)))
-            self.quad(
-                corner, corner + along_u, corner + along_u + along_w, corner + along_w, color, inside, key[1], uvs
+        if not cells:
+            return
+        # Positions in cubes along the model's X (column), Y (depth layer) and Z (up: minus the row).
+        positions = _model_axes(np.array(list(cells), dtype=np.int64))
+        color_indices: dict[Color, int] = {}
+        color_of = np.array([color_indices.setdefault(color, len(color_indices)) for color in cells.values()])
+        colors = np.array(list(color_indices), dtype=np.float64)
+        special = np.zeros(len(positions), dtype=np.int64)  # 0: plain voxel, 1: glowing, 2: burning
+        if glowing or burning:
+            special = np.array([2 if cell in burning else 1 if cell in glowing else 0 for cell in cells])
+        occupancy = _Occupancy(positions, _model_axes(np.array(list(context), dtype=np.int64).reshape(-1, 3)))
+        origin_array = np.array(origin, dtype=np.float64)
+        for direction in FACE_DIRECTIONS:
+            normal, u, w = _FACE_AXES[direction]
+            shown = ~occupancy.filled(positions + normal)
+            face_positions, face_colors, face_special = positions[shown], color_of[shown], special[shown]
+            for kind, uvs in ((1, GLOW_UVS), (2, BURN_UVS)):
+                picked = face_special == kind
+                if picked.any():
+                    self._single_faces(
+                        face_positions[picked], colors[face_colors[picked]], uvs, direction, size, origin_array
+                    )
+            plain = face_special == 0
+            face_positions, face_colors = face_positions[plain], face_colors[plain]
+            if not len(face_positions):
+                continue
+            ahead = face_positions + normal  # the cells just in front of each face
+            levels = np.stack(
+                [
+                    occlusion_level(
+                        occupancy.filled(ahead + u * su),
+                        occupancy.filled(ahead + w * sw),
+                        occupancy.filled(ahead + u * su + w * sw),
+                    )
+                    for su, sw in FACE_CORNERS
+                ],
+                axis=1,
             )
+            rectangles = merged_faces(
+                face_positions @ normal, face_positions @ u, face_positions @ w, face_colors, levels
+            )
+            self._rectangles(rectangles, colors, direction, size, origin_array)
+
+    def _rectangles(
+        self, rectangles: IntArray, colors: FloatArray, direction: Direction, size: float, origin: FloatArray
+    ) -> None:
+        """Add the rectangles from `merged_faces` lying in the planes facing `direction`."""
+        normal, u, w = _FACE_AXES[direction]
+        depth, along_u, along_w, width, height, color, levels = (
+            rectangles[:, 0],
+            rectangles[:, 1],
+            rectangles[:, 2],
+            rectangles[:, 3],
+            rectangles[:, 4],
+            rectangles[:, 5],
+            rectangles[:, 6:10],
+        )
+        # The middle of each rectangle's first cube, then the corner of its face, then the face's 4 corners taken
+        # along u then w: since u x w is the normal, they wind counter-clockwise seen from outside.
+        first = origin + (np.outer(along_u, u) + np.outer(along_w, w) + np.outer(depth, normal)) * size
+        corner = first + (normal - u - w) * (size / 2)
+        span_u, span_w = np.outer(width * size, u), np.outer(height * size, w)
+        corners = np.stack([corner, corner + span_u, corner + span_u + span_w, corner + span_w], axis=1)
+        uvs = np.zeros((len(rectangles), 4, 2))  # counting cubes: (0, 0), (width, 0), (width, height), (0, height)
+        uvs[:, 1:3, 0] = width[:, None]
+        uvs[:, 2:4, 1] = height[:, None]
+        self._faces(corners, colors[color], np.array(OCCLUSION_BRIGHTNESS)[levels], uvs, normal)
+
+    def _single_faces(
+        self,
+        positions: IntArray,
+        colors: FloatArray,
+        uvs: tuple[UV, UV, UV, UV],
+        direction: Direction,
+        size: float,
+        origin: FloatArray,
+    ) -> None:
+        """A face per cube, not merged nor shaded (glowing and burning faces: the shader draws each as a pane)."""
+        normal, u, w = _FACE_AXES[direction]
+        face = origin + positions * size + normal * (size / 2)
+        corners = np.stack([face + (u * su + w * sw) * (size / 2) for su, sw in FACE_CORNERS], axis=1)
+        count = len(positions)
+        corner_uvs = np.broadcast_to(np.array(uvs, dtype=np.float64), (count, 4, 2))
+        self._faces(corners, colors, np.ones((count, 4)), corner_uvs, normal)
+
+    def _faces(
+        self, corners: FloatArray, colors: FloatArray, brightness: FloatArray, uvs: FloatArray, normal: IntArray
+    ) -> None:
+        """Faces from their 4 corners (winding counter-clockwise seen from outside), each split in two triangles
+        along the brighter diagonal, or the shading would show a crease across the face (like `quad`)."""
+        crease = brightness[:, 0] + brightness[:, 2] < brightness[:, 1] + brightness[:, 3]
+        # Which corners make each face's two triangles: (a, b, d) and (b, c, d), or (a, b, c) and (a, c, d).
+        picks = np.where(crease[:, None, None], [[0, 1, 3], [1, 2, 3]], [[0, 1, 2], [0, 2, 3]]).reshape(-1, 3)
+        faces = np.repeat(np.arange(len(corners)), 2)  # the face of each triangle
+        base = colors[faces]
+        rgb = np.minimum(base[:, None, :3] * brightness[faces[:, None], picks][..., None], 1.0)  # like `shade`
+        alpha = np.broadcast_to(base[:, None, 3:], (len(picks), 3, 1))
+        normals = np.broadcast_to(normal.astype(np.float64), (len(picks), 3))
+        self._blocks.append((
+            corners[faces[:, None], picks],
+            normals,
+            np.concatenate([rgb, alpha], axis=2),
+            uvs[faces[:, None], picks],
+        ))
 
     def build(self, name: str) -> GeomNode:
+        positions, normals, colors, uvs = self._arrays()
+        count = len(positions) * 3
+        vertices = np.empty(count, dtype=VERTEX_DTYPE)
+        vertices["position"] = positions.reshape(-1, 3)
+        vertices["normal"] = np.repeat(normals, 3, axis=0)
+        # Colors are stored as bytes; Panda3D converts a float the same way (in 32 bits, rounding down).
+        vertices["color"] = np.clip(np.floor(colors.reshape(-1, 4).astype(np.float32) * np.float32(255)), 0, 255)
+        vertices["uv"] = uvs.reshape(-1, 2)
         data = GeomVertexData(name, GeomVertexFormat.getV3n3c4t2(), Geom.UHStatic)
-        data.setNumRows(len(self.triangles) * 3)
-        vertex = GeomVertexWriter(data, "vertex")
-        normal = GeomVertexWriter(data, "normal")
-        color = GeomVertexWriter(data, "color")
-        texcoord = GeomVertexWriter(data, "texcoord")
+        data.uncleanSetNumRows(count)
         primitive = GeomTriangles(Geom.UHStatic)
-        for index, corners in enumerate(self.triangles):
-            (a, _, _), (b, _, _), (c, _, _) = corners
-            face_normal = (b - a).cross(c - a)
-            face_normal.normalize()
-            for position, rgba, uv in corners:
-                vertex.addData3(position)
-                normal.addData3(face_normal)
-                color.addData4(*rgba)
-                texcoord.addData2(*uv)
-            primitive.addVertices(index * 3, index * 3 + 1, index * 3 + 2)
+        if count:
+            data.modifyArrayHandle(0).copyDataFrom(vertices.view(np.uint8))
+            primitive.addConsecutiveVertices(0, count)
         geom = Geom(data)
         geom.addPrimitive(primitive)
         node = GeomNode(name)
         node.addGeom(geom)
         return node
 
+    def _arrays(self) -> tuple[FloatArray, FloatArray, FloatArray, FloatArray]:
+        """Every triangle as arrays: corner positions (n, 3, 3), normals (n, 3), colors (n, 3, 4), uvs (n, 3, 2)."""
+        blocks = list(self._blocks)
+        if self._triangles:
+            positions = np.array([[tuple(corner) for corner, _, _ in triangle] for triangle in self._triangles])
+            normals = np.cross(positions[:, 1] - positions[:, 0], positions[:, 2] - positions[:, 0])
+            normals /= np.linalg.norm(normals, axis=1, keepdims=True)
+            colors = np.array([[color for _, color, _ in triangle] for triangle in self._triangles], dtype=np.float64)
+            uvs = np.array([[uv for _, _, uv in triangle] for triangle in self._triangles], dtype=np.float64)
+            blocks.insert(0, (positions, normals, colors, uvs))
+        if not blocks:
+            return np.zeros((0, 3, 3)), np.zeros((0, 3)), np.zeros((0, 3, 4)), np.zeros((0, 3, 2))
+        positions, normals, colors, uvs = (np.concatenate([block[part] for block in blocks]) for part in range(4))
+        return positions, normals, colors, uvs
 
-def face_axes(direction: tuple[int, int, int]) -> tuple[Vec3, Vec3]:
-    """Two axes along a voxel face (u, w), for the face looking along `direction`."""
-    normal = Vec3(*direction)
-    u = Vec3(0, 0, 1) if direction[0] else Vec3(1, 0, 0)
-    return u, normal.cross(u)
+
+# One vertex as the GPU gets it: GeomVertexFormat.getV3n3c4t2(), a single interleaved array of 36 bytes.
+VERTEX_DTYPE = np.dtype([("position", "<f4", 3), ("normal", "<f4", 3), ("color", "u1", 4), ("uv", "<f4", 2)])
+# The 4 corners of a voxel face, as steps along its two axes (u, w), in winding order.
+FACE_CORNERS = ((-1, -1), (1, -1), (1, 1), (-1, 1))
 
 
-# (normal, u, w) for each of the 6 face directions, built once: the same 6 triples are used for every voxel of
-# every model, so MeshBuilder.cells() looks them up here instead of reconstructing them (and recomputing a cross
-# product) for every cube face. Read-only: callers must not mutate the vectors they get back.
-_FACE_BASIS: dict[tuple[int, int, int], tuple[Vec3, Vec3, Vec3]] = {
-    direction: (Vec3(*direction), *face_axes(direction)) for direction in FACE_DIRECTIONS
-}
+def face_axes(direction: Direction) -> tuple[IntArray, IntArray, IntArray]:
+    """The normal of a voxel face looking along `direction` and two axes along the face (u, w), in cubes: u x w is
+    the normal, so corners taken along u then w wind counter-clockwise seen from outside."""
+    normal = np.array(direction, dtype=np.int64)
+    u = np.array((0, 0, 1) if direction[0] else (1, 0, 0), dtype=np.int64)
+    return normal, u, np.cross(normal, u)
+
+
+_FACE_AXES = {direction: face_axes(direction) for direction in FACE_DIRECTIONS}
+
+
+def _model_axes(cells: IntArray) -> IntArray:
+    """Cells (column, row, layer) as positions in cubes along the model's X, Y (depth) and Z (up the screen)."""
+    return np.stack([cells[:, 0], cells[:, 2], -cells[:, 1]], axis=1) if len(cells) else np.zeros((0, 3), np.int64)
+
+
+class _Occupancy:
+    """Which cube positions hold a voxel (drawn or context), as a 3D grid: one lookup for many positions at once."""
+
+    def __init__(self, drawn: IntArray, context: IntArray) -> None:
+        everything = np.concatenate([drawn, context])
+        self.low = everything.min(axis=0) - 1  # neighbors are at most one cube away along each axis
+        self.grid = np.zeros(everything.max(axis=0) - self.low + 2, dtype=bool)
+        self.grid[tuple((everything - self.low).T)] = True
+
+    def filled(self, positions: IntArray) -> BoolArray:
+        return self.grid[tuple((positions - self.low).T)]
+
+
+def occlusion_level(side_a: BoolArray, side_b: BoolArray, corner: BoolArray) -> IntArray:
+    """How many voxels touch voxel face corners (0 to 3), from the cells in front of each face along its two edges
+    (`side_a`, `side_b`) and diagonally (`corner`). With both sides filled the corner is fully tucked in (3),
+    whatever the diagonal. OCCLUSION_BRIGHTNESS gives the brightness of each level."""
+    return np.where(side_a & side_b, 3, side_a.astype(np.int64) + side_b + corner)
+
+
+def merged_faces(depth: IntArray, along_u: IntArray, along_w: IntArray, colors: IntArray, levels: IntArray) -> IntArray:
+    """Cover faces facing the same way with as few rectangles as possible (greedy meshing), each made of faces with
+    the same color and corner shading.
+
+    Faces are given by their plane (`depth`), place in it (`along_u`, `along_w`, in cubes), color index and corner
+    occlusion levels (n, 4). A rectangle grows along u, then w, from its first face in (depth, u, w) order, and
+    only along a direction where its shading doesn't change, so the GPU blends it the same as the faces it replaces.
+    Returns rows of (depth, u, w, width, height, color, 4 corner levels).
+    """
+    keys = colors * 256 + levels[:, 0] * 64 + levels[:, 1] * 16 + levels[:, 2] * 4 + levels[:, 3]
+    left = dict(zip(zip(depth.tolist(), along_u.tolist(), along_w.tolist(), strict=True), keys.tolist(), strict=True))
+    rectangles = []
+    for d, a, b in sorted(left):
+        key = left.get((d, a, b))
+        if key is None:
+            continue  # already in a rectangle
+        ba, bb, bc, bd = (key >> 6) & 3, (key >> 4) & 3, (key >> 2) & 3, key & 3
+        width = 1
+        if ba == bb and bd == bc:  # the same shading at both ends along u
+            while left.get((d, a + width, b)) == key:
+                width += 1
+        height = 1
+        if ba == bd and bb == bc:  # the same along w
+            while all(left.get((d, a + i, b + height)) == key for i in range(width)):
+                height += 1
+        for i in range(width):
+            for j in range(height):
+                del left[d, a + i, b + j]
+        rectangles.append((d, a, b, width, height, key >> 8, ba, bb, bc, bd))
+    return np.array(rectangles, dtype=np.int64).reshape(-1, 10)
 
 
 def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int], Color]:
@@ -332,13 +455,6 @@ def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int],
             for layer in range(-(thickness // 2), thickness // 2 + 1):
                 cells[column, row_index, layer] = color
     return cells
-
-
-def occlusion(filled: Callable[[Vec3], bool], normal: Vec3, side_a: Vec3, side_b: Vec3) -> float:
-    """Brightness of one corner of a voxel face, from the voxels touching it in front of the face."""
-    a, b = filled(normal + side_a), filled(normal + side_b)
-    touching = 3 if a and b else a + b + filled(normal + side_a + side_b)
-    return OCCLUSION_BRIGHTNESS[touching]
 
 
 def thickest(palette: Palette) -> int:
