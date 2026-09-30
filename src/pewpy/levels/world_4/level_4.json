@@ -30,6 +30,14 @@
       "spacing": 0.5
     },
     {
+      "time": 6.0,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.72,
+      "x": 0.0
+    },
+    {
       "time": 7.0,
       "enemy": "shield_carrier",
       "count": 2,
@@ -88,6 +96,14 @@
       "spacing": 1.0
     },
     {
+      "time": 23.5,
+      "enemy": "tank",
+      "count": 1,
+      "formation": "column",
+      "interval": 3.0,
+      "x": -0.45
+    },
+    {
       "time": 24.6,
       "enemy": "splitter",
       "count": 4,
@@ -136,6 +152,14 @@
       "count": 6,
       "formation": "line",
       "spacing": 0.35
+    },
+    {
+      "time": 42.7,
+      "enemy": "rocket_truck",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.2,
+      "x": -0.35
     },
     {
       "time": 43.0,

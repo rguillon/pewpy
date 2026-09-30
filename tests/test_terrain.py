@@ -2,6 +2,7 @@ import pytest
 from panda3d.core import GeomNode
 
 from pewpy import ground_look
+from pewpy.enemies import ENEMY_TYPES
 from pewpy.level import load_levels
 from pewpy.terrain import BIOMES, TOWN_LIGHT, Area, Kind, Terrain
 
@@ -87,11 +88,14 @@ def test_every_ground_has_levels():
     assert set(BIOMES) <= {level.background for level in load_levels()}
 
 
-def test_no_turrets_over_water_or_clouds():
-    # Turrets are fixed to the ground: they would look odd on the sea, the ice floes or the clouds.
+def test_no_ground_enemies_over_water_or_clouds():
+    # Turrets, tanks and the like are on the ground: they would look odd on the sea, the ice floes or the clouds.
     for level in load_levels():
         if level.background in ("pack_ice", "swamp", "clouds", "ocean"):
-            assert all(wave.enemy != "turret" for wave in level.waves), level.name
+            ground = [
+                wave.enemy for wave in level.waves if wave.enemy in ENEMY_TYPES and ENEMY_TYPES[wave.enemy].ground
+            ]
+            assert ground == [], level.name
 
 
 @pytest.mark.parametrize("biome", ALL_BIOMES)

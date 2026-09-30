@@ -177,6 +177,19 @@
 
 ## Decisions made
 
+### 2026-09-30 — Ground enemies (asked by the user in chat)
+- Decision (the user's): more ground enemies, like turrets or tanks; some shoot "vertically", some at the player.
+- Placeholder chosen (mine): "vertically" read as straight down the screen (not aimed). Three new enemies with the
+  Turret (fixed, aimed): the Flak Cannon (fixed, pairs of shots straight down), the Tank (crawls sideways on the
+  ground, its turret aims) and the Rocket Truck (drives down the road, big rockets straight down). Numbers in
+  02-enemies.md. Ground enemies are marked `ground` in `enemies.py`; a test keeps every one of them away from levels
+  over water, ice floes or clouds. Added to every level with solid ground (worlds 2, 4 and 5, not the swamps; the
+  asteroids of 1-8 keep only their Turrets), introduced gradually (Flak Cannon from 2-1, Tank from 2-3, Rocket Truck
+  from 2-5): each of these levels has at least one wave of every ground unit introduced so far, 2 to 3 new ground
+  waves per level. The Tank's model has its dome and gun on the node the game turns to aim, like
+  the Turret's barrel.
+- Recorded in 02-enemies.md.
+
 ### 2026-09-30 — Faster loading: voxel meshes built with numpy (chosen by the user in chat)
 - Decision (the user's, out of several options: a disk cache of built meshes, background loading, more pure-Python
   tuning, numpy): build the voxel meshes with numpy. `numpy` is now a dependency.

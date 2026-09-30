@@ -84,7 +84,48 @@
 - Points: 250
 - Drops: 10%
 - First appears in level: 1-8 (Minefield)
-- Notes: often placed in pairs on each side of the screen
+- Notes: often placed in pairs on each side of the screen; ground levels only
+
+### Enemy: Flak Cannon
+
+- Look: grey octagonal gun emplacement with a dark gun housing, orange stripes and two barrels pointing down the
+  screen, 0.12 x 0.12
+- Health: 5
+- Speed: same as the level's scroll speed (it is fixed to the ground)
+- Movement pattern: scrolls down with the background
+- Attack: every 1.8 s, 2 pairs of parallel shots (one per barrel, 0.05 apart), 0.2 s apart, straight down the
+  screen (not aimed), speed 0.55
+- Points: 200
+- Drops: 10%
+- First appears in level: 2-1 (Ground Defense)
+- Notes: usually a pair, one on each side of the screen; ground levels only
+
+### Enemy: Tank
+
+- Look: grey tank with olive markings, treads along its top and bottom (it drives sideways) and a turret that turns
+  to aim at the player, 0.16 x 0.12
+- Health: 8
+- Speed: the level's scroll speed down (it is on the ground), and 0.1 sideways
+- Movement pattern: crawls sideways over the ground, towards the middle of the screen first, turning back at the
+  screen's edges
+- Attack: one aimed shot every 2 s, speed 0.65
+- Points: 300
+- Drops: 15%
+- First appears in level: 2-3 (Greenwood)
+- Notes: alone or two in a row; ground levels only
+
+### Enemy: Rocket Truck
+
+- Look: grey truck with a rack of red-tipped rockets at the back and a yellow cab in front, pointing down the screen,
+  0.1 x 0.16
+- Health: 4
+- Speed: the level's scroll speed plus 0.15 (it drives down the road, faster than the ground)
+- Movement pattern: straight down
+- Attack: a big orange rocket (0.05, 1 damage) straight down the screen every 1.8 s, speed 0.5
+- Points: 250
+- Drops: 10%
+- First appears in level: 2-5 (Harvest Dusk)
+- Notes: two or three in a column, down the same lane; ground levels only
 
 ### Enemy: Swarmer
 

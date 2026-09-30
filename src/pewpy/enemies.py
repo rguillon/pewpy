@@ -14,6 +14,7 @@ from pewpy.entities import Bullet, Entity
 TOP = config.PLAY_HEIGHT / 2
 HALF_WIDTH = config.PLAY_WIDTH / 2
 HIT_FLASH_TIME = 0.05
+HEAVY_BULLET_SIZE = 0.05  # "heavy" shots: bigger and orange (the hitbox too)
 
 
 @dataclass(eq=False)
@@ -24,6 +25,7 @@ class Enemy(Entity):
     fire_interval: ClassVar[float] = 1.0
     drop_chance: ClassVar[float] = 0.0  # chance to leave a pickup when shot down
     rammable: ClassVar[bool] = True  # False: ramming it hurts the player but doesn't destroy it (bosses)
+    ground: ClassVar[bool] = False  # True: sits or drives on the ground (levels over water or clouds have none)
     leaves_screen: ClassVar[bool] = True  # False: stays in the game even beyond the edges (bosses)
 
     health: float = 3.0
@@ -112,6 +114,13 @@ def aimed_bullet(source: Entity, target: Entity, speed: float, style: str = "nor
     return enemy_bullet(source.x, source.y, dx / distance * speed, dy / distance * speed, style)
 
 
+def heavy_bullet(x: float, y: float, vx: float, vy: float) -> Bullet:
+    """A big orange shot (see HEAVY_BULLET_SIZE)."""
+    bullet = enemy_bullet(x, y, vx, vy, "heavy")
+    bullet.width = bullet.height = HEAVY_BULLET_SIZE
+    return bullet
+
+
 def angled_bullet(source: Entity, degrees_from_down: float, speed: float) -> Bullet:
     angle = math.radians(degrees_from_down)
     return enemy_bullet(source.x, source.y, math.sin(angle) * speed, -math.cos(angle) * speed)
@@ -189,6 +198,7 @@ class Gunship(Enemy):
 
 @dataclass(eq=False)
 class Turret(Enemy):
+    ground: ClassVar[bool] = True
     drop_chance: ClassVar[float] = 0.1
     fire_interval: ClassVar[float] = 2.5
     width: float = 0.12
@@ -354,6 +364,78 @@ class Splitter(Enemy):
         return [Swarmer(x=self.x, y=self.y, heading=math.radians(angle)) for angle in (-135, -90, -45)]
 
 
+@dataclass(eq=False)
+class FlakCannon(Enemy):
+    """A ground gun with two barrels, firing pairs of shots straight down the screen."""
+
+    ground: ClassVar[bool] = True
+    drop_chance: ClassVar[float] = 0.1
+    fire_interval: ClassVar[float] = 1.8
+    barrel_spacing: ClassVar[float] = 0.05  # between the two barrels
+    volley: ClassVar[int] = 2  # pairs in a row
+    volley_gap: ClassVar[float] = 0.2
+    width: float = 0.12
+    height: float = 0.12
+    health: float = 5.0
+    points: int = 200
+    pairs_left: int = 0
+    pair_timer: float = 0.0
+
+    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
+        self.vy = -scroll_speed  # fixed to the ground
+        if self._reloaded(dt):
+            self.pairs_left, self.pair_timer = self.volley, 0.0
+        if self.pairs_left == 0:
+            return []
+        self.pair_timer -= dt
+        if self.pair_timer > 0:
+            return []
+        self.pairs_left -= 1
+        self.pair_timer = self.volley_gap
+        half = self.barrel_spacing / 2
+        return [enemy_bullet(self.x + dx, self.y, 0.0, -0.55) for dx in (-half, half)]
+
+
+@dataclass(eq=False)
+class Tank(Enemy):
+    """Crawls sideways over the ground (turning back at the screen's edges) and aims its turret at the player."""
+
+    ground: ClassVar[bool] = True
+    drop_chance: ClassVar[float] = 0.15
+    fire_interval: ClassVar[float] = 2.0
+    crawl_speed: ClassVar[float] = 0.1
+    width: float = 0.16
+    height: float = 0.12
+    health: float = 8.0
+    points: int = 300
+
+    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
+        self.vy = -scroll_speed  # on the ground
+        if self.vx == 0:
+            self.vx = self.crawl_speed if self.x <= 0 else -self.crawl_speed  # towards the middle first
+        if abs(self.x) > HALF_WIDTH - self.width / 2 and self.x * self.vx > 0:
+            self.vx = -self.vx  # turn back at the screen's edge
+        return [aimed_bullet(self, target, 0.65)] if self._reloaded(dt) else []
+
+
+@dataclass(eq=False)
+class RocketTruck(Enemy):
+    """Drives down the road, faster than the ground scrolls, firing big rockets straight down the screen."""
+
+    ground: ClassVar[bool] = True
+    drop_chance: ClassVar[float] = 0.1
+    fire_interval: ClassVar[float] = 1.8
+    drive_speed: ClassVar[float] = 0.15  # on top of the ground's scrolling
+    width: float = 0.1
+    height: float = 0.16
+    health: float = 4.0
+    points: int = 250
+
+    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
+        self.vy = -scroll_speed - self.drive_speed
+        return [heavy_bullet(self.x, self.y - self.height / 2, 0.0, -0.5)] if self._reloaded(dt) else []
+
+
 ENEMY_TYPES: dict[str, type[Enemy]] = {
     "drone": Drone,
     "weaver": Weaver,
@@ -365,6 +447,9 @@ ENEMY_TYPES: dict[str, type[Enemy]] = {
     "mine_layer": MineLayer,
     "shield_carrier": ShieldCarrier,
     "splitter": Splitter,
+    "flak_cannon": FlakCannon,
+    "tank": Tank,
+    "rocket_truck": RocketTruck,
 }
 
 

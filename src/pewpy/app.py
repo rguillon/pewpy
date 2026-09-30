@@ -38,13 +38,16 @@ from pewpy.enemies import (
     Diver,
     Drone,
     Enemy,
+    FlakCannon,
     Gunship,
     Mine,
     MineLayer,
+    RocketTruck,
     ShieldCarrier,
     Sniper,
     Splitter,
     Swarmer,
+    Tank,
     Turret,
     Weaver,
 )
@@ -99,6 +102,9 @@ SHIP_MODELS: dict[type[Entity], str] = {
     ShieldCarrier: "shield_carrier_model",
     Splitter: "splitter_model",
     Missile: "missile_model",
+    FlakCannon: "flak_cannon_model",
+    Tank: "tank_model",
+    RocketTruck: "rocket_truck_model",
 }
 MINE_SPIN_SPEED = 90.0  # degrees per second
 SHOWCASE_STATES = frozenset({State.MODELS, State.BOSSES})  # screens showing models in a turning circle
@@ -731,7 +737,7 @@ class PewPewApp(ShowBase):
             bubble.show() if appearance == "shield" else bubble.hide()
 
     def _orient_enemy(self, enemy: Enemy, node: NodePath, player: Player) -> None:
-        if isinstance(enemy, Turret):
+        if isinstance(enemy, Turret | Tank):
             node.find("**/barrel").setR(models.facing_roll(player.x - enemy.x, player.y - enemy.y))
         elif isinstance(enemy, Swarmer) or (isinstance(enemy, Diver) and enemy.phase == "dive"):
             node.setR(models.facing_roll(enemy.vx, enemy.vy))  # point where it's flying

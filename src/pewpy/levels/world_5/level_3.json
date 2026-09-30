@@ -21,6 +21,14 @@
       "spacing": 0.8
     },
     {
+      "time": 5.9,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.71,
+      "x": 0.0
+    },
+    {
       "time": 6.5,
       "enemy": "mine_layer",
       "count": 1,
@@ -72,6 +80,14 @@
       "formation": "column",
       "y": 0.4,
       "side": "right"
+    },
+    {
+      "time": 22.7,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": -0.45
     },
     {
       "time": 23.7,
@@ -160,6 +176,14 @@
       "formation": "column",
       "x": 0.4,
       "interval": 0.45
+    },
+    {
+      "time": 42.2,
+      "enemy": "rocket_truck",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "x": -0.35
     },
     {
       "time": 43.3,

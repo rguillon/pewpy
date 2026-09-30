@@ -1,0 +1,47 @@
+{
+  "rows": [
+    "...NNN...",
+    ".NNpppNN.",
+    ".NNpppNN.",
+    "NNDDDDDNN",
+    "NNDDlDDNN",
+    "NNDDDDDNN",
+    ".NNDDDNN.",
+    ".NNNNNNN.",
+    "...NNN..."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 9
+    },
+    "p": {
+      "color": [
+        0.357,
+        0.425,
+        0.204
+      ],
+      "height": 11
+    },
+    "D": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 11
+    },
+    "l": {
+      "color": [
+        1.0,
+        0.55,
+        0.15
+      ],
+      "height": 13
+    }
+  }
+}

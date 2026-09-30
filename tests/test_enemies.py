@@ -7,16 +7,20 @@ from pewpy import config
 from pewpy.enemies import (
     ENEMY_TYPES,
     HALF_WIDTH,
+    HEAVY_BULLET_SIZE,
     TOP,
     Diver,
     Enemy,
+    FlakCannon,
     Gunship,
     Mine,
     MineLayer,
+    RocketTruck,
     ShieldCarrier,
     Sniper,
     Splitter,
     Swarmer,
+    Tank,
     Turret,
     Weaver,
     make_enemy,
@@ -94,6 +98,44 @@ def test_gunship_fires_a_three_shot_spread():
         round(0.5 * math.sin(math.radians(20)), 3),
     ]
     assert all(shot.vy < 0 for shot in shots)
+
+
+def test_flak_cannon_sits_on_the_ground_and_fires_pairs_straight_down():
+    flak = FlakCannon(x=0.3, y=0.5, fire_cooldown=0.0)
+    shots = bullets(run(flak, 1.0))
+    assert flak.vy == -SCROLL
+    assert len(shots) == 2 * FlakCannon.volley  # two pairs in a row
+    assert all(shot.vx == 0 and shot.vy < 0 for shot in shots)  # straight down, whatever the player does
+    assert {round(shot.x - shots[0].x, 6) for shot in shots[:2]} == {0.0, round(FlakCannon.barrel_spacing, 6)}
+
+
+def test_tank_crawls_sideways_on_the_ground_turns_back_at_the_edge_and_aims():
+    tank = Tank(x=-0.2, y=0.5, fire_cooldown=0.0)
+    shots = bullets(run(tank, 0.5, target=Entity(x=0.4, y=-0.75)))
+    assert tank.vy == -SCROLL
+    assert tank.vx == Tank.crawl_speed  # towards the middle
+    assert shots and shots[0].vx > 0  # aimed at the player, down and to the right
+    tank = Tank(x=HALF_WIDTH - Tank().width / 2 + 0.01, y=0.5, vx=Tank.crawl_speed)
+    run(tank, DT)
+    assert tank.vx == -Tank.crawl_speed
+
+
+def test_rocket_truck_drives_down_faster_than_the_ground_and_fires_heavy_rockets_straight_down():
+    truck = RocketTruck(x=0.0, y=0.5, fire_cooldown=0.0)
+    shots = bullets(run(truck, 0.5))
+    assert truck.vy == -SCROLL - RocketTruck.drive_speed
+    assert shots
+    assert all(shot.vx == 0 and shot.vy < 0 and shot.style == "heavy" for shot in shots)
+    assert shots[0].width == HEAVY_BULLET_SIZE
+
+
+def test_only_ground_enemies_are_marked_as_on_the_ground():
+    assert {kind for kind, enemy in ENEMY_TYPES.items() if enemy.ground} == {
+        "turret",
+        "flak_cannon",
+        "tank",
+        "rocket_truck",
+    }
 
 
 def test_turret_scrolls_with_the_ground_and_fires_bursts_of_three():

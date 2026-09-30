@@ -21,6 +21,14 @@
       "spacing": 0.8
     },
     {
+      "time": 6.8,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
+    },
+    {
       "time": 7.3,
       "enemy": "diver",
       "count": 6,
@@ -77,6 +85,14 @@
       "spacing": 1.0
     },
     {
+      "time": 27.2,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.45
+    },
+    {
       "time": 28.4,
       "enemy": "sniper",
       "count": 2,
@@ -127,6 +143,14 @@
       "count": 4,
       "formation": "line",
       "spacing": 0.5
+    },
+    {
+      "time": 43.0,
+      "enemy": "rocket_truck",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.2,
+      "x": 0.35
     },
     {
       "time": 44.1,

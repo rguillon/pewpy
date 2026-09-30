@@ -38,6 +38,14 @@
       "spacing": 0.8
     },
     {
+      "time": 8.4,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.73,
+      "x": 0.0
+    },
+    {
       "time": 8.9,
       "enemy": "splitter",
       "count": 4,
@@ -105,6 +113,14 @@
       "spacing": 0.6
     },
     {
+      "time": 25.8,
+      "enemy": "tank",
+      "count": 1,
+      "formation": "column",
+      "interval": 3.0,
+      "x": -0.45
+    },
+    {
       "time": 26.7,
       "enemy": "turret",
       "count": 3,
@@ -161,6 +177,14 @@
       "count": 2,
       "formation": "line",
       "spacing": 0.8
+    },
+    {
+      "time": 40.5,
+      "enemy": "rocket_truck",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.2,
+      "x": -0.35
     },
     {
       "time": 43.5,

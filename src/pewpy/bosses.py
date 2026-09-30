@@ -11,7 +11,7 @@ import math
 from dataclasses import dataclass, field
 from typing import ClassVar
 
-from pewpy.enemies import HALF_WIDTH, TOP, Enemy, enemy_bullet
+from pewpy.enemies import HALF_WIDTH, HEAVY_BULLET_SIZE, TOP, Enemy, enemy_bullet
 from pewpy.entities import Bullet, Entity
 
 CORE = "core"  # the gun source that is the boss itself
@@ -19,7 +19,6 @@ HOLD_Y = 0.55  # where a boss stops coming down (the top of the screen is at 1)
 ENTRY_SPEED = 0.25
 PHASE_PAUSE = 1.2  # seconds without shooting when a phase starts, while the core flashes
 PHASE_FLASH = 0.1  # the core blinks this fast during the pause
-HEAVY_BULLET_SIZE = 0.05  # "heavy" shots: bigger and orange (the hitbox too)
 SWEEP_PERIOD = 2.0  # seconds for a sweeping gun to go from one side to the other and back
 EXPLOSIONS = ((0.0, 0.0, 1.3), (-0.45, 0.25, 0.7), (0.45, -0.2, 0.7), (0.2, 0.4, 0.6), (-0.3, -0.35, 0.6))
 

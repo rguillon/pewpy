@@ -46,6 +46,14 @@
       "spacing": 0.6
     },
     {
+      "time": 10.6,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.79,
+      "x": 0.0
+    },
+    {
       "time": 11.9,
       "enemy": "weaver",
       "count": 7,
@@ -210,6 +218,14 @@
       "y": 0.4,
       "side": "right",
       "interval": 0.2
+    },
+    {
+      "time": 54.0,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.66,
+      "x": 0.0
     },
     {
       "time": 55.2,

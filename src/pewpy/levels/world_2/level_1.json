@@ -20,6 +20,14 @@
       "spacing": 1.0
     },
     {
+      "time": 6.7,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
+    },
+    {
       "time": 8,
       "enemy": "swarmer",
       "count": 8,
@@ -143,6 +151,14 @@
       "side": "left",
       "y": 0.6,
       "interval": 0.2
+    },
+    {
+      "time": 45.6,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
     },
     {
       "time": 46,
