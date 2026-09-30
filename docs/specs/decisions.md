@@ -177,6 +177,50 @@
 
 ## Decisions made
 
+### 2026-09-30 — Thinner models (asked by the user in chat)
+- Decision (the user's): most models were too thick; remove 2 layers of cubes.
+- Done: every palette height in the drawings (`src/pewpy/models/*.json`) is 2 less (at least 1), so each part lost
+  a cube on both faces. Left alone: the drawings only 1 to 3 cubes thick (missile, rocket, the tank's and the
+  turret's barrels), which would have gone flat.
+- Then the player ships' noses taper (asked by the user: the Vanguard's tip was 5 cubes thick, one is enough):
+  Vanguard and Phantom tips 1 cube thick, then 3; Juggernaut's nose 3 thick at the front, its ridge 3, 5, 7 then 9.
+
+### 2026-09-30 — Laser look (asked by the user in chat)
+- Decision (the user's): the laser looked boring; it should look like particles of light going at the enemies.
+- Placeholders chosen: the solid box is now only a thin flickering core; around it a soft halo of overlapping
+  glowing circles; streaks of light (160 a second for the level 1 beam, more when wider) shoot up the beam at 2.8 to
+  4.2 units a second, wobbling sideways, and vanish where it ends; glows at the ship's nose and on every enemy it
+  burns. Numbers in `effects.py` (`PHOTON_*`) and `effects_view.py`.
+- Recorded in 05-visuals.md ("Laser").
+
+### 2026-09-30 — Ground units move with the ground (bug reported by the user in chat)
+- The ground scrolls at 30% of the level's speed on screen (03-levels.md), but ground units moved at the full
+  scroll speed, so they slid over it and looked like they were floating. They now scroll at `GROUND_SPEED` times
+  the level's speed (`World.scroll_speed`), like the ground under them. The Rocket Truck still drives 0.15 faster.
+- Consequence: ground units stay on screen about 3.5 times longer if not shot.
+- Recorded in 02-enemies.md (ground enemies' speeds).
+
+### 2026-09-30 — A moment after the boss (asked by the user in chat)
+- Decision (the user's): once the boss is beaten, enemy bullets and missiles are destroyed and the player plays on
+  for 3 seconds to pick up power-ups, before the level ends.
+- Placeholder chosen: every enemy still there blows up too (without points), and anything fired during those 3 s
+  vanishes at once (a spark where each shot was). `BOSS_BEATEN_TIME` in `config.py`.
+- Recorded in 03-levels.md (bosses).
+
+### 2026-09-30 — Player ships (asked by the user in chat)
+- Decision (the user's): three player ships, chosen on a ship select screen: a normal one, one with more armor but
+  a little slower, and a quick one with low armor that regenerates health when not shooting.
+- Placeholders chosen (numbers): Vanguard (normal, the old ship) 5 health, speed 1.0, size 0.12; Juggernaut 8
+  health, speed 0.8, size 0.14; Phantom 3 health, speed 1.3, size 0.10, repairs 0.5 health a second once it hasn't
+  fired for 1.5 s. Names and numbers in `SHIPS` (`player.py`), drawings `player.json`, `player_heavy.json`,
+  `player_light.json`.
+- Ship select: from Start, before the world select (Back from the world select returns to it); opens on the ship
+  played last. Under the menu, every ship side by side with its name and bars comparing armor, speed, size and repair
+  (each scaled to the best of the three); the highlighted one bigger, spinning, with bright bars and its description
+  and numbers at the bottom (asked by the user: a view of each ship and its characteristics; `ship_select_view.py`). The Models screen shows
+  all three.
+- Recorded in 01-gameplay.md ("Ships") and 04-ui-audio.md (flow, main menu).
+
 ### 2026-09-30 — Windows package (asked by the user in chat)
 - Decision (the user's): a `make package` target building and packaging a Windows executable.
 - How: Panda3D's own `build_apps` (settings in `packaging/setup.py`), which works from any OS by downloading the

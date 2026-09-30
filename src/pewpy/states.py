@@ -8,6 +8,7 @@ class State(Enum):
     MAIN_MENU = auto()
     MODELS = auto()  # every ship and pickup on show, for working on the models
     BOSSES = auto()  # every boss on show, a world per page
+    SHIP_SELECT = auto()  # picking the player's ship, before the world
     WORLD_SELECT = auto()
     LEVEL_SELECT = auto()
     PLAYING = auto()
@@ -17,10 +18,11 @@ class State(Enum):
 
 
 TRANSITIONS: dict[State, frozenset[State]] = {
-    State.MAIN_MENU: frozenset({State.WORLD_SELECT, State.MODELS, State.BOSSES}),
+    State.MAIN_MENU: frozenset({State.SHIP_SELECT, State.MODELS, State.BOSSES}),
+    State.SHIP_SELECT: frozenset({State.WORLD_SELECT, State.MAIN_MENU}),
     State.MODELS: frozenset({State.MAIN_MENU}),
     State.BOSSES: frozenset({State.MAIN_MENU}),
-    State.WORLD_SELECT: frozenset({State.LEVEL_SELECT, State.MAIN_MENU}),
+    State.WORLD_SELECT: frozenset({State.LEVEL_SELECT, State.SHIP_SELECT}),
     State.LEVEL_SELECT: frozenset({State.PLAYING, State.WORLD_SELECT}),
     State.PLAYING: frozenset({State.PAUSED, State.GAME_OVER, State.LEVEL_COMPLETE}),
     State.PAUSED: frozenset({State.PLAYING, State.MAIN_MENU}),

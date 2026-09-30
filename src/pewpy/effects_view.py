@@ -5,12 +5,13 @@ Moving hundreds of nodes each frame is slow, so there is a single cube mesh draw
 column per particle) that the shader reads. The glowing ones go the same way through a SpriteBatch.
 """
 
+import math
 from array import array
 
 from panda3d.core import Lens, NodePath, OmniBoundingVolume, Shader, Texture, Vec3
 
 from pewpy import models
-from pewpy.effects import MAX_PARTICLES, Effects
+from pewpy.effects import MAX_PARTICLES, PHOTON_STRETCH, Effects
 from pewpy.sprites import Sprite, SpriteBatch
 
 VERTEX_SHADER = """
@@ -69,6 +70,15 @@ void main() {
 
 
 GLOW_SIZE = 1.6  # a soft circle's diameter, for a particle of size 1 (its edge fades, so it's drawn bigger)
+LASER_COLOR = (0.4, 0.92, 1.0, 1)
+HIT_COLOR = (0.8, 1.0, 1.0, 1)
+# Glows at the ship's nose while the laser is on (it pulses) and where it hits something (it flickers): a base
+# size plus so many beam widths.
+MUZZLE_GLOW = (0.05, 1.5)
+HIT_GLOW = (0.07, 1.5)
+HALO_WIDTH = 2.4  # the soft halo around the laser, in beam widths: glowing circles one beam width apart
+HALO_COLOR = (0.05, 0.22, 0.32, 1)  # dim: they overlap and add up
+LASER_SPRITES = 256  # room in the glow batch for the laser's streaks and halo, on top of the particles
 
 
 class EffectsView:
@@ -76,7 +86,7 @@ class EffectsView:
 
     def __init__(self, effects: Effects, render: NodePath, lens: Lens) -> None:
         self.effects = effects
-        self.glows = SpriteBatch(render, lens, MAX_PARTICLES, glow=True, core=0.25, hot=0.6)
+        self.glows = SpriteBatch(render, lens, MAX_PARTICLES + LASER_SPRITES, glow=True, core=0.25, hot=0.6)
         mesh = models.MeshBuilder()
         mesh.box(Vec3(0, 0, 0), Vec3(1, 1, 1), (1, 1, 1, 1))
         self.node = render.attachNewNode(mesh.build("particles"))
@@ -94,9 +104,12 @@ class EffectsView:
     def sync(self) -> None:
         particles = [particle for particle in self.effects.particles if not particle.glow][:MAX_PARTICLES]
         self.glows.show([
-            Sprite(particle.x, particle.y, size, size, particle.color, depth=particle.z)
-            for particle in self.effects.particles
-            if particle.glow and (size := particle.current_size * GLOW_SIZE) > 0
+            *(
+                Sprite(particle.x, particle.y, size, size, particle.color, depth=particle.z)
+                for particle in self.effects.particles
+                if particle.glow and (size := particle.current_size * GLOW_SIZE) > 0
+            ),
+            *self._laser_sprites(),
         ])
         padding = [0.0] * (4 * (MAX_PARTICLES - len(particles)))
         places, colors, spins = [], [], []
@@ -114,3 +127,24 @@ class EffectsView:
             self.node.show()
         else:
             self.node.hide()
+
+    def _laser_sprites(self) -> list[Sprite]:
+        """Streaks of light shooting up the laser, a pulsing glow at the ship's nose and a flickering one where the
+        beam hits."""
+        sprites = []
+        for photon in self.effects.photons:
+            width = photon.size * GLOW_SIZE * photon.fade
+            sprites.append(Sprite(photon.x, photon.y, width, width * PHOTON_STRETCH, photon.color))
+        laser = self.effects.laser
+        if laser is not None:
+            halo = laser.width * HALO_WIDTH
+            steps = min(int((laser.top - laser.bottom) / laser.width), LASER_SPRITES // 2)
+            step = (laser.top - laser.bottom) / max(steps, 1)
+            sprites += [Sprite(laser.x, laser.bottom + i * step, halo, halo, HALO_COLOR) for i in range(steps + 1)]
+            time = self.effects.time
+            muzzle = (MUZZLE_GLOW[0] + laser.width * MUZZLE_GLOW[1]) * (1.0 + 0.15 * math.sin(time * 31.0))
+            sprites.append(Sprite(laser.x, laser.bottom, muzzle, muzzle, LASER_COLOR))
+            flicker = 1.0 + 0.25 * math.sin(time * 47.0) * math.sin(time * 13.0)
+            hit = (HIT_GLOW[0] + laser.width * HIT_GLOW[1]) * flicker
+            sprites += [Sprite(laser.x, y, hit, hit, HIT_COLOR) for y in laser.hits]
+        return sprites

@@ -5,7 +5,7 @@
 > Describe the screens and how the player moves between them.
 
 ```text
-Main menu -> World select -> Level select (the world's 8 levels) -> Playing <-> Pause
+Main menu -> Ship select -> World select -> Level select (the world's 8 levels) -> Playing <-> Pause
 Main menu <-> Models
 Main menu <-> Bosses
 Playing -> Level complete ("World complete" after a world's last level) -> next level (Playing, into the next
@@ -21,7 +21,10 @@ Pause -> Main menu
 ### Title / main menu
 
 - Every menu: Up/Down move the highlight (wrapping around), Enter chooses, Escape goes back.
-- Entries: Start (to the world select: one entry per world, then Back; then that world's level select: its 8
+- Entries: Start (to the ship select: one entry per ship, then Back; under the menu, every ship side by side with
+  its name and bars comparing armor, speed, size and repair; the highlighted one is bigger, spins, has bright bars,
+  and its description and numbers show at the bottom; then the world select: one entry per world, then Back to the ship select; then that
+  world's level select: its 8
   levels, like "2-5 Harvest Dusk", then Back; both open on the last level played), Models, Bosses, Quit *(entries are a
   placeholder, see decisions.md)*
 

@@ -5,7 +5,7 @@ import pytest
 from pewpy import bosses, config, models
 from pewpy.boss_catalog import BOSSES
 from pewpy.bosses import Boss, BossPart, Gun, make_boss, pattern_bullets
-from pewpy.enemies import HALF_WIDTH
+from pewpy.enemies import HALF_WIDTH, Rocket
 from pewpy.entities import Bullet, Entity
 from pewpy.level import Level, Wave, load_levels, parse_level
 from pewpy.world import Controls, World
@@ -215,9 +215,9 @@ def boss_world() -> World:
     return World(BOSS_LEVEL, seed=0)
 
 
-def run(world: World, seconds: float) -> None:
+def run(world: World, seconds: float, controls: Controls | None = None) -> None:
     for _ in range(round(seconds / DT)):
-        world.update(DT, Controls())
+        world.update(DT, controls or Controls())
 
 
 def test_a_boss_and_its_parts_stay_in_the_world_and_hold_the_level():
@@ -244,7 +244,35 @@ def test_destroying_the_boss_takes_its_parts_down_and_completes_the_level():
     explosions = [event for event in world.events if event.kind == "explosion"]
     assert len(explosions) == len(bosses.EXPLOSIONS) + 1
     run(world, DT)
+    assert not world.completed  # a moment to pick up what it dropped
+    run(world, config.BOSS_BEATEN_TIME)
     assert world.completed
+
+
+def test_once_the_boss_is_beaten_enemies_and_their_shots_are_gone_and_the_player_plays_on():
+    world = boss_world()
+    run(world, 0.1)
+    boss = world.boss
+    assert boss is not None
+    world.enemies.append(Rocket(x=0.3, y=0.2))
+    world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5))
+    for part in boss.parts:
+        part.alive = False
+    boss.phase_index = 1
+    world._damage(boss, boss.health)
+    assert not boss.alive
+    score = world.score
+    run(world, DT)
+    assert world.enemies == []
+    assert world.enemy_bullets == []
+    assert world.score == score  # wrecked, not shot down: no points
+    assert any(event.kind == "explosion" and event.source == "Rocket" for event in world.events)
+    x = world.player.x
+    run(world, 0.5, Controls(move_x=1.0))
+    assert world.player.x > x  # still playing
+    world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5))  # anything fired late vanishes too
+    run(world, DT)
+    assert world.enemy_bullets == []
 
 
 def test_ramming_a_boss_hurts_the_player_but_not_the_boss():

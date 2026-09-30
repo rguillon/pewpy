@@ -32,7 +32,7 @@ from pewpy.background import Scenery
 from pewpy.background_view import TIMES_OF_DAY, BackgroundView, CameraView
 from pewpy.boss_catalog import BOSSES
 from pewpy.bosses import Boss, BossPart, BossSpec
-from pewpy.effects import Effects
+from pewpy.effects import Effects, LaserGlow
 from pewpy.effects_view import EffectsView
 from pewpy.enemies import (
     Bomber,
@@ -65,7 +65,8 @@ from pewpy.entities import Bullet, Entity, Pickup
 from pewpy.level import Level, load_worlds
 from pewpy.menu import Menu, MenuItem
 from pewpy.menu_view import MenuView
-from pewpy.player import Player
+from pewpy.player import DEFAULT_SHIP, SHIPS, Player
+from pewpy.ship_select_view import ShipSelectView
 from pewpy.showcase import ModelShowcase
 from pewpy.sprites import Sprite, SpriteBatch
 from pewpy.states import State, StateMachine
@@ -147,6 +148,7 @@ PLAYER_BULLET_COLOR: Color = (0.3, 1.0, 0.25, 1)  # bright green
 ENEMY_BULLET_COLOR: Color = (1.0, 0.5, 0.9, 1)
 SNIPER_BULLET_COLOR: Color = (0.4, 0.6, 1.0, 1)
 HEAVY_BULLET_COLOR: Color = (1.0, 0.55, 0.15, 1)  # big shots: bosses, Rocket Trucks
+LASER_FLICKER = 0.12  # the player's laser beam's width flickers by this share
 BEAM_COLOR: Color = (1.0, 0.35, 0.25, 1)  # the Lancer's laser beam
 WAVE_BULLET_COLOR: Color = (0.75, 0.45, 1.0, 1)  # the Serpent's snaking shots
 BULLET_COLORS: dict[str, Color] = {
@@ -198,6 +200,8 @@ class PewPewApp(ShowBase):
         )
         self._build_models()
         self.showcase: ModelShowcase | None = None
+        self.ship_key = DEFAULT_SHIP  # the player's ship (picked on the ship selection screen)
+        self.ship_select: ShipSelectView | None = None
         self.showcase_page = 0  # the page shown on the Models or Bosses screen
         self.laser_node = models.laser_beam_model()
         self.laser_node.reparentTo(self.render)
@@ -329,6 +333,7 @@ class PewPewApp(ShowBase):
         if menu is not None and key in MENU_MOVES:
             menu.move(MENU_MOVES[key])
             self.menu_view.refresh()
+            self._highlight_ship()
 
     def _on_choose(self) -> None:
         if self.menu_view.menu is not None:
@@ -349,13 +354,15 @@ class PewPewApp(ShowBase):
         main_menu = MenuItem("Main menu", go(State.MAIN_MENU))
         if state is State.MAIN_MENU:
             items = [
-                MenuItem("Start", go(State.WORLD_SELECT)),
+                MenuItem("Start", go(State.SHIP_SELECT)),
                 MenuItem("Models", go(State.MODELS)),
                 MenuItem("Bosses", go(State.BOSSES)),
             ]
             return Menu("PEWPEW", [*items, MenuItem("Quit", self.userExit)])
         if state in SHOWCASE_STATES:
             return self._models_menu()
+        if state is State.SHIP_SELECT:
+            return self._ship_menu()
         if state is State.WORLD_SELECT:
             return self._world_menu()
         if state is State.LEVEL_SELECT:
@@ -409,6 +416,7 @@ class PewPewApp(ShowBase):
         self.shield_bubble = models.shield_bubble_model()
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
+        self.player_models = {spec.drawing: models.drawing_model(spec.drawing) for spec in SHIPS.values()}
         # Bosses and their parts: one model per drawing, built when first needed (they're big: building them all
         # takes seconds), see _boss_model.
         self.boss_models: dict[str, NodePath] = {}
@@ -450,6 +458,10 @@ class PewPewApp(ShowBase):
         a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes)."""
         entries = []
         for kind in self.ship_models:
+            if kind is Player and page == PICKUPS_PAGE:
+                for spec in SHIPS.values():
+                    entries.append((spec.name.title(), _fitted(self.player_models[spec.drawing], spec.size)))
+                continue
             if MODEL_PAGES[page](kind):
                 entity = kind()
                 name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
@@ -489,6 +501,30 @@ class PewPewApp(ShowBase):
         self._show_showcase()
         self.menu_view.show(self._models_menu("reloaded"))
 
+    def _ship_menu(self) -> Menu:
+        def pick(key: str) -> None:
+            self.ship_key = key
+            self.states.transition(State.WORLD_SELECT)
+
+        items = [MenuItem(spec.name.title(), partial(pick, key)) for key, spec in SHIPS.items()]
+        back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
+        # Starts on the ship played last.
+        return Menu("SELECT SHIP", [*items, back], back=back.action, selected=list(SHIPS).index(self.ship_key))
+
+    def _show_ship_select(self) -> None:
+        """Every ship side by side under the menu, with bars comparing them."""
+        ships = list(SHIPS.values())
+        fitted = [_fitted(self.player_models[ship.drawing], ship.size) for ship in ships]
+        lens = self.cam.node().getLens()
+        extent = (self.a2dRight, self.a2dTop)
+        self.ship_select = ShipSelectView(ships, fitted, self.cam, lens, self.aspect2d, extent)
+        self._highlight_ship()
+
+    def _highlight_ship(self) -> None:
+        menu = self.menu_view.menu
+        if self.ship_select is not None and menu is not None:
+            self.ship_select.select(menu.selected)  # past the ships: "Back", nothing highlighted
+
     def _world_menu(self) -> Menu:
         def pick(index: int) -> None:
             self.world_index = index
@@ -497,7 +533,7 @@ class PewPewApp(ShowBase):
         items = [
             MenuItem(f"{index + 1}. {world.name}", partial(pick, index)) for index, world in enumerate(self.worlds)
         ]
-        back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
+        back = MenuItem("Back", lambda: self.states.transition(State.SHIP_SELECT))
         # Starts on the world of the last level played.
         return Menu("SELECT WORLD", [*items, back], back=back.action, selected=self.places[self.level_index][0])
 
@@ -598,6 +634,9 @@ class PewPewApp(ShowBase):
         if isinstance(entity, Boss | BossPart):
             self._boss_model(entity.drawing).copyTo(node)
             return node
+        if isinstance(entity, Player):
+            self.player_models[entity.ship.drawing].copyTo(node)
+            return node
         model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self.ship_models[type(entity)]
         model.copyTo(node)
         if isinstance(entity, ShieldCarrier):
@@ -612,7 +651,13 @@ class PewPewApp(ShowBase):
         self.level_index = index
         screen = self.camera_view.area(0.0)  # the edges of the screen, on the play plane
         self.world = World(
-            self.levels[index], score=score, lives=lives, arsenal=arsenal, view_top=screen.top, view_side=screen.right
+            self.levels[index],
+            score=score,
+            lives=lives,
+            arsenal=arsenal,
+            view_top=screen.top,
+            view_side=screen.right,
+            ship=SHIPS[self.ship_key],
         )
         level = self.levels[index]
         self._show_background(
@@ -665,6 +710,11 @@ class PewPewApp(ShowBase):
             self.showcase.destroy()
             self.showcase = None
             self.background.root.show()
+        if self.ship_select is not None:
+            self.ship_select.destroy()
+            self.ship_select = None
+        if current is State.SHIP_SELECT:
+            self._show_ship_select()
         if current is State.MAIN_MENU:
             self.world = None
             self.effects.clear()
@@ -685,6 +735,7 @@ class PewPewApp(ShowBase):
         if world is not None and self.states.state is State.PLAYING:
             world.update(dt, self._controls())
             self._show_events(world.events, dt)
+            self.effects.set_laser(self._laser_glow(world), dt)
             self.background.scenery.update(dt, world.level.scroll_speed)
             if world.game_over:
                 self.states.transition(State.GAME_OVER)
@@ -694,6 +745,8 @@ class PewPewApp(ShowBase):
             self.effects.update(dt)
         if self.showcase:
             self.showcase.update(dt)
+        if self.ship_select:
+            self.ship_select.update(dt)
         self._sync_nodes()
         self._update_hud()
         return Task.cont
@@ -732,7 +785,7 @@ class PewPewApp(ShowBase):
             if isinstance(entity, Player):
                 blink_off = entity.invulnerable and int(entity.invulnerable_time * 10) % 2 == 1
                 node.hide() if blink_off else node.show()
-                node.setH(-entity.vx / config.PLAYER_SPEED * PLAYER_BANK_ANGLE)  # roll around the nose axis
+                node.setH(-entity.vx / entity.ship.speed * PLAYER_BANK_ANGLE)  # roll around the nose axis
             elif isinstance(entity, Enemy) and self.world is not None:
                 self._show_enemy_appearance(entity, node)
                 self._orient_enemy(entity, node, self.world.player)
@@ -743,10 +796,18 @@ class PewPewApp(ShowBase):
         self._show_laser()
 
     def _flicker(self, entity: Entity) -> None:
-        thrust = entity.vy / config.PLAYER_SPEED if isinstance(entity, Player) else 0.0
+        thrust = entity.vy / entity.ship.speed if isinstance(entity, Player) else 0.0
         time = self.clock.getFrameTime()
         for index, (flame, length) in enumerate(self.flames.get(entity, ())):
             flame.setSz(length * flame_scale(time, id(entity) % 97 + index * 1.7, thrust))
+
+    @staticmethod
+    def _laser_glow(world: World) -> LaserGlow | None:
+        beam = world.laser
+        if beam is None:
+            return None
+        hits = tuple(event.y for event in world.events if event.kind == "burn")
+        return LaserGlow(beam.x, beam.bottom, beam.top, beam.width, hits)
 
     def _show_laser(self) -> None:
         beam = self.world.laser if self.world else None
@@ -755,7 +816,8 @@ class PewPewApp(ShowBase):
             return
         self.laser_node.show()
         self.laser_node.setPos(beam.x, 0, (beam.bottom + beam.top) / 2)
-        self.laser_node.setScale(beam.width, beam.width, max(beam.top - beam.bottom, 0.001))
+        width = beam.width * (1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * 53.0))
+        self.laser_node.setScale(width, width, max(beam.top - beam.bottom, 0.001))
 
     def _show_enemy_appearance(self, enemy: Enemy, node: NodePath) -> None:
         appearance = enemy.appearance()
@@ -795,7 +857,7 @@ class PewPewApp(ShowBase):
         if self.world.lives != self._hud_lives:
             self._hud_lives = self.world.lives
             self.lives_text.setText(f"Lives {self.world.lives}")
-        fraction = max(self.world.player.health, 0) / config.PLAYER_HEALTH
+        fraction = max(self.world.player.health, 0) / self.world.ship.health
         self.health_fill.setSx(max(fraction, 0.001))  # a zero scale makes Panda3D print warnings
         arsenal = self.world.arsenal
         for weapon, text in self.weapon_texts.items():

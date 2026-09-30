@@ -3,7 +3,7 @@ from array import array
 import pytest
 from panda3d.core import NodePath, PerspectiveLens
 
-from pewpy.effects import Effects, Particle
+from pewpy.effects import Effects, LaserGlow, Particle
 from pewpy.effects_view import EffectsView
 from pewpy.sprites import Sprite, SpriteBatch, pack
 
@@ -47,3 +47,16 @@ def test_glowing_particles_are_soft_circles_and_debris_stay_cubes():
     view.sync()
     assert view.glows.node.getInstanceCount() == 2
     assert view.node.getInstanceCount() == 1
+
+
+def test_the_laser_draws_its_streaks_a_halo_and_glows_at_the_nose_and_where_it_burns():
+    effects = Effects(seed=0)
+    effects.set_laser(LaserGlow(x=0.0, bottom=-0.5, top=0.1, width=0.03, hits=(0.1,)), 1 / 60)
+    view = EffectsView(effects, NodePath("render"), lens())
+    view.sync()
+    halo = round(0.6 / 0.03) + 1
+    assert view.glows.node.getInstanceCount() == len(effects.photons) + halo + 2
+    effects.set_laser(None, 1 / 60)
+    effects.clear()
+    view.sync()
+    assert view.glows.node.isHidden()

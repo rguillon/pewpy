@@ -6,6 +6,7 @@ from pewpy import config
 from pewpy.enemies import Drone, Enemy, ShieldCarrier, Swarmer
 from pewpy.entities import Entity, Pickup
 from pewpy.level import Level, Wave
+from pewpy.player import DEFAULT_SHIP, SHIPS
 from pewpy.weapons import (
     BULLET_FIRE_RATE,
     LASER_LEVELS,
@@ -220,7 +221,7 @@ def test_repair_restores_health_up_to_the_maximum():
     assert world.player.health == 4.0
     world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="repair"))
     world.update(DT, Controls())
-    assert world.player.health == config.PLAYER_HEALTH
+    assert world.player.health == SHIPS[DEFAULT_SHIP].health
 
 
 def test_pickups_drift_down_and_leave_the_screen():

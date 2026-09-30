@@ -1,7 +1,11 @@
+import pytest
+
 from pewpy import config
-from pewpy.enemies import ClusterBomb, Drone, HomingMissile, ShieldCarrier, Splitter, Swarmer
+from pewpy.enemies import ClusterBomb, Drone, FlakCannon, HomingMissile, ShieldCarrier, Splitter, Swarmer
 from pewpy.entities import Bullet
 from pewpy.level import Level, Wave
+from pewpy.player import DEFAULT_SHIP, SHIPS
+from pewpy.terrain import GROUND_SPEED
 from pewpy.weapons import BULLET_FIRE_RATE
 from pewpy.world import Controls, World
 
@@ -108,10 +112,10 @@ def hit_player(world: World) -> None:
 def test_hit_damages_player_then_invulnerable():
     world = make_world()
     hit_player(world)
-    assert world.player.health == config.PLAYER_HEALTH - 1
+    assert world.player.health == SHIPS[DEFAULT_SHIP].health - 1
     assert world.player.invulnerable
     hit_player(world)
-    assert world.player.health == config.PLAYER_HEALTH - 1
+    assert world.player.health == SHIPS[DEFAULT_SHIP].health - 1
 
 
 def test_invulnerability_wears_off():
@@ -119,7 +123,7 @@ def test_invulnerability_wears_off():
     hit_player(world)
     run(world, config.PLAYER_INVULNERABILITY_TIME + 0.1)
     hit_player(world)
-    assert world.player.health == config.PLAYER_HEALTH - 2
+    assert world.player.health == SHIPS[DEFAULT_SHIP].health - 2
 
 
 def test_ramming_enemy_damages_player_and_dies():
@@ -127,7 +131,7 @@ def test_ramming_enemy_damages_player_and_dies():
     enemy = Drone(x=world.player.x, y=world.player.y, vy=0.0, fire_cooldown=1000.0)
     world.enemies.append(enemy)
     world.update(DT, Controls())
-    assert world.player.health == config.PLAYER_HEALTH - config.ENEMY_RAM_DAMAGE
+    assert world.player.health == SHIPS[DEFAULT_SHIP].health - config.ENEMY_RAM_DAMAGE
     assert not enemy.alive
     assert world.score == 0
 
@@ -143,7 +147,7 @@ def test_empty_health_loses_life_and_restarts_level():
     hit_player(world)
     assert world.lives == config.PLAYER_LIVES - 1
     assert world.player is not old_player
-    assert world.player.health == config.PLAYER_HEALTH
+    assert world.player.health == SHIPS[DEFAULT_SHIP].health
     assert world.enemies == []
     assert world.time == 0.0
     assert len(world.pending_spawns) == 2  # waves replay from the start
@@ -278,3 +282,22 @@ def test_a_beam_hurts_the_player_and_goes_on():
     world.update(DT, Controls())
     assert world.player.health == health - beam.damage
     assert beam.alive
+
+
+def test_the_chosen_ship_is_kept_for_every_life():
+    world = World(QUIET_LEVEL, seed=0, ship=SHIPS["juggernaut"])
+    assert world.player.ship is SHIPS["juggernaut"]
+    world.player.health = 0.5
+    hit_player(world)
+    assert world.player.ship is SHIPS["juggernaut"]
+    assert world.player.health == SHIPS["juggernaut"].health
+
+
+def test_ground_units_scroll_with_the_ground_and_flyers_with_the_level():
+    world = make_world()
+    turret = FlakCannon(x=0.0, y=0.5)
+    drone = Drone(x=0.3, y=0.5)
+    world.enemies += [turret, drone]
+    world.update(DT, Controls())
+    assert turret.vy == pytest.approx(-QUIET_LEVEL.scroll_speed * GROUND_SPEED)
+    assert world.scroll_speed(drone) == QUIET_LEVEL.scroll_speed

@@ -10,7 +10,8 @@ from pewpy.bosses import Boss, make_boss
 from pewpy.enemies import Enemy, make_enemy
 from pewpy.entities import Bullet, Entity, Pickup
 from pewpy.level import Level
-from pewpy.player import Player
+from pewpy.player import DEFAULT_SHIP, SHIPS, Player, ShipSpec
+from pewpy.terrain import GROUND_SPEED
 from pewpy.weapons import MISSILE_SPLASH_RADIUS, WEAPONS, Arsenal, Beam, LaserStats, Missile
 
 
@@ -53,8 +54,10 @@ class World:
         seed: int | None = None,
         arsenal: Arsenal | None = None,
         view_top: float = config.PLAY_HEIGHT / 2,
+        ship: ShipSpec | None = None,
         view_side: float = config.PLAY_WIDTH / 2,
     ) -> None:
+        self.ship = ship or SHIPS[DEFAULT_SHIP]  # the player's ship, for every life
         self.rng = random.Random(seed)  # noqa: S311 - gameplay randomness, not cryptography
         # Top and sides of the screen on the play plane. The tilted camera shows more than the play area at the
         # top (higher and wider), so the app passes where the screen really ends: the laser goes up to there,
@@ -73,12 +76,14 @@ class World:
         self.score = self.level_start_score
         self.time = 0.0
         self.pending_spawns = self.level.spawns()
-        self.player = Player()
+        self.player = Player(ship=self.ship)
         self.player_bullets: list[Bullet] = []
         self.enemies: list[Enemy] = []
         self.enemy_bullets: list[Bullet] = []
         self.pickups: list[Pickup] = []
         self.laser: Beam | None = None
+        self.boss_beaten_time = 0.0  # counts down once the boss is destroyed: the level ends at 0
+        self.boss_beaten = False
         self._created: list[Entity] = []  # enemies created while iterating, added after collisions
 
     @property
@@ -88,7 +93,8 @@ class World:
     @property
     def completed(self) -> bool:
         """Every wave has entered and no enemy is left."""
-        return not self.game_over and not self.pending_spawns and not self.enemies
+        waiting = self.boss_beaten and self.boss_beaten_time > 0  # still picking up what the boss dropped
+        return not self.game_over and not self.pending_spawns and not self.enemies and not waiting
 
     @property
     def boss(self) -> Boss | None:
@@ -103,7 +109,7 @@ class World:
         if self.game_over or self.completed:
             return
         self.time += dt
-        self.player.update(dt, controls.move_x, controls.move_y)
+        self.player.update(dt, controls.move_x, controls.move_y, controls.fire)
         self.player_bullets += self.arsenal.fire(dt, controls.fire, self.player)
         self._spawn_enemies()
         self._update_enemies(dt)
@@ -112,6 +118,9 @@ class World:
         self._collide()
         self._add(self._created)
         self._created = []
+        if self.boss_beaten:
+            self.boss_beaten_time -= dt
+            self._clear_field()
         self._collect_pickups(dt)
         self._remove_dead()
 
@@ -133,9 +142,14 @@ class World:
 
     def _update_enemies(self, dt: float) -> None:
         for enemy in list(self.enemies):
-            self._add(enemy.update(dt, self.player, self.level.scroll_speed))
+            self._add(enemy.update(dt, self.player, self.scroll_speed(enemy)))
             if not enemy.alive:  # it used itself up (a cluster bomb bursting): it blows up, without points
                 self._explode(enemy)
+
+    def scroll_speed(self, enemy: Enemy) -> float:
+        """How fast the scenery under `enemy` scrolls down the play plane: the ground scrolls slower on screen than
+        the level (it's far below, see GROUND_SPEED), so units on the ground go with it, not with the level."""
+        return self.level.scroll_speed * (GROUND_SPEED if enemy.ground else 1.0)
 
     def _add(self, created: list[Entity]) -> None:
         for entity in created:
@@ -193,6 +207,20 @@ class World:
         for piece in enemy.wreckage():  # a boss's parts go down with it, without points
             piece.alive = False
             self._explode(piece)
+        if isinstance(enemy, Boss):
+            self.boss_beaten = True
+            self.boss_beaten_time = config.BOSS_BEATEN_TIME
+
+    def _clear_field(self) -> None:
+        """Once the boss is beaten: every enemy left (missiles, mines...) blows up, without points, and enemy
+        bullets vanish, so the player can safely pick up what the boss dropped."""
+        for enemy in self.enemies:
+            if enemy.alive:
+                enemy.alive = False
+                self._explode(enemy)
+        for bullet in self.enemy_bullets:
+            bullet.alive = False
+            self.events.append(Event("impact", bullet.x, bullet.y, source="player"))
 
     def _maybe_drop(self, enemy: Enemy) -> None:
         if self.rng.random() >= enemy.drop_chance:
@@ -252,7 +280,7 @@ class World:
                 continue
             pickup.alive = False
             if pickup.kind == "repair":
-                self.player.health = min(config.PLAYER_HEALTH, self.player.health + config.REPAIR_AMOUNT)
+                self.player.health = min(self.ship.health, self.player.health + config.REPAIR_AMOUNT)
             elif not self.arsenal.upgrade(pickup.kind):
                 self.score += config.MAX_LEVEL_UPGRADE_POINTS
 

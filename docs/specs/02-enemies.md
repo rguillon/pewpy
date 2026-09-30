@@ -95,7 +95,7 @@ Besides plain shots (pink, 0.03), enemies use:
 - Look: grey gun emplacement with a dark dome, a red light and a barrel that turns to aim at the player, 0.12 x
   0.12
 - Health: 6
-- Speed: same as the level's scroll speed (it is fixed to the ground)
+- Speed: the ground's scroll speed, 30% of the level's (it is fixed to the ground, see 03-levels.md)
 - Movement pattern: scrolls down with the background
 - Attack: burst of 3 aimed shots, 0.15 s apart, every 2.5 s, speed 0.7
 - Points: 250
@@ -108,7 +108,7 @@ Besides plain shots (pink, 0.03), enemies use:
 - Look: grey octagonal gun emplacement with a dark gun housing, orange stripes and two barrels pointing down the
   screen, 0.12 x 0.12
 - Health: 5
-- Speed: same as the level's scroll speed (it is fixed to the ground)
+- Speed: the ground's scroll speed, 30% of the level's (it is fixed to the ground, see 03-levels.md)
 - Movement pattern: scrolls down with the background
 - Attack: every 1.8 s, 2 pairs of parallel shots (one per barrel, 0.05 apart), 0.2 s apart, straight down the
   screen (not aimed), speed 0.55
@@ -122,7 +122,7 @@ Besides plain shots (pink, 0.03), enemies use:
 - Look: grey tank with olive markings, treads along its top and bottom (it drives sideways) and a turret that turns
   to aim at the player, 0.16 x 0.12
 - Health: 8
-- Speed: the level's scroll speed down (it is on the ground), and 0.1 sideways
+- Speed: the ground's scroll speed down (it is on the ground, 30% of the level's), and 0.1 sideways
 - Movement pattern: crawls sideways over the ground, towards the middle of the screen first, turning back at the
   screen's edges
 - Attack: one aimed shot every 2 s, speed 0.65
@@ -136,7 +136,7 @@ Besides plain shots (pink, 0.03), enemies use:
 - Look: grey truck with a rack of red-tipped rockets at the back and a yellow cab in front, pointing down the screen,
   0.1 x 0.16
 - Health: 4
-- Speed: the level's scroll speed plus 0.15 (it drives down the road, faster than the ground)
+- Speed: the ground's scroll speed (30% of the level's) plus 0.15 (it drives down the road, faster than the ground)
 - Movement pattern: straight down
 - Attack: a big orange rocket (0.05, 1 damage) straight down the screen every 1.8 s, speed 0.5
 - Points: 250
@@ -239,7 +239,7 @@ Besides plain shots (pink, 0.03), enemies use:
 
 - Look: grey pad with hazard stripes and two dark hatch doors, 0.12 x 0.12
 - Health: 7
-- Speed: same as the level's scroll speed (it is fixed to the ground)
+- Speed: the ground's scroll speed, 30% of the level's (it is fixed to the ground, see 03-levels.md)
 - Movement pattern: scrolls down with the background
 - Attack: every 3.5 s, a homing missile launched upwards, which then turns round to chase the player
 - Points: 350

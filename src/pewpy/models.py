@@ -869,10 +869,10 @@ def repair_model() -> NodePath:
 
 
 def laser_beam_model() -> NodePath:
-    """A 1 x 1 x 1 glowing box (stretched to the beam's size): bright core inside a see-through glow."""
+    """The laser's bright core: a thin box, stretched to the beam's size (a 1 x 1 beam). The rest of the beam is
+    light: streaks shooting up it (effects.py) in a soft halo (effects_view.py)."""
     mesh = MeshBuilder()
-    mesh.box(Vec3(0, 0, 0), Vec3(0.4, 0.4, 1.0), (0.9, 1.0, 1.0, 1))
-    mesh.box(Vec3(0, 0, 0), Vec3(1.0, 1.0, 1.0), (0.3, 0.9, 1.0, 0.45))
+    mesh.box(Vec3(0, 0, 0), Vec3(0.25, 0.25, 1.0), (0.85, 1.0, 1.0, 0.95))
     beam = NodePath(mesh.build("laser"))
     beam.setTransparency(TransparencyAttrib.MAlpha)
     beam.setLightOff()

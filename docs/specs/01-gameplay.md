@@ -33,14 +33,27 @@ The states are:
 
 ## Player ship
 
-- Movement speed: 1.0
+- Movement speed: 1.0 (the Vanguard's; see "Ships" below)
 - Player movement have a little inertia
 - full ship  Hitbox
 - Starting lives: 5
-- Health bar: 5 health per life. An enemy bullet does 1 damage, ramming an enemy 2. At 0 health the ship
-  explodes, a life is lost and the level restarts (see "Game over and victory")
+- Health bar: 5 health per life (the Vanguard's; see "Ships" below). An enemy bullet does 1 damage, ramming an
+  enemy 2. At 0 health the ship explodes, a life is lost and the level restarts (see "Game over and victory")
 - Invulnerability time after being hit: 1 second (the ship blinks)
 - Cant leave the screen edges
+
+### Ships
+
+The player picks a ship before the world (see 04-ui-audio.md). It is kept for every life and level of the game.
+
+| Ship | Health | Speed | Size (hitbox) | Special |
+|------|--------|-------|---------------|---------|
+| Vanguard | 5 | 1.0 | 0.12 | Balanced |
+| Juggernaut | 8 | 0.8 | 0.14 | Heavy armor, a bit slower (and a bigger target) |
+| Phantom | 3 | 1.3 | 0.10 | Repairs 0.5 health a second once it hasn't fired for 1.5 s, up to full |
+
+*(numbers are a placeholder, see decisions.md; `SHIPS` in `player.py`)* Weapons, lives and repairs work the same for
+every ship; repairs fill up to the ship's own health.
 
 ## Weapons
 

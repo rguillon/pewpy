@@ -3,9 +3,10 @@ import math
 import pytest
 
 from pewpy import effects
-from pewpy.effects import MAX_PARTICLES, Effects, Particle
+from pewpy.effects import MAX_PARTICLES, PHOTON_FADE, Effects, LaserGlow, Particle
 
 RED = (1.0, 0.0, 0.0, 1.0)
+DT = 1 / 60
 
 
 def test_particles_fly_slow_down_and_disappear_at_the_end_of_their_life():
@@ -74,3 +75,46 @@ def test_the_oldest_particles_go_first_when_there_are_too_many():
     for _ in range(100):
         fx.explosion(0.0, 0.0, size=0.2, colors=(RED,))
     assert len(fx.particles) == MAX_PARTICLES
+
+
+BEAM = LaserGlow(x=0.2, bottom=-0.5, top=0.5, width=0.03, hits=(0.5,))
+
+
+def test_the_laser_sends_streaks_of_light_up_the_beam_that_stop_where_it_ends():
+    effects = Effects(seed=0)
+    for _ in range(30):
+        effects.set_laser(BEAM, DT)
+        effects.update(DT)
+    assert len(effects.photons) > 10
+    assert all(BEAM.bottom <= photon.y < BEAM.top for photon in effects.photons)
+    assert all(abs(photon.x - BEAM.x) < BEAM.width for photon in effects.photons)
+    lower = LaserGlow(x=0.2, bottom=-0.5, top=-0.2, width=0.03)  # an enemy comes into the beam
+    effects.set_laser(lower, DT)
+    effects.update(DT)
+    assert all(photon.y < lower.top for photon in effects.photons)
+
+
+def test_the_streaks_follow_the_ship_while_the_laser_is_on():
+    effects = Effects(seed=0)
+    effects.set_laser(BEAM, DT)
+    effects.update(DT)
+    moved = LaserGlow(x=-0.3, bottom=-0.4, top=0.5, width=0.03)
+    effects.set_laser(moved, DT)
+    effects.update(DT)
+    assert all(abs(photon.x - moved.x) < moved.width for photon in effects.photons)
+
+
+def test_once_the_laser_is_cut_its_streaks_fly_on_and_fade_out():
+    effects = Effects(seed=0)
+    for _ in range(10):
+        effects.set_laser(BEAM, DT)
+        effects.update(DT)
+    heights = {id(photon): photon.y for photon in effects.photons}
+    effects.set_laser(None, DT)
+    effects.update(DT)
+    assert effects.photons
+    assert all(photon.y > heights[id(photon)] and photon.fade < 1 for photon in effects.photons)
+    for _ in range(round(PHOTON_FADE / DT) + 1):
+        effects.set_laser(None, DT)
+        effects.update(DT)
+    assert effects.photons == []

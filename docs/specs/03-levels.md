@@ -9,7 +9,7 @@
 - Scroll speed: constant within a level, set per level.
 - Level length: time based. The level ends when every wave has entered and no enemy is left.
 - Bosses: every level ends with its own boss (see the worlds' tables and `02-enemies.md`), a wave like any other
-  (`"enemy": "warden"`) about 6 s after the last one; the level ends once it is destroyed. Each world's bosses get
+  (`"enemy": "warden"`) about 6 s after the last one; the level ends 3 s after it is destroyed: every enemy left blows up (no points), enemy shots vanish, and the player plays on to pick up what it dropped *(placeholder, see decisions.md)*. Each world's bosses get
   harder level by level, up to the world's big boss at x-8.
 - Level data format: `src/pewpy/levels/world_<number>/level_<number>.json`, one JSON file per level, and
   `world.json` in each world's folder with the world's name (see `pewpy.level`). Level fields: `name`,

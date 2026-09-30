@@ -17,13 +17,9 @@ PLAY_WIDTH = 1.5
 PLAY_HEIGHT = 2.0
 
 # Player ship (01-gameplay.md)
-PLAYER_SPEED = 1.0  # world units per second
 PLAYER_RESPONSIVENESS = 12.0  # how fast velocity reaches target speed (1/s); lower = more inertia
-PLAYER_WIDTH = 0.12  # placeholder size; the full ship is the hitbox
-PLAYER_HEIGHT = 0.12
 PLAYER_START_Y = -0.75
 PLAYER_LIVES = 5
-PLAYER_HEALTH = 5.0  # placeholder: health bar size, one bar per life
 PLAYER_INVULNERABILITY_TIME = 1.0  # seconds
 
 # Player weapons: per-weapon values are in weapons.py (01-gameplay.md)
@@ -33,6 +29,7 @@ PICKUP_SIZE = 0.08
 PICKUP_SPEED = 0.25  # drifting down, world units per second
 PICKUP_UPGRADE_SHARE = 0.7  # when an enemy drops something: 70% upgrade capsule, 30% repair
 REPAIR_AMOUNT = 2.0
+BOSS_BEATEN_TIME = 3.0  # seconds of play after the boss is destroyed, to pick up what it dropped
 MAX_LEVEL_UPGRADE_POINTS = 500
 
 # Enemies: per-type values are in enemies.py (02-enemies.md)
