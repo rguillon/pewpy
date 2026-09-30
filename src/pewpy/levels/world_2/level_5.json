@@ -104,6 +104,13 @@
       "spacing": 1.0
     },
     {
+      "time": 25.3,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": 0.18
+    },
+    {
       "time": 27.0,
       "enemy": "weaver",
       "count": 7,
@@ -156,6 +163,13 @@
       "formation": "column",
       "x": 0.35,
       "interval": 0.4
+    },
+    {
+      "time": 39.5,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": 0.05
     },
     {
       "time": 40.2,

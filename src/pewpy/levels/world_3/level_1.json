@@ -76,6 +76,13 @@
       "spacing": 0.35
     },
     {
+      "time": 21.7,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.09
+    },
+    {
       "time": 22.9,
       "enemy": "mine_layer",
       "count": 1,
@@ -117,6 +124,14 @@
       "count": 2,
       "formation": "line",
       "spacing": 0.8
+    },
+    {
+      "time": 38.6,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.0
     },
     {
       "time": 40.5,

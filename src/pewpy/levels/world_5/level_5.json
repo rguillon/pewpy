@@ -70,6 +70,14 @@
       "spacing": 0.5
     },
     {
+      "time": 16.0,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
+    },
+    {
       "time": 16.7,
       "enemy": "swarmer",
       "count": 10,
@@ -128,6 +136,13 @@
       "spacing": 0.8
     },
     {
+      "time": 26.7,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.09
+    },
+    {
       "time": 26.8,
       "enemy": "shield_carrier",
       "count": 2,
@@ -158,6 +173,14 @@
       "y": 0.5,
       "side": "right",
       "interval": 0.2
+    },
+    {
+      "time": 33.3,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.23
     },
     {
       "time": 34.1,

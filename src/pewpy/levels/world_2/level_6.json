@@ -84,6 +84,14 @@
       "spacing": 0.2
     },
     {
+      "time": 22.8,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.43
+    },
+    {
       "time": 24.9,
       "enemy": "splitter",
       "count": 3,
@@ -142,6 +150,13 @@
       "formation": "column",
       "y": 0.4,
       "side": "right"
+    },
+    {
+      "time": 40.1,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": 0.01
     },
     {
       "time": 43.2,

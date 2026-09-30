@@ -88,6 +88,14 @@
       "spacing": 0.8
     },
     {
+      "time": 33.2,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.35
+    },
+    {
       "time": 34,
       "enemy": "weaver",
       "count": 6,

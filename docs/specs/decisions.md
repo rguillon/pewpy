@@ -177,6 +177,19 @@
 
 ## Decisions made
 
+### 2026-09-30 — More enemies and enemy weapons (asked by the user in chat)
+- Decision (the user's): more kinds of enemies with more diverse weapons, some firing missiles, some homing missiles.
+- Placeholder chosen (mine): seven enemies (Rocketeer, Hunter, Missile Silo, Bomber, Lancer, Serpent, Buckshot) and
+  new weapons: accelerating rockets, homing missiles, cluster bombs, snaking shots, shotgun pellets and a laser beam
+  (numbers in 02-enemies.md, "Enemy weapons" and the catalog). Rockets, missiles and bombs are small enemies of
+  their own, so the player can shoot them down; they hit like ramming (2 damage). A laser beam goes on through the
+  player. Introduced gradually: Rocketeer from 1-2, Serpent from 1-4, Buckshot from 1-6, Hunter from 2-1, Missile
+  Silo from 2-2 (ground levels only), Bomber from 2-4, Lancer from 3-1; each level from 1-2 on gets 1 to 3 waves of
+  them (1 in Orbit, 2 in Heartland and Waters, 3 in Badlands and Metropolis), a newly introduced one always among
+  them. Every level was played through headless to make sure it still ends. The Models screen now has three pages
+  (player, pickups and projectiles; flying enemies; ground enemies).
+- Recorded in 02-enemies.md and 04-ui-audio.md ("Models").
+
 ### 2026-09-30 — Ground enemies (asked by the user in chat)
 - Decision (the user's): more ground enemies, like turrets or tanks; some shoot "vertically", some at the player.
 - Placeholder chosen (mine): "vertically" read as straight down the screen (not aimed). Three new enemies with the

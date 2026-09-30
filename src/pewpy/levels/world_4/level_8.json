@@ -83,6 +83,13 @@
       "interval": 0.4
     },
     {
+      "time": 17.3,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.28
+    },
+    {
       "time": 18.4,
       "enemy": "turret",
       "count": 3,
@@ -121,6 +128,14 @@
       "x": -0.45
     },
     {
+      "time": 26.4,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8,
+      "x": 0.0
+    },
+    {
       "time": 26.7,
       "enemy": "turret",
       "count": 3,
@@ -140,6 +155,14 @@
       "count": 6,
       "formation": "line",
       "spacing": 0.35
+    },
+    {
+      "time": 32.9,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.4
     },
     {
       "time": 33.0,

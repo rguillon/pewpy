@@ -76,6 +76,14 @@
       "interval": 0.38
     },
     {
+      "time": 23.5,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.59
+    },
+    {
       "time": 25.9,
       "enemy": "drone",
       "count": 7,
@@ -123,6 +131,14 @@
       "y": 0.5,
       "side": "right",
       "interval": 0.2
+    },
+    {
+      "time": 36.6,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.14
     },
     {
       "time": 37.5,

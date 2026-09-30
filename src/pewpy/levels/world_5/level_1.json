@@ -66,6 +66,13 @@
       "spacing": 0.8
     },
     {
+      "time": 17.8,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": -0.36
+    },
+    {
       "time": 18.6,
       "enemy": "mine_layer",
       "count": 1,
@@ -103,6 +110,14 @@
       "spacing": 0.8
     },
     {
+      "time": 26.9,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.68
+    },
+    {
       "time": 29.0,
       "enemy": "mine_layer",
       "count": 1,
@@ -131,6 +146,13 @@
       "count": 2,
       "formation": "line",
       "spacing": 0.8
+    },
+    {
+      "time": 36.8,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": 0.09
     },
     {
       "time": 39.0,

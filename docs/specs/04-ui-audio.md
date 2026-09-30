@@ -27,9 +27,11 @@ Pause -> Main menu
 
 ### Models
 
-- For working on the models: every ship, enemy, the missile and the pickups in a circle facing the camera, each
-  spinning on itself with its name under it, the circle turning slowly, on a plain dark background.
-- Entries: Reload models (reads `src/pewpy/models.py` and the drawings in `src/pewpy/models/` again and rebuilds
+- For working on the models: every ship, enemy, projectile and pickup in a circle facing the camera, each spinning
+  on itself with its name under it, the circle turning slowly, on a plain dark background. Three pages (too many
+  models for one circle): the player, the pickups and the projectiles (the player's missile, enemy rockets,
+  missiles and bombs, mines); the flying enemies; the ground enemies.
+- Entries: Next page (after the last page, back to the first), Reload models (reads `src/pewpy/models.py` and the drawings in `src/pewpy/models/` again and rebuilds
   every model, in the game too; if a file has a mistake, the error is shown and the old models stay), Back. Escape
   goes back to the main menu.
 

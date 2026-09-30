@@ -102,6 +102,14 @@
       "spacing": 0.8
     },
     {
+      "time": 34.0,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8,
+      "x": 0.0
+    },
+    {
       "time": 37.1,
       "enemy": "drone",
       "count": 6,

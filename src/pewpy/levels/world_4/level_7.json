@@ -65,6 +65,13 @@
       "spacing": 0.5
     },
     {
+      "time": 17.3,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.24
+    },
+    {
       "time": 19.2,
       "enemy": "gunship",
       "count": 2,
@@ -84,6 +91,14 @@
       "count": 6,
       "formation": "line",
       "spacing": 0.35
+    },
+    {
+      "time": 24.8,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8,
+      "x": 0.0
     },
     {
       "time": 25.6,
@@ -122,6 +137,13 @@
       "y": 0.6,
       "side": "left",
       "interval": 0.2
+    },
+    {
+      "time": 33.7,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": 0.04
     },
     {
       "time": 34.1,

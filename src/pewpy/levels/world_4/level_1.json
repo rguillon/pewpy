@@ -57,6 +57,13 @@
       "spacing": 0.6
     },
     {
+      "time": 18.2,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": 0.05
+    },
+    {
       "time": 18.5,
       "enemy": "diver",
       "count": 6,
@@ -104,6 +111,14 @@
       "x": 0.45
     },
     {
+      "time": 29.2,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.74
+    },
+    {
       "time": 30.8,
       "enemy": "gunship",
       "count": 2,
@@ -141,6 +156,13 @@
       "y": 0.5,
       "side": "left",
       "interval": 0.2
+    },
+    {
+      "time": 39.2,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.04
     },
     {
       "time": 39.7,

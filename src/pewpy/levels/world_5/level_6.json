@@ -96,6 +96,14 @@
       "spacing": 0.8
     },
     {
+      "time": 17.1,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
+    },
+    {
       "time": 17.9,
       "enemy": "drone",
       "count": 8,
@@ -134,6 +142,14 @@
       "spacing": 0.5
     },
     {
+      "time": 23.9,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.34
+    },
+    {
       "time": 25.4,
       "enemy": "splitter",
       "count": 4,
@@ -162,6 +178,14 @@
       "formation": "column",
       "y": 0.7,
       "side": "left"
+    },
+    {
+      "time": 31.9,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.69
     },
     {
       "time": 33.6,

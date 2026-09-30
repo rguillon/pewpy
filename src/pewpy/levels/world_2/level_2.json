@@ -113,6 +113,13 @@
       "interval": 0.2
     },
     {
+      "time": 23.8,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": 0.07
+    },
+    {
       "time": 25.7,
       "enemy": "drone",
       "count": 5,
@@ -157,6 +164,14 @@
       "formation": "column",
       "y": 0.4,
       "side": "right"
+    },
+    {
+      "time": 41.1,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
     },
     {
       "time": 42.2,

@@ -107,6 +107,14 @@
       "interval": 0.38
     },
     {
+      "time": 35.5,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
+    },
+    {
       "time": 38.5,
       "enemy": "sniper",
       "count": 1,

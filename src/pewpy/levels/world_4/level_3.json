@@ -57,6 +57,14 @@
       "spacing": 0.2
     },
     {
+      "time": 16.4,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.15
+    },
+    {
       "time": 17.7,
       "enemy": "drone",
       "count": 9,
@@ -100,6 +108,14 @@
       "spacing": 1.0
     },
     {
+      "time": 28.9,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.59
+    },
+    {
       "time": 31.2,
       "enemy": "drone",
       "count": 8,
@@ -121,6 +137,14 @@
       "count": 4,
       "formation": "line",
       "spacing": 0.5
+    },
+    {
+      "time": 36.0,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8,
+      "x": 0.0
     },
     {
       "time": 36.4,

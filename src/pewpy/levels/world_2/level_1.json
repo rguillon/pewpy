@@ -75,6 +75,13 @@
       "x": 0.0
     },
     {
+      "time": 21.8,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.27
+    },
+    {
       "time": 24,
       "enemy": "diver",
       "count": 4,
@@ -112,6 +119,14 @@
       "count": 2,
       "formation": "line",
       "spacing": 1.0
+    },
+    {
+      "time": 37.3,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.06
     },
     {
       "time": 38,

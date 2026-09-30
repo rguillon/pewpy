@@ -83,6 +83,13 @@
       "spacing": 0.8
     },
     {
+      "time": 24.7,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": 0.2
+    },
+    {
       "time": 27.5,
       "enemy": "shield_carrier",
       "count": 1,
@@ -127,6 +134,14 @@
       "count": 2,
       "formation": "line",
       "spacing": 0.6
+    },
+    {
+      "time": 41.1,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
     },
     {
       "time": 43.8,

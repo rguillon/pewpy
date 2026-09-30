@@ -67,6 +67,14 @@
       "spacing": 0.8
     },
     {
+      "time": 21.9,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.74
+    },
+    {
       "time": 22.5,
       "enemy": "sniper",
       "count": 2,
@@ -108,6 +116,14 @@
       "count": 2,
       "formation": "line",
       "spacing": 0.8
+    },
+    {
+      "time": 40.3,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.7,
+      "x": 0.0
     },
     {
       "time": 41.5,

@@ -1,0 +1,100 @@
+{
+  "rows": [
+    ".......NoN.......",
+    "......HNNNH......",
+    ".....HhNNNhH.....",
+    "PWWWWhhhhhhhWWWWP",
+    "....khhhhhhhk....",
+    "....khhhhhhhk....",
+    "...PWhhhhhhhWP...",
+    ".....khhhhhk.....",
+    "......khhhk......",
+    "PWWWW.khhhk.WWWWP",
+    ".......khk.......",
+    ".......khk.......",
+    "...PW.HhhhH.WP...",
+    "......khhhk......",
+    ".....HhhhhhH.....",
+    "PWWWWhhhhhhhWWWWP",
+    "....khhggghhk....",
+    "....khhggghhk....",
+    "....khhggghhk....",
+    ".....khhhhhk.....",
+    ".....kkkkkkk....."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 9
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "height": 7
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 7
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 7
+    },
+    "P": {
+      "color": [
+        0.525,
+        0.315,
+        0.7
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.42,
+        0.43,
+        0.46
+      ],
+      "height": 3
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
+        0.2
+      ],
+      "height": 5
+    },
+    "g": {
+      "color": [
+        0.9,
+        0.72,
+        1
+      ],
+      "height": 11
+    }
+  },
+  "engines": [
+    {
+      "x": 8,
+      "y": 0,
+      "width": 3,
+      "length": 6,
+      "towards": "top"
+    }
+  ]
+}

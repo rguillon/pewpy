@@ -35,14 +35,24 @@ from pewpy.bosses import Boss, BossPart, BossSpec
 from pewpy.effects import Effects
 from pewpy.effects_view import EffectsView
 from pewpy.enemies import (
+    Bomber,
+    Buckshot,
+    ClusterBomb,
     Diver,
     Drone,
     Enemy,
     FlakCannon,
     Gunship,
+    HomingMissile,
+    Hunter,
+    Lancer,
     Mine,
     MineLayer,
+    MissileSilo,
+    Rocket,
+    Rocketeer,
     RocketTruck,
+    Serpent,
     ShieldCarrier,
     Sniper,
     Splitter,
@@ -105,9 +115,29 @@ SHIP_MODELS: dict[type[Entity], str] = {
     FlakCannon: "flak_cannon_model",
     Tank: "tank_model",
     RocketTruck: "rocket_truck_model",
+    Rocketeer: "rocketeer_model",
+    Hunter: "hunter_model",
+    MissileSilo: "missile_silo_model",
+    Bomber: "bomber_model",
+    Lancer: "lancer_model",
+    Serpent: "serpent_model",
+    Buckshot: "buckshot_model",
+    Rocket: "rocket_model",
+    HomingMissile: "homing_missile_model",
+    ClusterBomb: "cluster_bomb_model",
 }
 MINE_SPIN_SPEED = 90.0  # degrees per second
 SHOWCASE_STATES = frozenset({State.MODELS, State.BOSSES})  # screens showing models in a turning circle
+# Things launched by others rather than placed by the levels: missiles, rockets, bombs, mines.
+PROJECTILES: tuple[type[Entity], ...] = (Missile, Rocket, HomingMissile, ClusterBomb, Mine)
+PICKUPS_PAGE = "Player, pickups and projectiles"
+# The Models screen's pages (too many models for one circle): which ship models each shows (the first also shows
+# the pickups).
+MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
+    PICKUPS_PAGE: lambda kind: kind is Player or kind in PROJECTILES,
+    "Flying enemies": lambda kind: issubclass(kind, Enemy) and not kind.ground and kind not in PROJECTILES,
+    "Ground enemies": lambda kind: issubclass(kind, Enemy) and kind.ground,
+}
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
 EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
 FLASH_COLOR: Color = (1.0, 1.0, 1.0, 1)
@@ -116,7 +146,15 @@ GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps 
 PLAYER_BULLET_COLOR: Color = (0.3, 1.0, 0.25, 1)  # bright green
 ENEMY_BULLET_COLOR: Color = (1.0, 0.5, 0.9, 1)
 SNIPER_BULLET_COLOR: Color = (0.4, 0.6, 1.0, 1)
-HEAVY_BULLET_COLOR: Color = (1.0, 0.55, 0.15, 1)  # bosses' big shots
+HEAVY_BULLET_COLOR: Color = (1.0, 0.55, 0.15, 1)  # big shots: bosses, Rocket Trucks
+BEAM_COLOR: Color = (1.0, 0.35, 0.25, 1)  # the Lancer's laser beam
+WAVE_BULLET_COLOR: Color = (0.75, 0.45, 1.0, 1)  # the Serpent's snaking shots
+BULLET_COLORS: dict[str, Color] = {
+    "sniper": SNIPER_BULLET_COLOR,
+    "heavy": HEAVY_BULLET_COLOR,
+    "beam": BEAM_COLOR,
+    "wave": WAVE_BULLET_COLOR,
+}  # by Bullet.style; enemy shots of any other style (the Buckshot's pellets too) are pink
 ARMORED_SHADE: Color = (0.55, 0.55, 0.62, 1)  # a boss's core, darker while shots bounce off it
 HIT_SHADE: Color = (1.6, 1.6, 1.6, 1)  # bosses light up when hit (white would hide them: they're shot all the time)
 BULLET_GLOW = 1.8  # a bullet's sprite, compared with its hitbox
@@ -390,10 +428,10 @@ class PewPewApp(ShowBase):
                     self._boss_model(drawing)
 
     def _showcase_titles(self) -> list[str]:
-        """The pages of the screen being shown: the Models screen has one (ships and pickups), the Bosses screen one
-        per world."""
+        """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's one per
+        world."""
         if self.states.state is not State.BOSSES:
-            return ["Ships and pickups"]
+            return list(MODEL_PAGES)
         count = len(self.worlds)
         return [f"{world.name} ({index + 1}/{count})" for index, world in enumerate(self.worlds)]
 
@@ -401,23 +439,25 @@ class PewPewApp(ShowBase):
         """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
         models are built (boss models are big)."""
         if self.states.state is not State.BOSSES:
-            return self._showcase_entries(), showcase.MODEL_SIZE, showcase.RADIUS
+            return self._showcase_entries(list(MODEL_PAGES)[index]), showcase.MODEL_SIZE, showcase.RADIUS
         world = self.worlds[index]
         specs = [BOSSES[wave.enemy] for level in world.levels for wave in level.waves if wave.enemy in BOSSES]
         entries = [(spec.name.title(), self._whole_boss(spec)) for spec in specs]
         return entries, SHOWCASE_BOSS_SIZE, SHOWCASE_BOSS_RADIUS
 
-    def _showcase_entries(self) -> list[tuple[str, NodePath]]:
-        """(name, model) of every ship, enemy, missile and pickup, for the Models screen: each fitted in a 1 x 1 x 1
-        box by its hitbox (the models are in world units, all with the same cubes)."""
+    def _showcase_entries(self, page: str) -> list[tuple[str, NodePath]]:
+        """(name, model) of the ships, enemies, projectiles and pickups on a page of the Models screen: each fitted in
+        a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes)."""
         entries = []
         for kind in self.ship_models:
-            entity = kind()
-            name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
-            entries.append((name, _fitted(self._make_model(entity), max(entity.width, entity.height))))
-        for kind in [*WEAPONS, "repair"]:
-            name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else "Repair"
-            entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
+            if MODEL_PAGES[page](kind):
+                entity = kind()
+                name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
+                entries.append((name, _fitted(self._make_model(entity), max(entity.width, entity.height))))
+        if page == PICKUPS_PAGE:
+            for kind in [*WEAPONS, "repair"]:
+                name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else "Repair"
+                entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
         return entries
 
     def _whole_boss(self, spec: BossSpec) -> NodePath:
@@ -739,9 +779,11 @@ class PewPewApp(ShowBase):
     def _orient_enemy(self, enemy: Enemy, node: NodePath, player: Player) -> None:
         if isinstance(enemy, Turret | Tank):
             node.find("**/barrel").setR(models.facing_roll(player.x - enemy.x, player.y - enemy.y))
-        elif isinstance(enemy, Swarmer) or (isinstance(enemy, Diver) and enemy.phase == "dive"):
+        elif isinstance(enemy, Swarmer | Rocket | HomingMissile) or (
+            isinstance(enemy, Diver) and enemy.phase == "dive"
+        ):
             node.setR(models.facing_roll(enemy.vx, enemy.vy))  # point where it's flying
-        elif isinstance(enemy, Mine):
+        elif isinstance(enemy, Mine | ClusterBomb):
             node.setR(enemy.age * MINE_SPIN_SPEED)
 
     def _update_hud(self) -> None:
@@ -816,7 +858,9 @@ def _bullet_sprite(bullet: Entity) -> Sprite:
     """A bullet as a soft circle (an oval for the player's long bullets), a bit bigger than its hitbox: the edge
     fades out, the solid middle is about the hitbox."""
     if isinstance(bullet, Bullet) and bullet.hostile:
-        color = {"sniper": SNIPER_BULLET_COLOR, "heavy": HEAVY_BULLET_COLOR}.get(bullet.style, ENEMY_BULLET_COLOR)
+        color = BULLET_COLORS.get(bullet.style, ENEMY_BULLET_COLOR)
+        if bullet.style == "beam":  # as long as the beam itself: only its sides fade out
+            return Sprite(bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height, color)
     else:
         color = PLAYER_BULLET_COLOR
     return Sprite(bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height * BULLET_GLOW, color)

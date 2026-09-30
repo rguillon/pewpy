@@ -757,6 +757,46 @@ def rocket_truck_model() -> NodePath:
     return drawing_model("rocket_truck")
 
 
+def rocketeer_model() -> NodePath:
+    return drawing_model("rocketeer")
+
+
+def hunter_model() -> NodePath:
+    return drawing_model("hunter")
+
+
+def missile_silo_model() -> NodePath:
+    return drawing_model("missile_silo")
+
+
+def bomber_model() -> NodePath:
+    return drawing_model("bomber")
+
+
+def lancer_model() -> NodePath:
+    return drawing_model("lancer")
+
+
+def serpent_model() -> NodePath:
+    return drawing_model("serpent")
+
+
+def buckshot_model() -> NodePath:
+    return drawing_model("buckshot")
+
+
+def rocket_model() -> NodePath:
+    return drawing_model("rocket")
+
+
+def homing_missile_model() -> NodePath:
+    return drawing_model("homing_missile")
+
+
+def cluster_bomb_model() -> NodePath:
+    return drawing_model("cluster_bomb")
+
+
 def swarmer_model() -> NodePath:
     return drawing_model("swarmer")
 

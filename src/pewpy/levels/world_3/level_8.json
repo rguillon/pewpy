@@ -89,6 +89,13 @@
       "interval": 0.38
     },
     {
+      "time": 21.5,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.11
+    },
+    {
       "time": 22.5,
       "enemy": "mine_layer",
       "count": 1,
@@ -141,6 +148,13 @@
       "formation": "column",
       "x": 0.4,
       "interval": 0.38
+    },
+    {
+      "time": 38.1,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.38
     },
     {
       "time": 39.3,

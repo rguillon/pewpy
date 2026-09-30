@@ -105,6 +105,14 @@
       "spacing": 0.2
     },
     {
+      "time": 35.7,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.07
+    },
+    {
       "time": 36.4,
       "enemy": "diver",
       "count": 3,

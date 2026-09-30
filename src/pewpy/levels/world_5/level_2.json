@@ -73,6 +73,14 @@
       "spacing": 0.35
     },
     {
+      "time": 18.0,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.67
+    },
+    {
       "time": 19.3,
       "enemy": "splitter",
       "count": 4,
@@ -100,6 +108,13 @@
       "formation": "column",
       "interval": 3.0,
       "x": 0.45
+    },
+    {
+      "time": 25.9,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": 0.17
     },
     {
       "time": 26.0,
@@ -138,6 +153,14 @@
       "count": 2,
       "formation": "line",
       "spacing": 0.8
+    },
+    {
+      "time": 35.1,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.17
     },
     {
       "time": 36.3,

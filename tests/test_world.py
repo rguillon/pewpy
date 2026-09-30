@@ -1,5 +1,5 @@
 from pewpy import config
-from pewpy.enemies import Drone, ShieldCarrier, Splitter, Swarmer
+from pewpy.enemies import ClusterBomb, Drone, HomingMissile, ShieldCarrier, Splitter, Swarmer
 from pewpy.entities import Bullet
 from pewpy.level import Level, Wave
 from pewpy.weapons import BULLET_FIRE_RATE
@@ -250,3 +250,31 @@ def test_enemies_appear_off_screen_and_fly_in():
     assert swarmer.x + swarmer.width / 2 < -1.1 + 0.02  # just left of the screen (one frame in)
     run(world, 3.0)
     assert any(abs(enemy.x) < 0.75 and enemy.y < 1.0 for enemy in world.enemies)  # they came in
+
+
+def test_a_bursting_cluster_bomb_blows_up_and_leaves_its_shards():
+    world = make_world()
+    world.enemies.append(ClusterBomb(x=0.0, y=0.5, fuse=DT / 2))
+    world.update(DT, Controls())
+    assert world.enemies == []
+    assert len(world.enemy_bullets) == ClusterBomb.shards
+    assert [event.source for event in world.events if event.kind == "explosion"] == ["ClusterBomb"]
+
+
+def test_enemy_missiles_can_be_shot_down():
+    world = make_world()
+    missile = HomingMissile(x=world.player.x, y=world.player.y + 0.4)
+    world.enemies.append(missile)
+    world.player_bullets.append(Bullet(x=missile.x, y=missile.y, damage=5.0))
+    world.update(DT, Controls())
+    assert not missile.alive
+
+
+def test_a_beam_hurts_the_player_and_goes_on():
+    world = make_world()
+    beam = Bullet(x=world.player.x, y=0.0, width=0.03, height=2.0, hostile=True, life=0.5, pierces=True)
+    world.enemy_bullets.append(beam)
+    health = world.player.health
+    world.update(DT, Controls())
+    assert world.player.health == health - beam.damage
+    assert beam.alive

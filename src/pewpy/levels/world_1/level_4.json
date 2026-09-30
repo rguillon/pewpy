@@ -118,6 +118,14 @@
       "spacing": 0.35
     },
     {
+      "time": 36.4,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.26
+    },
+    {
       "time": 37.9,
       "enemy": "drone",
       "count": 6,

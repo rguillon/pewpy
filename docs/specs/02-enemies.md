@@ -22,6 +22,23 @@
   (`src/pewpy/models.py`); the size given is its hitbox.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
 
+## Enemy weapons
+
+Besides plain shots (pink, 0.03), enemies use:
+
+- Colored and sized shots: blue (Sniper), big orange "heavy" shots (0.05: bosses, Rocket Truck), small pellets
+  (0.022, Buckshot), violet shots that snake from side to side across their line of flight (0.06 either way, a
+  wave every 0.7 s: Serpent), and a red laser beam (Lancer: 0.035 wide, from the Lancer down past the bottom of
+  the screen, for 0.5 s; it goes on through the player, who is briefly invulnerable after a hit anyway).
+- Projectiles that are small enemies of their own, launched by other enemies rather than placed by the waves: they
+  can be shot down (a few points, no drops), and hitting the player they do 2 damage and are destroyed, like
+  ramming. Enemy missiles are among the targets of the player's homing missiles.
+    - Rocket (0.03 x 0.07, 1 health, 10 points): flies straight, from 0.25 speeding up by 1.0 per second to 1.1.
+    - Homing missile (0.04 x 0.08, 2 health, 20 points): speed 0.45, turns towards the player at up to 100° per
+      second for 3 s (its fuel), then flies straight on.
+    - Cluster bomb (0.05, 1 health, 10 points): falls at 0.3 and after 1.2 s bursts into a ring of 8 shots (speed
+      0.4), unless shot down first.
+
 ## Enemy catalog
 
 ### Enemy: Drone
@@ -193,6 +210,91 @@
 - Drops: 10%
 - First appears in level: 1-8
 - Notes: destroying it close to the player is dangerous
+
+### Enemy: Rocketeer
+
+- Look: grey ship with a rocket pod on each side (red-tipped rockets) and red-orange markings, 0.12 x 0.12
+- Health: 5
+- Speed: 0.2
+- Movement pattern: straight down
+- Attack: every 2.5 s, a pair of rockets (one per pod, 0.09 apart) straight down (see "Enemy weapons")
+- Points: 250
+- Drops: 10%
+- First appears in level: 1-2 (Red Drift)
+- Notes: usually two side by side
+
+### Enemy: Hunter
+
+- Look: grey delta-winged ship with missile rails under its wings and teal markings, 0.14 x 0.12
+- Health: 6
+- Speed: 0.3 on entry, then 0.12 sideways
+- Movement pattern: comes down to y = 0.65 and stays there, sliding left and right between the screen edges; leaves
+  after 10 s by flying back up
+- Attack: a homing missile every 3.2 s (see "Enemy weapons")
+- Points: 350
+- Drops: 15%
+- First appears in level: 2-1 (Ground Defense)
+
+### Enemy: Missile Silo
+
+- Look: grey pad with hazard stripes and two dark hatch doors, 0.12 x 0.12
+- Health: 7
+- Speed: same as the level's scroll speed (it is fixed to the ground)
+- Movement pattern: scrolls down with the background
+- Attack: every 3.5 s, a homing missile launched upwards, which then turns round to chase the player
+- Points: 350
+- Drops: 15%
+- First appears in level: 2-2 (Patchwork)
+- Notes: ground levels only
+
+### Enemy: Bomber
+
+- Look: wide grey flying wing with four engines, a dark bomb bay in the middle and green markings, 0.22 x 0.12
+- Health: 7
+- Speed: 0.2 sideways
+- Movement pattern: enters from the left or right edge and crosses the screen at a fixed height
+- Attack: drops a cluster bomb every 1.6 s (see "Enemy weapons")
+- Points: 400
+- Drops: 20%
+- First appears in level: 2-4 (Mire)
+
+### Enemy: Lancer
+
+- Look: narrow grey ship with a long glowing lance pointing down and red markings, 0.1 x 0.14
+- Health: 5
+- Speed: 0.35 on entry, then up to 0.2 sideways
+- Movement pattern: comes down to y = 0.6, then slides towards the player's side (holding still while it charges
+  and fires); leaves after 12 s by flying back up
+- Attack: every 3.5 s, glows white for 0.8 s (warning), then fires its laser beam straight down for 0.5 s (see
+  "Enemy weapons")
+- Points: 350
+- Drops: 15%
+- First appears in level: 3-1 (Archipelago)
+
+### Enemy: Serpent
+
+- Look: grey ship with a wavy ribbed body, fins along its sides and violet markings, 0.12 x 0.14
+- Health: 4
+- Speed: 0.25
+- Movement pattern: straight down
+- Attack: every 1.6 s, 3 snaking shots aimed at the player, 18° apart, speed 0.45 (see "Enemy weapons")
+- Points: 200
+- Drops: 5%
+- First appears in level: 1-4 (Starlit Reach)
+- Notes: in columns of three
+
+### Enemy: Buckshot
+
+- Look: stubby square grey ship with a wide multi-barrelled gun and orange markings, 0.12 x 0.12
+- Health: 4
+- Speed: 0.45 on entry, 0.6 when leaving
+- Movement pattern: comes down to y = 0.45, stops to fire, then dives off the bottom of the screen
+- Attack: 2 shotgun blasts 0.8 s apart, each 7 small pellets aimed at the player, spread over 50°, at uneven speeds
+  from 0.4 to 0.65 (see "Enemy weapons")
+- Points: 250
+- Drops: 10%
+- First appears in level: 1-6 (Green Veil)
+- Notes: usually two side by side
 
 ## Bosses
 

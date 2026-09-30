@@ -134,6 +134,8 @@ class World:
     def _update_enemies(self, dt: float) -> None:
         for enemy in list(self.enemies):
             self._add(enemy.update(dt, self.player, self.level.scroll_speed))
+            if not enemy.alive:  # it used itself up (a cluster bomb bursting): it blows up, without points
+                self._explode(enemy)
 
     def _add(self, created: list[Entity]) -> None:
         for entity in created:
@@ -210,8 +212,8 @@ class World:
             return
         for bullet in self.enemy_bullets:
             if bullet.overlaps(player):
-                bullet.alive = False
-                self.events.append(Event("impact", bullet.x, bullet.y, source="player"))
+                bullet.alive = bullet.pierces  # a beam goes on (the player is briefly invulnerable after a hit)
+                self.events.append(Event("impact", player.x, player.y if bullet.pierces else bullet.y, source="player"))
                 player.take_hit(bullet.damage)
                 return
         for enemy in self.enemies:
