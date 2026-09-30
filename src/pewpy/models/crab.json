@@ -1,15 +1,35 @@
 {
   "rows": [
-    "..ccccccccc..",
-    ".cCCCCCCCCCc.",
-    "cCCCCCCCCCCCc",
-    "cCCcCCCCCcCCc",
-    "cCCCCCCCCCCCc",
-    ".cCCCCCCCCCc.",
-    "..ccccccccc..",
-    "...e.e.e.e...",
-    "...e.e.e.e...",
-    "......m......"
+    ".......ccccccccccccccccccccccccc.......",
+    "......ccccccccccccccccccccccccccc......",
+    "......ccccccccccccccccccccccccccc......",
+    "....ccCCCCCCCCCCCCCCCCCCCCCCCCCCCcc....",
+    "...cccCCCCCCCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...ccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCcc...",
+    ".ccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCcc.",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCcCCCCCCCCCCCCCCCCCcCCCCCCCccc",
+    "cccCCCCCCcccCCCCCCCCCCCCCCCcccCCCCCCccc",
+    "cccCCCCCCCcCCCCCCCCCCCCCCCCCcCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    ".ccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCcc.",
+    "...ccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCcc...",
+    "...cccCCCCCCCCCCCCCCCCCCCCCCCCCCCccc...",
+    "....ccCCCCCCCCCCCCCCCCCCCCCCCCCCCcc....",
+    "......ccccccccccccccccccccccccccc......",
+    "......ccccccccccccccccccccccccccc......",
+    ".......ccccccccccccccccccccccccc.......",
+    ".........eee...eee...eee...eee.........",
+    ".........eee...eee...eee...eee.........",
+    ".........eee...eee...eee...eee.........",
+    ".........eee...eee...eee...eee.........",
+    ".........eee...eee...eee...eee.........",
+    "..........e.....ee...ee.....e..........",
+    "..................mmm..................",
+    "..................mmm..................",
+    "...................m..................."
   ],
   "palette": {
     "c": {
@@ -18,7 +38,7 @@
         0.15,
         0.1
       ],
-      "height": 5
+      "height": 15
     },
     "C": {
       "color": [
@@ -26,7 +46,7 @@
         0.3,
         0.18
       ],
-      "height": 7
+      "height": 21
     },
     "e": {
       "color": [
@@ -34,7 +54,7 @@
         0.9,
         0.8
       ],
-      "height": 3
+      "height": 9
     },
     "m": {
       "color": [
@@ -42,7 +62,7 @@
         0.05,
         0.05
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

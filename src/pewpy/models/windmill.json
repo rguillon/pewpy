@@ -1,20 +1,50 @@
 {
   "rows": [
-    "ss...........ss",
-    "sss.........sss",
-    ".sss.......sss.",
-    "..sss.....sss..",
-    "...sss...sss...",
-    "....sbbbbbs....",
-    ".....bBBBb.....",
-    ".....BOOOB.....",
-    ".....bBBBb.....",
-    "....sbbbbbs....",
-    "...sss...sss...",
-    "..sss.....sss..",
-    ".sss.......sss.",
-    "sss.........sss",
-    "ss...........ss"
+    ".ssss...................................ssss.",
+    "ssssss.................................ssssss",
+    "sssssss...............................sssssss",
+    "ssssssss.............................ssssssss",
+    "sssssssss...........................sssssssss",
+    ".sssssssss.........................sssssssss.",
+    "..sssssssss.......................sssssssss..",
+    "...sssssssss.....................sssssssss...",
+    "....sssssssss...................sssssssss....",
+    ".....sssssssss.................sssssssss.....",
+    "......sssssssss...............sssssssss......",
+    ".......sssssssss.............sssssssss.......",
+    "........sssssssss...........sssssssss........",
+    ".........sssssssss.........sssssssss.........",
+    "..........ssssssss.........ssssssss..........",
+    "...........sssssbbbbbbbbbbbbbsssss...........",
+    "............sssbbbbbbbbbbbbbbbsss............",
+    ".............ssbbbbbbbbbbbbbbbss.............",
+    "...............bbbbBBBBBBBbbbb...............",
+    "...............bbbBBBBBBBBBbbb...............",
+    "...............bbbBBBBBBBBBbbb...............",
+    "...............BBBOOOOOOOOOBBB...............",
+    "...............BBBOOOOOOOOOBBB...............",
+    "...............BBBOOOOOOOOOBBB...............",
+    "...............bbbBBBBBBBBBbbb...............",
+    "...............bbbBBBBBBBBBbbb...............",
+    "...............bbbbBBBBBBBbbbb...............",
+    ".............ssbbbbbbbbbbbbbbbss.............",
+    "............sssbbbbbbbbbbbbbbbsss............",
+    "...........sssssbbbbbbbbbbbbbsssss...........",
+    "..........ssssssss.........ssssssss..........",
+    ".........sssssssss.........sssssssss.........",
+    "........sssssssss...........sssssssss........",
+    ".......sssssssss.............sssssssss.......",
+    "......sssssssss...............sssssssss......",
+    ".....sssssssss.................sssssssss.....",
+    "....sssssssss...................sssssssss....",
+    "...sssssssss.....................sssssssss...",
+    "..sssssssss.......................sssssssss..",
+    ".sssssssss.........................sssssssss.",
+    "sssssssss...........................sssssssss",
+    "ssssssss.............................ssssssss",
+    "sssssss...............................sssssss",
+    "ssssss.................................ssssss",
+    ".ssss...................................ssss."
   ],
   "palette": {
     "s": {
@@ -23,7 +53,7 @@
         0.7,
         0.55
       ],
-      "height": 1
+      "height": 3
     },
     "b": {
       "color": [
@@ -31,7 +61,7 @@
         0.26,
         0.14
       ],
-      "height": 5
+      "height": 15
     },
     "B": {
       "color": [
@@ -39,7 +69,7 @@
         0.36,
         0.2
       ],
-      "height": 7
+      "height": 21
     },
     "O": {
       "color": [
@@ -47,7 +77,7 @@
         0.8,
         0.2
       ],
-      "height": 9
+      "height": 27
     }
   }
 }

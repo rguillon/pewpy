@@ -1,18 +1,44 @@
 {
   "rows": [
-    "...ccccc...",
-    "..cCCCCCc..",
-    ".cCCCCCCCc.",
-    ".cCkkkkkCc.",
-    "cCCkaaakCCc",
-    "cCCkaAakCCc",
-    "cCCkkkkkCCc",
-    ".cCCCCCCCc.",
-    ".cCCCCCCCc.",
-    "..cCCCCCc..",
-    "..cvvvvvc..",
-    "...c.c.c...",
-    "...g...g..."
+    "..........ccccccccccccc..........",
+    ".........ccccccccccccccc.........",
+    ".........ccccccccccccccc.........",
+    ".......ccCCCCCCCCCCCCCCCcc.......",
+    "......cccCCCCCCCCCCCCCCCccc......",
+    "......ccCCCCCCCCCCCCCCCCCcc......",
+    "....ccCCCCCCCCCCCCCCCCCCCCCcc....",
+    "...cccCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...cccCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...cccCCCCkkkkkkkkkkkkkCCCCccc...",
+    "...cccCCCkkkkkkkkkkkkkkkCCCccc...",
+    "...ccCCCCkkkkkkkkkkkkkkkCCCCcc...",
+    ".ccCCCCCCkkkkaaaaaaakkkkCCCCCCcc.",
+    "cccCCCCCCkkkaaaaaaaaakkkCCCCCCccc",
+    "cccCCCCCCkkkaaaaaaaaakkkCCCCCCccc",
+    "cccCCCCCCkkkaaaaAaaaakkkCCCCCCccc",
+    "cccCCCCCCkkkaaaAAAaaakkkCCCCCCccc",
+    "cccCCCCCCkkkkaaAAAaakkkkCCCCCCccc",
+    "cccCCCCCCkkkkkkkkkkkkkkkCCCCCCccc",
+    "cccCCCCCCkkkkkkkkkkkkkkkCCCCCCccc",
+    ".ccCCCCCCCkkkkkkkkkkkkkCCCCCCCcc.",
+    "...ccCCCCCCCCCCCCCCCCCCCCCCCcc...",
+    "...cccCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...cccCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...cccCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...cccCCCCCCCCCCCCCCCCCCCCCccc...",
+    "....ccCCCCCCCCCCCCCCCCCCCCCcc....",
+    "......ccCCCCCCCCCCCCCCCCCcc......",
+    "......cccCCCCCCCCCCCCCCCccc......",
+    "......cccCCCCCCCCCCCCCCCccc......",
+    "......cccvvvvvvvvvvvvvvvccc......",
+    "......cccvvvvvvvvvvvvvvvccc......",
+    ".......ccvvvvvvvvvvvvvvvcc.......",
+    ".........ccc...ccc...ccc.........",
+    ".........ccc...ccc...ccc.........",
+    ".........ccc....c....ccc.........",
+    ".........ggg.........ggg.........",
+    ".........ggg.........ggg.........",
+    "..........g...........g.........."
   ],
   "palette": {
     "c": {
@@ -21,7 +47,7 @@
         0.36,
         0.45
       ],
-      "height": 5
+      "height": 15
     },
     "C": {
       "color": [
@@ -29,7 +55,7 @@
         0.52,
         0.62
       ],
-      "height": 7
+      "height": 21
     },
     "k": {
       "color": [
@@ -37,7 +63,7 @@
         0.1,
         0.14
       ],
-      "height": 7
+      "height": 21
     },
     "a": {
       "color": [
@@ -45,7 +71,7 @@
         0.65,
         0.15
       ],
-      "height": 7
+      "height": 21
     },
     "A": {
       "color": [
@@ -53,7 +79,7 @@
         0.9,
         0.5
       ],
-      "height": 9
+      "height": 27
     },
     "v": {
       "color": [
@@ -61,7 +87,7 @@
         0.2,
         0.7
       ],
-      "height": 7
+      "height": 21
     },
     "g": {
       "color": [
@@ -69,7 +95,7 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

@@ -1,12 +1,23 @@
 {
   "rows": [
-    "...s...",
-    ".ooOoo.",
-    ".oOOOo.",
-    "sOO@OOs",
-    ".oOOOo.",
-    ".ooOoo.",
-    "...s..."
+    "........ss........",
+    "........ss........",
+    "........ss........",
+    "...oooooOOooooo...",
+    "...ooooOOOOoooo...",
+    "...oooOOOOOOooo...",
+    "...ooOOOOOOOOoo...",
+    "...oOOOOOOOOOOo...",
+    "sssOOOOO@@OOOOOsss",
+    "sssOOOOO@@OOOOOsss",
+    "...oOOOOOOOOOOo...",
+    "...ooOOOOOOOOoo...",
+    "...oooOOOOOOooo...",
+    "...ooooOOOOoooo...",
+    "...oooooOOooooo...",
+    "........ss........",
+    "........ss........",
+    "........ss........"
   ],
   "palette": {
     "s": {
@@ -15,7 +26,7 @@
         0.85,
         1.0
       ],
-      "height": 1
+      "height": 3
     },
     "o": {
       "color": [
@@ -23,7 +34,7 @@
         0.4,
         0.95
       ],
-      "height": 3
+      "height": 7
     },
     "O": {
       "color": [
@@ -31,7 +42,7 @@
         0.4,
         0.95
       ],
-      "height": 5
+      "height": 13
     },
     "@": {
       "color": [
@@ -39,7 +50,7 @@
         0.85,
         1.0
       ],
-      "height": 7
+      "height": 19
     }
   }
 }

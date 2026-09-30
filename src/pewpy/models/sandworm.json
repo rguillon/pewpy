@@ -1,16 +1,41 @@
 {
   "rows": [
-    "..sssssss..",
-    ".sSSSSSSSs.",
-    "sSSSSSSSSSs",
-    "sSrSSSSSrSs",
-    "sSSSSSSSSSs",
-    "sSSrSSSrSSs",
-    "sSSSSSSSSSs",
-    "sSmmmmmmmSs",
-    "sSmTTTTTmSs",
-    ".smmmmmmms.",
-    "..t.t.t.t.."
+    ".......ssssssssssssssssssssss.......",
+    ".......ssssssssssssssssssssss.......",
+    "......ssssssssssssssssssssssss......",
+    ".....sssSSSSSSSSSSSSSSSSSSSSsss.....",
+    "....sssSSSSSSSSSSSSSSSSSSSSSSsss....",
+    "...sssSSSSSSSSSSSSSSSSSSSSSSSSsss...",
+    "..sssSSSSSSSSSSSSSSSSSSSSSSSSSSsss..",
+    "ssssSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSrrSSSSSSSSSSSSSSSSSSrrSSSSsss",
+    "sssSSSSrrrSSSSSSSSSSSSSSSSrrrSSSSsss",
+    "sssSSSSrrSSSSSSSSSSSSSSSSSSrrSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSrSSSSSSSSSSSSrSSSSSSSSsss",
+    "sssSSSSSSSrrrSSSSSSSSSSrrrSSSSSSSsss",
+    "sssSSSSSSSrrrSSSSSSSSSSrrrSSSSSSSsss",
+    "sssSSSSSSSSrSSSSSSSSSSSSrSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSmmmmmmmmmmmmmmmmmmmmmmSSSSsss",
+    "sssSSSSmmmmmmmmmmmmmmmmmmmmmmSSSSsss",
+    "sssSSSSmmmmmmmmmmmmmmmmmmmmmmSSSSsss",
+    "sssSSSSmmmmTTTTTTTTTTTTTTmmmmSSSSsss",
+    "sssSSSSmmmTTTTTTTTTTTTTTTTmmmSSSSsss",
+    "ssssSSmmmmTTTTTTTTTTTTTTTTmmmmSSssss",
+    "..ssssmmmmmmmmmmmmmmmmmmmmmmmmssss..",
+    "...sssmmmmmmmmmmmmmmmmmmmmmmmmsss...",
+    "....sssmmmmmmmmmmmmmmmmmmmmmmsss....",
+    ".....ssmmmmmmmmmmmmmmmmmmmmmmss.....",
+    ".......ttt...ttt....ttt...ttt.......",
+    ".......ttt...ttt....ttt...ttt.......",
+    ".......tt.....t......t.....tt......."
   ],
   "palette": {
     "s": {
@@ -19,7 +44,7 @@
         0.38,
         0.22
       ],
-      "height": 5
+      "height": 17
     },
     "S": {
       "color": [
@@ -27,7 +52,7 @@
         0.5,
         0.3
       ],
-      "height": 7
+      "height": 23
     },
     "r": {
       "color": [
@@ -35,7 +60,7 @@
         0.28,
         0.15
       ],
-      "height": 9
+      "height": 29
     },
     "m": {
       "color": [
@@ -43,7 +68,7 @@
         0.07,
         0.04
       ],
-      "height": 7
+      "height": 23
     },
     "T": {
       "color": [
@@ -51,7 +76,7 @@
         0.5,
         0.1
       ],
-      "height": 9
+      "height": 29
     },
     "t": {
       "color": [
@@ -59,7 +84,7 @@
         0.85,
         0.7
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

@@ -1,18 +1,44 @@
 {
   "rows": [
-    "..hhhhhhhhhhhhh..",
-    ".hHHHHHHHHHHHHHh.",
-    "hHHyyyyyyyyyyyHHh",
-    "hHHHHHHHHHHHHHHHh",
-    "hHHdddddddddddHHh",
-    "hHHdcccccccccdHHh",
-    "hHHdcCCCCCCCcdHHh",
-    "hHHdcccccccccdHHh",
-    "hHHdddddddddddHHh",
-    ".hHHHHHHHHHHHHHh.",
-    "..bbbbbbbbbbbbb..",
-    ".b.b.b.bbb.b.b.b.",
-    "b.b.b.b.b.b.b.b.b"
+    ".......hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh.......",
+    "......hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh......",
+    "......hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh......",
+    "....hhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh....",
+    "...hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh...",
+    "...hhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh...",
+    ".hhHHHHHHHyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyHHHHHHHhh.",
+    "hhhHHHHHHyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyHHHHHHhhh",
+    "hhhHHHHHHHyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHdddddddddddddddddddddddddddddddHHHHHHHhhh",
+    "hhhHHHHHHdddddddddddddddddddddddddddddddddHHHHHHhhh",
+    "hhhHHHHHHdddddddddddddddddddddddddddddddddHHHHHHhhh",
+    "hhhHHHHHHddddcccccccccccccccccccccccccddddHHHHHHhhh",
+    "hhhHHHHHHdddcccccccccccccccccccccccccccdddHHHHHHhhh",
+    "hhhHHHHHHdddcccccccccccccccccccccccccccdddHHHHHHhhh",
+    "hhhHHHHHHdddccccCCCCCCCCCCCCCCCCCCCccccdddHHHHHHhhh",
+    "hhhHHHHHHdddcccCCCCCCCCCCCCCCCCCCCCCcccdddHHHHHHhhh",
+    "hhhHHHHHHdddccccCCCCCCCCCCCCCCCCCCCccccdddHHHHHHhhh",
+    "hhhHHHHHHdddcccccccccccccccccccccccccccdddHHHHHHhhh",
+    "hhhHHHHHHdddcccccccccccccccccccccccccccdddHHHHHHhhh",
+    "hhhHHHHHHddddcccccccccccccccccccccccccddddHHHHHHhhh",
+    "hhhHHHHHHdddddddddddddddddddddddddddddddddHHHHHHhhh",
+    "hhhHHHHHHdddddddddddddddddddddddddddddddddHHHHHHhhh",
+    ".hhHHHHHHHdddddddddddddddddddddddddddddddHHHHHHHhh.",
+    "...hhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh...",
+    "...hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh...",
+    "....hhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh....",
+    "......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb......",
+    "......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb......",
+    "......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb......",
+    "....bb..bbbbb.bbbbb.bbbbbbbbbbb.bbbbb.bbbbb..bb....",
+    "...bbb...bbb...bbb...bbbbbbbbb...bbb...bbb...bbb...",
+    "...bbb...bbb...bbb...bbbbbbbbb...bbb...bbb...bbb...",
+    ".bb...bbb...bbb...bbb..bbbbb..bbb...bbb...bbb...bb.",
+    "bbb...bbb...bbb...bbb...bbb...bbb...bbb...bbb...bbb",
+    ".b.....b.....b.....b.....b.....b.....b.....b.....b."
   ],
   "palette": {
     "h": {
@@ -21,7 +47,7 @@
         0.4,
         0.18
       ],
-      "height": 3
+      "height": 9
     },
     "H": {
       "color": [
@@ -29,7 +55,7 @@
         0.55,
         0.22
       ],
-      "height": 5
+      "height": 15
     },
     "y": {
       "color": [
@@ -37,7 +63,7 @@
         0.8,
         0.2
       ],
-      "height": 5
+      "height": 15
     },
     "d": {
       "color": [
@@ -45,7 +71,7 @@
         0.22,
         0.12
       ],
-      "height": 5
+      "height": 15
     },
     "c": {
       "color": [
@@ -53,7 +79,7 @@
         0.9,
         0.3
       ],
-      "height": 7
+      "height": 21
     },
     "C": {
       "color": [
@@ -61,7 +87,7 @@
         1.0,
         0.55
       ],
-      "height": 9
+      "height": 27
     },
     "b": {
       "color": [
@@ -69,7 +95,7 @@
         0.5,
         0.52
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

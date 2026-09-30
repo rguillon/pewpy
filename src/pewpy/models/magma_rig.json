@@ -1,19 +1,47 @@
 {
   "rows": [
-    "....g.ggg.g....",
-    "....g.ggg.g....",
-    "..mmmmmmmmmmm..",
-    ".mMMMMMMMMMMMm.",
-    "mMMkkkkkkkkkMMm",
-    "mMMkoooooookMMm",
-    "mMMkoOOOOOokMMm",
-    "mMMkoOOWOOokMMm",
-    "mMMkoOOOOOokMMm",
-    "mMMkoooooookMMm",
-    "mMMkkkkkkkkkMMm",
-    ".mMMMMMMMMMMMm.",
-    "..mmmmmmmmmmm..",
-    "...g..g.g..g..."
+    ".............g.....ggggggg.....g.............",
+    "............ggg...ggggggggg...ggg............",
+    "............ggg...ggggggggg...ggg............",
+    "............ggg...ggggggggg...ggg............",
+    "............ggg...ggggggggg...ggg............",
+    "............ggg...ggggggggg...ggg............",
+    ".......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.......",
+    "......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm......",
+    "......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm......",
+    "....mmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmm....",
+    "...mmmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmmm...",
+    "...mmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmm...",
+    ".mmMMMMMMMkkkkkkkkkkkkkkkkkkkkkkkkkMMMMMMMmm.",
+    "mmmMMMMMMkkkkkkkkkkkkkkkkkkkkkkkkkkkMMMMMMmmm",
+    "mmmMMMMMMkkkkkkkkkkkkkkkkkkkkkkkkkkkMMMMMMmmm",
+    "mmmMMMMMMkkkkoooooooooooooooooookkkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooooooooooooooooooookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooooooooooooooooooookkkMMMMMMmmm",
+    "mmmMMMMMMkkkooooOOOOOOOOOOOOOooookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOOOOOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOOOOOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOOWOOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOWWWOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOOWOOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOOOOOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooOOOOOOOOOOOOOOOoookkkMMMMMMmmm",
+    "mmmMMMMMMkkkooooOOOOOOOOOOOOOooookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooooooooooooooooooookkkMMMMMMmmm",
+    "mmmMMMMMMkkkoooooooooooooooooooookkkMMMMMMmmm",
+    "mmmMMMMMMkkkkoooooooooooooooooookkkkMMMMMMmmm",
+    "mmmMMMMMMkkkkkkkkkkkkkkkkkkkkkkkkkkkMMMMMMmmm",
+    "mmmMMMMMMkkkkkkkkkkkkkkkkkkkkkkkkkkkMMMMMMmmm",
+    ".mmMMMMMMMkkkkkkkkkkkkkkkkkkkkkkkkkMMMMMMMmm.",
+    "...mmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmm...",
+    "...mmmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmmm...",
+    "....mmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmm....",
+    "......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm......",
+    "......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm......",
+    ".......mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.......",
+    ".........ggg......ggg...ggg......ggg.........",
+    ".........ggg......ggg...ggg......ggg.........",
+    "..........g........g.....g........g.........."
   ],
   "palette": {
     "g": {
@@ -22,7 +50,7 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     },
     "m": {
       "color": [
@@ -30,7 +58,7 @@
         0.3,
         0.28
       ],
-      "height": 5
+      "height": 15
     },
     "M": {
       "color": [
@@ -38,7 +66,7 @@
         0.45,
         0.4
       ],
-      "height": 7
+      "height": 21
     },
     "k": {
       "color": [
@@ -46,7 +74,7 @@
         0.1,
         0.08
       ],
-      "height": 7
+      "height": 21
     },
     "o": {
       "color": [
@@ -54,7 +82,7 @@
         0.4,
         0.05
       ],
-      "height": 9
+      "height": 27
     },
     "O": {
       "color": [
@@ -62,7 +90,7 @@
         0.65,
         0.2
       ],
-      "height": 11
+      "height": 33
     },
     "W": {
       "color": [
@@ -70,7 +98,7 @@
         0.95,
         0.7
       ],
-      "height": 13
+      "height": 39
     }
   }
 }

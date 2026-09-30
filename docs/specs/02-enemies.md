@@ -26,7 +26,7 @@
 
 ### Enemy: Drone
 
-- Look: red round voxel drone with a yellow eye, 0.1 x 0.1
+- Look: grey armored drone with red markings, side vents and a red sensor eye, 0.1 x 0.1
 - Health: 3
 - Speed: 0.3
 - Movement pattern: straight down
@@ -38,7 +38,7 @@
 
 ### Enemy: Weaver
 
-- Look: yellow voxel diamond, 0.1 x 0.1
+- Look: grey diamond-shaped interceptor with yellow wing stripes, 0.1 x 0.1
 - Health: 2
 - Speed: 0.35 down
 - Movement pattern: sine wave, 0.25 amplitude left/right, one full wave every 2 s
@@ -50,7 +50,7 @@
 
 ### Enemy: Diver
 
-- Look: orange voxel arrowhead pointing down, 0.1 x 0.12
+- Look: grey arrowhead pointing down with orange markings, two rear engines and a red nose light, 0.1 x 0.12
 - Health: 2
 - Speed: 0.5 on entry, 1.2 when diving
 - Movement pattern: comes down to y = 0.5 (upper quarter of the screen), waits 0.8 s, then dives in a straight
@@ -63,7 +63,7 @@
 
 ### Enemy: Gunship
 
-- Look: wide dark red voxel gunship, 0.2 x 0.14
+- Look: wide grey armored gunship with dark red markings, two big engine nacelles and three cannons, 0.2 x 0.14
 - Health: 8
 - Speed: 0.15
 - Movement pattern: straight down
@@ -75,7 +75,8 @@
 
 ### Enemy: Turret
 
-- Look: grey voxel dome with a darker barrel that turns to aim at the player, 0.12 x 0.12
+- Look: grey gun emplacement with a dark dome, a red light and a barrel that turns to aim at the player, 0.12 x
+  0.12
 - Health: 6
 - Speed: same as the level's scroll speed (it is fixed to the ground)
 - Movement pattern: scrolls down with the background
@@ -87,7 +88,7 @@
 
 ### Enemy: Swarmer
 
-- Look: small light-green voxel dart pointing where it flies, 0.06 x 0.06
+- Look: small grey dart with green markings, pointing where it flies, 0.06 x 0.06
 - Health: 1
 - Speed: 0.6
 - Movement pattern: enters from the left or right edge at the top third of the screen, flies straight in to the
@@ -100,7 +101,7 @@
 
 ### Enemy: Sniper
 
-- Look: thin blue voxel ship, 0.08 x 0.14
+- Look: thin grey ship with blue markings and a long gun barrel, 0.08 x 0.14
 - Health: 5
 - Speed: 0.3 on entry, then 0.15 sideways
 - Movement pattern: comes down to y = 0.7 and stays there, sliding left and right between the screen edges
@@ -112,11 +113,11 @@
 
 ### Enemy: Mine Layer
 
-- Look: wide purple voxel ship, 0.18 x 0.08
+- Look: wide grey hauler with a purple mine bay and two engines, 0.18 x 0.08
 - Health: 4
 - Speed: 0.35 sideways
 - Movement pattern: crosses the screen horizontally (left to right or right to left) at a fixed height
-- Attack: drops a mine every 1 s. Mines are purple circles (0.06), 1 health, 20 points when shot, scroll down
+- Attack: drops a mine every 1 s. Mines are grey and purple spiked balls (0.06), 1 health, 20 points when shot, scroll down
   with the background (they spin), and do 2 damage on contact. Mines count as enemies: a level only ends once its
   mines are gone
 - Points: 300
@@ -126,7 +127,8 @@
 
 ### Enemy: Shield Carrier
 
-- Look: large teal voxel ship, 0.2 x 0.2, inside a see-through light blue bubble while the shield is up
+- Look: large square grey carrier with teal shield emitters and two engines, 0.2 x 0.2, inside a see-through
+  light blue bubble while the shield is up
 - Health: 10
 - Speed: 0.12
 - Movement pattern: straight down
@@ -140,7 +142,7 @@
 
 ### Enemy: Splitter
 
-- Look: magenta cluster of three voxel pods, 0.14 x 0.14
+- Look: grey hub with three magenta-marked pods, 0.14 x 0.14
 - Health: 6
 - Speed: 0.25
 - Movement pattern: straight down
@@ -162,8 +164,8 @@ General rules for every boss:
   its own (shots, the laser, missiles and their splash), gives its own points and drops a pickup 30% of the time.
   Destroying the core destroys the parts left (without their points) and ends the fight; the core always drops a
   pickup.
-- Looks: voxel models drawn in `src/pewpy/models/` (one per core or kind of part), drawn at their hitbox's size
-  with square voxels.
+- Looks: voxel models drawn in `src/pewpy/models/` (one per core or kind of part), with the same cubes as every
+  other model (see `05-visuals.md`); each drawing is about as big as its hitbox.
 - Entry: comes down from above the screen at 0.25 and stops at y = 0.55, then sways left and right between the
   screen edges. It doesn't leave the screen and doesn't shoot before it stops.
 - Health bar: at the top of the screen, with its name, for the core and parts together (see `04-ui-audio.md`).

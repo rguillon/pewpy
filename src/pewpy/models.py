@@ -6,7 +6,9 @@ cockpit and wings stand out at different depths. The drawings are JSON files in 
 `parse_drawing`); this module turns them, and the shapes that aren't drawings, into meshes.
 
 Model space: X is right, Z is up the screen, Y is depth (negative Y faces the camera, so it is the "top"
-of a ship). Every model fits in a 1 x 1 x 1 box centered on the origin and is stretched to the entity's size.
+of a ship). Drawn models are in world units: every cube is config.MODEL_VOXEL (the same on every ship), the
+middle of the drawing at the origin. Other shapes (shield bubble, laser, cube) fit in a 1 x 1 x 1 box and are
+stretched to their size.
 The player points up the screen (+Z); enemies point down (-Z). The first row of a drawing is the top of the screen.
 """
 
@@ -38,6 +40,8 @@ from panda3d.core import (
     Vec3,
 )
 
+from pewpy import config
+
 Color = tuple[float, float, float, float]
 Outline = list[tuple[float, float]]  # convex polygon in the X/Z plane
 Palette = dict[str, tuple[Color, int]]  # character -> (color, thickness in voxels, odd)
@@ -45,13 +49,16 @@ Cell = tuple[int, int, int]  # (column, row going down the screen, depth layer g
 UV = tuple[float, float]
 Vertex = tuple[Vec3, Color, UV]
 NO_BEVEL: UV = (0.5, 0.5)  # texture coordinate of shapes that aren't voxels: the shader bevels no edge
+# Voxel faces: texture coordinates count cubes from 0 across the face (a merged face covers several cubes, see
+# MeshBuilder.cells), and the shader bevels every cube. One cube's face:
 QUAD_UVS: tuple[UV, UV, UV, UV] = ((0, 0), (1, 0), (1, 1), (0, 1))
-# Glowing voxel faces (lit windows, lights) have their texture coordinates moved by 2: the shader draws them as
-# a bright pane, unaffected by lighting.
-GLOW_UVS: tuple[UV, UV, UV, UV] = ((2, 0), (3, 0), (3, 1), (2, 1))
-WATER_UV: UV = (4.5, 0.5)  # water: the shader makes waves on it
-# Burning voxel faces (lava, flames) have their texture coordinates moved by 6: they shine all over, flickering.
-BURN_UVS: tuple[UV, UV, UV, UV] = ((6, 0), (7, 0), (7, 1), (6, 1))
+# Other kinds of faces have negative texture coordinates, one cube each.
+# Glowing voxel faces (lit windows, lights): the shader draws them as a bright pane, unaffected by lighting.
+GLOW_UVS: tuple[UV, UV, UV, UV] = ((-2, 0), (-1, 0), (-1, 1), (-2, 1))
+WATER_UV: UV = (-3.5, 0.5)  # water: the shader makes waves on it
+# Burning voxel faces (lava, flames): they shine all over, flickering.
+BURN_UVS: tuple[UV, UV, UV, UV] = ((-6, 0), (-5, 0), (-5, 1), (-6, 1))
+FaceKey = tuple[Color, tuple[float, float, float, float]]  # a face's color and the brightness of its 4 corners
 
 EMPTY = ".", " "
 FACE_DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
@@ -81,7 +88,7 @@ class MeshBuilder:
 
     Every shape is convex, so each triangle can be turned to face away from the shape's center:
     callers don't have to care about winding order.
-    Voxel faces get texture coordinates from 0 to 1 across the face, which the shader (lighting.py) uses to
+    Voxel faces get texture coordinates counting cubes across the face, which the shader (lighting.py) uses to
     bevel the edges of each cube; other shapes get `NO_BEVEL`.
     """
 
@@ -194,6 +201,9 @@ class MeshBuilder:
         """
         half = size / 2
         corners = ((-1, -1), (1, -1), (1, 1), (-1, 1))
+        # Visible faces, by the plane they lie in (direction, depth along it): (along u, along w) -> FaceKey. Faces
+        # that look alike are then merged into rectangles (fewer triangles, same look).
+        planes: dict[tuple[tuple[int, int, int], int], dict[tuple[int, int], FaceKey]] = {}
         for (column, row, layer), color in cells.items():
 
             def filled(offset: Vec3, column: int = column, row: int = row, layer: int = layer) -> bool:
@@ -201,22 +211,64 @@ class MeshBuilder:
                 return cell in cells or cell in context
 
             middle = origin + Vec3(column * size, layer * size, -row * size)
+            position = Vec3(column, layer, -row)  # in cubes, along the model's X, Y and Z
             for direction in FACE_DIRECTIONS:
                 normal = Vec3(*direction)
                 if filled(normal):
                     continue
-                u = Vec3(0, 0, 1) if direction[0] else Vec3(1, 0, 0)  # two axes along the face
-                w = normal.cross(u)
-                face = middle + normal * half
-                a, b, c, d = (face + (u * su + w * sw) * half for su, sw in corners)
-                if (column, row, layer) in glowing:
-                    self.quad(a, b, c, d, color, middle, uvs=GLOW_UVS)
-                    continue
-                if (column, row, layer) in burning:
-                    self.quad(a, b, c, d, color, middle, uvs=BURN_UVS)
+                u, w = face_axes(direction)
+                special = GLOW_UVS if (column, row, layer) in glowing else None
+                special = BURN_UVS if (column, row, layer) in burning else special
+                if special:
+                    face = middle + normal * half
+                    a, b, c, d = (face + (u * su + w * sw) * half for su, sw in corners)
+                    self.quad(a, b, c, d, color, middle, uvs=special)
                     continue
                 ba, bb, bc, bd = (occlusion(filled, normal, u * su, w * sw) for su, sw in corners)
-                self.quad(a, b, c, d, color, middle, (ba, bb, bc, bd), QUAD_UVS)
+                plane = planes.setdefault((direction, round(position.dot(normal))), {})
+                plane[round(position.dot(u)), round(position.dot(w))] = (color, (ba, bb, bc, bd))
+        for (direction, depth), faces in planes.items():
+            self._merged_faces(direction, depth, faces, size, origin)
+
+    def _merged_faces(
+        self,
+        direction: tuple[int, int, int],
+        depth: int,
+        faces: dict[tuple[int, int], FaceKey],
+        size: float,
+        origin: Vec3,
+    ) -> None:
+        """Cover one plane's faces with as few rectangles as possible (greedy meshing), each made of faces with the
+        same color and corner shading. A rectangle only grows along a direction where its shading doesn't change,
+        so the GPU blends it the same as the faces it replaces."""
+        normal = Vec3(*direction)
+        u, w = face_axes(direction)
+        half = size / 2
+        left = dict(faces)
+        for a, b in sorted(faces):
+            key = left.get((a, b))
+            if key is None:
+                continue  # already in a rectangle
+            color, (ba, bb, bc, bd) = key
+            width = 1
+            if ba == bb and bd == bc:  # the same shading at both ends along u
+                while left.get((a + width, b)) == key:
+                    width += 1
+            height = 1
+            if ba == bd and bb == bc:  # the same along w
+                while all(left.get((a + i, b + height)) == key for i in range(width)):
+                    height += 1
+            for i in range(width):
+                for j in range(height):
+                    del left[a + i, b + j]
+            first = origin + (u * a + w * b + normal * depth) * size  # the middle of the first cube
+            corner = first + (normal - u - w) * half
+            along_u, along_w = u * (width * size), w * (height * size)
+            inside = corner + (along_u + along_w) / 2 - normal * half
+            uvs = ((0.0, 0.0), (float(width), 0.0), (float(width), float(height)), (0.0, float(height)))
+            self.quad(
+                corner, corner + along_u, corner + along_u + along_w, corner + along_w, color, inside, key[1], uvs
+            )
 
     def build(self, name: str) -> GeomNode:
         data = GeomVertexData(name, GeomVertexFormat.getV3n3c4t2(), Geom.UHStatic)
@@ -243,6 +295,13 @@ class MeshBuilder:
         return node
 
 
+def face_axes(direction: tuple[int, int, int]) -> tuple[Vec3, Vec3]:
+    """Two axes along a voxel face (u, w), for the face looking along `direction`."""
+    normal = Vec3(*direction)
+    u = Vec3(0, 0, 1) if direction[0] else Vec3(1, 0, 0)
+    return u, normal.cross(u)
+
+
 def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int], Color]:
     """(column, row, depth layer) -> color for every voxel of a drawing. Layer 0 is the middle of the depth."""
     if any(len(row) != len(rows[0]) for row in rows):
@@ -267,15 +326,14 @@ def occlusion(filled: Callable[[Vec3], bool], normal: Vec3, side_a: Vec3, side_b
     return OCCLUSION_BRIGHTNESS[touching]
 
 
-def voxel_size(rows: list[str], palette: Palette) -> float:
-    """Size of one voxel so that the drawing fits in the unit box."""
-    thickest = max(palette[char][1] for row in rows for char in row if char not in EMPTY)
-    return 1 / max(len(rows[0]), len(rows), thickest)
+def thickest(palette: Palette) -> int:
+    return max(height for _, height in palette.values())
 
 
 def voxel_model(name: str, rows: list[str], palette: Palette) -> NodePath:
+    """A drawing's model, in world units: every cube is config.MODEL_VOXEL, the middle of the drawing at the origin."""
     mesh = MeshBuilder()
-    mesh.voxels(rows, palette, voxel_size(rows, palette))
+    mesh.voxels(rows, palette, config.MODEL_VOXEL)
     return NodePath(mesh.build(name))
 
 
@@ -436,9 +494,8 @@ def drawing_model(name: str) -> NodePath:
     data, source = _read_drawing(name)
     rows, palette = parse_drawing(data, source)
     model = voxel_model(name, rows, palette)
-    size = voxel_size(rows, palette)
     for engine in parse_engines(data, source):
-        add_flame(model, engine, rows, size)
+        add_flame(model, engine, rows, config.MODEL_VOXEL)
     return model
 
 
@@ -528,12 +585,13 @@ def turret_model() -> NodePath:
     """Base plus a separate child node named "barrel" that the game turns toward the player."""
     rows, palette = load_drawing("turret")
     barrel_rows, barrel_palette = load_drawing("turret_barrel")
-    size = voxel_size(rows, palette)
+    size = config.MODEL_VOXEL
     base = MeshBuilder()
     base.voxels(rows, palette, size)
     barrel = MeshBuilder()
-    # Starts at the center of the dome and points down the screen, in front of the dome.
-    barrel_center = Vec3(0, -3 * size, -len(barrel_rows) / 2 * size)
+    # Starts at the center of the dome and points down the screen, just in front of the dome.
+    in_front = (thickest(palette) + thickest(barrel_palette)) / 2
+    barrel_center = Vec3(0, -in_front * size, -len(barrel_rows) / 2 * size)
     barrel.voxels(barrel_rows, barrel_palette, size, barrel_center)
     model = NodePath(base.build("turret"))
     model.attachNewNode(barrel.build("barrel"))
@@ -589,13 +647,14 @@ def pickup_model(letter: str, color: Color) -> NodePath:
     rows, palette = load_drawing("capsule")
     tinted = {char: (tint(grey, color), height) for char, (grey, height) in palette.items()}
     model = voxel_model(f"pickup_{letter}", rows, tinted)
+    extent = max(len(rows[0]), len(rows)) * config.MODEL_VOXEL
     text = TextNode("letter")
     text.setText(letter)
     text.setAlign(TextNode.ACenter)
     text.setTextColor(0.05, 0.05, 0.1, 1)
     label = model.attachNewNode(text)
-    label.setScale(0.75)
-    label.setPos(0, 0, -0.27)  # on the spin axis, so it stays centered while the capsule turns
+    label.setScale(0.75 * extent)
+    label.setPos(0, 0, -0.27 * extent)  # on the spin axis, so it stays centered while the capsule turns
     label.setBillboardPointEye()
     label.setLightOff()
     label.setShaderOff()

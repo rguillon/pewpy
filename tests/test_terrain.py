@@ -92,3 +92,12 @@ def test_no_turrets_over_water_or_clouds():
     for level in load_levels():
         if level.background in ("pack_ice", "swamp", "clouds", "ocean"):
             assert all(wave.enemy != "turret" for wave in level.waves), level.name
+
+
+@pytest.mark.parametrize("biome", ALL_BIOMES)
+def test_every_ground_builds_whatever_its_layout(biome):
+    """Features placed near the ground's edges (a refinery's stacks in small yards) stay inside it."""
+    for seed in range(10):
+        for voxel in (0.04, 0.07):
+            terrain = Terrain(AREA, speed_factor=1.0, seed=seed, voxel=voxel, biome=biome)
+            assert len(terrain.heights) == terrain.rows

@@ -1,20 +1,55 @@
 {
   "rows": [
-    "..eeeeeee..",
-    ".ccccccccc.",
-    "cCCCCCCCCCc",
-    "cCaaaaaaaCc",
-    "cCCCCCCCCCc",
-    "cCkkkkkkkCc",
-    "cCklllllkCc",
-    "cCklLLLlkCc",
-    "cCklllllkCc",
-    "cCkkkkkkkCc",
-    "cCCCCCCCCCc",
-    ".cCCCCCCCc.",
-    "..cCCCCCc..",
-    "...cgggc...",
-    "....ggg...."
+    ".......eeeeeeeeeeeeeeeeeeeeee.......",
+    ".......eeeeeeeeeeeeeeeeeeeeee.......",
+    ".......eeeeeeeeeeeeeeeeeeeeee.......",
+    ".....cccccccccccccccccccccccccc.....",
+    "....cccccccccccccccccccccccccccc....",
+    "...cccccccccccccccccccccccccccccc...",
+    "..cccccccccccccccccccccccccccccccc..",
+    ".cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc.",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCaaaaaaaaaaaaaaaaaaaaaaCCCCccc",
+    "cccCCCCaaaaaaaaaaaaaaaaaaaaaaCCCCccc",
+    "cccCCCCaaaaaaaaaaaaaaaaaaaaaaCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCkkkkkkkkkkkkkkkkkkkkkkCCCCccc",
+    "cccCCCCkkkkkkkkkkkkkkkkkkkkkkCCCCccc",
+    "cccCCCCkkkkkkkkkkkkkkkkkkkkkkCCCCccc",
+    "cccCCCCkkkkllllllllllllllkkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkllllLLLLLLLLllllkkkCCCCccc",
+    "cccCCCCkkklllLLLLLLLLLLlllkkkCCCCccc",
+    "cccCCCCkkklllLLLLLLLLLLlllkkkCCCCccc",
+    "cccCCCCkkkllllLLLLLLLLllllkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkkllllllllllllllkkkkCCCCccc",
+    "cccCCCCkkkkkkkkkkkkkkkkkkkkkkCCCCccc",
+    "cccCCCCkkkkkkkkkkkkkkkkkkkkkkCCCCccc",
+    "cccCCCCkkkkkkkkkkkkkkkkkkkkkkCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    "cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc",
+    ".cccCCCCCCCCCCCCCCCCCCCCCCCCCCCCccc.",
+    "...cccCCCCCCCCCCCCCCCCCCCCCCCCccc...",
+    "...ccccCCCCCCCCCCCCCCCCCCCCCCcccc...",
+    "....cccCCCCCCCCCCCCCCCCCCCCCCccc....",
+    "......cccCCCCCCCCCCCCCCCCCCccc......",
+    ".......cccCCCCCCCCCCCCCCCCccc.......",
+    ".......cccCCCCCCCCCCCCCCCCccc.......",
+    ".........cccCCggggggggCCccc.........",
+    "..........cccggggggggggccc..........",
+    "..........cccggggggggggccc..........",
+    "...........ccggggggggggcc...........",
+    ".............gggggggggg.............",
+    ".............gggggggggg.............",
+    "..............gggggggg.............."
   ],
   "palette": {
     "e": {
@@ -23,7 +58,7 @@
         0.6,
         0.15
       ],
-      "height": 3
+      "height": 9
     },
     "c": {
       "color": [
@@ -31,7 +66,7 @@
         0.36,
         0.45
       ],
-      "height": 5
+      "height": 17
     },
     "C": {
       "color": [
@@ -39,7 +74,7 @@
         0.52,
         0.62
       ],
-      "height": 7
+      "height": 23
     },
     "a": {
       "color": [
@@ -47,7 +82,7 @@
         0.65,
         0.15
       ],
-      "height": 7
+      "height": 23
     },
     "k": {
       "color": [
@@ -55,7 +90,7 @@
         0.1,
         0.14
       ],
-      "height": 7
+      "height": 23
     },
     "l": {
       "color": [
@@ -63,7 +98,7 @@
         0.9,
         1.0
       ],
-      "height": 7
+      "height": 23
     },
     "L": {
       "color": [
@@ -71,7 +106,7 @@
         1.0,
         1.0
       ],
-      "height": 9
+      "height": 29
     },
     "g": {
       "color": [
@@ -79,22 +114,22 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     }
   },
   "engines": [
     {
-      "x": 3,
-      "y": 0,
-      "width": 4.5,
-      "length": 10,
+      "x": 10.95,
+      "y": 1.17,
+      "width": 14.73,
+      "length": 33.33,
       "towards": "top"
     },
     {
-      "x": 7,
-      "y": 0,
-      "width": 4.5,
-      "length": 10,
+      "x": 24.05,
+      "y": 1.17,
+      "width": 14.73,
+      "length": 33.33,
       "towards": "top"
     }
   ]

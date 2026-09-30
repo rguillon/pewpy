@@ -1,19 +1,50 @@
 {
   "rows": [
-    "..dddd.dddd..",
-    ".dGGGG.GGGGd.",
-    "dGGgGG.GGgGGd",
-    "dGgGGG.GGGgGd",
-    "dGGGGG.GGGGGd",
-    "dGGGgG.GgGGGd",
-    "dGGGGG.GGGGGd",
-    ".dGGGG.GGGGd.",
-    "..dGGG.GGGd..",
-    "...ddddddd...",
-    "..bBBBBBBBb..",
-    "..bBrrrrrBb..",
-    "...bBBBBBb...",
-    "....b.b.b...."
+    ".......dddddddddddd....dddddddddddd.......",
+    ".......dddddddddddd....dddddddddddd.......",
+    "......ddddddddddddd....ddddddddddddd......",
+    "....dddGGGGGGGGGGGG....GGGGGGGGGGGGddd....",
+    "...ddddGGGGGGGGGGGG....GGGGGGGGGGGGdddd...",
+    "...dddGGGGGGGGGGGGG....GGGGGGGGGGGGGddd...",
+    ".ddddGGGGGGGGGGGGGG....GGGGGGGGGGGGGGdddd.",
+    "dddGGGGGGGgggGGGGGG....GGGGGGgggGGGGGGGddd",
+    "dddGGGGGGGgggGGGGGG....GGGGGGgggGGGGGGGddd",
+    "dddGGGGGGGggGGGGGGG....GGGGGGGggGGGGGGGddd",
+    "dddGGGGgggGGGGGGGGG....GGGGGGGGGgggGGGGddd",
+    "dddGGGGgggGGGGGGGGG....GGGGGGGGGgggGGGGddd",
+    "dddGGGGggGGGGGGGGGG....GGGGGGGGGGggGGGGddd",
+    "dddGGGGGGGGGGGGGGGG....GGGGGGGGGGGGGGGGddd",
+    "dddGGGGGGGGGGGGGGGG....GGGGGGGGGGGGGGGGddd",
+    "dddGGGGGGGGGGGGGGGG....GGGGGGGGGGGGGGGGddd",
+    "dddGGGGGGGGGGGgGGGG....GGGGgGGGGGGGGGGGddd",
+    "dddGGGGGGGGGGgggGGG....GGGgggGGGGGGGGGGddd",
+    "dddGGGGGGGGGGgggGGG....GGGgggGGGGGGGGGGddd",
+    "dddGGGGGGGGGGGGGGGG....GGGGGGGGGGGGGGGGddd",
+    "dddGGGGGGGGGGGGGGGG....GGGGGGGGGGGGGGGGddd",
+    "dddGGGGGGGGGGGGGGGG....GGGGGGGGGGGGGGGGddd",
+    "..dddGGGGGGGGGGGGGG....GGGGGGGGGGGGGGddd..",
+    "...dddGGGGGGGGGGGGG....GGGGGGGGGGGGGddd...",
+    "...ddddGGGGGGGGGGGG....GGGGGGGGGGGGdddd...",
+    "....dddGGGGGGGGGGGG....GGGGGGGGGGGGddd....",
+    "......dddGGGGGGGGGG....GGGGGGGGGGddd......",
+    ".......dddGGGGGGGGG....GGGGGGGGGddd.......",
+    ".......dddGGGGGGGGGd..dGGGGGGGGGddd.......",
+    ".........dddddddddddddddddddddddd.........",
+    "..........dddddddddddddddddddddd..........",
+    "..........dddddddddddddddddddddd..........",
+    ".......bbbBBBBBBBBBBBBBBBBBBBBBBbbb.......",
+    ".......bbbBBBBBBBBBBBBBBBBBBBBBBbbb.......",
+    "......bbbbBBBBBBBBBBBBBBBBBBBBBBbbbb......",
+    "......bbbbBBBBrrrrrrrrrrrrrrBBBBbbbb......",
+    "......bbbbBBBrrrrrrrrrrrrrrrrBBBbbbb......",
+    ".......bbbBBBrrrrrrrrrrrrrrrrBBBbbb.......",
+    "........bbbBBBrrrrrrrrrrrrrrBBBbbb........",
+    ".........bbbbBBBBBBBBBBBBBBBBbbbb.........",
+    "..........bbbBBBBBBBBBBBBBBBBbbb..........",
+    "...........bbbBBBBBBBBBBBBBBbbb...........",
+    ".............bbb...bbbb...bbb.............",
+    ".............bbb...bbbb...bbb.............",
+    "..............b.....bb.....b.............."
   ],
   "palette": {
     "d": {
@@ -22,7 +53,7 @@
         0.15,
         0.08
       ],
-      "height": 5
+      "height": 17
     },
     "G": {
       "color": [
@@ -30,7 +61,7 @@
         0.45,
         0.2
       ],
-      "height": 7
+      "height": 23
     },
     "g": {
       "color": [
@@ -38,7 +69,7 @@
         0.7,
         0.3
       ],
-      "height": 9
+      "height": 29
     },
     "b": {
       "color": [
@@ -46,7 +77,7 @@
         0.26,
         0.14
       ],
-      "height": 3
+      "height": 9
     },
     "B": {
       "color": [
@@ -54,7 +85,7 @@
         0.36,
         0.2
       ],
-      "height": 5
+      "height": 17
     },
     "r": {
       "color": [
@@ -62,7 +93,7 @@
         0.35,
         0.1
       ],
-      "height": 7
+      "height": 23
     }
   }
 }

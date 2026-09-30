@@ -1,18 +1,47 @@
 {
   "rows": [
-    "....ddddd....",
-    "..dDDDDDDDd..",
-    ".dD.......Dd.",
-    ".D..ddddd..D.",
-    "dD.dDDDDDd.Dd",
-    "D.dD.....Dd.D",
-    "D.D.ooOoo.D.D",
-    "D.dD.....Dd.D",
-    "dD.dDDDDDd.Dd",
-    ".D..ddddd..D.",
-    ".dD.......Dd.",
-    "..dDDDDDDDd..",
-    "....ddddd...."
+    "..............dddddddddddddd..............",
+    ".............dddddddddddddddd.............",
+    ".............dddddddddddddddd.............",
+    "........d.DDDDDDDDDDDDDDDDDDDDDD.d........",
+    ".......dddDDDDDDDDDDDDDDDDDDDDDDddd.......",
+    "......dddDDDDDDDDDDDDDDDDDDDDDDDDddd......",
+    ".....dddDDD....................DDDddd.....",
+    "....dddDDD......................DDDddd....",
+    "...dddDDD........................DDDddd...",
+    "....dDDD..........................DDDd....",
+    "...DDDD......dddddddddddddddd......DDDD...",
+    "...DDD.......dddddddddddddddd.......DDD...",
+    "...DDD......dddddddddddddddddd......DDD...",
+    ".ddDDD....dddDDDDDDDDDDDDDDDDddd....DDDdd.",
+    "dddDDD....dddDDDDDDDDDDDDDDDDddd....DDDddd",
+    "dddDDD...dddDDDDDDDDDDDDDDDDDDddd...DDDddd",
+    "DDDD...dddDDDD..............DDDDddd...DDDD",
+    "DDD....dddDDD................DDDddd....DDD",
+    "DDD....ddDDDD................DDDDdd....DDD",
+    "DDD....DDDD...oooo......oooo...DDDD....DDD",
+    "DDD....DDD...ooooooOOOOoooooo...DDD....DDD",
+    "DDD....DDD...ooooooOOOOoooooo...DDD....DDD",
+    "DDD....DDDD...oooo......oooo...DDDD....DDD",
+    "DDD....ddDDDD................DDDDdd....DDD",
+    "DDD....dddDDD................DDDddd....DDD",
+    "DDDD...dddDDDD..............DDDDddd...DDDD",
+    "dddDDD...dddDDDDDDDDDDDDDDDDDDddd...DDDddd",
+    "dddDDD....dddDDDDDDDDDDDDDDDDddd....DDDddd",
+    ".ddDDD....dddDDDDDDDDDDDDDDDDddd....DDDdd.",
+    "...DDD......dddddddddddddddddd......DDD...",
+    "...DDD.......dddddddddddddddd.......DDD...",
+    "...DDDD......dddddddddddddddd......DDDD...",
+    "....dDDD..........................DDDd....",
+    "...dddDDD........................DDDddd...",
+    "....dddDDD......................DDDddd....",
+    ".....dddDDD....................DDDddd.....",
+    "......dddDDDDDDDDDDDDDDDDDDDDDDDDddd......",
+    ".......dddDDDDDDDDDDDDDDDDDDDDDDddd.......",
+    "........d.DDDDDDDDDDDDDDDDDDDDDD.d........",
+    ".............dddddddddddddddd.............",
+    ".............dddddddddddddddd.............",
+    "..............dddddddddddddd.............."
   ],
   "palette": {
     "d": {
@@ -21,7 +50,7 @@
         0.42,
         0.25
       ],
-      "height": 3
+      "height": 9
     },
     "D": {
       "color": [
@@ -29,7 +58,7 @@
         0.55,
         0.32
       ],
-      "height": 5
+      "height": 17
     },
     "o": {
       "color": [
@@ -37,7 +66,7 @@
         0.7,
         0.4
       ],
-      "height": 7
+      "height": 23
     },
     "O": {
       "color": [
@@ -45,7 +74,7 @@
         0.85,
         0.5
       ],
-      "height": 9
+      "height": 29
     }
   }
 }

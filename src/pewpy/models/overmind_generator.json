@@ -1,12 +1,23 @@
 {
   "rows": [
-    "..clc..",
-    ".clLlc.",
-    "clLLLlc",
-    "cLLWLLc",
-    "clLLLlc",
-    ".clLlc.",
-    "..clc.."
+    "......ccllcc......",
+    ".....cccllccc.....",
+    "....cccllllccc....",
+    "...cclllLLlllcc...",
+    "..cccllLLLLllccc..",
+    ".cclllLLLLLLlllcc.",
+    "cccllLLLLLLLLllccc",
+    "ccclLLLLLLLLLLlccc",
+    "cccLLLLLWWLLLLLccc",
+    "cccLLLLLWWLLLLLccc",
+    "ccclLLLLLLLLLLlccc",
+    "cccllLLLLLLLLllccc",
+    ".cclllLLLLLLlllcc.",
+    "..cccllLLLLllccc..",
+    "...cclllLLlllcc...",
+    "....cccllllccc....",
+    ".....cccllccc.....",
+    "......ccllcc......"
   ],
   "palette": {
     "c": {
@@ -15,7 +26,7 @@
         0.36,
         0.45
       ],
-      "height": 3
+      "height": 7
     },
     "l": {
       "color": [
@@ -23,7 +34,7 @@
         0.7,
         0.8
       ],
-      "height": 5
+      "height": 13
     },
     "L": {
       "color": [
@@ -31,7 +42,7 @@
         0.95,
         1.0
       ],
-      "height": 7
+      "height": 19
     },
     "W": {
       "color": [
@@ -39,7 +50,7 @@
         1.0,
         1.0
       ],
-      "height": 7
+      "height": 19
     }
   }
 }

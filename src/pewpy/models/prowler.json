@@ -1,15 +1,35 @@
 {
   "rows": [
-    "........e........",
-    ".......hhh.......",
-    "......hhHhh......",
-    "....hhhHHHhhh....",
-    "..hhhhHHcHHhhhh..",
-    "hhhhhHHHcHHHhhhhh",
-    ".hhhhhHHHHHhhhhh.",
-    "..w..hhHHHhh..w..",
-    ".....g.hgh.g.....",
-    "........g........"
+    ".........................e.........................",
+    "........................eee........................",
+    "........................eee........................",
+    "......................hhhhhhh......................",
+    ".....................hhhhhhhhh.....................",
+    "....................hhhhhhhhhhh....................",
+    "...................hhhhhhHhhhhhh...................",
+    "..................hhhhhhHHHhhhhhh..................",
+    ".................hhhhhhHHHHHhhhhhh.................",
+    ".............hhhhhhhhhHHHHHHHhhhhhhhhh.............",
+    "............hhhhhhhhhHHHHHHHHHhhhhhhhhh............",
+    "...........hhhhhhhhhHHHHHHHHHHHhhhhhhhhh...........",
+    ".......hhhhhhhhhhhhHHHHHHcHHHHHHhhhhhhhhhhhh.......",
+    "......hhhhhhhhhhhhHHHHHHcccHHHHHHhhhhhhhhhhhh......",
+    ".....hhhhhhhhhhhhHHHHHHHcccHHHHHHHhhhhhhhhhhhh.....",
+    ".hhhhhhhhhhhhhhhHHHHHHHHcccHHHHHHHHhhhhhhhhhhhhhhh.",
+    "hhhhhhhhhhhhhhhHHHHHHHHHcccHHHHHHHHHhhhhhhhhhhhhhhh",
+    ".hhhhhhhhhhhhhhhHHHHHHHHHcHHHHHHHHHhhhhhhhhhhhhhhh.",
+    "..hhhhhhhhhhhhhhhHHHHHHHHHHHHHHHHHhhhhhhhhhhhhhhh..",
+    "...hhhhhhhhhhhhhhhHHHHHHHHHHHHHHHhhhhhhhhhhhhhhh...",
+    "....hhhhhhhhhhhhhhhHHHHHHHHHHHHHhhhhhhhhhhhhhhh....",
+    "......www.....hhhhhhHHHHHHHHHHHhhhhhh.....www......",
+    "......www......hhhhhhHHHHHHHHHhhhhhh......www......",
+    ".......w.......hhhhhhHHHHHHHHHhhhhhh.......w.......",
+    "...............ggg...hhhggghhh...ggg...............",
+    "...............ggg...hhhggghhh...ggg...............",
+    "................g.....hhggghh.....g................",
+    "........................ggg........................",
+    "........................ggg........................",
+    ".........................g........................."
   ],
   "palette": {
     "e": {
@@ -18,7 +38,7 @@
         0.6,
         0.15
       ],
-      "height": 3
+      "height": 9
     },
     "h": {
       "color": [
@@ -26,7 +46,7 @@
         0.1,
         0.12
       ],
-      "height": 3
+      "height": 9
     },
     "H": {
       "color": [
@@ -34,7 +54,7 @@
         0.18,
         0.18
       ],
-      "height": 5
+      "height": 15
     },
     "c": {
       "color": [
@@ -42,7 +62,7 @@
         0.9,
         1.0
       ],
-      "height": 7
+      "height": 21
     },
     "w": {
       "color": [
@@ -50,7 +70,7 @@
         0.9,
         0.4
       ],
-      "height": 1
+      "height": 3
     },
     "g": {
       "color": [
@@ -58,15 +78,15 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     }
   },
   "engines": [
     {
-      "x": 8,
-      "y": 0,
-      "width": 3.0,
-      "length": 10,
+      "x": 25.0,
+      "y": 1.0,
+      "width": 9.0,
+      "length": 30.0,
       "towards": "top"
     }
   ]

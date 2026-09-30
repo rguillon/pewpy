@@ -177,6 +177,52 @@
 
 ## Decisions made
 
+### 2026-09-30 — Merged voxel faces (asked by the user in chat)
+- Decision (the user's): adjacent cube faces of the same color make a single polygon.
+- How: greedy meshing in `MeshBuilder.cells` (`models.py`): the visible faces of each flat layer are covered with
+  as few rectangles as possible, each made of faces with the same color and corner shading (ambient occlusion); a
+  rectangle only grows along a direction where the shading doesn't change, so it looks the same. Voxel faces' texture
+  coordinates now count cubes (0 to 5 across a 5-cube rectangle) and the shader bevels each cube with their
+  fractional part, so the cube grid still shows; glowing, water and burning faces moved to negative texture
+  coordinates and stay one per cube. The voxel grounds use it too. Tests check the merged faces cover exactly the
+  cubes' faces.
+- Result: the 40 bosses went from about 613,000 to 122,000 triangles (5 times fewer; the small ships gain less,
+  their faces are mostly near edges). With software rendering, boss fights are back to their speed before the
+  finer cubes (the Warden's about 410 frames per second, a Metropolis one about 70 to 85).
+
+### 2026-09-30 — Bosses screen (asked by the user in chat)
+- Decision (the user's): a main menu entry showing all the bosses.
+- Placeholder chosen (mine): "Bosses", after "Models": the boss pages moved from the Models screen to this new
+  screen (new global state BOSSES, main menu <-> bosses), one world per page with Next page (wrapping around),
+  Reload models and Back. The Models screen keeps the ships and pickups, on one page.
+- Recorded in 04-ui-audio.md ("Game flow", "Main menu", "Bosses") and 01-gameplay.md ("Global state").
+
+### 2026-09-30 — Industrial sci-fi ships (asked by the user in chat)
+- Decision (the user's): ships look industrial sci-fi rather than cartoonish alien, like reference pictures the
+  user gave (grey metal ships with panels, ribbed engine pods, dark glass and small orange lights).
+- Placeholder chosen (mine): the player and the regular enemies were redrawn first (bosses still to do): grey hulls
+  in a few shades (lighter spine and top faces, darker sides), seams one or two voxels lower than the hull, darker
+  nacelles with recessed vents, dark teal glass with a light glint, orange running lights. Each ship keeps its old
+  color as paint markings so they stay easy to tell apart. The greys are kept a little dark to suit the muted
+  backgrounds.
+- Recorded in 05-visuals.md ("Art style") and 02-enemies.md ("Look").
+
+### 2026-09-30 — Every model has the same cubes (asked by the user in chat)
+- Decision (the user's): all models have cubes the size of the Swarmer's, so the other ships, enemies and bosses
+  get more cubes.
+- How: models are built in world units with cubes of `MODEL_VOXEL` (0.06 / 9, the Swarmer's: its 0.06 hitbox
+  over its 9 columns, in `config.py`), no longer stretched to their hitbox; a model's size comes from its drawing.
+  Every drawing was redrawn on the finer grid, keeping its size and look: each new cell takes the color covering
+  most of it once the old drawing is smoothly stretched, so edges and diagonals come out smoother instead of in
+  steps; thicknesses and engine positions were scaled the same way. Enemies that were stretched unevenly (Gunship,
+  Mine Layer, Sniper...) keep the stretched shape, now drawn with square cubes. The Ice Cannon, Sentry Node and
+  Sniper, which were smaller than their hitbox, were redrawn to fill it. Tests check every model is about its
+  hitbox's size.
+- Placeholder chosen (mine): boss models are built when first needed (the level's boss when it starts, the
+  Models screen's bosses one page at a time), since building all 40 at the finer grid takes about 8 s (6 s once
+  faces are merged, see "Merged voxel faces").
+- Recorded in 05-visuals.md ("Art style") and 02-enemies.md ("Bosses").
+
 ### 2026-09-30 — Engine flames (asked by the user in chat)
 - Decision (the user's): a jet flame behind the engines of the player and of the ships that move, like a
   reference picture (a pale blue flame behind a ship's engines); each model defines where its flames are and how

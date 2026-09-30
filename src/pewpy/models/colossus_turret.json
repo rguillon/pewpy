@@ -1,12 +1,23 @@
 {
   "rows": [
-    "..rrr..",
-    ".rRRRr.",
-    "rRkkkRr",
-    "rkOOOkr",
-    "rRkkkRr",
-    ".rgggr.",
-    "..ggg.."
+    "......rrrrrr......",
+    ".....rrrrrrrr.....",
+    "....rrrrrrrrrr....",
+    "...rrRRRRRRRRrr...",
+    "..rrrRRRRRRRRrrr..",
+    ".rrRRRkkkkkkRRRrr.",
+    "rrrRRkkkkkkkkRRrrr",
+    "rrrRkkkkkkkkkkRrrr",
+    "rrrkkOOOOOOOOkkrrr",
+    "rrrkkOOOOOOOOkkrrr",
+    "rrrRkkkkkkkkkkRrrr",
+    "rrrRRkkkkkkkkRRrrr",
+    ".rrRRkkkkkkkkRRrr.",
+    "..rrrggggggggrrr..",
+    "...rrggggggggrr...",
+    ".....gggggggg.....",
+    ".....gggggggg.....",
+    "......gggggg......"
   ],
   "palette": {
     "r": {
@@ -15,7 +26,7 @@
         0.22,
         0.12
       ],
-      "height": 3
+      "height": 7
     },
     "R": {
       "color": [
@@ -23,7 +34,7 @@
         0.32,
         0.16
       ],
-      "height": 5
+      "height": 13
     },
     "k": {
       "color": [
@@ -31,7 +42,7 @@
         0.12,
         0.1
       ],
-      "height": 5
+      "height": 13
     },
     "O": {
       "color": [
@@ -39,7 +50,7 @@
         0.6,
         0.2
       ],
-      "height": 7
+      "height": 19
     },
     "g": {
       "color": [
@@ -47,7 +58,7 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 7
     }
   }
 }

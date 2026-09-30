@@ -7,8 +7,9 @@ angles (Fresnel), so metal edges catch the light. Unlit things (stars, bullets, 
 is decided).
 
 Each voxel face is bevelled: near its edges the shader bends the normal outwards, so every cube catches the
-light on its rims like a real rounded block. The texture coordinates of a voxel face go from 0 to 1 across it
-(models.py); other shapes have (0.5, 0.5) everywhere, which means no bevel.
+light on its rims like a real rounded block. The texture coordinates of a voxel face count cubes across it
+(from 0; one face can cover several cubes, see models.py) and every cube gets its rims; other shapes have
+(0.5, 0.5) everywhere, which means no bevel.
 
 Water (the ocean background) is a flat surface whose normal the shader sways with moving waves, for glints.
 
@@ -110,7 +111,7 @@ vec3 bevel(vec3 n, vec2 uv) {
     // Small on screen (far away or tiny ship), the rims would only be a pixel wide and flicker: fade them out.
     float voxel_pixels = 1.0 / max(fwidth(uv.x), fwidth(uv.y));
     float strength = bevel_strength * smoothstep(1.5, 6.0, voxel_pixels);
-    vec2 offset = uv - 0.5;
+    vec2 offset = fract(uv) - 0.5;  // within the cube: faces covering several cubes bevel each one
     vec2 edge = sign(offset) * smoothstep(0.5 - bevel_width, 0.5, abs(offset));
     return normalize(n + (along_u * edge.x + along_v * edge.y) / length_max * strength);
 }
@@ -133,16 +134,16 @@ vec3 waves(vec3 n) {
 }
 
 void main() {
-    // The texture coordinates say what kind of face this is (see models.py): 0 to 1 across a voxel face
-    // (mode 0), 2 to 3 for glowing faces like lit windows (GLOW_UVS, mode 1), 4.5 for water (WATER_UV, mode 2),
-    // 6 to 7 for burning faces like lava (BURN_UVS, mode 3).
-    float mode = floor(v_uv.x / 2.0);
+    // The texture coordinates say what kind of face this is (see models.py): 0 and up on voxel faces, counting
+    // cubes (mode 0), -2 to -1 for glowing faces like lit windows (GLOW_UVS, mode 1), -3.5 for water (WATER_UV,
+    // mode 2), -6 to -5 for burning faces like lava (BURN_UVS, mode 3).
+    float mode = v_uv.x >= 0.0 ? 0.0 : ceil(-v_uv.x / 2.0);
     float glow = float(mode == 1.0);
     float water = float(mode == 2.0);
     float burn = float(mode == 3.0);
     // Time of day: the ground is tinted (darker at night), but its lights keep their own colors.
     vec3 base = v_color.rgb * mix(tint, vec3(1.0), max(glow, burn));
-    vec2 uv = v_uv - vec2(2.0 * mode, 0.0);
+    vec2 uv = v_uv + vec2(2.0 * mode, 0.0);  // glowing and burning faces: 0 to 1 across
     vec3 bevelled = bevel(normalize(v_normal), uv);  // outside the branch: it uses screen derivatives
     vec3 n = water > 0.5 ? waves(normalize(v_normal)) : bevelled;
     vec3 to_eye = normalize(-v_position);

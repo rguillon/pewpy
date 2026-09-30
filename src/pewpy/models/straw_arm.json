@@ -1,10 +1,18 @@
 {
   "rows": [
-    "..hhhhh..",
-    "yhHHHHHhy",
-    "yyhHHHhyy",
-    "..hhghh..",
-    "....g...."
+    "......hhhhhhhhhhhh......",
+    ".....hhhhhhhhhhhhhh.....",
+    "....hhhhhhhhhhhhhhhh....",
+    "yyyhhHHHHHHHHHHHHHHhhyyy",
+    "yyyhhhHHHHHHHHHHHHhhhyyy",
+    "yyyyyhhHHHHHHHHHHhhyyyyy",
+    "yyyyyhhhHHHHHHHHhhhyyyyy",
+    ".yyyyhhhhHHHHHHhhhhyyyy.",
+    ".....hhhhhhgghhhhhh.....",
+    "......hhhhhgghhhhh......",
+    "..........gggg..........",
+    "...........gg...........",
+    "...........gg..........."
   ],
   "palette": {
     "h": {
@@ -13,7 +21,7 @@
         0.4,
         0.18
       ],
-      "height": 3
+      "height": 9
     },
     "y": {
       "color": [
@@ -21,7 +29,7 @@
         0.8,
         0.2
       ],
-      "height": 5
+      "height": 13
     },
     "H": {
       "color": [
@@ -29,7 +37,7 @@
         0.55,
         0.22
       ],
-      "height": 5
+      "height": 13
     },
     "g": {
       "color": [
@@ -37,7 +45,7 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

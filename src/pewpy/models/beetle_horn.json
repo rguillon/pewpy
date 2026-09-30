@@ -1,14 +1,26 @@
 {
   "rows": [
-    "..b..",
-    ".bBb.",
-    ".BBB.",
-    ".BBB.",
-    "bBwBb",
-    ".BBB.",
-    ".BBB.",
-    "..B..",
-    "..w.."
+    ".....bb.....",
+    ".....bb.....",
+    "...bbbbbb...",
+    "..bbbBBbbb..",
+    "...bBBBBb...",
+    "..BBBBBBBB..",
+    "..BBBBBBBB..",
+    "..BBBBBBBB..",
+    "..BBBBBBBB..",
+    ".bBBBBBBBBb.",
+    "bbBBBwwBBBbb",
+    ".bBBBBBBBBb.",
+    "..BBBBBBBB..",
+    "..BBBBBBBB..",
+    "..BBBBBBBB..",
+    "...BBBBBB...",
+    "....BBBB....",
+    ".....BB.....",
+    ".....BB.....",
+    ".....ww.....",
+    ".....ww....."
   ],
   "palette": {
     "b": {
@@ -17,7 +29,7 @@
         0.26,
         0.14
       ],
-      "height": 3
+      "height": 7
     },
     "B": {
       "color": [
@@ -25,7 +37,7 @@
         0.36,
         0.2
       ],
-      "height": 5
+      "height": 11
     },
     "w": {
       "color": [
@@ -33,7 +45,7 @@
         0.85,
         0.7
       ],
-      "height": 3
+      "height": 7
     }
   }
 }

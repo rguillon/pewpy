@@ -1,12 +1,17 @@
 {
   "rows": [
-    ".wwwww.",
-    "wwwRwww",
-    "wwwRwww",
-    "wRRRRRw",
-    "wwwRwww",
-    "wwwRwww",
-    ".wwwww."
+    "..wwwwwwww..",
+    ".wwwwwwwwww.",
+    "wwwwwRRwwwww",
+    "wwwwwRRwwwww",
+    "wwwwwRRwwwww",
+    "wwRRRRRRRRww",
+    "wwRRRRRRRRww",
+    "wwwwwRRwwwww",
+    "wwwwwRRwwwww",
+    "wwwwwRRwwwww",
+    ".wwwwwwwwww.",
+    "..wwwwwwww.."
   ],
   "palette": {
     "w": {
@@ -15,7 +20,7 @@
         0.95,
         0.95
       ],
-      "height": 5
+      "height": 9
     },
     "R": {
       "color": [
@@ -23,7 +28,7 @@
         0.1,
         0.1
       ],
-      "height": 7
+      "height": 13
     }
   }
 }

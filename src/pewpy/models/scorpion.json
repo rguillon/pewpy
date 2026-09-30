@@ -1,16 +1,41 @@
 {
   "rows": [
-    "...sssss...",
-    "....sss....",
-    "..sSSSSSs..",
-    ".sSSSSSSSs.",
-    "sSSdSSSdSSs",
-    "sSSSSdSSSSs",
-    "sSSdSSSdSSs",
-    ".sSSSSSSSs.",
-    "..sSSSSSs..",
-    "..l.eee.l..",
-    ".l.......l."
+    "...........ssssssssssssss...........",
+    "..........ssssssssssssssss..........",
+    "..........ssssssssssssssss..........",
+    "............ssssssssssss............",
+    ".............ssssssssss.............",
+    ".............ssssssssss.............",
+    "............SSSssssssSSS............",
+    ".......sssSSSSSSSSSSSSSSSSsss.......",
+    "......ssssSSSSSSSSSSSSSSSSssss......",
+    "......sssSSSSSSSSSSSSSSSSSSsss......",
+    "....sssSSSSSSSSSSSSSSSSSSSSSSsss....",
+    "...ssssSSSSSSSSSSSSSSSSSSSSSSssss...",
+    "...sssSSSSSSSSSSSSSSSSSSSSSSSSsss...",
+    ".sssSSSSSSSdSSSSSSSSSSSSdSSSSSSSsss.",
+    "sssSSSSSSSdddSSSSSSSSSSdddSSSSSSSsss",
+    "sssSSSSSSSdddSSSSSSSSSSdddSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSddSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSddSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSsss",
+    "sssSSSSSSSdddSSSSSSSSSSdddSSSSSSSsss",
+    "sssSSSSSSSdddSSSSSSSSSSdddSSSSSSSsss",
+    ".sssSSSSSSSdSSSSSSSSSSSSdSSSSSSSsss.",
+    "...sssSSSSSSSSSSSSSSSSSSSSSSSSsss...",
+    "...ssssSSSSSSSSSSSSSSSSSSSSSSssss...",
+    "....sssSSSSSSSSSSSSSSSSSSSSSSsss....",
+    "......sssSSSSSSSSSSSSSSSSSSsss......",
+    "......ssssSSSSSSSSSSSSSSSSssss......",
+    ".......sssSSSSSSSSSSSSSSSSsss.......",
+    ".......lll..SSSeeeeeeSSS..lll.......",
+    ".......lll...eeeeeeeeee...lll.......",
+    ".......lll...eeeeeeeeee...lll.......",
+    ".......ll.....eeeeeeee.....ll.......",
+    "....lll......................lll....",
+    "...lll........................lll...",
+    "....ll........................ll...."
   ],
   "palette": {
     "s": {
@@ -19,7 +44,7 @@
         0.3,
         0.12
       ],
-      "height": 5
+      "height": 17
     },
     "S": {
       "color": [
@@ -27,7 +52,7 @@
         0.42,
         0.18
       ],
-      "height": 7
+      "height": 23
     },
     "d": {
       "color": [
@@ -35,7 +60,7 @@
         0.15,
         0.06
       ],
-      "height": 9
+      "height": 29
     },
     "l": {
       "color": [
@@ -43,7 +68,7 @@
         0.2,
         0.08
       ],
-      "height": 1
+      "height": 3
     },
     "e": {
       "color": [
@@ -51,7 +76,7 @@
         0.3,
         0.1
       ],
-      "height": 5
+      "height": 17
     }
   }
 }

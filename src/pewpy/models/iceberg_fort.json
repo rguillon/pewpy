@@ -1,18 +1,44 @@
 {
   "rows": [
-    "...iiiiiiiii...",
-    "..iIIIIIIIIIi..",
-    ".iIIIIIIIIIIIi.",
-    "iIIiIIIIIIIiIIi",
-    "iIIIIbbbbbIIIIi",
-    "iIIIbBBBBBbIIIi",
-    "iIIIIbbbbbIIIIi",
-    "iIIIIIIIIIIIIIi",
-    ".iIIIIIIIIIIIi.",
-    "..iIIIIIIIIIi..",
-    "...iiiiiiiii...",
-    "....w..w..w....",
-    "..w...w.w...w.."
+    "..........iiiiiiiiiiiiiiiiiiiiiiiii..........",
+    ".........iiiiiiiiiiiiiiiiiiiiiiiiiii.........",
+    ".........iiiiiiiiiiiiiiiiiiiiiiiiiii.........",
+    ".......iiIIIIIIIIIIIIIIIIIIIIIIIIIIIii.......",
+    "......iiiIIIIIIIIIIIIIIIIIIIIIIIIIIIiii......",
+    "......iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii......",
+    "....iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii....",
+    "...iiiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIiii...",
+    "...iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii...",
+    ".iiIIIIIIIiIIIIIIIIIIIIIIIIIIIIIIIiIIIIIIIii.",
+    "iiiIIIIIIiiiIIIIIIIIIIIIIIIIIIIIIiiiIIIIIIiii",
+    "iiiIIIIIIIiIIIIIIIIIIIIIIIIIIIIIIIiIIIIIIIiii",
+    "iiiIIIIIIIIIIIIIbbbbbbbbbbbbbIIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIbbbbbbbbbbbbbbbIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIbbbbbbbbbbbbbbbIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIbbBBBBBBBBBBBBBBBbbIIIIIIIIIIiii",
+    "iiiIIIIIIIIIbbbBBBBBBBBBBBBBBBbbbIIIIIIIIIiii",
+    "iiiIIIIIIIIIIbbBBBBBBBBBBBBBBBbbIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIbbbbbbbbbbbbbbbIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIbbbbbbbbbbbbbbbIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIIbbbbbbbbbbbbbIIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIiii",
+    "iiiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIiii",
+    ".iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii.",
+    "...iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii...",
+    "...iiiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIiii...",
+    "....iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii....",
+    "......iiIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii......",
+    "......iiiIIIIIIIIIIIIIIIIIIIIIIIIIIIiii......",
+    ".......iiIIIIIIIIIIIIIIIIIIIIIIIIIIIii.......",
+    ".........iiiiiiiiiiiiiiiiiiiiiiiiiii.........",
+    ".........iiiiiiiiiiiiiiiiiiiiiiiiiii.........",
+    "..........iiiiiiiiiiiiiiiiiiiiiiiii..........",
+    "............www......www......www............",
+    "............www......www......www............",
+    ".............w.......www.......w.............",
+    ".......w...........ww...ww...........w.......",
+    "......www.........www...www.........www......",
+    ".......w...........w.....w...........w......."
   ],
   "palette": {
     "i": {
@@ -21,7 +47,7 @@
         0.62,
         0.7
       ],
-      "height": 5
+      "height": 15
     },
     "I": {
       "color": [
@@ -29,7 +55,7 @@
         0.82,
         0.88
       ],
-      "height": 7
+      "height": 21
     },
     "b": {
       "color": [
@@ -37,7 +63,7 @@
         0.8,
         1.0
       ],
-      "height": 9
+      "height": 27
     },
     "B": {
       "color": [
@@ -45,7 +71,7 @@
         1.0,
         1.0
       ],
-      "height": 11
+      "height": 33
     },
     "w": {
       "color": [
@@ -53,7 +79,7 @@
         0.5,
         0.6
       ],
-      "height": 1
+      "height": 3
     }
   }
 }

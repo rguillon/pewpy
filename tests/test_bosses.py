@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from pewpy import bosses, models
+from pewpy import bosses, config, models
 from pewpy.boss_catalog import BOSSES
 from pewpy.bosses import Boss, BossPart, Gun, make_boss, pattern_bullets
 from pewpy.enemies import HALF_WIDTH
@@ -66,14 +66,15 @@ def test_every_part_can_be_shot_from_below(kind):
 
 
 @pytest.mark.parametrize("kind", BOSSES)
-def test_every_hitbox_has_the_shape_of_its_drawing(kind):
-    """The model is drawn at the hitbox's size with square voxels: the drawing must have the same shape."""
+def test_every_hitbox_has_the_size_of_its_drawing(kind):
+    """Models are built with cubes of config.MODEL_VOXEL: each drawing must be about as big as its hitbox."""
     spec = BOSSES[kind]
     for drawing, width, height in [(spec.drawing, spec.width, spec.height)] + [
         (part.drawing, part.width, part.height) for part in spec.parts
     ]:
         rows, _ = models.load_drawing(drawing)
-        assert width / height == pytest.approx(len(rows[0]) / len(rows), rel=0.12), drawing
+        assert len(rows[0]) * config.MODEL_VOXEL == pytest.approx(width, rel=0.12), drawing
+        assert len(rows) * config.MODEL_VOXEL == pytest.approx(height, rel=0.12), drawing
 
 
 def test_every_level_ends_with_its_own_boss():

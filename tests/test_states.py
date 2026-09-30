@@ -56,3 +56,12 @@ def test_the_models_screen_opens_from_the_main_menu_and_goes_back_to_it():
     assert not machine.can_transition(State.PLAYING)
     machine.transition(State.MAIN_MENU)
     assert machine.state is State.MAIN_MENU
+
+
+def test_the_bosses_screen_opens_from_the_main_menu_and_goes_back_to_it():
+    machine = StateMachine()
+    machine.transition(State.BOSSES)
+    assert not machine.can_transition(State.PLAYING)
+    assert not machine.can_transition(State.MODELS)
+    machine.transition(State.MAIN_MENU)
+    assert machine.state is State.MAIN_MENU

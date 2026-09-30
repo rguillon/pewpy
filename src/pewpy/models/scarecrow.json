@@ -1,17 +1,44 @@
 {
   "rows": [
-    "..bbbbb..",
-    ".bBBBBBb.",
-    "bbbbbbbbb",
-    ".yyyyyyy.",
-    ".yryyyry.",
-    ".yyyyyyy.",
-    "..hhhhh..",
-    ".hHHHHHh.",
-    "hHHHHHHHh",
-    "hHHHdHHHh",
-    ".hHHHHHh.",
-    "..y.y.y.."
+    ".......bbbbbbbbbbbbbbb.......",
+    ".......bbbbbbbbbbbbbbb.......",
+    "......bbbbbbbbbbbbbbbbb......",
+    "....bbbBBBBBBBBBBBBBBBbbb....",
+    "...bbbbBBBBBBBBBBBBBBBbbbb...",
+    "...bbbbBBBBBBBBBBBBBBBbbbb...",
+    "..bbbbbbbbbbbbbbbbbbbbbbbbb..",
+    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    ".bbbbbbbbbbbbbbbbbbbbbbbbbbb.",
+    "...yyyyyyyyyyyyyyyyyyyyyyy...",
+    "...yyyyyyyyyyyyyyyyyyyyyyy...",
+    "...yyyyyyyyyyyyyyyyyyyyyyy...",
+    "...yyyyrryyyyyyyyyyyrryyyy...",
+    "...yyyyrrryyyyyyyyyrrryyyy...",
+    "...yyyyrryyyyyyyyyyyrryyyy...",
+    "...yyyyyyyyyyyyyyyyyyyyyyy...",
+    "...yyyyyyyyyyyyyyyyyyyyyyy...",
+    "....yyyyyyyyyyyyyyyyyyyyy....",
+    ".....yyyhhhhhhhhhhhhhyyy.....",
+    "......hhhhhhhhhhhhhhhhh......",
+    "......hhhhhhhhhhhhhhhhh......",
+    "......hhhhhhhhhhhhhhhhh......",
+    "....hhhHHHHHHHHHHHHHHHhhh....",
+    "...hhhHHHHHHHHHHHHHHHHHhhh...",
+    "...hhhHHHHHHHHHHHHHHHHHhhh...",
+    ".hhhHHHHHHHHHHHHHHHHHHHHHhhh.",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHdHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHdddHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHdddHHHHHHHHHHhhh",
+    "..hhhHHHHHHHHHHHHHHHHHHHhhh..",
+    "...hhhHHHHHHHHHHHHHHHHHhhh...",
+    "...hhhHHHHHHHHHHHHHHHHHhhh...",
+    "....hhHHHHHHHHHHHHHHHHHhh....",
+    "......yyyy...yyy...yyyy......",
+    ".......yyy...yyy...yyy.......",
+    ".......yy.....y.....yy......."
   ],
   "palette": {
     "b": {
@@ -20,7 +47,7 @@
         0.26,
         0.14
       ],
-      "height": 3
+      "height": 9
     },
     "B": {
       "color": [
@@ -28,7 +55,7 @@
         0.36,
         0.2
       ],
-      "height": 5
+      "height": 17
     },
     "y": {
       "color": [
@@ -36,7 +63,7 @@
         0.8,
         0.2
       ],
-      "height": 5
+      "height": 17
     },
     "r": {
       "color": [
@@ -44,7 +71,7 @@
         0.35,
         0.1
       ],
-      "height": 7
+      "height": 23
     },
     "h": {
       "color": [
@@ -52,7 +79,7 @@
         0.4,
         0.18
       ],
-      "height": 3
+      "height": 9
     },
     "H": {
       "color": [
@@ -60,7 +87,7 @@
         0.55,
         0.22
       ],
-      "height": 5
+      "height": 17
     },
     "d": {
       "color": [
@@ -68,7 +95,7 @@
         0.2,
         0.1
       ],
-      "height": 5
+      "height": 17
     }
   }
 }

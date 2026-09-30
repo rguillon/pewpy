@@ -40,6 +40,10 @@ ENEMY_BULLET_SIZE = 0.03
 ENEMY_BULLET_DAMAGE = 1.0
 ENEMY_RAM_DAMAGE = 2.0  # damage to the player when an enemy collides with the ship
 
+# Every voxel model is built with cubes of this size, the Swarmer's (its 0.06 hitbox over its 9 columns): a
+# model's size comes from its drawing (see models.py), which should about match its hitbox.
+MODEL_VOXEL = 0.06 / 9
+
 # Model look (placeholder until 05-visuals.md is decided): see lighting.py
 SHININESS = 24.0  # size of the specular highlights: higher = smaller, sharper
 SPECULAR = 0.5  # strength of the specular highlights

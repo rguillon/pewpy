@@ -1,23 +1,59 @@
 {
   "rows": [
-    "..hhhhhhh..",
-    ".hHHHHHHHh.",
-    "hHHHHHHHHHh",
-    "hHdddddddHh",
-    "hHdwwwwwdHh",
-    "hHdwWWWwdHh",
-    "hHdwwwwwdHh",
-    "hHdddddddHh",
-    "hHdddddddHh",
-    "hHdkdkdkdHh",
-    "hHdddddddHh",
-    "hHdddddddHh",
-    ".hHdddddHh.",
-    ".hHHdddHHh.",
-    "..hHHHHHh..",
-    "..hHHHHHh..",
-    "...hHHHh...",
-    "....hhh...."
+    ".......hhhhhhhhhhhhhhhhhhh.......",
+    "......hhhhhhhhhhhhhhhhhhhhh......",
+    "......hhhhhhhhhhhhhhhhhhhhh......",
+    "....hhHHHHHHHHHHHHHHHHHHHHHhh....",
+    "...hhhHHHHHHHHHHHHHHHHHHHHHhhh...",
+    "...hhHHHHHHHHHHHHHHHHHHHHHHHhh...",
+    ".hhHHHHHHHHHHHHHHHHHHHHHHHHHHHhh.",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHdddddddddddddddddddHHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHddddwwwwwwwwwwwwwddddHHHhhh",
+    "hhhHHHdddwwwwwwwwwwwwwwwdddHHHhhh",
+    "hhhHHHdddwwwwwwwwwwwwwwwdddHHHhhh",
+    "hhhHHHdddwwwwWWWWWWWwwwwdddHHHhhh",
+    "hhhHHHdddwwwWWWWWWWWWwwwdddHHHhhh",
+    "hhhHHHdddwwwwWWWWWWWwwwwdddHHHhhh",
+    "hhhHHHdddwwwwwwwwwwwwwwwdddHHHhhh",
+    "hhhHHHdddwwwwwwwwwwwwwwwdddHHHhhh",
+    "hhhHHHddddwwwwwwwwwwwwwddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHddddkdddddkdddddkddddHHHhhh",
+    "hhhHHHdddkkkdddkkkdddkkkdddHHHhhh",
+    "hhhHHHddddkdddddkdddddkddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    "hhhHHHdddddddddddddddddddddHHHhhh",
+    ".hhHHHdddddddddddddddddddddHHHhh.",
+    "...hhhHHdddddddddddddddddHHhhh...",
+    "...hhhHHHdddddddddddddddHHHhhh...",
+    "...hhhHHHHdddddddddddddHHHHhhh...",
+    "...hhhHHHHHdddddddddddHHHHHhhh...",
+    "...hhhHHHHHHdddddddddHHHHHHhhh...",
+    "....hhHHHHHHHdddddddHHHHHHHhh....",
+    "......hhHHHHHHHHHHHHHHHHHhh......",
+    "......hhhHHHHHHHHHHHHHHHhhh......",
+    "......hhhHHHHHHHHHHHHHHHhhh......",
+    "......hhhHHHHHHHHHHHHHHHhhh......",
+    "......hhhHHHHHHHHHHHHHHHhhh......",
+    ".......hhHHHHHHHHHHHHHHHhh.......",
+    ".........hhHHHHHHHHHHHhh.........",
+    ".........hhhHHHHHHHHHhhh.........",
+    "..........hhHHHHHHHHHhh..........",
+    "............hhhhhhhhh............",
+    "............hhhhhhhhh............",
+    ".............hhhhhhh............."
   ],
   "palette": {
     "h": {
@@ -26,7 +62,7 @@
         0.22,
         0.3
       ],
-      "height": 5
+      "height": 15
     },
     "H": {
       "color": [
@@ -34,7 +70,7 @@
         0.32,
         0.42
       ],
-      "height": 7
+      "height": 21
     },
     "d": {
       "color": [
@@ -42,7 +78,7 @@
         0.35,
         0.32
       ],
-      "height": 7
+      "height": 21
     },
     "w": {
       "color": [
@@ -50,7 +86,7 @@
         0.87,
         0.9
       ],
-      "height": 9
+      "height": 27
     },
     "W": {
       "color": [
@@ -58,7 +94,7 @@
         1.0,
         1.0
       ],
-      "height": 11
+      "height": 33
     },
     "k": {
       "color": [
@@ -66,7 +102,7 @@
         0.1,
         0.12
       ],
-      "height": 9
+      "height": 27
     }
   }
 }

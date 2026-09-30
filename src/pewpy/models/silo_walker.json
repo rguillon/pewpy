@@ -1,17 +1,41 @@
 {
   "rows": [
-    "..bbbbbbbbb..",
-    ".bBBBBBBBBBb.",
-    "bBBBBBBBBBBBb",
-    "bBrrrrrrrrrBb",
-    "bBrRRRRRRRrBb",
-    "bBrRRwwwRRrBb",
-    "bBrRRRRRRRrBb",
-    "bBrrrrrrrrrBb",
-    "bBBBBBBBBBBBb",
-    ".bBBBBBBBBBb.",
-    "..g..g.g..g..",
-    "..g..g.g..g.."
+    ".......bbbbbbbbbbbbbbbbbbbbbbbbb.......",
+    "......bbbbbbbbbbbbbbbbbbbbbbbbbbb......",
+    "......bbbbbbbbbbbbbbbbbbbbbbbbbbb......",
+    "....bbBBBBBBBBBBBBBBBBBBBBBBBBBBBbb....",
+    "...bbbBBBBBBBBBBBBBBBBBBBBBBBBBBBbbb...",
+    "...bbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbb...",
+    ".bbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbb.",
+    "bbbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbbb",
+    "bbbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbbb",
+    "bbbBBBBrrrrrrrrrrrrrrrrrrrrrrrrrBBBBbbb",
+    "bbbBBBrrrrrrrrrrrrrrrrrrrrrrrrrrrBBBbbb",
+    "bbbBBBrrrrrrrrrrrrrrrrrrrrrrrrrrrBBBbbb",
+    "bbbBBBrrrrRRRRRRRRRRRRRRRRRRRrrrrBBBbbb",
+    "bbbBBBrrrRRRRRRRRRRRRRRRRRRRRRrrrBBBbbb",
+    "bbbBBBrrrRRRRRRRRRRRRRRRRRRRRRrrrBBBbbb",
+    "bbbBBBrrrRRRRRRRwwwwwwwRRRRRRRrrrBBBbbb",
+    "bbbBBBrrrRRRRRRwwwwwwwwwRRRRRRrrrBBBbbb",
+    "bbbBBBrrrRRRRRRRwwwwwwwRRRRRRRrrrBBBbbb",
+    "bbbBBBrrrRRRRRRRRRRRRRRRRRRRRRrrrBBBbbb",
+    "bbbBBBrrrRRRRRRRRRRRRRRRRRRRRRrrrBBBbbb",
+    "bbbBBBrrrrRRRRRRRRRRRRRRRRRRRrrrrBBBbbb",
+    "bbbBBBrrrrrrrrrrrrrrrrrrrrrrrrrrrBBBbbb",
+    "bbbBBBrrrrrrrrrrrrrrrrrrrrrrrrrrrBBBbbb",
+    "bbbBBBBrrrrrrrrrrrrrrrrrrrrrrrrrBBBBbbb",
+    "bbbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbbb",
+    "bbbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbbb",
+    ".bbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbb.",
+    "...bbBBBBBBBBBBBBBBBBBBBBBBBBBBBBBbb...",
+    "...bbbBBBBBBBBBBBBBBBBBBBBBBBBBBBbbb...",
+    "....bbBBBBBBBBBBBBBBBBBBBBBBBBBBBbb....",
+    "......ggg......ggg...ggg......ggg......",
+    "......ggg......ggg...ggg......ggg......",
+    "......ggg......ggg...ggg......ggg......",
+    "......ggg......ggg...ggg......ggg......",
+    "......ggg......ggg...ggg......ggg......",
+    ".......g........g.....g........g......."
   ],
   "palette": {
     "b": {
@@ -20,7 +44,7 @@
         0.26,
         0.14
       ],
-      "height": 3
+      "height": 9
     },
     "B": {
       "color": [
@@ -28,7 +52,7 @@
         0.36,
         0.2
       ],
-      "height": 5
+      "height": 15
     },
     "r": {
       "color": [
@@ -36,7 +60,7 @@
         0.15,
         0.1
       ],
-      "height": 5
+      "height": 15
     },
     "R": {
       "color": [
@@ -44,7 +68,7 @@
         0.25,
         0.15
       ],
-      "height": 7
+      "height": 21
     },
     "w": {
       "color": [
@@ -52,7 +76,7 @@
         0.88,
         0.8
       ],
-      "height": 9
+      "height": 27
     },
     "g": {
       "color": [
@@ -60,7 +84,7 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

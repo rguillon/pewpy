@@ -7,6 +7,7 @@
 ```text
 Main menu -> World select -> Level select (the world's 8 levels) -> Playing <-> Pause
 Main menu <-> Models
+Main menu <-> Bosses
 Playing -> Level complete ("World complete" after a world's last level) -> next level (Playing, into the next
 world after a world's last level), or after the very last level: "YOU WIN" -> Main menu
 Playing -> Game over -> Continue (restart the level) or Main menu
@@ -21,17 +22,23 @@ Pause -> Main menu
 
 - Every menu: Up/Down move the highlight (wrapping around), Enter chooses, Escape goes back.
 - Entries: Start (to the world select: one entry per world, then Back; then that world's level select: its 8
-  levels, like "2-5 Harvest Dusk", then Back; both open on the last level played), Models, Quit *(entries are a
+  levels, like "2-5 Harvest Dusk", then Back; both open on the last level played), Models, Bosses, Quit *(entries are a
   placeholder, see decisions.md)*
 
 ### Models
 
-- For working on the models: in a circle facing the camera, each spinning on itself with its name under it, the
-  circle turning slowly, on a plain dark background. Pages: every ship, enemy, the missile and the pickups; then
-  one page per world with its 8 bosses (whole, with their parts), bigger.
-- Entries: Next page, Reload models (reads `src/pewpy/models.py` and the drawings in `src/pewpy/models/` again
-  and rebuilds every model, in the game too; if a file has a mistake, the error is shown and the old models stay),
-  Back. Escape goes back to the main menu.
+- For working on the models: every ship, enemy, the missile and the pickups in a circle facing the camera, each
+  spinning on itself with its name under it, the circle turning slowly, on a plain dark background.
+- Entries: Reload models (reads `src/pewpy/models.py` and the drawings in `src/pewpy/models/` again and rebuilds
+  every model, in the game too; if a file has a mistake, the error is shown and the old models stay), Back. Escape
+  goes back to the main menu.
+
+### Bosses
+
+- Like the Models screen, for the bosses: one page per world with its 8 bosses (whole, with their parts), bigger;
+  the title says the world and the page, like "Orbit (1/5)".
+- Entries: Next page (after the last world, back to the first), Reload models, Back. Escape goes back to the main
+  menu.
 
 ### Options
 

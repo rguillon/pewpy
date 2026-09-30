@@ -1,16 +1,34 @@
 {
   "rows": [
-    "..ttt..",
-    ".ttttt.",
-    "tTtTtTt",
-    "ttTtTtt",
-    "tTtTtTt",
-    "ttuuutt",
-    "tTtTtTt",
-    "ttTtTtt",
-    "tTtTtTt",
-    ".ttttt.",
-    "..ttt.."
+    "......tttttt......",
+    ".....tttttttt.....",
+    "....tttttttttt....",
+    "...tttttttttttt...",
+    "..tttttttttttttt..",
+    ".ttTttttttttttTtt.",
+    "tttTTtttTTtttTTttt",
+    "tttTTtttTTtttTTttt",
+    "tttttTTTttTTTttttt",
+    "tttttTTTttTTTttttt",
+    "tttttTTTttTTTttttt",
+    "tttTTtttTTtttTTttt",
+    "tttTTtttTTtttTTttt",
+    "ttttttuuuuuutttttt",
+    "tttttuuuuuuuuttttt",
+    "ttttttuuuuuutttttt",
+    "tttTTtttTTtttTTttt",
+    "tttTTtttTTtttTTttt",
+    "tttttTTTttTTTttttt",
+    "tttttTTTttTTTttttt",
+    "tttttTTTttTTTttttt",
+    "tttTTtttTTtttTTttt",
+    "tttTTtttTTtttTTttt",
+    ".ttTttttttttttTtt.",
+    "..tttttttttttttt..",
+    "...tttttttttttt...",
+    "....tttttttttt....",
+    ".....tttttttt.....",
+    "......tttttt......"
   ],
   "palette": {
     "t": {
@@ -19,7 +37,7 @@
         0.11,
         0.1
       ],
-      "height": 5
+      "height": 13
     },
     "T": {
       "color": [
@@ -27,7 +45,7 @@
         0.23,
         0.2
       ],
-      "height": 5
+      "height": 13
     },
     "u": {
       "color": [
@@ -35,7 +53,7 @@
         0.8,
         0.2
       ],
-      "height": 7
+      "height": 19
     }
   }
 }

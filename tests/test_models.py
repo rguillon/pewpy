@@ -5,7 +5,7 @@ from importlib import resources
 import pytest
 from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
-from pewpy import ground_look, models
+from pewpy import app, config, ground_look, models
 
 SHIP_MODELS = [
     models.player_model,
@@ -89,7 +89,7 @@ def test_touching_voxels_hide_their_shared_faces():
     mesh = models.MeshBuilder()
     mesh.voxels(["xx"], {"x": (WHITE, 1)}, 1.0)
     triangles = triangles_of(mesh.build("pair"))
-    assert len(triangles) == 2 * 10  # 2 cubes of 6 faces, minus the 2 faces they share
+    assert len(triangles) == 2 * 6  # a 2 x 1 x 1 box: the shared faces are hidden, the flat sides merged
     for corners, normal in triangles:
         winding = (corners[1] - corners[0]).cross(corners[2] - corners[0])
         assert winding.dot(normal) > 0
@@ -129,10 +129,50 @@ def test_occlusion_counts_the_voxels_in_front_of_a_corner(side_a, side_b, corner
     assert models.occlusion(lambda offset: filled[key(offset)], normal, u, w) == expected
 
 
+def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes():
+    mesh = models.MeshBuilder()
+    mesh.voxels(["xxx", "xxx"], {"x": (WHITE, 1)}, 1.0)  # a 3 x 2 plate, one cube thick
+    assert len(mesh.triangles) == 2 * 6  # still a box: one rectangle per side
+    uvs = {uv for triangle in mesh.triangles for _, _, uv in triangle}
+    assert (3.0, 2.0) in uvs  # the front: 3 cubes across, 2 up, so the shader bevels each cube
+
+
+def test_merged_faces_cover_exactly_the_faces_of_the_cubes():
+    """Merging changes the triangles, not the surface: per direction, the area is the number of visible cube faces."""
+    for build in (models.player_model, models.gunship_model, models.drone_model):
+        node = build().node()
+        assert isinstance(node, GeomNode)
+        area: dict[tuple[int, int, int], float] = {}
+        for corners, normal in triangles_of(node):
+            key = (round(normal.x), round(normal.y), round(normal.z))
+            area[key] = area.get(key, 0.0) + (corners[1] - corners[0]).cross(corners[2] - corners[0]).length() / 2
+        rows, palette = models.load_drawing(build.__name__.removesuffix("_model"))
+        cells = models.voxel_cells(rows, palette)
+        voxel = config.MODEL_VOXEL
+        for direction in models.FACE_DIRECTIONS:
+            dx, dy, dz = direction
+            visible = sum((column + dx, row - dz, layer + dy) not in cells for column, row, layer in cells)
+            assert area.get(direction, 0.0) == pytest.approx(visible * voxel * voxel, rel=1e-4)
+
+
+def test_faces_only_merge_where_their_shading_stays_the_same():
+    """Along a ledge, the faces below it are darker near it: they merge along the ledge, not away from it."""
+    mesh = models.MeshBuilder()
+    mesh.voxels(["xxx", "xxx", "yyy"], {"x": (WHITE, 1), "y": (WHITE, 3)}, 1.0)  # "y" sticks out in front
+    front = [
+        triangle for triangle in mesh.triangles if all(corner.y == pytest.approx(-0.5) for corner, _, _ in triangle)
+    ]
+    shades = {color[0] for triangle in front for _, color, _ in triangle}
+    assert len(shades) > 1  # darkened next to the thicker row
+    # The row above is one rectangle; the darkened row splits where its shading changes: its two ends, with fewer
+    # neighbors, are shaded differently from its middle. 4 rectangles instead of 6 faces.
+    assert len(front) == 2 * 4
+
+
 def test_only_voxel_faces_get_bevel_coordinates():
     voxels = models.MeshBuilder()
     voxels.voxels(["x"], {"x": (WHITE, 1)}, 1.0)
-    assert {uv for triangle in voxels.triangles for _, _, uv in triangle} == set(models.QUAD_UVS)
+    assert {uv for triangle in voxels.triangles for _, _, uv in triangle} == set(models.QUAD_UVS)  # one cube
     box = models.MeshBuilder()
     box.box(Vec3(0, 0, 0), Vec3(1, 1, 1), WHITE)
     assert {uv for triangle in box.triangles for _, _, uv in triangle} == {models.NO_BEVEL}
@@ -247,12 +287,29 @@ def test_bad_voxel_drawings_are_rejected(rows, palette):
 
 
 @pytest.mark.parametrize("build", SHIP_MODELS, ids=lambda build: build.__name__)
-def test_ship_models_fit_the_unit_box_and_are_more_than_a_cube(build):
-    points = all_points(build())
-    assert len(points) > 3 * 12  # more triangles than a cube
-    for axis in range(3):
-        assert min(point[axis] for point in points) >= -0.52
-        assert max(point[axis] for point in points) <= 0.52
+def test_ship_models_are_more_than_a_cube(build):
+    assert len(all_points(build())) > 3 * 12
+
+
+@pytest.mark.parametrize(("kind", "function"), list(app.SHIP_MODELS.items()), ids=lambda item: str(item))
+def test_ship_models_are_about_the_size_of_their_hitbox(kind, function):
+    """Every cube is config.MODEL_VOXEL (the Swarmer's): a model's drawing gives its size, which must fit its
+    hitbox."""
+    entity = kind()
+    points = all_points(getattr(models, function)())
+    width = max(point.x for point in points) - min(point.x for point in points)
+    height = max(point.z for point in points) - min(point.z for point in points)
+    assert width == pytest.approx(entity.width, rel=0.2)
+    assert height <= entity.height * 1.2
+    assert max(width, height) == pytest.approx(max(entity.width, entity.height), rel=0.2)
+
+
+def test_every_drawing_has_the_same_cubes():
+    """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL, whatever its size."""
+    for build in (models.swarmer_model, models.player_model, models.gunship_model):
+        points = all_points(build())
+        xs = sorted({round(point.x / config.MODEL_VOXEL, 3) for point in points})
+        assert all(abs(x - round(x * 2) / 2) < 1e-3 for x in xs)  # corners on the half-voxel grid
 
 
 def test_turret_has_a_barrel_to_aim():
@@ -271,10 +328,11 @@ def test_facing_roll_points_the_model_along_the_direction(dx, dz):
 
 
 def test_main_colors_are_what_most_of_a_model_is_made_of():
-    colors = models.main_colors(models.drone_model())
+    red, blue = (1.0, 0.0, 0.0, 1.0), (0.0, 0.0, 1.0, 1.0)
+    model = models.voxel_model("test", ["rrr", "rbr", "rrr"], {"r": (red, 1), "b": (blue, 1)})
+    colors = models.main_colors(model)
     assert 1 <= len(colors) <= 3
-    red, green, blue, _ = colors[0]
-    assert red > green and red > blue  # the Drone is red
+    assert colors[0] == red  # 8 red voxels, 1 blue
 
 
 def test_every_drawing_file_loads():

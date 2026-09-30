@@ -510,7 +510,9 @@ def _blocks(columns: int, rows: int, voxel: float, size: float) -> list[tuple[in
 
 
 def _fill(ground: Ground, lot: tuple[int, int, int, int], height: int, kind: int) -> None:
-    top, bottom, left, right = lot
+    """Set the cells of `lot` (top, bottom, left, right; the ends excluded), the parts within the ground only: a
+    feature placed near the edge (a stack in a small yard) may reach past it."""
+    top, bottom, left, right = _within(ground, lot)
     for row in range(top, bottom):
         for column in range(left, right):
             ground.heights[row][column], ground.kinds[row][column] = height, kind
@@ -518,10 +520,17 @@ def _fill(ground: Ground, lot: tuple[int, int, int, int], height: int, kind: int
 
 def _border(ground: Ground, lot: tuple[int, int, int, int], height: int, kind: int) -> None:
     top, bottom, left, right = lot
-    for row in range(top, bottom):
-        for column in range(left, right):
+    first_row, end_row, first_column, end_column = _within(ground, lot)
+    for row in range(first_row, end_row):
+        for column in range(first_column, end_column):
             if row in (top, bottom - 1) or column in (left, right - 1):
                 ground.heights[row][column], ground.kinds[row][column] = height, kind
+
+
+def _within(ground: Ground, lot: tuple[int, int, int, int]) -> tuple[int, int, int, int]:
+    top, bottom, left, right = lot
+    rows, columns = len(ground.heights), len(ground.heights[0]) if ground.heights else 0
+    return max(top, 0), min(bottom, rows), max(left, 0), min(right, columns)
 
 
 def _farm(ground: Ground, lot: tuple[int, int, int, int], voxel: float, max_height: int) -> None:

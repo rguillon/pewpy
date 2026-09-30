@@ -49,7 +49,7 @@ from pewpy.enemies import (
     Weaver,
 )
 from pewpy.entities import Bullet, Entity, Pickup
-from pewpy.level import load_worlds
+from pewpy.level import Level, load_worlds
 from pewpy.menu import Menu, MenuItem
 from pewpy.menu_view import MenuView
 from pewpy.player import Player
@@ -101,6 +101,7 @@ SHIP_MODELS: dict[type[Entity], str] = {
     Missile: "missile_model",
 }
 MINE_SPIN_SPEED = 90.0  # degrees per second
+SHOWCASE_STATES = frozenset({State.MODELS, State.BOSSES})  # screens showing models in a turning circle
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
 EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
 FLASH_COLOR: Color = (1.0, 1.0, 1.0, 1)
@@ -153,7 +154,7 @@ class PewPewApp(ShowBase):
         )
         self._build_models()
         self.showcase: ModelShowcase | None = None
-        self.showcase_page = 0  # the Models screen: ships and pickups, then each world's bosses
+        self.showcase_page = 0  # the page shown on the Models or Bosses screen
         self.laser_node = models.laser_beam_model()
         self.laser_node.reparentTo(self.render)
         self.laser_node.hide()
@@ -303,9 +304,13 @@ class PewPewApp(ShowBase):
 
         main_menu = MenuItem("Main menu", go(State.MAIN_MENU))
         if state is State.MAIN_MENU:
-            items = [MenuItem("Start", go(State.WORLD_SELECT)), MenuItem("Models", go(State.MODELS))]
+            items = [
+                MenuItem("Start", go(State.WORLD_SELECT)),
+                MenuItem("Models", go(State.MODELS)),
+                MenuItem("Bosses", go(State.BOSSES)),
+            ]
             return Menu("PEWPEW", [*items, MenuItem("Quit", self.userExit)])
-        if state is State.MODELS:
+        if state in SHOWCASE_STATES:
             return self._models_menu()
         if state is State.WORLD_SELECT:
             return self._world_menu()
@@ -330,24 +335,26 @@ class PewPewApp(ShowBase):
         return Menu(title, [MenuItem(next_item, self._next_level), main_menu], back=main_menu.action)
 
     def _models_menu(self, note: str = "") -> Menu:
-        page = self._showcase_pages()[self.showcase_page][0]
-        items = [
-            MenuItem("Next page", self._next_showcase_page),
-            MenuItem("Reload models", self._reload_models),
-            MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU)),
-        ]
-        title = f"MODELS\n{page}" + (f"\n{note}" if note else "")
-        return Menu(title, items, back=items[2].action, selected=0 if note == "" else 1)
+        """The Models and Bosses screens' menu: the page's title, and "Next page" when there are several."""
+        titles = self._showcase_titles()
+        reload_item = MenuItem("Reload models", self._reload_models)
+        back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
+        items = [reload_item, back]
+        if len(titles) > 1:
+            items.insert(0, MenuItem("Next page", self._next_showcase_page))
+        title = f"{self.states.state.name}\n{titles[self.showcase_page]}" + (f"\n{note}" if note else "")
+        selected = items.index(reload_item) if note else 0
+        return Menu(title, items, back=back.action, selected=selected)
 
     def _next_showcase_page(self) -> None:
-        self.showcase_page = (self.showcase_page + 1) % len(self._showcase_pages())
+        self.showcase_page = (self.showcase_page + 1) % len(self._showcase_titles())
         self._show_showcase()
         self.menu_view.show(self._models_menu())
 
     def _show_showcase(self) -> None:
         if self.showcase:
             self.showcase.destroy()
-        _, entries, size, radius = self._showcase_pages()[self.showcase_page]
+        entries, size, radius = self._showcase_page(self.showcase_page)
         self.showcase = ModelShowcase(entries, self.cam, size, radius)
 
     def _build_models(self) -> None:
@@ -358,33 +365,53 @@ class PewPewApp(ShowBase):
         self.shield_bubble = models.shield_bubble_model()
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
-        # Bosses and their parts: one model per drawing.
-        drawings = {spec.drawing for spec in BOSSES.values()} | {
-            part.drawing for spec in BOSSES.values() for part in spec.parts
-        }
-        self.boss_models = {drawing: models.drawing_model(drawing) for drawing in sorted(drawings)}
-        self.debris_colors |= {drawing: models.main_colors(model) for drawing, model in self.boss_models.items()}
+        # Bosses and their parts: one model per drawing, built when first needed (they're big: building them all
+        # takes seconds), see _boss_model.
+        self.boss_models: dict[str, NodePath] = {}
 
-    def _showcase_pages(self) -> list[tuple[str, list[tuple[str, NodePath]], float, float]]:
-        """The Models screen's pages: (title, (name, model) pairs, how big the models are drawn, circle radius)."""
-        pages = [("Ships and pickups", self._showcase_entries(), showcase.MODEL_SIZE, showcase.RADIUS)]
-        for world in self.worlds:
-            specs = [BOSSES[wave.enemy] for level in world.levels for wave in level.waves if wave.enemy in BOSSES]
-            entries = [(spec.name.title(), self._whole_boss(spec)) for spec in specs]
-            pages.append((f"{world.name} bosses", entries, SHOWCASE_BOSS_SIZE, SHOWCASE_BOSS_RADIUS))
-        return pages
+    def _boss_model(self, drawing: str) -> NodePath:
+        if drawing not in self.boss_models:
+            model = self.boss_models[drawing] = models.drawing_model(drawing)
+            self.debris_colors[drawing] = models.main_colors(model)
+        return self.boss_models[drawing]
+
+    def _prepare_bosses(self, level: Level) -> None:
+        """Build the level's boss models now, so the game doesn't stall when the boss comes."""
+        for wave in level.waves:
+            spec = BOSSES.get(wave.enemy)
+            if spec:
+                for drawing in [spec.drawing, *(part.drawing for part in spec.parts)]:
+                    self._boss_model(drawing)
+
+    def _showcase_titles(self) -> list[str]:
+        """The pages of the screen being shown: the Models screen has one (ships and pickups), the Bosses screen one
+        per world."""
+        if self.states.state is not State.BOSSES:
+            return ["Ships and pickups"]
+        count = len(self.worlds)
+        return [f"{world.name} ({index + 1}/{count})" for index, world in enumerate(self.worlds)]
+
+    def _showcase_page(self, index: int) -> tuple[list[tuple[str, NodePath]], float, float]:
+        """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
+        models are built (boss models are big)."""
+        if self.states.state is not State.BOSSES:
+            return self._showcase_entries(), showcase.MODEL_SIZE, showcase.RADIUS
+        world = self.worlds[index]
+        specs = [BOSSES[wave.enemy] for level in world.levels for wave in level.waves if wave.enemy in BOSSES]
+        entries = [(spec.name.title(), self._whole_boss(spec)) for spec in specs]
+        return entries, SHOWCASE_BOSS_SIZE, SHOWCASE_BOSS_RADIUS
 
     def _showcase_entries(self) -> list[tuple[str, NodePath]]:
-        """(name, model) of every ship, enemy, missile and pickup, for the Models screen."""
+        """(name, model) of every ship, enemy, missile and pickup, for the Models screen: each fitted in a 1 x 1 x 1
+        box by its hitbox (the models are in world units, all with the same cubes)."""
         entries = []
-        for kind, model in self.ship_models.items():
-            if kind is ShieldCarrier:
-                model = NodePath("shield_carrier")
-                self.ship_models[kind].copyTo(model)
-                self.shield_bubble.copyTo(model)
-            entries.append((re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__), model))  # MineLayer: "Mine Layer"
-        entries += [(f"{weapon.capitalize()} {LETTERS[weapon]}", self.pickup_models[weapon]) for weapon in WEAPONS]
-        entries.append(("Repair", self.pickup_models["repair"]))
+        for kind in self.ship_models:
+            entity = kind()
+            name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
+            entries.append((name, _fitted(self._make_model(entity), max(entity.width, entity.height))))
+        for kind in [*WEAPONS, "repair"]:
+            name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else "Repair"
+            entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
         return entries
 
     def _whole_boss(self, spec: BossSpec) -> NodePath:
@@ -392,11 +419,10 @@ class PewPewApp(ShowBase):
         whole = NodePath(spec.drawing)
         pieces = [(spec.drawing, 0.0, 0.0, spec.width, spec.height)]
         pieces += [(part.drawing, part.x, part.y, part.width, part.height) for part in spec.parts]
-        for drawing, x, y, width, height in pieces:
+        for drawing, x, y, _, _ in pieces:
             piece = whole.attachNewNode(drawing)
-            self.boss_models[drawing].copyTo(piece)
+            self._boss_model(drawing).copyTo(piece)
             piece.setPos(x, 0, y)
-            piece.setScale(max(width, height))
         bottom = min(y - height / 2 for _, _, y, _, height in pieces)
         extent = max(2 * spec.half_span, spec.top_reach - bottom)
         box = NodePath("boss")
@@ -507,22 +533,24 @@ class PewPewApp(ShowBase):
             self.boss_hud.hide()
 
     def _make_block(self, entity: Entity) -> NodePath:
-        """The entity's model, stretched to its size (bullets are sprites, see _sync_nodes).
+        """The entity's model in the scene (bullets are sprites, see _sync_nodes)."""
+        node = self._make_model(entity)
+        node.reparentTo(self.render)
+        return node
 
-        Depth is the smaller of width and height. Models are copied, not instanced, so each Turret can aim
-        its own barrel.
-        """
-        node = self.render.attachNewNode("entity")
+    def _make_model(self, entity: Entity) -> NodePath:
+        """A copy of the entity's model: models are in world units, all with the same cubes, their size from their
+        drawing (about their hitbox). Copied, not instanced, so each Turret can aim its own barrel."""
+        node = NodePath("entity")
         if isinstance(entity, Boss | BossPart):
-            # Drawn to fit its hitbox exactly: square voxels, the drawing has the hitbox's shape.
-            self.boss_models[entity.drawing].copyTo(node)
-            node.setScale(max(entity.width, entity.height))
+            self._boss_model(entity.drawing).copyTo(node)
             return node
         model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self.ship_models[type(entity)]
         model.copyTo(node)
         if isinstance(entity, ShieldCarrier):
-            self.shield_bubble.copyTo(node)
-        node.setScale(entity.width, min(entity.width, entity.height), entity.height)
+            bubble = node.attachNewNode("bubble")  # the bubble fits a 1 x 1 x 1 box: stretched around the ship
+            bubble.setScale(entity.width)
+            self.shield_bubble.copyTo(bubble)
         return node
 
     def _start_level(
@@ -537,6 +565,7 @@ class PewPewApp(ShowBase):
         self._show_background(
             level.background, level.ground_voxel, level.time_of_day, level.background_seed, level.clouds
         )
+        self._prepare_bosses(level)
         self.effects.clear()
         self.states.transition(State.PLAYING)
 
@@ -573,8 +602,10 @@ class PewPewApp(ShowBase):
         return self.level_index >= len(self.levels) - 1
 
     def _on_state_change(self, previous: State, current: State) -> None:
+        if current in SHOWCASE_STATES:
+            self.showcase_page = 0  # before the menu: its title shows the page
         self.menu_view.show(self._menu(current))
-        if current is State.MODELS:
+        if current in SHOWCASE_STATES:
             self._show_showcase()
             self.background.root.hide()  # a plain dark background, to look at the models
         elif self.showcase:
@@ -689,7 +720,7 @@ class PewPewApp(ShowBase):
         else:
             node.clearColorScale()
         if isinstance(enemy, ShieldCarrier):
-            bubble = node.find("shield")
+            bubble = node.find("**/shield")
             bubble.show() if appearance == "shield" else bubble.hide()
 
     def _orient_enemy(self, enemy: Enemy, node: NodePath, player: Player) -> None:
@@ -731,6 +762,15 @@ def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT
         return (1 - width) / 2, (1 + width) / 2, 0.0, 1.0
     height = window_aspect / aspect  # too tall: bars at the top and bottom
     return 0.0, 1.0, (1 - height) / 2, (1 + height) / 2
+
+
+def _fitted(model: NodePath, size: float) -> NodePath:
+    """A copy of a world-sized model, `size` across, fitted in a 1 x 1 x 1 box (for the Models screen)."""
+    box = NodePath("fitted")
+    inner = box.attachNewNode("scaled")
+    inner.setScale(1 / size)
+    model.copyTo(inner)
+    return box
 
 
 def flame_scale(time: float, phase: float, thrust: float = 0.0) -> float:

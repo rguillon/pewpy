@@ -1,16 +1,41 @@
 {
   "rows": [
-    "...ccccc...",
-    ".cCCCCCCCc.",
-    ".cCkkkkkCc.",
-    "cCklllllkCc",
-    "cCklLLLlkCc",
-    "cCkLWWWLkCc",
-    "cCklLLLlkCc",
-    "cCklllllkCc",
-    ".cCkkkkkCc.",
-    ".cCCCCCCCc.",
-    "...ccccc..."
+    "...........cccccccccccccc...........",
+    "..........cccccccccccccccc..........",
+    "..........cccccccccccccccc..........",
+    ".....c.CCCCCCCCCCCCCCCCCCCCCC.c.....",
+    "....cccCCCCCCCCCCCCCCCCCCCCCCccc....",
+    "...ccccCCCCCCCCCCCCCCCCCCCCCCcccc...",
+    "...ccccCCCCCCCCCCCCCCCCCCCCCCcccc...",
+    "...ccccCCCkkkkkkkkkkkkkkkkCCCcccc...",
+    "...cccCCCCkkkkkkkkkkkkkkkkCCCCccc...",
+    "..ccccCCCkkkkkkkkkkkkkkkkkkCCCcccc..",
+    ".cccCCCkkkllllllllllllllllkkkCCCccc.",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkllllLLLLLLLLllllkkkCCCCccc",
+    "cccCCCCkkklllLLLLLLLLLLlllkkkCCCCccc",
+    "cccCCCCkkklllLLLLLLLLLLlllkkkCCCCccc",
+    "cccCCCCkkkLLLLWWWWWWWWLLLLkkkCCCCccc",
+    "cccCCCCkkkLLLWWWWWWWWWWLLLkkkCCCCccc",
+    "cccCCCCkkkLLLWWWWWWWWWWLLLkkkCCCCccc",
+    "cccCCCCkkkLLLLWWWWWWWWLLLLkkkCCCCccc",
+    "cccCCCCkkklllLLLLLLLLLLlllkkkCCCCccc",
+    "cccCCCCkkklllLLLLLLLLLLlllkkkCCCCccc",
+    "cccCCCCkkkllllLLLLLLLLllllkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    "cccCCCCkkkllllllllllllllllkkkCCCCccc",
+    ".cccCCCkkkllllllllllllllllkkkCCCccc.",
+    "..ccccCCCkkkkkkkkkkkkkkkkkkCCCcccc..",
+    "...cccCCCCkkkkkkkkkkkkkkkkCCCCccc...",
+    "...ccccCCCkkkkkkkkkkkkkkkkCCCcccc...",
+    "...ccccCCCCCCCCCCCCCCCCCCCCCCcccc...",
+    "...ccccCCCCCCCCCCCCCCCCCCCCCCcccc...",
+    "....cccCCCCCCCCCCCCCCCCCCCCCCccc....",
+    ".....c.CCCCCCCCCCCCCCCCCCCCCC.c.....",
+    "..........cccccccccccccccc..........",
+    "..........cccccccccccccccc..........",
+    "...........cccccccccccccc..........."
   ],
   "palette": {
     "c": {
@@ -19,7 +44,7 @@
         0.36,
         0.45
       ],
-      "height": 5
+      "height": 17
     },
     "C": {
       "color": [
@@ -27,7 +52,7 @@
         0.52,
         0.62
       ],
-      "height": 7
+      "height": 23
     },
     "k": {
       "color": [
@@ -35,7 +60,7 @@
         0.1,
         0.14
       ],
-      "height": 7
+      "height": 23
     },
     "l": {
       "color": [
@@ -43,7 +68,7 @@
         0.9,
         1.0
       ],
-      "height": 7
+      "height": 23
     },
     "L": {
       "color": [
@@ -51,7 +76,7 @@
         1.0,
         1.0
       ],
-      "height": 9
+      "height": 29
     },
     "W": {
       "color": [
@@ -59,7 +84,7 @@
         1.0,
         1.0
       ],
-      "height": 11
+      "height": 37
     }
   }
 }

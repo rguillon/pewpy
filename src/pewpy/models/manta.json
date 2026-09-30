@@ -1,16 +1,40 @@
 {
   "rows": [
-    "........ttt........",
-    "........ttt........",
-    ".......mmmmm.......",
-    ".....mmmMMMmmm.....",
-    "...mmmmMMMMMmmmm...",
-    ".mmmmmMMMMMMMmmmmm.",
-    "mmmmmMMMsssMMMmmmmm",
-    ".mmmmmMMMMMMMmmmmm.",
-    "...mm.eMMMMMe.mm...",
-    "......mMMMMMm......",
-    "......h.....h......"
+    "..........................tttttttt..........................",
+    ".........................tttttttttt.........................",
+    ".........................tttttttttt.........................",
+    ".........................tttttttttt.........................",
+    ".........................tttttttttt.........................",
+    ".........................tttttttttt.........................",
+    ".......................mmmmmmmmmmmmmm.......................",
+    "......................mmmmmmmmmmmmmmmm......................",
+    "......................mmmmmmmmmmmmmmmm......................",
+    ".....................mmmmmmmmmmmmmmmmmm.....................",
+    "................mmmmmmmmmmMMMMMMMMmmmmmmmmmm................",
+    "................mmmmmmmmmMMMMMMMMMMmmmmmmmmm................",
+    "...............mmmmmmmmmMMMMMMMMMMMMmmmmmmmmm...............",
+    "..........mmmmmmmmmmmmmMMMMMMMMMMMMMMmmmmmmmmmmmmm..........",
+    ".........mmmmmmmmmmmmmMMMMMMMMMMMMMMMMmmmmmmmmmmmmm.........",
+    ".........mmmmmmmmmmmmMMMMMMMMMMMMMMMMMMmmmmmmmmmmmm.........",
+    "....mmmmmmmmmmmmmmmmMMMMMMMMMMMMMMMMMMMMmmmmmmmmmmmmmmmm....",
+    "...mmmmmmmmmmmmmmmmMMMMMMMMMMMMMMMMMMMMMMmmmmmmmmmmmmmmmm...",
+    "..mmmmmmmmmmmmmmmmMMMMMMMMMMMMMMMMMMMMMMMMmmmmmmmmmmmmmmmm..",
+    ".mmmmmmmmmmmmmmmmMMMMMMMMMssssssssMMMMMMMMMmmmmmmmmmmmmmmmm.",
+    "mmmmmmmmmmmmmmmmMMMMMMMMMssssssssssMMMMMMMMMmmmmmmmmmmmmmmmm",
+    ".mmmmmmmmmmmmmmmMMMMMMMMMMssssssssMMMMMMMMMMmmmmmmmmmmmmmmm.",
+    "..mmmmmmmmmmmmmmmmMMMMMMMMMMMMMMMMMMMMMMMMmmmmmmmmmmmmmmmm..",
+    "...mmmmmmmmmmmmmmmmMMMMMMMMMMMMMMMMMMMMMMmmmmmmmmmmmmmmmm...",
+    "....mmmmmmmmmmmmmmmMMMMMMMMMMMMMMMMMMMMMMmmmmmmmmmmmmmmm....",
+    "........mmmmmmmmm..eeMMMMMMMMMMMMMMMMMMee..mmmmmmmmm........",
+    ".........mmmmmmm...eeeMMMMMMMMMMMMMMMMeee...mmmmmmm.........",
+    "..........mmmmmm...eeeMMMMMMMMMMMMMMMMeee...mmmmmm..........",
+    "...........mmm.....eeeMMMMMMMMMMMMMMMMeee.....mmm...........",
+    "...................mmmMMMMMMMMMMMMMMMMmmm...................",
+    "...................mmmMMMMMMMMMMMMMMMMmmm...................",
+    "...................mmmMMMMMMMMMMMMMMMMmmm...................",
+    "...................hhh................hhh...................",
+    "...................hhh................hhh...................",
+    "....................h..................h...................."
   ],
   "palette": {
     "t": {
@@ -19,7 +43,7 @@
         0.2,
         0.3
       ],
-      "height": 1
+      "height": 3
     },
     "m": {
       "color": [
@@ -27,7 +51,7 @@
         0.15,
         0.25
       ],
-      "height": 3
+      "height": 9
     },
     "M": {
       "color": [
@@ -35,7 +59,7 @@
         0.25,
         0.38
       ],
-      "height": 5
+      "height": 15
     },
     "s": {
       "color": [
@@ -43,7 +67,7 @@
         0.9,
         1.0
       ],
-      "height": 7
+      "height": 23
     },
     "e": {
       "color": [
@@ -51,7 +75,7 @@
         1.0,
         0.9
       ],
-      "height": 5
+      "height": 15
     },
     "h": {
       "color": [
@@ -59,7 +83,7 @@
         0.25,
         0.38
       ],
-      "height": 3
+      "height": 9
     }
   }
 }

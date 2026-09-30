@@ -1,16 +1,38 @@
 {
   "rows": [
-    "..eee...eee..",
-    ".hhhhhhhhhhh.",
-    "hhYYYYYYYYYhh",
-    "hHHHHHHHHHHHh",
-    "hHkkkkkkkkkHh",
-    "hHkccccccckHh",
-    "hHkkkkkkkkkHh",
-    "hHHHHHHHHHHHh",
-    ".hhhhhhhhhhh.",
-    "..g...g...g..",
-    "..g.......g.."
+    ".......eeeeeee...........eeeeeee.......",
+    "......eeeeeeeee.........eeeeeeeee......",
+    "......eeeeeeeee.........eeeeeeeee......",
+    "....hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh....",
+    "...hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh...",
+    "..hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh..",
+    ".hhhhhhYYYYYYYYYYYYYYYYYYYYYYYYYhhhhhh.",
+    "hhhhhhYYYYYYYYYYYYYYYYYYYYYYYYYYYhhhhhh",
+    "hhhhhhYYYYYYYYYYYYYYYYYYYYYYYYYYYhhhhhh",
+    "hhhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHkkkkkkkkkkkkkkkkkkkkkkkkkHHHHhhh",
+    "hhhHHHkkkkkkkkkkkkkkkkkkkkkkkkkkkHHHhhh",
+    "hhhHHHkkkkkkkkkkkkkkkkkkkkkkkkkkkHHHhhh",
+    "hhhHHHkkkkccccccccccccccccccckkkkHHHhhh",
+    "hhhHHHkkkccccccccccccccccccccckkkHHHhhh",
+    "hhhHHHkkkkccccccccccccccccccckkkkHHHhhh",
+    "hhhHHHkkkkkkkkkkkkkkkkkkkkkkkkkkkHHHhhh",
+    "hhhHHHkkkkkkkkkkkkkkkkkkkkkkkkkkkHHHhhh",
+    "hhhHHHHkkkkkkkkkkkkkkkkkkkkkkkkkHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    "hhhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhh",
+    ".hhHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh.",
+    "...hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh...",
+    "...hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh...",
+    "....hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh....",
+    "......ggg.........ggg.........ggg......",
+    "......ggg.........ggg.........ggg......",
+    "......ggg..........g..........ggg......",
+    "......ggg.....................ggg......",
+    "......ggg.....................ggg......",
+    ".......g.......................g......."
   ],
   "palette": {
     "e": {
@@ -19,7 +41,7 @@
         0.6,
         0.15
       ],
-      "height": 3
+      "height": 9
     },
     "h": {
       "color": [
@@ -27,7 +49,7 @@
         0.38,
         0.34
       ],
-      "height": 3
+      "height": 9
     },
     "Y": {
       "color": [
@@ -35,7 +57,7 @@
         0.7,
         0.1
       ],
-      "height": 5
+      "height": 15
     },
     "H": {
       "color": [
@@ -43,7 +65,7 @@
         0.52,
         0.46
       ],
-      "height": 5
+      "height": 15
     },
     "k": {
       "color": [
@@ -51,7 +73,7 @@
         0.15,
         0.18
       ],
-      "height": 5
+      "height": 15
     },
     "c": {
       "color": [
@@ -59,7 +81,7 @@
         0.9,
         1.0
       ],
-      "height": 7
+      "height": 21
     },
     "g": {
       "color": [
@@ -67,22 +89,22 @@
         0.26,
         0.3
       ],
-      "height": 3
+      "height": 9
     }
   },
   "engines": [
     {
-      "x": 3,
-      "y": 0,
-      "width": 4.5,
-      "length": 8,
+      "x": 10.0,
+      "y": 1.0,
+      "width": 13.5,
+      "length": 24.0,
       "towards": "top"
     },
     {
-      "x": 9,
-      "y": 0,
-      "width": 4.5,
-      "length": 8,
+      "x": 28.0,
+      "y": 1.0,
+      "width": 13.5,
+      "length": 24.0,
       "towards": "top"
     }
   ]

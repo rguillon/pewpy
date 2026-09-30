@@ -3,8 +3,12 @@
 ## Art style
 
 - Overall style (pixel art, low-poly, neon vector, realistic…): voxels, like pixel art extruded into blocks or
-  Minecraft. Ships, missiles and pickups are drawn as rows of characters; each character has a color and a
-  thickness in voxels, so cockpits and domes stick out and wings are thin. Shiny look: per-pixel lighting,
+  Minecraft. Ships look industrial sci-fi rather than cartoonish: grey metal hulls (lighter on top), recessed panel
+  seams, dark engine nacelles with vents, dark glass cockpits and small orange or red lights; each kind of ship
+  keeps its color as paint markings (blue for the player, red for the Drone...). Ships, missiles and pickups are drawn as rows of characters; each character has a color and a
+  thickness in voxels, so cockpits and domes stick out and wings are thin. Every model is built with the same
+  cubes, the Swarmer's (0.06 / 9 world units, `MODEL_VOXEL` in `config.py`), never stretched: a model's size comes
+  from its drawing, about its hitbox (bigger ships have more cubes; a boss is up to about 70 cubes wide). Shiny look: per-pixel lighting,
   specular highlights, reflections of a made-up space environment, bevelled voxel edges and ambient occlusion
   (`lighting.py`, `models.py`). The shield bubble and the laser beam are smooth see-through effects; bullets
   are soft round dots facing the camera: solid in the middle, fading out towards the edge (ovals for the
