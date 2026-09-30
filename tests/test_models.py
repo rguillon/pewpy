@@ -420,4 +420,5 @@ def test_a_flame_leaves_the_nozzle_voxel_towards_its_side():
 
 def test_ships_with_engines_have_flames():
     assert len(models.player_model().findAllMatches("**/flame")) == 2
+    assert len(models.missile_model().findAllMatches("**/flame")) == 1
     assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground

@@ -66,7 +66,7 @@ levels have none.
 | 1-4 | Starlit Reach | space (deep blue nebula) | | | Siege Pod |
 | 1-5 | Shard Belt | debris | | | Twin Fang |
 | 1-6 | Green Veil | space (green nebula) | | | Relay Array |
-| 1-7 | Cold Wake | debris | | | Mine Mother |
+| 1-7 | Cold Wake | debris | | | Mine Carrier |
 | 1-8 | Minefield | debris | | | Warden |
 
 ### World 2: Heartland (hills, farmland, forest, swamp)
@@ -74,37 +74,37 @@ levels have none.
 | Level | Name | Background | Time of day | Clouds | Boss |
 |-------|------|------------|-------------|--------|------|
 | 2-1 | Ground Defense | planet | day | 0.3 | Thresher |
-| 2-2 | Patchwork | farmland | day | 0.15 | Scarecrow |
-| 2-3 | Greenwood | forest | day | 0.5 | Beetle |
-| 2-4 | Mire | swamp | day | 0.6 | Windmill |
-| 2-5 | Harvest Dusk | farmland | dusk | 0.1 | Silo Walker |
-| 2-6 | Crater Fields | planet | dusk | 0.35 | Hornet Queen |
-| 2-7 | Moonlit Woods | forest | night | 0.25 | Tractor King |
+| 2-2 | Patchwork | farmland | day | 0.15 | Picket |
+| 2-3 | Greenwood | forest | day | 0.5 | Bulwark |
+| 2-4 | Mire | swamp | day | 0.6 | Turbine |
+| 2-5 | Harvest Dusk | farmland | dusk | 0.1 | Silo Hauler |
+| 2-6 | Crater Fields | planet | dusk | 0.35 | Hive Carrier |
+| 2-7 | Moonlit Woods | forest | night | 0.25 | Tugmaster |
 | 2-8 | Fogbound Fen | swamp | night | 0.85 | Harvester |
 
 ### World 3: Waters (islands, pack ice, clouds)
 
 | Level | Name | Background | Time of day | Clouds | Boss |
 |-------|------|------------|-------------|--------|------|
-| 3-1 | Archipelago | ocean | day | 0.5 | Crab |
-| 3-2 | Pack Ice | pack_ice | day | 0.2 | Jellyfish |
+| 3-1 | Archipelago | ocean | day | 0.5 | Clamp Barge |
+| 3-2 | Pack Ice | pack_ice | day | 0.2 | Pulsar |
 | 3-3 | Cloud Deck | clouds | day | 0.7 | Frigate |
-| 3-4 | Sunset Isles | ocean | dusk | 0.35 | Manta |
-| 3-5 | Polar Night | pack_ice | night | 0.6 | Iceberg Fort |
-| 3-6 | Storm Top | clouds | dusk | 0.9 | Kraken |
+| 3-4 | Sunset Isles | ocean | dusk | 0.35 | Delta Raider |
+| 3-5 | Polar Night | pack_ice | night | 0.6 | Cryo Fortress |
+| 3-6 | Storm Top | clouds | dusk | 0.9 | Grappler |
 | 3-7 | Dark Tide | ocean | night | 0.4 | Dreadnought |
-| 3-8 | Frozen Deep | pack_ice | dusk | 0.3 | Leviathan |
+| 3-8 | Frozen Deep | pack_ice | dusk | 0.3 | Tidebreaker |
 
 ### World 4: Badlands (desert, canyon, volcano, mountains)
 
 | Level | Name | Background | Time of day | Clouds | Boss |
 |-------|------|------------|-------------|--------|------|
-| 4-1 | Dune Sea | desert | day | 0.05 | Scorpion |
-| 4-2 | Red Canyon | canyon | day | 0.15 | Dust Devil |
-| 4-3 | Ember Fields | volcano | day | 0.3 | Sandworm |
-| 4-4 | High Peaks | mountains | day | 0.6 | Mesa Fort |
-| 4-5 | Desert Night | desert | night | 0.1 | Lava Golem |
-| 4-6 | Canyon Dusk | canyon | dusk | 0.25 | Vulture |
+| 4-1 | Dune Sea | desert | day | 0.05 | Breacher |
+| 4-2 | Red Canyon | canyon | day | 0.15 | Cyclone |
+| 4-3 | Ember Fields | volcano | day | 0.3 | Borer |
+| 4-4 | High Peaks | mountains | day | 0.6 | Bastion |
+| 4-5 | Desert Night | desert | night | 0.1 | Foundry |
+| 4-6 | Canyon Dusk | canyon | dusk | 0.25 | Scavenger |
 | 4-7 | Ashen Slopes | volcano | dusk | 0.5 | Magma Rig |
 | 4-8 | Summit | mountains | dusk | 0.8 | Colossus |
 

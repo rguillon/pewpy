@@ -1,0 +1,166 @@
+{
+  "rows": [
+    ".............NoooN.............",
+    ".............NrrrN.............",
+    ".............NNNNN.............",
+    "......lHHHkHHNrrrNHHkHHHl......",
+    "......khhhkhhNNNNNhhkhhhk......",
+    "......khhhkDDNrrrNDDkhhhk......",
+    "......khhhkDDDDDDDDDkhhhk......",
+    "......khhhkDDDDDDDDDkhhhk......",
+    "......khhhTTTTTTTTTTThhhk......",
+    "......kkkkTTTTTTTTTTTkkkk......",
+    "......NNNNTTTcTcTcTTTNNNN......",
+    "......rrrrTTTTTTTTTTTrrrr......",
+    ".wwwwwNNNNTTTTTTTTTTTNNNNwwwww.",
+    ".WWWWWrrrrTTTcTcTcTTTrrrrWWWWW.",
+    ".WWWWWNNNNTTTTTTTTTTTNNNNWWWWW.",
+    ".wwwwwrrrrTTTTTTTTTTTrrrrwwwww.",
+    ".WWWWWhhhhTTTcTcTcTTThhhhWWWWW.",
+    ".WWWWWhhhhTTTTTTTTTTThhhhWWWWW.",
+    ".lwwwwhhhhTTTTTTTTTTThhhhwwwwl.",
+    ".WWWWWhhhhTTTcTcTcTTThhhhWWWWW.",
+    ".WWWWWhhhhTTTTTTTTTTThhhhWWWWW.",
+    ".wwwwwkkkkTTTTTTTTTTTkkkkwwwww.",
+    ".WWWWWhhhhkDDDDDDDDDkhhhhWWWWW.",
+    ".WWWWWhhhhkDDDDDDDDDkhhhhWWWWW.",
+    ".wwwwwhhhhkDDDDDDDDDkhhhhwwwww.",
+    "......khhhkDDDDDDDDDkhhhk......",
+    "......khhhkDDDDDDDDDkhhhk......",
+    "......kkkkkDDDDDDDDDkkkkk......",
+    "......ppppkDDDDDDDDDkpppp......",
+    "......ppppkDDDDDDDDDkpppp......",
+    ".......khhkDDDDDDDDDkhhk.......",
+    "........khkDDDDDDDDDkhk........",
+    "........khkDDDDDDDDDkhk........",
+    ".........kkDDDDDDDDDkk.........",
+    ".........kkDDDDDDDDDkk.........",
+    "..........kDDDDDDDDDk..........",
+    "...........DDDDDDDDD...........",
+    "...........khhhhhhhk...........",
+    "............kkkRkkk............"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 13
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "height": 11
+    },
+    "r": {
+      "color": [
+        0.13,
+        0.13,
+        0.15
+      ],
+      "height": 11
+    },
+    "l": {
+      "color": [
+        1.0,
+        0.55,
+        0.15
+      ],
+      "height": 13
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 11
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
+        0.2
+      ],
+      "height": 9
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 11
+    },
+    "D": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.6,
+        0.61,
+        0.63
+      ],
+      "height": 21
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 17
+    },
+    "w": {
+      "color": [
+        0.3,
+        0.31,
+        0.34
+      ],
+      "height": 5
+    },
+    "W": {
+      "color": [
+        0.42,
+        0.43,
+        0.46
+      ],
+      "height": 5
+    },
+    "p": {
+      "color": [
+        0.34,
+        0.637,
+        0.255
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "height": 13
+    }
+  },
+  "engines": [
+    {
+      "x": 15,
+      "y": 0,
+      "width": 4,
+      "length": 12,
+      "towards": "top"
+    }
+  ]
+}

@@ -1,63 +1,95 @@
 {
   "rows": [
-    ".......hhhhhhh.......",
-    "......hhhhhhhhh......",
-    "......hhhhhhhhh......",
-    "....hhHHHHHHHHHhh....",
-    "...hhhHHHHHHHHHhhh...",
-    "...hhHHHHHHHHHHHhh...",
-    ".hhHHHHHHHHHHHHHHHhh.",
-    "hhhHHHHHHHHHHHHHHHhhh",
-    "hhhHHHHHHHHHHHHHHHhhh",
-    "hhhyyyyyyyyyyyyyyyhhh",
-    "hhhyyyyyyyyyyyyyyyhhh",
-    "hhhyyyyyyyyyyyyyyyhhh",
-    "hhhHHHHHHHHHHHHHHHhhh",
-    "hhhHHHHHHHHHHHHHHHhhh",
-    ".hhHHHHHHHHHHHHHHHhh.",
-    "...hhHHHHHHHHHHHhh...",
-    "...hhhHHHHHHHHHhhh...",
-    "....hhHHHHHHHHHhh....",
-    "......hhhggghhh......",
-    "......hhhggghhh......",
-    ".......hhggghh.......",
-    ".........ggg.........",
-    ".........ggg.........",
-    ".........ggg.........",
-    ".........ggg.........",
-    ".........ggg.........",
-    "..........g.........."
+    "HHHHHHHHHHHHHHHHHHHHH",
+    "lhNNNNNNNNNNNNNNNNNhl",
+    "khNrrrrrrrrrrrrrrrNhk",
+    "khNNNNNNNNNNNNNNNNNhk",
+    "khNrrrrrrrrrrrrrrrNhk",
+    "khNNNNNNNNNNNNNNNNNhk",
+    "khNrrrrrrrrrrrrrrrNhk",
+    "khNNNNNNNNNNNNNNNNNhk",
+    "khNrrrrrrrrrrrrrrrNhk",
+    "khNNNNNNNNNNNNNNNNNhk",
+    "khNrrrrrrrrrrrrrrrNhk",
+    "khNNNNNNNNNNNNNNNNNhk",
+    "khNrrrrrrrrrrrrrrrNhk",
+    "khNNNNNNNNNNNNNNNNNhk",
+    "kkkkkhkkkkkkkkkhkkkkk",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....b.........b.....",
+    ".....o.........o....."
   ],
   "palette": {
-    "h": {
+    "H": {
       "color": [
-        0.3,
-        0.4,
-        0.18
+        0.5,
+        0.51,
+        0.54
       ],
       "height": 9
     },
-    "H": {
+    "l": {
       "color": [
-        0.45,
+        1.0,
         0.55,
-        0.22
+        0.15
       ],
-      "height": 15
+      "height": 11
     },
-    "y": {
+    "h": {
       "color": [
-        0.95,
-        0.8,
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 9
+    },
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 11
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
         0.2
       ],
-      "height": 15
+      "height": 7
     },
-    "g": {
+    "r": {
       "color": [
-        0.25,
-        0.26,
-        0.3
+        0.13,
+        0.13,
+        0.15
+      ],
+      "height": 9
+    },
+    "b": {
+      "color": [
+        0.22,
+        0.23,
+        0.25
+      ],
+      "height": 5
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
       ],
       "height": 9
     }

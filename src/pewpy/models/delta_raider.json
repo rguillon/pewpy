@@ -1,0 +1,175 @@
+{
+  "rows": [
+    ".............NoooN......NoooN...NoooN......NoooN.............",
+    ".............NrrrN......NrrrN...NrrrN......NrrrN.............",
+    ".............NNNNNHHkHHHNNNNNHHHNNNNNHHHkHHNNNNN.............",
+    ".............NrrrNhhkhhhNrrrNhhhNrrrNhhhkhhNrrrN.............",
+    ".............NNNNNhhkDDDNNNNNDDDNNNNNDDDkhhNNNNN.............",
+    "............HhhhhhhhkDDDDDDDDDDDDDDDDDDDkhhhhhhhH............",
+    "...........HhhhhhhhhkDDDDDDDDDDDDDDDDDDDkhhhhhhhhH...........",
+    "..........HhhhhhhhhhkDDDDDDDDDDDDDDDDDDDkhhhhhhhhhH..........",
+    ".........kkkNNNNNkkkkDDDDDDDDDDDDDDDDDDDkkkkNNNNNkkk.........",
+    "........HhhhrrrrrhhhkDDDDDDDDDDDDDDDDDDDkhhhrrrrrhhhH........",
+    ".......HhhhhNNNNNhhhkDDDDDDDDDDDDDDDDDDDkhhhNNNNNhhhhH.......",
+    ".......ppppprrrrrpppkDDDDDqqqqqqqqqDDDDDkppprrrrrppppp.......",
+    "......ppppppNNNNNpppkDDDDDqqqqqqqqqDDDDDkpppNNNNNpppppp......",
+    ".....HhhhhhhhhhhhhhhkDDDDDqqgggggqqDDDDDkhhhhhhhhhhhhhhH.....",
+    "....kkkkkkkkkkkkkkkkkDDDDDqqgggggqqDDDDDkkkkkkkkkkkkkkkkk....",
+    "...HhhhhhhhhhhhhhhhhkDDDDDqqgggggqqDDDDDkhhhhhhhhhhhhhhhhH...",
+    "..HhhhhhhhhhhhhhhhhhkDDDDDqqgggggqqDDDDDkhhhhhhhhhhhhhhhhhH..",
+    ".HhhhhhhhhhhhhhhhhhhkDDDDDqqgggggqqDDDDDkhhhhhhhhhhhhhhhhhhH.",
+    "lkhhhhhhhhhhhhhhhhhhkDDDDDqqqqqqqqqDDDDDkhhhhhhhhhhhhhhhhhhkl",
+    "..kkhhhhhhhhhhhhhhhhkDDDDDqqqqqqqqqDDDDDkhhhhhhhhhhhhhhhhkk..",
+    "....kkkkkkkkkkkkkkkkkDDDDDDDDDDDDDDDDDDDkkkkkkkkkkkkkkkkk....",
+    ".....kkhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhkk.....",
+    ".......kkhhhhhhhhhhhkDDDDDDDDDDDDDDDDDDDkhhhhhhhhhhhkk.......",
+    ".........pppppppppppkDDDDDDDDDDDDDDDDDDDkppppppppppp.........",
+    "..........ppppppppppkDDDDDDDDDDDDDDDDDDDkpppppppppp..........",
+    "............kkhhhhhhkDDDDDDDDDDDDDDDDDDDkhhhhhhkk............",
+    "..............kkkkkkkDDDDDDDDDDDDDDDDDDDkkkkkkk..............",
+    "................khhhkDDDDDDDDDDDDDDDDDDDkhhhk................",
+    ".................kkhkDDDDDDDDDDDDDDDDDDDkhkk.................",
+    "...................kkDDDDDDDDDDDDDDDDDDDkk...................",
+    ".....................bbhhhhhhhhhhhhhhhbb.....................",
+    ".....................bbkkkkkkkRkkkkkkkbb.....................",
+    ".....................bb...............bb.....................",
+    ".....................bb...............bb.....................",
+    ".....................oo...............oo....................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 13
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "height": 11
+    },
+    "r": {
+      "color": [
+        0.13,
+        0.13,
+        0.15
+      ],
+      "height": 11
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 11
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
+        0.2
+      ],
+      "height": 9
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 11
+    },
+    "D": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.17,
+        0.68,
+        0.68
+      ],
+      "height": 11
+    },
+    "q": {
+      "color": [
+        0.22,
+        0.58,
+        0.58
+      ],
+      "height": 15
+    },
+    "g": {
+      "color": [
+        0.57,
+        0.93,
+        0.93
+      ],
+      "height": 15
+    },
+    "l": {
+      "color": [
+        1.0,
+        0.55,
+        0.15
+      ],
+      "height": 13
+    },
+    "b": {
+      "color": [
+        0.22,
+        0.23,
+        0.25
+      ],
+      "height": 7
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "height": 13
+    }
+  },
+  "engines": [
+    {
+      "x": 34,
+      "y": 0,
+      "width": 4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 26,
+      "y": 0,
+      "width": 4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 45,
+      "y": 0,
+      "width": 4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "width": 4,
+      "length": 10,
+      "towards": "top"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ square voxels). Parts are at (x, y) from the core's middle.
 from pewpy.bosses import CORE, BossSpec, Gun, PartSpec, Phase
 
 BOSSES: dict[str, BossSpec] = {
-    # 1-1: a satellite, no parts.
+    # 1-1: a patrol platform, no parts.
     "sentinel": BossSpec(
         name="SENTINEL",
         drawing="sentinel",
@@ -26,7 +26,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 1-2: a red manta fighter, no parts.
+    # 1-2: a raider with swept wings, no parts.
     "prowler": BossSpec(
         name="PROWLER",
         drawing="prowler",
@@ -56,8 +56,8 @@ BOSSES: dict[str, BossSpec] = {
         health=60.0,
         points=2000,
         parts=(
-            PartSpec("left drill", "rock_drill", -0.2, -0.04, 0.1, 0.16, 25.0, 400),
-            PartSpec("right drill", "rock_drill", 0.2, -0.04, 0.1, 0.16, 25.0, 400),
+            PartSpec("left drill", "rockbreaker_drill", -0.2, -0.04, 0.1, 0.16, 25.0, 400),
+            PartSpec("right drill", "rockbreaker_drill", 0.2, -0.04, 0.1, 0.16, 25.0, 400),
         ),
         phases=(
             Phase(
@@ -78,7 +78,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 1-4: a round siege pod, no parts, three phases on its health.
+    # 1-4: an armored siege ship, no parts, three phases on its health.
     "siege_pod": BossSpec(
         name="SIEGE POD",
         drawing="siege_pod",
@@ -109,8 +109,8 @@ BOSSES: dict[str, BossSpec] = {
         health=90.0,
         points=2600,
         parts=(
-            PartSpec("left gun", "fang_gun", -0.19, -0.02, 0.1, 0.2, 30.0, 500),
-            PartSpec("right gun", "fang_gun", 0.19, -0.02, 0.1, 0.2, 30.0, 500),
+            PartSpec("left gun", "twin_fang_cannon", -0.19, -0.02, 0.1, 0.2, 30.0, 500),
+            PartSpec("right gun", "twin_fang_cannon", 0.19, -0.02, 0.1, 0.2, 30.0, 500),
         ),
         phases=(
             Phase(
@@ -141,8 +141,8 @@ BOSSES: dict[str, BossSpec] = {
         health=110.0,
         points=3000,
         parts=(
-            PartSpec("left dish", "relay_dish", -0.26, 0.06, 0.14, 0.14, 35.0, 600),
-            PartSpec("right dish", "relay_dish", 0.26, 0.06, 0.14, 0.14, 35.0, 600),
+            PartSpec("left dish", "relay_array_dish", -0.26, 0.06, 0.14, 0.14, 35.0, 600),
+            PartSpec("right dish", "relay_array_dish", 0.26, 0.06, 0.14, 0.14, 35.0, 600),
         ),
         phases=(
             Phase(
@@ -164,28 +164,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 1-7: a mine carrier with two mine pods; armored, then two phases on its health.
-    "mine_mother": BossSpec(
-        name="MINE MOTHER",
-        drawing="mine_mother",
+    # 1-7: a mine carrier with two launchers; armored, then two phases on its health.
+    "mine_carrier": BossSpec(
+        name="MINE CARRIER",
+        drawing="mine_carrier",
         width=0.34,
         height=0.28,
         health=130.0,
         points=3500,
         parts=(
-            PartSpec("left pod", "mine_pod", -0.27, -0.08, 0.12, 0.12, 35.0, 600),
-            PartSpec("right pod", "mine_pod", 0.27, -0.08, 0.12, 0.12, 35.0, 600),
+            PartSpec("left launcher", "mine_carrier_launcher", -0.27, -0.08, 0.12, 0.12, 35.0, 600),
+            PartSpec("right launcher", "mine_carrier_launcher", 0.27, -0.08, 0.12, 0.12, 35.0, 600),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left pod", Gun("fan", interval=1.8, speed=0.5, count=3, spread=20)),
-                    ("right pod", Gun("fan", interval=1.8, speed=0.5, count=3, spread=20, delay=0.9)),
+                    ("left launcher", Gun("fan", interval=1.8, speed=0.5, count=3, spread=20)),
+                    ("right launcher", Gun("fan", interval=1.8, speed=0.5, count=3, spread=20, delay=0.9)),
                     (CORE, Gun("aimed", interval=2.4, speed=0.5, style="heavy", delay=1.2)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left pod", "right pod"),
+                until_destroyed=("left launcher", "right launcher"),
             ),
             Phase(
                 guns=(
@@ -204,7 +204,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 1-8, Orbit's boss: no parts, two phases by health.
+    # 1-8, Orbit's boss: a battle station, no parts, two phases by health.
     "warden": BossSpec(
         name="WARDEN",
         drawing="warden",
@@ -230,7 +230,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-1: a threshing machine, no parts.
+    # 2-1: a heavy hauler with cutters in front, no parts.
     "thresher": BossSpec(
         name="THRESHER",
         drawing="thresher",
@@ -249,28 +249,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-2: a scarecrow with two straw arms; armored until they're gone.
-    "scarecrow": BossSpec(
-        name="SCARECROW",
-        drawing="scarecrow",
+    # 2-2: a picket ship with two gun pods; armored until they're gone.
+    "picket": BossSpec(
+        name="PICKET",
+        drawing="picket",
         width=0.2,
         height=0.26,
         health=80.0,
         points=2200,
         parts=(
-            PartSpec("left arm", "straw_arm", -0.19, 0.04, 0.16, 0.09, 25.0, 400),
-            PartSpec("right arm", "straw_arm", 0.19, 0.04, 0.16, 0.09, 25.0, 400),
+            PartSpec("left gun pod", "picket_cannon", -0.19, 0.04, 0.16, 0.09, 25.0, 400),
+            PartSpec("right gun pod", "picket_cannon", 0.19, 0.04, 0.16, 0.09, 25.0, 400),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left arm", Gun("fan", interval=1.7, speed=0.45, count=3, spread=18)),
-                    ("right arm", Gun("fan", interval=1.7, speed=0.45, count=3, spread=18, delay=0.85)),
+                    ("left gun pod", Gun("fan", interval=1.7, speed=0.45, count=3, spread=18)),
+                    ("right gun pod", Gun("fan", interval=1.7, speed=0.45, count=3, spread=18, delay=0.85)),
                     (CORE, Gun("aimed", interval=2.0, speed=0.55, delay=0.5)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left arm", "right arm"),
+                until_destroyed=("left gun pod", "right gun pod"),
             ),
             Phase(
                 guns=(
@@ -281,28 +281,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-3: a beetle with two horns in front; armored until they're gone.
-    "beetle": BossSpec(
-        name="BEETLE",
-        drawing="beetle",
+    # 2-3: an armored ship with two rams in front; armored until they're gone.
+    "bulwark": BossSpec(
+        name="BULWARK",
+        drawing="bulwark",
         width=0.28,
         height=0.3,
         health=90.0,
         points=2400,
         parts=(
-            PartSpec("left horn", "beetle_horn", -0.07, -0.2, 0.08, 0.14, 30.0, 500),
-            PartSpec("right horn", "beetle_horn", 0.07, -0.2, 0.08, 0.14, 30.0, 500),
+            PartSpec("left ram", "bulwark_ram", -0.07, -0.2, 0.08, 0.14, 30.0, 500),
+            PartSpec("right ram", "bulwark_ram", 0.07, -0.2, 0.08, 0.14, 30.0, 500),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left horn", Gun("aimed", interval=1.5, speed=0.6, volley=2)),
-                    ("right horn", Gun("aimed", interval=1.5, speed=0.6, volley=2, delay=0.75)),
+                    ("left ram", Gun("aimed", interval=1.5, speed=0.6, volley=2)),
+                    ("right ram", Gun("aimed", interval=1.5, speed=0.6, volley=2, delay=0.75)),
                     (CORE, Gun("fan", interval=2.4, speed=0.4, count=5, spread=18, delay=1.2)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left horn", "right horn"),
+                until_destroyed=("left ram", "right ram"),
             ),
             Phase(
                 guns=(
@@ -313,10 +313,10 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-4: windmill sails, no parts: spirals, three phases on its health.
-    "windmill": BossSpec(
-        name="WINDMILL",
-        drawing="windmill",
+    # 2-4: a ship built around a spinning turbine, no parts: spirals, three phases.
+    "turbine": BossSpec(
+        name="TURBINE",
+        drawing="turbine",
         width=0.3,
         height=0.3,
         health=110.0,
@@ -335,28 +335,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-5: a walking barn with two silos; armored until they're gone.
-    "silo_walker": BossSpec(
-        name="SILO WALKER",
-        drawing="silo_walker",
+    # 2-5: a hauler with two fuel tanks; armored until they're gone.
+    "silo_hauler": BossSpec(
+        name="SILO HAULER",
+        drawing="silo_hauler",
         width=0.26,
         height=0.24,
         health=100.0,
         points=2800,
         parts=(
-            PartSpec("left silo", "silo", -0.21, 0.04, 0.12, 0.19, 35.0, 600),
-            PartSpec("right silo", "silo", 0.21, 0.04, 0.12, 0.19, 35.0, 600),
+            PartSpec("left tank", "silo_hauler_tank", -0.21, 0.04, 0.12, 0.19, 35.0, 600),
+            PartSpec("right tank", "silo_hauler_tank", 0.21, 0.04, 0.12, 0.19, 35.0, 600),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left silo", Gun("ring", interval=1.8, speed=0.4, count=6, turn=15)),
-                    ("right silo", Gun("ring", interval=1.8, speed=0.4, count=6, turn=-15, delay=0.9)),
+                    ("left tank", Gun("ring", interval=1.8, speed=0.4, count=6, turn=15)),
+                    ("right tank", Gun("ring", interval=1.8, speed=0.4, count=6, turn=-15, delay=0.9)),
                     (CORE, Gun("aimed", interval=2.0, speed=0.6, volley=2, delay=0.5)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left silo", "right silo"),
+                until_destroyed=("left tank", "right tank"),
             ),
             Phase(
                 guns=(
@@ -367,28 +367,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-6: a hornet queen with two wings; armored, then two phases on its health.
-    "hornet_queen": BossSpec(
-        name="HORNET QUEEN",
-        drawing="hornet_queen",
+    # 2-6: a carrier with two hangars; armored, then two phases on its health.
+    "hive_carrier": BossSpec(
+        name="HIVE CARRIER",
+        drawing="hive_carrier",
         width=0.22,
         height=0.3,
         health=110.0,
         points=3000,
         parts=(
-            PartSpec("left wing", "hornet_wing", -0.19, 0.06, 0.16, 0.18, 30.0, 500),
-            PartSpec("right wing", "hornet_wing", 0.19, 0.06, 0.16, 0.18, 30.0, 500),
+            PartSpec("left hangar", "hive_carrier_launcher", -0.19, 0.06, 0.16, 0.18, 30.0, 500),
+            PartSpec("right hangar", "hive_carrier_launcher", 0.19, 0.06, 0.16, 0.18, 30.0, 500),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left wing", Gun("fan", interval=1.2, speed=0.5, count=3, spread=12, sweep=25)),
-                    ("right wing", Gun("fan", interval=1.2, speed=0.5, count=3, spread=12, sweep=25, delay=0.6)),
+                    ("left hangar", Gun("fan", interval=1.2, speed=0.5, count=3, spread=12, sweep=25)),
+                    ("right hangar", Gun("fan", interval=1.2, speed=0.5, count=3, spread=12, sweep=25, delay=0.6)),
                     (CORE, Gun("aimed", interval=2.0, speed=0.6, delay=1.0)),
                 ),
                 sway=0.14,
                 armored=True,
-                until_destroyed=("left wing", "right wing"),
+                until_destroyed=("left hangar", "right hangar"),
             ),
             Phase(guns=((CORE, Gun("ring", interval=0.14, speed=0.45, count=3, turn=12)),), sway=0.16, until_below=0.5),
             Phase(
@@ -400,38 +400,38 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 2-7: a red tractor with two wheels and a plow: wheels, then the plow, then the core.
-    "tractor_king": BossSpec(
-        name="TRACTOR KING",
-        drawing="tractor_king",
+    # 2-7: a space tug with two thrusters and a ram plate: thrusters, then the plate, then the core.
+    "tugmaster": BossSpec(
+        name="TUGMASTER",
+        drawing="tugmaster",
         width=0.3,
         height=0.28,
         health=130.0,
         points=3500,
         parts=(
-            PartSpec("left wheel", "tractor_wheel", -0.23, 0.0, 0.12, 0.19, 30.0, 500),
-            PartSpec("right wheel", "tractor_wheel", 0.23, 0.0, 0.12, 0.19, 30.0, 500),
-            PartSpec("plow", "tractor_plow", 0.0, -0.19, 0.22, 0.08, 40.0, 700),
+            PartSpec("left thruster", "tugmaster_engine", -0.23, 0.0, 0.12, 0.19, 30.0, 500),
+            PartSpec("right thruster", "tugmaster_engine", 0.23, 0.0, 0.12, 0.19, 30.0, 500),
+            PartSpec("ram plate", "tugmaster_plate", 0.0, -0.19, 0.22, 0.08, 40.0, 700),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left wheel", Gun("aimed", interval=1.6, speed=0.6, volley=2)),
-                    ("right wheel", Gun("aimed", interval=1.6, speed=0.6, volley=2, delay=0.8)),
-                    ("plow", Gun("fan", interval=2.0, speed=0.45, count=5, spread=15, delay=0.4)),
+                    ("left thruster", Gun("aimed", interval=1.6, speed=0.6, volley=2)),
+                    ("right thruster", Gun("aimed", interval=1.6, speed=0.6, volley=2, delay=0.8)),
+                    ("ram plate", Gun("fan", interval=2.0, speed=0.45, count=5, spread=15, delay=0.4)),
                 ),
                 sway=0.08,
                 armored=True,
-                until_destroyed=("left wheel", "right wheel"),
+                until_destroyed=("left thruster", "right thruster"),
             ),
             Phase(
                 guns=(
-                    ("plow", Gun("ring", interval=1.6, speed=0.4, count=10, turn=18)),
+                    ("ram plate", Gun("ring", interval=1.6, speed=0.4, count=10, turn=18)),
                     (CORE, Gun("fan", interval=2.2, speed=0.4, count=3, spread=30, style="heavy", delay=0.8)),
                 ),
                 sway=0.12,
                 armored=True,
-                until_destroyed=("plow",),
+                until_destroyed=("ram plate",),
             ),
             Phase(
                 guns=(
@@ -474,28 +474,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 3-1: a crab with two claws; armored until they're gone.
-    "crab": BossSpec(
-        name="CRAB",
-        drawing="crab",
+    # 3-1: a barge with two clamps; armored until they're gone.
+    "clamp_barge": BossSpec(
+        name="CLAMP BARGE",
+        drawing="clamp_barge",
         width=0.26,
         height=0.2,
         health=70.0,
         points=2000,
         parts=(
-            PartSpec("left claw", "crab_claw", -0.2, -0.08, 0.12, 0.14, 25.0, 400),
-            PartSpec("right claw", "crab_claw", 0.2, -0.08, 0.12, 0.14, 25.0, 400),
+            PartSpec("left clamp", "clamp_barge_clamp", -0.2, -0.08, 0.12, 0.14, 25.0, 400),
+            PartSpec("right clamp", "clamp_barge_clamp", 0.2, -0.08, 0.12, 0.14, 25.0, 400),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left claw", Gun("aimed", interval=1.6, speed=0.55, count=2, spread=10)),
-                    ("right claw", Gun("aimed", interval=1.6, speed=0.55, count=2, spread=10, delay=0.8)),
+                    ("left clamp", Gun("aimed", interval=1.6, speed=0.55, count=2, spread=10)),
+                    ("right clamp", Gun("aimed", interval=1.6, speed=0.55, count=2, spread=10, delay=0.8)),
                     (CORE, Gun("fan", interval=2.2, speed=0.4, count=3, spread=20, delay=1.1)),
                 ),
                 sway=0.12,
                 armored=True,
-                until_destroyed=("left claw", "right claw"),
+                until_destroyed=("left clamp", "right clamp"),
             ),
             Phase(
                 guns=(
@@ -506,10 +506,10 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 3-2: a jellyfish, no parts: rings.
-    "jellyfish": BossSpec(
-        name="JELLYFISH",
-        drawing="jellyfish",
+    # 3-2: a ring-shaped pulse ship, no parts: rings.
+    "pulsar": BossSpec(
+        name="PULSAR",
+        drawing="pulsar",
         width=0.26,
         height=0.3,
         health=90.0,
@@ -534,8 +534,8 @@ BOSSES: dict[str, BossSpec] = {
         health=90.0,
         points=2400,
         parts=(
-            PartSpec("left gun", "deck_gun", -0.17, 0.02, 0.1, 0.1, 30.0, 500),
-            PartSpec("right gun", "deck_gun", 0.17, 0.02, 0.1, 0.1, 30.0, 500),
+            PartSpec("left gun", "frigate_turret", -0.17, 0.02, 0.1, 0.1, 30.0, 500),
+            PartSpec("right gun", "frigate_turret", 0.17, 0.02, 0.1, 0.1, 30.0, 500),
         ),
         phases=(
             Phase(
@@ -557,10 +557,10 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 3-4: a manta ray, no parts: sweeping fans, three phases on its health.
-    "manta": BossSpec(
-        name="MANTA",
-        drawing="manta",
+    # 3-4: a delta-winged raider, no parts: sweeping fans, three phases.
+    "delta_raider": BossSpec(
+        name="DELTA RAIDER",
+        drawing="delta_raider",
         width=0.4,
         height=0.23,
         health=110.0,
@@ -588,17 +588,17 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 3-5: an ice fortress with two ice cannons; armored until they're gone.
-    "iceberg_fort": BossSpec(
-        name="ICEBERG FORT",
-        drawing="iceberg_fort",
+    # 3-5: a fortress ship with two cryo cannons; armored until they're gone.
+    "cryo_fortress": BossSpec(
+        name="CRYO FORTRESS",
+        drawing="cryo_fortress",
         width=0.3,
         height=0.26,
         health=110.0,
         points=2800,
         parts=(
-            PartSpec("left cannon", "ice_cannon", -0.23, 0.02, 0.12, 0.15, 35.0, 600),
-            PartSpec("right cannon", "ice_cannon", 0.23, 0.02, 0.12, 0.15, 35.0, 600),
+            PartSpec("left cannon", "cryo_fortress_cannon", -0.23, 0.02, 0.12, 0.15, 35.0, 600),
+            PartSpec("right cannon", "cryo_fortress_cannon", 0.23, 0.02, 0.12, 0.15, 35.0, 600),
         ),
         phases=(
             Phase(
@@ -620,31 +620,31 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 3-6: a kraken with four tentacles; armored until they're all gone, then two phases on its health.
-    "kraken": BossSpec(
-        name="KRAKEN",
-        drawing="kraken",
+    # 3-6: a salvage ship with four grapples; armored until they're all gone, then two phases.
+    "grappler": BossSpec(
+        name="GRAPPLER",
+        drawing="grappler",
         width=0.26,
         height=0.26,
         health=130.0,
         points=3200,
         parts=(
-            PartSpec("left tentacle", "kraken_tentacle", -0.2, -0.13, 0.08, 0.21, 20.0, 400),
-            PartSpec("right tentacle", "kraken_tentacle", 0.2, -0.13, 0.08, 0.21, 20.0, 400),
-            PartSpec("left inner tentacle", "kraken_tentacle", -0.09, -0.21, 0.08, 0.21, 20.0, 400),
-            PartSpec("right inner tentacle", "kraken_tentacle", 0.09, -0.21, 0.08, 0.21, 20.0, 400),
+            PartSpec("left grapple", "grappler_clamp", -0.2, -0.13, 0.08, 0.21, 20.0, 400),
+            PartSpec("right grapple", "grappler_clamp", 0.2, -0.13, 0.08, 0.21, 20.0, 400),
+            PartSpec("left inner grapple", "grappler_clamp", -0.09, -0.21, 0.08, 0.21, 20.0, 400),
+            PartSpec("right inner grapple", "grappler_clamp", 0.09, -0.21, 0.08, 0.21, 20.0, 400),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left tentacle", Gun("fan", interval=1.6, speed=0.5, count=3, spread=15)),
-                    ("right tentacle", Gun("fan", interval=1.6, speed=0.5, count=3, spread=15, delay=0.8)),
-                    ("left inner tentacle", Gun("aimed", interval=1.4, speed=0.6, delay=0.4)),
-                    ("right inner tentacle", Gun("aimed", interval=1.4, speed=0.6, delay=1.1)),
+                    ("left grapple", Gun("fan", interval=1.6, speed=0.5, count=3, spread=15)),
+                    ("right grapple", Gun("fan", interval=1.6, speed=0.5, count=3, spread=15, delay=0.8)),
+                    ("left inner grapple", Gun("aimed", interval=1.4, speed=0.6, delay=0.4)),
+                    ("right inner grapple", Gun("aimed", interval=1.4, speed=0.6, delay=1.1)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left tentacle", "right tentacle", "left inner tentacle", "right inner tentacle"),
+                until_destroyed=("left grapple", "right grapple", "left inner grapple", "right inner grapple"),
             ),
             Phase(
                 guns=(
@@ -672,11 +672,11 @@ BOSSES: dict[str, BossSpec] = {
         health=150.0,
         points=4000,
         parts=(
-            PartSpec("left front turret", "naval_turret", -0.18, -0.1, 0.12, 0.12, 25.0, 500),
-            PartSpec("right front turret", "naval_turret", 0.18, -0.1, 0.12, 0.12, 25.0, 500),
-            PartSpec("left rear turret", "naval_turret", -0.26, 0.1, 0.12, 0.12, 25.0, 500),
-            PartSpec("right rear turret", "naval_turret", 0.26, 0.1, 0.12, 0.12, 25.0, 500),
-            PartSpec("bow gun", "bow_gun", 0.0, -0.24, 0.08, 0.11, 35.0, 700),
+            PartSpec("left front turret", "dreadnought_turret", -0.18, -0.1, 0.12, 0.12, 25.0, 500),
+            PartSpec("right front turret", "dreadnought_turret", 0.18, -0.1, 0.12, 0.12, 25.0, 500),
+            PartSpec("left rear turret", "dreadnought_turret", -0.26, 0.1, 0.12, 0.12, 25.0, 500),
+            PartSpec("right rear turret", "dreadnought_turret", 0.26, 0.1, 0.12, 0.12, 25.0, 500),
+            PartSpec("bow gun", "dreadnought_cannon", 0.0, -0.24, 0.08, 0.11, 35.0, 700),
         ),
         phases=(
             Phase(
@@ -709,28 +709,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 3-8, Waters' boss: two fins, then two phases of the core alone.
-    "leviathan": BossSpec(
-        name="LEVIATHAN",
-        drawing="leviathan",
+    # 3-8, Waters' boss: two missile batteries, then two phases of the core alone.
+    "tidebreaker": BossSpec(
+        name="TIDEBREAKER",
+        drawing="tidebreaker",
         width=0.3,
         height=0.36,
         health=120.0,
         points=7000,
         parts=(
-            PartSpec("left fin", "leviathan_fin", -0.24, 0.04, 0.16, 0.22, 45.0, 900),
-            PartSpec("right fin", "leviathan_fin", 0.24, 0.04, 0.16, 0.22, 45.0, 900),
+            PartSpec("left battery", "tidebreaker_launcher", -0.24, 0.04, 0.16, 0.22, 45.0, 900),
+            PartSpec("right battery", "tidebreaker_launcher", 0.24, 0.04, 0.16, 0.22, 45.0, 900),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left fin", Gun("fan", interval=1.1, speed=0.5, count=4, spread=12, sweep=30)),
-                    ("right fin", Gun("fan", interval=1.1, speed=0.5, count=4, spread=12, sweep=30, delay=0.55)),
+                    ("left battery", Gun("fan", interval=1.1, speed=0.5, count=4, spread=12, sweep=30)),
+                    ("right battery", Gun("fan", interval=1.1, speed=0.5, count=4, spread=12, sweep=30, delay=0.55)),
                     (CORE, Gun("aimed", interval=2.4, speed=0.55, style="heavy", delay=1.0)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left fin", "right fin"),
+                until_destroyed=("left battery", "right battery"),
             ),
             Phase(
                 guns=(
@@ -749,28 +749,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-1: a scorpion with two pincers; armored until they're gone.
-    "scorpion": BossSpec(
-        name="SCORPION",
-        drawing="scorpion",
+    # 4-1: an assault ship with two breaching clamps; armored until they're gone.
+    "breacher": BossSpec(
+        name="BREACHER",
+        drawing="breacher",
         width=0.24,
         height=0.24,
         health=70.0,
         points=2000,
         parts=(
-            PartSpec("left pincer", "scorpion_pincer", -0.17, -0.12, 0.1, 0.16, 25.0, 400),
-            PartSpec("right pincer", "scorpion_pincer", 0.17, -0.12, 0.1, 0.16, 25.0, 400),
+            PartSpec("left clamp", "breacher_clamp", -0.17, -0.12, 0.1, 0.16, 25.0, 400),
+            PartSpec("right clamp", "breacher_clamp", 0.17, -0.12, 0.1, 0.16, 25.0, 400),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left pincer", Gun("aimed", interval=1.6, speed=0.55, volley=2)),
-                    ("right pincer", Gun("aimed", interval=1.6, speed=0.55, volley=2, delay=0.8)),
+                    ("left clamp", Gun("aimed", interval=1.6, speed=0.55, volley=2)),
+                    ("right clamp", Gun("aimed", interval=1.6, speed=0.55, volley=2, delay=0.8)),
                     (CORE, Gun("fan", interval=2.2, speed=0.45, count=3, spread=18, delay=1.1)),
                 ),
                 sway=0.12,
                 armored=True,
-                until_destroyed=("left pincer", "right pincer"),
+                until_destroyed=("left clamp", "right clamp"),
             ),
             Phase(
                 guns=(
@@ -781,10 +781,10 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-2: a whirlwind of sand, no parts: spirals, three phases on its health.
-    "dust_devil": BossSpec(
-        name="DUST DEVIL",
-        drawing="dust_devil",
+    # 4-2: a ring ship spinning its guns, no parts: spirals, three phases.
+    "cyclone": BossSpec(
+        name="CYCLONE",
+        drawing="cyclone",
         width=0.28,
         height=0.28,
         health=100.0,
@@ -810,28 +810,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-3: a sandworm's head with two body segments; armored until they're gone.
-    "sandworm": BossSpec(
-        name="SANDWORM",
-        drawing="sandworm",
+    # 4-3: a boring ship with two generators; armored until they're gone.
+    "borer": BossSpec(
+        name="BORER",
+        drawing="borer",
         width=0.24,
         height=0.24,
         health=90.0,
         points=2400,
         parts=(
-            PartSpec("left segment", "worm_segment", -0.2, 0.08, 0.14, 0.14, 30.0, 500),
-            PartSpec("right segment", "worm_segment", 0.2, 0.08, 0.14, 0.14, 30.0, 500),
+            PartSpec("left generator", "borer_generator", -0.2, 0.08, 0.14, 0.14, 30.0, 500),
+            PartSpec("right generator", "borer_generator", 0.2, 0.08, 0.14, 0.14, 30.0, 500),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left segment", Gun("ring", interval=2.0, speed=0.38, count=8, turn=20)),
-                    ("right segment", Gun("ring", interval=2.0, speed=0.38, count=8, turn=-20, delay=1.0)),
+                    ("left generator", Gun("ring", interval=2.0, speed=0.38, count=8, turn=20)),
+                    ("right generator", Gun("ring", interval=2.0, speed=0.38, count=8, turn=-20, delay=1.0)),
                     (CORE, Gun("aimed", interval=2.0, speed=0.6, volley=3, delay=0.5)),
                 ),
                 sway=0.1,
                 armored=True,
-                until_destroyed=("left segment", "right segment"),
+                until_destroyed=("left generator", "right generator"),
             ),
             Phase(
                 guns=(
@@ -842,17 +842,17 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-4: a fort on a mesa with two turrets; armored until they're gone.
-    "mesa_fort": BossSpec(
-        name="MESA FORT",
-        drawing="mesa_fort",
+    # 4-4: a fortress ship with two turrets; armored until they're gone.
+    "bastion": BossSpec(
+        name="BASTION",
+        drawing="bastion",
         width=0.32,
         height=0.23,
         health=110.0,
         points=2800,
         parts=(
-            PartSpec("left turret", "colossus_turret", -0.25, -0.06, 0.12, 0.12, 30.0, 500),
-            PartSpec("right turret", "colossus_turret", 0.25, -0.06, 0.12, 0.12, 30.0, 500),
+            PartSpec("left turret", "bastion_turret", -0.25, -0.06, 0.12, 0.12, 30.0, 500),
+            PartSpec("right turret", "bastion_turret", 0.25, -0.06, 0.12, 0.12, 30.0, 500),
         ),
         phases=(
             Phase(
@@ -874,28 +874,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-5: a lava golem with two fists; armored, then two phases on its health.
-    "lava_golem": BossSpec(
-        name="LAVA GOLEM",
-        drawing="lava_golem",
+    # 4-5: a foundry ship with two presses; armored, then two phases on its health.
+    "foundry": BossSpec(
+        name="FOUNDRY",
+        drawing="foundry",
         width=0.28,
         height=0.3,
         health=140.0,
         points=3400,
         parts=(
-            PartSpec("left fist", "golem_fist", -0.22, -0.1, 0.12, 0.14, 35.0, 600),
-            PartSpec("right fist", "golem_fist", 0.22, -0.1, 0.12, 0.14, 35.0, 600),
+            PartSpec("left press", "foundry_piston", -0.22, -0.1, 0.12, 0.14, 35.0, 600),
+            PartSpec("right press", "foundry_piston", 0.22, -0.1, 0.12, 0.14, 35.0, 600),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left fist", Gun("fan", interval=2.0, speed=0.42, count=3, spread=20, style="heavy")),
-                    ("right fist", Gun("fan", interval=2.0, speed=0.42, count=3, spread=20, style="heavy", delay=1.0)),
+                    ("left press", Gun("fan", interval=2.0, speed=0.42, count=3, spread=20, style="heavy")),
+                    ("right press", Gun("fan", interval=2.0, speed=0.42, count=3, spread=20, style="heavy", delay=1.0)),
                     (CORE, Gun("aimed", interval=1.6, speed=0.6, delay=0.5)),
                 ),
                 sway=0.08,
                 armored=True,
-                until_destroyed=("left fist", "right fist"),
+                until_destroyed=("left press", "right press"),
             ),
             Phase(
                 guns=(
@@ -914,28 +914,28 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-6: a vulture with two wings; armored, then two phases on its health.
-    "vulture": BossSpec(
-        name="VULTURE",
-        drawing="vulture",
+    # 4-6: a salvager with two wing batteries; armored, then two phases.
+    "scavenger": BossSpec(
+        name="SCAVENGER",
+        drawing="scavenger",
         width=0.2,
         height=0.27,
         health=110.0,
         points=3000,
         parts=(
-            PartSpec("left wing", "vulture_wing", -0.21, 0.05, 0.2, 0.13, 35.0, 600),
-            PartSpec("right wing", "vulture_wing", 0.21, 0.05, 0.2, 0.13, 35.0, 600),
+            PartSpec("left battery", "scavenger_launcher", -0.21, 0.05, 0.2, 0.13, 35.0, 600),
+            PartSpec("right battery", "scavenger_launcher", 0.21, 0.05, 0.2, 0.13, 35.0, 600),
         ),
         phases=(
             Phase(
                 guns=(
-                    ("left wing", Gun("fan", interval=1.3, speed=0.5, count=4, spread=12, sweep=25)),
-                    ("right wing", Gun("fan", interval=1.3, speed=0.5, count=4, spread=12, sweep=25, delay=0.65)),
+                    ("left battery", Gun("fan", interval=1.3, speed=0.5, count=4, spread=12, sweep=25)),
+                    ("right battery", Gun("fan", interval=1.3, speed=0.5, count=4, spread=12, sweep=25, delay=0.65)),
                     (CORE, Gun("aimed", interval=2.0, speed=0.6, delay=1.0)),
                 ),
                 sway=0.12,
                 armored=True,
-                until_destroyed=("left wing", "right wing"),
+                until_destroyed=("left battery", "right battery"),
             ),
             Phase(
                 guns=(
@@ -954,7 +954,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 4-7: an oil rig with two furnaces and two cannons: furnaces, then cannons, then the core.
+    # 4-7: a mining rig with two furnaces and two cannons: furnaces, then cannons, then the core.
     "magma_rig": BossSpec(
         name="MAGMA RIG",
         drawing="magma_rig",
@@ -963,10 +963,10 @@ BOSSES: dict[str, BossSpec] = {
         health=150.0,
         points=4000,
         parts=(
-            PartSpec("left furnace", "furnace", -0.24, 0.1, 0.12, 0.14, 30.0, 500),
-            PartSpec("right furnace", "furnace", 0.24, 0.1, 0.12, 0.14, 30.0, 500),
-            PartSpec("left cannon", "rig_cannon", -0.36, -0.06, 0.1, 0.16, 30.0, 500),
-            PartSpec("right cannon", "rig_cannon", 0.36, -0.06, 0.1, 0.16, 30.0, 500),
+            PartSpec("left furnace", "magma_rig_generator", -0.24, 0.1, 0.12, 0.14, 30.0, 500),
+            PartSpec("right furnace", "magma_rig_generator", 0.24, 0.1, 0.12, 0.14, 30.0, 500),
+            PartSpec("left cannon", "magma_rig_cannon", -0.36, -0.06, 0.1, 0.16, 30.0, 500),
+            PartSpec("right cannon", "magma_rig_cannon", 0.36, -0.06, 0.1, 0.16, 30.0, 500),
         ),
         phases=(
             Phase(
@@ -1045,7 +1045,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-1: a patrol drone, no parts.
+    # 5-1: a patrol gunship, no parts.
     "patrol_drone": BossSpec(
         name="PATROL DRONE",
         drawing="patrol_drone",
@@ -1066,7 +1066,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-2: a riot enforcer behind two shields (they don't shoot); armored until they're gone.
+    # 5-2: an enforcer behind two armor shields (they don't shoot); armored until they're gone.
     "enforcer": BossSpec(
         name="ENFORCER",
         drawing="enforcer",
@@ -1075,8 +1075,8 @@ BOSSES: dict[str, BossSpec] = {
         health=90.0,
         points=2400,
         parts=(
-            PartSpec("left shield", "riot_shield", -0.18, -0.06, 0.12, 0.19, 35.0, 500),
-            PartSpec("right shield", "riot_shield", 0.18, -0.06, 0.12, 0.19, 35.0, 500),
+            PartSpec("left shield", "enforcer_shield", -0.18, -0.06, 0.12, 0.19, 35.0, 500),
+            PartSpec("right shield", "enforcer_shield", 0.18, -0.06, 0.12, 0.19, 35.0, 500),
         ),
         phases=(
             Phase(
@@ -1097,7 +1097,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-3: a hover tank with two turrets; armored until they're gone.
+    # 5-3: a heavy gunboat with two turrets; armored until they're gone.
     "hover_tank": BossSpec(
         name="HOVER TANK",
         drawing="hover_tank",
@@ -1106,8 +1106,8 @@ BOSSES: dict[str, BossSpec] = {
         health=110.0,
         points=2800,
         parts=(
-            PartSpec("left turret", "tank_turret", -0.22, -0.02, 0.12, 0.15, 30.0, 500),
-            PartSpec("right turret", "tank_turret", 0.22, -0.02, 0.12, 0.15, 30.0, 500),
+            PartSpec("left turret", "hover_tank_turret", -0.22, -0.02, 0.12, 0.15, 30.0, 500),
+            PartSpec("right turret", "hover_tank_turret", 0.22, -0.02, 0.12, 0.15, 30.0, 500),
         ),
         phases=(
             Phase(
@@ -1129,7 +1129,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-4: a spire, no parts, three phases on its health.
+    # 5-4: a tall command ship, no parts, three phases on its health.
     "spire": BossSpec(
         name="SPIRE",
         drawing="spire",
@@ -1160,7 +1160,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-5: a sentry core with four nodes: the outer pair, then the inner pair, then the core.
+    # 5-5: a sentry ship with four nodes: the outer pair, then the inner pair, then the core.
     "sentry_grid": BossSpec(
         name="SENTRY GRID",
         drawing="sentry_grid",
@@ -1169,10 +1169,10 @@ BOSSES: dict[str, BossSpec] = {
         health=110.0,
         points=3000,
         parts=(
-            PartSpec("left outer node", "sentry_node", -0.3, 0.06, 0.1, 0.1, 22.0, 400),
-            PartSpec("right outer node", "sentry_node", 0.3, 0.06, 0.1, 0.1, 22.0, 400),
-            PartSpec("left inner node", "sentry_node", -0.18, -0.13, 0.1, 0.1, 22.0, 400),
-            PartSpec("right inner node", "sentry_node", 0.18, -0.13, 0.1, 0.1, 22.0, 400),
+            PartSpec("left outer node", "sentry_grid_generator", -0.3, 0.06, 0.1, 0.1, 22.0, 400),
+            PartSpec("right outer node", "sentry_grid_generator", 0.3, 0.06, 0.1, 0.1, 22.0, 400),
+            PartSpec("left inner node", "sentry_grid_generator", -0.18, -0.13, 0.1, 0.1, 22.0, 400),
+            PartSpec("right inner node", "sentry_grid_generator", 0.18, -0.13, 0.1, 0.1, 22.0, 400),
         ),
         phases=(
             Phase(
@@ -1214,10 +1214,10 @@ BOSSES: dict[str, BossSpec] = {
         health=140.0,
         points=3600,
         parts=(
-            PartSpec("left cannon", "prime_cannon", -0.18, -0.08, 0.1, 0.18, 30.0, 500),
-            PartSpec("right cannon", "prime_cannon", 0.18, -0.08, 0.1, 0.18, 30.0, 500),
-            PartSpec("left engine", "prime_engine", -0.3, 0.1, 0.12, 0.12, 30.0, 500),
-            PartSpec("right engine", "prime_engine", 0.3, 0.1, 0.12, 0.12, 30.0, 500),
+            PartSpec("left cannon", "gunship_prime_cannon", -0.18, -0.08, 0.1, 0.18, 30.0, 500),
+            PartSpec("right cannon", "gunship_prime_cannon", 0.18, -0.08, 0.1, 0.18, 30.0, 500),
+            PartSpec("left engine", "gunship_prime_engine", -0.3, 0.1, 0.12, 0.12, 30.0, 500),
+            PartSpec("right engine", "gunship_prime_engine", 0.3, 0.1, 0.12, 0.12, 30.0, 500),
         ),
         phases=(
             Phase(
@@ -1250,7 +1250,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-7: an executor robot with two generators and two blades; armored, then two phases on its health.
+    # 5-7: a command ship with two generators and two blades; armored, then two phases on its health.
     "executor": BossSpec(
         name="EXECUTOR",
         drawing="executor",
@@ -1259,8 +1259,8 @@ BOSSES: dict[str, BossSpec] = {
         health=160.0,
         points=4500,
         parts=(
-            PartSpec("left generator", "overmind_generator", -0.32, 0.08, 0.12, 0.12, 30.0, 500),
-            PartSpec("right generator", "overmind_generator", 0.32, 0.08, 0.12, 0.12, 30.0, 500),
+            PartSpec("left generator", "executor_generator", -0.32, 0.08, 0.12, 0.12, 30.0, 500),
+            PartSpec("right generator", "executor_generator", 0.32, 0.08, 0.12, 0.12, 30.0, 500),
             PartSpec("left blade", "executor_blade", -0.2, -0.1, 0.1, 0.22, 30.0, 500),
             PartSpec("right blade", "executor_blade", 0.2, -0.1, 0.1, 0.22, 30.0, 500),
         ),
@@ -1296,7 +1296,7 @@ BOSSES: dict[str, BossSpec] = {
             ),
         ),
     ),
-    # 5-8, Metropolis' boss: shield generators armor the core; cannons on the sides keep firing until destroyed.
+    # 5-8, Metropolis' boss: shield generators armor the core; cannons on the sides keep firing.
     "overmind": BossSpec(
         name="OVERMIND",
         drawing="overmind",

@@ -164,8 +164,11 @@ General rules for every boss:
   its own (shots, the laser, missiles and their splash), gives its own points and drops a pickup 30% of the time.
   Destroying the core destroys the parts left (without their points) and ends the fight; the core always drops a
   pickup.
-- Looks: voxel models drawn in `src/pewpy/models/` (one per core or kind of part), with the same cubes as every
-  other model (see `05-visuals.md`); each drawing is about as big as its hitbox.
+- Looks: giant industrial ships (see `05-visuals.md`): grey armor plates with seams, a raised deck, often a
+  command tower with windows and a glowing reactor, ribbed engine nacelles at the back, the boss's color as
+  markings; parts are machines (turrets, cannons, launchers, clamps, generators...). Voxel models drawn in
+  `src/pewpy/models/` (one per core or kind of part), with the same cubes as every other model; each drawing is
+  about as big as its hitbox.
 - Entry: comes down from above the screen at 0.25 and stops at y = 0.55, then sways left and right between the
   screen edges. It doesn't leave the screen and doesn't shoot before it stops.
 - Health bar: at the top of the screen, with its name, for the core and parts together (see `04-ui-audio.md`).
@@ -184,7 +187,7 @@ General rules for every boss:
 ### Boss: Sentinel
 
 - Level: 1-1 (Outer Belt)
-- Look and size: a grey satellite with blue solar panels and a red eye, 0.26 x 0.2; no parts
+- Look and size: a narrow patrol platform with wide solar wings and a command tower, blue markings, 0.26 x 0.2; no parts
 - Health: 60
 - Phases:
     1. Down to 50% of the core's health: sways at 0.1
@@ -199,7 +202,7 @@ General rules for every boss:
 ### Boss: Prowler
 
 - Level: 1-2 (Red Drift)
-- Look and size: a dark red manta-shaped fighter with a cyan cockpit, 0.34 x 0.2; no parts
+- Look and size: a delta-winged raider with a small red reactor and a prow gun, 0.34 x 0.2; no parts
 - Health: 75
 - Phases:
     1. Down to 50% of the core's health: sways at 0.14
@@ -214,8 +217,8 @@ General rules for every boss:
 ### Boss: Rockbreaker
 
 - Level: 1-3 (Rubble Run)
-- Look and size: a grey mining ship with yellow hazard stripes, 0.26 x 0.22; two drills (0.1 x 0.16, 25 health, 400
-  points each)
+- Look and size: a boxy mining ship with yellow markings and two prow drills, 0.26 x 0.22; two drills (0.1 x 0.16, 25
+  health, 400 points each)
 - Health: 60 (core)
 - Phases:
     1. Until both drills are destroyed, the core is armored: sways at 0.1
@@ -230,7 +233,7 @@ General rules for every boss:
 ### Boss: Siege Pod
 
 - Level: 1-4 (Starlit Reach)
-- Look and size: a round grey pod around a glowing red and orange core, 0.3 x 0.3; no parts
+- Look and size: a rounded armored siege ship around a big orange reactor, 0.3 x 0.3; no parts
 - Health: 110
 - Phases:
     1. Down to 66% of the core's health: sways at 0.1
@@ -247,7 +250,8 @@ General rules for every boss:
 ### Boss: Twin Fang
 
 - Level: 1-5 (Shard Belt)
-- Look and size: a steel blue ship with a cyan core, 0.24 x 0.26; two guns (0.1 x 0.2, 30 health, 500 points each)
+- Look and size: a wedge-shaped gunship with a command tower, cyan markings, 0.24 x 0.26; two guns (0.1 x 0.2, 30
+  health, 500 points each)
 - Health: 90 (core)
 - Phases:
     1. Down to 50% of the core's health: sways at 0.12
@@ -263,8 +267,8 @@ General rules for every boss:
 ### Boss: Relay Array
 
 - Level: 1-6 (Green Veil)
-- Look and size: a grey relay station with a blue light and antennas, 0.3 x 0.24; two dishes (0.14 x 0.14, 35 health,
-  600 points each)
+- Look and size: a cross-shaped relay ship with a tall tower and a blue reactor, 0.3 x 0.24; two dishes (0.14 x 0.14, 35
+  health, 600 points each)
 - Health: 110 (core)
 - Phases:
     1. Until both dishes are destroyed, the core is armored: sways at 0.1
@@ -276,28 +280,30 @@ General rules for every boss:
 - Time limit? No
 - Points: 3000
 
-### Boss: Mine Mother
+### Boss: Mine Carrier
 
 - Level: 1-7 (Cold Wake)
-- Look and size: a purple carrier with a glowing violet core, 0.34 x 0.28; two pods (0.12 x 0.12, 35 health, 600 points
-  each)
+- Look and size: a heavy carrier with four engines and a purple reactor, 0.34 x 0.28; two launchers (0.12 x 0.12, 35
+  health, 600 points each)
 - Health: 130 (core)
 - Phases:
-    1. Until both pods are destroyed, the core is armored: sways at 0.1
+    1. Until both launchers are destroyed, the core is armored: sways at 0.1
     2. Down to 50% of the core's health: sways at 0.14
     3. Until the end: sways at 0.18
 - Attacks per phase:
-    1. Each pod: a fan of 3 shots 20° apart every 1.8 s, speed 0.5; The core: an aimed heavy shot every 2.4 s, speed 0.5
+    1. Each launcher: a fan of 3 shots 20° apart every 1.8 s, speed 0.5; The core: an aimed heavy shot every 2.4 s,
+       speed 0.5
     2. The core: a ring of 10 every 1.6 s, turning, speed 0.4 and 3 aimed shots in a row every 2 s, speed 0.65
     3. The core: a 3-arm spiral (every 0.13 s), speed 0.45 and a fan of 5 heavy shots 18° apart every 2.2 s, speed 0.45
-- Weak points: both pods
+- Weak points: both launchers
 - Time limit? No
 - Points: 3500
 
 ### Boss: Warden
 
 - Level: 1-8 (Minefield)
-- Look and size: a grey orbital station with a red eye, 0.46 x 0.3; no parts
+- Look and size: a wide battle station with side wings, a command tower, a red reactor and prow guns, 0.46 x 0.3; no
+  parts
 - Health: 140
 - Phases:
     1. Down to 55% of the core's health: sways at 0.12
@@ -313,7 +319,7 @@ General rules for every boss:
 ### Boss: Thresher
 
 - Level: 2-1 (Ground Defense)
-- Look and size: an olive green threshing machine with spinning blades in front, 0.3 x 0.22; no parts
+- Look and size: a heavy hauler with three pairs of cutting blades at the prow, yellow markings, 0.3 x 0.22; no parts
 - Health: 70
 - Phases:
     1. Down to 50% of the core's health: sways at 0.1
@@ -325,42 +331,43 @@ General rules for every boss:
 - Time limit? No
 - Points: 1800
 
-### Boss: Scarecrow
+### Boss: Picket
 
 - Level: 2-2 (Patchwork)
-- Look and size: a straw scarecrow in a brown hat with glowing red eyes, 0.2 x 0.26; two arms (0.16 x 0.09, 25 health,
-  400 points each)
+- Look and size: a narrow picket ship with wide wings and a tall tower, green markings, 0.2 x 0.26; two gun pods (0.16 x
+  0.09, 25 health, 400 points each)
 - Health: 80 (core)
 - Phases:
-    1. Until both arms are destroyed, the core is armored: sways at 0.1
+    1. Until both gun pods are destroyed, the core is armored: sways at 0.1
     2. Until the end: sways at 0.15
 - Attacks per phase:
-    1. Each arm: a fan of 3 shots 18° apart every 1.7 s, speed 0.45; The core: an aimed shot every 2 s, speed 0.55
+    1. Each gun pod: a fan of 3 shots 18° apart every 1.7 s, speed 0.45; The core: an aimed shot every 2 s, speed 0.55
     2. The core: a ring of 12 every 2 s, turning, speed 0.4 and 3 aimed shots in a row every 1.8 s, speed 0.6
-- Weak points: both arms
+- Weak points: both gun pods
 - Time limit? No
 - Points: 2200
 
-### Boss: Beetle
+### Boss: Bulwark
 
 - Level: 2-3 (Greenwood)
-- Look and size: a green-shelled beetle, 0.28 x 0.3; two horns (0.08 x 0.14, 30 health, 500 points each)
+- Look and size: a thick armored block with a wide deck, vent banks and green markings, 0.28 x 0.3; two rams (0.08 x
+  0.14, 30 health, 500 points each)
 - Health: 90 (core)
 - Phases:
-    1. Until both horns are destroyed, the core is armored: sways at 0.1
+    1. Until both rams are destroyed, the core is armored: sways at 0.1
     2. Until the end: sways at 0.14
 - Attacks per phase:
-    1. Each horn: 2 aimed shots in a row every 1.5 s, speed 0.6; The core: a fan of 5 shots 18° apart every 2.4 s, speed
+    1. Each ram: 2 aimed shots in a row every 1.5 s, speed 0.6; The core: a fan of 5 shots 18° apart every 2.4 s, speed
        0.4
     2. The core: a 2-arm spiral (every 0.12 s), speed 0.45 and an aimed heavy shot every 2 s, speed 0.55
-- Weak points: both horns
+- Weak points: both rams
 - Time limit? No
 - Points: 2400
 
-### Boss: Windmill
+### Boss: Turbine
 
 - Level: 2-4 (Mire)
-- Look and size: four cream windmill sails around a golden hub, 0.3 x 0.3; no parts
+- Look and size: a ring-shaped ship around a big glowing yellow turbine core, 0.3 x 0.3; no parts
 - Health: 110
 - Phases:
     1. Down to 66% of the core's health: sways at 0.08
@@ -374,64 +381,67 @@ General rules for every boss:
 - Time limit? No
 - Points: 2600
 
-### Boss: Silo Walker
+### Boss: Silo Hauler
 
 - Level: 2-5 (Harvest Dusk)
-- Look and size: a red barn on legs, 0.26 x 0.24; two silos (0.12 x 0.19, 35 health, 600 points each)
+- Look and size: a twin-hulled hauler joined by a bridge with a command tower, red markings, 0.26 x 0.24; two tanks
+  (0.12 x 0.19, 35 health, 600 points each)
 - Health: 100 (core)
 - Phases:
-    1. Until both silos are destroyed, the core is armored: sways at 0.1
+    1. Until both tanks are destroyed, the core is armored: sways at 0.1
     2. Until the end: sways at 0.15
 - Attacks per phase:
-    1. Each silo: a ring of 6 every 1.8 s, turning, speed 0.4; The core: 2 aimed shots in a row every 2 s, speed 0.6
+    1. Each tank: a ring of 6 every 1.8 s, turning, speed 0.4; The core: 2 aimed shots in a row every 2 s, speed 0.6
     2. The core: a fan of 5 shots 15° apart swinging 25° left and right every 1.3 s, speed 0.5 and a ring of 10 every
        2.5 s, speed 0.38
-- Weak points: both silos
+- Weak points: both tanks
 - Time limit? No
 - Points: 2800
 
-### Boss: Hornet Queen
+### Boss: Hive Carrier
 
 - Level: 2-6 (Crater Fields)
-- Look and size: a yellow and black hornet, 0.22 x 0.3; two wings (0.16 x 0.18, 30 health, 500 points each)
+- Look and size: a long carrier with wide hangar wings and amber markings, 0.22 x 0.3; two hangars (0.16 x 0.18, 30
+  health, 500 points each)
 - Health: 110 (core)
 - Phases:
-    1. Until both wings are destroyed, the core is armored: sways at 0.14
+    1. Until both hangars are destroyed, the core is armored: sways at 0.14
     2. Down to 50% of the core's health: sways at 0.16
     3. Until the end: sways at 0.2
 - Attacks per phase:
-    1. Each wing: a fan of 3 shots 12° apart swinging 25° left and right every 1.2 s, speed 0.5; The core: an aimed shot
-       every 2 s, speed 0.6
+    1. Each hangar: a fan of 3 shots 12° apart swinging 25° left and right every 1.2 s, speed 0.5; The core: an aimed
+       shot every 2 s, speed 0.6
     2. The core: a 3-arm spiral (every 0.14 s), speed 0.45
     3. The core: 5 aimed shots 8° apart every 1.4 s, speed 0.65 and a ring of 14 every 2 s, turning, speed 0.4
-- Weak points: both wings
+- Weak points: both hangars
 - Time limit? No
 - Points: 3000
 
-### Boss: Tractor King
+### Boss: Tugmaster
 
 - Level: 2-7 (Moonlit Woods)
-- Look and size: a red tractor with a glowing cabin, 0.3 x 0.28; two wheels (0.12 x 0.19, 30 health, 500 points each)
-  and a plow (0.22 x 0.08, 40 health, 700 points)
+- Look and size: a squat space tug with a big red reactor, 0.3 x 0.28; two thrusters (0.12 x 0.19, 30 health, 500 points
+  each) and a ram plate (0.22 x 0.08, 40 health, 700 points)
 - Health: 130 (core)
 - Phases:
-    1. Until both wheels are destroyed, the core is armored: sways at 0.08
-    2. Until the plow is destroyed, the core is armored: sways at 0.12
+    1. Until both thrusters are destroyed, the core is armored: sways at 0.08
+    2. Until the ram plate is destroyed, the core is armored: sways at 0.12
     3. Until the end: sways at 0.16
 - Attacks per phase:
-    1. Each wheel: 2 aimed shots in a row every 1.6 s, speed 0.6; Plow: a fan of 5 shots 15° apart every 2 s, speed 0.45
-    2. Plow: a ring of 10 every 1.6 s, turning, speed 0.4; The core: a fan of 3 heavy shots 30° apart every 2.2 s, speed
-       0.4
+    1. Each thruster: 2 aimed shots in a row every 1.6 s, speed 0.6; Ram plate: a fan of 5 shots 15° apart every 2 s,
+       speed 0.45
+    2. Ram plate: a ring of 10 every 1.6 s, turning, speed 0.4; The core: a fan of 3 heavy shots 30° apart every 2.2 s,
+       speed 0.4
     3. The core: a 2-arm spiral (every 0.1 s), speed 0.48 and 3 aimed shots in a row every 2 s, speed 0.65
-- Weak points: both wheels and the plow
+- Weak points: both thrusters and the ram plate
 - Time limit? No
 - Points: 3500
 
 ### Boss: Harvester
 
 - Level: 2-8 (Fogbound Fen)
-- Look and size: an olive green harvesting machine with a glowing cabin and blades in front, 0.34 x 0.26; two cannons
-  (0.14 x 0.18, 40 health, 800 points each)
+- Look and size: a heavy prow-shaped ship with four engines, a tower, prow guns and a green reactor, 0.34 x 0.26; two
+  cannons (0.14 x 0.18, 40 health, 800 points each)
 - Health: 100 (core)
 - Phases:
     1. Until both cannons are destroyed, the core is armored: sways at 0.12
@@ -444,26 +454,27 @@ General rules for every boss:
 - Time limit? No
 - Points: 6000
 
-### Boss: Crab
+### Boss: Clamp Barge
 
 - Level: 3-1 (Archipelago)
-- Look and size: a coral red crab with glowing eyes, 0.26 x 0.2; two claws (0.12 x 0.14, 25 health, 400 points each)
+- Look and size: a wide salvage barge with a command tower and coral markings, 0.26 x 0.2; two clamps (0.12 x 0.14, 25
+  health, 400 points each)
 - Health: 70 (core)
 - Phases:
-    1. Until both claws are destroyed, the core is armored: sways at 0.12
+    1. Until both clamps are destroyed, the core is armored: sways at 0.12
     2. Until the end: sways at 0.18
 - Attacks per phase:
-    1. Each claw: 2 aimed shots 10° apart every 1.6 s, speed 0.55; The core: a fan of 3 shots 20° apart every 2.2 s,
+    1. Each clamp: 2 aimed shots 10° apart every 1.6 s, speed 0.55; The core: a fan of 3 shots 20° apart every 2.2 s,
        speed 0.4
     2. The core: a ring of 10 every 1.8 s, turning, speed 0.4 and 3 aimed shots in a row every 1.6 s, speed 0.6
-- Weak points: both claws
+- Weak points: both clamps
 - Time limit? No
 - Points: 2000
 
-### Boss: Jellyfish
+### Boss: Pulsar
 
 - Level: 3-2 (Pack Ice)
-- Look and size: a blue jellyfish with glowing spots and trailing tentacles, 0.26 x 0.3; no parts
+- Look and size: a ring-shaped ship around a bright cyan reactor, 0.26 x 0.3; no parts
 - Health: 90
 - Phases:
     1. Down to 50% of the core's health: sways at 0.08
@@ -478,7 +489,8 @@ General rules for every boss:
 ### Boss: Frigate
 
 - Level: 3-3 (Cloud Deck)
-- Look and size: a grey-blue frigate with a white bridge, 0.22 x 0.36; two guns (0.1 x 0.1, 30 health, 500 points each)
+- Look and size: a long frigate with a command tower, a prow gun and blue markings, 0.22 x 0.36; two guns (0.1 x 0.1, 30
+  health, 500 points each)
 - Health: 90 (core)
 - Phases:
     1. Until both guns are destroyed, the core is armored: sways at 0.1
@@ -492,10 +504,10 @@ General rules for every boss:
 - Time limit? No
 - Points: 2400
 
-### Boss: Manta
+### Boss: Delta Raider
 
 - Level: 3-4 (Sunset Isles)
-- Look and size: a dark blue manta ray with glowing spots, 0.4 x 0.23; no parts
+- Look and size: a delta-winged raider with a teal reactor and a prow gun, 0.4 x 0.23; no parts
 - Health: 110
 - Phases:
     1. Down to 66% of the core's health: sways at 0.12
@@ -510,11 +522,11 @@ General rules for every boss:
 - Time limit? No
 - Points: 2600
 
-### Boss: Iceberg Fort
+### Boss: Cryo Fortress
 
 - Level: 3-5 (Polar Night)
-- Look and size: a fortress carved in ice around a glowing blue core, 0.3 x 0.26; two cannons (0.12 x 0.15, 35 health,
-  600 points each)
+- Look and size: a fortress block with an icy blue reactor and a command tower, 0.3 x 0.26; two cannons (0.12 x 0.15, 35
+  health, 600 points each)
 - Health: 110 (core)
 - Phases:
     1. Until both cannons are destroyed, the core is armored: sways at 0.08
@@ -526,30 +538,31 @@ General rules for every boss:
 - Time limit? No
 - Points: 2800
 
-### Boss: Kraken
+### Boss: Grappler
 
 - Level: 3-6 (Storm Top)
-- Look and size: a dark red kraken with big yellow eyes, 0.26 x 0.26; two tentacles (0.08 x 0.21, 20 health, 400 points
-  each) and two inner tentacles (0.08 x 0.21, 20 health, 400 points each)
+- Look and size: a wedge-shaped salvage ship with a teal reactor, 0.26 x 0.26; two grapples (0.08 x 0.21, 20 health, 400
+  points each) and two inner grapples (0.08 x 0.21, 20 health, 400 points each)
 - Health: 130 (core)
 - Phases:
-    1. Until both tentacles and both inner tentacles are destroyed, the core is armored: sways at 0.1
+    1. Until both grapples and both inner grapples are destroyed, the core is armored: sways at 0.1
     2. Down to 50% of the core's health: sways at 0.14
     3. Until the end: sways at 0.18
 - Attacks per phase:
-    1. Each tentacle: a fan of 3 shots 15° apart every 1.6 s, speed 0.5; Each inner tentacle: an aimed shot every 1.4 s,
+    1. Each grapple: a fan of 3 shots 15° apart every 1.6 s, speed 0.5; Each inner grapple: an aimed shot every 1.4 s,
        speed 0.6
     2. The core: a ring of 12 every 1.6 s, turning, speed 0.4 and 2 aimed shots in a row every 1.5 s, speed 0.6
     3. The core: a 2-arm spiral (every 0.1 s), speed 0.5 and a fan of 5 heavy shots 18° apart every 2.6 s, speed 0.4
-- Weak points: both tentacles and both inner tentacles
+- Weak points: both grapples and both inner grapples
 - Time limit? No
 - Points: 3200
 
 ### Boss: Dreadnought
 
 - Level: 3-7 (Dark Tide)
-- Look and size: a long grey battleship, 0.24 x 0.37; two front turrets (0.12 x 0.12, 25 health, 500 points each), two
-  rear turrets (0.12 x 0.12, 25 health, 500 points each) and a bow gun (0.08 x 0.11, 35 health, 700 points)
+- Look and size: a long battleship with a central tower, a prow gun and red markings, 0.24 x 0.37; two front turrets
+  (0.12 x 0.12, 25 health, 500 points each), two rear turrets (0.12 x 0.12, 25 health, 500 points each) and a bow gun
+  (0.08 x 0.11, 35 health, 700 points)
 - Health: 150 (core)
 - Phases:
     1. Until both front turrets and both rear turrets are destroyed, the core is armored: sways at 0.08
@@ -565,45 +578,46 @@ General rules for every boss:
 - Time limit? No
 - Points: 4000
 
-### Boss: Leviathan
+### Boss: Tidebreaker
 
 - Level: 3-8 (Frozen Deep)
-- Look and size: a deep sea creature with glowing eyes and fangs, 0.3 x 0.36; two fins (0.16 x 0.22, 45 health, 900
-  points each)
+- Look and size: a heavy prow-shaped battleship with four engines, a tower and a cyan reactor, 0.3 x 0.36; two batterys
+  (0.16 x 0.22, 45 health, 900 points each)
 - Health: 120 (core)
 - Phases:
-    1. Until both fins are destroyed, the core is armored: sways at 0.1
+    1. Until both batterys are destroyed, the core is armored: sways at 0.1
     2. Down to 45% of the core's health: sways at 0.14
     3. Until the end: sways at 0.2
 - Attacks per phase:
-    1. Each fin: a fan of 4 shots 12° apart swinging 30° left and right every 1.1 s, speed 0.5; The core: an aimed heavy
-       shot every 2.4 s, speed 0.55
+    1. Each battery: a fan of 4 shots 12° apart swinging 30° left and right every 1.1 s, speed 0.5; The core: an aimed
+       heavy shot every 2.4 s, speed 0.55
     2. The core: a 2-arm spiral (every 0.1 s), speed 0.5 and an aimed shot every 1.2 s, speed 0.65
     3. The core: a ring of 16 every 1.6 s, turning, speed 0.42 and 3 aimed shots in a row every 2 s, speed 0.7
-- Weak points: both fins
+- Weak points: both batterys
 - Time limit? No
 - Points: 7000
 
-### Boss: Scorpion
+### Boss: Breacher
 
 - Level: 4-1 (Dune Sea)
-- Look and size: a sand-brown scorpion with red eyes, 0.24 x 0.24; two pincers (0.1 x 0.16, 25 health, 400 points each)
+- Look and size: a wedge-shaped assault ship with a prow ram gun and orange markings, 0.24 x 0.24; two clamps (0.1 x
+  0.16, 25 health, 400 points each)
 - Health: 70 (core)
 - Phases:
-    1. Until both pincers are destroyed, the core is armored: sways at 0.12
+    1. Until both clamps are destroyed, the core is armored: sways at 0.12
     2. Until the end: sways at 0.18
 - Attacks per phase:
-    1. Each pincer: 2 aimed shots in a row every 1.6 s, speed 0.55; The core: a fan of 3 shots 18° apart every 2.2 s,
+    1. Each clamp: 2 aimed shots in a row every 1.6 s, speed 0.55; The core: a fan of 3 shots 18° apart every 2.2 s,
        speed 0.45
     2. The core: 3 aimed shots 12° apart every 1.2 s, speed 0.6 and a ring of 8 every 2.4 s, turning, speed 0.4
-- Weak points: both pincers
+- Weak points: both clamps
 - Time limit? No
 - Points: 2000
 
-### Boss: Dust Devil
+### Boss: Cyclone
 
 - Level: 4-2 (Red Canyon)
-- Look and size: a whirl of sand around a bright middle, 0.28 x 0.28; no parts
+- Look and size: a ring-shaped ship around a sandy glowing core, 0.28 x 0.28; no parts
 - Health: 100
 - Phases:
     1. Down to 66% of the core's health: sways at 0.12
@@ -617,27 +631,27 @@ General rules for every boss:
 - Time limit? No
 - Points: 2500
 
-### Boss: Sandworm
+### Boss: Borer
 
 - Level: 4-3 (Ember Fields)
-- Look and size: a sandworm's head with a glowing throat, 0.24 x 0.24; two segments (0.14 x 0.14, 30 health, 500 points
-  each)
+- Look and size: a prow-shaped mining ship with a big drill gun and orange markings, 0.24 x 0.24; two generators (0.14 x
+  0.14, 30 health, 500 points each)
 - Health: 90 (core)
 - Phases:
-    1. Until both segments are destroyed, the core is armored: sways at 0.1
+    1. Until both generators are destroyed, the core is armored: sways at 0.1
     2. Until the end: sways at 0.15
 - Attacks per phase:
-    1. Each segment: a ring of 8 every 2 s, turning, speed 0.38; The core: 3 aimed shots in a row every 2 s, speed 0.6
+    1. Each generator: a ring of 8 every 2 s, turning, speed 0.38; The core: 3 aimed shots in a row every 2 s, speed 0.6
     2. The core: a fan of 7 shots 12° apart every 1.8 s, speed 0.45 and an aimed heavy shot every 1.6 s, speed 0.55
-- Weak points: both segments
+- Weak points: both generators
 - Time limit? No
 - Points: 2400
 
-### Boss: Mesa Fort
+### Boss: Bastion
 
 - Level: 4-4 (High Peaks)
-- Look and size: a rust-red fort around a glowing furnace, 0.32 x 0.23; two turrets (0.12 x 0.12, 30 health, 500 points
-  each)
+- Look and size: a wide fortress block with a tower, prow guns and a rust-orange reactor, 0.32 x 0.23; two turrets (0.12
+  x 0.12, 30 health, 500 points each)
 - Health: 110 (core)
 - Phases:
     1. Until both turrets are destroyed, the core is armored: sways at 0.08
@@ -651,46 +665,49 @@ General rules for every boss:
 - Time limit? No
 - Points: 2800
 
-### Boss: Lava Golem
+### Boss: Foundry
 
 - Level: 4-5 (Desert Night)
-- Look and size: a black rock golem cracked with lava, 0.28 x 0.3; two fists (0.12 x 0.14, 35 health, 600 points each)
+- Look and size: a heavy foundry block around a big molten reactor, 0.28 x 0.3; two presses (0.12 x 0.14, 35 health, 600
+  points each)
 - Health: 140 (core)
 - Phases:
-    1. Until both fists are destroyed, the core is armored: sways at 0.08
+    1. Until both presses are destroyed, the core is armored: sways at 0.08
     2. Down to 50% of the core's health: sways at 0.12
     3. Until the end: sways at 0.16
 - Attacks per phase:
-    1. Each fist: a fan of 3 heavy shots 20° apart every 2 s, speed 0.42; The core: an aimed shot every 1.6 s, speed 0.6
+    1. Each press: a fan of 3 heavy shots 20° apart every 2 s, speed 0.42; The core: an aimed shot every 1.6 s, speed
+       0.6
     2. The core: a ring of 12 every 1.5 s, turning, speed 0.4 and 3 aimed shots in a row every 2 s, speed 0.65
     3. The core: a 3-arm spiral (every 0.12 s), speed 0.45 and a fan of 5 heavy shots 18° apart every 2.4 s, speed 0.4
-- Weak points: both fists
+- Weak points: both presses
 - Time limit? No
 - Points: 3400
 
-### Boss: Vulture
+### Boss: Scavenger
 
 - Level: 4-6 (Canyon Dusk)
-- Look and size: a dark brown vulture, 0.2 x 0.27; two wings (0.2 x 0.13, 35 health, 600 points each)
+- Look and size: a delta-winged salvager with a command tower and ochre markings, 0.2 x 0.27; two batterys (0.2 x 0.13,
+  35 health, 600 points each)
 - Health: 110 (core)
 - Phases:
-    1. Until both wings are destroyed, the core is armored: sways at 0.12
+    1. Until both batterys are destroyed, the core is armored: sways at 0.12
     2. Down to 50% of the core's health: sways at 0.16
     3. Until the end: sways at 0.2
 - Attacks per phase:
-    1. Each wing: a fan of 4 shots 12° apart swinging 25° left and right every 1.3 s, speed 0.5; The core: an aimed shot
-       every 2 s, speed 0.6
+    1. Each battery: a fan of 4 shots 12° apart swinging 25° left and right every 1.3 s, speed 0.5; The core: an aimed
+       shot every 2 s, speed 0.6
     2. The core: 5 aimed shots 10° apart every 1.4 s, speed 0.6 and a ring of 10 every 2.2 s, turning, speed 0.4
     3. The core: a 2-arm spiral (every 0.09 s), speed 0.5 and 2 aimed heavy shots in a row every 2 s, speed 0.55
-- Weak points: both wings
+- Weak points: both batterys
 - Time limit? No
 - Points: 3000
 
 ### Boss: Magma Rig
 
 - Level: 4-7 (Ashen Slopes)
-- Look and size: a grey rig around a white-hot furnace, with smoke stacks, 0.3 x 0.28; two furnaces (0.12 x 0.14, 30
-  health, 500 points each) and two cannons (0.1 x 0.16, 30 health, 500 points each)
+- Look and size: a mining rig block around a molten reactor, with smoke stacks, 0.3 x 0.28; two furnaces (0.12 x 0.14,
+  30 health, 500 points each) and two cannons (0.1 x 0.16, 30 health, 500 points each)
 - Health: 150 (core)
 - Phases:
     1. Until both furnaces are destroyed, the core is armored: sways at 0.08
@@ -709,8 +726,8 @@ General rules for every boss:
 ### Boss: Colossus
 
 - Level: 4-8 (Summit)
-- Look and size: a rust-brown armored fortress with a glowing furnace, 0.34 x 0.3; two outers (0.12 x 0.12, 30 health,
-  600 points each) and two inners (0.12 x 0.12, 30 health, 600 points each)
+- Look and size: a huge armored fortress block with four engines, a tower, prow guns and a glowing furnace, 0.34 x 0.3;
+  two outers (0.12 x 0.12, 30 health, 600 points each) and two inners (0.12 x 0.12, 30 health, 600 points each)
 - Health: 150 (core)
 - Phases:
     1. Until both outers are destroyed, the core is armored: sways at 0.08
@@ -729,7 +746,7 @@ General rules for every boss:
 ### Boss: Patrol Drone
 
 - Level: 5-1 (Neon City)
-- Look and size: a chrome drone with four rotors and a cyan eye, 0.3 x 0.2; no parts
+- Look and size: a cross-shaped patrol gunship with a tall tower and cyan markings, 0.3 x 0.2; no parts
 - Health: 80
 - Phases:
     1. Down to 50% of the core's health: sways at 0.14
@@ -744,7 +761,8 @@ General rules for every boss:
 ### Boss: Enforcer
 
 - Level: 5-2 (Refinery)
-- Look and size: a chrome robot with an amber visor, 0.22 x 0.26; two shields (0.12 x 0.19, 35 health, 500 points each)
+- Look and size: a wedge-shaped enforcer with a wide command tower and amber markings, 0.22 x 0.26; two shields (0.12 x
+  0.19, 35 health, 500 points each)
 - Health: 90 (core)
 - Phases:
     1. Until both shields are destroyed, the core is armored: sways at 0.12
@@ -759,8 +777,8 @@ General rules for every boss:
 ### Boss: Hover Tank
 
 - Level: 5-3 (Downtown)
-- Look and size: a chrome tank with amber stripes and a cyan core, 0.3 x 0.3; two turrets (0.12 x 0.15, 30 health, 500
-  points each)
+- Look and size: a heavy gunboat block with a cyan reactor and a prow gun, 0.3 x 0.3; two turrets (0.12 x 0.15, 30
+  health, 500 points each)
 - Health: 110 (core)
 - Phases:
     1. Until both turrets are destroyed, the core is armored: sways at 0.1
@@ -777,7 +795,7 @@ General rules for every boss:
 ### Boss: Spire
 
 - Level: 5-4 (Smelter)
-- Look and size: a chrome tower with cyan lights and a violet core, 0.22 x 0.36; no parts
+- Look and size: a long command ship carrying a tall tower from stern to prow, violet markings, 0.22 x 0.36; no parts
 - Health: 120
 - Phases:
     1. Down to 66% of the core's health: sways at 0.1
@@ -794,8 +812,8 @@ General rules for every boss:
 ### Boss: Sentry Grid
 
 - Level: 5-5 (Neon Rain)
-- Look and size: a chrome sentry around a glowing cyan eye, 0.24 x 0.24; two outer nodes (0.1 x 0.1, 22 health, 400
-  points each) and two inner nodes (0.1 x 0.1, 22 health, 400 points each)
+- Look and size: a rounded sentry ship around a big cyan reactor, 0.24 x 0.24; two outer nodes (0.1 x 0.1, 22 health,
+  400 points each) and two inner nodes (0.1 x 0.1, 22 health, 400 points each)
 - Health: 110 (core)
 - Phases:
     1. Until both outer nodes are destroyed, the core is armored: sways at 0.08
@@ -814,8 +832,8 @@ General rules for every boss:
 ### Boss: Gunship Prime
 
 - Level: 5-6 (Flare Stacks)
-- Look and size: a chrome gunship with a cyan core, 0.24 x 0.33; two cannons (0.1 x 0.18, 30 health, 500 points each)
-  and two engines (0.12 x 0.12, 30 health, 500 points each)
+- Look and size: a long heavy gunship with a tower, prow guns and an amber reactor, 0.24 x 0.33; two cannons (0.1 x
+  0.18, 30 health, 500 points each) and two engines (0.12 x 0.12, 30 health, 500 points each)
 - Health: 140 (core)
 - Phases:
     1. Until both cannons are destroyed, the core is armored: sways at 0.08
@@ -835,7 +853,7 @@ General rules for every boss:
 ### Boss: Executor
 
 - Level: 5-7 (Skyline)
-- Look and size: a chrome robot with a violet crown and an amber visor, 0.28 x 0.3; two generators (0.12 x 0.12, 30
+- Look and size: a heavy prow-shaped command ship with a violet reactor, 0.28 x 0.3; two generators (0.12 x 0.12, 30
   health, 500 points each) and two blades (0.1 x 0.22, 30 health, 500 points each)
 - Health: 160 (core)
 - Phases:
@@ -856,8 +874,8 @@ General rules for every boss:
 ### Boss: Overmind
 
 - Level: 5-8 (The Core)
-- Look and size: a chrome machine around a glowing violet eye, 0.3 x 0.3; two generators (0.12 x 0.12, 35 health, 700
-  points each) and two cannons (0.1 x 0.16, 35 health, 700 points each)
+- Look and size: a rounded command ship around a huge glowing violet core, 0.3 x 0.3; two generators (0.12 x 0.12, 35
+  health, 700 points each) and two cannons (0.1 x 0.16, 35 health, 700 points each)
 - Health: 160 (core)
 - Phases:
     1. Until both generators are destroyed, the core is armored: sways at 0.1

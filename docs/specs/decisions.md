@@ -58,7 +58,7 @@
   each one new (answered in chat). The Bosses block in 02-enemies.md was all TBD.
 - Placeholder chosen: 40 bosses, one per level, about 6 s after its last wave. Each world's keep to its theme and
   get harder level by level (more health, parts and phases, denser patterns) up to its big boss at x-8: Warden,
-  Harvester, Leviathan, Colossus, Overmind. Every boss has at least two phases; some have no parts and change phase
+  Harvester, Tidebreaker, Colossus, Overmind. Every boss has at least two phases; some have no parts and change phase
   on their health, most have an armored core until their parts are destroyed. All numbers are in 02-enemies.md
   ("Bosses", written from the data) and `src/pewpy/boss_catalog.py`; the health bar is at the top (04-ui-audio.md,
   "HUD"). Checked with a simulated player (bullets level 1 and 3, tracking the boss without dodging): each fight
@@ -200,12 +200,24 @@
 ### 2026-09-30 — Industrial sci-fi ships (asked by the user in chat)
 - Decision (the user's): ships look industrial sci-fi rather than cartoonish alien, like reference pictures the
   user gave (grey metal ships with panels, ribbed engine pods, dark glass and small orange lights).
-- Placeholder chosen (mine): the player and the regular enemies were redrawn first (bosses still to do): grey hulls
+- Placeholder chosen (mine): the player and the regular enemies were redrawn first, then the bosses: grey hulls
   in a few shades (lighter spine and top faces, darker sides), seams one or two voxels lower than the hull, darker
   nacelles with recessed vents, dark teal glass with a light glint, orange running lights. Each ship keeps its old
   color as paint markings so they stay easy to tell apart. The greys are kept a little dark to suit the muted
   backgrounds.
-- Recorded in 05-visuals.md ("Art style") and 02-enemies.md ("Look").
+- Bosses (the user: "no more animals", all industrial giant space ships, renaming allowed): every boss is a ship
+  now, drawn by a generator from a recipe (hull shape: block, wedge, prow, delta, long, round, cross, twin or ring;
+  engines; raised deck; command tower with windows; reactor; wings; prow guns; vents; seams; paint color by world),
+  and every part is a machine (turret, cannon, launcher, clamp, generator, ram, fuel tank, engine, armor plate,
+  press, blade, dish, drill). Every boss now has engine flames at its nacelles (and engine parts at theirs).
+  Their fights didn't change (same hitboxes, parts, health and guns). Renamed: Mine
+  Mother -> Mine Carrier, Scarecrow -> Picket, Beetle -> Bulwark, Windmill -> Turbine, Silo Walker -> Silo Hauler,
+  Hornet Queen -> Hive Carrier, Tractor King -> Tugmaster, Crab -> Clamp Barge, Jellyfish -> Pulsar, Manta -> Delta
+  Raider, Iceberg Fort -> Cryo Fortress, Kraken -> Grappler, Leviathan -> Tidebreaker, Scorpion -> Breacher, Dust
+  Devil -> Cyclone, Sandworm -> Borer, Mesa Fort -> Bastion, Lava Golem -> Foundry, Vulture -> Scavenger; their parts
+  too (claws -> clamps, tentacles -> grapples, fins and wings -> batteries or hangars, and so on). The level files use
+  the new names.
+- Recorded in 05-visuals.md ("Art style"), 02-enemies.md ("Look", "Bosses") and 03-levels.md (worlds' tables).
 
 ### 2026-09-30 — Every model has the same cubes (asked by the user in chat)
 - Decision (the user's): all models have cubes the size of the Swarmer's, so the other ships, enemies and bosses
@@ -237,8 +249,8 @@
   `FLAME_FLICKER`), and the player's are 35% longer flying up at full speed and shorter flying down
   (`FLAME_THRUST`). Flames on: the player, drone, weaver, diver, gunship, swarmer, sniper, mine layer, shield
   carrier, splitter, and the bosses with visible engines (Warden, Prowler, Rockbreaker, Twin Fang and its guns,
-  Mine Mother, Gunship Prime and its engines). Not on turrets and mines (fixed to the ground), pickups, or the
-  missile.
+  Mine Mother, Gunship Prime and its engines). Not on turrets and mines (fixed to the ground), or pickups. Later
+  (asked by the user): the player's missiles too, a jet behind each one that turns with it as it homes in.
 - Recorded in 05-visuals.md ("Effects").
 
 ### 2026-09-30 — Voxel drawings in JSON files (asked by the user in chat)

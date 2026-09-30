@@ -1,0 +1,190 @@
+{
+  "rows": [
+    ".....NoooN.......NoooN.......NoooN.......NoooN.....",
+    ".....NrrrN.......NrrrN.......NrrrN.......NrrrN.....",
+    ".....NNNNN.......NNNNN.......NNNNN.......NNNNN.....",
+    ".....NrrrNHHHHHHkNrrrNHHHHHHHNrrrNkHHHHHHNrrrN.....",
+    ".....NNNNNhhhhhhkNNNNNhhhhhhhNNNNNkhhhhhhNNNNN.....",
+    ".....NrrrNhhhhhhkNrrrNDDDDDDDNrrrNkhhhhhhNrrrN.....",
+    "lHHHHhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhHHHHl",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "kkkkkkkkkkkkkkkkkDDDDDDDDDDDDDDDDDkkkkkkkkkkkkkkkkk",
+    "khhhhhhhhhhhhhhhkDDTTTTTTTTTTTTTDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhNNNNNhhkDDTTTTTTTTTTTTTDDkhhNNNNNhhhhhhhhk",
+    "khhhhhhhhrrrrrhhkDDTTcTcTcTcTcTTDDkhhrrrrrhhhhhhhhk",
+    "khhhhhhhhNNNNNhhkDDTTTTTTTTTTTTTDDkhhNNNNNhhhhhhhhk",
+    "ppppppppprrrrrppkDDTTTTTTTTTTTTTDDkpprrrrrppppppppp",
+    "kkkkkkkkkNNNNNkkkDDTTcTcTcTcTcTTDDkkkNNNNNkkkkkkkkk",
+    "khhhhhhhhrrrrrhhkDDTTTTTTTTTTTTTDDkhhrrrrrhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDTTTTTTTTTTTTTDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDTTTTTTTTTTTTTDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqqqqqqqqqqDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqqqqqqqqqqDDDkhhhhhhhhhhhhhhhk",
+    "kkkkkkkkkkkkkkkkkDDDqqgggggggqqDDDkkkkkkkkkkkkkkkkk",
+    "khhhhhhhhhhhhhhhkDDDqqgggggggqqDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqgggggggqqDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqgggggggqqDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqgggggggqqDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqgggggggqqDDDkhhhhhhhhhhhhhhhk",
+    "kkkkkkkkkkkkkkkkkDDDqqgggggggqqDDDkkkkkkkkkkkkkkkkk",
+    "khhhhhhhhhhhhhhhkDDDqqqqqqqqqqqDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDqqqqqqqqqqqDDDkhhhhhhhhhhhhhhhk",
+    "ppppppppppppppppkDDDDDDDDDDDDDDDDDkpppppppppppppppp",
+    "ppppppppppppppppkDDDDDDDDDDDDDDDDDkpppppppppppppppp",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "kkkkkkkkkkkkkkkkkDDDDDDDDDDDDDDDDDkkkkkkkkkkkkkkkkk",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "khhhhhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhhhhhk",
+    "kkkkkhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhkkkkk",
+    ".....kkkkkkkkkkkkDDDDDDDDDDDDDDDDDkkkkkkkkkkkk.....",
+    ".....khhhhhhhhhhkhhhhhhhhhhhhhhhhhkhhhhhhhhhhk.....",
+    ".....kkkkkkkkkkkkkkkkkkkkRkkkkkkkkkkkkkkkkkkkk....."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 13
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "height": 11
+    },
+    "r": {
+      "color": [
+        0.13,
+        0.13,
+        0.15
+      ],
+      "height": 11
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 11
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
+        0.2
+      ],
+      "height": 9
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 11
+    },
+    "D": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 15
+    },
+    "l": {
+      "color": [
+        1.0,
+        0.55,
+        0.15
+      ],
+      "height": 13
+    },
+    "T": {
+      "color": [
+        0.6,
+        0.61,
+        0.63
+      ],
+      "height": 21
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 17
+    },
+    "p": {
+      "color": [
+        0.51,
+        0.212,
+        0.722
+      ],
+      "height": 11
+    },
+    "q": {
+      "color": [
+        0.46,
+        0.25,
+        0.61
+      ],
+      "height": 15
+    },
+    "g": {
+      "color": [
+        0.81,
+        0.6,
+        0.96
+      ],
+      "height": 15
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "height": 13
+    }
+  },
+  "engines": [
+    {
+      "x": 19,
+      "y": 0,
+      "width": 4,
+      "length": 13,
+      "towards": "top"
+    },
+    {
+      "x": 31,
+      "y": 0,
+      "width": 4,
+      "length": 13,
+      "towards": "top"
+    },
+    {
+      "x": 43,
+      "y": 0,
+      "width": 4,
+      "length": 13,
+      "towards": "top"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "width": 4,
+      "length": 13,
+      "towards": "top"
+    }
+  ]
+}

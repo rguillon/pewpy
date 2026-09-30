@@ -1,69 +1,61 @@
 {
   "rows": [
-    "....ccccccc....",
-    "...ccccccccc...",
-    "...ccccccccc...",
-    ".ccCCCCCCCCCcc.",
-    "cccCCCCCCCCCccc",
-    "cccCCCCCCCCCccc",
-    "cccCCCCvCCCCccc",
-    "cccCCCvvvCCCccc",
-    ".ccCCCCvCCCCcc.",
-    "...CCCCCCCCC...",
-    "...CCCCCCCCC...",
-    "...CCCCCCCCC...",
-    "...CCCCWCCCC...",
-    "...CCCWWWCCC...",
-    "...CCCWWWCCC...",
-    "...CCCWWWCCC...",
-    "...CCCWWWCCC...",
-    "....CCWWWCC....",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    "......WWW......",
-    ".......W......."
+    "NNNNNNNNNNNNNNN",
+    "NNNNNNNNNNNNNNN",
+    "NNNNNNNNNNNNNNN",
+    "WWWWWWWHWWWWWWW",
+    "WWWWWWWHWWWWWWW",
+    "WWWWWWWHWWWWWWW",
+    ".WWWWWWHWWWWWW.",
+    ".WWWWWWHWWWWWW.",
+    ".WWWWWWHWWWWWW.",
+    ".WWWWWWHWWWWWW.",
+    "..WWWWWHWWWWW..",
+    "..WWWWWHWWWWW..",
+    "..WWWWWHWWWWW..",
+    "..WWWWWHWWWWW..",
+    "...WWWWHWWWW...",
+    "...WWWWHWWWW...",
+    "...WWWWHWWWW...",
+    "...WWWWHWWWW...",
+    "...WWWWHWWWW...",
+    "....WWWHWWW....",
+    "....WWWHWWW....",
+    "....WWWHWWW....",
+    "....WWWHWWW....",
+    ".....WWHWW.....",
+    ".....WWHWW.....",
+    ".....WWHWW.....",
+    ".....WWHWW.....",
+    "......WHW......",
+    "......WHW......",
+    "......WHW......",
+    "......WHW......",
+    ".......H.......",
+    ".......H......."
   ],
   "palette": {
-    "c": {
+    "N": {
       "color": [
-        0.35,
-        0.36,
-        0.45
+        0.26,
+        0.27,
+        0.29
       ],
-      "height": 9
-    },
-    "C": {
-      "color": [
-        0.5,
-        0.52,
-        0.62
-      ],
-      "height": 15
-    },
-    "v": {
-      "color": [
-        0.35,
-        0.2,
-        0.7
-      ],
-      "height": 15
+      "height": 11
     },
     "W": {
       "color": [
-        0.85,
-        0.9,
-        1.0
+        0.42,
+        0.43,
+        0.46
+      ],
+      "height": 5
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
       ],
       "height": 9
     }

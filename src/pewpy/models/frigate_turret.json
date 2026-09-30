@@ -1,0 +1,61 @@
+{
+  "rows": [
+    "......hhh......",
+    "....hhhhhhh....",
+    "..hhhhhhhhhhh..",
+    "..hhhhhhhhhhh..",
+    ".hhhhNNNNNhhhh.",
+    ".hhhNNNNNNNhhh.",
+    "hhhhNNNlNNNhhhh",
+    "hhhhNbbbbbNhhhh",
+    "hhhhNbbbbbNhhhh",
+    ".hhhNbbbbbNhhh.",
+    ".hhhhbbbbbhhhh.",
+    "..hhhbbbbbhhh..",
+    "..hhhbbbbbhhh..",
+    "....hbbbbbh....",
+    ".....ooooo....."
+  ],
+  "palette": {
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 9
+    },
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 11
+    },
+    "l": {
+      "color": [
+        1.0,
+        0.55,
+        0.15
+      ],
+      "height": 11
+    },
+    "b": {
+      "color": [
+        0.22,
+        0.23,
+        0.25
+      ],
+      "height": 5
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "height": 9
+    }
+  }
+}

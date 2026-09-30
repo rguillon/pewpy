@@ -1,92 +1,157 @@
 {
   "rows": [
-    "...................a...................",
-    "..................aaa..................",
-    "..................aaa..................",
-    "..................aaa..................",
-    "..................aaa..................",
-    "..................aaa..................",
-    ".pppppppppp.....hhhhhhh.....pppppppppp.",
-    "pppppppppppp...hhhhhhhhh...pppppppppppp",
-    "pppppppppppp..hhhhhhhhhhh..pppppppppppp",
-    "PPPPPPPPPPPPhhhhhhhHhhhhhhhPPPPPPPPPPPP",
-    "PPPPPPPPPPPPhhhhhhHHHhhhhhhPPPPPPPPPPPP",
-    "PPPPPPPPPPPPhhhhhhHHHhhhhhhPPPPPPPPPPPP",
-    "pppppppppppphhhhHHrrrHHhhhhpppppppppppp",
-    "pppppppppppphhhHHHrrrHHHhhhpppppppppppp",
-    "pppppppppppphhhHHHHrHHHHhhhpppppppppppp",
-    "PPPPPPPPPPPPhhhHHHHHHHHHhhhPPPPPPPPPPPP",
-    "PPPPPPPPPPPPhhhHHHHHHHHHhhhPPPPPPPPPPPP",
-    "PPPPPPPPPPPPhhhHHHHHHHHHhhhPPPPPPPPPPPP",
-    "pppppppppppp...hhhhhhhhh...pppppppppppp",
-    "pppppppppppp...hhhhhhhhh...pppppppppppp",
-    ".pppppppppp....hhhhhhhhh....pppppppppp.",
-    "...............hhhhghhhh...............",
-    "...............hhhggghhh...............",
-    "................hhggghh................",
-    "..................ggg..................",
-    "..................ggg..................",
-    "..................ggg..................",
-    "..................ggg..................",
-    "..................ggg..................",
-    "...................g..................."
+    ".................NoooN.................",
+    ".................NrrrN.................",
+    ".......lHHHHkHHHHNNNNNHHHHkHHHHl.......",
+    ".......khhhhkhhhhNrrrNhhhhkhhhhk.......",
+    ".......khhhhkDDDDNNNNNDDDDkhhhhk.......",
+    ".......khhhhkDDDDDDDDDDDDDkhhhhk.......",
+    ".......khhhhkDTTTTTTTTTTTDkhhhhk.......",
+    "WWWWWWWNNNNNkDTTTTTTTTTTTDkNNNNNWWWWWWW",
+    "WWWWWWWrrrrrkDTTTcTcTcTTTDkrrrrrWWWWWWW",
+    "wwwwwwwNNNNNkDTTTTTTTTTTTDkNNNNNwwwwwww",
+    "WWWWWWWrrrrrkDTTTTTTTTTTTDkrrrrrWWWWWWW",
+    "WWWWWWWNNNNNkDTTTcTcTcTTTDkNNNNNWWWWWWW",
+    "wwwwwwwhhhhhkDTTTTTTTTTTTDkhhhhhwwwwwww",
+    "WWWWWWWhhhhhkDTTTTTTTTTTTDkhhhhhWWWWWWW",
+    "lWWWWWWkkkkkkDTTTTTTTTTTTDkkkkkkWWWWWWl",
+    "wwwwwwwhhhhhkDDDDDDDDDDDDDkhhhhhwwwwwww",
+    "WWWWWWWhhhhhkDDDDDDDDDDDDDkhhhhhWWWWWWW",
+    "WWWWWWWhhhhhkDDDDDDDDDDDDDkhhhhhWWWWWWW",
+    "wwwwwwwhhhhhkDDDDDDDDDDDDDkhhhhhwwwwwww",
+    "WWWWWWWhhhhhkDDDDDDDDDDDDDkhhhhhWWWWWWW",
+    "WWWWWWWkkkkkkDDDDDDDDDDDDDkkkkkkWWWWWWW",
+    "wwwwwwwpppppkDDDDDDDDDDDDDkpppppwwwwwww",
+    "........ppppkDDDDDDDDDDDDDkpppp........",
+    ".........khhkDDDDDDDDDDDDDkhhk.........",
+    "..........khkDDDDDDDDDDDDDkhk..........",
+    "...........kkDDDDDDDDDDDDDkk...........",
+    "............kDDDDDDDDDDDDDk............",
+    ".............DDDDDDDDDDDDD.............",
+    "..............khhhhhhhhhk..............",
+    "...............kkkkRkkkk..............."
   ],
   "palette": {
-    "a": {
+    "N": {
       "color": [
-        0.6,
-        0.6,
-        0.65
+        0.26,
+        0.27,
+        0.29
       ],
-      "height": 3
+      "height": 13
     },
-    "p": {
+    "o": {
       "color": [
-        0.12,
-        0.2,
-        0.45
+        0.08,
+        0.08,
+        0.09
       ],
-      "height": 3
-    },
-    "h": {
-      "color": [
-        0.45,
-        0.47,
-        0.55
-      ],
-      "height": 9
-    },
-    "P": {
-      "color": [
-        0.2,
-        0.32,
-        0.6
-      ],
-      "height": 3
-    },
-    "H": {
-      "color": [
-        0.6,
-        0.62,
-        0.7
-      ],
-      "height": 15
+      "height": 11
     },
     "r": {
       "color": [
+        0.13,
+        0.13,
+        0.15
+      ],
+      "height": 11
+    },
+    "l": {
+      "color": [
         1.0,
-        0.3,
+        0.55,
+        0.15
+      ],
+      "height": 13
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 11
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
         0.2
+      ],
+      "height": 9
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 11
+    },
+    "D": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
       ],
       "height": 15
     },
-    "g": {
+    "T": {
       "color": [
-        0.25,
-        0.26,
-        0.3
+        0.6,
+        0.61,
+        0.63
       ],
-      "height": 9
+      "height": 21
+    },
+    "W": {
+      "color": [
+        0.42,
+        0.43,
+        0.46
+      ],
+      "height": 5
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 17
+    },
+    "w": {
+      "color": [
+        0.3,
+        0.31,
+        0.34
+      ],
+      "height": 5
+    },
+    "p": {
+      "color": [
+        0.255,
+        0.425,
+        0.85
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "height": 13
     }
-  }
+  },
+  "engines": [
+    {
+      "x": 19,
+      "y": 0,
+      "width": 4,
+      "length": 9,
+      "towards": "top"
+    }
+  ]
 }
