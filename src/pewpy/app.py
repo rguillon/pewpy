@@ -125,6 +125,8 @@ SHOWCASE_BOSS_RADIUS = 0.6  # and a smaller circle, so the names fit on the scre
 BOSS_BAR_WIDTH = 1.1  # at the top edge, with the boss's name under it
 BOSS_BAR_HEIGHT = 0.025
 PLAYER_BANK_ANGLE = 25.0  # degrees of roll at full sideways speed
+FLAME_FLICKER = (0.12, 0.08)  # how much engine flames waver in length: a slow wave and a fast one
+FLAME_THRUST = 0.35  # the player's flames: this much longer flying up at full speed, shorter flying down
 
 
 class PewPewApp(ShowBase):
@@ -164,6 +166,7 @@ class PewPewApp(ShowBase):
         self.world_index = 0  # the world picked in the world select
         self.world: World | None = None
         self.nodes: dict[Entity, NodePath] = {}
+        self.flames: dict[Entity, list[tuple[NodePath, float]]] = {}  # engine flames and their steady length
         self.camera_view = CameraView(self.cam, self.cam.node().getLens(), self.render)
         self.background = BackgroundView(Scenery("space", self.camera_view), self.render)  # behind the menus
         self.effects = Effects()
@@ -634,11 +637,14 @@ class PewPewApp(ShowBase):
         alive = set(entities)
         for entity in [entity for entity in self.nodes if entity not in alive]:
             self.nodes.pop(entity).removeNode()
+            self.flames.pop(entity, None)
         for entity in entities:
             node = self.nodes.get(entity)
             if node is None:
                 node = self.nodes[entity] = self._make_block(entity)
+                self.flames[entity] = [(flame, flame.getSz()) for flame in node.findAllMatches("**/flame")]
             node.setPos(entity.x, 0, entity.y)
+            self._flicker(entity)
             if isinstance(entity, Player):
                 blink_off = entity.invulnerable and int(entity.invulnerable_time * 10) % 2 == 1
                 node.hide() if blink_off else node.show()
@@ -651,6 +657,12 @@ class PewPewApp(ShowBase):
             elif isinstance(entity, Pickup) and self.world is not None:
                 node.setH(self.world.time * PICKUP_SPIN_SPEED)
         self._show_laser()
+
+    def _flicker(self, entity: Entity) -> None:
+        thrust = entity.vy / config.PLAYER_SPEED if isinstance(entity, Player) else 0.0
+        time = self.clock.getFrameTime()
+        for index, (flame, length) in enumerate(self.flames.get(entity, ())):
+            flame.setSz(length * flame_scale(time, id(entity) % 97 + index * 1.7, thrust))
 
     def _show_laser(self) -> None:
         beam = self.world.laser if self.world else None
@@ -719,6 +731,14 @@ def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT
         return (1 - width) / 2, (1 + width) / 2, 0.0, 1.0
     height = window_aspect / aspect  # too tall: bars at the top and bottom
     return 0.0, 1.0, (1 - height) / 2, (1 + height) / 2
+
+
+def flame_scale(time: float, phase: float, thrust: float = 0.0) -> float:
+    """An engine flame's length right now, compared with its steady length: wavering, longer with `thrust` (-1 to
+    1). `phase` keeps flames from wavering together."""
+    slow, fast = FLAME_FLICKER
+    waver = slow * math.sin(time * 23 + phase) + fast * math.sin(time * 61 + phase * 2.3)
+    return max(0.1, 1 + waver + FLAME_THRUST * thrust)
 
 
 def _is_round_bullet(entity: Entity) -> bool:

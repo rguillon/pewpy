@@ -15,6 +15,7 @@ import json
 import math
 import random
 from collections.abc import Callable
+from dataclasses import dataclass
 from importlib import resources
 from typing import Any
 
@@ -29,6 +30,7 @@ from panda3d.core import (
     GeomVertexReader,
     GeomVertexWriter,
     NodePath,
+    PandaNode,
     PNMImage,
     TextNode,
     Texture,
@@ -313,7 +315,33 @@ def facing_roll(dx: float, dz: float) -> float:
 METAL: Color = (0.55, 0.57, 0.62, 1)
 DRAWINGS_FOLDER = "models"  # src/pewpy/models/<name>.json, one voxel drawing each
 DRAWING_KEYS = {"rows", "palette"}
+OPTIONAL_DRAWING_KEYS = {"engines"}
 PALETTE_KEYS = {"color", "height"}
+ENGINE_KEYS = {"x", "y", "width", "length", "towards"}
+OPTIONAL_ENGINE_KEYS = {"color"}
+# Engine flames (see Engine): pale blue by default, a white-hot core, soft edges fading out towards the tip.
+FLAME_COLOR: Color = (0.45, 0.8, 1.0, 1)
+FLAME_CORE_COLOR: Color = (0.95, 0.98, 1.0, 1)
+FLAME_CORE_SIZE = (0.45, 0.5)  # the core's width and length, as a part of the flame's
+FLAME_TEXTURE_SIZE = (32, 64)
+FLAME_DIRECTIONS = {"bottom": 0.0, "top": 180.0}  # roll of a flame pointing down the drawing
+
+
+@dataclass(frozen=True)
+class Engine:
+    """Where a model's engine flame comes out, in the drawing's voxels.
+
+    `x`, `y`: column and row of the nozzle's middle (can be between two voxels, e.g. 5.5); the flame starts at the
+    edge of that voxel and goes `length` voxels towards the drawing's "top" or "bottom" (first or last row),
+    `width` voxels wide at the nozzle.
+    """
+
+    x: float
+    y: float
+    width: float
+    length: float
+    towards: str
+    color: Color = FLAME_COLOR
 
 
 def make_cube(name: str = "cube") -> GeomNode:
@@ -325,16 +353,27 @@ def make_cube(name: str = "cube") -> GeomNode:
 
 def load_drawing(name: str) -> tuple[list[str], Palette]:
     """Read `models/<name>.json` (read again every time, so edited files show up with "Reload models")."""
+    data, source = _read_drawing(name)
+    return parse_drawing(data, source)
+
+
+def load_engines(name: str) -> list[Engine]:
+    data, source = _read_drawing(name)
+    return parse_engines(data, source)
+
+
+def _read_drawing(name: str) -> tuple[Any, str]:
     source = f"{name}.json"
-    text = (resources.files("pewpy") / DRAWINGS_FOLDER / source).read_text()
-    return parse_drawing(json.loads(text), source)
+    return json.loads((resources.files("pewpy") / DRAWINGS_FOLDER / source).read_text()), source
 
 
 def parse_drawing(data: Any, source: str = "drawing") -> tuple[list[str], Palette]:
     """A drawing file: "rows" (the drawing, one string per row, "." or " " for no voxel) and "palette" (for each
-    character, its "color" as red, green, blue from 0 to 1 and its "height": how many voxels thick it is, odd)."""
-    if not isinstance(data, dict) or set(data) != DRAWING_KEYS:
-        raise VoxelDrawingError.malformed(source, f"expected exactly the keys {sorted(DRAWING_KEYS)}")
+    character, its "color" as red, green, blue from 0 to 1 and its "height": how many voxels thick it is, odd).
+    It can also have "engines" (see `parse_engines`)."""
+    if not isinstance(data, dict) or not DRAWING_KEYS <= set(data) <= DRAWING_KEYS | OPTIONAL_DRAWING_KEYS:
+        keys = f"{sorted(DRAWING_KEYS)} and maybe {sorted(OPTIONAL_DRAWING_KEYS)}"
+        raise VoxelDrawingError.malformed(source, f"expected the keys {keys}")
     rows = data["rows"]
     if not isinstance(rows, list) or not rows or not all(isinstance(row, str) for row in rows):
         raise VoxelDrawingError.malformed(source, "'rows' must be a list of strings")
@@ -365,9 +404,104 @@ def _palette_entry(char: str, entry: Any, source: str) -> tuple[Color, int]:
     return (float(color[0]), float(color[1]), float(color[2]), 1.0), height
 
 
+def parse_engines(data: Any, source: str = "drawing") -> list[Engine]:
+    """A drawing's "engines": a list of {"x", "y", "width", "length", "towards", and maybe "color"} (see Engine)."""
+    entries = data.get("engines", []) if isinstance(data, dict) else []
+    if not isinstance(entries, list):
+        raise VoxelDrawingError.malformed(source, "'engines' must be a list")
+    engines = []
+    for index, entry in enumerate(entries):
+        where = f"engine {index + 1}"
+        if not isinstance(entry, dict) or not ENGINE_KEYS <= set(entry) <= ENGINE_KEYS | OPTIONAL_ENGINE_KEYS:
+            keys = f"{sorted(ENGINE_KEYS)} and maybe {sorted(OPTIONAL_ENGINE_KEYS)}"
+            raise VoxelDrawingError.malformed(source, f"{where}: expected the keys {keys}")
+        numbers = [entry[key] for key in ("x", "y", "width", "length")]
+        if not all(isinstance(value, int | float) and not isinstance(value, bool) for value in numbers):
+            raise VoxelDrawingError.malformed(source, f"{where}: 'x', 'y', 'width' and 'length' must be numbers")
+        if entry["width"] <= 0 or entry["length"] <= 0:
+            raise VoxelDrawingError.malformed(source, f"{where}: 'width' and 'length' must be more than 0")
+        if entry["towards"] not in FLAME_DIRECTIONS:
+            raise VoxelDrawingError.malformed(source, f"{where}: 'towards' must be one of {sorted(FLAME_DIRECTIONS)}")
+        color = FLAME_COLOR
+        if "color" in entry:
+            red, green, blue, _ = _palette_entry("e", {"color": entry["color"], "height": 1}, source)[0]
+            color = (red, green, blue, 1.0)
+        x, y, width, length = (float(value) for value in numbers)
+        engines.append(Engine(x, y, width, length, entry["towards"], color))
+    return engines
+
+
 def drawing_model(name: str) -> NodePath:
-    rows, palette = load_drawing(name)
-    return voxel_model(name, rows, palette)
+    """The drawing's voxel model, with a flame (a child node named "flame") for each of its engines."""
+    data, source = _read_drawing(name)
+    rows, palette = parse_drawing(data, source)
+    model = voxel_model(name, rows, palette)
+    size = voxel_size(rows, palette)
+    for engine in parse_engines(data, source):
+        add_flame(model, engine, rows, size)
+    return model
+
+
+def add_flame(model: NodePath, engine: Engine, rows: list[str], size: float) -> NodePath:
+    """A flame under `model` at `engine`'s nozzle, `size` being the model's voxel size.
+
+    Its length is its Z scale: the game makes it flicker by changing it.
+    """
+    x = (engine.x - (len(rows[0]) - 1) / 2) * size
+    edge = engine.y + (0.5 if engine.towards == "bottom" else -0.5)  # the side of the voxel the flame leaves from
+    z = ((len(rows) - 1) / 2 - edge) * size
+    flame = model.attachNewNode("flame")
+    flame.setPos(x, 0, z)
+    flame.setR(FLAME_DIRECTIONS[engine.towards])
+    flame.setScale(engine.width * size, engine.width * size, engine.length * size)
+    for part, color, scale in (("glow", engine.color, (1.0, 1.0)), ("core", FLAME_CORE_COLOR, FLAME_CORE_SIZE)):
+        node = flame.attachNewNode(part)
+        for heading in (0, 90):  # two crossed cards: it still looks like a flame when the ship banks
+            card = node.attachNewNode(_flame_card())
+            card.setH(heading)
+        node.setScale(scale[0], scale[0], scale[1])
+        node.setColor(*color)
+    flame.setTexture(_flame_texture())
+    flame.setLightOff()
+    flame.setShaderOff()
+    flame.setTwoSided(True)
+    flame.setDepthWrite(False)
+    flame.setBin("fixed", 15)  # after the ships, before the bullets
+    flame.setAttrib(
+        ColorBlendAttrib.make(ColorBlendAttrib.MAdd, ColorBlendAttrib.OIncomingAlpha, ColorBlendAttrib.OOne)
+    )
+    return flame
+
+
+def _flame_card() -> PandaNode:
+    card = CardMaker("flame_card")
+    card.setFrame(-0.5, 0.5, -1.0, 0.0)  # from the nozzle (Z 0) down to the tip (Z -1)
+    return card.generate()
+
+
+_FLAME_TEXTURES: list[Texture] = []
+
+
+def _flame_texture() -> Texture:
+    """White, with the flame's shape in its alpha: widest and brightest at the nozzle (the top row), narrowing and
+    fading out towards the tip, soft at the edges. Built once."""
+    if _FLAME_TEXTURES:
+        return _FLAME_TEXTURES[0]
+    width, height = FLAME_TEXTURE_SIZE
+    image = PNMImage(width, height, 4)
+    for row in range(height):
+        along = row / (height - 1)  # 0 at the nozzle, 1 at the tip
+        half_width = max((1 - along) ** 0.3, 1e-6)
+        for column in range(width):
+            across = abs((column + 0.5) / width * 2 - 1)
+            edge = max(0.0, 1 - (across / half_width) ** 2)
+            image.setXelA(column, row, 1, 1, 1, edge * (1 - along) ** 0.9)
+    texture = Texture("flame")
+    texture.load(image)
+    texture.setWrapU(Texture.WM_clamp)
+    texture.setWrapV(Texture.WM_clamp)
+    _FLAME_TEXTURES.append(texture)
+    return texture
 
 
 def player_model() -> NodePath:

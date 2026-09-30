@@ -51,9 +51,10 @@ def zeros(heights: list[list[int]]) -> list[list[int]]:
 
 
 def all_points(model: NodePath) -> list[Vec3]:
+    """Every corner of the model's meshes, in their own space: engine flames left out (they stick out)."""
     points = []
     for path in [model, *model.findAllMatches("**/+GeomNode")]:
-        if not isinstance(path.node(), GeomNode):
+        if not isinstance(path.node(), GeomNode) or "flame" in str(path).split("/"):
             continue
         node = path.node()
         assert isinstance(node, GeomNode)
@@ -297,7 +298,7 @@ DRAWING_PALETTE = {"a": {"color": [1, 0.5, 0], "height": 3}, "b": {"color": [0, 
 @pytest.mark.parametrize(
     ("data", "problem"),
     [
-        ({"rows": ["a"]}, "expected exactly the keys"),
+        ({"rows": ["a"]}, "expected the keys"),
         ({"rows": [], "palette": DRAWING_PALETTE}, "'rows' must be a list of strings"),
         ({"rows": ["ac"], "palette": DRAWING_PALETTE}, "not in the palette"),
         ({"rows": ["a", "ab"], "palette": DRAWING_PALETTE}, "same length"),
@@ -316,3 +317,49 @@ def test_malformed_drawings_say_what_is_wrong(data, problem):
 def test_pickup_capsules_take_the_pickup_color():
     capsule = models.pickup_model("B", (1.0, 0.5, 0.0, 1))
     assert (1.0, 0.5, 0.0, 1.0) in models.main_colors(capsule)
+
+
+ENGINE = {"x": 1, "y": 1, "width": 1, "length": 4, "towards": "bottom"}
+
+
+def test_a_drawing_can_have_engines():
+    data = {"rows": ["a.", "ab"], "palette": DRAWING_PALETTE, "engines": [ENGINE, {**ENGINE, "color": [1, 0.5, 0]}]}
+    models.parse_drawing(data)  # the engines are an allowed key
+    engines = models.parse_engines(data)
+    assert engines[0] == models.Engine(1.0, 1.0, 1.0, 4.0, "bottom", models.FLAME_COLOR)
+    assert engines[1].color == (1.0, 0.5, 0.0, 1.0)
+    assert models.parse_engines({"rows": ["a"], "palette": DRAWING_PALETTE}) == []
+
+
+@pytest.mark.parametrize(
+    ("engine", "problem"),
+    [
+        ({"x": 1, "y": 1}, "expected the keys"),
+        ({**ENGINE, "towards": "left"}, "'towards' must be one of"),
+        ({**ENGINE, "length": 0}, "more than 0"),
+        ({**ENGINE, "x": "1"}, "must be numbers"),
+        ({**ENGINE, "color": [2, 0, 0]}, "3 numbers from 0 to 1"),
+    ],
+)
+def test_malformed_engines_say_what_is_wrong(engine, problem):
+    with pytest.raises(models.VoxelDrawingError, match=problem):
+        models.parse_engines({"rows": ["a"], "palette": DRAWING_PALETTE, "engines": [engine]}, "broken.json")
+
+
+def test_a_flame_leaves_the_nozzle_voxel_towards_its_side():
+    rows = ["...", ".a.", "..."]  # 3 x 3: voxels of 1/3, the middle one at the origin
+    size = 1 / 3
+    model = NodePath("ship")
+    down = models.add_flame(model, models.Engine(1, 1, 1, 2, "bottom"), rows, size)
+    assert tuple(down.getPos()) == pytest.approx((0, 0, -size / 2))  # from the voxel's bottom edge
+    assert down.getSz() == pytest.approx(2 * size)
+    tip = model.getRelativePoint(down, Vec3(0, 0, -1))  # the flame's cards go from Z 0 to -1
+    assert tip.z == pytest.approx(-size / 2 - 2 * size)
+    up = models.add_flame(model, models.Engine(2, 0, 1, 1, "top"), rows, size)
+    assert tuple(up.getPos()) == pytest.approx((size, 0, size * 1.5))
+    assert model.getRelativePoint(up, Vec3(0, 0, -1)).z == pytest.approx(size * 2.5)
+
+
+def test_ships_with_engines_have_flames():
+    assert len(models.player_model().findAllMatches("**/flame")) == 2
+    assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground

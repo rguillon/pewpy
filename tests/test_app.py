@@ -1,6 +1,6 @@
 import pytest
 
-from pewpy.app import GAME_ASPECT, letterbox
+from pewpy.app import FLAME_FLICKER, GAME_ASPECT, flame_scale, letterbox
 
 
 def region_shape(window_width: int, window_height: int) -> float:
@@ -29,3 +29,10 @@ def test_a_tall_window_gets_bars_at_the_top_and_bottom():
 
 def test_a_window_of_the_game_shape_has_no_bars():
     assert letterbox(675, 900) == pytest.approx((0.0, 1.0, 0.0, 1.0))
+
+
+def test_engine_flames_waver_and_grow_with_thrust():
+    lengths = [flame_scale(time / 10, 0.0) for time in range(50)]
+    assert min(lengths) < 1 < max(lengths)
+    assert max(lengths) - min(lengths) <= 2 * sum(FLAME_FLICKER) + 1e-9
+    assert flame_scale(0.0, 0.0, thrust=1.0) > flame_scale(0.0, 0.0) > flame_scale(0.0, 0.0, thrust=-1.0)

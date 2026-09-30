@@ -36,5 +36,14 @@
       ],
       "height": 1
     }
-  }
+  },
+  "engines": [
+    {
+      "x": 5,
+      "y": 0,
+      "width": 2.25,
+      "length": 6,
+      "towards": "top"
+    }
+  ]
 }

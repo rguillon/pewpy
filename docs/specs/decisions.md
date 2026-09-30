@@ -177,6 +177,24 @@
 
 ## Decisions made
 
+### 2026-09-30 — Engine flames (asked by the user in chat)
+- Decision (the user's): a jet flame behind the engines of the player and of the ships that move, like a
+  reference picture (a pale blue flame behind a ship's engines); each model defines where its flames are and how
+  big.
+- How: a drawing file can have "engines", a list of {"x", "y", "width", "length", "towards", and maybe "color"}:
+  the nozzle's column and row in the drawing (it can be between two voxels, like 5.5), the flame's width at the
+  nozzle and its length in voxels, and whether it goes towards the drawing's "top" or "bottom" (enemies point down
+  the screen, so their flames go to the top). `models.py` (`parse_engines`, `add_flame`) adds each flame to the
+  model as a child node, so it follows the ship, its banking and its turns.
+- Placeholder chosen (mine): two crossed glowing cards (added light), pale blue by default with a white core,
+  widest and brightest at the nozzle, fading towards the tip; they waver in length (`flame_scale` in `app.py`,
+  `FLAME_FLICKER`), and the player's are 35% longer flying up at full speed and shorter flying down
+  (`FLAME_THRUST`). Flames on: the player, drone, weaver, diver, gunship, swarmer, sniper, mine layer, shield
+  carrier, splitter, and the bosses with visible engines (Warden, Prowler, Rockbreaker, Twin Fang and its guns,
+  Mine Mother, Gunship Prime and its engines). Not on turrets and mines (fixed to the ground), pickups, or the
+  missile.
+- Recorded in 05-visuals.md ("Effects").
+
 ### 2026-09-30 — Voxel drawings in JSON files (asked by the user in chat)
 - Decision: the voxel models' drawings moved from Python to JSON, one file per model in `src/pewpy/models/`
   (`player.json`, `drone.json`, …; the turret's barrel is `turret_barrel.json`). Each file has "rows" (the
