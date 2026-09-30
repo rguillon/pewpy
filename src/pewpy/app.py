@@ -514,6 +514,13 @@ class PewPewApp(ShowBase):
         below_bar = -HUD_MARGIN - BOSS_BAR_HEIGHT - HUD_SMALL
         self.boss_name = self._hud_text(self.boss_hud, 0.0, below_bar, TextNode.ACenter, HUD_SMALL, (1, 0.75, 0.6, 1))
         self.boss_hud.hide()
+        # What's currently shown, so _update_hud only touches a text (Panda3D rebuilds its geometry each time)
+        # when its value actually changed, instead of every single frame.
+        self._hud_score: int | None = None
+        self._hud_lives: int | None = None
+        self._hud_weapon_state: dict[str, tuple[int, bool]] = {}
+        self._hud_boss_name: str | None = None
+        self._hud_boss_visible = False
 
     def _hud_text(
         self,
@@ -734,22 +741,36 @@ class PewPewApp(ShowBase):
     def _update_hud(self) -> None:
         if self.world is None:
             return
-        self.score_text.setText(f"Score {self.world.score}")
-        self.lives_text.setText(f"Lives {self.world.lives}")
+        if self.world.score != self._hud_score:
+            self._hud_score = self.world.score
+            self.score_text.setText(f"Score {self.world.score}")
+        if self.world.lives != self._hud_lives:
+            self._hud_lives = self.world.lives
+            self.lives_text.setText(f"Lives {self.world.lives}")
         fraction = max(self.world.player.health, 0) / config.PLAYER_HEALTH
         self.health_fill.setSx(max(fraction, 0.001))  # a zero scale makes Panda3D print warnings
         arsenal = self.world.arsenal
         for weapon, text in self.weapon_texts.items():
-            text.setText(f"{LETTERS[weapon]}{arsenal.levels[weapon]}")
             selected = weapon == arsenal.selected
+            state = (arsenal.levels[weapon], selected)
+            if self._hud_weapon_state.get(weapon) == state:
+                continue  # setText/setFg/setTextScale rebuild the text's geometry: skip when nothing changed
+            self._hud_weapon_state[weapon] = state
+            text.setText(f"{LETTERS[weapon]}{arsenal.levels[weapon]}")
             text.setFg(WEAPON_COLORS[weapon] if selected else HUD_DIM_COLOR)
             text.setTextScale(HUD_SMALL * 1.25 if selected else HUD_SMALL)
         boss = self.world.boss
         if boss is None or boss.y - boss.height / 2 > self.world.view_top:  # none, or still above the screen
-            self.boss_hud.hide()
+            if self._hud_boss_visible:
+                self.boss_hud.hide()
+                self._hud_boss_visible = False
             return
-        self.boss_hud.show()
-        self.boss_name.setText(boss.spec.name)
+        if not self._hud_boss_visible:
+            self.boss_hud.show()
+            self._hud_boss_visible = True
+        if boss.spec.name != self._hud_boss_name:
+            self._hud_boss_name = boss.spec.name
+            self.boss_name.setText(boss.spec.name)
         self.boss_fill.setSx(max(boss.health_fraction, 0.001))
 
 

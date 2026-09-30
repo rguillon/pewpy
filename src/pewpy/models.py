@@ -109,9 +109,9 @@ class MeshBuilder:
         normal = (b - a).cross(c - a)
         if normal.length() < 1e-9:
             return
-        va, vb, vc = (
+        va, vb, vc = [
             (corner, shade(color, light), uv) for corner, light, uv in zip((a, b, c), brightness, uvs, strict=True)
-        )
+        ]
         if normal.dot((a + b + c) / 3 - inside) < 0:
             vb, vc = vc, vb  # face away from the shape's center (counter-clockwise seen from outside)
         self.triangles.append((va, vb, vc))
@@ -207,16 +207,23 @@ class MeshBuilder:
         for (column, row, layer), color in cells.items():
 
             def filled(offset: Vec3, column: int = column, row: int = row, layer: int = layer) -> bool:
-                cell = (column + round(offset.x), row - round(offset.z), layer + round(offset.y))
+                # `offset` is always a sum of unit direction vectors, so its components are exact integers:
+                # int() (no rounding needed) is noticeably cheaper than round() in this very hot loop.
+                cell = (column + int(offset.x), row - int(offset.z), layer + int(offset.y))
                 return cell in cells or cell in context
 
             middle = origin + Vec3(column * size, layer * size, -row * size)
             position = Vec3(column, layer, -row)  # in cubes, along the model's X, Y and Z
             for direction in FACE_DIRECTIONS:
-                normal = Vec3(*direction)
+                # The face's own visibility check is by far the most frequent lookup here (most voxels are fully
+                # buried and stop right here), so it skips `filled` and its Vec3 unpacking: `direction`'s
+                # components are already plain ints, so the neighbor cell is direct integer arithmetic.
+                dx, dy, dz = direction
+                if (column + dx, row - dz, layer + dy) in cells:
+                    continue
+                normal, u, w = _FACE_BASIS[direction]
                 if filled(normal):
                     continue
-                u, w = face_axes(direction)
                 special = GLOW_UVS if (column, row, layer) in glowing else None
                 special = BURN_UVS if (column, row, layer) in burning else special
                 if special:
@@ -224,9 +231,10 @@ class MeshBuilder:
                     a, b, c, d = (face + (u * su + w * sw) * half for su, sw in corners)
                     self.quad(a, b, c, d, color, middle, uvs=special)
                     continue
-                ba, bb, bc, bd = (occlusion(filled, normal, u * su, w * sw) for su, sw in corners)
-                plane = planes.setdefault((direction, round(position.dot(normal))), {})
-                plane[round(position.dot(u)), round(position.dot(w))] = (color, (ba, bb, bc, bd))
+                ba, bb, bc, bd = [occlusion(filled, normal, u * su, w * sw) for su, sw in corners]
+                # normal, u and w are axis-aligned unit vectors, so these dot products are exact integers too.
+                plane = planes.setdefault((direction, int(position.dot(normal))), {})
+                plane[int(position.dot(u)), int(position.dot(w))] = (color, (ba, bb, bc, bd))
         for (direction, depth), faces in planes.items():
             self._merged_faces(direction, depth, faces, size, origin)
 
@@ -241,8 +249,7 @@ class MeshBuilder:
         """Cover one plane's faces with as few rectangles as possible (greedy meshing), each made of faces with the
         same color and corner shading. A rectangle only grows along a direction where its shading doesn't change,
         so the GPU blends it the same as the faces it replaces."""
-        normal = Vec3(*direction)
-        u, w = face_axes(direction)
+        normal, u, w = _FACE_BASIS[direction]
         half = size / 2
         left = dict(faces)
         for a, b in sorted(faces):
@@ -300,6 +307,14 @@ def face_axes(direction: tuple[int, int, int]) -> tuple[Vec3, Vec3]:
     normal = Vec3(*direction)
     u = Vec3(0, 0, 1) if direction[0] else Vec3(1, 0, 0)
     return u, normal.cross(u)
+
+
+# (normal, u, w) for each of the 6 face directions, built once: the same 6 triples are used for every voxel of
+# every model, so MeshBuilder.cells() looks them up here instead of reconstructing them (and recomputing a cross
+# product) for every cube face. Read-only: callers must not mutate the vectors they get back.
+_FACE_BASIS: dict[tuple[int, int, int], tuple[Vec3, Vec3, Vec3]] = {
+    direction: (Vec3(*direction), *face_axes(direction)) for direction in FACE_DIRECTIONS
+}
 
 
 def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int], Color]:
