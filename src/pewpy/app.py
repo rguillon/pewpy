@@ -2,7 +2,9 @@
 
 import importlib
 import math
+import os
 import re
+import sys
 from collections.abc import Callable
 from functools import partial
 from typing import Literal
@@ -164,6 +166,8 @@ MAX_BULLETS = 512
 HUD_MARGIN = 0.025  # space between the HUD and the edges of the game area (aspect2d units: the width is 2)
 HUD_TEXT = 0.06  # score and lives
 HUD_SMALL = 0.055  # weapon levels (the selected one is bigger)
+FPS_SCALE = 0.045
+FPS_REFRESH = 0.5  # seconds between two updates of the frames per second
 WEAPON_SPACING = 0.15
 HEALTH_BAR_WIDTH = 0.5
 HEALTH_BAR_HEIGHT = 0.025
@@ -253,6 +257,15 @@ class PewPewApp(ShowBase):
     def _switch_weapon(self) -> None:
         if self.world is not None and self.states.state is State.PLAYING:
             self.world.arsenal.switch()
+
+    def finalizeExit(self) -> None:
+        """Under WSL, the GPU goes through Mesa's d3d12 driver (see `make run`), which can hang while the window is
+        torn down: leave at once instead (nothing is left to save)."""
+        if os.environ.get("GALLIUM_DRIVER") == "d3d12":
+            sys.stdout.flush()
+            sys.stderr.flush()
+            os._exit(0)
+        super().finalizeExit()
 
     def _setup_letterbox(self) -> None:
         # The game keeps its 3:4 shape whatever the window size: the 3D view and the HUD are drawn in a centered
@@ -565,6 +578,14 @@ class PewPewApp(ShowBase):
         baseline = HUD_MARGIN + 0.01  # letters sit on it, their bottoms reach down to the margin
         self.score_text = self._hud_text(left, HUD_MARGIN, baseline, TextNode.ALeft)
         self.lives_text = self._hud_text(right, -HUD_MARGIN, baseline, TextNode.ARight)
+        # Frames per second, top-right on every screen (not part of the in-game HUD, which menus hide).
+        fps_corner = self.a2dTopRight.attachNewNode("fps")
+        top_line = -HUD_MARGIN - FPS_SCALE * 0.8  # the letters' tops reach up to the margin
+        self.fps_text = self._hud_text(fps_corner, -HUD_MARGIN, top_line, TextNode.ARight, FPS_SCALE, HUD_DIM_COLOR)
+        self._fps_shown = -1
+        self._fps_next = 1.0  # the clock averages over the last second: nothing to show before
+        if not config.SHOW_FPS:
+            fps_corner.hide()
 
         maker = CardMaker("health")
         maker.setFrame(0, HEALTH_BAR_WIDTH, 0, HEALTH_BAR_HEIGHT)
@@ -749,6 +770,7 @@ class PewPewApp(ShowBase):
             self.ship_select.update(dt)
         self._sync_nodes()
         self._update_hud()
+        self._update_fps()
         return Task.cont
 
     def _show_events(self, events: list[Event], dt: float) -> None:
@@ -847,6 +869,17 @@ class PewPewApp(ShowBase):
             node.setR(models.facing_roll(enemy.vx, enemy.vy))  # point where it's flying
         elif isinstance(enemy, Mine | ClusterBomb):
             node.setR(enemy.age * MINE_SPIN_SPEED)
+
+    def _update_fps(self) -> None:
+        """Averaged over the last second, rewritten twice a second at most (setText rebuilds the text)."""
+        now = self.clock.getFrameTime()
+        if not config.SHOW_FPS or now < self._fps_next:
+            return
+        self._fps_next = now + FPS_REFRESH
+        fps = round(self.clock.getAverageFrameRate())
+        if fps != self._fps_shown:
+            self._fps_shown = fps
+            self.fps_text.setText(f"{fps} FPS")
 
     def _update_hud(self) -> None:
         if self.world is None:

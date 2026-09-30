@@ -16,8 +16,8 @@ check: ## Run code quality tools.
 	@uv run deptry src
 
 .PHONY: run
-run: ## Run the game
-	@uv run python -m pewpy
+run: ## Run the game (under WSL, on the GPU through Mesa's d3d12 driver rather than the much slower CPU renderer)
+	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpy; else uv run python -m pewpy; fi
 
 .PHONY: test
 test: ## Test the code with pytest

@@ -71,6 +71,7 @@ Pause -> Main menu
 | Health | Bottom center, at the edge: a thin bar, green over dark red *(placeholder, see decisions.md)* | One bar per life |
 | Bombs | TBD | TBD |
 | Weapon level | Bottom center, just over the health bar *(placeholder, see decisions.md)* | The three weapons with their level, e.g. "B2 L1 M3"; the selected one is highlighted |
+| Frames per second | Top-right corner, small and dim, on every screen (menus too) *(see decisions.md)* | Averaged over a second, refreshed twice a second; `SHOW_FPS` in `config.py` turns it off |
 | Boss health bar | Top center, at the edge: a wide orange bar over dark red, the boss's name under it *(placeholder, see decisions.md)* | Only while the boss is on screen; counts the core and its parts together |
 
 - Font: TBD

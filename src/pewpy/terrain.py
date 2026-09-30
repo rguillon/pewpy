@@ -13,7 +13,12 @@ from dataclasses import dataclass
 from enum import IntEnum
 from itertools import pairwise
 
-from pewpy import config
+import numpy as np
+
+from pewpy import config, landscapes, relief, settlement
+from pewpy.landscapes import Flora
+from pewpy.relief import RELIEF_STEP, Relief, ReliefGenerator
+from pewpy.settlement import Layout, Prop, SettlementGenerator
 
 GROUND_DEPTH = 0.35  # the base layer of the hills; they rise towards the camera, staying behind the ships
 # How fast the ground seems to move on screen, as a fraction of the level's scroll speed. Kept away from the
@@ -122,6 +127,10 @@ class Biome:
     haze: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0)  # air color, and how much of it far away
     sky: tuple[float, float, float, float] | None = None  # shows where nothing is drawn (None: the space color)
     look: str = "ground"  # how shiny it is, see background_view.py
+    relief: ReliefGenerator | None = None  # a smooth ground (relief.py) instead of voxel columns
+    settlement: SettlementGenerator | None = None  # on a smooth ground: streets or fields, and props (settlement.py)
+    fluid: str | None = None  # on a smooth ground, what's below height 0: "water", "lava" or "gap" (see relief.py)
+    flora: Flora | None = None  # on a smooth ground: sparse props placed from its shape (landscapes.py)
 
 
 class Terrain:
@@ -158,6 +167,28 @@ class Terrain:
         ground = settings.generate(self.rng, self.columns, self.rows, voxel, self.max_height)
         self.heights, self.kinds, self.shallows = ground.heights, ground.kinds, ground.shallows
         self.offset = 0.0  # how far the ground has scrolled, in world units
+        self.relief: Relief | None = None
+        self.relief_rows = 0  # rows of the relief per chunk
+        self.layout: Layout | None = None
+        self.props: list[Prop] = []  # standing on the relief
+        if settings.relief is not None:
+            self.relief_rows = max(round(self.chunk_height / RELIEF_STEP), 1)
+            step_y = self.chunk_height / self.relief_rows
+            columns = math.ceil(self.columns * voxel / RELIEF_STEP) + 1
+            rng = np.random.default_rng(self.rng.randrange(2**32))
+            shape = settings.relief(rng, self.relief_rows * self.chunks, columns, settings.max_height, step_y)
+            surface = np.maximum(shape.heights, 0.0) if settings.fluid else shape.heights
+            props = []
+            if settings.settlement is not None:
+                self.layout = settings.settlement(self.rng, (columns - 1) * RELIEF_STEP, self.loop_length)
+                props += self.layout.props
+            if settings.flora is not None:
+                props += settings.flora(self.rng, shape, RELIEF_STEP, step_y)
+            occluders = None
+            if props:
+                self.props = settlement.place(props, surface, RELIEF_STEP, step_y)
+                occluders = settlement.occluders(self.props, surface, RELIEF_STEP, step_y)
+            self.relief = relief.make_relief(shape, RELIEF_STEP, step_y, occluders, fluid=settings.fluid is not None)
 
     def update(self, dt: float, scroll_speed: float) -> None:
         self.offset = (self.offset + scroll_speed * self.speed_factor * dt) % self.loop_length
@@ -174,6 +205,11 @@ class Terrain:
         """The chunk's rows of `shallows`, plus the next chunk's first row (the water surface's bottom edge)."""
         start = chunk * self.chunk_rows_count
         return [self.shallows[(start + row) % self.rows] for row in range(self.chunk_rows_count + 1)]
+
+    def chunk_props(self, chunk: int) -> list[Prop]:
+        """The props standing in a chunk (by the middle of their footprint)."""
+        start = chunk * self.chunk_height
+        return [prop for prop in self.props if start <= prop.y < start + self.chunk_height]
 
     def chunk_top(self, chunk: int) -> float:
         """World Z of the top edge of a chunk."""
@@ -697,17 +733,88 @@ def _mountains(rng: random.Random, columns: int, rows: int, voxel: float, max_he
 
 
 BIOMES: dict[str, Biome] = {
-    "planet": Biome(_hills, GROUND_DEPTH, GROUND_MAX_HEIGHT * GROUND_VOXEL),
-    "city": Biome(_city_ground, CITY_DEPTH, CITY_MAX_HEIGHT, look="city"),
-    "ocean": Biome(_islands_ground, SEA_DEPTH, ISLAND_MAX_HEIGHT, water=True),
-    "desert": Biome(_desert, 0.5, 0.3, water=True, haze=(0.36, 0.27, 0.18, 0.45), look="matte"),
-    "forest": Biome(_forest, 0.45, 0.25, water=True, haze=(0.3, 0.36, 0.34, 0.45)),
-    "canyon": Biome(_canyon, 0.7, 0.5, water=True, haze=(0.36, 0.24, 0.2, 0.4), look="matte"),
-    "farmland": Biome(_farmland, 0.35, 0.2, haze=(0.34, 0.38, 0.42, 0.4), look="matte"),
-    "pack_ice": Biome(_pack_ice, 0.5, 0.3, water=True, haze=(0.36, 0.42, 0.48, 0.45), look="ice"),
-    "volcano": Biome(_volcano, 0.5, 0.3, haze=(0.2, 0.06, 0.04, 0.45)),
-    "swamp": Biome(_swamp, 0.4, 0.22, water=True, haze=(0.2, 0.25, 0.18, 0.5)),
-    "clouds": Biome(_clouds, 0.6, 0.12, haze=(0.16, 0.18, 0.26, 0.4), sky=(0.01, 0.03, 0.05, 1), look="matte"),
-    "refinery": Biome(_refinery, 0.65, 0.5, haze=(0.22, 0.13, 0.07, 0.45), look="city"),
-    "mountains": Biome(_mountains, 0.7, 0.5, haze=(0.32, 0.37, 0.45, 0.45)),
+    "planet": Biome(_hills, GROUND_DEPTH, GROUND_MAX_HEIGHT * GROUND_VOXEL, relief=landscapes.hills),
+    "city": Biome(
+        _city_ground,
+        CITY_DEPTH,
+        CITY_MAX_HEIGHT,
+        look="city",
+        relief=landscapes.level_ground,
+        settlement=settlement.city,
+    ),
+    "ocean": Biome(_islands_ground, SEA_DEPTH, ISLAND_MAX_HEIGHT, water=True, relief=landscapes.islands, fluid="water"),
+    "desert": Biome(
+        _desert,
+        0.5,
+        0.3,
+        water=True,
+        haze=(0.36, 0.27, 0.18, 0.45),
+        look="matte",
+        relief=landscapes.desert,
+        fluid="water",
+        flora=landscapes.palms,
+    ),
+    "forest": Biome(
+        _forest, 0.45, 0.25, water=True, haze=(0.3, 0.36, 0.34, 0.45), relief=landscapes.forest, fluid="water"
+    ),
+    "canyon": Biome(
+        _canyon,
+        0.7,
+        0.5,
+        water=True,
+        haze=(0.36, 0.24, 0.2, 0.4),
+        look="matte",
+        relief=landscapes.canyon,
+        fluid="water",
+    ),
+    "farmland": Biome(
+        _farmland,
+        0.35,
+        0.2,
+        haze=(0.34, 0.38, 0.42, 0.4),
+        look="matte",
+        relief=landscapes.rolling,
+        settlement=settlement.farmland,
+    ),
+    "pack_ice": Biome(
+        _pack_ice,
+        0.5,
+        0.3,
+        water=True,
+        haze=(0.36, 0.42, 0.48, 0.45),
+        look="ice",
+        relief=landscapes.pack_ice,
+        fluid="water",
+    ),
+    "volcano": Biome(_volcano, 0.5, 0.3, haze=(0.2, 0.06, 0.04, 0.45), relief=landscapes.volcano, fluid="lava"),
+    "swamp": Biome(
+        _swamp,
+        0.4,
+        0.22,
+        water=True,
+        haze=(0.2, 0.25, 0.18, 0.5),
+        relief=landscapes.swamp,
+        fluid="water",
+        flora=landscapes.dead_trees,
+    ),
+    "clouds": Biome(
+        _clouds,
+        0.6,
+        0.12,
+        haze=(0.16, 0.18, 0.26, 0.4),
+        sky=(0.01, 0.03, 0.05, 1),
+        look="matte",
+        relief=landscapes.clouds,
+        fluid="gap",
+    ),
+    "refinery": Biome(
+        _refinery,
+        0.65,
+        0.5,
+        haze=(0.22, 0.13, 0.07, 0.45),
+        look="city",
+        relief=landscapes.level_ground,
+        settlement=settlement.refinery,
+    ),
+    "mountains": Biome(_mountains, 0.7, 0.5, haze=(0.32, 0.37, 0.45, 0.45), relief=landscapes.mountains),
 }

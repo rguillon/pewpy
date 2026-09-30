@@ -177,6 +177,56 @@
 
 ## Decisions made
 
+### 2026-09-30 — Frame rate under WSL, and lighter trees (the user got 24 fps in level 2-2)
+- Cause: under WSL, OpenGL defaulted to Mesa's CPU renderer (llvmpipe), not the GPU; the new grounds' pixel
+  shaders and the farmland's hundreds of trees were heavy for it. Through WSL's GPU path (Mesa's d3d12 driver,
+  `GALLIUM_DRIVER=d3d12`) the same level renders at over a thousand frames per second.
+- `make run` now uses the d3d12 driver when WSL's GPU device (`/dev/dxg`) is there. That driver can hang while the
+  window closes, so the game leaves at once when it's in use (`finalizeExit` in app.py).
+- Also lighter for the CPU renderer: trees are crowns only (7 sides, 3 rings, no trunk: 100k triangles down to 23k
+  in level 2-2), orchard trees a bit farther apart (0.042), and the ground shader uses fewer noise layers (about 10
+  lookups a pixel instead of 28). Level 2-2 on the CPU renderer: ~32 to ~50-65 fps (noisy measurements).
+
+### 2026-09-30 — Frames per second on screen (asked by the user in chat)
+- Decision (the user's): an FPS counter in the top-right corner.
+- Placeholder chosen: small dim text ("552 FPS") at the game area's top-right corner on every screen, averaged over
+  the last second and refreshed twice a second; `SHOW_FPS` in `config.py` (on) turns it off. Not Panda3D's own
+  meter, which would sit in the letterbox bars on a wide window.
+- Recorded in 04-ui-audio.md (HUD).
+
+### 2026-09-30 — Smooth, near-photorealistic grounds: option A prototype (asked by the user in chat)
+- Decision (the user's): grounds should look close to photorealistic, still procedurally generated, not made
+  of cubes; of the options (A: procedural shader materials, B: CC0 photo textures, C: B plus erosion, D: scrolling
+  images), try A first.
+- Prototype, on the mountains biome only (the others are still voxels): `relief.py` makes a smooth height field
+  (numpy, looping like the voxel grounds): eroded noise (finer layers damped on steep slopes) plus ridged crests on
+  the high ground, flat valley floors; it bakes each point's cavity (hollows get less sky light) and cast shadows
+  from a low sun in the top left. `ground_shader.py` draws it as a fine mesh per strip (a point every 0.02 world
+  units) with its own shader: rock with strata on steep faces, scree, snow settling on gentle high slopes, meadows
+  and pine forest in the valleys, fine bumps on the normal, the same sun as the baked shadows, blue sky light, and
+  the level's haze and time-of-day tint. A biome opts in with `Biome.relief`.
+- Placeholders: every color, height and threshold in `relief.py` and `ground_shader.py`.
+- Then the built-up grounds (asked by the user: keep a similar ground, with models of buildings and items placed
+  on it, colors in the same range): the city, the refinery and the farmland are smooth too (level or gently rolling),
+  with a layout (`settlement.py`): a surface map the ground shader paints (streets with lamp light at night,
+  pavements, stained yards, dirt roads, fields with furrows, pastures) and props standing on it, built with numpy
+  (`prop_meshes.py`): buildings (towers with setbacks, roof machinery, red beacons), process plants with furnace
+  windows, tanks, flaring stacks, pipe racks, houses, barns, silos, trees, hedges. A prop shader paints windows (more
+  lit at dusk and night), furnaces, flames, metal sheen, roofing and foliage. Props cast shadows and darken the
+  ground around them: shadows are now a map of how high they reach, read pixel by pixel by both shaders. Colors are
+  from the voxel versions' palettes, checked side by side.
+- Known limit: ground enemies stay on the play plane, so over the city they can show on a roof rather than a street.
+- Then every other ground (asked by the user: "many levels still use the cubes, replace them too"): no level uses
+  voxel grounds any more. `landscapes.py` has a landscape per ground: the dusty planet (eroded hills and craters),
+  islands in a sea, desert (dune ridges, mesas, oases with palms), forest (a canopy of round crowns, clearings, a
+  river), canyon (terraced cliffs down to a river with sandbanks), pack ice (floes split by leads, icebergs),
+  volcano (black hills, lava lakes and rivers), swamp (islets with reeds and dead trees) and the cloud deck. Below
+  height 0 is the ground's fluid (`Biome.fluid`): water (flat, depth-tinted from the voxel grounds' colors, shallows
+  lighter, foam at the coasts, the sun's glints on looping waves), lava (a glowing flow under a drifting crust) or
+  the gaps between clouds (the dark ground far below, a few town lights). Shores fall between grid points (the
+  depth is signed), and cliff edges span a few grid points, so no edge is jagged. Colors are the voxel grounds'.
+- The voxel ground code (terrain.py's generators, ground_look.py, models.py's ground cells) is no longer drawn.
+
 ### 2026-09-30 — Thinner models (asked by the user in chat)
 - Decision (the user's): most models were too thick; remove 2 layers of cubes.
 - Done: every palette height in the drawings (`src/pewpy/models/*.json`) is 2 less (at least 1), so each part lost

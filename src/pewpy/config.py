@@ -5,6 +5,7 @@ Values marked "placeholder" are not decided in the specs yet; see docs/specs/dec
 
 # Window (placeholder: 3:4 portrait window)
 WINDOW_TITLE = "pewpy"
+SHOW_FPS = True  # frames per second in the top-right corner, on every screen
 WINDOW_WIDTH = 675
 WINDOW_HEIGHT = 900
 

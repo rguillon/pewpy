@@ -2,7 +2,7 @@
 
 from panda3d.core import Lens, NodePath, Point2, Point3, Vec3
 
-from pewpy import background, ground_look, models
+from pewpy import background, ground_look, ground_shader, models, prop_meshes
 from pewpy.background import Area, Scenery
 from pewpy.terrain import BIOMES, Terrain
 
@@ -150,6 +150,8 @@ class BackgroundView:
         return model
 
     def _ground(self, terrain: Terrain) -> list[NodePath]:
+        if terrain.relief is not None:
+            return self._relief(terrain)
         nodes = []
         for chunk in range(terrain.chunks):
             rows = terrain.chunk_rows(chunk)
@@ -173,4 +175,31 @@ class BackgroundView:
             node.setShaderInput("water_offset", (0.0, -first * terrain.voxel))  # this strip's place in the loop
             node.setShaderInput("water_loop", terrain.loop_length)
             nodes.append(node)
+        return nodes
+
+    def _relief(self, terrain: Terrain) -> list[NodePath]:
+        """A smooth ground: a mesh per strip painted by the ground shader, and the props standing on it
+        (ground_shader.py)."""
+        relief = terrain.relief
+        if relief is None:
+            return []
+        ground = self.root.attachNewNode("relief")
+        textures = ground_shader.maps(relief, terrain.layout)
+        width = (relief.columns - 1) * relief.step_x
+        fluid = BIOMES[terrain.biome].fluid
+        ground_shader.ground_inputs(ground, terrain.biome, fluid, textures, terrain.loop_length, width)
+        max_height = BIOMES[terrain.biome].max_height
+        nodes = []
+        for chunk in range(terrain.chunks):
+            strip = ground.attachNewNode(f"strip_{chunk}")
+            strip.setShaderInput("ground_offset", chunk * terrain.chunk_height)
+            model = ground_shader.relief_chunk_model(
+                relief, chunk * terrain.relief_rows, terrain.relief_rows, max_height
+            )
+            model.reparentTo(strip)
+            props = terrain.chunk_props(chunk)
+            if props:
+                vertices, triangles = prop_meshes.strip_arrays(props, chunk * terrain.chunk_height)
+                ground_shader.props_model(vertices, triangles).reparentTo(strip)
+            nodes.append(strip)
         return nodes
