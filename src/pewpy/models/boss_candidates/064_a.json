@@ -1,0 +1,67 @@
+{
+  "rows": [
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    ".ttttttttttttttttttt.",
+    "hhhhhhhhhhhhhhhhhhhhh",
+    ".WWWWWWWWWWWWWWWWWWW.",
+    ".hhhhhhhhhhhhhhhhhhh.",
+    "..WWWWWWWWWWWWWWWWW..",
+    "..hhhhhhhhhhhhhhhhh..",
+    "...WWWWWWWWWWWWWWW...",
+    "...hhhhhhhhhhhhhhh...",
+    "...WWWWWWWWWWWWWWW...",
+    "....hhhhhhhhhhhhh....",
+    "....WWWWWWWWWWWWW....",
+    ".....hhhhhhhhhhh.....",
+    ".....WWWWWWWWWWW.....",
+    ".....hhhhhhhhhhh.....",
+    "......WWWWWWWWW......",
+    "......hhhhhhhhh......",
+    ".......WWWWWWW.......",
+    ".......hhhhhhh.......",
+    ".......WWWWWWW.......",
+    "........hhhhh........",
+    "........WWWWW........",
+    ".........hhh.........",
+    ".........WWW.........",
+    ".........hhh.........",
+    "..........W..........",
+    "..........h.........."
+  ],
+  "palette": {
+    "t": {
+      "color": [
+        0.3,
+        0.31,
+        0.33
+      ],
+      "height": 9
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 7
+    },
+    "W": {
+      "color": [
+        0.45,
+        0.46,
+        0.49
+      ],
+      "height": 5
+    }
+  }
+}

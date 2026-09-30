@@ -1,0 +1,205 @@
+{
+  "rows": [
+    "....xxxoooNoooNoooNoooxxx....",
+    "....xxxxhhhhhhhhhhhhhxxxx....",
+    "....xxxxkkkkkkkkkkkkkxxxx....",
+    "....xxxxHHHHHHHHHHHHHxxxx....",
+    "....xxxxhhhhhhhhhhhhhxxxx....",
+    "....xxxxhhhhTSSSThhhhxxxx....",
+    "....xxxxHHHHTSSSTHHHHxxxx....",
+    "....kkkkNNNNNkkkNNNNNkkkk....",
+    "....NNNN.....NNN.....NNNN....",
+    ".oooNNNN.....NNN.....NNNNooo.",
+    ".....NNN.....NNN.....NNN.....",
+    ".....Np......cRc......pN.....",
+    ".....NN......NNN......NN.....",
+    "...NNNN......NNN......NNNN...",
+    ".NNNNNN......NNN......NNNNNN.",
+    ".....Nx..xxNNNNNNNxx..xN.....",
+    "........xxxNNNNNNNxxx........",
+    ".......xxxxNNNNNNNxxxx.......",
+    "......xxxxxxxxxxxxxxxxx......",
+    "....NNxxxxx...x...xxxxxNN....",
+    "...Nhhxxxx....x....xxxxhhN...",
+    "...NNHxxx.....x.....xxxHNN...",
+    "...NNNxxx....xxx....xxxNNN...",
+    "..NNNNx.xxxxxxxxxxxxx.xNNNN..",
+    ".NNNNNx...xxxxxxxxx...xNNNNN.",
+    "...NNNx...xhhhhhhhx...xNNN...",
+    "...NNNx...xhhhhhhhx...xNNN...",
+    "...pNNx...xkkkkkkkx...xNNp...",
+    "..NNNNN...NNhhhhhNN...NNNNN..",
+    "NNNNNNN.NNN.hphph.NNN.NNNNNNN",
+    "...NNNHNN.....H.....NNHNNN...",
+    "....NhhNN.....h.....NNhhN....",
+    "...hNNNNNN....k....NNNNNNh...",
+    ".....NNNNNN...N...NNNNNN.....",
+    "...NNNNNNNNNNNhNNNNNNNNNNN...",
+    "........NpNNpNhNpNNpN........",
+    ".........NNNNNHNNNNN.........",
+    "..........NNNNhNNNN..........",
+    "..............N.............."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.37,
+        0.38,
+        0.41
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.5,
+        0.51,
+        0.54
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.6,
+        0.61,
+        0.63
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.55,
+        0.56,
+        0.59
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
+        0.2
+      ],
+      "height": 7
+    },
+    "o": {
+      "color": [
+        0.08,
+        0.08,
+        0.09
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.22,
+        0.23,
+        0.25
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.6,
+        0.15
+      ],
+      "height": 17
+    }
+  },
+  "engines": [
+    {
+      "x": 8,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    },
+    {
+      "x": 26,
+      "y": 9,
+      "width": 6.1,
+      "length": 18,
+      "towards": "top"
+    }
+  ]
+}

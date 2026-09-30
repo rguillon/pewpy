@@ -12,7 +12,7 @@
 - Target frame rate: TBD (e.g. 60 FPS)
 - Max simultaneous bullets on screen: TBD
 - Minimum hardware: TBD
-- Window: 675x900 *(placeholder, see decisions.md)*; resizable, the game keeps its 3:4 shape with black bars
+- Window: 1280x1024 (the user's choice, see decisions.md); resizable, the game keeps its 5:4 shape with black bars
   around it; fullscreen toggle: TBD
 
 ## Architecture preferences

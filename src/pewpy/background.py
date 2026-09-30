@@ -27,9 +27,21 @@ from pewpy.terrain import BIOMES, GROUND_SPEED, GROUND_VOXEL, Area, Terrain
 
 BACKGROUNDS = ("space", "debris", *BIOMES)
 
+
+def mist_depths(kind: str) -> list[float]:
+    """The cloud layers' depths over a ground: MIST_LAYERS's, but always well above its highest point (the peaks of
+    the mountains, the tops of the tallest towers), which is its depth less its highest height."""
+    biome = BIOMES[kind]
+    top = biome.depth - biome.max_height  # the ground's closest point to the ships
+    return [min(depth, top * share) for (depth, _), share in zip(MIST_LAYERS, MIST_ABOVE_GROUND, strict=True)]
+
+
 # See-through clouds in the atmosphere levels, between the ground and the ships: (depth, speed on screen as a
-# fraction of the scroll speed). Closer ones move faster, like the rest of the parallax.
+# fraction of the scroll speed). Closer ones move faster, like the rest of the parallax. The depths are the deepest
+# they go: over high ground (mountain peaks, towers), they come closer, so nothing pokes up through them (see
+# `mist_depths`).
 MIST_LAYERS = ((0.08, 0.5), (0.18, 0.42))
+MIST_ABOVE_GROUND = (0.4, 0.75)  # at most these shares of the way from the ships down to the highest ground
 MIST_COUNT = 10  # per layer, when a level has the most clouds (Level.clouds = 1)
 MIST_SIZE = (0.6, 1.3)  # world units
 MIST_WIND = 0.02  # fastest sideways drift, world units per second
@@ -167,7 +179,7 @@ class Scenery:
             self.terrain = Terrain(view.area(biome.depth), speed_factor, self._seed(), ground_voxel, kind)
             if clouds > 0:
                 wind = self.rng.uniform(-MIST_WIND, MIST_WIND)
-                for depth, screen_speed in MIST_LAYERS:
+                for depth, (_, screen_speed) in zip(mist_depths(kind), MIST_LAYERS, strict=True):
                     self.layers.append(self._mist(view, depth, screen_speed, clouds, wind))
 
     def update(self, dt: float, scroll_speed: float) -> None:

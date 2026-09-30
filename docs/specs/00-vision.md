@@ -16,7 +16,7 @@ TBD
   (2D rules), only the rendering is 3D
 - Camera (fixed, follows player, tilted, orthographic vs perspective): fixed perspective camera, 40° vertical field
   of view, in front of and below the play area, tilted 25° so the top of the screen is farther away *(placeholder, see decisions.md)*
-- Play area aspect ratio (e.g. 3:4 portrait arcade, 16:9): 3:4 portrait, 1.5 x 2.0 world units *(placeholder, see decisions.md)*
+- Play area aspect ratio (e.g. 3:4 portrait arcade, 16:9): 5:4, 2.5 x 2.0 world units, like the 1280x1024 window (see decisions.md)
 
 ## Tone and theme
 

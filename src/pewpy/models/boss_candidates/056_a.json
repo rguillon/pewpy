@@ -1,0 +1,72 @@
+{
+  "rows": [
+    ".........NNNNNNN.........",
+    "......NNNtttttttNNN......",
+    ".....NNtttttttttttNN.....",
+    "....NtttttttttttttttN....",
+    "...NtttttttttttttttttN...",
+    "..NtttttttttttttttttttN..",
+    ".NNtttttttttttttttttttNN.",
+    ".NttttttttSSSSSttttttttN.",
+    ".NttttttSSSSSSSSSttttttN.",
+    "NtttttttSSSSSSSSStttttttN",
+    "NttttttSSSSSSSSSSSttttttN",
+    "NttttttSSSSSSSSSSSttttttN",
+    "NttttttSSSSSrSSSSSttttttN",
+    "NttttttSSSSSrSSSSSttttttN",
+    "NttttttSSSSSrSSSSSttttttN",
+    "NtttttttSSSSrSSSStttttttN",
+    ".NttttttSSSSrSSSSttttttN.",
+    ".NttttttttSSrSSttttttttN.",
+    ".NNtttttttttrtttttttttNN.",
+    "..NtttttttttrtttttttttN..",
+    "...NttttttttrttttttttN...",
+    "....NtttttttrtttttttN....",
+    ".....NNtttttrtttttNN.....",
+    "......NNNtttrtttNNN......",
+    ".........NNNrNNN.........",
+    "............r............",
+    "............r............",
+    "............r............",
+    "............r............",
+    "............r............",
+    "............r............",
+    "............r............",
+    "............r............",
+    "............r............"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.299,
+        0.284,
+        0.246
+      ],
+      "height": 9
+    },
+    "t": {
+      "color": [
+        0.345,
+        0.326,
+        0.281
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.69,
+        0.64,
+        0.535
+      ],
+      "height": 13
+    },
+    "r": {
+      "color": [
+        0.149,
+        0.137,
+        0.128
+      ],
+      "height": 5
+    }
+  }
+}

@@ -1,25 +1,17 @@
 {
   "rows": [
-    "..oHHHo..",
-    "..ShhhS..",
-    "..SkkkS..",
-    "qkwLLLwkq",
-    ".WwHHHwW.",
-    ".rWkkkWr.",
-    ".r.HHH.r.",
-    "...php...",
-    "...HRH...",
-    "...NhN..."
+    "qokHoHkoq",
+    "rwwhShwwr",
+    "rWWkSkWWr",
+    "r.qhShq.r",
+    "..WHSHW..",
+    "..rhShr..",
+    "..rHRHr..",
+    "..rkSkr..",
+    "...HSH...",
+    "....p...."
   ],
   "palette": {
-    "N": {
-      "color": [
-        0.26,
-        0.27,
-        0.29
-      ],
-      "height": 5
-    },
     "h": {
       "color": [
         0.37,
@@ -107,29 +99,28 @@
         0.4
       ],
       "height": 5
-    },
-    "L": {
-      "color": [
-        0.3,
-        0.3,
-        0.33
-      ],
-      "height": 3
     }
   },
   "engines": [
     {
-      "x": 2,
+      "x": 1,
       "y": 0,
       "width": 2.4,
-      "length": 8,
+      "length": 7,
       "towards": "top"
     },
     {
-      "x": 6,
+      "x": 4,
       "y": 0,
       "width": 2.4,
-      "length": 8,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "width": 2.4,
+      "length": 7,
       "towards": "top"
     }
   ]

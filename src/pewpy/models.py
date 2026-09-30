@@ -504,6 +504,9 @@ def facing_roll(dx: float, dz: float) -> float:
 METAL: Color = (0.55, 0.57, 0.62, 1)
 DRAWINGS_FOLDER = "models"  # src/pewpy/models/<name>.json, one voxel drawing each
 CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.json: drawings for possible new enemies, not in the game
+# models/boss_candidates/<number>.json: possible new bosses' cores, with <number>_a.json... their parts' drawings and
+# <number>.parts.json where the parts go (see tools/make_boss_candidates.py). Not in the game either.
+BOSS_CANDIDATES_FOLDER = "boss_candidates"
 DRAWING_KEYS = {"rows", "palette"}
 OPTIONAL_DRAWING_KEYS = {"engines"}
 PALETTE_KEYS = {"color", "height"}
@@ -546,6 +549,25 @@ def candidate_names() -> list[str]:
     folder = data_folder() / DRAWINGS_FOLDER / CANDIDATES_FOLDER
     files = sorted(entry.name for entry in folder.iterdir() if entry.name.endswith(".json"))
     return [f"{CANDIDATES_FOLDER}/{name.removesuffix('.json')}" for name in files]
+
+
+def boss_candidate_names() -> list[str]:
+    """The boss candidates' cores, like "boss_candidates/001", in order."""
+    folder = data_folder() / DRAWINGS_FOLDER / BOSS_CANDIDATES_FOLDER
+    if not folder.is_dir():
+        return []
+    numbers = sorted(entry.name.removesuffix(".json") for entry in folder.iterdir() if entry.name.endswith(".json"))
+    return [f"{BOSS_CANDIDATES_FOLDER}/{number}" for number in numbers if number.isdigit()]
+
+
+def boss_candidate_parts(name: str) -> list[tuple[str, float, float]]:
+    """A boss candidate's parts: (drawing, x, y), in cubes from the core's middle (x right, y up the screen)."""
+    path = data_folder() / DRAWINGS_FOLDER / f"{name}.parts.json"
+    if not path.is_file():
+        return []
+    folder = name.rsplit("/", 1)[0]
+    layout = json.loads(path.read_text())
+    return [(f"{folder}/{entry['drawing']}", float(entry["x"]), float(entry["y"])) for entry in layout["parts"]]
 
 
 def load_drawing(name: str) -> tuple[list[str], Palette]:

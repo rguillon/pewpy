@@ -9,20 +9,20 @@ from pewpy.showcase import DISTANCE, ModelShowcase
 
 Color = tuple[float, float, float, float]
 
-COLUMN_SPACING = 0.62  # between the ships' columns (aspect2d units)
-SHIP_HEIGHT = -0.45  # where the ships spin (aspect2d units)
-SHIP_SIZE = 0.22  # a ship's model (fitted to 1 x 1 x 1) is drawn this big; the highlighted one bigger
+COLUMN_SPACING = 0.8  # between the ships' columns (aspect2d units)
+SHIP_HEIGHT = -0.36  # where the ships spin (aspect2d units)
+SHIP_SIZE = 0.2  # a ship's model (fitted to 1 x 1 x 1) is drawn this big; the highlighted one bigger
 SELECTED_GROWTH = 1.25
-NAME_HEIGHT = -0.76
-NAME_SCALE = 0.06
-FIRST_BAR = -0.85  # the bars, one under the other
-BAR_SPACING = 0.065
+NAME_HEIGHT = -0.54
+NAME_SCALE = 0.055
+FIRST_BAR = -0.62  # the bars, one under the other
+BAR_SPACING = 0.052
 BAR_WIDTH = 0.28
 BAR_HEIGHT = 0.03
-LABEL_SCALE = 0.045
-LABEL_WIDTH = 0.24  # from a label's start to its bar
-DETAILS_HEIGHT = -1.14
-DETAILS_SCALE = 0.048
+LABEL_SCALE = 0.04
+LABEL_WIDTH = 0.22  # from a label's start to its bar
+DETAILS_HEIGHT = -0.86
+DETAILS_SCALE = 0.038
 BAR_EMPTY: Color = (0.12, 0.13, 0.17, 1)
 BAR_FULL: Color = (0.3, 0.85, 1.0, 1)
 BAR_DIM: Color = (0.25, 0.3, 0.38, 1)

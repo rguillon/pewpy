@@ -6,7 +6,6 @@ import pytest
 
 from pewpy import config
 from pewpy.enemies import (
-    ENEMY_TYPES,
     HALF_WIDTH,
     HEAVY_BULLET_SIZE,
     TOP,
@@ -35,9 +34,9 @@ from pewpy.enemies import (
     Turret,
     WaveBullet,
     Weaver,
-    make_enemy,
 )
 from pewpy.entities import Bullet, Entity
+from pewpy.roster import ENEMY_TYPES, make_enemy
 
 DT = 1 / 60
 TARGET = Entity(x=0.0, y=-0.75)  # where the player starts
@@ -83,8 +82,9 @@ def test_weaver_snakes_around_its_column():
     for _ in range(120):
         weaver.update(DT, TARGET, SCROLL)
         xs.append(weaver.x)
-    assert max(xs) == pytest.approx(0.45, abs=0.01)
-    assert min(xs) == pytest.approx(-0.05, abs=0.01)
+    reach = 0.25 * config.WIDTH_SCALE  # wider with the screen
+    assert max(xs) == pytest.approx(0.2 + reach, abs=0.01)
+    assert min(xs) == pytest.approx(0.2 - reach, abs=0.01)
     assert bullets(run(weaver, 5.0)) == []
 
 
@@ -178,7 +178,7 @@ def test_swarmer_entering_from_farther_out_curves_the_same_way():
             run(swarmer, 0.05)
         return swarmer.x
 
-    edge = -(0.75 + Swarmer.width / 2)
+    edge = -(config.PLAY_WIDTH / 2 + Swarmer.width / 2)
     assert path_end(edge - 0.4) == pytest.approx(path_end(edge), abs=0.03)
 
 

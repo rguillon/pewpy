@@ -65,12 +65,15 @@ Rect = tuple[float, float, float, float]  # (top, bottom, left, right): y from t
 # (rng, width, loop length) -> the layout
 SettlementGenerator = Callable[[random.Random, float, float], Layout]
 
-CITY_BLOCK = 0.6  # about, from one street to the next
-CITY_STREET = 0.1
-SIDEWALK = 0.018
-CITY_TOWER = (0.32, 0.55)  # heights of the few towers...
-CITY_MIDRISE = (0.14, 0.3)  # ...mid-rises...
-CITY_LOWRISE = (0.04, 0.13)  # ...and the most common, low buildings
+CITY_BLOCK = 0.38  # about, from one street to the next
+CITY_STREET = 0.07
+CITY_ALLEY = 0.035  # narrow streets cutting through some blocks
+ALLEY_SHARE = 0.4
+CITY_LOT = 0.06  # the smallest building lot
+SIDEWALK = 0.012
+CITY_TOWER = (0.31, 0.48)  # heights of the few towers...
+CITY_MIDRISE = (0.12, 0.26)  # ...mid-rises...
+CITY_LOWRISE = (0.03, 0.11)  # ...and the most common, low buildings
 REFINERY_BLOCK = 0.55
 REFINERY_ROAD = 0.07
 FARM_BLOCK = 0.5
@@ -145,14 +148,33 @@ def city(rng: random.Random, width: float, loop: float) -> Layout:
     for top, bottom, left, right in grid(width, loop, CITY_BLOCK):
         block = (top + CITY_STREET, bottom, left + CITY_STREET, right)  # the street runs along its top and left
         canvas.fill(block, Surface.PAVEMENT)
-        for lot in lots(rng, shrink(block, SIDEWALK), 0.1):
-            if rng.random() < 0.07:
-                _park(canvas, lot)
-                continue
-            roll = rng.random()
-            span = CITY_TOWER if roll < 0.08 else CITY_MIDRISE if roll < 0.35 else CITY_LOWRISE
-            canvas.add("building", shrink(lot, rng.uniform(0.006, 0.02)), rng.uniform(*span))
+        for part in _alleys(canvas, block):
+            for lot in lots(rng, shrink(part, SIDEWALK), CITY_LOT):
+                if rng.random() < 0.07:
+                    _park(canvas, lot)
+                    continue
+                roll = rng.random()
+                span = CITY_TOWER if roll < 0.08 else CITY_MIDRISE if roll < 0.35 else CITY_LOWRISE
+                canvas.add("building", shrink(lot, rng.uniform(0.004, 0.012)), rng.uniform(*span))
     return canvas.layout()
+
+
+def _alleys(canvas: _Canvas, block: Rect) -> list[Rect]:
+    """Some blocks are cut in two by a narrow alley, one way or the other: the two halves (or the whole block)."""
+    rng = canvas.rng
+    if rng.random() >= ALLEY_SHARE:
+        return [block]
+    top, bottom, left, right = block
+    if rng.random() < 0.5:  # across the block
+        middle = rng.uniform(top + 0.35 * (bottom - top), top + 0.65 * (bottom - top))
+        alley = (middle - CITY_ALLEY / 2, middle + CITY_ALLEY / 2, left, right)
+        halves = [(top, alley[0], left, right), (alley[1], bottom, left, right)]
+    else:  # along it
+        middle = rng.uniform(left + 0.35 * (right - left), left + 0.65 * (right - left))
+        alley = (top, bottom, middle - CITY_ALLEY / 2, middle + CITY_ALLEY / 2)
+        halves = [(top, bottom, left, alley[2]), (top, bottom, alley[3], right)]
+    canvas.fill(alley, Surface.STREET)
+    return halves
 
 
 def _park(canvas: _Canvas, lot: Rect) -> None:

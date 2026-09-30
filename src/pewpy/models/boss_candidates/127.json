@@ -1,0 +1,184 @@
+{
+  "rows": [
+    "ooNooo........oooNNNNNL..NNN..LNNNNNooo........oooNoo",
+    "NLLLL.......NNNLLLLLLLN..NNN..NLLLLLLLNNN.......LLLLN",
+    "kkkkk.....kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk.....kkkkk",
+    "pLLLN.....kkpLNLLLLLLLLkkkkkkkLLLLLLLLNLpkk.....NLLLp",
+    "NLLLL..........NLLLLLLN..NNN..NLLLLLLN..........LLLLN",
+    "NLLLN..........NNNNLNNN..NNN..NNNLNNNN..........NLLLN",
+    "kkkkk....................NNN....................kkkkk",
+    "NLwwwkkkkkkkkkkkkk.......NNN.......kkkkkkkkkkkkkwwwLN",
+    "NLwwWwwwWwwwWwwwWwL......cRc......LwWwwwWwwwWwwwWwwLN",
+    "NLwWwwwWWWwWwwwWwwN......NNN......NwwWwwwWwWWWwwwWwLN",
+    "kkkkkkk...kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk...kkkkkkk",
+    "NLLLLLLN..kLLLLLLLLkkkkkkkkkkkkkkkLLLLLLLLk..NLLLLLLN",
+    "LLLLLLLLLNNNNNNNNNL......NNN......LNNNNNNNNNLLLLLLLLL",
+    "NLLLLLLLLNNNNNNNNN.......NNN.......NNNNNNNNNLLLLLLLLN",
+    "kkkkkkkkkNNNNNNNNN.......NNN.......NNNNNNNNNkkkkkkkkk",
+    "LLLLLLLLNNNNNNNNNNNNN....NNN....NNNNNNNNNNNNNLLLLLLLL",
+    ".LLLLLLL....NLLLLLLLL....xxx....LLLLLLLLN....LLLLLLL.",
+    "..NpNNp.....pLLLLLLLN....xxx....NLLLLLLLp.....pNNpN..",
+    "..........kkkkkkkkkkkkkxxxxxxxkkkkkkkkkkkkk..........",
+    "..........kkhhhhhhhhhkkxxxxxxxkkhhhhhhhhhkk..........",
+    "............HHHHHHHHN....xxx....NHHHHHHHH............",
+    "............NNNNhhhNh....xxx....hNhhhNNNN............",
+    ".........................xxx.........................",
+    ".........................xxx.........................",
+    ".........................xxx.........................",
+    "...........NNNNNNNNN.....NNN.....NNNNNNNNN...........",
+    "..........kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk..........",
+    "..........kNNNNNNNNhkkkkkkkkkkkkkhNNNNNNNNk..........",
+    ".........................NHN.........................",
+    ".........................hhh.........................",
+    "........................NkkkN........................",
+    "........................phhhp........................",
+    ".......................NHHHHHN.......................",
+    "........................NhhhN........................",
+    "........................NkkkN........................",
+    ".........................NhN.........................",
+    ".........................NHN.........................",
+    ".........................NNN........................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.333,
+        0.369,
+        0.451
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.45,
+        0.495,
+        0.594
+      ],
+      "height": 9
+    },
+    "k": {
+      "color": [
+        0.153,
+        0.175,
+        0.22
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.288,
+        0.32,
+        0.396
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.405,
+        0.446,
+        0.539
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.072,
+        0.078,
+        0.099
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.198,
+        0.223,
+        0.275
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.6,
+        0.15
+      ],
+      "height": 17
+    },
+    "L": {
+      "color": [
+        0.15,
+        0.25,
+        0.5
+      ],
+      "height": 9
+    }
+  },
+  "engines": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 6.4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 52,
+      "y": 0,
+      "width": 6.4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 48,
+      "y": 0,
+      "width": 6.4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "width": 6.4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 37,
+      "y": 0,
+      "width": 6.4,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "width": 6.4,
+      "length": 10,
+      "towards": "top"
+    }
+  ]
+}

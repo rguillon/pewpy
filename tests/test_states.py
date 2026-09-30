@@ -91,3 +91,11 @@ def test_the_candidates_screen_opens_from_the_main_menu_and_goes_back_to_it():
     assert not machine.can_transition(State.PLAYING)
     machine.transition(State.MAIN_MENU)
     assert machine.state is State.MAIN_MENU
+
+
+def test_the_boss_candidates_screen_opens_from_the_main_menu_and_goes_back_to_it():
+    machine = StateMachine()
+    machine.transition(State.BOSS_CANDIDATES)
+    assert not machine.can_transition(State.CANDIDATES)
+    machine.transition(State.MAIN_MENU)
+    assert machine.state is State.MAIN_MENU

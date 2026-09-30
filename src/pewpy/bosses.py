@@ -11,6 +11,7 @@ import math
 from dataclasses import dataclass, field
 from typing import ClassVar
 
+from pewpy import config
 from pewpy.enemies import HALF_WIDTH, HEAVY_BULLET_SIZE, TOP, Enemy, enemy_bullet
 from pewpy.entities import Bullet, Entity
 
@@ -178,7 +179,7 @@ class Boss(Enemy):
             self.vy = -ENTRY_SPEED
             if self.y > HOLD_Y:
                 return []
-            self.arrived, self.vy, self.vx = True, 0.0, self.phase.sway
+            self.arrived, self.vy, self.vx = True, 0.0, self.sway_speed
             self._start_phase()
         self._next_phase_if_done()
         self._sway()
@@ -206,10 +207,15 @@ class Boss(Enemy):
             return "hit"
         return "armored" if self.phase.armored else "normal"
 
+    @property
+    def sway_speed(self) -> float:
+        """The phase's sway, widened with the screen (it was set for a play area 1.5 wide)."""
+        return self.phase.sway * config.WIDTH_SCALE
+
     def _start_phase(self) -> None:
         self.pause = PHASE_PAUSE
         self.guns = [GunState(cooldown=gun.delay) for _, gun in self.phase.guns]
-        self.vx = math.copysign(self.phase.sway, self.vx or 1.0)
+        self.vx = math.copysign(self.sway_speed, self.vx or 1.0)
 
     def _next_phase_if_done(self) -> None:
         if self.phase_index == len(self.spec.phases) - 1:

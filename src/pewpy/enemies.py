@@ -4,7 +4,6 @@ Each enemy moves itself in `update` and returns the bullets or enemies it create
 """
 
 import math
-import random
 from dataclasses import dataclass
 from typing import ClassVar
 
@@ -27,6 +26,7 @@ class Enemy(Entity):
     rammable: ClassVar[bool] = True  # False: ramming it hurts the player but doesn't destroy it (bosses)
     ground: ClassVar[bool] = False  # True: sits or drives on the ground (levels over water or clouds have none)
     leaves_screen: ClassVar[bool] = True  # False: stays in the game even beyond the edges (bosses)
+    faces_travel: ClassVar[bool] = False  # True: its model turns to point the way it flies (it doesn't only go down)
 
     health: float = 3.0
     points: int = 100
@@ -154,7 +154,7 @@ class Weaver(Enemy):
     def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
         if self.base_x is None:
             self.base_x = self.x
-        self.x = self.base_x + 0.25 * math.sin(2 * math.pi * self.age / 2.0)
+        self.x = self.base_x + 0.25 * config.WIDTH_SCALE * math.sin(2 * math.pi * self.age / 2.0)
         return []
 
 
@@ -230,7 +230,9 @@ class Turret(Enemy):
 @dataclass(eq=False)
 class Swarmer(Enemy):
     side_entry: ClassVar[bool] = True
-    turn_rate: ClassVar[float] = 0.9  # radians per second
+    turn_rate: ClassVar[float] = (
+        0.9 / config.WIDTH_SCALE
+    )  # radians per second: its curve reaches as far across a wider screen
     speed: ClassVar[float] = 0.6
     width: float = 0.06
     height: float = 0.06
@@ -315,7 +317,7 @@ class MineLayer(Enemy):
     points: int = 300
 
     def enter_from_side(self, direction: int) -> None:
-        self.vx = 0.35 * direction
+        self.vx = 0.35 * config.WIDTH_SCALE * direction  # crosses the screen in the same time, whatever its width
 
     def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
         return [Mine(x=self.x, y=self.y - self.height / 2)] if self._reloaded(dt) else []
@@ -616,7 +618,7 @@ class Bomber(Enemy):
     points: int = 400
 
     def enter_from_side(self, direction: int) -> None:
-        self.vx = 0.2 * direction
+        self.vx = 0.2 * config.WIDTH_SCALE * direction  # crosses the screen in the same time, whatever its width
 
     def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
         return [ClusterBomb(x=self.x, y=self.y - self.height / 2)] if self._reloaded(dt) else []
@@ -758,51 +760,3 @@ class Buckshot(Enemy):
             pellet.style = "pellet"
             shots.append(pellet)
         return shots
-
-
-ENEMY_TYPES: dict[str, type[Enemy]] = {
-    "drone": Drone,
-    "weaver": Weaver,
-    "diver": Diver,
-    "gunship": Gunship,
-    "turret": Turret,
-    "swarmer": Swarmer,
-    "sniper": Sniper,
-    "mine_layer": MineLayer,
-    "shield_carrier": ShieldCarrier,
-    "splitter": Splitter,
-    "flak_cannon": FlakCannon,
-    "tank": Tank,
-    "rocket_truck": RocketTruck,
-    "rocketeer": Rocketeer,
-    "hunter": Hunter,
-    "missile_silo": MissileSilo,
-    "bomber": Bomber,
-    "lancer": Lancer,
-    "serpent": Serpent,
-    "buckshot": Buckshot,
-}
-
-
-def make_enemy(
-    kind: str, x: float, y: float, side: str, rng: random.Random, top: float = TOP, edge: float = HALF_WIDTH
-) -> Enemy:
-    """Create an enemy of `kind` just outside the screen, ready to enter.
-
-    Top entries use `x`; side entries use `side` ("left" or "right") and `y`. `top` and `edge` are where the
-    screen really ends above and on the sides (the tilted camera shows more than the play area), so enemies
-    appear off screen and fly in.
-    """
-    enemy = ENEMY_TYPES[kind]()
-    if enemy.side_entry:
-        direction = 1 if side == "left" else -1
-        enemy.x = -direction * (edge + enemy.width / 2)
-        enemy.y = y
-        enemy.enter_from_side(direction)
-    else:
-        max_x = HALF_WIDTH - enemy.width / 2
-        enemy.x = max(-max_x, min(max_x, x))
-        enemy.y = top + enemy.height / 2
-    # Stagger the first shot so a group doesn't fire all at once.
-    enemy.fire_cooldown = rng.uniform(0.3, enemy.fire_interval)
-    return enemy

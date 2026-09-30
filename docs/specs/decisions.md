@@ -177,6 +177,70 @@
 
 ## Decisions made
 
+### 2026-09-30 — Clouds above the mountains (asked by the user in chat: peaks went higher than the clouds)
+- The see-through clouds were at fixed depths (0.08 and 0.18 behind the ships), but the mountains' peaks reach 0.2
+  and the planet's hills 0.14, so peaks showed through or in front of them. Now each cloud layer is at most 40 %
+  and 75 % of the way from the ships down to the ground's highest point (`mist_depths` in background.py): over the
+  mountains 0.08 and 0.15, over the hills and the city about 0.06 and 0.11.
+
+### 2026-09-30 — A denser city (asked by the user in chat: smaller buildings, more roads)
+- Blocks about 0.38 across (were 0.6), streets 0.07 wide (were 0.1), 40 % of blocks cut in two by a 0.035 alley,
+  lots from 0.06 (were 0.1), and a little lower: towers 0.31 to 0.48, mid-rises 0.12 to 0.26, low buildings 0.03
+  to 0.11. `CITY_*` in settlement.py.
+
+### 2026-09-30 — Bigger city windows (asked by the user in chat: too small, they looked like they flickered)
+- Windows were 2 to 3 pixels at 1280 x 1024, so they landed on different pixels as the city scrolled. Now about
+  twice as big (offices 0.022 x 0.03, homes 0.026 x 0.034, the refinery's furnaces 0.035), their edges softened
+  over a pixel (`window` in ground_shader.py's prop shader), so they don't shimmer.
+
+### 2026-09-30 — A 1280 x 1024 window (asked by the user in chat)
+- Decision (the user's): the default window is 1280 x 1024 (5:4, landscape; it was 675 x 900, 3:4 portrait), with
+  the levels' and enemies' movements adapted.
+- How: the play area keeps its height (2.0) and widens to 2.5 (it was 1.5), so speeds, entry and stop heights and
+  timings stay as they were; what goes across the screen is widened by `WIDTH_SCALE` (5/3): the waves' x and line
+  spacings in every level, the Weaver's and Albatross's weaves, the side-entry enemies' crossing speeds (Mine
+  Layer, Bomber, Kestrel, Manta, Broadside: they cross in the same time), the Swarmer's turn (its curve reaches as
+  far in) and the bosses' sway. Enemies bouncing off the edges, spawning, the grounds and the camera follow the new
+  width by themselves. The screen now shows to about x ±1.86 at the sides.
+- Screens reworked for the wide shape: the level preview is to the right of the list, the ship select packed under
+  its menu with wider columns, and the model screens' circle is an ellipse as wide as the screen allows
+  (`SHOWCASE_STRETCH`), the models going round it.
+- Checked: the bot finishes all 40 levels and meets all 29 new enemies.
+
+### 2026-09-30 — Boss candidates (asked by the user in chat)
+- Decision (the user's): a script to generate boss candidates, a main menu entry to see them, and a make target.
+- Done: `tools/make_boss_candidates.py` (`make boss-candidates ARGS="..."`: `--count` (default 40), `--seed`,
+  `--pool`, `--out`, `--append`), writing into `models/boss_candidates/`. Like the game's bosses, each is a core
+  (41 to 71 cubes wide, thicker than the enemies: 3 to 17 cubes) and destroyable parts on it: `NNN.json` (the core,
+  with its engines), `NNN_a.json`... (the parts) and `NNN.parts.json` (where they go, in cubes from the core's
+  middle). Cores: carrier, dreadnought, station, hammerhead, twin hull, flying wing, crescent, modular (a fifth
+  lopsided), with superstructure, a bridge, hangar bays, armor bands, engine banks, lights, and a thin socket under
+  each part; parts: turrets, cannons, generators, missile launchers, drills (0 to 7 per boss). The most different
+  are kept, as for the enemies. `tools` is now a package: the boss script uses the enemy script's pieces.
+- Main menu: "Candidates" became "Enemy candidates", and "Boss candidates" is new (6 per page, same scale).
+- Then more diversity and bigger bosses (asked by the user): 18 core families (adding citadel, spider, trident,
+  barge, mothership, chain, fortress, blade, gunline, ring cluster), a quarter combining two, 0 to 3 appendages
+  (big wings, arms with pods, armor spikes, a halo ring, engine nacelles, radiator panels, masts), sizes medium (41
+  to 61 cubes wide), large (up to 85) or huge (up to 115, half the screen), paint schemes (plain, two-tone, glowing
+  seams), 11 kinds of parts sized to the boss (adding missile pods, beam emitters, shield nodes, radar dishes, flak
+  guns, claws), up to 10 on the biggest, a few kinds per boss. The kept ones are also chosen to differ by family,
+  paint and parts. The screen shows 4 per page, drawn bigger (a 125-cube boss fills its place).
+
+### 2026-09-30 — The second fleet: 29 enemies from the model candidates (asked by the user in chat)
+- Decision (the user's): candidates 001, 008, 011, 024, 025, 037, 041, 059, 065, 068, 087, 095, 109, 146, 172, 206,
+  219, 232, 237, 239, 251, 266, 272, 281, 297, 365, 372, 412 and 422 (024 was listed twice) become enemies, each
+  with its own game logic.
+- Placeholders chosen: their names and every behavior and number (catalog in 02-enemies.md, "The second fleet";
+  `fleet.py`). New mechanics among them: entering from the bottom (Tick), blinking and untouchable while hidden
+  (Wisp), armored except while firing (Rampart), carriers launching smaller enemies (Behemoth: Darts; Brood:
+  Sparks), shells timed to burst where the player was (Howitzer), sweeping streams (Stormcrow), twin beams
+  (Pincer), and models turning to face where they fly (Dart, Tick, Spark).
+- In the levels: two waves in each level, in its two biggest gaps, by difficulty (small ones in world 1, fighters
+  in world 2, gunships in world 3, heavies in worlds 4 and 5), heavies at least 22 s before the boss. Checked:
+  a bot that never dies finishes all 40 levels and meets all 29.
+- The enemy names the levels use moved to `roster.py` (both enemies.py and fleet.py). The Models screen has two
+  pages for them.
+
 ### 2026-09-30 — Model candidates for new enemies (asked by the user in chat)
 - Decision (the user's): a new main menu screen to view model candidates, and 100 generated enemy models (models
   only, no game logic), numbered, to pick the ones to turn into new enemies.

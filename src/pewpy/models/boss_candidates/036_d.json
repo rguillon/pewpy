@@ -1,0 +1,52 @@
+{
+  "rows": [
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "ttttttttttttttttttttt",
+    "trttrttrttrttrttrttrt",
+    "ttttttttttttttttttttt",
+    "NNNNNNNNNNNNNNNNNNNNN"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.286,
+        0.23,
+        0.209
+      ],
+      "height": 9
+    },
+    "t": {
+      "color": [
+        0.33,
+        0.264,
+        0.238
+      ],
+      "height": 9
+    },
+    "r": {
+      "color": [
+        0.143,
+        0.111,
+        0.108
+      ],
+      "height": 5
+    }
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "rows": [
+    "...........oooNoooHoooNoooNoooNoooHoooNooo...........",
+    "...........NhhhhhhhhhhhhhhhhhhhhhhhhhhhhhN...........",
+    "..........NkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkN..........",
+    ".........phhhhhhhhhhhhhhkkkkkhhhhhhhhhhhhhhp.........",
+    "........NHHHHHHHHHHHHHHHkkWkkHHHHHHHHHHHHHHHN........",
+    "........kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk........",
+    "........NHHHHHHHHHHHHHHHkkkkkHHHHHHHHHHHHHHHN........",
+    "........NhhhhhhhhhhhhhhhkkkkkhhhhhhhhhhhhhhhN........",
+    "........kkkkkkkkxxxxxxxkkkWkkkxxxxxxxkkkkkkkk........",
+    "........NhhhhhhhxxxxxxxhkkkkkhxxxxxxxhhhhhhhN........",
+    "xxxxxxk.NHHHHHHHxxxxxxxHkkkkkHxxxxxxxHHHHHHHN.kxxxxxx",
+    "xxxxxxw.kkkkkkkkxxxxxxxkkkkkkkxxxxxxxkkkkkkkk.wxxxxxx",
+    "xxxxxxq.NHHHHHHHxxxxxxxHkkWkkHxxxxxxxHHHHHHHN.qxxxxxx",
+    "xxxxxxw.NhhhhhhhxxxxxxxhkkkkkhxxxxxxxhhhhhhhN.wxxxxxx",
+    "xxxxxxW.kkkkkkkkxxxxxxxkkkkkkkxxxxxxxkkkkkkkk.Wxxxxxx",
+    "xxxxxxq.NhhhhhhhxxxxxxxhkkkkkhxxxxxxxhhhhhhhN.qxxxxxx",
+    "xxxxxxw.NHHHHHHHxxxxxxxHkkWkkHxxxxxxxHHHHHHHN.wxxxxxx",
+    "xxxxxxw.kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk.wxxxxxx",
+    "xxxxxxq.NHHHHHHHHHHHHHHHkkkkkHHHHHHHHHHHHHHHN.qxxxxxx",
+    "WWWWWWW.NhhhhhhhhhhhhTTTkkkkkTTThhhhhhhhhhhhN.WWWWWWW",
+    "........kkkkkkkkkkkkkkkkkkWkkkkkkkkkkkkkkkkkk........",
+    "........NNhhhhhhhhhhxxxxxxxxxxxxxhhhhhhhhhhNN........",
+    "..........NNHHHHHHHHxxxxxxxxxxxxxHHHHHHHHNN..........",
+    "............NNkkkkkkxxxxxxxxxxxxxkkkkkkNN............",
+    "..............HNHHHHxxxxxxxxxxxxxHHHHNH..............",
+    "................NhhhxxxxxxxxxxxxxhhhN................",
+    ".................NkkxxxxxxxxxxxxxkkN.................",
+    "................NNpNxxxxxxxxxxxxxNpNN................",
+    "...............NNNNNxxxxxxxxxxxxxNNNNN...............",
+    "..............NNNNNN....xxxxx....NNNNNN..............",
+    ".............NNNNNN......xxx......NNNNNN.............",
+    "............NNNNNN........x........NNNNNN............",
+    "...........NNNNNN.........x.........NNNNNN...........",
+    "..........NNNNNN..........x..........NNNNNN..........",
+    ".........NNNNNN...........x...........NNNNNN.........",
+    "........NpNNpN............x............NpNNpN........",
+    ".......NNNNNN.............H.............NNNNNN.......",
+    ".......NNNNN..............h..............NNNNN.......",
+    ".......NNNN............HNNkNNH............NNNN.......",
+    ".......NNNN...........NhhhhhhhN...........NNNN.......",
+    ".......NNNN..........NHHHHHHHHHN..........NNNN.......",
+    ".......NNNN.........NkkkkkkkkkkkN.........NNNN.......",
+    ".......NNNN.........NHHHHHHHHHHHN.........NNNN.......",
+    ".......NNpN........NhhhhhhhhhhhhhN........NpNN.......",
+    ".......NNNN........kkkkkkkkkkkkkkk........NNNN.......",
+    ".......NNNN........NhhhhhhhhhhhhhN........NNNN.......",
+    ".......NNNN........HHHHHHHHHHHHHHH........NNNN.......",
+    ".......NNNN........NkkkkkkkkkkkkkN........NNNN.......",
+    ".......xxxx.........xHHHHHHHHHHHx.........xxxx.......",
+    ".......xxxx.........xhhhhhhhhhhhx.........xxxx.......",
+    ".......xxxx..........HkkkkkkkkkH..........xxxx.......",
+    ".......xxxx...........NNphhhpNN...........xxxx.......",
+    ".......xxxx..............NHN..............xxxx.......",
+    ".......xxxxx..............k..............xxxxx.......",
+    "........xxxxx.............N.............xxxxx........",
+    ".........xxxxx............N............xxxxx.........",
+    "..........xxxxx...........k...........xxxxx..........",
+    "...........xxxxx..........N..........xxxxx...........",
+    "............xxxxx.........H.........xxxxx............",
+    ".............xxxxx........k........xxxxx.............",
+    "..............xxxxx.......N.......xxxxx..............",
+    "...............xxxxxxNNNNNhNNNNNxxxxxx...............",
+    "................xxxxxNNNNNkNNNNNxxxxx................",
+    ".................xxxxNNNNNhNNNNNxxxx.................",
+    "..................xxxNNNNNHNNNNNxxx..................",
+    "..........................N..........................",
+    "..........................N.........................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.286,
+        0.23,
+        0.209
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.407,
+        0.323,
+        0.295
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.55,
+        0.433,
+        0.389
+      ],
+      "height": 9
+    },
+    "T": {
+      "color": [
+        0.605,
+        0.476,
+        0.425
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.187,
+        0.153,
+        0.144
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.352,
+        0.281,
+        0.259
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.495,
+        0.391,
+        0.353
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.088,
+        0.068,
+        0.065
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.242,
+        0.196,
+        0.18
+      ],
+      "height": 3
+    },
+    "p": {
+      "color": [
+        0.8,
+        0.16,
+        0.12
+      ],
+      "height": 11
+    },
+    "q": {
+      "color": [
+        0.8,
+        0.16,
+        0.12
+      ],
+      "height": 3
+    }
+  },
+  "engines": [
+    {
+      "x": 40,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 36,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 32,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 24,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 28,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 24,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 28,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 32,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 20,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    },
+    {
+      "x": 36,
+      "y": 0,
+      "width": 5.1,
+      "length": 14,
+      "towards": "top"
+    }
+  ]
+}

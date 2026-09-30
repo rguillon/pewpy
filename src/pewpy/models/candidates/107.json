@@ -1,121 +1,133 @@
 {
   "rows": [
-    ".......oSN.......",
-    "...oNNNhShNNNN...",
-    "...NNNNkSkNNNN...",
-    "...NN..hSN..NN...",
-    "kkkNN..pSH..NNkkk",
-    "WWWNN..NSN..NNWWW",
-    "qwWNN..kSk..NNWwq",
-    "WWWNN..hSN..NNWWW",
-    "WwwNN..HSH..NNwwW",
-    "qWWNN..NSh..NNWWq",
-    "WWWNNNNkSkNNNNWww",
-    "...NNNNRShNNNN.WW",
-    ".......HSH......."
+    "oH...oNo...Ho",
+    "hh...NSN...hh",
+    "kk...kSk...kk",
+    "NhN..NSN..NhN",
+    "..N..pSp..N..",
+    "ttN..LSL..Ntt",
+    "tt.N.kSk.N.tt",
+    "rt...NRN...tr",
+    "r....NSN....r",
+    "r....NSN....r",
+    "r.....p.....r"
   ],
   "palette": {
     "N": {
       "color": [
-        0.247,
-        0.27,
-        0.226
+        0.286,
+        0.23,
+        0.209
       ],
       "height": 5
     },
     "h": {
       "color": [
-        0.351,
-        0.38,
-        0.32
+        0.407,
+        0.323,
+        0.295
       ],
       "height": 3
     },
     "H": {
       "color": [
-        0.475,
-        0.51,
-        0.421
+        0.55,
+        0.433,
+        0.389
       ],
       "height": 3
     },
     "S": {
       "color": [
-        0.57,
-        0.61,
-        0.491
+        0.66,
+        0.518,
+        0.454
       ],
       "height": 5
     },
     "k": {
       "color": [
-        0.162,
-        0.18,
-        0.156
+        0.187,
+        0.153,
+        0.144
       ],
       "height": 1
     },
-    "w": {
+    "r": {
       "color": [
-        0.304,
-        0.33,
-        0.281
+        0.143,
+        0.111,
+        0.108
       ],
-      "height": 1
-    },
-    "W": {
-      "color": [
-        0.427,
-        0.46,
-        0.382
-      ],
-      "height": 1
+      "height": 3
     },
     "o": {
       "color": [
-        0.076,
-        0.08,
-        0.07
+        0.088,
+        0.068,
+        0.065
       ],
       "height": 3
+    },
+    "t": {
+      "color": [
+        0.33,
+        0.264,
+        0.238
+      ],
+      "height": 5
     },
     "p": {
       "color": [
-        0.5,
-        0.2,
-        0.72
+        0.8,
+        0.16,
+        0.12
       ],
       "height": 3
     },
-    "q": {
-      "color": [
-        0.5,
-        0.2,
-        0.72
-      ],
-      "height": 1
-    },
     "R": {
       "color": [
-        0.75,
-        0.35,
-        1.0
+        1.0,
+        0.2,
+        0.1
       ],
       "height": 5
+    },
+    "L": {
+      "color": [
+        0.15,
+        0.25,
+        0.5
+      ],
+      "height": 3
     }
   },
   "engines": [
     {
-      "x": 7,
+      "x": 0,
       "y": 0,
-      "width": 3.0,
+      "width": 2.4,
       "length": 5,
       "towards": "top"
     },
     {
-      "x": 3,
-      "y": 1,
-      "width": 3.0,
+      "x": 5,
+      "y": 0,
+      "width": 2.4,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "width": 2.4,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 12,
+      "y": 0,
+      "width": 2.4,
       "length": 5,
       "towards": "top"
     }

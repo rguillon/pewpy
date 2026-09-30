@@ -12,7 +12,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -20,7 +20,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
     },
     {
@@ -28,21 +28,21 @@
       "enemy": "gunship",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8
+      "spacing": 1.33
     },
     {
       "time": 7.8,
       "enemy": "splitter",
       "count": 3,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 10.8,
       "enemy": "weaver",
       "count": 8,
       "formation": "column",
-      "x": -0.35,
+      "x": -0.58,
       "interval": 0.4
     },
     {
@@ -50,7 +50,7 @@
       "enemy": "weaver",
       "count": 8,
       "formation": "column",
-      "x": 0.35,
+      "x": 0.58,
       "interval": 0.4
     },
     {
@@ -58,21 +58,21 @@
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 17.1,
       "enemy": "splitter",
       "count": 3,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 19.6,
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -80,7 +80,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
     },
     {
@@ -88,7 +88,7 @@
       "enemy": "rocketeer",
       "count": 2,
       "formation": "line",
-      "spacing": 0.7,
+      "spacing": 1.17,
       "x": 0.0
     },
     {
@@ -96,7 +96,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -104,7 +104,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
     },
     {
@@ -112,28 +112,33 @@
       "enemy": "shield_carrier",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8
+      "spacing": 1.33
     },
     {
       "time": 29.4,
       "enemy": "splitter",
       "count": 3,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
+    },
+    {
+      "time": 30.6,
+      "enemy": "freighter",
+      "x": 0.5
     },
     {
       "time": 33.0,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 35.6,
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -141,7 +146,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
     },
     {
@@ -149,7 +154,7 @@
       "enemy": "buckshot",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8,
+      "spacing": 1.33,
       "x": 0.0
     },
     {
@@ -157,21 +162,21 @@
       "enemy": "splitter",
       "count": 3,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 41.6,
       "enemy": "diver",
       "count": 5,
       "formation": "line",
-      "spacing": 0.35
+      "spacing": 0.58
     },
     {
       "time": 44.7,
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -179,7 +184,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
     },
     {
@@ -187,7 +192,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -195,7 +200,7 @@
       "enemy": "drone",
       "count": 6,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
     },
     {
@@ -203,7 +208,7 @@
       "enemy": "weaver",
       "count": 8,
       "formation": "column",
-      "x": -0.35,
+      "x": -0.58,
       "interval": 0.4
     },
     {
@@ -211,8 +216,16 @@
       "enemy": "weaver",
       "count": 8,
       "formation": "column",
-      "x": 0.35,
+      "x": 0.58,
       "interval": 0.4
+    },
+    {
+      "time": 52.4,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "x": 0.0,
+      "spacing": 1.33
     },
     {
       "time": 55.2,
@@ -237,7 +250,7 @@
       "enemy": "weaver",
       "count": 8,
       "formation": "column",
-      "x": -0.35,
+      "x": -0.58,
       "interval": 0.4
     },
     {
@@ -245,7 +258,7 @@
       "enemy": "weaver",
       "count": 8,
       "formation": "column",
-      "x": 0.35,
+      "x": 0.58,
       "interval": 0.4
     },
     {
@@ -253,14 +266,14 @@
       "enemy": "splitter",
       "count": 3,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 59.7,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 66,

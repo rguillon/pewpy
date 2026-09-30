@@ -1,140 +1,124 @@
 {
   "rows": [
-    "......oSo......",
-    "......NSN......",
-    "......kSk......",
-    "......NSN......",
-    "......hSh......",
-    "......kSk......",
-    "......NSN......",
-    "......hSh......",
-    "......kSk......",
-    "......NSN......",
-    "......hSh......",
-    "......kSk......",
-    "......HSH......",
-    "......NSN......",
-    "......kSk......",
-    "...oHHHSHHHo...",
-    "...NLLLSLLLN...",
-    "...kkkkSkkkk...",
-    "...HHHHSHHHH...",
-    "NNN...NSN...NNN",
-    "NNN...kSk...NNN",
-    "NNN...NSN...NNN",
-    "NNN...hSh...NNN",
-    "NNN...kSk...NNN",
-    "NNN...NSN...NNN",
-    "NNN...NSN...NNN",
-    "NNN...kSk...NNN",
-    "pNN...NSN...NNp",
-    "NNN...NSN...NNN",
-    "NNNN..kSk..NNNN",
-    "NNNN..pSp..NNNN",
-    "NNNN..NRN..NNNN",
-    ".NNN..NSN..NNN."
+    ".....oSo.....",
+    ".....hSh.....",
+    ".....kSk.....",
+    "...k.hSh.k...",
+    ".okw.ccc.wko.",
+    ".wwW.cRc.Www.",
+    ".qWwNhShNwWq.",
+    "WWWWNhShNWWWW",
+    "....N.S.N...."
   ],
   "palette": {
     "N": {
       "color": [
-        0.281,
-        0.27,
-        0.261
+        0.286,
+        0.23,
+        0.209
       ],
       "height": 5
     },
     "h": {
       "color": [
-        0.4,
-        0.38,
-        0.369
-      ],
-      "height": 3
-    },
-    "H": {
-      "color": [
-        0.54,
-        0.51,
-        0.486
+        0.407,
+        0.323,
+        0.295
       ],
       "height": 3
     },
     "S": {
       "color": [
-        0.648,
-        0.61,
-        0.567
+        0.66,
+        0.518,
+        0.454
       ],
       "height": 5
     },
     "k": {
       "color": [
-        0.184,
-        0.18,
-        0.18
+        0.187,
+        0.153,
+        0.144
+      ],
+      "height": 1
+    },
+    "w": {
+      "color": [
+        0.352,
+        0.281,
+        0.259
+      ],
+      "height": 1
+    },
+    "W": {
+      "color": [
+        0.495,
+        0.391,
+        0.353
       ],
       "height": 1
     },
     "o": {
       "color": [
-        0.086,
+        0.088,
+        0.068,
+        0.065
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
         0.08,
-        0.081
-      ],
-      "height": 3
-    },
-    "p": {
-      "color": [
         0.2,
-        0.65,
-        0.25
-      ],
-      "height": 3
-    },
-    "R": {
-      "color": [
-        0.35,
-        1.0,
-        0.4
+        0.28
       ],
       "height": 5
     },
-    "L": {
+    "q": {
       "color": [
-        0.5,
-        0.42,
-        0.12
+        0.9,
+        0.45,
+        0.1
       ],
-      "height": 3
+      "height": 1
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.6,
+        0.15
+      ],
+      "height": 5
     }
   },
   "engines": [
     {
-      "x": 6,
+      "x": 5,
       "y": 0,
-      "width": 2.0,
-      "length": 5,
+      "width": 2.4,
+      "length": 8,
       "towards": "top"
     },
     {
-      "x": 8,
+      "x": 7,
       "y": 0,
-      "width": 2.0,
-      "length": 5,
+      "width": 2.4,
+      "length": 8,
       "towards": "top"
     },
     {
-      "x": 3,
-      "y": 15,
-      "width": 2.0,
-      "length": 5,
+      "x": 1,
+      "y": 4,
+      "width": 2.4,
+      "length": 8,
       "towards": "top"
     },
     {
       "x": 11,
-      "y": 15,
-      "width": 2.0,
-      "length": 5,
+      "y": 4,
+      "width": 2.4,
+      "length": 8,
       "towards": "top"
     }
   ]

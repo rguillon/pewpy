@@ -1,0 +1,37 @@
+{
+  "rows": [
+    "..NNN..",
+    "NNtttNN",
+    "NttGttN",
+    "NtGGGtN",
+    "NttGttN",
+    "NNtttNN",
+    "..NNN.."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 9
+    },
+    "t": {
+      "color": [
+        0.27,
+        0.301,
+        0.363
+      ],
+      "height": 9
+    },
+    "G": {
+      "color": [
+        1.0,
+        0.85,
+        0.2
+      ],
+      "height": 11
+    }
+  }
+}

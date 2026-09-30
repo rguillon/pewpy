@@ -1,0 +1,131 @@
+{
+  "rows": [
+    "........oHo........",
+    ".......hhhhh.......",
+    "......NkkkkkN......",
+    ".....ohhhhhhho.....",
+    ".....HHHHHHHHH.....",
+    "....NkkkkkkkkkN....",
+    "ttt.NHHHHHHHHHN.ttt",
+    "ttt.hhhhhhhhhhh.ttt",
+    "tttHkkkkkkkkkkkHttt",
+    "ttthhhhhhhhhhhhhttt",
+    "tttHHHHHHHHHHHHHttt",
+    "tttkkkkkkkkkkkkkttt",
+    "tttHHHHHHRHHHHHHttt",
+    "ttthhhN.hhh.Nhhhttt",
+    "tttHkkk.kkk.kkkHttt",
+    "ttt.NhN.NhN.NhN.ttt",
+    "ttt.HHN.....NHH.ttt",
+    "ttt.hkh.....hkh.ttt",
+    "ttt..N.......N..ttt",
+    "ttt..N.......N..ttt",
+    "ttt.............ttt",
+    "ttt.............ttt",
+    "ttt.............ttt",
+    "trt.............trt",
+    ".r...............r.",
+    ".r...............r.",
+    ".r...............r.",
+    ".r...............r.",
+    ".r...............r.",
+    ".r...............r.",
+    ".r...............r."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.351,
+        0.365,
+        0.392
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.499,
+        0.513,
+        0.553
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.675,
+        0.689,
+        0.729
+      ],
+      "height": 3
+    },
+    "k": {
+      "color": [
+        0.23,
+        0.243,
+        0.27
+      ],
+      "height": 1
+    },
+    "r": {
+      "color": [
+        0.176,
+        0.176,
+        0.203
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.108,
+        0.108,
+        0.121
+      ],
+      "height": 3
+    },
+    "t": {
+      "color": [
+        0.405,
+        0.419,
+        0.446
+      ],
+      "height": 5
+    },
+    "R": {
+      "color": [
+        0.35,
+        1.0,
+        0.4
+      ],
+      "height": 5
+    }
+  },
+  "engines": [
+    {
+      "x": 8,
+      "y": 0,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 3,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    }
+  ]
+}

@@ -1,119 +1,108 @@
 {
   "rows": [
-    "......oHHoHoHHo......",
-    ".......hhhhhhh.......",
-    ".......kkkkkkk.......",
-    ".......hhhhhhh.......",
-    "..kkkk..HHHHH..kkkk..",
-    "..WWWW..phhhp..WWWW..",
-    "..qwwq..pHHHp..qwwq..",
-    "..WWWW...kkk...WWWW..",
-    "...wWw...HRH...wWw...",
-    "..kWwq...hhh...qwWk..",
-    ".kWwww...HHH...wwwWk.",
-    "WWWWWW....h....WWWWWW"
+    ".....oHSHo.....",
+    ".....ShShS.....",
+    ".....SkSkS.....",
+    "o....ShShS....o",
+    "WWWWWWHSHWWWWWW",
+    "......kRk......",
+    "......pSp......",
+    "......hSh......",
+    ".......p......."
   ],
   "palette": {
     "h": {
       "color": [
-        0.499,
-        0.513,
-        0.553
+        0.4,
+        0.38,
+        0.369
       ],
       "height": 3
     },
     "H": {
       "color": [
-        0.675,
-        0.689,
-        0.729
+        0.54,
+        0.51,
+        0.486
       ],
       "height": 3
     },
+    "S": {
+      "color": [
+        0.648,
+        0.61,
+        0.567
+      ],
+      "height": 5
+    },
     "k": {
       "color": [
-        0.23,
-        0.243,
-        0.27
-      ],
-      "height": 1
-    },
-    "w": {
-      "color": [
-        0.432,
-        0.446,
-        0.486
+        0.184,
+        0.18,
+        0.18
       ],
       "height": 1
     },
     "W": {
       "color": [
-        0.608,
-        0.621,
-        0.661
+        0.486,
+        0.46,
+        0.441
       ],
       "height": 1
     },
     "o": {
       "color": [
-        0.108,
-        0.108,
-        0.121
+        0.086,
+        0.08,
+        0.081
       ],
       "height": 3
     },
     "p": {
       "color": [
-        0.5,
-        0.2,
-        0.72
+        0.78,
+        0.18,
+        0.55
       ],
       "height": 3
     },
-    "q": {
-      "color": [
-        0.5,
-        0.2,
-        0.72
-      ],
-      "height": 1
-    },
     "R": {
       "color": [
-        0.75,
-        0.35,
-        1.0
+        1.0,
+        0.3,
+        0.75
       ],
       "height": 5
     }
   },
   "engines": [
     {
-      "x": 6,
+      "x": 5,
       "y": 0,
-      "width": 3.0,
-      "length": 4,
+      "width": 2.4,
+      "length": 5,
       "towards": "top"
     },
     {
       "x": 9,
       "y": 0,
-      "width": 3.0,
-      "length": 4,
+      "width": 2.4,
+      "length": 5,
       "towards": "top"
     },
     {
-      "x": 11,
-      "y": 0,
-      "width": 3.0,
-      "length": 4,
+      "x": 0,
+      "y": 3,
+      "width": 2.4,
+      "length": 5,
       "towards": "top"
     },
     {
       "x": 14,
-      "y": 0,
-      "width": 3.0,
-      "length": 4,
+      "y": 3,
+      "width": 2.4,
+      "length": 5,
       "towards": "top"
     }
   ]

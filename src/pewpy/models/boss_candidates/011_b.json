@@ -1,0 +1,79 @@
+{
+  "rows": [
+    "ttttttttttttttttttttttt",
+    "kkkkkkkkkkkkkkkkkkkkkkk",
+    "kkkkkkkkkkkkkkkkkkkkkkk",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttttttttttttttt",
+    "ttttttttttrrrtttttttttt",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    "..........rrr..........",
+    ".........NNNNN.........",
+    ".........NNNNN.........",
+    ".........NNNNN........."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 9
+    },
+    "t": {
+      "color": [
+        0.3,
+        0.31,
+        0.33
+      ],
+      "height": 9
+    },
+    "k": {
+      "color": [
+        0.17,
+        0.18,
+        0.2
+      ],
+      "height": 5
+    },
+    "r": {
+      "color": [
+        0.13,
+        0.13,
+        0.15
+      ],
+      "height": 5
+    }
+  }
+}

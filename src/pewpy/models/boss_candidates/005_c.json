@@ -1,0 +1,50 @@
+{
+  "rows": [
+    ".....W.........W.....",
+    ".....W.........W.....",
+    "......W.......W......",
+    "......W..ttt..W......",
+    ".......ttttttt.......",
+    "......ttttttttt......",
+    ".....ttttttttttt.....",
+    "....ttttGGGGGtttt....",
+    "....ttttGGGGGtttt....",
+    "....tttGGGGGGGtttWWWW",
+    "WWWWtttGGGGGGGttt....",
+    "....ttttGGGGGtttt....",
+    "....ttttGGGGGtttt....",
+    ".....ttttttttttt.....",
+    "......ttttttttt......",
+    ".......ttttttt.......",
+    "......W..ttt..W......",
+    "......W.......W......",
+    ".....W.........W.....",
+    ".....W.........W....."
+  ],
+  "palette": {
+    "t": {
+      "color": [
+        0.324,
+        0.31,
+        0.297
+      ],
+      "height": 9
+    },
+    "W": {
+      "color": [
+        0.486,
+        0.46,
+        0.441
+      ],
+      "height": 5
+    },
+    "G": {
+      "color": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "height": 11
+    }
+  }
+}

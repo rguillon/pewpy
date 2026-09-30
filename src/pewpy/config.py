@@ -3,19 +3,22 @@
 Values marked "placeholder" are not decided in the specs yet; see docs/specs/decisions.md.
 """
 
-# Window (placeholder: 3:4 portrait window)
+# Window (the user's choice: 1280 x 1024, a 5:4 landscape window)
 WINDOW_TITLE = "pewpy"
 SHOW_FPS = True  # frames per second in the top-right corner, on every screen
-WINDOW_WIDTH = 675
-WINDOW_HEIGHT = 900
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 1024
 
 # 3D camera: sits in front of the play area, tilted so the top of the screen is farther away
 CAMERA_FOV = 40.0  # vertical field of view, degrees
 CAMERA_TILT = 25.0  # degrees; 0 looks straight at the play area
 
-# Play area in world units, centered on the origin (placeholder: 3:4 portrait, vertical scroller)
-PLAY_WIDTH = 1.5
+# Play area in world units, centered on the origin: the window's shape (5:4), a vertical scroller. It was 1.5 wide
+# (3:4 portrait) until the window became 1280 x 1024: the height, and with it the enemies' speeds, stop heights and
+# timings, stayed the same; what goes across the screen was widened by WIDTH_SCALE (levels' x, crossing speeds...).
+PLAY_WIDTH = 2.5
 PLAY_HEIGHT = 2.0
+WIDTH_SCALE = PLAY_WIDTH / 1.5
 
 # Player ship (01-gameplay.md)
 PLAYER_RESPONSIVENESS = 12.0  # how fast velocity reaches target speed (1/s); lower = more inertia

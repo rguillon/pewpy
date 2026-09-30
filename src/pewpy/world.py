@@ -7,10 +7,11 @@ from dataclasses import dataclass
 from pewpy import config
 from pewpy.boss_catalog import BOSSES
 from pewpy.bosses import Boss, make_boss
-from pewpy.enemies import Enemy, make_enemy
+from pewpy.enemies import Enemy
 from pewpy.entities import Bullet, Entity, Pickup
 from pewpy.level import Level
 from pewpy.player import DEFAULT_SHIP, SHIPS, Player, ShipSpec
+from pewpy.roster import make_enemy
 from pewpy.terrain import GROUND_SPEED
 from pewpy.weapons import MISSILE_SPLASH_RADIUS, WEAPONS, Arsenal, Beam, LaserStats, Missile
 

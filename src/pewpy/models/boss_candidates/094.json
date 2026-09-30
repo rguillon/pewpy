@@ -1,0 +1,162 @@
+{
+  "rows": [
+    ".................oooNN...................",
+    "..................NhhN...................",
+    "..................kkkk...................",
+    "..................pHHp...................",
+    "........oooNN.....NSSN.....ooohh.........",
+    ".........hhhN.....SSSN......NhhN.........",
+    ".........NHHp.....NSSN......NHHN.........",
+    ".........kkkk.....kkkk......kkkk.........",
+    ".........hhhN.....NSSN......NhhN.........",
+    ".........pHHp.....pSSS......NHHN.........",
+    "...oooNNNhhhN.....NSSN......NhhhN........",
+    "....NhhhTThhN.....NcRc......NhhTTNh......",
+    "....NkkTSSkkk.....kkkk......kkkSSTkH.....",
+    ".....NhTSSThhTTTTTTTTTTTTTTThhTSSThhN....",
+    ".....NTSSSThhTTTTTTTTTTTTTThhhTSSSThN....",
+    ".....NTSSSSTHTTTTTTTTTTTTTTTHTSSSSTHp....",
+    ".....NTSSSSTh.....NhhN......NTSSSSTN.....",
+    "..N..kTSSSSTk.....kkkk......kTSSSSTk..N..",
+    ".NHNHHTSSSSTN.....NHHN......NTSSSSTHNNHN.",
+    "NhhhhhTSSSTTN.....NhhN......NTTSSSThhhhhN",
+    "NhhhhhNNNNNNN.....NhhN......NNNNNNNhhhhhN",
+    "pHHHHHpNNpNNp.....pHHp......NNpNNpNHHHHHH",
+    "kkkkkhNNNNNNN.....kkkk......NNNNNNNkkkkkk",
+    "NhhhN.NTSSThN.....Nhhh......NhTSSThhhhhhN",
+    ".NNNH.NTSSTHN.....NHHN......NHTSSTHNNNNNN",
+    "......NTSSThN.....NhhN......NhTSSTh..NNNN",
+    "......NTSShhN.....NhhN......NhhSSTh..NNNN",
+    "......kTSSkkTTTTTTTTTTTTTTTTTkkSSTk..NNpN",
+    "......NhSShhTTTTTTTTTTTTTTTTThhSShN..NNNN",
+    "......hhSThhTTTTTTTTTTTTTTTTThhTShh......",
+    "......HHSTHHH.....NHHN......NHHTSHH......",
+    "......NhTThhN.....hhhh......hhhTThN......",
+    "......kkTkkkk.....kkkk......kkkkTkk......",
+    "......pHTHHHp.....pHHp......NHHHTHN......",
+    ".......Nhhhhh.....NhhN......NhhhhN.......",
+    ".......NhhhhN.....Nhhh......NhhhhN.......",
+    ".......NNHHHN.....NHHN......NHHHNN.......",
+    ".........kkkk.....kkkk......kkkk.........",
+    ".........NhhN.....NhhN......NhhN.........",
+    ".........HHHH.....pHHp......NHHN.........",
+    ".........NhhN.....NhhN......NhhN.........",
+    ".........NNNN.....NhhN......NNNN.........",
+    "..................kkkk...................",
+    "..................hhhh...................",
+    "..................NhhN...................",
+    "..................pNNp..................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.333,
+        0.369,
+        0.451
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.45,
+        0.495,
+        0.594
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.54,
+        0.592,
+        0.693
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.495,
+        0.543,
+        0.649
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.153,
+        0.175,
+        0.22
+      ],
+      "height": 7
+    },
+    "o": {
+      "color": [
+        0.072,
+        0.078,
+        0.099
+      ],
+      "height": 9
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.12,
+        0.6,
+        0.72
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        0.3,
+        0.95,
+        1.0
+      ],
+      "height": 17
+    }
+  },
+  "engines": [
+    {
+      "x": 18,
+      "y": 0,
+      "width": 7.0,
+      "length": 16,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "width": 7.0,
+      "length": 16,
+      "towards": "top"
+    },
+    {
+      "x": 28,
+      "y": 4,
+      "width": 7.0,
+      "length": 16,
+      "towards": "top"
+    },
+    {
+      "x": 4,
+      "y": 10,
+      "width": 7.0,
+      "length": 16,
+      "towards": "top"
+    }
+  ]
+}

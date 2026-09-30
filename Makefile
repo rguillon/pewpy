@@ -20,8 +20,12 @@ run: ## Run the game (under WSL, on the GPU through Mesa's d3d12 driver rather t
 	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpy; else uv run python -m pewpy; fi
 
 .PHONY: candidates
-candidates: ## Generate enemy model candidates for the Candidates screen (options: ARGS="--kind aircraft --count 50", see --help)
+candidates: ## Generate enemy model candidates for the Enemy candidates screen (options: ARGS="--kind aircraft --count 50", see --help)
 	@uv run python tools/make_candidates.py $(ARGS)
+
+.PHONY: boss-candidates
+boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
+	@uv run python -m tools.make_boss_candidates $(ARGS)
 
 .PHONY: test
 test: ## Test the code with pytest

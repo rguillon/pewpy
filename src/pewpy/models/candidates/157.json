@@ -1,15 +1,15 @@
 {
   "rows": [
     "....oSo....",
-    "kkkkhShkkkk",
-    "WwWwkSkwWwW",
-    ".qwwhShwwq.",
-    "..wwHSHww..",
-    "..WrhShrW..",
-    "..rrHSHrr..",
-    "..rrcccrr..",
-    "..r.cRc.r..",
-    ".....p....."
+    "....hSh....",
+    "ott.kSk.tto",
+    "ttt.ccc.ttt",
+    "ttt.cRc.ttt",
+    "...khShk...",
+    "ttkq...qktt",
+    "tWww...wwWt",
+    "WwwW...WwwW",
+    "ttt.....ttt"
   ],
   "palette": {
     "h": {
@@ -17,14 +17,6 @@
         0.333,
         0.369,
         0.451
-      ],
-      "height": 3
-    },
-    "H": {
-      "color": [
-        0.45,
-        0.495,
-        0.594
       ],
       "height": 3
     },
@@ -43,14 +35,6 @@
         0.22
       ],
       "height": 1
-    },
-    "r": {
-      "color": [
-        0.117,
-        0.126,
-        0.165
-      ],
-      "height": 3
     },
     "w": {
       "color": [
@@ -76,6 +60,14 @@
       ],
       "height": 3
     },
+    "t": {
+      "color": [
+        0.27,
+        0.301,
+        0.363
+      ],
+      "height": 5
+    },
     "c": {
       "color": [
         0.08,
@@ -83,14 +75,6 @@
         0.28
       ],
       "height": 5
-    },
-    "p": {
-      "color": [
-        0.5,
-        0.2,
-        0.72
-      ],
-      "height": 3
     },
     "q": {
       "color": [
@@ -114,14 +98,28 @@
       "x": 4,
       "y": 0,
       "width": 3.0,
-      "length": 5,
+      "length": 6,
       "towards": "top"
     },
     {
       "x": 6,
       "y": 0,
       "width": 3.0,
-      "length": 5,
+      "length": 6,
+      "towards": "top"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "width": 3.0,
+      "length": 6,
+      "towards": "top"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "width": 3.0,
+      "length": 6,
       "towards": "top"
     }
   ]

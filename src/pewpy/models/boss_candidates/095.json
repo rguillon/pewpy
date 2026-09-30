@@ -1,0 +1,237 @@
+{
+  "rows": [
+    "........oooNooo........",
+    ".........NhhhN.........",
+    ".........kkkkk.........",
+    ".........pHHHp.........",
+    "........NhhhhhN........",
+    "......NNNhhhhhNNN......",
+    "...oooNNNHHHHHNNNooo...",
+    "...NNNNN.kkkkk.NNNNN...",
+    "...NNNN..NhhhN..NNNN...",
+    "..NNNN...NHHHN...NNNN..",
+    ".NNNN....NhhhN....NNNN.",
+    ".NNp.....phhhp.....pNN.",
+    ".NNN.....kkkkk.....NNN.",
+    ".NNN.....NhhhN.....NNN.",
+    ".xxx.....NhhhN.....xxx.",
+    ".xxx.....NHHHN.....xxx.",
+    ".xxx.....hhhhh.....xxx.",
+    ".xxx.....kkkkk.....xxx.",
+    ".xxx.....NHHHN.....xxx.",
+    "..xxx....phhhp....xxx..",
+    "..xxxN...hhhhh...Nxxx..",
+    "...xxNN..NHHHN..NNxx...",
+    "....xNNNNkkkkkNNNNx....",
+    ".....NNNNhhhhhNNNN.....",
+    "......NNNHHHHHNNN......",
+    ".........NhhhN.........",
+    ".........NhhhN.........",
+    ".........kkkkk.........",
+    ".........NSSSN.........",
+    ".........TSSST.........",
+    ".........NSSSN.........",
+    ".........NSSSN.........",
+    "........NkkkkkN........",
+    "......NNNTSSSTNNN......",
+    "....NNNNNTSSSTNNNNN....",
+    "...pNNpNNTSSSTNNpNNp...",
+    "..NNNNN..NSSSN..NNNNN..",
+    "..NNNN...kkkkk...NNNN..",
+    ".NNNN....xxxxx....NNNN.",
+    ".NNN.....xxxxx.....NNN.",
+    "NNNN.....xxxxx.....NNNN",
+    "NNN......xxxxx......NNN",
+    "NNN......xxxxx......NNN",
+    "xxx......xxxxx......xxx",
+    "xxx......xxxxx......xxx",
+    "xxx......xxxxx......xxx",
+    "xxxx.....xxxxx.....xxxx",
+    ".xxx.....kkkkk.....xxx.",
+    ".xxxx....NTTTN....xxxx.",
+    "..xxxN...NTTTN...Nxxx..",
+    "..NNNNN..NhhhN..NNNNN..",
+    "...pNNpNNHHHHHNNpNNp...",
+    "....NNNNNkkkkkNNNNN....",
+    "......NNNhhhhhNNN......",
+    "........NHHHHHN........",
+    ".........NhhhN.........",
+    ".........NhhhN.........",
+    ".........kkkkk.........",
+    ".........NhhhN.........",
+    ".........phhhp.........",
+    ".........NHHHN.........",
+    ".........NhhhN.........",
+    "........NkkkkkN........",
+    "......NNNHHHHHNNN......",
+    ".....NNNNhhhhhNNNN.....",
+    "....NNNNNhhhhhNNNNN....",
+    "...NNNN..NHHHN..NNNN...",
+    "..NpNN...kkkkk...NNpN..",
+    "..NNN....hhhhh....NNN..",
+    "..NNN....HHHHH....NNN..",
+    ".NNNN....NhhhN....NNNN.",
+    ".NNN.....hhhhh.....NNN.",
+    ".NNN.....kkkkk.....NNN.",
+    ".NNN.....NhhhN.....NNN.",
+    "..NNN....NhhhN....NNN..",
+    "..NpN....HHHHH....NpN..",
+    "..NNNN...hhhhh...NNNN..",
+    "...NNNN..kkkkk..NNNN...",
+    "....NNNN.NHHHN.NNNN....",
+    "....NNNNNhhhhhNNNNN....",
+    "......NNNhhhhhNNN......",
+    "........NHHHHHN........",
+    ".........kkkkk.........",
+    ".........phhhp.........",
+    ".........NHHHN.........",
+    ".........NhhhN.........",
+    ".........hNNNh........."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.286,
+        0.23,
+        0.209
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.407,
+        0.323,
+        0.295
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.55,
+        0.433,
+        0.389
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.66,
+        0.518,
+        0.454
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.605,
+        0.476,
+        0.425
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.187,
+        0.153,
+        0.144
+      ],
+      "height": 7
+    },
+    "o": {
+      "color": [
+        0.088,
+        0.068,
+        0.065
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.242,
+        0.196,
+        0.18
+      ],
+      "height": 3
+    },
+    "p": {
+      "color": [
+        0.78,
+        0.18,
+        0.55
+      ],
+      "height": 11
+    }
+  },
+  "engines": [
+    {
+      "x": 9,
+      "y": 0,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 18,
+      "y": 6,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 17,
+      "y": 6,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 1,
+      "y": 10,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    },
+    {
+      "x": 21,
+      "y": 10,
+      "width": 4.1,
+      "length": 11,
+      "towards": "top"
+    }
+  ]
+}

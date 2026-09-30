@@ -17,8 +17,8 @@ from pewpy.level import Level
 
 Color = tuple[float, float, float, float]
 
-# Where the window is, in aspect2d units: above the level select's title, as wide as fits.
-FRAME = (-0.72, 0.72, 0.46, 1.24)  # left, right, bottom, top
+# Where the window is, in aspect2d units: to the right of the level select's list (the screen is wide).
+FRAME = (0.4, 1.2, -0.62, 0.02)  # left, right, bottom, top
 FRAME_COLOR: Color = (0.55, 0.57, 0.65, 1)  # the menus' dim color
 FRAME_WIDTH = 0.006
 FIELD_OF_VIEW = 26.0  # vertical, degrees: the middle of what the game's camera sees

@@ -1,0 +1,159 @@
+{
+  "rows": [
+    "......oHHoHSHoHHo......",
+    ".......NhhhShhhN.......",
+    "..r....hkkkSkkkh....r..",
+    "...rr...NhhShhN...rr...",
+    "okkwrw..HHHSHHH..wrwkko",
+    "WWWWWr..hhhShhh..rWWWWW",
+    "qwWwwq...kkSkk...qwwWwq",
+    "WWWWWW...NhShN...WWWWWW",
+    "WWWWWW...HHSHH...WWWWWW",
+    "r.........NSN.........r",
+    "r.........ccc.........r",
+    "..........cRc..........",
+    "...........N..........."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.333,
+        0.369,
+        0.451
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.45,
+        0.495,
+        0.594
+      ],
+      "height": 3
+    },
+    "S": {
+      "color": [
+        0.54,
+        0.592,
+        0.693
+      ],
+      "height": 5
+    },
+    "k": {
+      "color": [
+        0.153,
+        0.175,
+        0.22
+      ],
+      "height": 1
+    },
+    "r": {
+      "color": [
+        0.117,
+        0.126,
+        0.165
+      ],
+      "height": 3
+    },
+    "w": {
+      "color": [
+        0.288,
+        0.32,
+        0.396
+      ],
+      "height": 1
+    },
+    "W": {
+      "color": [
+        0.405,
+        0.446,
+        0.539
+      ],
+      "height": 1
+    },
+    "o": {
+      "color": [
+        0.072,
+        0.078,
+        0.099
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 5
+    },
+    "q": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 1
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.6,
+        0.15
+      ],
+      "height": 5
+    }
+  },
+  "engines": [
+    {
+      "x": 6,
+      "y": 0,
+      "width": 2.0,
+      "length": 8,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "width": 2.0,
+      "length": 8,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 2.0,
+      "length": 8,
+      "towards": "top"
+    },
+    {
+      "x": 16,
+      "y": 0,
+      "width": 2.0,
+      "length": 8,
+      "towards": "top"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "width": 2.0,
+      "length": 8,
+      "towards": "top"
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "width": 2.0,
+      "length": 8,
+      "towards": "top"
+    }
+  ]
+}

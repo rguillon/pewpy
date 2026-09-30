@@ -1,0 +1,44 @@
+{
+  "rows": [
+    "..........N..........",
+    "......NNNNNNNNN......",
+    "....GNNGNNGNNGNNG....",
+    "...NNNNNNNNNNNNNNN...",
+    "..NNNNNNNNNNNNNNNNN..",
+    ".GNNGNNGNNGNNGNNGNNG.",
+    ".NNNNNNNNNNNNNNNNNNN.",
+    "NNNNNNNNNNNNNNNNNNNNN",
+    "NGNNGNNGNNGNNGNNGNNGN",
+    "NNNNNNNNNNNNNNNNNNNNN",
+    "NNNNNNNNNNNNNNNNNNNNN",
+    "NGNNGNNGNNGNNGNNGNNGN",
+    "NNNNNNNNNNNNNNNNNNNNN",
+    "NNNNNNNNNNNNNNNNNNNNN",
+    "NGNNGNNGNNGNNGNNGNNGN",
+    ".NNNNNNNNNNNNNNNNNNN.",
+    ".NNNNNNNNNNNNNNNNNNN.",
+    "..NNGNNGNNGNNGNNGNN..",
+    "...NNNNNNNNNNNNNNN...",
+    "....NNNNNNNNNNNNN....",
+    "......NGNNGNNGN......",
+    "..........N.........."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.351,
+        0.365,
+        0.392
+      ],
+      "height": 9
+    },
+    "G": {
+      "color": [
+        0.75,
+        0.35,
+        1.0
+      ],
+      "height": 11
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "rows": [
+    "..................ooo...............ooo...........oooNooo",
+    "..................NhN...............hhh............NhhhN.",
+    ".................NkkkN.............Nkkkh...........kkkkk.",
+    ".................Nhhhp.............Nhhhp...........phhhN.",
+    ".................NHHHN.............NHHHN...........NHHHN.",
+    ".................Nhhhh.............NhhhN...........hhhhN.",
+    ".................kkkkk.............kkkkk...........kkkkk.",
+    ".................NhhhN.............NhhhN...........NhhhN.",
+    ".................NHHHN.............NHHHN...........NHHHH.",
+    ".................Nhhhp.............Nhhhp...........phhhN.",
+    ".......oookkkkkkkwWwkk.............kkwWwkkkkkkkkkkkwwwkk.",
+    "........wWxxxxxxxxxxxh.............NxxxxxxxxxxxwwWwwwWhN.",
+    ".......qWwxxxxxxxxxxxH.............NxxxxxxxxxxxwWWWwWwHN.",
+    ".........Nxxxxxxxxxxxh.............hxxxxxxxxxxxN...NhhhN.",
+    ".........Nxxxxxxxxxxxk.............kxxxxxxxxxxxN...kkkkk.",
+    ".............xxx.xxxxTTTTTTTNTTTTTThxxxx.xxx.......hhhhh.",
+    ".....N.......xxxxxxxxTTTTTTHHHTTTTTHxxxxxxxx.......NHHHH.",
+    ".....N...NxxxxxxxxxxxTTTTTThhhTTTTThxxxxxxxxxxxN...phhhN.",
+    "....Nk...kxxxxxxxxxxxkTTTTTkkkTTTTTkxxxxxxxxxxxk...kkkkk.",
+    "....Nh...NxxxxxxxxxxxTTTTTThhhTTTTThxxxxxxxxxxxh...NhhhN.",
+    "...HNN...NxxxxxxxxxxxTTTTTHHHHHTTTTHxxxxxxxxxxxN...NNNpN.",
+    ".........pxxxxxx.xxxxp....Nhhhh....Nxxxx.xxxxxxN.........",
+    ".............xxxxxxxxk....kkkkk....kxxxxxxxx.............",
+    "..........xxxxxxxxxxxN....NhhhN....Nxxxxxxxxxxx.....NNNNN",
+    "..........xxxxxxxxxxxN....HHHHN....Nxxxxxxxxxxx.....NNNNN",
+    "..........xxxxxxxxxxxT....hhhhN....Nxxxxxxxxxxx.....NNNNN",
+    "..........xxxxxxxxxxxk....kkkkk....kxxxxxxxxxxx.....NNNNN",
+    "..........xxxxxxxxxxxp....Nhhhh....Nxxxx.xxxxxx.....NNpNN",
+    "..........xxxxxxxxxxxN.....HHN.....Hxxxxxxxxxxx.....NNNNN",
+    ".......kkkxxxxxxxxxxxN.....NhN.....Nxxxxxxxxxxx.....NNNNp",
+    "....kkkwwwxxxxxxxxxxxk.....kkk.....kxxxxxxxxxxxN....NNNNN",
+    ".kkkwWwwwWxxxxxxxxxxxN.....NhN.....NxxxxxxxxxxxN....NNNNN",
+    "kwwwWwwwWwxxxxxxxxxxxN......N......NxxxxxxxxxxxN.........",
+    "qwwWwwwWwwxxxxxxxxxxxp.............hxxxxxxxxxxxN.........",
+    "wwWwwwWwwwWwwwWwwwWkkk.............kkkkkkkkkkkkk.........",
+    "wWWWWWWWWWxxxxxxxxxxxx.............xxxxxxxxxxxxN.........",
+    "qq.......Nxxxxxxxxxxxx.............xxxxxxxxxxxxN.........",
+    ".............xxx.xxxxx.............xxxxx.xxx.............",
+    ".............xxx.xxxxx.............xxxxx.xxx.............",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx.................",
+    ".................xxxxx.............xxxxx................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.299,
+        0.284,
+        0.246
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.425,
+        0.399,
+        0.348
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.575,
+        0.536,
+        0.459
+      ],
+      "height": 9
+    },
+    "T": {
+      "color": [
+        0.632,
+        0.588,
+        0.501
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.196,
+        0.189,
+        0.17
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.368,
+        0.347,
+        0.306
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.517,
+        0.483,
+        0.416
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.092,
+        0.084,
+        0.076
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.253,
+        0.242,
+        0.212
+      ],
+      "height": 3
+    },
+    "p": {
+      "color": [
+        0.8,
+        0.65,
+        0.12
+      ],
+      "height": 11
+    },
+    "q": {
+      "color": [
+        0.8,
+        0.65,
+        0.12
+      ],
+      "height": 3
+    }
+  },
+  "engines": [
+    {
+      "x": 19,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 37,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 51,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 55,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 8,
+      "y": 10,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    }
+  ]
+}

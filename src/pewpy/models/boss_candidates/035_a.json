@@ -1,0 +1,33 @@
+{
+  "rows": [
+    ".....N.....",
+    "..NNNNNNN..",
+    ".NGNNGNNGN.",
+    ".NNNNNNNNN.",
+    ".NNNNNNNNN.",
+    "NNGNNGNNGNN",
+    ".NNNNNNNNN.",
+    ".NNNNNNNNN.",
+    ".NGNNGNNGN.",
+    "..NNNNNNN..",
+    ".....N....."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.247,
+        0.27,
+        0.226
+      ],
+      "height": 9
+    },
+    "G": {
+      "color": [
+        1.0,
+        0.3,
+        0.75
+      ],
+      "height": 11
+    }
+  }
+}

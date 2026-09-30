@@ -1,0 +1,144 @@
+{
+  "rows": [
+    ".....o.NoN.o.....",
+    ".....S.NhN.S.....",
+    ".....ShkkkhS.....",
+    ".....SHHHHHS.....",
+    "......hhhhh......",
+    "......hhhhh......",
+    "......kkkkk......",
+    "......hhhhh......",
+    "......NhhhN......",
+    "...N..HHHHH..N...",
+    "...N.kkkkkkk.N...",
+    "...N.WhhhhhW.N...",
+    "...NkwHHHHHwkN...",
+    "...NwwhhhhhwwN...",
+    "..kNwwkkkkkwwNk..",
+    ".kwwwWHHHHHWwwwk.",
+    ".wwwWWhhhhhWWwww.",
+    "kwwW..hhhhh..Wwwk",
+    "qWq...kkkkk...qWq",
+    "Wr....NhhhN....rW",
+    ".r..WkhhhhhkW..r.",
+    ".....qHHHHHq.....",
+    "......kkkkk......",
+    "......hhRhh......",
+    "......rHHHr......",
+    "......rhhhr......",
+    "......rNhNr......"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.351,
+        0.365,
+        0.392
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.499,
+        0.513,
+        0.553
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.675,
+        0.689,
+        0.729
+      ],
+      "height": 3
+    },
+    "S": {
+      "color": [
+        0.81,
+        0.824,
+        0.851
+      ],
+      "height": 5
+    },
+    "k": {
+      "color": [
+        0.23,
+        0.243,
+        0.27
+      ],
+      "height": 1
+    },
+    "r": {
+      "color": [
+        0.176,
+        0.176,
+        0.203
+      ],
+      "height": 3
+    },
+    "w": {
+      "color": [
+        0.432,
+        0.446,
+        0.486
+      ],
+      "height": 1
+    },
+    "W": {
+      "color": [
+        0.608,
+        0.621,
+        0.661
+      ],
+      "height": 1
+    },
+    "o": {
+      "color": [
+        0.108,
+        0.108,
+        0.121
+      ],
+      "height": 3
+    },
+    "q": {
+      "color": [
+        0.2,
+        0.65,
+        0.25
+      ],
+      "height": 1
+    },
+    "R": {
+      "color": [
+        0.35,
+        1.0,
+        0.4
+      ],
+      "height": 5
+    }
+  },
+  "engines": [
+    {
+      "x": 5,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    }
+  ]
+}

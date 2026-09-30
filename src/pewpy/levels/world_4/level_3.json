@@ -11,21 +11,21 @@
       "enemy": "drone",
       "count": 9,
       "formation": "line",
-      "spacing": 0.2
+      "spacing": 0.33
     },
     {
       "time": 4.8,
       "enemy": "shield_carrier",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8
+      "spacing": 1.33
     },
     {
       "time": 6.8,
       "enemy": "flak_cannon",
       "count": 2,
       "formation": "line",
-      "spacing": 0.7,
+      "spacing": 1.17,
       "x": 0.0
     },
     {
@@ -33,28 +33,28 @@
       "enemy": "diver",
       "count": 6,
       "formation": "line",
-      "spacing": 0.35
+      "spacing": 0.58
     },
     {
       "time": 9.7,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 12.1,
       "enemy": "gunship",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8
+      "spacing": 1.33
     },
     {
       "time": 14.7,
       "enemy": "drone",
       "count": 9,
       "formation": "line",
-      "spacing": 0.2
+      "spacing": 0.33
     },
     {
       "time": 16.4,
@@ -62,35 +62,35 @@
       "count": 3,
       "formation": "column",
       "interval": 0.8,
-      "x": -0.15
+      "x": -0.25
     },
     {
       "time": 17.7,
       "enemy": "drone",
       "count": 9,
       "formation": "line",
-      "spacing": 0.2
+      "spacing": 0.33
     },
     {
       "time": 20.1,
       "enemy": "gunship",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8
+      "spacing": 1.33
     },
     {
       "time": 22.7,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 25.7,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 27.2,
@@ -98,14 +98,14 @@
       "count": 2,
       "formation": "column",
       "interval": 3.0,
-      "x": 0.45
+      "x": 0.75
     },
     {
       "time": 28.4,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 28.9,
@@ -120,7 +120,7 @@
       "enemy": "drone",
       "count": 8,
       "formation": "column",
-      "x": -0.4,
+      "x": -0.67,
       "interval": 0.45
     },
     {
@@ -128,22 +128,30 @@
       "enemy": "drone",
       "count": 8,
       "formation": "column",
-      "x": 0.4,
+      "x": 0.67,
       "interval": 0.45
+    },
+    {
+      "time": 32.2,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "x": 0.0,
+      "spacing": 0.83
     },
     {
       "time": 34.2,
       "enemy": "splitter",
       "count": 4,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 36.0,
       "enemy": "buckshot",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8,
+      "spacing": 1.33,
       "x": 0.0
     },
     {
@@ -159,14 +167,14 @@
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 41.3,
       "enemy": "splitter",
       "count": 4,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 43.0,
@@ -174,42 +182,47 @@
       "count": 3,
       "formation": "column",
       "interval": 1.2,
-      "x": 0.35
+      "x": 0.58
     },
     {
       "time": 44.1,
       "enemy": "splitter",
       "count": 4,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
+    },
+    {
+      "time": 45.3,
+      "enemy": "brawler",
+      "x": 0.5
     },
     {
       "time": 47.7,
       "enemy": "turret",
       "count": 3,
       "formation": "line",
-      "spacing": 0.5
+      "spacing": 0.83
     },
     {
       "time": 49.2,
       "enemy": "gunship",
       "count": 2,
       "formation": "line",
-      "spacing": 0.8
+      "spacing": 1.33
     },
     {
       "time": 50.7,
       "enemy": "sniper",
       "count": 2,
       "formation": "line",
-      "spacing": 1.0
+      "spacing": 1.67
     },
     {
       "time": 52.2,
       "enemy": "diver",
       "count": 6,
       "formation": "line",
-      "spacing": 0.35
+      "spacing": 0.58
     },
     {
       "time": 58,

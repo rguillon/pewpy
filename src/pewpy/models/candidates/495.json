@@ -1,0 +1,165 @@
+{
+  "rows": [
+    ".......o.NoH.o.......",
+    ".......S.NSh.S.......",
+    ".......ShkSkhS.......",
+    "........NHSHN........",
+    "........NhShh........",
+    "........hhShh........",
+    "kk......kkSkk......kk",
+    "wWkkkkk.NLSLN.kkkkkww",
+    "WwwwWwwkLLSLLkwwWwwwW",
+    "qwwWwwwWLLSLLwwWwwwWq",
+    ".WrwwwWwkkSkkwWwwwrWr",
+    "..rttWwwhhShhWwwwWr.r",
+    "..rttwwwHHSHHwwwq.r..",
+    "...ttWWWhhShhwWW.....",
+    "...ttr.WkkSkkW.......",
+    "...ttr..NHSHN........",
+    ".....rkkhhShhkk......",
+    "......WWhhShhWW......",
+    "........kkRkk........",
+    "........NhShN........",
+    "........NhShp........",
+    ".........pSH.........",
+    ".........hSN.........",
+    ".........NSN........."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.333,
+        0.369,
+        0.451
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.45,
+        0.495,
+        0.594
+      ],
+      "height": 3
+    },
+    "S": {
+      "color": [
+        0.54,
+        0.592,
+        0.693
+      ],
+      "height": 5
+    },
+    "k": {
+      "color": [
+        0.153,
+        0.175,
+        0.22
+      ],
+      "height": 1
+    },
+    "r": {
+      "color": [
+        0.117,
+        0.126,
+        0.165
+      ],
+      "height": 3
+    },
+    "w": {
+      "color": [
+        0.288,
+        0.32,
+        0.396
+      ],
+      "height": 1
+    },
+    "W": {
+      "color": [
+        0.405,
+        0.446,
+        0.539
+      ],
+      "height": 1
+    },
+    "o": {
+      "color": [
+        0.072,
+        0.078,
+        0.099
+      ],
+      "height": 3
+    },
+    "t": {
+      "color": [
+        0.27,
+        0.301,
+        0.363
+      ],
+      "height": 5
+    },
+    "p": {
+      "color": [
+        0.8,
+        0.65,
+        0.12
+      ],
+      "height": 3
+    },
+    "q": {
+      "color": [
+        0.8,
+        0.65,
+        0.12
+      ],
+      "height": 1
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.85,
+        0.2
+      ],
+      "height": 5
+    },
+    "L": {
+      "color": [
+        0.5,
+        0.42,
+        0.12
+      ],
+      "height": 3
+    }
+  },
+  "engines": [
+    {
+      "x": 7,
+      "y": 0,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 2.0,
+      "length": 7,
+      "towards": "top"
+    }
+  ]
+}

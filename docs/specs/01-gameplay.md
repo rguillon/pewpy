@@ -5,10 +5,11 @@
 The game shall have a global state machine for each possible state to easily transition between states:
 
 The states are:
-- Main menu: start (to the world selection), models, bosses, candidates, or quit
+- Main menu: start (to the world selection), models, bosses, enemy candidates, boss candidates, or quit
 - Models: every ship and pickup model on show, for working on them (see `04-ui-audio.md`)
 - Bosses: every boss on show, a world per page (see `04-ui-audio.md`)
-- Candidates: numbered model candidates for new enemies, 10 per page (see `04-ui-audio.md`)
+- Enemy candidates, Boss candidates: numbered model candidates for new enemies (10 per page) and bosses (4 per
+  page), to pick from (see `04-ui-audio.md`)
 - World selection: select one of the worlds (see `03-levels.md`)
 - Level selection: select one of the world's levels to play
 - The actual game
@@ -59,7 +60,7 @@ every ship; repairs fill up to the ship's own health.
 ## Weapons
 
 > Units: damage per projectile, fire rate in shots per second, speed in world units per second
-> (the play area is 1.5 wide and 2.0 tall). Angles are measured from straight up.
+> (the play area is 2.5 wide and 2.0 tall). Angles are measured from straight up.
 
 The ship carries three weapons from the start: **bullets**, **laser** and **missiles**. Only the selected one
 fires; Shift switches to the next one, instantly. Each weapon has 3 upgrade levels and starts at level 1.

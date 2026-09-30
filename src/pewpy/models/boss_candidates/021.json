@@ -1,0 +1,249 @@
+{
+  "rows": [
+    "ooNooo.....................................................................................oooNoo",
+    "NhhhN.......................................................................................NhhhN",
+    "kkgkg.............................oooh.....................hooo.............................gkgkk",
+    "phhhN..............................hhhN...................Nhhh..............................Nhhhp",
+    "HHHHN..............................NHNNNN...............NNNNHN..............................NHHHH",
+    "kkgkg...............................g...NNN...........NNN...g...............................gkgkk",
+    "NhhhN...............................x.....xxx.......xxx.....x...............................NhhhN",
+    "NhhhN......................................xx.......xx......................................NhhhN",
+    "gkkgk....................xxx................xx..H..xx................xxx....................kgkkg",
+    "Nhhhh....................xxx.xxxxxxxxxxx.....xxxhxxx.....xxxxxxxxxxx.xxx....................hhhhN",
+    "Nhhhh....................xxxxx.........xxx...xxxhxxx...xxx.........xxxxx....................hhhhN",
+    "gggkg....................xxx.............xxxxxxxkxxxxxxx.............xxx....................gkggg",
+    "NHHHN......................................xxxxxSxxxxx......................................NHHHN",
+    "phhhh.....................x..........xxxxxxxxxxxSxxxxxxxxxxx..........x.....................hhhhp",
+    "gkggg..............................xxx.....xxxxxxxxxxx.....xxx..............................gggkg",
+    "Nhwwwggkkgggggggkkkgxxxxxxxx....xxxx........xxxxxxxxx........xxxx....xxxxxxxxgkkkgggggggkkggwwwhN",
+    "NHwwWwwwWwwwWwwwWwwwxxxxxxxx..xxx.........xxxxxxxxxxxxx.........xxx..xxxxxxxxwwwWwwwWwwwWwwwWwwHN",
+    "ggwWwWWWWWWWWWWWWWWWWxxxxxxxxxx...........xxxxxxxxxxxxx...........xxxxxxxxxxWWWWWWWWWWWWWWWWwWwgg",
+    "hhhhN....................xxxx............xx..xxxxxxx..xx............xxxx....................Nhhhh",
+    "hhhhN....................xxx............xx....xxxxx....xx............xxx....................Nhhhh",
+    "kgkgk.....................x.............xx.............xx.............x.....................kgkgk",
+    "NhhhN.....................x............xx...............xx............x.....................NhhhN",
+    "NhhhN......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................NhhhN",
+    "kkkkg......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................gkkkk",
+    "HHHHN......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................NHHHH",
+    "NhhhN......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................NhhhN",
+    "kkkkk......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................kkkkk",
+    "NhhhN......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................NhhhN",
+    "pHHHN......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................NHHHp",
+    "NNNNN......................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx......................NNNNN",
+    "...........................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...........................",
+    "...........................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...........................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "....................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....................",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......",
+    ".......xxxxxxxxxxxxxxxxxxxxxxxxTxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxTxxxxxxxxxxxxxxxxxxxxxxxx......."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.177,
+        0.184,
+        0.215
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.252,
+        0.258,
+        0.303
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.34,
+        0.347,
+        0.4
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.408,
+        0.415,
+        0.466
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.374,
+        0.381,
+        0.437
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.116,
+        0.122,
+        0.148
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.218,
+        0.224,
+        0.266
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.306,
+        0.313,
+        0.363
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.054,
+        0.054,
+        0.067
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.15,
+        0.156,
+        0.185
+      ],
+      "height": 3
+    },
+    "p": {
+      "color": [
+        0.78,
+        0.18,
+        0.55
+      ],
+      "height": 11
+    },
+    "g": {
+      "color": [
+        1.0,
+        0.3,
+        0.75
+      ],
+      "height": 7
+    }
+  },
+  "engines": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 96,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 92,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 92,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 96,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 35,
+      "y": 2,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 61,
+      "y": 2,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 58,
+      "y": 3,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 38,
+      "y": 3,
+      "width": 6.2,
+      "length": 20,
+      "towards": "top"
+    }
+  ]
+}

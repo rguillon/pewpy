@@ -1,0 +1,222 @@
+{
+  "rows": [
+    "................................................oooLooo................................................",
+    ".................................................NLLLN.................................................",
+    ".................................................kkkkk.................................................",
+    ".................................................NLLLN.................................................",
+    "...................xxxx..........................NHHHN..........................xxxx...................",
+    "...................xxxx..........................NhhhN..........................xxxx...................",
+    "...................xxxx..........................kkkkk..........................xxxx...................",
+    "...................xxxx..........................NhhhN..........................xxxx...................",
+    "...................xxxx..........................NSSSN..........................xxxx...................",
+    "...................xxxxxxxxxxxxxxxxxoooToooToooTTTSSSTTToooToooToooxxxxxxxxxxxxxxxxx...................",
+    "...................xxxxxxxxxxxxxxxxxxTTTTTTTTTTTTTSSSTTTTTTTTTTTTTxxxxxxxxxxxxxxxxxx...................",
+    "...................xxxxxxxxxxxxxxxxxxTTTTTTTTTTTTTSSSTTTTTTTTTTTTTxxxxxxxxxxxxxxxxxx...................",
+    "...................xxxx..........................TSSST..........................xxxx...................",
+    "...................xxxx..........................NSSSN..........................xxxx...................",
+    "...................xxxx..........................xxxxx..........................xxxx...................",
+    "...................xxxx..........................xxxxx..........................xxxx...................",
+    "...................xxxx..........................xxxxx..........................xxxx...................",
+    "...................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...................",
+    "...................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...................",
+    "...................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...................",
+    "...................xxxx..........................xxxxx..........................xxxx...................",
+    "...................xxxx..........................xxxxx..........................xxxx...................",
+    "...................xxxx..........................xxxxx..........................xxxx...................",
+    "...................xxxx..........xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..........xxxx...................",
+    "...................xxxx...........xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...........xxxx...................",
+    "..................................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..................................",
+    "...................................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...................................",
+    "..................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..................",
+    ".kkkkkkkkkkkkkkkkkwwWwwwWwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxwwwWwwwWwwkkkkkkkkkkkkkkkkk.",
+    "kwwWwwwWwwwWwwwWwwwWwwwWwwwWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWwwwWwwwWwwwWwwwWwwwWwwwWwwk",
+    "qWWWWWWWWWWWWWWWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWWWWWWWWWWWWWWWWWWWWWWWWWWWq",
+    "...................................xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...................................",
+    "......................................xxxxxxxxxxxxxxxxxxxxxxxxxxx......................................",
+    "......................................xxxxxxxxxxxxxxxxxxxxxxxxxxx......................................",
+    "......................................xxxxxxxxxxxxxxxxxxxxxxxxxxx......................................",
+    "....................kkkkkkkkxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkkkkkkkk....................",
+    ".xxxxxxxxxxxxxxxxxkkWwwwWwwwxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxwwwWwwwWkkxxxxxxxxxxxxxxxxx.",
+    "xxxxxxxxxxxxxxxxxxwWwwwWwwwWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWwwwWwwwWwxxxxxxxxxxxxxxxxxx",
+    "xxxxxxxxxxxxxxxxxxWWWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWWWWWWWWWWxxxxxxxxxxxxxxxxxx",
+    ".......................................xxxxxxxxxxxxxxxxxxxxxxxxx.......................................",
+    ".........................................xxxxxxxxxxxxxxxxxxxxx.........................................",
+    "..........................................xxxxxxxxxxxxxxxxxxx..........................................",
+    "..........................................xxxxxxxxxxxxxxxxxxx..........................................",
+    "......................kkkkkkkkkkkkkkkkkkkkwhhhhhhhhhhhhhhhhhwkkkkkkkkkkkkkkkkkkkk......................",
+    ".xxxxxxxxxxxxxxxxxkkkkwwWwwwWwwwWwwwWwwwWwwHHHHHHHHHHHHHHHHHwwWwwwWwwwWwwwWwwwWwwkkkkxxxxxxxxxxxxxxxxx.",
+    "xxxxxxxxxxxxxxxxxxwWwwwWwwwWwwwWwwwWwwwWwwwWhhhhhhhhhhhhhhhWwwwWwwwWwwwWwwwWwwwWwwwWwxxxxxxxxxxxxxxxxxx",
+    "xxxxxxxxxxxxxxxxxxWWWWWWWWWWWWWWWWWWWWWWWWWwkkkkkkkkkkkkkkkwWWWWWWWWWWWWWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxx",
+    "...........................................WWhhhhhhhhhhhhhWW...........................................",
+    ".............................................NLLLLLLLLLLLN.............................................",
+    ".............................................NLLLLLLLLLLLN.............................................",
+    "..............................................kkkkkkkkkkk..............................................",
+    ".......................kkkkkkkkkkkkkkkkkkkkkkkLLLLLLLLLLLkkkkkkkkkkkkkkkkkkkkkkk.......................",
+    "xxxxxxxxxxxxxxxxxxkkkkkwWwwwWwwwWwwwWwwwWwwwWwwHHHHHHHHHwwWwwwWwwwWwwwWwwwWwwwWwkkkkkxxxxxxxxxxxxxxxxxx",
+    "xxxxxxxxxxxxxxxxxxwWwwwWwwwWwwwWwwwWwwwWwwwWwwwhhhhhhhhhwwwWwwwWwwwWwwwWwwwWwwwWwwwWwxxxxxxxxxxxxxxxxxx",
+    "xxxxxxxxxxxxxxxxxxWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWkkkkkkkWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxxxxxxxxxxxxxxxxxx",
+    "................................................hhhhhhh................................................",
+    ".................................................NHHHN.................................................",
+    ".................................................NhhhN.................................................",
+    "..................................................kkk..................................................",
+    "..................................................hhh..................................................",
+    "...................................................N...................................................",
+    "...................................................L..................................................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.286,
+        0.23,
+        0.209
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.407,
+        0.323,
+        0.295
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.55,
+        0.433,
+        0.389
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.66,
+        0.518,
+        0.454
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.605,
+        0.476,
+        0.425
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.187,
+        0.153,
+        0.144
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.352,
+        0.281,
+        0.259
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.495,
+        0.391,
+        0.353
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.088,
+        0.068,
+        0.065
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.242,
+        0.196,
+        0.18
+      ],
+      "height": 3
+    },
+    "q": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 3
+    },
+    "L": {
+      "color": [
+        0.3,
+        0.3,
+        0.33
+      ],
+      "height": 9
+    }
+  },
+  "engines": [
+    {
+      "x": 49,
+      "y": 0,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 53,
+      "y": 0,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 65,
+      "y": 9,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 37,
+      "y": 9,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 41,
+      "y": 9,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 61,
+      "y": 9,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 57,
+      "y": 9,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    },
+    {
+      "x": 45,
+      "y": 9,
+      "width": 8.6,
+      "length": 19,
+      "towards": "top"
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "rows": [
+    "............ooo.................ooo............",
+    "............NhhN...............NhhN............",
+    "...........NkkkkN.............NkkkkN...........",
+    "...........HHHkkoooToooSoooToookkHHH...........",
+    "...........hhhkkkTTTTSSSSSTTTTkkkhhh...........",
+    "...........hhhkkkTTTTSSSSSTTTTkkkhhh...........",
+    "...........NHHkkkTTTTSHHHSTTTTkkkHHN...........",
+    "..........NkkkkkTTTTTkkkkkTTTTTkkkkkN..........",
+    ".........pNhhhhhTTTTThhhhhTTTTThhhhhNp.........",
+    "........NN.NHHHHTTTTTHHHHHTTTTTHHHHN.NN........",
+    "........N..NhhhhTTTTThhhhhTTTTThhhhN..N........",
+    ".......N...NhhhhTTTTTSSSSSTTTTThhhhN...N.......",
+    "......NNNNNkkkkkTTTTTSSSSSTTTTTkkkkkNNNNN......",
+    "kkkkkkwWwwwhhhhhhhh...NNN...hhhhhhhhwwwWwkkkkkk",
+    "WWWWWWWWWWWhhhhhhhN...NNN...NhhhhhhhWWWWWWWWWWW",
+    "qWwwwWwwwWwHHHHHHHHkkkkkkkkkHHHHHHHHwWwwwWwwwWq",
+    "WWWWWWWWWWWhhhhhhhhkkkkkkkkkhhhhhhhhWWWWWWWWWWW",
+    "wwwWwwwWwwwkkkkkkkk...cRc...kkkkkkkkwwwWwwwWwww",
+    "qWWWWWWWWWWNpNNpNNp...NNN...pNNpNNpNWWWWWWWWWWq",
+    "wWwwwWwwwWw...........NNN...........wWwwwWwwwWw",
+    "WWWWWWWWWWW...........NNN...........WWWWWWWWWWW",
+    "qwwWwwwWwwq...........NNN...........qwwWwwwWwwq",
+    "WWWWWWWWWWWNNNN.......NNN.......NNNNWWWWWWWWWWW",
+    "....kkhhhhhhhhhkkkkkkkkkkkkkkkkkhhhhhhhhhkk....",
+    "....kkNNHNNNHHNkkkkkkkkkkkkkkkkkNHHNNNHNNkk....",
+    "............NN........NNN........NN............",
+    "..............NNN.....NNN.....NNN..............",
+    ".................NNNNNNNNNNNNN.................",
+    "......................NhN......................",
+    "..........NNNNNNhhNNN.NhN.NNNhhNNNNNN..........",
+    "..........NHHHHHHHHHHHHHHHHHHHHHHHHHN..........",
+    "....kkkkkkhhhhhhhhhhhhhhhhhhhhhhhhhhhkkkkkk....",
+    "....kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk....",
+    "..........NNpHHpNNHNNHHHHHNNHNNpHHpNN..........",
+    ".....................NhhhN.....................",
+    "......................NhN......................",
+    "......................NHN......................",
+    "......................NNN......................"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.299,
+        0.284,
+        0.246
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.425,
+        0.399,
+        0.348
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.575,
+        0.536,
+        0.459
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.69,
+        0.64,
+        0.535
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.632,
+        0.588,
+        0.501
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.196,
+        0.189,
+        0.17
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.368,
+        0.347,
+        0.306
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.517,
+        0.483,
+        0.416
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.092,
+        0.084,
+        0.076
+      ],
+      "height": 9
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.78,
+        0.18,
+        0.55
+      ],
+      "height": 11
+    },
+    "q": {
+      "color": [
+        0.78,
+        0.18,
+        0.55
+      ],
+      "height": 3
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.3,
+        0.75
+      ],
+      "height": 17
+    }
+  },
+  "engines": [
+    {
+      "x": 33,
+      "y": 0,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 32,
+      "y": 0,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 14,
+      "y": 0,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 17,
+      "y": 3,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 29,
+      "y": 3,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 25,
+      "y": 3,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    },
+    {
+      "x": 21,
+      "y": 3,
+      "width": 6.8,
+      "length": 10,
+      "towards": "top"
+    }
+  ]
+}

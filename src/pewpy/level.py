@@ -11,7 +11,7 @@ from typing import Any
 from pewpy.background import BACKGROUNDS
 from pewpy.boss_catalog import BOSSES
 from pewpy.data import data_folder
-from pewpy.enemies import ENEMY_TYPES
+from pewpy.roster import ENEMY_TYPES
 from pewpy.terrain import GROUND_VOXEL
 
 FORMATIONS = frozenset({"line", "column"})

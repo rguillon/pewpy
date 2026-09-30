@@ -5,7 +5,7 @@
     uv run python tools/make_candidates.py --seed 1234           # the same batch again
     uv run python tools/make_candidates.py --append --count 20   # add to the batch instead of replacing it
 
-(or `make candidates ARGS="--kind aircraft --count 50"`). Then open Main menu > Candidates (or "Reload models" there).
+(or `make candidates ARGS="--kind aircraft --count 50"`). Then open Main menu > Enemy candidates (or "Reload models" there).
 
 Enemies point down the screen: nose on the last row, engines at the back (flames "towards": "top"). Kinds:
 - aircraft: a slender fuselage with an ogive nose, thin wings tapering to their tips (swept, delta, cranked,
@@ -103,18 +103,23 @@ class Canvas:
         """Fill a polygon (the cells whose middle is inside); side "both" also fills its mirror image."""
         shapes = [points] + ([[(self.mirror(x), y) for x, y in points]] if side == "both" else [])
         for shape in shapes:
-            for y in range(self.h):
-                for x in range(self.w):
+            xs, ys = [x for x, _ in shape], [y for _, y in shape]
+            for y in self._span(min(ys), max(ys), self.h):  # only the cells in its bounding box
+                for x in self._span(min(xs), max(xs), self.w):
                     if _inside(x, y, shape):
                         self.set(x, y, char)
+
+    @staticmethod
+    def _span(low: float, high: float, size: int) -> range:
+        return range(max(0, math.floor(low)), min(size, math.ceil(high) + 1))
 
     def rect(self, x0: float, x1: float, y0: float, y1: float, char: str, side: str = "one") -> None:
         corners = [(x0 - 0.5, y0 - 0.5), (x1 + 0.5, y0 - 0.5), (x1 + 0.5, y1 + 0.5), (x0 - 0.5, y1 + 0.5)]
         self.polygon(corners, char, side)
 
     def ellipse(self, cx: float, cy: float, rx: float, ry: float, char: str) -> None:
-        for y in range(self.h):
-            for x in range(self.w):
+        for y in self._span(cy - ry, cy + ry, self.h):
+            for x in self._span(cx - rx, cx + rx, self.w):
                 if ((x - cx) / max(rx, 0.1)) ** 2 + ((y - cy) / max(ry, 0.1)) ** 2 <= 1.0:
                     self.set(x, y, char)
 
@@ -660,7 +665,7 @@ def generate(count: int, kind: str, seed: int, pool_factor: int) -> list[dict]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--count", type=int, default=200, help="how many to write (default 200)")
+    parser.add_argument("--count", type=int, default=500, help="how many to write (default 200)")
     parser.add_argument("--kind", choices=MIXES, default="all", help="aircraft, industrial or all (default)")
     parser.add_argument("--seed", type=int, help="the same seed makes the same batch (default: a new one)")
     parser.add_argument("--pool", type=int, default=7, help="how many generated for each one kept (default 7)")

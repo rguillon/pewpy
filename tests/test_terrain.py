@@ -2,8 +2,8 @@ import pytest
 from panda3d.core import GeomNode
 
 from pewpy import ground_look
-from pewpy.enemies import ENEMY_TYPES
 from pewpy.level import load_levels
+from pewpy.roster import ENEMY_TYPES
 from pewpy.terrain import BIOMES, TOWN_LIGHT, Area, Kind, Terrain
 
 AREA = Area(-1.0, 1.0, -1.2, 1.8)

@@ -8,7 +8,9 @@ def region_shape(window_width: int, window_height: int) -> float:
     return (right - left) * window_width / ((top - bottom) * window_height)
 
 
-@pytest.mark.parametrize(("width", "height"), [(675, 900), (1200, 700), (600, 1000), (1920, 1080), (300, 2000)])
+@pytest.mark.parametrize(
+    ("width", "height"), [(1280, 1024), (675, 900), (1200, 700), (600, 1000), (1920, 1080), (300, 2000)]
+)
 def test_the_game_area_keeps_its_shape_in_any_window(width, height):
     assert region_shape(width, height) == pytest.approx(GAME_ASPECT)
 
@@ -28,7 +30,7 @@ def test_a_tall_window_gets_bars_at_the_top_and_bottom():
 
 
 def test_a_window_of_the_game_shape_has_no_bars():
-    assert letterbox(675, 900) == pytest.approx((0.0, 1.0, 0.0, 1.0))
+    assert letterbox(1280, 1024) == pytest.approx((0.0, 1.0, 0.0, 1.0))
 
 
 def test_engine_flames_waver_and_grow_with_thrust():

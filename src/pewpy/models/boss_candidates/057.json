@@ -1,0 +1,205 @@
+{
+  "rows": [
+    "............oooNoooNooo............",
+    "............NNNNNNNNNNN............",
+    "...........NNNNNNNNNNNNN...........",
+    "..........NNpNNpNNNpNNpNN..........",
+    ".......oooNNNN.......NNNNooo.......",
+    "........NLLLN.........NLLLN........",
+    "........NNNLNN..NNN..NNLNNN........",
+    "........NNNN.LNNkkkNNL.NNNN........",
+    "........NNNN..LLLLLLL..NNNN........",
+    "........NNNN..NLLLLLN..NNNN........",
+    "........NNNN..NLLLLLN..NNNN........",
+    "........NpNN...pLLLp...NNpN........",
+    "........NNpN....NkN....NpNN........",
+    "........NNNNN....N....NNNNN........",
+    ".........NNNNN...N...NNNNN.........",
+    ".......NNLNNNNNNNSNNNNNNNLNN.......",
+    ".......NNLLNNNNNNSNNNNNNLLNN.......",
+    ".......NNkkkpNNNNkNNNNpkkkNN.......",
+    ".......NNHHHHNNNNSNNNNHHHHNN.......",
+    ".......NNhhhhhhTSSSThhhhhhNN.......",
+    ".......NNHHHHHHTSSSTHHHHHHNN.......",
+    ".......NNhhhhhhTcRcThhhhhhNN.......",
+    ".......NNkkkkkkkkkkkkkkkkkNN.......",
+    ".......NNhhhhhhTTTTThhhhhhNN.......",
+    ".......NNHHHHHHTTTTTHHHHHHNN.......",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "....NNTTTTTTTTTTTTTTTTTTTTTTTNN....",
+    "NNHNHHHHHHHHHHHHHHHHHHHHHHHHHHHNHNN",
+    "NNkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkNN",
+    "NNHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHNN",
+    "NNhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhNN",
+    "NNHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHNN",
+    "NNhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhNN",
+    "NNkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkNN",
+    "pNhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhNp",
+    "NNHHHHHHHHHHkkkHHHHHkkkHHHHHHHHHHNN",
+    "NNNhNNNNNNNNkkkNNNNNkkkNNNNNNNNhNNN"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.177,
+        0.184,
+        0.215
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.252,
+        0.258,
+        0.303
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.34,
+        0.347,
+        0.4
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.408,
+        0.415,
+        0.466
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.374,
+        0.381,
+        0.437
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.116,
+        0.122,
+        0.148
+      ],
+      "height": 7
+    },
+    "o": {
+      "color": [
+        0.054,
+        0.054,
+        0.067
+      ],
+      "height": 9
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.6,
+        0.15
+      ],
+      "height": 17
+    },
+    "L": {
+      "color": [
+        0.45,
+        0.2,
+        0.45
+      ],
+      "height": 9
+    }
+  },
+  "engines": [
+    {
+      "x": 21,
+      "y": 0,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 17,
+      "y": 0,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 21,
+      "y": 0,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 26,
+      "y": 4,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 25,
+      "y": 4,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "width": 5.9,
+      "length": 12,
+      "towards": "top"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "rows": [
+    "................NNN................",
+    "..............NNNNNNN..............",
+    "............NNNNNNNNNNN............",
+    "...........NNNNNNNNNNNNN...........",
+    ".........NNNNNNNNNNNNNNNNN.........",
+    ".......NNNNNNNNNNNNNNNNNNNNN.......",
+    ".....NNNNNNNNNNNtttNNNNNNNNNNN.....",
+    "....NNNNNNNNNNtttttttNNNNNNNNNN....",
+    "..NNNNNNNNNNtttttttttttNNNNNNNNNN..",
+    "NNNNNNNNNNNtttttttttttttNNNNNNNNNNN",
+    "NNNNNNNNNtttttttttttttttttNNNNNNNNN",
+    "NNNNNNNtttttttttttttttttttttNNNNNNN",
+    "NNNNNtttttttttttttttttttttttttNNNNN",
+    "NNNNNttttttttttttGttttttttttttNNNNN",
+    "NNNNNtttttttttGGGGGGGtttttttttNNNNN",
+    "NNNNNttttttttGGGGGGGGGttttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNttttttGGGGGGGGGGGGGttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNttttttttGGGGGGGGGttttttttNNNNN",
+    "NNNNNtttttttttGGGGGGGtttttttttNNNNN",
+    "NNNNNttttttttttttGttttttttttttNNNNN",
+    "NNNNNtttttttttttttttttttttttttNNNNN",
+    "NNNNNNNtttttttttttttttttttttNNNNNNN",
+    "NNNNNNNNNtttttttttttttttttNNNNNNNNN",
+    "NNNNNNNNNNNtttttttttttttNNNNNNNNNNN",
+    "..NNNNNNNNNNtttttttttttNNNNNNNNNN..",
+    "....NNNNNNNNNNtttttttNNNNNNNNNN....",
+    ".....NNNNNNNNNNNtttNNNNNNNNNNN.....",
+    ".......NNNNNNNNNNNNNNNNNNNNN.......",
+    ".........NNNNNNNNNNNNNNNNN.........",
+    "...........NNNNNNNNNNNNN...........",
+    "............NNNNNNNNNNN............",
+    "..............NNNNNNN..............",
+    "................NNN................"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 9
+    },
+    "t": {
+      "color": [
+        0.3,
+        0.31,
+        0.33
+      ],
+      "height": 9
+    },
+    "G": {
+      "color": [
+        0.35,
+        1.0,
+        0.4
+      ],
+      "height": 11
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "rows": [
+    "ttttttt",
+    "ttttttt",
+    "ttttttt",
+    "ttttttt",
+    "WWWWWWW",
+    ".hhhhh.",
+    ".WWWWW.",
+    "..hhh..",
+    "..WWW..",
+    "..hhh..",
+    "...W...",
+    "...h..."
+  ],
+  "palette": {
+    "t": {
+      "color": [
+        0.204,
+        0.211,
+        0.244
+      ],
+      "height": 9
+    },
+    "h": {
+      "color": [
+        0.252,
+        0.258,
+        0.303
+      ],
+      "height": 7
+    },
+    "W": {
+      "color": [
+        0.306,
+        0.313,
+        0.363
+      ],
+      "height": 5
+    }
+  }
+}

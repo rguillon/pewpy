@@ -1,0 +1,200 @@
+{
+  "rows": [
+    "...........xxxx...............xxxx...........",
+    "...........xxxx...............xxxx...........",
+    "...........xxxx...............xxxx...........",
+    "...........xxxx...............xxxx...........",
+    ".oooLN.....xxxx....oooNooo....xxxx.....NLooo.",
+    "..rkkk.....xxxx.....kkkkk.....xxxx.....kkkr..",
+    "..prrN.....xxxx.....NLLLN.....xxxx.....Nrrp..",
+    "rrLLLr.....xxxx.....NSSSN.....xxxx.....rLLLrr",
+    "..rrrkrx...xxxx.....kkkkk.....xxxx...xrkrrr..",
+    "..NrrrrxxxxxxxxxxxxxTSSSTxxxxxxxxxxxxxrrrrN..",
+    "..NLTrrxxxxxxxxxxxxxTSSSTxxxxxxxxxxxxxrrTLN..",
+    "..kkTTTxxxxxxxxxxxxxTSSSTxxxxxxxxxxxxxTTTkk..",
+    "..NLLL...xxxxxxx....TcRcT....xxxxxxx...LLLN..",
+    "..NLLL.....Nrrrr....NTTTN....rrrrN.....LLLN..",
+    "..kkkk.....xxxxxx...kkkkk...xxxxxx.....kkkk..",
+    "..NLLN.....xxxx.....NTTTN.....xxxx.....NLLN..",
+    "..NHHN.....xxxx.....NHHHN.....xxxx.....NHHN..",
+    "..kkkk.....xxxx.....kkkkk.....xxxx.....kkkk..",
+    "..NHHN.....xxxx.....HHHHH.....xxxx.....NHHN..",
+    "..NhTTTTTTxxxxxxxTTTTTTTTTTTxxxxxxxTTTTTThN..",
+    "..kkTTTTTTxxxxxxxTTTTTTTTTTTxxxxxxxTTTTTTkk..",
+    "..phTTTTTTxxxxxxxTTTTTTTTTTTxxxxxxxTTTTTThp..",
+    "..NHHH.....xxxx.....NHHHN.....xxxx.....HHHN..",
+    "..kkkk.....kkkk.....kkkkk.....kkkk.....kkkk..",
+    "..pHHN.....NHHH.....NHHHN.....HHHN.....NHHp..",
+    "..NhhN.....NhhN.....NhhhN.....NhhN.....NhhN..",
+    "..kkkk.....kkkk.....kkkkk.....kkkk.....kkkk..",
+    "..NpNh.....NpNN.....NhhhN.....NNpN.....hNpN..",
+    "....................NHHHN....................",
+    "....................kkkkk....................",
+    "....................NHHHN....................",
+    "....................hNNNh...................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.281,
+        0.27,
+        0.261
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.4,
+        0.38,
+        0.369
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.54,
+        0.51,
+        0.486
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.648,
+        0.61,
+        0.567
+      ],
+      "height": 15
+    },
+    "T": {
+      "color": [
+        0.594,
+        0.56,
+        0.531
+      ],
+      "height": 13
+    },
+    "k": {
+      "color": [
+        0.184,
+        0.18,
+        0.18
+      ],
+      "height": 7
+    },
+    "r": {
+      "color": [
+        0.14,
+        0.13,
+        0.135
+      ],
+      "height": 5
+    },
+    "o": {
+      "color": [
+        0.086,
+        0.08,
+        0.081
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.238,
+        0.23,
+        0.225
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.8,
+        0.16,
+        0.12
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.2,
+        0.1
+      ],
+      "height": 17
+    },
+    "L": {
+      "color": [
+        0.45,
+        0.2,
+        0.45
+      ],
+      "height": 9
+    }
+  },
+  "engines": [
+    {
+      "x": 2,
+      "y": 4,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 42,
+      "y": 4,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 24,
+      "y": 4,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 20,
+      "y": 4,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 39,
+      "y": 4,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 24,
+      "y": 9,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 20,
+      "y": 9,
+      "width": 4.9,
+      "length": 20,
+      "towards": "top"
+    }
+  ]
+}

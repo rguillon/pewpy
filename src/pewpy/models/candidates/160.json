@@ -1,14 +1,26 @@
 {
   "rows": [
-    "....oHSHo....",
-    "ok..NhShN..ko",
-    "rWWkNkSkNkWWr",
-    "r.rqNhShNqr.r",
-    "..r.NHSHN.r..",
-    ".....hRh.....",
-    ".....kSk.....",
-    ".....pSp.....",
-    "......S......"
+    "........oHN....",
+    "....oNNNShhoNNo",
+    "....NNNNSkkNNNN",
+    "....NN..NLN..NN",
+    "....NN..NLL..NN",
+    "....NN..SLL..NN",
+    "....NN..NLN..NN",
+    "....NN..Skk..NN",
+    "....NN..NHN..NN",
+    "...kpN..Nhh..NN",
+    "...wNN..SHN..NN",
+    "...wNN..ShN..NN",
+    "..kwNN..Skk..NN",
+    "WWwWNN..Nhh..NN",
+    "..WwNN..SHN..NN",
+    "..qwNN..Nhh..NN",
+    ".kwwNN..SHN..NN",
+    ".wwWNN..Skk..NN",
+    ".qWwNcccSHHNNNN",
+    ".WwwNcRcShhNNNN",
+    "WWWW....NHH...."
   ],
   "palette": {
     "N": {
@@ -51,13 +63,13 @@
       ],
       "height": 1
     },
-    "r": {
+    "w": {
       "color": [
-        0.088,
-        0.088,
-        0.111
+        0.218,
+        0.224,
+        0.266
       ],
-      "height": 3
+      "height": 1
     },
     "W": {
       "color": [
@@ -74,6 +86,14 @@
         0.067
       ],
       "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 5
     },
     "p": {
       "color": [
@@ -98,34 +118,42 @@
         0.4
       ],
       "height": 5
+    },
+    "L": {
+      "color": [
+        0.45,
+        0.2,
+        0.45
+      ],
+      "height": 3
     }
   },
   "engines": [
     {
-      "x": 4,
-      "y": 0,
-      "width": 2.4,
-      "length": 6,
-      "towards": "top"
-    },
-    {
       "x": 8,
       "y": 0,
-      "width": 2.4,
+      "width": 3.0,
       "length": 6,
       "towards": "top"
     },
     {
-      "x": 0,
+      "x": 4,
       "y": 1,
-      "width": 2.4,
+      "width": 3.0,
       "length": 6,
       "towards": "top"
     },
     {
-      "x": 12,
+      "x": 11,
       "y": 1,
-      "width": 2.4,
+      "width": 3.0,
+      "length": 6,
+      "towards": "top"
+    },
+    {
+      "x": 14,
+      "y": 1,
+      "width": 3.0,
       "length": 6,
       "towards": "top"
     }

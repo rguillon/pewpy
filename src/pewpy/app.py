@@ -62,6 +62,7 @@ from pewpy.enemies import (
     Weaver,
 )
 from pewpy.entities import Bullet, Entity, Pickup
+from pewpy.fleet import FLEET
 from pewpy.level import Level, load_worlds
 from pewpy.level_preview import LevelPreview
 from pewpy.menu import Menu, MenuItem
@@ -133,15 +134,21 @@ SHOWCASE_STATES = frozenset({
     State.MODELS,
     State.BOSSES,
     State.CANDIDATES,
+    State.BOSS_CANDIDATES,
 })  # screens showing models in a turning circle
 # Things launched by others rather than placed by the levels: missiles, rockets, bombs, mines.
 PROJECTILES: tuple[type[Entity], ...] = (Missile, Rocket, HomingMissile, ClusterBomb, Mine)
 PICKUPS_PAGE = "Player, pickups and projectiles"
+FLEET_KINDS: tuple[type[Entity], ...] = tuple(FLEET.values())  # the second fleet (fleet.py), on pages of their own
 # The Models screen's pages (too many models for one circle): which ship models each shows (the first also shows
 # the pickups).
 MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
     PICKUPS_PAGE: lambda kind: kind is Player or kind in PROJECTILES,
-    "Flying enemies": lambda kind: issubclass(kind, Enemy) and not kind.ground and kind not in PROJECTILES,
+    "Flying enemies": lambda kind: (
+        issubclass(kind, Enemy) and not kind.ground and kind not in PROJECTILES + FLEET_KINDS
+    ),
+    "The fleet (1/2)": lambda kind: kind in FLEET_KINDS[: len(FLEET_KINDS) // 2],
+    "The fleet (2/2)": lambda kind: kind in FLEET_KINDS[len(FLEET_KINDS) // 2 :],
     "Ground enemies": lambda kind: issubclass(kind, Enemy) and kind.ground,
 }
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
@@ -176,6 +183,12 @@ HEALTH_BAR_WIDTH = 0.5
 HEALTH_BAR_HEIGHT = 0.025
 CANDIDATES_PER_PAGE = 10
 SHOWCASE_CANDIDATE_SIZE = 0.26  # the Candidates screen's models (see showcase.MODEL_SIZE)...
+BOSS_CANDIDATES_PER_PAGE = 4
+BOSS_CANDIDATE_RADIUS = 0.75
+# How much wider than tall the model screens' circle is: an ellipse using a wide screen's sides (1 on a 3:4 screen).
+SHOWCASE_STRETCH = max(1.0, GAME_ASPECT / 0.75)
+SHOWCASE_BOSS_CANDIDATE_SIZE = 0.42  # bigger than the Bosses screen's: some candidates are huge...
+BOSS_CANDIDATE_SCALE = 125  # ...a boss this many cubes across fills that size (all drawn to the same scale)
 CANDIDATE_SCALE = 32  # ...a model this many cubes across fills that size: they're all drawn to the same scale
 SHOWCASE_BOSS_SIZE = 0.28  # the Models screen's boss pages: fewer models, drawn bigger (see showcase.MODEL_SIZE)
 SHOWCASE_BOSS_RADIUS = 0.6  # and a smaller circle, so the names fit on the screen
@@ -376,7 +389,8 @@ class PewPewApp(ShowBase):
                 MenuItem("Start", go(State.SHIP_SELECT)),
                 MenuItem("Models", go(State.MODELS)),
                 MenuItem("Bosses", go(State.BOSSES)),
-                MenuItem("Candidates", go(State.CANDIDATES)),
+                MenuItem("Enemy candidates", go(State.CANDIDATES)),
+                MenuItem("Boss candidates", go(State.BOSS_CANDIDATES)),
             ]
             return Menu("PEWPEW", [*items, MenuItem("Quit", self.userExit)])
         if state in SHOWCASE_STATES:
@@ -416,7 +430,9 @@ class PewPewApp(ShowBase):
             items.insert(0, MenuItem("Previous page", partial(self._turn_showcase_page, -1)))
         if len(titles) > 1:
             items.insert(0, MenuItem("Next page", partial(self._turn_showcase_page, 1)))
-        title = f"{self.states.state.name}\n{titles[self.showcase_page]}" + (f"\n{note}" if note else "")
+        title = f"{self.states.state.name.replace('_', ' ')}\n{titles[self.showcase_page]}" + (
+            f"\n{note}" if note else ""
+        )
         selected = items.index(reload_item) if note else 0
         return Menu(title, items, back=back.action, selected=selected)
 
@@ -429,11 +445,14 @@ class PewPewApp(ShowBase):
         if self.showcase:
             self.showcase.destroy()
         entries, size, radius = self._showcase_page(self.showcase_page)
-        self.showcase = ModelShowcase(entries, self.cam, size, radius)
+        if self.states.state is State.BOSS_CANDIDATES:
+            radius = BOSS_CANDIDATE_RADIUS  # big models: farther from the title and menu, up and down
+        self.showcase = ModelShowcase(entries, self.cam, size, radius, SHOWCASE_STRETCH)
 
     def _build_models(self) -> None:
         """Build every model from models.py (looked up by name, so a reloaded models.py is used)."""
         self.ship_models = {kind: getattr(models, name)() for kind, name in SHIP_MODELS.items()}
+        self.ship_models.update({kind: models.drawing_model(kind.drawing) for kind in FLEET.values()})
         # Explosions throw debris in the colors of what blew up.
         self.debris_colors = {kind.__name__: models.main_colors(model) for kind, model in self.ship_models.items()}
         self.shield_bubble = models.shield_bubble_model()
@@ -461,11 +480,13 @@ class PewPewApp(ShowBase):
     def _showcase_titles(self) -> list[str]:
         """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's one per
         world."""
-        if self.states.state is State.CANDIDATES:
-            count = len(models.candidate_names())
-            pages = max(1, math.ceil(count / CANDIDATES_PER_PAGE))
+        if self.states.state in (State.CANDIDATES, State.BOSS_CANDIDATES):
+            bosses = self.states.state is State.BOSS_CANDIDATES
+            count = len(models.boss_candidate_names() if bosses else models.candidate_names())
+            per_page = BOSS_CANDIDATES_PER_PAGE if bosses else CANDIDATES_PER_PAGE
+            pages = max(1, math.ceil(count / per_page))
             return [
-                f"{page * CANDIDATES_PER_PAGE + 1}-{min(count, (page + 1) * CANDIDATES_PER_PAGE)} ({page + 1}/{pages})"
+                f"{page * per_page + 1}-{min(count, (page + 1) * per_page)} ({page + 1}/{pages})"
                 for page in range(pages)
             ]
         if self.states.state is not State.BOSSES:
@@ -479,6 +500,10 @@ class PewPewApp(ShowBase):
         if self.states.state is State.CANDIDATES:
             names = models.candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
             return [self._candidate(name) for name in names], SHOWCASE_CANDIDATE_SIZE, showcase.RADIUS
+        if self.states.state is State.BOSS_CANDIDATES:
+            per_page = BOSS_CANDIDATES_PER_PAGE
+            names = models.boss_candidate_names()[index * per_page : (index + 1) * per_page]
+            return [self._boss_candidate(name) for name in names], SHOWCASE_BOSS_CANDIDATE_SIZE, SHOWCASE_BOSS_RADIUS
         if self.states.state is not State.BOSSES:
             return self._showcase_entries(list(MODEL_PAGES)[index]), showcase.MODEL_SIZE, showcase.RADIUS
         world = self.worlds[index]
@@ -512,6 +537,20 @@ class PewPewApp(ShowBase):
         rows, _ = models.load_drawing(name)
         label = f"#{name.rsplit('/', 1)[-1]}  {len(rows[0])}x{len(rows)}"
         return label, _fitted(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
+
+    def _boss_candidate(self, name: str) -> tuple[str, NodePath]:
+        """A boss candidate with its parts in place, numbered like its file, all drawn to the same scale (read again
+        every time, like the enemy candidates)."""
+        rows, _ = models.load_drawing(name)
+        whole = NodePath(name)
+        models.drawing_model(name).reparentTo(whole)
+        parts = models.boss_candidate_parts(name)
+        for drawing, x, y in parts:
+            piece = models.drawing_model(drawing)
+            piece.reparentTo(whole)
+            piece.setPos(x * config.MODEL_VOXEL, 0, y * config.MODEL_VOXEL)
+        label = f"#{name.rsplit('/', 1)[-1]}  {len(rows[0])}x{len(rows)} +{len(parts)}"  # size, and parts
+        return label, _fitted(whole, BOSS_CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _whole_boss(self, spec: BossSpec) -> NodePath:
         """A boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
@@ -906,7 +945,7 @@ class PewPewApp(ShowBase):
         if isinstance(enemy, Turret | Tank):
             node.find("**/barrel").setR(models.facing_roll(player.x - enemy.x, player.y - enemy.y))
         elif isinstance(enemy, Swarmer | Rocket | HomingMissile) or (
-            isinstance(enemy, Diver) and enemy.phase == "dive"
+            (isinstance(enemy, Diver) and enemy.phase == "dive") or (enemy.faces_travel and (enemy.vx or enemy.vy))
         ):
             node.setR(models.facing_roll(enemy.vx, enemy.vy))  # point where it's flying
         elif isinstance(enemy, Mine | ClusterBomb):

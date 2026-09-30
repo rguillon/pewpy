@@ -1,0 +1,176 @@
+{
+  "rows": [
+    "......xxxxxxxxoooNoooNoooooNoooNoooxxxxxxxx......",
+    "......xxxxxxxxxhhhhhhhhhhhhhhhhhhhxxxxxxxxx......",
+    "......xxxxxxxxxkkkkkkkkkkkkkkkkkkkxxxxxxxxx......",
+    "......xxxxxxxxxhhhhhhhhhhhhhhhhhhhxxxxxxxxx......",
+    "......xxxxxxxxxxxxxxxxxHHHxxxxxxxxxxxxxxxxx......",
+    "......xxxxxxxxxxxxxxxxxhhhxxxxxxxxxxxxxxxxx......",
+    "......xxxxxxxxxxxxxxxxxkkkxxxxxxxxxxxxxxxxx......",
+    "......xxxxxxxxxxxxxxxxxhhhxxxxxxxxxxxxxxxxx......",
+    "......NHHHxxxxxxxxxxxxxHHHxxxxxxxxxxxxxHHHN......",
+    "......NhhhxxxxxxxxxxxxxhhhxxxxxxxxxxxxxhhhN......",
+    "r.....kkkkxxxxxxxxxxxxxkkkxxxxxxxxxxxxxkkkk.....r",
+    ".rr...phhhxxxxxxxxxxxxxSSSxxxxxxxxxxxxxhhhp...rr.",
+    "...rr.NHHHxxxxxxxxxxxxxSSSxxxxxxxxxxxxxHHHN.rr...",
+    ".....rrrhhxxxxxxxxxxxxxSSSxxxxxxxxxxxxxhhrrr.....",
+    "......kkrrxxxxxxxxxxxxxkkkxxxxxxxxxxxxxrrkk......",
+    "......NhhhxxxxxxxxxxxxxSSSxxxxxxxxxxxxxhhhN......",
+    "......NNNNxxxxxxxxxxxxxcRcxxxxxxxxxxxxxNNNN......",
+    "......NNNNxxxxxxx.....xNNNx.....xxxxxxxNNNN......",
+    ".......NNNx......x....xNNNx....x......xNNN.......",
+    ".......NNpx...........xNpNx...........xpNN.......",
+    ".......NNNx...........xNNNx...........xNNN.......",
+    ".......NNNx...........xNNNx...........xNNN.......",
+    ".......NNNx............NNN............xNNN.......",
+    ".......NNNN............NNN............NNNN.......",
+    ".......NNN.............NNN.............NNN.......",
+    ".......NNN.............NNN.............NNN.......",
+    ".......NNN.............NNN.............NNN.......",
+    "........Np.............NpN.............pN........",
+    "........NN.............NNN.............NN........",
+    "........NN.............NNN.............NN........",
+    "........NN.............NNN.............NN........",
+    "........NN.............NNN.............NN........",
+    "........NN.............NNN.............NN........",
+    "........N...............N...............N........",
+    "........N...............N...............N........",
+    "........................p........................",
+    "........................N........................",
+    "........................N........................"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.299,
+        0.284,
+        0.246
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.425,
+        0.399,
+        0.348
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.575,
+        0.536,
+        0.459
+      ],
+      "height": 9
+    },
+    "S": {
+      "color": [
+        0.69,
+        0.64,
+        0.535
+      ],
+      "height": 15
+    },
+    "k": {
+      "color": [
+        0.196,
+        0.189,
+        0.17
+      ],
+      "height": 7
+    },
+    "r": {
+      "color": [
+        0.149,
+        0.137,
+        0.128
+      ],
+      "height": 5
+    },
+    "o": {
+      "color": [
+        0.092,
+        0.084,
+        0.076
+      ],
+      "height": 9
+    },
+    "x": {
+      "color": [
+        0.253,
+        0.242,
+        0.212
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 15
+    },
+    "p": {
+      "color": [
+        0.8,
+        0.65,
+        0.12
+      ],
+      "height": 11
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.85,
+        0.2
+      ],
+      "height": 17
+    }
+  },
+  "engines": [
+    {
+      "x": 33,
+      "y": 0,
+      "width": 5.6,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "width": 5.6,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 19,
+      "y": 0,
+      "width": 5.6,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 29,
+      "y": 0,
+      "width": 5.6,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 25,
+      "y": 0,
+      "width": 5.6,
+      "length": 20,
+      "towards": "top"
+    },
+    {
+      "x": 23,
+      "y": 0,
+      "width": 5.6,
+      "length": 20,
+      "towards": "top"
+    }
+  ]
+}

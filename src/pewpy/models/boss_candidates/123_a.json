@@ -1,0 +1,30 @@
+{
+  "rows": [
+    "ttttttt",
+    "ttttttt",
+    "ttttttt",
+    "ttttttt",
+    "trtrrtr",
+    ".r.rr.r",
+    ".r.rr.r",
+    ".r.rr.r"
+  ],
+  "palette": {
+    "t": {
+      "color": [
+        0.27,
+        0.301,
+        0.363
+      ],
+      "height": 9
+    },
+    "r": {
+      "color": [
+        0.117,
+        0.126,
+        0.165
+      ],
+      "height": 5
+    }
+  }
+}

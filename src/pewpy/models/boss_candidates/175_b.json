@@ -1,0 +1,70 @@
+{
+  "rows": [
+    ".................N.................",
+    "...............NNNNN...............",
+    ".............NNNNNNNNN.............",
+    "...........NNNNNNNNNNNNN...........",
+    "..........NNNNNNNNNNNNNNN..........",
+    "........NNNNNNNNNNNNNNNNNNN........",
+    "......NNNNNNNNNNNtNNNNNNNNNNN......",
+    ".....NNNNNNNNNNtttttNNNNNNNNNN.....",
+    "...NNNNNNNNNNtttttttttNNNNNNNNNN...",
+    ".NNNNNNNNNNtttttttttttttNNNNNNNNNN.",
+    "NNNNNNNNNNtttttttttttttttNNNNNNNNNN",
+    "NNNNNNNNtttttttttttttttttttNNNNNNNN",
+    "NNNNNNtttttttttttttttttttttttNNNNNN",
+    "NNNNNtttttttttttttttttttttttttNNNNN",
+    "NNNNNttttttttttGGGGGttttttttttNNNNN",
+    "NNNNNtttttttttGGGGGGGtttttttttNNNNN",
+    "NNNNNttttttttGGGGGGGGGttttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNtttttttGGGGGGGGGGGtttttttNNNNN",
+    "NNNNNttttttttGGGGGGGGGttttttttNNNNN",
+    "NNNNNtttttttttGGGGGGGtttttttttNNNNN",
+    "NNNNNttttttttttGGGGGttttttttttNNNNN",
+    "NNNNNtttttttttttttttttttttttttNNNNN",
+    "NNNNNNtttttttttttttttttttttttNNNNNN",
+    "NNNNNNNNtttttttttttttttttttNNNNNNNN",
+    "NNNNNNNNNNtttttttttttttttNNNNNNNNNN",
+    ".NNNNNNNNNNtttttttttttttNNNNNNNNNN.",
+    "...NNNNNNNNNNtttttttttNNNNNNNNNN...",
+    ".....NNNNNNNNNNtttttNNNNNNNNNN.....",
+    "......NNNNNNNNNNNtNNNNNNNNNNN......",
+    "........NNNNNNNNNNNNNNNNNNN........",
+    "..........NNNNNNNNNNNNNNN..........",
+    "...........NNNNNNNNNNNNN...........",
+    ".............NNNNNNNNN.............",
+    "...............NNNNN...............",
+    ".................N................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.26,
+        0.27,
+        0.29
+      ],
+      "height": 9
+    },
+    "t": {
+      "color": [
+        0.3,
+        0.31,
+        0.33
+      ],
+      "height": 9
+    },
+    "G": {
+      "color": [
+        0.35,
+        1.0,
+        0.4
+      ],
+      "height": 11
+    }
+  }
+}

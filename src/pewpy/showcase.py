@@ -19,24 +19,31 @@ TURN_SPEED = 6.0  # degrees per second, the whole circle
 
 class ModelShowcase:
     def __init__(
-        self, entries: list[tuple[str, NodePath]], camera: NodePath, size: float = MODEL_SIZE, radius: float = RADIUS
+        self,
+        entries: list[tuple[str, NodePath]],
+        camera: NodePath,
+        size: float = MODEL_SIZE,
+        radius: float = RADIUS,
+        stretch: float = 1.0,
     ) -> None:
         """`entries`: (name, model) pairs; the models are copied, so they can be shared with the game. `size`: how
-        big a 1 x 1 x 1 model is drawn; `radius`: the circle's.
+        big a 1 x 1 x 1 model is drawn; `radius`: the circle's, up and down; `stretch`: how much wider it is across
+        (on a wide screen, an ellipse uses the room on the sides).
 
         The circle hangs in front of the camera, facing it, so it's round and centered on the screen (the game's
-        camera is tilted: on the play plane it would look squashed).
+        camera is tilted: on the play plane it would look squashed). The models go round it slowly, staying upright.
         """
         self.root = camera.attachNewNode("showcase")
         self.root.setY(DISTANCE)
         self.circle = self.root.attachNewNode("circle")
+        self.radius, self.stretch = radius, stretch
+        self.angles: list[float] = []
         self.slots: list[NodePath] = []
         self.spinners: list[NodePath] = []
         self.time = 0.0
         for index, (name, model) in enumerate(entries):
-            angle = 2 * math.pi * index / len(entries) + math.pi / 2  # the first one at the top
+            self.angles.append(2 * math.pi * index / len(entries) + math.pi / 2)  # the first one at the top
             slot = self.circle.attachNewNode(name)
-            slot.setPos(math.cos(angle) * radius, 0, math.sin(angle) * radius)
             spinner = slot.attachNewNode("spinner")
             model.copyTo(spinner)
             spinner.setScale(size)
@@ -55,10 +62,10 @@ class ModelShowcase:
 
     def update(self, dt: float) -> None:
         self.time += dt
-        turn = self.time * TURN_SPEED
-        self.circle.setR(turn)  # the circle turns in the screen's plane...
-        for slot, spinner in zip(self.slots, self.spinners, strict=True):
-            slot.setR(-turn)  # ...but each model and its name stay upright
+        turn = -math.radians(self.time * TURN_SPEED)  # clockwise
+        for angle, slot, spinner in zip(self.angles, self.slots, self.spinners, strict=True):
+            across, up = math.cos(angle + turn), math.sin(angle + turn)
+            slot.setPos(across * self.radius * self.stretch, 0, up * self.radius)
             spinner.setH(self.time * SPIN_SPEED)
 
     def destroy(self) -> None:

@@ -1,0 +1,102 @@
+{
+  "rows": [
+    ".............................x.............................",
+    "......................xxxxxxxxxxxxxxx......................",
+    "....................xxxxxxxxxxxxxxxxxxx....................",
+    "..................xxxxxxxxxxxxxxxxxxxxxxx..................",
+    "................xxxxxxxxxxxxxxxxxxxxxxxxxxx................",
+    "...............xxxxxxxxxxxxxxxxxxxxxxxxxxxxx...............",
+    "..............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..............",
+    ".............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.............",
+    "............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx............",
+    "............xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx............",
+    "kkkkkkkkkxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkkkkkkkkk",
+    "WWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWWWWWWWWW",
+    "qwwwWwwwWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWwwwWwwwq",
+    "WWWWWWWWWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxWWWWWWWWW",
+    "wwWwwwWwwwWwwwWwwwWHHxxx.xxxxxxxxx.xxxHHWwwwWwwwWwwwWwwwWww",
+    "qWWWWWWWWWWWWWWWWWWhhxx..xxxxxxxxx..xxhhWWWWWWWWWWWWWWWWWWq",
+    "WwwwWwwwWwwwWwwwWwwHHx....xxxxxxx....xHHwwWwwwWwwwWwwwWwwwW",
+    "WWWWWWWWWWWWWWWWWWWkk.....xxxxxxx.....kkWWWWWWWWWWWWWWWWWWW",
+    "qwWwwwWwwwWwwwWwwwWHp......xxxxx......pHWwwwWwwwWwwwWwwwWwq",
+    "WWWWWWWWWWWWWWWWWWWN........xxx........NWWWWWWWWWWWWWWWWWWW",
+    ".............NHHHHHN...................NHHHHHN.............",
+    "..............Nhhhhp...................phhhhN..............",
+    "...............NHHN.....................NHHN...............",
+    ".................hN.....................Nh................."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.351,
+        0.365,
+        0.392
+      ],
+      "height": 11
+    },
+    "h": {
+      "color": [
+        0.499,
+        0.513,
+        0.553
+      ],
+      "height": 9
+    },
+    "H": {
+      "color": [
+        0.675,
+        0.689,
+        0.729
+      ],
+      "height": 9
+    },
+    "k": {
+      "color": [
+        0.23,
+        0.243,
+        0.27
+      ],
+      "height": 7
+    },
+    "w": {
+      "color": [
+        0.432,
+        0.446,
+        0.486
+      ],
+      "height": 3
+    },
+    "W": {
+      "color": [
+        0.608,
+        0.621,
+        0.661
+      ],
+      "height": 3
+    },
+    "x": {
+      "color": [
+        0.297,
+        0.311,
+        0.338
+      ],
+      "height": 3
+    },
+    "p": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 11
+    },
+    "q": {
+      "color": [
+        0.9,
+        0.45,
+        0.1
+      ],
+      "height": 3
+    }
+  }
+}

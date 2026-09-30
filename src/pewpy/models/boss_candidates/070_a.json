@@ -1,0 +1,72 @@
+{
+  "rows": [
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "..................ttttt..................",
+    "...............ttttttttttt...............",
+    ".............ttttttttttttttt.............",
+    "............ttttttttttttttttt............",
+    "...........ttttttttttttttttttt...........",
+    "..........ttttttttttttttttttttt..........",
+    ".........ttttttttttttttttttttttt.........",
+    "........ttttttttttGGGGGtttttttttt........",
+    "........ttttttttGGGGGGGGGtttttttt........",
+    "........tttttttGGGGGGGGGGGttttttt........",
+    ".......ttttttttGGGGGGGGGGGtttttttt.......",
+    ".......tttttttGGGGGGGGGGGGGttttttt.......",
+    ".......tttttttGGGGGGGGGGGGGttttttt.......",
+    ".......tttttttGGGGGGGGGGGGGtttttttWWWWWWW",
+    "WWWWWWWtttttttGGGGGGGGGGGGGttttttt.......",
+    ".......tttttttGGGGGGGGGGGGGttttttt.......",
+    ".......tttttttGGGGGGGGGGGGGttttttt.......",
+    ".......ttttttttGGGGGGGGGGGtttttttt.......",
+    "........tttttttGGGGGGGGGGGttttttt........",
+    "........ttttttttGGGGGGGGGtttttttt........",
+    "........ttttttttttGGGGGtttttttttt........",
+    ".........ttttttttttttttttttttttt.........",
+    "..........ttttttttttttttttttttt..........",
+    "...........ttttttttttttttttttt...........",
+    "............ttttttttttttttttt............",
+    ".............ttttttttttttttt.............",
+    "...............ttttttttttt...............",
+    "..................ttttt..................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W....................",
+    "....................W...................."
+  ],
+  "palette": {
+    "t": {
+      "color": [
+        0.345,
+        0.326,
+        0.281
+      ],
+      "height": 9
+    },
+    "W": {
+      "color": [
+        0.517,
+        0.483,
+        0.416
+      ],
+      "height": 5
+    },
+    "G": {
+      "color": [
+        0.35,
+        1.0,
+        0.4
+      ],
+      "height": 11
+    }
+  }
+}

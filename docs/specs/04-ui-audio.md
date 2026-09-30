@@ -8,7 +8,8 @@
 Main menu -> Ship select -> World select -> Level select (the world's 8 levels) -> Playing <-> Pause
 Main menu <-> Models
 Main menu <-> Bosses
-Main menu <-> Candidates
+Main menu <-> Enemy candidates
+Main menu <-> Boss candidates
 Playing -> Level complete ("World complete" after a world's last level) -> next level (Playing, into the next
 world after a world's last level), or after the very last level: "YOU WIN" -> Main menu
 Playing -> Game over -> Continue (restart the level) or Main menu
@@ -27,7 +28,7 @@ Pause -> Main menu
   and its description and numbers show at the bottom; then the world select: one entry per world, then Back to the ship select; then that
   world's level select: its 8
   levels, like "2-5 Harvest Dusk", then Back, with a window above the list showing the highlighted level's
-  ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Candidates, Quit *(entries are a
+  ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Enemy candidates, Boss candidates, Quit *(entries are a
   placeholder, see decisions.md)*
 
 ### Models
@@ -47,12 +48,20 @@ Pause -> Main menu
 - Entries: Next page (after the last world, back to the first), Previous page, Reload models, Back. Escape goes
   back to the main menu.
 
-### Candidates
+### Enemy candidates
 
 - For picking new enemies: model candidates (drawings in `src/pewpy/models/candidates/`, numbered 001, 002...; not
   used in the game) on show like the Models screen, 10 per page, each labelled with its number ("#007"); the title
   says which numbers and the page, like "11-20 (2/10)".
 - Entries: Next page, Previous page, Reload models, Back. Drawings are read again whenever a page is shown.
+- Made by `make candidates` (tools/make_candidates.py).
+
+### Boss candidates
+
+- For picking new bosses: boss candidates (`src/pewpy/models/boss_candidates/`: a core, its parts' drawings and
+  where they go, see tools/make_boss_candidates.py; not used in the game), each whole with its parts, 4 per page,
+  all drawn to the same scale, labelled with their number, size in cubes and how many parts ("#007  51x42 +2").
+- Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`.
 
 ### Options
 

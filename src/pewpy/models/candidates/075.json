@@ -1,20 +1,16 @@
 {
   "rows": [
-    ".ok.......HSH.......ko.",
-    ".Wwkk...hhhShhh...kkwW.",
-    "..WWw..hkkkSkkkh..wWW..",
-    "....q.NHHHHSHHHHN.q....",
-    "......hhhhhShhhhh......",
-    ".....phhhhhShhhhhp.....",
-    ".....kkkkkkSkkkkkk.....",
-    ".....NhhhhhShhhhhN.....",
-    ".....hhhp.ccc.phhh.....",
-    "...tttHHH.cRc.HHHttt...",
-    "...tttkkk.NSN.kkkttt...",
-    "...trthhh.....hhhtrt...",
-    "....rr.H.......H.rr....",
-    "kkkkrr...........rrkkkk",
-    "WWWWWr...........rWWWWW"
+    "...o.NoN.o...",
+    "k..N.NSN.N..k",
+    "WrkN.kSk.NkrW",
+    ".rWNkLSLkNWr.",
+    ".r.NWHSHWN.r.",
+    ".r.NWkSkWN.r.",
+    ".....ccc.....",
+    ".....cRc.....",
+    "....WkSkW....",
+    ".....NSN.....",
+    "......S......"
   ],
   "palette": {
     "N": {
@@ -24,14 +20,6 @@
         0.226
       ],
       "height": 5
-    },
-    "h": {
-      "color": [
-        0.351,
-        0.38,
-        0.32
-      ],
-      "height": 3
     },
     "H": {
       "color": [
@@ -65,14 +53,6 @@
       ],
       "height": 3
     },
-    "w": {
-      "color": [
-        0.304,
-        0.33,
-        0.281
-      ],
-      "height": 1
-    },
     "W": {
       "color": [
         0.427,
@@ -89,14 +69,6 @@
       ],
       "height": 3
     },
-    "t": {
-      "color": [
-        0.285,
-        0.31,
-        0.257
-      ],
-      "height": 5
-    },
     "c": {
       "color": [
         0.08,
@@ -105,44 +77,43 @@
       ],
       "height": 5
     },
-    "p": {
-      "color": [
-        0.5,
-        0.2,
-        0.72
-      ],
-      "height": 3
-    },
-    "q": {
-      "color": [
-        0.5,
-        0.2,
-        0.72
-      ],
-      "height": 1
-    },
     "R": {
       "color": [
-        0.75,
-        0.35,
+        0.3,
+        0.95,
         1.0
       ],
       "height": 5
+    },
+    "L": {
+      "color": [
+        0.55,
+        0.12,
+        0.1
+      ],
+      "height": 3
     }
   },
   "engines": [
     {
-      "x": 1,
+      "x": 3,
       "y": 0,
-      "width": 3.0,
-      "length": 6,
+      "width": 2.4,
+      "length": 4,
       "towards": "top"
     },
     {
-      "x": 21,
+      "x": 6,
       "y": 0,
-      "width": 3.0,
-      "length": 6,
+      "width": 2.4,
+      "length": 4,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "width": 2.4,
+      "length": 4,
       "towards": "top"
     }
   ]

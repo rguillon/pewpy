@@ -262,3 +262,15 @@ def test_wind_blows_clouds_around_the_sides():
     layer = DriftLayer("mist", 0.1, AREA, [cloud])
     layer.update(1.0, scroll_speed=0.0)
     assert AREA.left - cloud.size <= cloud.x < AREA.left + 0.1  # gone off the right, back on the left
+
+
+def test_clouds_always_float_above_the_highest_ground():
+    from pewpy.background import MIST_LAYERS, mist_depths
+    from pewpy.terrain import BIOMES
+
+    for kind, biome in BIOMES.items():
+        top = biome.depth - biome.max_height  # the ground's closest point to the ships
+        depths = mist_depths(kind)
+        assert all(depth <= top * 0.8 for depth in depths), kind  # clearly above it, even the peaks
+        assert all(depth <= deepest for depth, (deepest, _) in zip(depths, MIST_LAYERS, strict=True))
+        assert all(depth > 0 for depth in depths)  # still behind the ships
