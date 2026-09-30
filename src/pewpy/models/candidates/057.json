@@ -1,0 +1,138 @@
+{
+  "rows": [
+    "oNN...oNN..",
+    "NNN...NNN..",
+    "NNN...NNN..",
+    "NNNo..NNN..",
+    "NpNN..NNN..",
+    "NNNh..NNN..",
+    "NNNL..NNN..",
+    "NNww.kwNN..",
+    "NNww.wwNN..",
+    "NNNh.rNNN..",
+    "NNNH..rNN..",
+    "NNNN.NrNN..",
+    "NNNk.NrNN..",
+    "NNNh.NNrN..",
+    "NNNN.NNNr..",
+    "pNNh.NNNr..",
+    "NNNp.NNNr..",
+    "ccNh.pNNNr.",
+    ".rS..NN...r",
+    ".rN..NN...r",
+    "..S..N....."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.333,
+        0.369,
+        0.451
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.45,
+        0.495,
+        0.594
+      ],
+      "height": 3
+    },
+    "S": {
+      "color": [
+        0.54,
+        0.592,
+        0.693
+      ],
+      "height": 5
+    },
+    "k": {
+      "color": [
+        0.153,
+        0.175,
+        0.22
+      ],
+      "height": 1
+    },
+    "r": {
+      "color": [
+        0.117,
+        0.126,
+        0.165
+      ],
+      "height": 3
+    },
+    "w": {
+      "color": [
+        0.288,
+        0.32,
+        0.396
+      ],
+      "height": 1
+    },
+    "o": {
+      "color": [
+        0.072,
+        0.078,
+        0.099
+      ],
+      "height": 3
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 5
+    },
+    "p": {
+      "color": [
+        0.5,
+        0.2,
+        0.72
+      ],
+      "height": 3
+    },
+    "L": {
+      "color": [
+        0.3,
+        0.3,
+        0.33
+      ],
+      "height": 3
+    }
+  },
+  "engines": [
+    {
+      "x": 0,
+      "y": 0,
+      "width": 3.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "width": 3.0,
+      "length": 7,
+      "towards": "top"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "width": 3.0,
+      "length": 7,
+      "towards": "top"
+    }
+  ]
+}

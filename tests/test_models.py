@@ -419,3 +419,16 @@ def test_ships_with_engines_have_flames():
     assert len(models.player_model().findAllMatches("**/flame")) == 2
     assert len(models.missile_model().findAllMatches("**/flame")) == 1
     assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground
+
+
+def test_every_model_candidate_loads_and_builds_with_its_engines():
+    names = models.candidate_names()  # however many tools/make_candidates.py wrote
+    assert names
+    assert names[0] == "candidates/001"
+    for name in names:
+        rows, palette = models.load_drawing(name)
+        assert models.voxel_cells(rows, palette)
+        engines = models.load_engines(name)
+        assert engines  # every candidate flies
+        assert all(engine.towards == "top" for engine in engines)  # enemies point down: flames at the back
+        assert models.drawing_model(name).findAllMatches("**/flame").getNumPaths() == len(engines)

@@ -503,6 +503,7 @@ def facing_roll(dx: float, dz: float) -> float:
 
 METAL: Color = (0.55, 0.57, 0.62, 1)
 DRAWINGS_FOLDER = "models"  # src/pewpy/models/<name>.json, one voxel drawing each
+CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.json: drawings for possible new enemies, not in the game
 DRAWING_KEYS = {"rows", "palette"}
 OPTIONAL_DRAWING_KEYS = {"engines"}
 PALETTE_KEYS = {"color", "height"}
@@ -538,6 +539,13 @@ def make_cube(name: str = "cube") -> GeomNode:
     mesh = MeshBuilder()
     mesh.box(Vec3(0, 0, 0), Vec3(1, 1, 1), (1, 1, 1, 1))
     return mesh.build(name)
+
+
+def candidate_names() -> list[str]:
+    """The model candidates' drawings, like "candidates/001", in order."""
+    folder = data_folder() / DRAWINGS_FOLDER / CANDIDATES_FOLDER
+    files = sorted(entry.name for entry in folder.iterdir() if entry.name.endswith(".json"))
+    return [f"{CANDIDATES_FOLDER}/{name.removesuffix('.json')}" for name in files]
 
 
 def load_drawing(name: str) -> tuple[list[str], Palette]:

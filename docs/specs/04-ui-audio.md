@@ -8,6 +8,7 @@
 Main menu -> Ship select -> World select -> Level select (the world's 8 levels) -> Playing <-> Pause
 Main menu <-> Models
 Main menu <-> Bosses
+Main menu <-> Candidates
 Playing -> Level complete ("World complete" after a world's last level) -> next level (Playing, into the next
 world after a world's last level), or after the very last level: "YOU WIN" -> Main menu
 Playing -> Game over -> Continue (restart the level) or Main menu
@@ -25,7 +26,8 @@ Pause -> Main menu
   its name and bars comparing armor, speed, size and repair; the highlighted one is bigger, spins, has bright bars,
   and its description and numbers show at the bottom; then the world select: one entry per world, then Back to the ship select; then that
   world's level select: its 8
-  levels, like "2-5 Harvest Dusk", then Back; both open on the last level played), Models, Bosses, Quit *(entries are a
+  levels, like "2-5 Harvest Dusk", then Back, with a window above the list showing the highlighted level's
+  ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Candidates, Quit *(entries are a
   placeholder, see decisions.md)*
 
 ### Models
@@ -42,8 +44,15 @@ Pause -> Main menu
 
 - Like the Models screen, for the bosses: one page per world with its 8 bosses (whole, with their parts), bigger;
   the title says the world and the page, like "Orbit (1/5)".
-- Entries: Next page (after the last world, back to the first), Reload models, Back. Escape goes back to the main
-  menu.
+- Entries: Next page (after the last world, back to the first), Previous page, Reload models, Back. Escape goes
+  back to the main menu.
+
+### Candidates
+
+- For picking new enemies: model candidates (drawings in `src/pewpy/models/candidates/`, numbered 001, 002...; not
+  used in the game) on show like the Models screen, 10 per page, each labelled with its number ("#007"); the title
+  says which numbers and the page, like "11-20 (2/10)".
+- Entries: Next page, Previous page, Reload models, Back. Drawings are read again whenever a page is shown.
 
 ### Options
 

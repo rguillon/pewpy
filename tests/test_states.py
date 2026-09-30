@@ -83,3 +83,11 @@ def test_the_ship_select_goes_back_to_the_main_menu_and_the_world_select_back_to
     assert not machine.can_transition(State.MAIN_MENU)
     machine.transition(State.SHIP_SELECT)
     assert machine.state is State.SHIP_SELECT
+
+
+def test_the_candidates_screen_opens_from_the_main_menu_and_goes_back_to_it():
+    machine = StateMachine()
+    machine.transition(State.CANDIDATES)
+    assert not machine.can_transition(State.PLAYING)
+    machine.transition(State.MAIN_MENU)
+    assert machine.state is State.MAIN_MENU

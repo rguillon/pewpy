@@ -1,0 +1,142 @@
+{
+  "rows": [
+    "....oHHoHSHoHHo....",
+    "....hhhhhShhhhh....",
+    "....kkkkkSkkkkk....",
+    "....NhhhhShhhhN....",
+    "....NHHHHSHHHHN....",
+    "....kkkkkSkkkkk....",
+    "....hhhhhShhhhh....",
+    "tt..NhhhhShhhhN..tt",
+    "tt..kkkkkSkkkkk..tt",
+    "tt..phhhhShhhhp..tt",
+    "tt..NhhhhShhhhN..tt",
+    "....kkkkkSkkkkk....",
+    "tt..HHHHHSHHHHH..tt",
+    "tt..hhhhhShhhhh..tt",
+    "....kkkkkSkkkkk....",
+    "tt..hhhhhShhhhh..tt",
+    "tt..NHHHHSHHHHN..tt",
+    "tt......kSk......tt",
+    "tt...NhhhShhhN...tt",
+    ".....NhhhShhhN.....",
+    "tt...kkkkSkkkk...tt",
+    "tt...NhhhShhhN...tt",
+    "..NN.hhhhShhhh.NN..",
+    "ttNN.kkkkSkkkk.NNtt",
+    "ttNN.NHHHSHHHN.NNtt",
+    "..NN.NhhhShhhN.NN..",
+    "ttNN.kkkkSkkkk.NNtt",
+    "ttNN.hhhhShhhh.NNtt",
+    "..NN.HHHHSHHHH.NN..",
+    "..NN.kkkkSkkkk.NN..",
+    "..NN.NhhhRhhhN.NN..",
+    "..NN.NhhhShhhN.NN..",
+    "..NN.HHHHSHHHH.NN..",
+    "...N.NhhhShhhN.N..."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.234,
+        0.262,
+        0.319
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.333,
+        0.369,
+        0.451
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.45,
+        0.495,
+        0.594
+      ],
+      "height": 3
+    },
+    "S": {
+      "color": [
+        0.54,
+        0.592,
+        0.693
+      ],
+      "height": 5
+    },
+    "k": {
+      "color": [
+        0.153,
+        0.175,
+        0.22
+      ],
+      "height": 1
+    },
+    "o": {
+      "color": [
+        0.072,
+        0.078,
+        0.099
+      ],
+      "height": 3
+    },
+    "t": {
+      "color": [
+        0.27,
+        0.301,
+        0.363
+      ],
+      "height": 5
+    },
+    "p": {
+      "color": [
+        0.78,
+        0.18,
+        0.55
+      ],
+      "height": 3
+    },
+    "R": {
+      "color": [
+        1.0,
+        0.3,
+        0.75
+      ],
+      "height": 5
+    }
+  },
+  "engines": [
+    {
+      "x": 4,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    },
+    {
+      "x": 14,
+      "y": 0,
+      "width": 3.0,
+      "length": 5,
+      "towards": "top"
+    }
+  ]
+}

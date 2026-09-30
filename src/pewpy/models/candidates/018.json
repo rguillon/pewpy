@@ -1,0 +1,103 @@
+{
+  "rows": [
+    "...L..oNpo",
+    "..LLN.NNNN",
+    ".hkkkhpttt",
+    ".hhhhhNttt",
+    "NHHHHHNttt",
+    ".hhhhhNttt",
+    "..phh.....",
+    "..hRN..ttt",
+    "...H...ttt"
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.177,
+        0.184,
+        0.215
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.252,
+        0.258,
+        0.303
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.34,
+        0.347,
+        0.4
+      ],
+      "height": 3
+    },
+    "k": {
+      "color": [
+        0.116,
+        0.122,
+        0.148
+      ],
+      "height": 1
+    },
+    "o": {
+      "color": [
+        0.054,
+        0.054,
+        0.067
+      ],
+      "height": 3
+    },
+    "t": {
+      "color": [
+        0.204,
+        0.211,
+        0.244
+      ],
+      "height": 5
+    },
+    "p": {
+      "color": [
+        0.2,
+        0.65,
+        0.25
+      ],
+      "height": 3
+    },
+    "R": {
+      "color": [
+        0.35,
+        1.0,
+        0.4
+      ],
+      "height": 5
+    },
+    "L": {
+      "color": [
+        0.45,
+        0.2,
+        0.45
+      ],
+      "height": 3
+    }
+  },
+  "engines": [
+    {
+      "x": 6,
+      "y": 0,
+      "width": 2.4,
+      "length": 4,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "width": 2.4,
+      "length": 4,
+      "towards": "top"
+    }
+  ]
+}

@@ -5,9 +5,10 @@
 The game shall have a global state machine for each possible state to easily transition between states:
 
 The states are:
-- Main menu: start (to the world selection), models, bosses, or quit
+- Main menu: start (to the world selection), models, bosses, candidates, or quit
 - Models: every ship and pickup model on show, for working on them (see `04-ui-audio.md`)
 - Bosses: every boss on show, a world per page (see `04-ui-audio.md`)
+- Candidates: numbered model candidates for new enemies, 10 per page (see `04-ui-audio.md`)
 - World selection: select one of the worlds (see `03-levels.md`)
 - Level selection: select one of the world's levels to play
 - The actual game

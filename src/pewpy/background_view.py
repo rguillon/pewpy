@@ -41,6 +41,17 @@ LOOKS = {  # by Biome.look; the water has its own, in the shader
 }
 
 
+SPACE_COLOR: models.Color = (0.02, 0.02, 0.08, 1)  # what the camera clears to, outside the grounds
+
+
+def sky_color(kind: str, time_of_day: str = "day") -> models.Color:
+    """What shows where a background draws nothing (between clouds...): its sky, tinted by the time of day."""
+    biome = BIOMES.get(kind)
+    _, air = TIMES_OF_DAY[time_of_day]
+    red, green, blue, alpha = biome.sky if biome and biome.sky else SPACE_COLOR
+    return (red * air[0], green * air[1], blue * air[2], alpha)
+
+
 class CameraView:
     """How much of each background layer the camera sees (implements background.View)."""
 

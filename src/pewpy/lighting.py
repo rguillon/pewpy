@@ -19,7 +19,7 @@ move across the screen.
 """
 
 from direct.showbase.ShowBase import ShowBase
-from panda3d.core import Shader
+from panda3d.core import AmbientLight, DirectionalLight, NodePath, Shader
 
 from pewpy import config
 
@@ -186,15 +186,29 @@ void main() {
 
 
 def setup(base: ShowBase) -> None:
-    """Turn on the shiny shader for everything under `render`."""
+    """Light the game's scene, and turn on the shiny shader for everything under `render`."""
+    light(base.render)
+
+
+def light(root: NodePath) -> None:
+    """A scene's lights (a soft ambient light and a sun) and the shiny shader, for everything under `root`: the
+    game's scene, or another one drawn the same way (the level select's preview)."""
+    ambient = AmbientLight("ambient")
+    ambient.setColor((0.35, 0.35, 0.4, 1))
+    root.setLight(root.attachNewNode(ambient))
+    sun = DirectionalLight("sun")
+    sun.setColor((0.9, 0.9, 0.85, 1))
+    sun_node = root.attachNewNode(sun)
+    sun_node.setHpr(-30, 20, 0)  # shining away from the camera, lighting the faces the camera sees
+    root.setLight(sun_node)
     shader = Shader.make(Shader.SL_GLSL, VERTEX_SHADER, FRAGMENT_SHADER)
-    base.render.setShader(shader)
-    base.render.setShaderInput("shininess", config.SHININESS)
-    base.render.setShaderInput("specular", config.SPECULAR)
-    base.render.setShaderInput("reflectivity", config.REFLECTIVITY)
-    base.render.setShaderInput("bevel_width", config.BEVEL_WIDTH)
-    base.render.setShaderInput("bevel_strength", config.BEVEL_STRENGTH)
-    base.render.setShaderInput("water_offset", (0.0, 0.0))  # set on each strip of sea, see background_view.py
-    base.render.setShaderInput("water_loop", 1.0)
-    base.render.setShaderInput("haze", (0.0, 0.0, 0.0, 0.0))  # set on the voxel grounds, see background_view.py
-    base.render.setShaderInput("tint", (1.0, 1.0, 1.0))  # the same
+    root.setShader(shader)
+    root.setShaderInput("shininess", config.SHININESS)
+    root.setShaderInput("specular", config.SPECULAR)
+    root.setShaderInput("reflectivity", config.REFLECTIVITY)
+    root.setShaderInput("bevel_width", config.BEVEL_WIDTH)
+    root.setShaderInput("bevel_strength", config.BEVEL_STRENGTH)
+    root.setShaderInput("water_offset", (0.0, 0.0))  # set on each strip of sea, see background_view.py
+    root.setShaderInput("water_loop", 1.0)
+    root.setShaderInput("haze", (0.0, 0.0, 0.0, 0.0))  # set on the grounds, see background_view.py
+    root.setShaderInput("tint", (1.0, 1.0, 1.0))  # the same

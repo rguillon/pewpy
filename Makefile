@@ -19,6 +19,10 @@ check: ## Run code quality tools.
 run: ## Run the game (under WSL, on the GPU through Mesa's d3d12 driver rather than the much slower CPU renderer)
 	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpy; else uv run python -m pewpy; fi
 
+.PHONY: candidates
+candidates: ## Generate enemy model candidates for the Candidates screen (options: ARGS="--kind aircraft --count 50", see --help)
+	@uv run python tools/make_candidates.py $(ARGS)
+
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"

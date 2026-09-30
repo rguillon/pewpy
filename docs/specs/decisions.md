@@ -177,6 +177,38 @@
 
 ## Decisions made
 
+### 2026-09-30 — Model candidates for new enemies (asked by the user in chat)
+- Decision (the user's): a new main menu screen to view model candidates, and 100 generated enemy models (models
+  only, no game logic), numbered, to pick the ones to turn into new enemies.
+- Done: "Candidates" on the main menu, like the Models screen, 10 numbered models per page (Previous page added
+  to the Models and Bosses screens too), all drawn to the same scale, labelled with their number and size in cubes.
+- Then more diversity (asked by the user: too many near-identical round ships; bigger and smaller ones, not all
+  symmetric): the drawings (`models/candidates/001.json` to `100.json`, made by a generator not in the repo) are a
+  core hull (spindle, block, wedge, egg, segmented, cross, crescent, frame, diamond, arrowhead) plus 1 to 3
+  attachments (delta, swept or straight wings, biplanes, nacelles, booms, mandibles, fins, turrets, a side cannon,
+  containers, radiators, antennas), from 7-cube drones to 35-cube heavies, a third of them lopsided (parts on one
+  side, an off-centre cockpit). Out of 600 generated, the 100 kept are the most different from each other
+  (outline, size, proportions), picked separately among symmetric and lopsided ones. Enemy greys, a teal cockpit,
+  a sensor, one accent color, a hull tint (8), sometimes a painted livery panel; engines with flames at the back.
+- Then a new batch of 200 (asked by the user: plane-like ones had wings too thick; make them aerodynamic): 90
+  aircraft from their own generator (a slender fuselage with an ogive nose; thin wings tapering to their tips:
+  swept, delta, cranked, forward-swept, ogival or long and straight; a tailplane or canards; thin fins; engines at
+  the tail or in slim underwing pods; a light leading edge and dark flap line; wing markings one cube thick), 65
+  symmetric and 45 lopsided industrial ships (their wings taper too), kept out of 1400 generated as the most
+  different within each group. 20 pages on the Candidates screen.
+- The generator is now in the repo (asked by the user, to try many times): `tools/make_candidates.py`, or
+  `make candidates ARGS="..."`: `--count`, `--kind aircraft|industrial|all`, `--seed` (printed each run, to make a
+  batch again), `--pool`, `--out`, `--append`. It replaces the candidates unless `--append`.
+- Next: the user picks numbers; the chosen drawings move to `models/` with a name, and get enemy logic.
+
+### 2026-09-30 — Level preview on the level select (asked by the user in chat)
+- Decision (the user's): a preview window of the level in the level selection menu.
+- Placeholder chosen: a framed window above the list (`FRAME` in level_preview.py), showing the highlighted
+  level's background live, scrolling at the level's speed, with its time of day, clouds and sky: a second camera
+  placed like the game's but seeing only the middle of the ground, drawing its own scene into its own display
+  region (under the menus). Hidden on "Back". Each preview is built once while on the level select.
+- Recorded in 04-ui-audio.md (main menu entries).
+
 ### 2026-09-30 — Frame rate under WSL, and lighter trees (the user got 24 fps in level 2-2)
 - Cause: under WSL, OpenGL defaulted to Mesa's CPU renderer (llvmpipe), not the GPU; the new grounds' pixel
   shaders and the farmland's hundreds of trees were heavy for it. Through WSL's GPU path (Mesa's d3d12 driver,

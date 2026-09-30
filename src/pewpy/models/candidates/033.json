@@ -1,0 +1,132 @@
+{
+  "rows": [
+    ".......oHo.......",
+    "......NhhhN......",
+    "......kkkkk......",
+    "oN...hhhhhhh...No",
+    "Nttt.NHHHHHN.tttN",
+    "NttthhhhhhhhhtttN",
+    "NtttHHHHHHHHHtttN",
+    "NtttkkkkkkkkktttN",
+    "NtttHHHHHHHHHtttN",
+    "NttthhhccchhhtttN",
+    "NtttHHHcRcHHHtttN",
+    "NttthhhhhhhhhtttN",
+    "Nttt.kkHHHkk.tttN",
+    "Nttt.NN...NN.tttN",
+    "NNNt.Hr...rH.tNNN",
+    "NNNt..r...r..tNNN",
+    "NNNt.........tNNN",
+    "NNNt.........tNNN",
+    "NNNt.........tNNN",
+    "NNN...........NNN",
+    "rNN...........NNr",
+    "rNN...........NNr",
+    ".NN...........NN.",
+    "..N...........N.."
+  ],
+  "palette": {
+    "N": {
+      "color": [
+        0.281,
+        0.27,
+        0.261
+      ],
+      "height": 5
+    },
+    "h": {
+      "color": [
+        0.4,
+        0.38,
+        0.369
+      ],
+      "height": 3
+    },
+    "H": {
+      "color": [
+        0.54,
+        0.51,
+        0.486
+      ],
+      "height": 3
+    },
+    "k": {
+      "color": [
+        0.184,
+        0.18,
+        0.18
+      ],
+      "height": 1
+    },
+    "r": {
+      "color": [
+        0.14,
+        0.13,
+        0.135
+      ],
+      "height": 3
+    },
+    "o": {
+      "color": [
+        0.086,
+        0.08,
+        0.081
+      ],
+      "height": 3
+    },
+    "t": {
+      "color": [
+        0.324,
+        0.31,
+        0.297
+      ],
+      "height": 5
+    },
+    "c": {
+      "color": [
+        0.08,
+        0.2,
+        0.28
+      ],
+      "height": 5
+    },
+    "R": {
+      "color": [
+        0.3,
+        0.95,
+        1.0
+      ],
+      "height": 5
+    }
+  },
+  "engines": [
+    {
+      "x": 7,
+      "y": 0,
+      "width": 3.0,
+      "length": 4,
+      "towards": "top"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "width": 3.0,
+      "length": 4,
+      "towards": "top"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "width": 3.0,
+      "length": 4,
+      "towards": "top"
+    },
+    {
+      "x": 16,
+      "y": 3,
+      "width": 3.0,
+      "length": 4,
+      "towards": "top"
+    }
+  ]
+}

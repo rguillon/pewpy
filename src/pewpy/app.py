@@ -13,11 +13,9 @@ from direct.gui.OnscreenText import OnscreenText
 from direct.showbase.ShowBase import ShowBase
 from direct.task.Task import Task
 from panda3d.core import (
-    AmbientLight,
     ButtonThrower,
     Camera,
     CardMaker,
-    DirectionalLight,
     GraphicsEngine,
     ModifierButtons,
     NodePath,
@@ -31,7 +29,7 @@ from panda3d.core import (
 
 from pewpy import config, lighting, models, showcase
 from pewpy.background import Scenery
-from pewpy.background_view import TIMES_OF_DAY, BackgroundView, CameraView
+from pewpy.background_view import SPACE_COLOR, BackgroundView, CameraView, sky_color
 from pewpy.boss_catalog import BOSSES
 from pewpy.bosses import Boss, BossPart, BossSpec
 from pewpy.effects import Effects, LaserGlow
@@ -65,6 +63,7 @@ from pewpy.enemies import (
 )
 from pewpy.entities import Bullet, Entity, Pickup
 from pewpy.level import Level, load_worlds
+from pewpy.level_preview import LevelPreview
 from pewpy.menu import Menu, MenuItem
 from pewpy.menu_view import MenuView
 from pewpy.player import DEFAULT_SHIP, SHIPS, Player
@@ -72,7 +71,7 @@ from pewpy.ship_select_view import ShipSelectView
 from pewpy.showcase import ModelShowcase
 from pewpy.sprites import Sprite, SpriteBatch
 from pewpy.states import State, StateMachine
-from pewpy.terrain import BIOMES, GROUND_VOXEL
+from pewpy.terrain import GROUND_VOXEL
 from pewpy.weapons import LETTERS, WEAPONS, Arsenal, Missile
 from pewpy.world import Controls, Event, World
 
@@ -130,7 +129,11 @@ SHIP_MODELS: dict[type[Entity], str] = {
     ClusterBomb: "cluster_bomb_model",
 }
 MINE_SPIN_SPEED = 90.0  # degrees per second
-SHOWCASE_STATES = frozenset({State.MODELS, State.BOSSES})  # screens showing models in a turning circle
+SHOWCASE_STATES = frozenset({
+    State.MODELS,
+    State.BOSSES,
+    State.CANDIDATES,
+})  # screens showing models in a turning circle
 # Things launched by others rather than placed by the levels: missiles, rockets, bombs, mines.
 PROJECTILES: tuple[type[Entity], ...] = (Missile, Rocket, HomingMissile, ClusterBomb, Mine)
 PICKUPS_PAGE = "Player, pickups and projectiles"
@@ -144,7 +147,7 @@ MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
 EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
 FLASH_COLOR: Color = (1.0, 1.0, 1.0, 1)
-BACKGROUND_COLOR: Color = (0.02, 0.02, 0.08, 1)
+BACKGROUND_COLOR: Color = SPACE_COLOR
 GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps this shape (width / height)
 PLAYER_BULLET_COLOR: Color = (0.3, 1.0, 0.25, 1)  # bright green
 ENEMY_BULLET_COLOR: Color = (1.0, 0.5, 0.9, 1)
@@ -171,6 +174,9 @@ FPS_REFRESH = 0.5  # seconds between two updates of the frames per second
 WEAPON_SPACING = 0.15
 HEALTH_BAR_WIDTH = 0.5
 HEALTH_BAR_HEIGHT = 0.025
+CANDIDATES_PER_PAGE = 10
+SHOWCASE_CANDIDATE_SIZE = 0.26  # the Candidates screen's models (see showcase.MODEL_SIZE)...
+CANDIDATE_SCALE = 32  # ...a model this many cubes across fills that size: they're all drawn to the same scale
 SHOWCASE_BOSS_SIZE = 0.28  # the Models screen's boss pages: fewer models, drawn bigger (see showcase.MODEL_SIZE)
 SHOWCASE_BOSS_RADIUS = 0.6  # and a smaller circle, so the names fit on the screen
 BOSS_BAR_WIDTH = 1.1  # at the top edge, with the boss's name under it
@@ -237,6 +243,9 @@ class PewPewApp(ShowBase):
 
         self.menu_view = MenuView(self.aspect2d)
         self._setup_hud()
+        # The level select's window on the highlighted level (none without a window: tests, tools).
+        self.level_preview = LevelPreview(self.win, self.cam, self.render, self.aspect2d) if self.win else None
+        self._fit_letterbox()
 
         self.states = StateMachine(on_change=self._on_state_change)
         self._on_state_change(self.states.state, self.states.state)
@@ -287,6 +296,9 @@ class PewPewApp(ShowBase):
             if isinstance(node, Camera):
                 for index in range(node.getNumDisplayRegions()):
                     node.getDisplayRegion(index).setDimensions(*dimensions)
+        preview = getattr(self, "level_preview", None)  # not made yet when the window first opens
+        if preview is not None:
+            preview.fit(dimensions)
 
     # ShowBase calls these two on window changes. (The types-panda3d stubs say GraphicsEngine for `win`; it's
     # really the window, but we don't use it.)
@@ -330,14 +342,6 @@ class PewPewApp(ShowBase):
         return True
 
     def _setup_lights(self) -> None:
-        ambient = AmbientLight("ambient")
-        ambient.setColor((0.35, 0.35, 0.4, 1))
-        self.render.setLight(self.render.attachNewNode(ambient))
-        sun = DirectionalLight("sun")
-        sun.setColor((0.9, 0.9, 0.85, 1))
-        sun_node = self.render.attachNewNode(sun)
-        sun_node.setHpr(-30, 20, 0)  # shining away from the camera, lighting the faces the camera sees
-        self.render.setLight(sun_node)
         lighting.setup(self)
 
     def _on_key(self, key: str) -> None:
@@ -347,6 +351,8 @@ class PewPewApp(ShowBase):
             menu.move(MENU_MOVES[key])
             self.menu_view.refresh()
             self._highlight_ship()
+            if self.states.state is State.LEVEL_SELECT:
+                self._preview_level()
 
     def _on_choose(self) -> None:
         if self.menu_view.menu is not None:
@@ -370,6 +376,7 @@ class PewPewApp(ShowBase):
                 MenuItem("Start", go(State.SHIP_SELECT)),
                 MenuItem("Models", go(State.MODELS)),
                 MenuItem("Bosses", go(State.BOSSES)),
+                MenuItem("Candidates", go(State.CANDIDATES)),
             ]
             return Menu("PEWPEW", [*items, MenuItem("Quit", self.userExit)])
         if state in SHOWCASE_STATES:
@@ -399,19 +406,22 @@ class PewPewApp(ShowBase):
         return Menu(title, [MenuItem(next_item, self._next_level), main_menu], back=main_menu.action)
 
     def _models_menu(self, note: str = "") -> Menu:
-        """The Models and Bosses screens' menu: the page's title, and "Next page" when there are several."""
+        """The Models, Bosses and Candidates screens' menu: the page's title, and "Next page" when there are several
+        ("Previous page" too when there are more than two)."""
         titles = self._showcase_titles()
         reload_item = MenuItem("Reload models", self._reload_models)
         back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
         items = [reload_item, back]
+        if len(titles) > 2:
+            items.insert(0, MenuItem("Previous page", partial(self._turn_showcase_page, -1)))
         if len(titles) > 1:
-            items.insert(0, MenuItem("Next page", self._next_showcase_page))
+            items.insert(0, MenuItem("Next page", partial(self._turn_showcase_page, 1)))
         title = f"{self.states.state.name}\n{titles[self.showcase_page]}" + (f"\n{note}" if note else "")
         selected = items.index(reload_item) if note else 0
         return Menu(title, items, back=back.action, selected=selected)
 
-    def _next_showcase_page(self) -> None:
-        self.showcase_page = (self.showcase_page + 1) % len(self._showcase_titles())
+    def _turn_showcase_page(self, step: int) -> None:
+        self.showcase_page = (self.showcase_page + step) % len(self._showcase_titles())
         self._show_showcase()
         self.menu_view.show(self._models_menu())
 
@@ -451,6 +461,13 @@ class PewPewApp(ShowBase):
     def _showcase_titles(self) -> list[str]:
         """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's one per
         world."""
+        if self.states.state is State.CANDIDATES:
+            count = len(models.candidate_names())
+            pages = max(1, math.ceil(count / CANDIDATES_PER_PAGE))
+            return [
+                f"{page * CANDIDATES_PER_PAGE + 1}-{min(count, (page + 1) * CANDIDATES_PER_PAGE)} ({page + 1}/{pages})"
+                for page in range(pages)
+            ]
         if self.states.state is not State.BOSSES:
             return list(MODEL_PAGES)
         count = len(self.worlds)
@@ -459,6 +476,9 @@ class PewPewApp(ShowBase):
     def _showcase_page(self, index: int) -> tuple[list[tuple[str, NodePath]], float, float]:
         """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
         models are built (boss models are big)."""
+        if self.states.state is State.CANDIDATES:
+            names = models.candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
+            return [self._candidate(name) for name in names], SHOWCASE_CANDIDATE_SIZE, showcase.RADIUS
         if self.states.state is not State.BOSSES:
             return self._showcase_entries(list(MODEL_PAGES)[index]), showcase.MODEL_SIZE, showcase.RADIUS
         world = self.worlds[index]
@@ -484,6 +504,14 @@ class PewPewApp(ShowBase):
                 name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else "Repair"
                 entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
         return entries
+
+    def _candidate(self, name: str) -> tuple[str, NodePath]:
+        """A model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes, all drawn at
+        the same scale so small and big ones compare (read again every time: edited drawings show when the page is
+        shown again)."""
+        rows, _ = models.load_drawing(name)
+        label = f"#{name.rsplit('/', 1)[-1]}  {len(rows[0])}x{len(rows)}"
+        return label, _fitted(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _whole_boss(self, spec: BossSpec) -> NodePath:
         """A boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
@@ -561,6 +589,18 @@ class PewPewApp(ShowBase):
         # Starts on the last level played if it's in this world, so "play again" is just Enter.
         played = self.level_index - first if self.places[self.level_index][0] == self.world_index else 0
         return Menu(world.name.upper(), [*items, back], back=back.action, selected=played)
+
+    def _preview_level(self) -> None:
+        """On the level select: the highlighted level's background in the preview window (none on "Back")."""
+        menu = self.menu_view.menu
+        if self.level_preview is None or menu is None:
+            return
+        world = self.worlds[self.world_index]
+        if menu.selected >= len(world.levels):
+            self.level_preview.hide()
+            return
+        index = self.places.index((self.world_index, 1)) + menu.selected
+        self.level_preview.show(index, self.levels[index])
 
     def _label(self, index: int) -> str:
         """A level's place, like "2-5" (world 2, level 5)."""
@@ -699,12 +739,8 @@ class PewPewApp(ShowBase):
         self.background.destroy()
         scenery = Scenery(kind, self.camera_view, seed=seed, ground_voxel=ground_voxel, clouds=clouds)
         self.background = BackgroundView(scenery, self.render, time_of_day)
-        biome = BIOMES.get(kind)
-        _, air = TIMES_OF_DAY[time_of_day]
-        red, green, blue, alpha = biome.sky if biome and biome.sky else BACKGROUND_COLOR
-        sky = (red * air[0], green * air[1], blue * air[2], alpha)  # shows through gaps, like between clouds
-        if self.win is not None:
-            self.camNode.getDisplayRegion(0).setClearColor(sky)
+        if self.win is not None:  # the sky shows through gaps, like between clouds
+            self.camNode.getDisplayRegion(0).setClearColor(sky_color(kind, time_of_day))
 
     def _continue(self) -> None:
         # Continue restarts the level with full lives, a score of 0 and weapons back to level 1.
@@ -736,6 +772,10 @@ class PewPewApp(ShowBase):
             self.ship_select = None
         if current is State.SHIP_SELECT:
             self._show_ship_select()
+        if current is State.LEVEL_SELECT:
+            self._preview_level()
+        elif self.level_preview is not None:
+            self.level_preview.clear()
         if current is State.MAIN_MENU:
             self.world = None
             self.effects.clear()
@@ -768,6 +808,8 @@ class PewPewApp(ShowBase):
             self.showcase.update(dt)
         if self.ship_select:
             self.ship_select.update(dt)
+        if self.level_preview is not None:
+            self.level_preview.update(dt)
         self._sync_nodes()
         self._update_hud()
         self._update_fps()
