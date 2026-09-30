@@ -17,7 +17,6 @@ import json
 import math
 import random
 from dataclasses import dataclass
-from importlib import resources
 from typing import Any
 
 import numpy as np
@@ -41,6 +40,7 @@ from panda3d.core import (
 )
 
 from pewpy import config
+from pewpy.data import data_folder
 
 Color = tuple[float, float, float, float]
 Outline = list[tuple[float, float]]  # convex polygon in the X/Z plane
@@ -553,7 +553,7 @@ def load_engines(name: str) -> list[Engine]:
 
 def _read_drawing(name: str) -> tuple[Any, str]:
     source = f"{name}.json"
-    return json.loads((resources.files("pewpy") / DRAWINGS_FOLDER / source).read_text()), source
+    return json.loads((data_folder() / DRAWINGS_FOLDER / source).read_text()), source
 
 
 def parse_drawing(data: Any, source: str = "drawing") -> tuple[list[str], Palette]:

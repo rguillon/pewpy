@@ -6,11 +6,11 @@ Levels are grouped in worlds (in the menus): `levels/world_<number>/` holds `wor
 
 import json
 from dataclasses import dataclass, fields
-from importlib import resources
 from typing import Any
 
 from pewpy.background import BACKGROUNDS
 from pewpy.boss_catalog import BOSSES
+from pewpy.data import data_folder
 from pewpy.enemies import ENEMY_TYPES
 from pewpy.terrain import GROUND_VOXEL
 
@@ -142,7 +142,7 @@ class LevelWorld:
 
 def load_worlds() -> list[LevelWorld]:
     """Load every `world_<number>/` folder, in number order, with its levels in number order."""
-    folder = resources.files("pewpy") / "levels"
+    folder = data_folder() / "levels"
     worlds = sorted(
         (item for item in folder.iterdir() if item.name.startswith("world_")), key=lambda item: _number(item.name)
     )

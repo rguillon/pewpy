@@ -29,6 +29,13 @@ build: clean-build ## Build wheel file
 	@echo "🚀 Creating wheel file"
 	@uvx --from build pyproject-build --installer uv
 
+.PHONY: package
+package: ## Build the standalone Windows game: dist/pewpy-<version>_win_amd64.zip (pewpy.exe inside)
+	@echo "🚀 Building the Windows executable with Panda3D's build_apps"
+	@uv run python -c "import os; os.makedirs('build', exist_ok=True)"
+	@uv export --frozen --no-dev --no-hashes --no-emit-project --quiet -o build/requirements.txt
+	@uv run python packaging/setup.py bdist_apps
+
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
 	@echo "🚀 Removing build artifacts"

@@ -177,6 +177,18 @@
 
 ## Decisions made
 
+### 2026-09-30 — Windows package (asked by the user in chat)
+- Decision (the user's): a `make package` target building and packaging a Windows executable.
+- How: Panda3D's own `build_apps` (settings in `packaging/setup.py`), which works from any OS by downloading the
+  Windows wheels of the dependencies (exported from `uv.lock` to `build/requirements.txt`). It freezes the code
+  into `pewpy.exe` and copies the level and model files to a `pewpy` folder next to it (`pewpy/data.py` finds them
+  there when the game is frozen). The result is `dist/pewpy-<version>_win_amd64.zip` (about 36 MB). `setuptools` and
+  `pip` are new dev dependencies (build_apps needs them). Panda3D's list of numpy's hidden imports is still for numpy
+  1, so every module of numpy 2's core is included explicitly. Errors of the packaged game (it has no console) go to
+  `%LOCALAPPDATA%\pewpy\output.log`.
+- Checked on Windows (from WSL): the built `pewpy.exe` starts and runs.
+- Recorded in 06-technical.md ("Packaging and distribution").
+
 ### 2026-09-30 — More enemies and enemy weapons (asked by the user in chat)
 - Decision (the user's): more kinds of enemies with more diverse weapons, some firing missiles, some homing missiles.
 - Placeholder chosen (mine): seven enemies (Rocketeer, Hunter, Missile Silo, Bomber, Lancer, Serpent, Buckshot) and

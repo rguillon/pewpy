@@ -33,8 +33,10 @@
 
 ## Packaging and distribution
 
-- How players run it (`uv run`, pip install, standalone build with Panda3D's `build_apps`): TBD
-- Target OSes for builds: TBD
+- How players run it (`uv run`, pip install, standalone build with Panda3D's `build_apps`): a standalone build with
+  Panda3D's `build_apps`: `make package` makes `dist/pewpy-<version>_win_amd64.zip`, holding `pewpy.exe` with the
+  data files next to it (see decisions.md); developers still use `uv run` (`make run`)
+- Target OSes for builds: Windows (64-bit) for now; the same setup can also build Linux and macOS
 
 ## Coding style
 

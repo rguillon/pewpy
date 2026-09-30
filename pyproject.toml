@@ -40,6 +40,8 @@ dev = [
     "mkdocs-material>=9.7.6",
     "mkdocstrings[python]>=1.0.3",
     "types-panda3d>=0.4.1",
+    "setuptools>=84.0.0",
+    "pip>=26.2.1",
 ]
 
 [build-system]
