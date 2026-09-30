@@ -1,0 +1,18 @@
+{
+  "rows": [
+    "hhhhh",
+    "hYYYh",
+    "hHHHh",
+    "hHHHh",
+    ".ddd.",
+    ".ddd.",
+    "..d..",
+    "..d.."
+  ],
+  "palette": {
+    "h": {"color": [0.4, 0.38, 0.34], "height": 3},
+    "Y": {"color": [0.9, 0.7, 0.1], "height": 5},
+    "H": {"color": [0.55, 0.52, 0.46], "height": 5},
+    "d": {"color": [0.7, 0.7, 0.75], "height": 3}
+  }
+}

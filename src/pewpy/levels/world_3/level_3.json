@@ -1,0 +1,216 @@
+{
+  "name": "Cloud Deck",
+  "scroll_speed": 0.272,
+  "background": "clouds",
+  "ground_voxel": 0.04,
+  "background_seed": 1919,
+  "clouds": 0.7,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 5.1,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 7.7,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 10.6,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 13.4,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 16.4,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 16.9,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 19.2,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 22.5,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 25.9,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 28.9,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 32.3,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 34.9,
+      "enemy": "weaver",
+      "count": 10,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.38
+    },
+    {
+      "time": 38.2,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 41.5,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 41.5,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 44.0,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 44.5,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 47.2,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 50.1,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 50.6,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 54.0,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 55.5,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left"
+    },
+    {
+      "time": 57.0,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 58.5,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 59.0,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 65,
+      "enemy": "frigate"
+    }
+  ]
+}

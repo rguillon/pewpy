@@ -1,0 +1,185 @@
+{
+  "name": "Neon City",
+  "scroll_speed": 0.284,
+  "background": "city",
+  "ground_voxel": 0.04,
+  "background_seed": 3333,
+  "clouds": 0.2,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 4.6,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 7.3,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 9.8,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 9.8,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 12.7,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 15.7,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 18.6,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right"
+    },
+    {
+      "time": 21.5,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 23.8,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 26.3,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 29.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right"
+    },
+    {
+      "time": 31.3,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.3,
+      "side": "left"
+    },
+    {
+      "time": 33.3,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 36.3,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 39.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right"
+    },
+    {
+      "time": 41.5,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left"
+    },
+    {
+      "time": 44.1,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 44.1,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 47.5,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 49.0,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 50.5,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 52.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right"
+    },
+    {
+      "time": 58,
+      "enemy": "patrol_drone"
+    }
+  ]
+}

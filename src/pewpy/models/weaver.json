@@ -1,0 +1,19 @@
+{
+  "rows": [
+    ".....y.....",
+    "....yyy....",
+    "...yyyyy...",
+    "o.yyyOyyy.o",
+    "ooyyOOOyyoo",
+    "oyyOOOOOyyo",
+    "..yyOOOyy..",
+    "...yyOyy...",
+    "....yyy....",
+    ".....y....."
+  ],
+  "palette": {
+    "y": {"color": [1.0, 0.9, 0.2], "height": 3},
+    "O": {"color": [1.0, 0.75, 0.15], "height": 5},
+    "o": {"color": [0.95, 0.55, 0.1], "height": 1}
+  }
+}

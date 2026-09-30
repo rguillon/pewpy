@@ -1,0 +1,22 @@
+{
+  "rows": [
+    "..vvv..",
+    ".vVVVv.",
+    "vVVVVVv",
+    "sSSSSSs",
+    "sSSSSSs",
+    "sSSSSSs",
+    "sSSSSSs",
+    "sSSSSSs",
+    "sSSSSSs",
+    ".sSSSs.",
+    "..ggg.."
+  ],
+  "palette": {
+    "v": {"color": [0.8, 0.8, 0.82], "height": 3},
+    "V": {"color": [0.9, 0.9, 0.92], "height": 5},
+    "s": {"color": [0.5, 0.5, 0.52], "height": 3},
+    "S": {"color": [0.62, 0.62, 0.65], "height": 5},
+    "g": {"color": [0.25, 0.26, 0.3], "height": 3}
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "name": "Ashen Slopes",
+  "scroll_speed": 0.288,
+  "background": "volcano",
+  "ground_voxel": 0.04,
+  "time_of_day": "dusk",
+  "background_seed": 3131,
+  "clouds": 0.5,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 4.1,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 6.9,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 9.6,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 12.6,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 14.9,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 17.1,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 19.2,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 21.4,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 24.1,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 26.6,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 28.8,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 31.2,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 33.6,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 34.1,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 35.9,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 38.5,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 40.6,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 44.1,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 45.6,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 47.1,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 48.6,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 55,
+      "enemy": "magma_rig"
+    }
+  ]
+}

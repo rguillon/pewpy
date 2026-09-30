@@ -1,0 +1,15 @@
+{
+  "rows": [
+    "..fffffff..",
+    ".fFFFFFFFf.",
+    "fFFFFFFFFFf",
+    "fF.F.F.F.Ff",
+    "f.F.F.F.F.f",
+    "..f.f.f.f..",
+    "....f.f...."
+  ],
+  "palette": {
+    "f": {"color": [0.18, 0.12, 0.1], "height": 3},
+    "F": {"color": [0.3, 0.2, 0.15], "height": 3}
+  }
+}

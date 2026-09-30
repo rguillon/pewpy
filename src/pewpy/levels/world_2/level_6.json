@@ -1,0 +1,212 @@
+{
+  "name": "Crater Fields",
+  "scroll_speed": 0.264,
+  "background": "planet",
+  "ground_voxel": 0.04,
+  "time_of_day": "dusk",
+  "background_seed": 1414,
+  "clouds": 0.35,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 4.8,
+      "enemy": "shield_carrier",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 8.2,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 11.7,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 11.7,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 15.1,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 18.5,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right"
+    },
+    {
+      "time": 21.8,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 24.9,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 27.8,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 30.8,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 30.8,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 33.8,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 37.1,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 39.9,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right"
+    },
+    {
+      "time": 43.2,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 46.4,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 49.3,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 52.4,
+      "enemy": "weaver",
+      "count": 9,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 56.4,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 57.9,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 58.4,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 59.4,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 59.4,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 60.9,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 67,
+      "enemy": "hornet_queen"
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+import math
+from functools import partial
+from importlib import resources
+
+import pytest
+from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
+
+from pewpy import ground_look, models
+
+SHIP_MODELS = [
+    models.player_model,
+    models.drone_model,
+    models.weaver_model,
+    models.diver_model,
+    models.gunship_model,
+    models.turret_model,
+    models.swarmer_model,
+    models.sniper_model,
+    models.mine_layer_model,
+    models.mine_model,
+    models.shield_carrier_model,
+    models.splitter_model,
+    models.missile_model,
+    models.repair_model,
+    lambda: models.pickup_model("B", (1, 1, 0, 1)),
+]
+
+
+def triangles_of(node: GeomNode) -> list[tuple[list[Vec3], Vec3]]:
+    """(corners, stored normal) for every triangle of a GeomNode."""
+    result = []
+    for geom_index in range(node.getNumGeoms()):
+        geom = node.getGeom(geom_index)
+        vertices = GeomVertexReader(geom.getVertexData(), "vertex")
+        normals = GeomVertexReader(geom.getVertexData(), "normal")
+        triangles = geom.getPrimitive(0).decompose()
+        for index in range(triangles.getNumPrimitives()):
+            start = triangles.getPrimitiveStart(index)
+            corners = []
+            for corner in range(3):
+                vertices.setRow(triangles.getVertex(start + corner))
+                corners.append(Vec3(vertices.getData3()))
+            normals.setRow(triangles.getVertex(start))
+            result.append((corners, Vec3(normals.getData3())))
+    return result
+
+
+def zeros(heights: list[list[int]]) -> list[list[int]]:
+    """Kinds for a ground that doesn't use them."""
+    return [[0] * len(line) for line in heights]
+
+
+def all_points(model: NodePath) -> list[Vec3]:
+    points = []
+    for path in [model, *model.findAllMatches("**/+GeomNode")]:
+        if not isinstance(path.node(), GeomNode):
+            continue
+        node = path.node()
+        assert isinstance(node, GeomNode)
+        for corners, _ in triangles_of(node):
+            points += corners
+    return points
+
+
+def test_cube_faces_outward():
+    cube = models.make_cube()
+    triangles = triangles_of(cube)
+    assert len(triangles) == 12
+    for corners, normal in triangles:
+        winding = (corners[1] - corners[0]).cross(corners[2] - corners[0])
+        assert winding.dot(normal) > 0  # counter-clockwise seen from outside
+        center = (corners[0] + corners[1] + corners[2]) / 3
+        assert normal.dot(center) > 0  # and pointing away from the cube's center
+
+
+def test_ellipsoid_faces_away_from_its_center():
+    mesh = models.MeshBuilder()
+    center = Vec3(0.1, 0.2, 0.3)
+    mesh.ellipsoid(center, Vec3(0.1, 0.2, 0.3), (1, 1, 1, 1))
+    for corners, normal in triangles_of(mesh.build("shapes")):
+        assert normal.dot((corners[0] + corners[1] + corners[2]) / 3 - center) > 0
+
+
+WHITE = (1.0, 1.0, 1.0, 1.0)
+
+
+def test_touching_voxels_hide_their_shared_faces():
+    mesh = models.MeshBuilder()
+    mesh.voxels(["xx"], {"x": (WHITE, 1)}, 1.0)
+    triangles = triangles_of(mesh.build("pair"))
+    assert len(triangles) == 2 * 10  # 2 cubes of 6 faces, minus the 2 faces they share
+    for corners, normal in triangles:
+        winding = (corners[1] - corners[0]).cross(corners[2] - corners[0])
+        assert winding.dot(normal) > 0
+        assert normal.dot((corners[0] + corners[1] + corners[2]) / 3) > 0  # outward from the pair's center
+
+
+def test_lone_voxel_is_not_darkened():
+    mesh = models.MeshBuilder()
+    mesh.voxels(["x"], {"x": (WHITE, 1)}, 1.0)
+    assert {color for triangle in mesh.triangles for _, color, _ in triangle} == {WHITE}
+
+
+def test_voxel_corners_next_to_other_voxels_are_darkened():
+    # The top face of the bottom-right voxel touches the voxel above-left of it along one edge.
+    mesh = models.MeshBuilder()
+    mesh.voxels(["x.", "xx"], {"x": (WHITE, 1)}, 1.0)
+    brightness = {color[0] for triangle in mesh.triangles for _, color, _ in triangle}
+    assert min(brightness) < 1.0
+    assert max(brightness) == 1.0
+
+
+@pytest.mark.parametrize(
+    ("side_a", "side_b", "corner", "expected"),
+    [
+        (False, False, False, models.OCCLUSION_BRIGHTNESS[0]),
+        (False, False, True, models.OCCLUSION_BRIGHTNESS[1]),
+        (True, False, True, models.OCCLUSION_BRIGHTNESS[2]),
+        (True, True, False, models.OCCLUSION_BRIGHTNESS[3]),  # both sides: fully tucked in
+    ],
+)
+def test_occlusion_counts_the_voxels_in_front_of_a_corner(side_a, side_b, corner, expected):
+    def key(offset: Vec3) -> tuple[int, ...]:
+        return tuple(round(value) for value in offset)
+
+    normal, u, w = Vec3(0, 0, 1), Vec3(1, 0, 0), Vec3(0, 1, 0)
+    filled = {key(normal + u): side_a, key(normal + w): side_b, key(normal + u + w): corner}
+    assert models.occlusion(lambda offset: filled[key(offset)], normal, u, w) == expected
+
+
+def test_only_voxel_faces_get_bevel_coordinates():
+    voxels = models.MeshBuilder()
+    voxels.voxels(["x"], {"x": (WHITE, 1)}, 1.0)
+    assert {uv for triangle in voxels.triangles for _, _, uv in triangle} == set(models.QUAD_UVS)
+    box = models.MeshBuilder()
+    box.box(Vec3(0, 0, 0), Vec3(1, 1, 1), WHITE)
+    assert {uv for triangle in box.triangles for _, _, uv in triangle} == {models.NO_BEVEL}
+    assert models.make_cube().getGeom(0).getVertexData().hasColumn("texcoord")
+
+
+def test_ground_columns_rise_towards_the_camera():
+    cells = models.ground_cells([[0, 2]], first_row=5)
+    assert set(cells) == {(0, 5, 0), (1, 5, 0), (1, 5, -1), (1, 5, -2)}
+
+
+def test_buried_ground_voxels_are_not_drawn_but_still_hide_faces():
+    # A 3 x 3 plateau of height 2 is a 3 x 3 x 3 block: only its very middle voxel is buried on every side.
+    plateau = [[2, 2, 2], [2, 2, 2], [2, 2, 2]]
+    cells = models.ground_cells(plateau, 0, max_height=2)
+    buried = [cell for cell in cells if models.buried(cell, frozenset(cells))]
+    assert buried == [(1, 1, -1)]
+    # Same outside as drawing every voxel: 5 faces of 3 x 3 on the outside (the back one too), 2 triangles each.
+    points = all_points(ground_look.ground_chunk_model("planet", plateau, zeros(plateau), 1.0, [], [], max_height=2))
+    assert len(points) == (4 * 3 * 3 + 3 * 3 + 3 * 3) * 2 * 3
+
+
+def test_city_cells_light_some_windows_and_one_beacon_per_tower():
+    heights = [[0, 0, 0, 0], [0, 6, 6, 2], [0, 6, 6, 2]]
+    lots = [[0, 0, 0, 0], [0, 1, 1, 2], [0, 1, 1, 2]]
+    cells, glowing = models.city_cells(heights, lots, max_height=6)
+    assert glowing <= set(cells)
+    beacons = [cell for cell in glowing if cells[cell] == models.BEACON_COLOR]
+    assert beacons == [(1, 1, -6)]  # the tower's corner; the low building gets none
+    assert (1, 1, -7) not in cells or cells[(1, 1, -7)] != models.BEACON_COLOR
+    windows = {cell for cell in glowing if cells[cell] in models.WINDOW_COLORS}
+    assert all(-cell[2] % 2 == 1 for cell in windows)  # windows only on odd floors
+
+
+def test_city_lights_are_not_pink_like_enemy_bullets():
+    for color in (*models.WINDOW_COLORS, models.STREET_LIGHT_COLOR, models.BEACON_COLOR):
+        red, green, blue, _ = color
+        assert not (red > 0.3 and blue > 0.3 and green < red)  # pink / magenta
+
+
+def test_islands_rise_from_the_water_in_colored_bands():
+    cells = models.island_cells([[0, 1, 4]], max_height=4)
+    assert (0, 0, 0) not in cells and (0, 0, -1) not in cells  # water: no voxel
+    assert set(cells) == {(1, 0, -1), (2, 0, -1), (2, 0, -2), (2, 0, -3), (2, 0, -4)}
+    beach, peak = models.ISLAND_COLORS[0][1], models.ISLAND_COLORS[-1][1]
+    assert cells[(1, 0, -1)] != cells[(2, 0, -4)]
+    assert max(cells[(1, 0, -1)][:3]) <= max(beach[:3]) * 1.2
+    assert max(cells[(2, 0, -4)][:3]) <= max(peak[:3]) * 1.2
+
+
+def test_the_sea_is_a_water_surface_facing_the_camera():
+    shallows = [[0.0, 1.0], [0.0, 1.0], [0.0, 1.0]]  # two rows of the strip, plus the next strip's first
+    node = ground_look.ground_chunk_model(
+        "ocean", [[0, 0], [0, 0]], zeros([[0, 0], [0, 0]]), 1.0, [0, 0], [0, 0], 3, shallows
+    )
+    geom_node = node.node()
+    assert isinstance(geom_node, GeomNode)
+    triangles = triangles_of(geom_node)
+    assert triangles
+    for _, normal in triangles:
+        assert normal.y == pytest.approx(-1.0)  # towards the camera
+    mesh = models.MeshBuilder()
+    models.water_surface(mesh, shallows, 1.0, 2)
+    assert {uv for triangle in mesh.triangles for _, _, uv in triangle} == {models.WATER_UV}
+    brightness = {color[2] for triangle in mesh.triangles for _, color, _ in triangle}
+    assert max(brightness) > min(brightness)  # lighter in the shallows
+
+
+def test_glowing_voxel_faces_are_marked_for_the_shader():
+    mesh = models.MeshBuilder()
+    mesh.cells({(0, 0, 0): WHITE, (1, 0, 0): WHITE}, 1.0, Vec3(0, 0, 0), glowing=frozenset({(1, 0, 0)}))
+    uvs = {uv for triangle in mesh.triangles for _, _, uv in triangle}
+    assert uvs == set(models.QUAD_UVS) | set(models.GLOW_UVS)
+
+
+def test_ground_strips_have_no_faces_at_the_seams():
+    flat = [[1, 1], [1, 1]]
+    alone = all_points(ground_look.ground_chunk_model("planet", flat, zeros(flat), 1.0, [], [], 3))
+    joined = all_points(ground_look.ground_chunk_model("planet", flat, zeros(flat), 1.0, [1, 1], [1, 1], 3))
+    # The neighboring strips hide the faces along the top and bottom edges (2 columns x 2 layers each),
+    # 2 triangles of 3 points per face.
+    assert len(alone) - len(joined) == 2 * (2 * 2) * 2 * 3
+
+
+@pytest.mark.parametrize(
+    "build", [models.distant_planet_model, *(partial(models.rock_model, shape) for shape in range(3))]
+)
+def test_background_models_fit_the_unit_box(build):
+    points = all_points(build())
+    for axis in range(3):
+        assert min(point[axis] for point in points) >= -0.5 - 1e-6
+        assert max(point[axis] for point in points) <= 0.5 + 1e-6
+
+
+def test_rocks_differ_by_shape_and_repeat_for_the_same_shape():
+    assert all_points(models.rock_model(1)) == all_points(models.rock_model(1))
+    assert all_points(models.rock_model(1)) != all_points(models.rock_model(2))
+
+
+def test_voxel_thickness_is_centered_on_the_depth():
+    cells = models.voxel_cells(["a", "b"], {"a": (WHITE, 1), "b": (WHITE, 5)})
+    assert sorted(layer for column, row, layer in cells if row == 1) == [-2, -1, 0, 1, 2]
+    assert [layer for column, row, layer in cells if row == 0] == [0]
+
+
+@pytest.mark.parametrize(
+    ("rows", "palette"), [(["ab", "a"], {"a": (WHITE, 1), "b": (WHITE, 1)}), (["a"], {"a": (WHITE, 2)})]
+)
+def test_bad_voxel_drawings_are_rejected(rows, palette):
+    with pytest.raises(ValueError, match="must"):
+        models.voxel_cells(rows, palette)
+
+
+@pytest.mark.parametrize("build", SHIP_MODELS, ids=lambda build: build.__name__)
+def test_ship_models_fit_the_unit_box_and_are_more_than_a_cube(build):
+    points = all_points(build())
+    assert len(points) > 3 * 12  # more triangles than a cube
+    for axis in range(3):
+        assert min(point[axis] for point in points) >= -0.52
+        assert max(point[axis] for point in points) <= 0.52
+
+
+def test_turret_has_a_barrel_to_aim():
+    assert not models.turret_model().find("**/barrel").isEmpty()
+
+
+@pytest.mark.parametrize(("dx", "dz"), [(0, -1), (1, 0), (-1, 0), (0, 1), (1, -1), (-0.3, 0.7)])
+def test_facing_roll_points_the_model_along_the_direction(dx, dz):
+    root = NodePath("root")
+    model = root.attachNewNode("model")
+    model.setR(models.facing_roll(dx, dz))
+    front = root.getRelativeVector(model, Vec3(0, 0, -1))  # models point down the screen
+    length = math.hypot(dx, dz)
+    assert front.x == pytest.approx(dx / length, abs=1e-5)
+    assert front.z == pytest.approx(dz / length, abs=1e-5)
+
+
+def test_main_colors_are_what_most_of_a_model_is_made_of():
+    colors = models.main_colors(models.drone_model())
+    assert 1 <= len(colors) <= 3
+    red, green, blue, _ = colors[0]
+    assert red > green and red > blue  # the Drone is red
+
+
+def test_every_drawing_file_loads():
+    folder = resources.files("pewpy") / models.DRAWINGS_FOLDER
+    names = sorted(file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json"))
+    assert "player" in names
+    for name in names:
+        rows, palette = models.load_drawing(name)
+        assert models.voxel_cells(rows, palette)
+
+
+def test_a_drawing_gives_rows_and_a_palette_of_colors_and_heights():
+    rows, palette = models.parse_drawing({"rows": ["a.", "ab"], "palette": DRAWING_PALETTE})
+    assert rows == ["a.", "ab"]
+    assert palette == {"a": ((1.0, 0.5, 0.0, 1.0), 3), "b": ((0.0, 0.0, 1.0, 1.0), 1)}
+
+
+DRAWING_PALETTE = {"a": {"color": [1, 0.5, 0], "height": 3}, "b": {"color": [0, 0, 1], "height": 1}}
+
+
+@pytest.mark.parametrize(
+    ("data", "problem"),
+    [
+        ({"rows": ["a"]}, "expected exactly the keys"),
+        ({"rows": [], "palette": DRAWING_PALETTE}, "'rows' must be a list of strings"),
+        ({"rows": ["ac"], "palette": DRAWING_PALETTE}, "not in the palette"),
+        ({"rows": ["a", "ab"], "palette": DRAWING_PALETTE}, "same length"),
+        ({"rows": ["a"], "palette": {"a": {"color": [1, 1], "height": 1}}}, "3 numbers from 0 to 1"),
+        ({"rows": ["a"], "palette": {"a": {"color": [2, 1, 1], "height": 1}}}, "3 numbers from 0 to 1"),
+        ({"rows": ["a"], "palette": {"a": {"color": [1, 1, 1], "height": 2}}}, "odd whole number"),
+        ({"rows": ["a"], "palette": {"a": {"color": [1, 1, 1]}}}, "expected exactly the keys"),
+        ({"rows": ["a"], "palette": {"ab": {"color": [1, 1, 1], "height": 1}}}, "one character"),
+    ],
+)
+def test_malformed_drawings_say_what_is_wrong(data, problem):
+    with pytest.raises(models.VoxelDrawingError, match=problem):
+        models.parse_drawing(data, "broken.json")
+
+
+def test_pickup_capsules_take_the_pickup_color():
+    capsule = models.pickup_model("B", (1.0, 0.5, 0.0, 1))
+    assert (1.0, 0.5, 0.0, 1.0) in models.main_colors(capsule)

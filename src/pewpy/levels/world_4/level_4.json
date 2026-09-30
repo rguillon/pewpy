@@ -1,0 +1,180 @@
+{
+  "name": "High Peaks",
+  "scroll_speed": 0.276,
+  "background": "mountains",
+  "ground_voxel": 0.04,
+  "background_seed": 2828,
+  "clouds": 0.6,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 4.3,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 7.0,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 9.3,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 12.1,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 12.1,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 14.5,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 17.0,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 19.8,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 22.3,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 24.6,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 27.4,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 29.8,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 32.4,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 35.3,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 38.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right"
+    },
+    {
+      "time": 40.2,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 43.0,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 46.5,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 48.0,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 49.5,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 51.0,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 57,
+      "enemy": "mesa_fort"
+    }
+  ]
+}

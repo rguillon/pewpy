@@ -1,0 +1,20 @@
+{
+  "rows": [
+    "...t...",
+    "..ttt..",
+    ".ttftt.",
+    ".tffft.",
+    "tffFfft",
+    "tfFFFft",
+    "tfFFFft",
+    ".fFFFf.",
+    ".ffgff.",
+    "..fgf.."
+  ],
+  "palette": {
+    "t": {"color": [0.15, 0.5, 0.55], "height": 1},
+    "f": {"color": [0.1, 0.35, 0.45], "height": 3},
+    "F": {"color": [0.2, 0.55, 0.6], "height": 5},
+    "g": {"color": [0.5, 1.0, 0.95], "height": 5}
+  }
+}

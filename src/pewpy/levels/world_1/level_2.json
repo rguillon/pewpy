@@ -1,0 +1,212 @@
+{
+  "name": "Red Drift",
+  "scroll_speed": 0.228,
+  "background": "space",
+  "background_seed": 208,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 6.0,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 9.2,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 13.0,
+      "enemy": "swarmer",
+      "count": 6,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 13.5,
+      "enemy": "swarmer",
+      "count": 6,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 16.2,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 20.0,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 20.0,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 23.7,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 27.7,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 31.7,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 35.0,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 38.5,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 42.4,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 42.4,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 46.4,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 49.6,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 52.9,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 56.2,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 59.4,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 63.8,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 65.3,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.38
+    },
+    {
+      "time": 66.8,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 68.3,
+      "enemy": "swarmer",
+      "count": 6,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 68.8,
+      "enemy": "swarmer",
+      "count": 6,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 75,
+      "enemy": "prowler"
+    }
+  ]
+}

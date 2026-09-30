@@ -1,0 +1,279 @@
+{
+  "name": "Mire",
+  "scroll_speed": 0.256,
+  "background": "swamp",
+  "ground_voxel": 0.04,
+  "background_seed": 1212,
+  "clouds": 0.6,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 5.2,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 5.7,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 8.0,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 8.5,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 11.2,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 14.8,
+      "enemy": "shield_carrier",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 17.7,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 18.2,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 20.6,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 23.7,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 27.3,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 27.3,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 30.6,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 30.6,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 33.4,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 36.8,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 39.5,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 39.5,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 43.0,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 43.5,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 46.7,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 46.7,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 50.4,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 53.8,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 53.8,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 57.9,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 58.4,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 59.4,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 59.4,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 60.9,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 62.4,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 68,
+      "enemy": "windmill"
+    }
+  ]
+}

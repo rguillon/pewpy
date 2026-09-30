@@ -1,0 +1,238 @@
+{
+  "name": "Pack Ice",
+  "scroll_speed": 0.268,
+  "background": "pack_ice",
+  "ground_voxel": 0.04,
+  "background_seed": 1818,
+  "clouds": 0.2,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 4.7,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 7.6,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.7,
+      "side": "left"
+    },
+    {
+      "time": 10.8,
+      "enemy": "weaver",
+      "count": 10,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.38
+    },
+    {
+      "time": 13.6,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 16.3,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 18.9,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 22.1,
+      "enemy": "weaver",
+      "count": 10,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 24.8,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 28.0,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 28.5,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 31.3,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 31.3,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 34.0,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 34.5,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 36.9,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 39.6,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 42.6,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 43.1,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 45.4,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 48.5,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 49.0,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 52.4,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 53.9,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right"
+    },
+    {
+      "time": 55.4,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 56.9,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 57.4,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 63,
+      "enemy": "jellyfish"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "rows": [
+    "..clc..",
+    ".clLlc.",
+    "clLLLlc",
+    "cLLWLLc",
+    "clLLLlc",
+    ".clLlc.",
+    "..clc.."
+  ],
+  "palette": {
+    "c": {"color": [0.35, 0.36, 0.45], "height": 3},
+    "l": {"color": [0.2, 0.7, 0.8], "height": 5},
+    "L": {"color": [0.4, 0.95, 1.0], "height": 7},
+    "W": {"color": [0.9, 1.0, 1.0], "height": 7}
+  }
+}

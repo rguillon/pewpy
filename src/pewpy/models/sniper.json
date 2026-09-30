@@ -1,0 +1,23 @@
+{
+  "rows": [
+    "f.........f",
+    "ff.......ff",
+    ".f.bbbbb.f.",
+    "..bbbbbbb..",
+    ".bbbsssbbb.",
+    ".bbbsssbbb.",
+    ".bbbsssbbb.",
+    "..bbbbbbb..",
+    "...bbbbb...",
+    ".....g.....",
+    ".....g.....",
+    ".....g.....",
+    ".....g....."
+  ],
+  "palette": {
+    "b": {"color": [0.3, 0.45, 1.0], "height": 3},
+    "s": {"color": [0.7, 0.9, 1.0], "height": 5},
+    "f": {"color": [0.12, 0.2, 0.55], "height": 1},
+    "g": {"color": [0.25, 0.26, 0.3], "height": 3}
+  }
+}

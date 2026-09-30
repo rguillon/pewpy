@@ -1,0 +1,125 @@
+{
+  "name": "Outer Belt",
+  "scroll_speed": 0.2,
+  "background": "space",
+  "background_seed": 107,
+  "waves": [
+    {
+      "time": 2,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "column",
+      "x": -0.4
+    },
+    {
+      "time": 5,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "column",
+      "x": 0.4
+    },
+    {
+      "time": 9,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.4
+    },
+    {
+      "time": 13,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line"
+    },
+    {
+      "time": 17,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 20,
+      "enemy": "weaver",
+      "count": 5,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 20,
+      "enemy": "weaver",
+      "count": 5,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 25,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 28,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.3
+    },
+    {
+      "time": 31,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 35,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 38,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.35
+    },
+    {
+      "time": 43,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line"
+    },
+    {
+      "time": 45,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 48,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 50,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line"
+    },
+    {
+      "time": 56,
+      "enemy": "sentinel"
+    }
+  ]
+}

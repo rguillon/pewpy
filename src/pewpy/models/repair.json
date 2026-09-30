@@ -1,0 +1,15 @@
+{
+  "rows": [
+    ".wwwww.",
+    "wwwRwww",
+    "wwwRwww",
+    "wRRRRRw",
+    "wwwRwww",
+    "wwwRwww",
+    ".wwwww."
+  ],
+  "palette": {
+    "w": {"color": [0.95, 0.95, 0.95], "height": 5},
+    "R": {"color": [0.9, 0.1, 0.1], "height": 7}
+  }
+}

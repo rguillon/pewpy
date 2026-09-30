@@ -1,0 +1,182 @@
+{
+  "name": "Ground Defense",
+  "scroll_speed": 0.25,
+  "background": "planet",
+  "ground_voxel": 0.04,
+  "background_seed": 909,
+  "clouds": 0.3,
+  "waves": [
+    {
+      "time": 2,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line"
+    },
+    {
+      "time": 5,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 8,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "side": "left",
+      "y": 0.5,
+      "interval": 0.2
+    },
+    {
+      "time": 11,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "side": "right",
+      "y": 0.5,
+      "interval": 0.2
+    },
+    {
+      "time": 14,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.4
+    },
+    {
+      "time": 17,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 20,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 20,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 24,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 28,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "side": "left",
+      "y": 0.3,
+      "interval": 0.2
+    },
+    {
+      "time": 29,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "side": "right",
+      "y": 0.3,
+      "interval": 0.2
+    },
+    {
+      "time": 33,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 33,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 38,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 38,
+      "enemy": "weaver",
+      "count": 5,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.4
+    },
+    {
+      "time": 40,
+      "enemy": "weaver",
+      "count": 5,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.4
+    },
+    {
+      "time": 44,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 45,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "side": "left",
+      "y": 0.6,
+      "interval": 0.2
+    },
+    {
+      "time": 46,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "side": "right",
+      "y": 0.6,
+      "interval": 0.2
+    },
+    {
+      "time": 50,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 52,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.3
+    },
+    {
+      "time": 56,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 62,
+      "enemy": "thresher"
+    }
+  ]
+}

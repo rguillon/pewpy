@@ -1,0 +1,213 @@
+{
+  "name": "Desert Night",
+  "scroll_speed": 0.28,
+  "background": "desert",
+  "ground_voxel": 0.04,
+  "time_of_day": "night",
+  "background_seed": 2929,
+  "clouds": 0.1,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 4.7,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 7.4,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 7.9,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 10.0,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 12.5,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 14.8,
+      "enemy": "weaver",
+      "count": 10,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 17.1,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 19.3,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 19.3,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 21.8,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 22.3,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 24.7,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 27.8,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 30.4,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 30.4,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 33.2,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left"
+    },
+    {
+      "time": 35.7,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 38.3,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 41.3,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 41.3,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 43.9,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 47.4,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 48.9,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 50.4,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 51.9,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 58,
+      "enemy": "lava_golem"
+    }
+  ]
+}

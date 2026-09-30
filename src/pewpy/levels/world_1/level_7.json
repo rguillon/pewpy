@@ -1,0 +1,228 @@
+{
+  "name": "Cold Wake",
+  "scroll_speed": 0.248,
+  "background": "debris",
+  "background_seed": 707,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 5.2,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 8.5,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 12.2,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 12.7,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 15.2,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 18.3,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 21.6,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 24.7,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 28.0,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.3,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 28.5,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.3,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 31.1,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 31.6,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 34.6,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 37.6,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 41.0,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 44.2,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 47.6,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 48.1,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 51.3,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 54.3,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 54.8,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 58.6,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 60.1,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.38
+    },
+    {
+      "time": 61.6,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 63.1,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.3,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 63.6,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.3,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 70,
+      "enemy": "mine_mother"
+    }
+  ]
+}

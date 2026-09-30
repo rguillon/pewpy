@@ -1,0 +1,195 @@
+{
+  "name": "Canyon Dusk",
+  "scroll_speed": 0.284,
+  "background": "canyon",
+  "ground_voxel": 0.04,
+  "time_of_day": "dusk",
+  "background_seed": 3030,
+  "clouds": 0.25,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 4.6,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 7.3,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 7.8,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 9.6,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 11.7,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 14.5,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 17.0,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 20.1,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 22.2,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 25.2,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 25.7,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 27.7,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 30.1,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 32.6,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 35.5,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right"
+    },
+    {
+      "time": 38.2,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right"
+    },
+    {
+      "time": 41.1,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 43.8,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 47.3,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 48.8,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 50.3,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 51.8,
+      "enemy": "diver",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 58,
+      "enemy": "vulture"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "rows": [
+    "..ttt..",
+    ".ttttt.",
+    "tTtTtTt",
+    "ttTtTtt",
+    "tTtTtTt",
+    "ttuuutt",
+    "tTtTtTt",
+    "ttTtTtt",
+    "tTtTtTt",
+    ".ttttt.",
+    "..ttt.."
+  ],
+  "palette": {
+    "t": {"color": [0.12, 0.11, 0.1], "height": 5},
+    "T": {"color": [0.25, 0.23, 0.2], "height": 5},
+    "u": {"color": [0.95, 0.8, 0.2], "height": 7}
+  }
+}

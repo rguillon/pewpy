@@ -1,0 +1,16 @@
+{
+  "rows": [
+    "..ccc..",
+    ".cCCCc.",
+    "cCCCCCc",
+    "bbbbbbb",
+    "cCCCCCc",
+    ".cCCCc.",
+    "..ccc.."
+  ],
+  "palette": {
+    "c": {"color": [1.0, 1.0, 1.0], "height": 3},
+    "C": {"color": [1.0, 1.0, 1.0], "height": 5},
+    "b": {"color": [0.6, 0.6, 0.6], "height": 5}
+  }
+}

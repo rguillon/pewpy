@@ -1,0 +1,62 @@
+site_name: pewpy
+repo_url: https://github.com/rguillon/pewpy
+site_url: https://rguillon.github.io/pewpy
+site_description: Python based Shoott Them Up
+site_author: Renaud Guillon
+edit_uri: edit/main/docs/
+repo_name: rguillon/pewpy
+copyright: Maintained by <a href="https://rguillon.com">rguillon</a>.
+
+nav:
+  - Home: index.md
+  - Specs:
+      - Vision: specs/00-vision.md
+      - Gameplay: specs/01-gameplay.md
+      - Enemies: specs/02-enemies.md
+      - Levels: specs/03-levels.md
+      - UI and Audio: specs/04-ui-audio.md
+      - Visuals: specs/05-visuals.md
+      - Technical: specs/06-technical.md
+      - Roadmap: specs/roadmap.md
+      - Decisions: specs/decisions.md
+  - Modules: modules.md
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["src/pewpy"]
+theme:
+  name: material
+  feature:
+    tabs: true
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rguillon/pewpy
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/pewpy
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true

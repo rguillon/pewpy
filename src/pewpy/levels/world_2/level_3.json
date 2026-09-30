@@ -1,0 +1,214 @@
+{
+  "name": "Greenwood",
+  "scroll_speed": 0.252,
+  "background": "forest",
+  "ground_voxel": 0.04,
+  "background_seed": 1111,
+  "clouds": 0.5,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 5.2,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 8.8,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.38
+    },
+    {
+      "time": 12.1,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 15.0,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 18.2,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 18.7,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 21.1,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 24.0,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 27.5,
+      "enemy": "shield_carrier",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 30.9,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 31.4,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 34.6,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 38.1,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 41.0,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 43.8,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 47.2,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.38
+    },
+    {
+      "time": 50.4,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 53.8,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 53.8,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 57.9,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.6
+    },
+    {
+      "time": 59.4,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 59.9,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 60.9,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 60.9,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 62.4,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 68,
+      "enemy": "beetle"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "rows": [
+    "...jjjjjjj...",
+    "..jJJJJJJJj..",
+    ".jJJJJJJJJJj.",
+    "jJJgJJJJJgJJj",
+    "jJJJJJgJJJJJj",
+    "jJJgJJJJJgJJj",
+    ".jJJJJJJJJJj.",
+    "jjjjjjjjjjjjj",
+    ".t.t.t.t.t.t.",
+    ".t.t.t.t.t.t.",
+    "t.t.t.t.t.t.t",
+    "t.t.t.t.t.t.t",
+    ".t.t.t.t.t.t.",
+    ".t..t...t..t.",
+    "....t...t...."
+  ],
+  "palette": {
+    "j": {"color": [0.3, 0.35, 0.7], "height": 5},
+    "J": {"color": [0.45, 0.55, 0.9], "height": 7},
+    "g": {"color": [0.6, 1.0, 0.95], "height": 9},
+    "t": {"color": [0.4, 0.6, 0.85], "height": 1}
+  }
+}

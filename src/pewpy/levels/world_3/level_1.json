@@ -1,0 +1,214 @@
+{
+  "name": "Archipelago",
+  "scroll_speed": 0.264,
+  "background": "ocean",
+  "ground_voxel": 0.04,
+  "background_seed": 1717,
+  "clouds": 0.5,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 5.1,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 5.6,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 7.9,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 11.1,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 14.0,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 16.7,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 16.7,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 19.5,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 22.9,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right"
+    },
+    {
+      "time": 26.0,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 29.3,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 32.0,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 35.1,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 37.8,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 40.5,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 43.7,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 44.2,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 46.7,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": -0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 46.7,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "x": 0.35,
+      "interval": 0.4
+    },
+    {
+      "time": 49.9,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 53.8,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 55.3,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left"
+    },
+    {
+      "time": 56.8,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 58.3,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 58.8,
+      "enemy": "swarmer",
+      "count": 9,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 65,
+      "enemy": "crab"
+    }
+  ]
+}

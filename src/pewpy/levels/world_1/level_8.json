@@ -1,0 +1,193 @@
+{
+  "name": "Minefield",
+  "scroll_speed": 0.3,
+  "background": "debris",
+  "background_seed": 808,
+  "waves": [
+    {
+      "time": 2,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line"
+    },
+    {
+      "time": 5,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.6
+    },
+    {
+      "time": 9,
+      "enemy": "splitter",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 13,
+      "enemy": "shield_carrier",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 17,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "side": "left",
+      "y": 0.5,
+      "interval": 0.2
+    },
+    {
+      "time": 17.5,
+      "enemy": "swarmer",
+      "count": 8,
+      "formation": "column",
+      "side": "right",
+      "y": 0.5,
+      "interval": 0.2
+    },
+    {
+      "time": 21,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.4
+    },
+    {
+      "time": 24,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 24,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 29,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 1.5
+    },
+    {
+      "time": 33,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 34,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "x": 0.0,
+      "interval": 0.4
+    },
+    {
+      "time": 38,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.7
+    },
+    {
+      "time": 39,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.3
+    },
+    {
+      "time": 43,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 47,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.3
+    },
+    {
+      "time": 51,
+      "enemy": "splitter",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 52,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 56,
+      "enemy": "shield_carrier",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 56,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "side": "left",
+      "y": 0.4,
+      "interval": 0.2
+    },
+    {
+      "time": 57,
+      "enemy": "swarmer",
+      "count": 10,
+      "formation": "column",
+      "side": "right",
+      "y": 0.4,
+      "interval": 0.2
+    },
+    {
+      "time": 62,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line"
+    },
+    {
+      "time": 63,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 65,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.5
+    },
+    {
+      "time": 71,
+      "enemy": "warden"
+    }
+  ]
+}

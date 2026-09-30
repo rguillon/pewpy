@@ -1,0 +1,225 @@
+{
+  "name": "Starlit Reach",
+  "scroll_speed": 0.236,
+  "background": "space",
+  "background_seed": 406,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.45
+    },
+    {
+      "time": 5.2,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 5.7,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 8.7,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 11.8,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 15.3,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 15.8,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 19.1,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": 0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 22.6,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 26.4,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.4,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 26.9,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.4,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 30.3,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 34.1,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 37.9,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 41.1,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 41.6,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.5,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 44.8,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 47.9,
+      "enemy": "sniper",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 51.2,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 54.7,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 0.8
+    },
+    {
+      "time": 58.0,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 62.4,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "line",
+      "spacing": 0.2
+    },
+    {
+      "time": 63.9,
+      "enemy": "weaver",
+      "count": 7,
+      "formation": "column",
+      "x": -0.4,
+      "interval": 0.38
+    },
+    {
+      "time": 65.4,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.35
+    },
+    {
+      "time": 66.9,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.6,
+      "side": "left",
+      "interval": 0.2
+    },
+    {
+      "time": 67.4,
+      "enemy": "swarmer",
+      "count": 7,
+      "formation": "column",
+      "y": 0.6,
+      "side": "right",
+      "interval": 0.2
+    },
+    {
+      "time": 73,
+      "enemy": "siege_pod"
+    }
+  ]
+}
