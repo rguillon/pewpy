@@ -7,21 +7,31 @@ from pewpy.scenery import params
 GROUNDS = [name for name in params.backgrounds() if params.resolve(name).ground is not None]
 
 
-def test_bundled_levels_load_as_five_worlds_of_eight():
+def test_bundled_levels_load_as_eight_worlds_of_six():
     worlds = load_worlds()
-    assert [world.name for world in worlds] == ["Orbit", "Heartland", "Waters", "Badlands", "Metropolis"]
-    assert all(len(world.levels) == 8 for world in worlds)
+    assert [world.name for world in worlds] == [
+        "Highlands",
+        "Wildwood",
+        "Fenlands",
+        "Heartland",
+        "Archipelago",
+        "Canyonlands",
+        "Ironworks",
+        "Metropolis",
+    ]
+    assert all(len(world.levels) == 6 for world in worlds)
     levels = load_levels()
     assert levels == [level for world in worlds for level in world.levels]
     assert all(level.spawns() for level in levels)
-    assert len({level.name for level in levels}) == 40
+    assert len({level.name for level in levels}) == 48
 
 
 def test_the_levels_of_the_spec_keep_their_places_in_the_worlds():
     worlds = load_worlds()
-    assert worlds[0].levels[0].name == "Outer Belt"  # 1-1
-    assert worlds[0].levels[7].name == "Minefield"  # 1-8
-    assert worlds[1].levels[0].name == "Ground Defense"  # 2-1
+    assert worlds[0].levels[0].name == "High Peaks"  # 1-1
+    assert worlds[0].levels[5].name == "Summit"  # 1-6
+    assert worlds[1].levels[0].name == "Greenwood"  # 2-1
+    assert worlds[7].levels[5].name == "The Core"  # 8-6
 
 
 def test_line_formation_spawns_side_by_side_at_once():
@@ -67,23 +77,18 @@ def test_parse_level_background():
     assert parse_level({"background": "ocean"}).background == "ocean"
 
 
-def test_each_world_keeps_to_its_style():
-    styles = {
-        "Orbit": {"space", "debris"},
-        "Heartland": {"planet", "farmland", "forest", "swamp"},
-        "Waters": {"ocean", "pack_ice", "clouds"},
-        "Badlands": {"desert", "canyon", "volcano", "mountains"},
-        "Metropolis": {"city", "refinery"},
-    }
-    for world in load_worlds():
-        backgrounds = [level.background for level in world.levels]
-        assert set(backgrounds) == styles[world.name]  # uses all of its grounds, and only those
+def test_each_world_keeps_to_its_ground():
+    grounds = ["mountains", "forest", "swamp", "farmland", "ocean", "canyon", "refinery", "city"]
+    for world, ground in zip(load_worlds(), grounds, strict=True):
+        assert {level.background for level in world.levels} == {ground}
 
 
 def test_levels_of_a_world_vary():
     for world in load_worlds():
-        looks = {(level.background, level.time_of_day, level.background_seed) for level in world.levels}
-        assert len(looks) == 8  # no two levels look the same
+        looks = {
+            (level.time_of_day, level.background_seed, level.clouds, repr(level.scenery)) for level in world.levels
+        }
+        assert len(looks) == len(world.levels)  # no two levels look the same
 
 
 def test_parse_level_clouds():
@@ -93,10 +98,8 @@ def test_parse_level_clouds():
         parse_level({"clouds": 1.5})
 
 
-def test_atmosphere_levels_have_clouds_some_more_than_others():
-    worlds = load_worlds()
-    assert all(level.clouds == 0 for level in worlds[0].levels)  # space
-    for world in worlds[1:]:
+def test_each_world_has_clouds_some_levels_more_than_others():
+    for world in load_worlds():
         amounts = [level.clouds for level in world.levels]
         assert min(amounts) <= 0.2 and max(amounts) >= 0.8, world.name  # nearly clear to heavy
 
@@ -148,8 +151,10 @@ def test_levels_accept_bosses():
     assert level.spawns()[0].enemy == "overmind"
 
 
-def test_every_ground_has_levels():
-    assert set(GROUNDS) <= {level.background for level in load_levels()}
+def test_every_level_is_on_a_ground_and_each_world_on_its_own():
+    worlds = load_worlds()
+    assert all(level.background in GROUNDS for world in worlds for level in world.levels)
+    assert len({world.levels[0].background for world in worlds}) == len(worlds)
 
 
 def test_no_ground_enemies_over_water_or_clouds():

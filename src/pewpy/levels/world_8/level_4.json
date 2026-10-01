@@ -1,0 +1,189 @@
+{
+  "name": "Neon Rain",
+  "scroll_speed": 0.298,
+  "background": "city",
+  "background_seed": 1344,
+  "time_of_day": "night",
+  "clouds": 0.7,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "weaver",
+      "count": 17,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.0
+    },
+    {
+      "time": 5.2,
+      "enemy": "pincer",
+      "x": -0.33
+    },
+    {
+      "time": 8.6,
+      "enemy": "imp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 8.6,
+      "enemy": "imp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 9.7,
+      "enemy": "harrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 11.4,
+      "enemy": "brawler",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 13.5,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 15.1,
+      "enemy": "pincer",
+      "x": 0.0
+    },
+    {
+      "time": 18.2,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.59
+    },
+    {
+      "time": 18.2,
+      "enemy": "brawler",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 21.2,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 22.3,
+      "enemy": "splitter",
+      "count": 8,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 27.4,
+      "enemy": "broadside",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 29.4,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 29.4,
+      "enemy": "harrier",
+      "x": -0.33
+    },
+    {
+      "time": 30.4,
+      "enemy": "imp",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 31.7,
+      "enemy": "behemoth",
+      "x": 0.33
+    },
+    {
+      "time": 36.7,
+      "enemy": "imp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 37.8,
+      "enemy": "warhawk",
+      "x": 0.0
+    },
+    {
+      "time": 40.3,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 43.1,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 44.1,
+      "enemy": "harrier",
+      "count": 2,
+      "x": 0.0
+    },
+    {
+      "time": 46.1,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 46.1,
+      "enemy": "behemoth",
+      "x": 0.33
+    },
+    {
+      "time": 46.1,
+      "enemy": "pincer",
+      "x": -0.33
+    },
+    {
+      "time": 48.0,
+      "enemy": "behemoth",
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "arc_tower"
+    }
+  ]
+}

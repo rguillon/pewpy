@@ -51,6 +51,7 @@ def test_a_sound_doesnt_start_again_too_soon():
         (State.LEVEL_SELECT, 3, False, Music("title")),
         (State.PLAYING, 0, False, Music("world_1")),
         (State.PLAYING, 4, False, Music("world_5")),
+        (State.PLAYING, 7, False, Music("world_8")),
         (State.PAUSED, 2, False, Music("world_3")),
         (State.PLAYING, 2, True, Music("boss")),
         (State.LEVEL_COMPLETE, 2, True, Music("level_complete", loop=False)),

@@ -1,0 +1,212 @@
+{
+  "name": "Night Grid",
+  "scroll_speed": 0.304,
+  "background": "city",
+  "background_seed": 1667,
+  "time_of_day": "night",
+  "clouds": 0.4,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "block": 0.3,
+        "park_share": 0.03
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "dart",
+      "count": 14,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.5
+    },
+    {
+      "time": 7.2,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 9.6,
+      "enemy": "rampart",
+      "x": 0.5
+    },
+    {
+      "time": 9.6,
+      "enemy": "behemoth",
+      "x": 0.0
+    },
+    {
+      "time": 9.6,
+      "enemy": "brood",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 13.8,
+      "enemy": "harrier",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 16.6,
+      "enemy": "gunship",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 16.6,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 18.8,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 21.0,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 22.7,
+      "enemy": "harrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 25.6,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 27.3,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.67
+    },
+    {
+      "time": 29.0,
+      "enemy": "rampart",
+      "x": 0.5
+    },
+    {
+      "time": 31.7,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 31.7,
+      "enemy": "stormcrow",
+      "x": -0.33
+    },
+    {
+      "time": 35.0,
+      "enemy": "broadside",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 37.7,
+      "enemy": "behemoth",
+      "x": 0.0
+    },
+    {
+      "time": 37.7,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 37.7,
+      "enemy": "hunter",
+      "count": 2,
+      "formation": "column",
+      "x": 0.02
+    },
+    {
+      "time": 40.4,
+      "enemy": "rampart",
+      "x": -0.33
+    },
+    {
+      "time": 42.6,
+      "enemy": "rampart",
+      "x": -0.33
+    },
+    {
+      "time": 44.7,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 44.7,
+      "enemy": "rampart",
+      "count": 2,
+      "x": 0.0
+    },
+    {
+      "time": 44.7,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 46.5,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 46.5,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 48.0,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 48.0,
+      "enemy": "warhawk",
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "apex"
+    }
+  ]
+}

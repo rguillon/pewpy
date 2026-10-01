@@ -1,0 +1,219 @@
+{
+  "name": "Red Canyon",
+  "scroll_speed": 0.258,
+  "background": "canyon",
+  "background_seed": 2626,
+  "clouds": 0.15,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 10,
+      "formation": "column",
+      "x": 0.67
+    },
+    {
+      "time": 5.4,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 7.2,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 8.9,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 8.9,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 10.6,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.5
+    },
+    {
+      "time": 12.2,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 13.9,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.5
+    },
+    {
+      "time": 15.5,
+      "enemy": "rapier",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 18.9,
+      "enemy": "rapier",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 21.6,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 25.4,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 25.4,
+      "enemy": "rapier",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 25.4,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.67
+    },
+    {
+      "time": 27.6,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 29.6,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 29.6,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 32.1,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 33.7,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": 0.08
+    },
+    {
+      "time": 35.0,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 37.3,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 39.0,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 40.7,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 41.8,
+      "enemy": "brawler",
+      "x": 0.5
+    },
+    {
+      "time": 42.8,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 43.8,
+      "enemy": "brawler",
+      "x": 0.5
+    },
+    {
+      "time": 44.9,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 45.9,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 47.0,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 48.0,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 48.0,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 54.0,
+      "enemy": "relay_array"
+    }
+  ]
+}

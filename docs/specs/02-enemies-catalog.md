@@ -15,7 +15,7 @@
 - Attack: one aimed shot at the player every 1.5 s, speed 0.6
 - Points: 100
 - Drops: 5%
-- First appears in level: 1-1
+- First appears in level: 1-1 (High Peaks)
 - Notes: the basic enemy, used for most waves
 
 ### Enemy: Weaver
@@ -27,7 +27,7 @@
 - Attack: none
 - Points: 80
 - Drops: 5%
-- First appears in level: 1-1
+- First appears in level: 1-1 (High Peaks)
 - Notes: comes in columns so the group snakes down the screen
 
 ### Enemy: Diver
@@ -40,7 +40,7 @@
 - Attack: none, it tries to ram the player
 - Points: 150
 - Drops: 5%
-- First appears in level: 1-1
+- First appears in level: 1-1 (High Peaks)
 - Notes: blinks during the 0.8 s wait to warn the player
 
 ### Enemy: Gunship
@@ -52,7 +52,7 @@
 - Attack: 3-shot spread straight down (-20°, 0°, +20°) every 2 s, speed 0.5
 - Points: 300
 - Drops: 20%
-- First appears in level: 1-1
+- First appears in level: 1-1 (High Peaks)
 - Notes: slow and tough, the first "take it down before it reaches you" enemy
 
 ### Enemy: Turret
@@ -65,7 +65,7 @@
 - Attack: burst of 3 aimed shots, 0.15 s apart, every 2.5 s, speed 0.7
 - Points: 250
 - Drops: 10%
-- First appears in level: 1-8 (Minefield)
+- First appears in level: 1-5 (Dusk Peaks)
 - Notes: often placed in pairs on each side of the screen; ground levels only
 
 ### Enemy: Flak Cannon
@@ -79,7 +79,7 @@
   screen (not aimed), speed 0.55
 - Points: 200
 - Drops: 10%
-- First appears in level: 2-1 (Ground Defense)
+- First appears in level: 1-5 (Dusk Peaks)
 - Notes: usually a pair, one on each side of the screen; ground levels only
 
 ### Enemy: Tank
@@ -93,7 +93,7 @@
 - Attack: one aimed shot every 2 s, speed 0.65
 - Points: 300
 - Drops: 15%
-- First appears in level: 2-3 (Greenwood)
+- First appears in level: 2-4 (Autumn Wood)
 - Notes: alone or two in a row; ground levels only
 
 ### Enemy: Rocket Truck
@@ -106,7 +106,7 @@
 - Attack: a big orange rocket (0.05, 1 damage) straight down the screen every 1.8 s, speed 0.5
 - Points: 250
 - Drops: 10%
-- First appears in level: 2-5 (Harvest Dusk)
+- First appears in level: 2-5 (Twilight Grove)
 - Notes: two or three in a column, down the same lane; ground levels only
 
 ### Enemy: Swarmer
@@ -119,7 +119,7 @@
 - Attack: none
 - Points: 50
 - Drops: none
-- First appears in level: 1-2
+- First appears in level: 1-2 (Pine Ridge)
 - Notes: always in groups of 6 to 10, spaced 0.2 s apart along the same path
 
 ### Enemy: Sniper
@@ -131,7 +131,7 @@
 - Attack: every 3 s, glows white for 0.5 s (warning), then fires one fast aimed shot, speed 0.9, blue
 - Points: 350
 - Drops: 15%
-- First appears in level: 1-2
+- First appears in level: 1-2 (Pine Ridge)
 - Notes: leaves after 12 s by flying back up
 
 ### Enemy: Mine Layer
@@ -145,7 +145,7 @@
   mines are gone
 - Points: 300
 - Drops: 10%
-- First appears in level: 1-8
+- First appears in level: 2-6 (Moonlit Woods)
 - Notes: mines fill the lower part of the screen, forcing the player to shoot a path through
 
 ### Enemy: Shield Carrier
@@ -160,7 +160,7 @@
   also stops the laser
 - Points: 500
 - Drops: 30%
-- First appears in level: 1-8
+- First appears in level: 1-5 (Dusk Peaks)
 - Notes: teaches the player to time their shots
 
 ### Enemy: Splitter
@@ -173,7 +173,7 @@
   (left-down, straight down, right-down) at 0.6
 - Points: 200 (the Swarmers give their own points)
 - Drops: 10%
-- First appears in level: 1-8
+- First appears in level: 1-6 (Summit)
 - Notes: destroying it close to the player is dangerous
 
 ### Enemy: Rocketeer
@@ -185,7 +185,7 @@
 - Attack: every 2.5 s, a pair of rockets (one per pod, 0.09 apart) straight down (see "Enemy weapons")
 - Points: 250
 - Drops: 10%
-- First appears in level: 1-2 (Red Drift)
+- First appears in level: 1-2 (Pine Ridge)
 - Notes: usually two side by side
 
 ### Enemy: Hunter
@@ -198,7 +198,7 @@
 - Attack: a homing missile every 3.2 s (see "Enemy weapons")
 - Points: 350
 - Drops: 15%
-- First appears in level: 2-1 (Ground Defense)
+- First appears in level: 1-5 (Dusk Peaks)
 
 ### Enemy: Missile Silo
 
@@ -209,7 +209,7 @@
 - Attack: every 3.5 s, a homing missile launched upwards, which then turns round to chase the player
 - Points: 350
 - Drops: 15%
-- First appears in level: 2-2 (Patchwork)
+- First appears in level: 1-6 (Summit)
 - Notes: ground levels only
 
 ### Enemy: Bomber
@@ -221,7 +221,7 @@
 - Attack: drops a cluster bomb every 1.6 s (see "Enemy weapons")
 - Points: 400
 - Drops: 20%
-- First appears in level: 2-4 (Mire)
+- First appears in level: 2-5 (Twilight Grove)
 
 ### Enemy: Lancer
 
@@ -234,7 +234,7 @@
   "Enemy weapons")
 - Points: 350
 - Drops: 15%
-- First appears in level: 3-1 (Archipelago)
+- First appears in level: 3-5 (Witchlight)
 
 ### Enemy: Serpent
 
@@ -245,7 +245,7 @@
 - Attack: every 1.6 s, 3 snaking shots aimed at the player, 18° apart, speed 0.45 (see "Enemy weapons")
 - Points: 200
 - Drops: 5%
-- First appears in level: 1-4 (Starlit Reach)
+- First appears in level: 1-3 (Glacier Pass)
 - Notes: in columns of three
 
 ### Enemy: Buckshot
@@ -258,5 +258,5 @@
   from 0.4 to 0.65 (see "Enemy weapons")
 - Points: 250
 - Drops: 10%
-- First appears in level: 1-6 (Green Veil)
+- First appears in level: 1-4 (Stormcrest)
 - Notes: usually two side by side

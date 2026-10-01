@@ -27,6 +27,10 @@ candidates: ## Generate enemy model candidates for the Enemy candidates screen (
 boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
 	@uv run python -m tools.make_boss_candidates $(ARGS)
 
+.PHONY: levels
+levels: ## Generate the game's levels from the worlds' plan in tools/make_levels.py (options: ARGS="--seed 1234", see --help)
+	@uv run python -m tools.make_levels $(ARGS)
+
 .PHONY: songs
 songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
 	@uv run python -m tools.make_songs $(ARGS)

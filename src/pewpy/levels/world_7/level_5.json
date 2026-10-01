@@ -1,0 +1,243 @@
+{
+  "name": "Flare Stacks",
+  "scroll_speed": 0.293,
+  "background": "refinery",
+  "background_seed": 6237,
+  "time_of_day": "night",
+  "clouds": 0.6,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "units": [
+          "stack",
+          "stack",
+          "plant",
+          "tanks",
+          "cooling",
+          "stack"
+        ]
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "weaver",
+      "count": 13,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 5.6,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 5.6,
+      "enemy": "howitzer",
+      "count": 2,
+      "x": 0.5
+    },
+    {
+      "time": 8.0,
+      "enemy": "brood",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 10.7,
+      "enemy": "harrier",
+      "count": 2,
+      "x": 0.0
+    },
+    {
+      "time": 13.0,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 13.0,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 14.1,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": 0.35
+    },
+    {
+      "time": 15.2,
+      "enemy": "missile_silo",
+      "count": 2,
+      "formation": "column",
+      "x": 0.22
+    },
+    {
+      "time": 15.2,
+      "enemy": "rampart",
+      "x": -0.33
+    },
+    {
+      "time": 17.5,
+      "enemy": "harrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 19.6,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 19.6,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 22.3,
+      "enemy": "howitzer",
+      "count": 2,
+      "x": 0.5
+    },
+    {
+      "time": 25.1,
+      "enemy": "splitter",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 25.1,
+      "enemy": "stormcrow",
+      "x": -0.33
+    },
+    {
+      "time": 25.1,
+      "enemy": "stormcrow",
+      "x": -0.33
+    },
+    {
+      "time": 28.1,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 28.1,
+      "enemy": "serpent",
+      "count": 7,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.58
+    },
+    {
+      "time": 32.7,
+      "enemy": "serpent",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.7
+    },
+    {
+      "time": 32.7,
+      "enemy": "harrier",
+      "x": -0.33
+    },
+    {
+      "time": 33.8,
+      "enemy": "needle",
+      "count": 2,
+      "x": 0.0
+    },
+    {
+      "time": 35.1,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 38.3,
+      "enemy": "wisp",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 39.4,
+      "enemy": "wisp",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 40.5,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 41.6,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 42.7,
+      "enemy": "stormcrow",
+      "x": -0.33
+    },
+    {
+      "time": 44.3,
+      "enemy": "wisp",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 45.4,
+      "enemy": "stormcrow",
+      "x": 0.0
+    },
+    {
+      "time": 46.9,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "flare_rig"
+    }
+  ]
+}

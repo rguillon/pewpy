@@ -20,7 +20,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.5 s, a fan of 5 shots straight down to 40° either side, speed 0.45
 - Points: 300
 - Drops: 15%
-- First appears in level: 1-6 (Green Veil)
+- First appears in level: 1-4 (Stormcrest)
 
 ### Enemy: Dart
 
@@ -31,7 +31,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: none: it rams
 - Points: 80
 - Drops: 3%
-- First appears in level: 1-1 (Outer Belt)
+- First appears in level: 1-1 (High Peaks)
 - Notes: also launched in pairs by the Behemoth
 
 ### Enemy: Brawler
@@ -43,7 +43,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.8 s, a heavy shot at the player from its cannon (off to one side), speed 0.5
 - Points: 450
 - Drops: 20%
-- First appears in level: 3-5 (Polar Night)
+- First appears in level: 4-5 (Hay Moon)
 
 ### Enemy: Manta
 
@@ -54,7 +54,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 0.35 s, a shot straight down (speed 0.5) from one wingtip, then the other
 - Points: 400
 - Drops: 20%
-- First appears in level: 3-1 (Archipelago)
+- First appears in level: 3-5 (Witchlight)
 
 ### Enemy: Hornet
 
@@ -65,7 +65,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: a shot at the player at each turn, speed 0.55
 - Points: 180
 - Drops: 5%
-- First appears in level: 1-4 (Starlit Reach)
+- First appears in level: 1-3 (Glacier Pass)
 - Notes: in columns of three
 
 ### Enemy: Mite
@@ -77,7 +77,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2 s, a shot at the player, speed 0.5
 - Points: 90
 - Drops: 3%
-- First appears in level: 1-1 (Outer Belt)
+- First appears in level: 1-1 (High Peaks)
 - Notes: usually three side by side
 
 ### Enemy: Outrider
@@ -89,7 +89,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.5 s, a burst of 3 pairs of shots straight down from its pods, 0.12 s apart, speed 0.6
 - Points: 220
 - Drops: 10%
-- First appears in level: 2-3 (Greenwood)
+- First appears in level: 1-6 (Summit)
 
 ### Enemy: Condor
 
@@ -100,7 +100,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.6 s, in turn: 2 homing missiles from its wingtips, or a spread of 7 shots at the player (30° either side), speed 0.5
 - Points: 900
 - Drops: 35%
-- First appears in level: 4-2 (Red Canyon)
+- First appears in level: 5-6 (Dark Tide)
 
 ### Enemy: Needle
 
@@ -111,7 +111,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.2 s, a stream of 5 shots straight down, 0.07 s apart, speed 0.8
 - Points: 250
 - Drops: 10%
-- First appears in level: 2-4 (Mire)
+- First appears in level: 3-3 (Mistmarsh)
 
 ### Enemy: Kestrel
 
@@ -122,7 +122,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.4 s, 3 shots at the player 12° apart, speed 0.5
 - Points: 300
 - Drops: 10%
-- First appears in level: 2-1 (Ground Defense)
+- First appears in level: 1-5 (Dusk Peaks)
 - Notes: in pairs
 
 ### Enemy: Javelin
@@ -134,7 +134,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: none: it rams
 - Points: 250
 - Drops: 8%
-- First appears in level: 3-2 (Pack Ice)
+- First appears in level: 3-6 (Fogbound Fen)
 
 ### Enemy: Tick
 
@@ -145,7 +145,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: one shot at the player on the way up (at y -0.2), speed 0.55
 - Points: 100
 - Drops: 5%
-- First appears in level: 1-3 (Rubble Run)
+- First appears in level: 1-2 (Pine Ridge)
 - Notes: the only enemy from behind: in lines of three or four
 
 ### Enemy: Warhawk
@@ -157,7 +157,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.4 s, in turn: a spiral of 12 shots (0.1 s apart, speed 0.45), or 3 heavy shots at the player 10° apart, speed 0.5
 - Points: 1000
 - Drops: 50%
-- First appears in level: 4-4 (High Peaks)
+- First appears in level: 6-5 (Switchbacks)
 - Notes: a heavy: comes alone
 
 ### Enemy: Catamaran
@@ -169,7 +169,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.2 s, a snaking shot straight down (speed 0.45) from one hull, then the other
 - Points: 350
 - Drops: 15%
-- First appears in level: 1-5 (Shard Belt)
+- First appears in level: 1-3 (Glacier Pass)
 
 ### Enemy: Harrier
 
@@ -180,7 +180,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.5 s, a burst of 6 shots at the player, 0.08 s apart, scattered up to 8°, speed 0.6
 - Points: 350
 - Drops: 15%
-- First appears in level: 3-3 (Cloud Deck)
+- First appears in level: 3-6 (Fogbound Fen)
 
 ### Enemy: Behemoth
 
@@ -191,7 +191,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.6 s, in turn: launches 2 Darts from its sides, or fires a ring of 12 shots (every other ring turned 15°), speed 0.4
 - Points: 1500
 - Drops: 60%
-- First appears in level: 5-3 (Downtown)
+- First appears in level: 7-6 (Meltdown)
 - Notes: a heavy: comes alone
 
 ### Enemy: Wisp
@@ -203,7 +203,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: one shot at the player each time it shows (halfway through), speed 0.55
 - Points: 150
 - Drops: 8%
-- First appears in level: 2-4 (Mire)
+- First appears in level: 2-6 (Moonlit Woods)
 
 ### Enemy: Rampart
 
@@ -214,7 +214,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: armored (darker, can't be hurt) for 3 s, then open for 1.2 s: as it opens, a wall of 7 shots across its width, straight down, speed 0.4
 - Points: 600
 - Drops: 30%
-- First appears in level: 4-1 (Dune Sea)
+- First appears in level: 5-5 (Squall Line)
 - Notes: only hurt while open
 
 ### Enemy: Imp
@@ -226,7 +226,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.1 s, a cross of 4 shots (speed 0.45) turned 22.5° more with each volley
 - Points: 120
 - Drops: 5%
-- First appears in level: 1-2 (Red Drift)
+- First appears in level: 1-2 (Pine Ridge)
 
 ### Enemy: Howitzer
 
@@ -237,7 +237,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.6 s, lobs a shell (a cluster bomb, speed 0.5) that bursts into a ring of 8 shots where the player was when it fired
 - Points: 400
 - Drops: 15%
-- First appears in level: 3-6 (Storm Top)
+- First appears in level: 4-6 (Last Harvest)
 
 ### Enemy: Stalker
 
@@ -248,7 +248,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: when lined up with the player (within 0.06), a pair of shots straight down from its guns, at most every 0.6 s, speed 0.6
 - Points: 220
 - Drops: 10%
-- First appears in level: 2-1 (Ground Defense)
+- First appears in level: 2-4 (Autumn Wood)
 
 ### Enemy: Spark
 
@@ -259,7 +259,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: none: it rams
 - Points: 30
 - Drops: 0%
-- First appears in level: 1-2 (Red Drift)
+- First appears in level: 1-3 (Glacier Pass)
 - Notes: also released in pairs by the Brood
 
 ### Enemy: Broadside
@@ -271,7 +271,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.5 s, fans of 3 shots out to both flanks (25°, 45° and 65° from straight down), speed 0.45
 - Points: 380
 - Drops: 15%
-- First appears in level: 3-2 (Pack Ice)
+- First appears in level: 3-6 (Fogbound Fen)
 
 ### Enemy: Rapier
 
@@ -282,7 +282,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 0.3 s, a pair of shots out to both sides (speed 0.55, drifting down a little)
 - Points: 250
 - Drops: 5%
-- First appears in level: 2-2 (Patchwork)
+- First appears in level: 1-6 (Summit)
 
 ### Enemy: Freighter
 
@@ -293,7 +293,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.4 s, drops a mine behind it (see Mine Layer)
 - Points: 300
 - Drops: 100%
-- First appears in level: 2-5 (Harvest Dusk)
+- First appears in level: 2-5 (Twilight Grove)
 - Notes: always drops a pickup when shot down
 
 ### Enemy: Scrapper
@@ -305,7 +305,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.3 s, a shot at the player from its turret, speed 0.55
 - Points: 200
 - Drops: 10%
-- First appears in level: 2-2 (Patchwork)
+- First appears in level: 3-4 (Sunken Bog)
 
 ### Enemy: Brood
 
@@ -316,7 +316,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.2 s, releases 2 Sparks from its pods
 - Points: 450
 - Drops: 20%
-- First appears in level: 3-4 (Sunset Isles)
+- First appears in level: 4-5 (Hay Moon)
 
 ### Enemy: Stormcrow
 
@@ -327,7 +327,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: sweeps a stream of shots (every 0.09 s, speed 0.5) from 60° on one side of straight down to 60° on the other in 1.6 s, pauses 1.2 s, sweeps back
 - Points: 800
 - Drops: 35%
-- First appears in level: 5-1 (Neon City)
+- First appears in level: 7-5 (Flare Stacks)
 - Notes: a heavy: comes alone
 
 ### Enemy: Pincer
@@ -339,5 +339,5 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 4 s, glows white for 0.9 s (a warning), then fires two laser beams (0.03 wide) straight down from its prongs for 0.7 s, holding still; the gap between them is narrower than a ship
 - Points: 1100
 - Drops: 45%
-- First appears in level: 5-2 (Refinery)
+- First appears in level: 7-6 (Meltdown)
 - Notes: a heavy: comes alone

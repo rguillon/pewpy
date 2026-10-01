@@ -5,7 +5,7 @@
 > Describe the screens and how the player moves between them.
 
 ```text
-Main menu -> Ship select -> World select -> Level select (the world's 8 levels) -> Playing <-> Pause
+Main menu -> Ship select -> World select -> Level select (the world's 6 levels) -> Playing <-> Pause
 Main menu <-> Models
 Main menu <-> Bosses
 Main menu <-> Enemy candidates
@@ -27,8 +27,8 @@ Pause -> Main menu
 - Entries: Start (to the ship select: one entry per ship, then Back; under the menu, every ship side by side with
   its name and bars comparing armor, speed, size and repair; the highlighted one is bigger, spins, has bright bars,
   and its description and numbers show at the bottom; then the world select: one entry per world, then Back to the ship select; then that
-  world's level select: its 8
-  levels, like "2-5 Harvest Dusk", then Back, with a window above the list showing the highlighted level's
+  world's level select: its 6
+  levels, like "2-5 Twilight Grove", then Back, with a window above the list showing the highlighted level's
   ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Enemy candidates, Boss candidates, Quit *(entries are a
   placeholder)*
 
@@ -44,8 +44,8 @@ Pause -> Main menu
 
 ### Bosses
 
-- Like the Models screen, for the bosses: one page per world with its 8 bosses (whole, with their parts), bigger;
-  the title says the world and the page, like "Orbit (1/5)".
+- Like the Models screen, for the bosses: one page per world with its 6 bosses (whole, with their parts), bigger;
+  the title says the world and the page, like "Highlands (1/8)".
 - Entries: Next page (after the last world, back to the first), Previous page, Reload models, Back. Escape goes
   back to the main menu.
 
@@ -103,7 +103,7 @@ Pause -> Main menu
 - Music style: synthwave *(the user's choice)*
 - Music source (your files, free assets, generated): generated MIDI songs *(the user's choice)*: `make songs`
   writes them to `src/pewpy/music/` (tools/make_songs.py); the game plays them with its own synthesizer. Any MIDI
-  file can replace one. Songs *(placeholder)*: "title" on the menus, "world_1" to "world_5" for
+  file can replace one. Songs *(placeholder)*: "title" on the menus, "world_1" to "world_8" for
   each world's levels, "boss" from when a boss comes until the level ends, and two jingles played once,
   "level_complete" and "game_over". Lower while paused; M turns the music on and off. Volumes: `SFX_VOLUME`, `MUSIC_VOLUME` in `config.py`
   *(placeholders, until the options menu)*. Each song is rendered once, in the background, and kept as a WAV

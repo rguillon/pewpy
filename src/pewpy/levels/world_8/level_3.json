@@ -1,0 +1,216 @@
+{
+  "name": "Skyline",
+  "scroll_speed": 0.293,
+  "background": "city",
+  "background_seed": 8588,
+  "time_of_day": "dusk",
+  "clouds": 0.3,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "tower_share": 0.2,
+        "midrise_share": 0.35
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "dart",
+      "count": 12,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 5.2,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 5.2,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.67
+    },
+    {
+      "time": 8.3,
+      "enemy": "stormcrow",
+      "x": 0.33
+    },
+    {
+      "time": 11.0,
+      "enemy": "rocket_truck",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.2,
+      "x": -0.58
+    },
+    {
+      "time": 14.0,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 16.1,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.4
+    },
+    {
+      "time": 17.5,
+      "enemy": "brood",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 17.5,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.65
+    },
+    {
+      "time": 19.2,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.07
+    },
+    {
+      "time": 19.2,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 19.2,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 23.7,
+      "enemy": "stormcrow",
+      "x": 0.0
+    },
+    {
+      "time": 26.3,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 29.9,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.67
+    },
+    {
+      "time": 32.2,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 32.2,
+      "enemy": "warhawk",
+      "x": 0.0
+    },
+    {
+      "time": 32.2,
+      "enemy": "sniper",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 32.2,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.59
+    },
+    {
+      "time": 33.9,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 38.1,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 38.1,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 42.9,
+      "enemy": "hunter",
+      "count": 2,
+      "formation": "column",
+      "x": -0.45
+    },
+    {
+      "time": 42.9,
+      "enemy": "stormcrow",
+      "x": 0.33
+    },
+    {
+      "time": 44.8,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 46.6,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 46.6,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 48.0,
+      "enemy": "stormcrow",
+      "x": 0.33
+    },
+    {
+      "time": 48.0,
+      "enemy": "stormcrow",
+      "x": -0.33
+    },
+    {
+      "time": 54.0,
+      "enemy": "nightwatch"
+    }
+  ]
+}

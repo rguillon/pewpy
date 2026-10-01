@@ -1,0 +1,314 @@
+{
+  "name": "Sandstone Gorge",
+  "scroll_speed": 0.264,
+  "background": "canyon",
+  "background_seed": 4459,
+  "clouds": 0.1,
+  "scenery": {
+    "ground": {
+      "shape": {
+        "wall": 0.55,
+        "steps": 5
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "dart",
+      "count": 8,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 4.3,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 6.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.6
+    },
+    {
+      "time": 7.0,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 8.9,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.3
+    },
+    {
+      "time": 9.9,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.5
+    },
+    {
+      "time": 10.9,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 12.4,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 13.7,
+      "enemy": "manta",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.5
+    },
+    {
+      "time": 14.8,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.67
+    },
+    {
+      "time": 14.8,
+      "enemy": "manta",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.5
+    },
+    {
+      "time": 16.3,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 20.0,
+      "enemy": "freighter",
+      "x": -0.5
+    },
+    {
+      "time": 20.0,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 20.0,
+      "enemy": "freighter",
+      "x": 0.5
+    },
+    {
+      "time": 21.0,
+      "enemy": "freighter",
+      "x": 0.5
+    },
+    {
+      "time": 21.0,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 22.3,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 23.7,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 25.0,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 26.5,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 29.5,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.5
+    },
+    {
+      "time": 30.6,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.59
+    },
+    {
+      "time": 32.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.3
+    },
+    {
+      "time": 32.0,
+      "enemy": "freighter",
+      "x": 0.5
+    },
+    {
+      "time": 33.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.3
+    },
+    {
+      "time": 33.9,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.74
+    },
+    {
+      "time": 35.0,
+      "enemy": "freighter",
+      "x": -0.5
+    },
+    {
+      "time": 35.0,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 36.9,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 38.1,
+      "enemy": "freighter",
+      "x": -0.5
+    },
+    {
+      "time": 39.1,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 41.1,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 42.3,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 43.4,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 44.4,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 44.4,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 45.7,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 45.7,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 47.0,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 48.0,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "scavenger"
+    }
+  ]
+}

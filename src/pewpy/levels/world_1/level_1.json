@@ -1,140 +1,189 @@
 {
-  "name": "Outer Belt",
+  "name": "High Peaks",
   "scroll_speed": 0.2,
-  "background": "space",
-  "background_seed": 107,
+  "background": "mountains",
+  "background_seed": 2828,
+  "clouds": 0.6,
   "waves": [
     {
-      "time": 2,
-      "enemy": "drone",
-      "count": 5,
-      "formation": "column",
-      "x": -0.67
-    },
-    {
-      "time": 5,
-      "enemy": "drone",
-      "count": 5,
-      "formation": "column",
-      "x": 0.67
-    },
-    {
-      "time": 9,
-      "enemy": "weaver",
-      "count": 6,
-      "formation": "column",
-      "x": 0.0,
-      "interval": 0.4
-    },
-    {
-      "time": 13,
-      "enemy": "drone",
-      "count": 5,
-      "formation": "line"
-    },
-    {
-      "time": 17,
-      "enemy": "diver",
-      "count": 3,
-      "formation": "line",
-      "spacing": 0.83
-    },
-    {
-      "time": 20,
-      "enemy": "weaver",
-      "count": 5,
-      "formation": "column",
-      "x": -0.58,
-      "interval": 0.4
-    },
-    {
-      "time": 20,
-      "enemy": "weaver",
-      "count": 5,
-      "formation": "column",
-      "x": 0.58,
-      "interval": 0.4
-    },
-    {
-      "time": 21.2,
+      "time": 2.0,
       "enemy": "mite",
       "count": 3,
       "formation": "line",
-      "x": 0.0,
-      "spacing": 0.75
+      "spacing": 0.75,
+      "x": 0.0
     },
     {
-      "time": 25,
+      "time": 4.0,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 6.0,
       "enemy": "gunship",
       "count": 1,
       "formation": "column",
       "x": 0.0
     },
     {
-      "time": 28,
+      "time": 8.3,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.33
+    },
+    {
+      "time": 11.4,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 11.4,
+      "enemy": "weaver",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 13.7,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.33
+    },
+    {
+      "time": 13.7,
+      "enemy": "drone",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.45,
+      "x": 0.67
+    },
+    {
+      "time": 15.5,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 18.5,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 20.3,
       "enemy": "drone",
       "count": 4,
       "formation": "line",
       "spacing": 0.5
     },
     {
-      "time": 31,
-      "enemy": "diver",
-      "count": 4,
-      "formation": "line",
-      "spacing": 0.58
-    },
-    {
-      "time": 35,
+      "time": 22.8,
       "enemy": "gunship",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.33
-    },
-    {
-      "time": 38,
-      "enemy": "weaver",
-      "count": 8,
+      "count": 1,
       "formation": "column",
-      "x": 0.0,
-      "interval": 0.35
+      "x": 0.0
     },
     {
-      "time": 39.2,
-      "enemy": "dart",
-      "count": 4,
-      "formation": "column",
-      "x": -0.5,
-      "interval": 0.4
-    },
-    {
-      "time": 43,
-      "enemy": "drone",
-      "count": 7,
-      "formation": "line"
-    },
-    {
-      "time": 45,
+      "time": 25.0,
       "enemy": "diver",
       "count": 3,
       "formation": "line",
       "spacing": 0.83
     },
     {
-      "time": 48,
-      "enemy": "gunship",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.33
+      "time": 28.6,
+      "enemy": "weaver",
+      "count": 8,
+      "formation": "column",
+      "interval": 0.35,
+      "x": 0.0
     },
     {
-      "time": 50,
+      "time": 32.8,
+      "enemy": "dart",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 34.9,
+      "enemy": "mite",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 36.1,
+      "enemy": "mite",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 37.4,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 39.5,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 41.9,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 44.8,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 46.7,
+      "enemy": "dart",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 48.0,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 48.0,
       "enemy": "drone",
       "count": 5,
       "formation": "line"
     },
     {
-      "time": 56,
+      "time": 54.0,
       "enemy": "sentinel"
     }
   ]

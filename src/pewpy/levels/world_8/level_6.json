@@ -1,0 +1,240 @@
+{
+  "name": "The Core",
+  "scroll_speed": 0.31,
+  "background": "city",
+  "background_seed": 7271,
+  "time_of_day": "night",
+  "clouds": 0.9,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "tower_share": 0.25
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "dart",
+      "count": 14,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 4.5,
+      "enemy": "hornet",
+      "count": 7,
+      "formation": "column",
+      "interval": 0.9,
+      "x": 0.0
+    },
+    {
+      "time": 7.5,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 10.5,
+      "enemy": "needle",
+      "count": 3,
+      "x": 0.0
+    },
+    {
+      "time": 12.9,
+      "enemy": "behemoth",
+      "x": 0.33
+    },
+    {
+      "time": 17.6,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 19.4,
+      "enemy": "stalker",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 21.3,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 23.5,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 23.5,
+      "enemy": "imp",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 24.6,
+      "enemy": "hornet",
+      "count": 10,
+      "formation": "column",
+      "interval": 0.9,
+      "x": -0.33
+    },
+    {
+      "time": 28.7,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.67
+    },
+    {
+      "time": 29.8,
+      "enemy": "hornet",
+      "count": 9,
+      "formation": "column",
+      "interval": 0.9,
+      "x": 0.5
+    },
+    {
+      "time": 34.2,
+      "enemy": "swarmer",
+      "count": 18,
+      "formation": "column",
+      "interval": 0.2,
+      "side": "left",
+      "y": 0.4
+    },
+    {
+      "time": 34.2,
+      "enemy": "lancer",
+      "count": 2,
+      "formation": "column",
+      "x": 0.58
+    },
+    {
+      "time": 35.8,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 37.0,
+      "enemy": "stalker",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 37.0,
+      "enemy": "needle",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 38.4,
+      "enemy": "stormcrow",
+      "x": -0.33
+    },
+    {
+      "time": 40.2,
+      "enemy": "needle",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 41.3,
+      "enemy": "swarmer",
+      "count": 20,
+      "formation": "column",
+      "interval": 0.2,
+      "side": "left",
+      "y": 0.3
+    },
+    {
+      "time": 41.3,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 42.4,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 43.4,
+      "enemy": "swarmer",
+      "count": 18,
+      "formation": "column",
+      "interval": 0.2,
+      "side": "left",
+      "y": 0.4
+    },
+    {
+      "time": 44.9,
+      "enemy": "diver",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 44.9,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 45.9,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 47.0,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 48.0,
+      "enemy": "swarmer",
+      "count": 20,
+      "formation": "column",
+      "interval": 0.2,
+      "side": "left",
+      "y": 0.5
+    },
+    {
+      "time": 54.0,
+      "enemy": "overmind"
+    }
+  ]
+}

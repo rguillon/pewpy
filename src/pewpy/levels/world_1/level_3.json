@@ -1,245 +1,281 @@
 {
-  "name": "Rubble Run",
-  "scroll_speed": 0.232,
-  "background": "debris",
-  "background_seed": 303,
+  "name": "Glacier Pass",
+  "scroll_speed": 0.212,
+  "background": "mountains",
+  "background_seed": 8343,
+  "clouds": 0.4,
+  "scenery": {
+    "haze": {
+      "amount": 0.55
+    },
+    "ground": {
+      "colors": {
+        "snow": [
+          0.46,
+          0.48,
+          0.53
+        ]
+      }
+    }
+  },
   "waves": [
     {
       "time": 2.0,
-      "enemy": "drone",
-      "count": 5,
+      "enemy": "mite",
+      "count": 2,
       "formation": "line",
-      "spacing": 0.33
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 2.0,
+      "enemy": "serpent",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.7
+    },
+    {
+      "time": 4.2,
+      "enemy": "spark",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.3,
+      "x": 0.0
     },
     {
       "time": 5.3,
-      "enemy": "gunship",
+      "enemy": "rocketeer",
       "count": 1,
       "formation": "line",
-      "spacing": 1.33
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
-      "time": 8.4,
-      "enemy": "sniper",
+      "time": 6.4,
+      "enemy": "serpent",
+      "count": 1,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.28
+    },
+    {
+      "time": 7.5,
+      "enemy": "imp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 9.1,
+      "enemy": "serpent",
+      "count": 1,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.38
+    },
+    {
+      "time": 10.2,
+      "enemy": "rocketeer",
       "count": 1,
       "formation": "line",
-      "spacing": 1.67
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
-      "time": 11.9,
-      "enemy": "swarmer",
-      "count": 6,
+      "time": 11.7,
+      "enemy": "drone",
+      "count": 4,
       "formation": "column",
-      "y": 0.3,
-      "side": "left",
-      "interval": 0.2
+      "interval": 0.45,
+      "x": 0.67
     },
     {
-      "time": 12.4,
-      "enemy": "swarmer",
-      "count": 6,
+      "time": 13.6,
+      "enemy": "serpent",
+      "count": 2,
       "formation": "column",
-      "y": 0.3,
-      "side": "right",
-      "interval": 0.2
+      "interval": 0.8,
+      "x": -0.72
     },
     {
-      "time": 15.0,
-      "enemy": "weaver",
-      "count": 5,
-      "formation": "column",
-      "x": -0.58,
-      "interval": 0.4
+      "time": 15.7,
+      "enemy": "imp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
     },
     {
-      "time": 15.0,
-      "enemy": "weaver",
-      "count": 5,
-      "formation": "column",
-      "x": 0.58,
-      "interval": 0.4
+      "time": 17.2,
+      "enemy": "rocketeer",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
       "time": 18.3,
-      "enemy": "weaver",
-      "count": 6,
+      "enemy": "spark",
+      "count": 3,
       "formation": "column",
-      "x": -0.67,
-      "interval": 0.38
+      "interval": 0.3,
+      "x": 0.0
     },
     {
-      "time": 19.5,
-      "enemy": "dart",
+      "time": 19.3,
+      "enemy": "serpent",
+      "count": 1,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.25
+    },
+    {
+      "time": 20.4,
+      "enemy": "hornet",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.9,
+      "x": 0.0
+    },
+    {
+      "time": 22.0,
+      "enemy": "rocketeer",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 23.3,
+      "enemy": "drone",
       "count": 4,
       "formation": "column",
-      "x": 0.58,
-      "interval": 0.4
+      "interval": 0.45,
+      "x": -0.67
     },
     {
-      "time": 22.3,
-      "enemy": "weaver",
-      "count": 5,
+      "time": 23.3,
+      "enemy": "hornet",
+      "count": 3,
       "formation": "column",
-      "x": -0.58,
-      "interval": 0.4
+      "interval": 0.9,
+      "x": 0.5
     },
     {
-      "time": 22.3,
-      "enemy": "weaver",
-      "count": 5,
-      "formation": "column",
-      "x": 0.58,
-      "interval": 0.4
-    },
-    {
-      "time": 25.9,
-      "enemy": "gunship",
-      "count": 1,
+      "time": 23.3,
+      "enemy": "imp",
+      "count": 2,
       "formation": "line",
-      "spacing": 1.33
+      "spacing": 0.67,
+      "x": 0.0
     },
     {
-      "time": 29.4,
-      "enemy": "sniper",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.67
-    },
-    {
-      "time": 32.6,
-      "enemy": "sniper",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.67
-    },
-    {
-      "time": 36.2,
-      "enemy": "rocketeer",
+      "time": 24.4,
+      "enemy": "catamaran",
       "count": 2,
       "formation": "line",
       "spacing": 1.17,
       "x": 0.0
     },
     {
-      "time": 36.5,
-      "enemy": "diver",
-      "count": 3,
-      "formation": "line",
-      "spacing": 0.58
+      "time": 28.2,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": 0.67
     },
     {
-      "time": 39.9,
+      "time": 31.3,
+      "enemy": "imp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 31.3,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 31.3,
+      "enemy": "rocketeer",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 32.6,
+      "enemy": "hornet",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.9,
+      "x": -0.33
+    },
+    {
+      "time": 35.7,
+      "enemy": "imp",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 37.2,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 41.0,
       "enemy": "drone",
       "count": 5,
       "formation": "line",
-      "spacing": 0.33
+      "spacing": 0.5
     },
     {
-      "time": 43.6,
-      "enemy": "diver",
+      "time": 42.5,
+      "enemy": "hornet",
       "count": 3,
+      "formation": "column",
+      "interval": 0.9,
+      "x": -0.33
+    },
+    {
+      "time": 44.2,
+      "enemy": "catamaran",
+      "count": 2,
       "formation": "line",
-      "spacing": 0.58
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
-      "time": 46.8,
-      "enemy": "swarmer",
-      "count": 6,
-      "formation": "column",
-      "y": 0.3,
-      "side": "left",
-      "interval": 0.2
-    },
-    {
-      "time": 47.3,
-      "enemy": "swarmer",
-      "count": 6,
-      "formation": "column",
-      "y": 0.3,
-      "side": "right",
-      "interval": 0.2
-    },
-    {
-      "time": 50.6,
-      "enemy": "diver",
+      "time": 46.3,
+      "enemy": "hornet",
       "count": 3,
-      "formation": "line",
-      "spacing": 0.58
-    },
-    {
-      "time": 54.2,
-      "enemy": "drone",
-      "count": 5,
-      "formation": "line",
-      "spacing": 0.33
-    },
-    {
-      "time": 57.9,
-      "enemy": "drone",
-      "count": 4,
       "formation": "column",
-      "x": -0.67,
-      "interval": 0.45
+      "interval": 0.9,
+      "x": -0.33
     },
     {
-      "time": 57.9,
-      "enemy": "drone",
-      "count": 4,
-      "formation": "column",
-      "x": 0.67,
-      "interval": 0.45
-    },
-    {
-      "time": 59.1,
-      "enemy": "tick",
+      "time": 48.0,
+      "enemy": "hornet",
       "count": 3,
-      "formation": "line",
-      "x": 0.0,
-      "spacing": 0.83
-    },
-    {
-      "time": 62.3,
-      "enemy": "drone",
-      "count": 5,
-      "formation": "line",
-      "spacing": 0.33
-    },
-    {
-      "time": 63.8,
-      "enemy": "weaver",
-      "count": 6,
       "formation": "column",
-      "x": 0.0,
-      "interval": 0.38
+      "interval": 0.9,
+      "x": -0.33
     },
     {
-      "time": 65.3,
-      "enemy": "diver",
-      "count": 3,
-      "formation": "line",
-      "spacing": 0.58
-    },
-    {
-      "time": 66.8,
-      "enemy": "swarmer",
-      "count": 6,
-      "formation": "column",
-      "y": 0.5,
-      "side": "left",
-      "interval": 0.2
-    },
-    {
-      "time": 67.3,
-      "enemy": "swarmer",
-      "count": 6,
-      "formation": "column",
-      "y": 0.5,
-      "side": "right",
-      "interval": 0.2
-    },
-    {
-      "time": 73,
-      "enemy": "rockbreaker"
+      "time": 54.0,
+      "enemy": "prowler"
     }
   ]
 }

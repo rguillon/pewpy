@@ -1,0 +1,181 @@
+{
+  "name": "Meltdown",
+  "scroll_speed": 0.298,
+  "background": "refinery",
+  "background_seed": 1526,
+  "time_of_day": "night",
+  "clouds": 0.8,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "units": [
+          "plant",
+          "plant",
+          "cooling",
+          "stack",
+          "tanks",
+          "cooling"
+        ]
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 11,
+      "formation": "line"
+    },
+    {
+      "time": 5.4,
+      "enemy": "brawler",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 8.4,
+      "enemy": "stormcrow",
+      "x": 0.0
+    },
+    {
+      "time": 11.1,
+      "enemy": "stormcrow",
+      "x": 0.0
+    },
+    {
+      "time": 11.1,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 13.0,
+      "enemy": "brood",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 13.0,
+      "enemy": "brood",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 16.3,
+      "enemy": "weaver",
+      "count": 27,
+      "formation": "column",
+      "interval": 0.35,
+      "x": 0.0
+    },
+    {
+      "time": 16.3,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 18.2,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 20.6,
+      "enemy": "brawler",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 20.6,
+      "enemy": "freighter",
+      "count": 2,
+      "x": -0.5
+    },
+    {
+      "time": 20.6,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 23.0,
+      "enemy": "behemoth",
+      "x": 0.33
+    },
+    {
+      "time": 27.3,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 28.7,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 30.5,
+      "enemy": "rampart",
+      "x": 0.5
+    },
+    {
+      "time": 32.6,
+      "enemy": "behemoth",
+      "x": 0.0
+    },
+    {
+      "time": 38.0,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 38.0,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.47
+    },
+    {
+      "time": 39.3,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 41.0,
+      "enemy": "pincer",
+      "x": 0.0
+    },
+    {
+      "time": 43.3,
+      "enemy": "pincer",
+      "x": 0.0
+    },
+    {
+      "time": 45.7,
+      "enemy": "pincer",
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
+      "enemy": "behemoth",
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "crucible"
+    }
+  ]
+}

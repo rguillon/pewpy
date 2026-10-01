@@ -1,0 +1,253 @@
+{
+  "name": "Downtown",
+  "scroll_speed": 0.287,
+  "background": "city",
+  "background_seed": 5574,
+  "clouds": 0.1,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "tower_share": 0.15
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "weaver",
+      "count": 11,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.67
+    },
+    {
+      "time": 4.1,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 5.5,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 6.5,
+      "enemy": "freighter",
+      "count": 2,
+      "x": -0.5
+    },
+    {
+      "time": 8.1,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 10.2,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 11.1,
+      "enemy": "rampart",
+      "x": -0.33
+    },
+    {
+      "time": 12.6,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 13.8,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 15.0,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": -0.75
+    },
+    {
+      "time": 16.6,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 18.0,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 19.1,
+      "enemy": "javelin",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 20.8,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.58
+    },
+    {
+      "time": 21.8,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": 0.07
+    },
+    {
+      "time": 22.7,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 23.8,
+      "enemy": "serpent",
+      "count": 8,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.43
+    },
+    {
+      "time": 28.5,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 30.3,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 31.5,
+      "enemy": "rapier",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.5
+    },
+    {
+      "time": 33.4,
+      "enemy": "stalker",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 35.2,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 36.8,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 39.7,
+      "enemy": "lancer",
+      "count": 2,
+      "formation": "column",
+      "x": -0.15
+    },
+    {
+      "time": 41.8,
+      "enemy": "stalker",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 41.8,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": 0.58
+    },
+    {
+      "time": 42.8,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 44.7,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 45.8,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 46.9,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 46.9,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
+      "enemy": "stalker",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "interdictor"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ from pewpy.audio.library import Library
 from pewpy.audio.midi import Note, Song
 from pewpy.data import data_folder
 
-GAME_SONGS = {"title", "boss", "level_complete", "game_over", *(f"world_{n}" for n in range(1, 6))}
+GAME_SONGS = {"title", "boss", "level_complete", "game_over", *(f"world_{n}" for n in range(1, 9))}
 
 
 @pytest.fixture

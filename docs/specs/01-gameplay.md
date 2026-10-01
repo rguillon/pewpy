@@ -154,9 +154,14 @@ the play area. Every missile explodes in an orange fireball where it hits.
 - No dificulty level can be selected
 - Difficulty ramp within a level: a warm-up wave, then the main waves, then a finale of the level's signature
   enemies close together
-- Difficulty ramp across levels: from 1-1 to 5-8 (40 levels), the generated levels send bigger groups (about
-  +3.5% per level) and waves come faster (from about 3.5 s to 2.1 s apart); new enemies come in along the way
-  (see "First appears in level" in `02-enemies-catalog.md` and `02-enemies-fleet.md`). Not playtested yet *(placeholder)*
+- Difficulty ramp across levels: each level has a difficulty from 1 (1-1) to 20 (8-6): 2 (world - 1) + level, so
+  the levels of a world get harder one by one and a world starts as hard as the third level of the world before
+  (see `03-levels.md`). With the difficulty, the generated levels (`tools/make_levels.py`) scroll faster (0.2 to
+  0.31), send bigger groups (about +7% per step), and send more: each level's enemies add up to a threat (their
+  points) from 8600 to 22500, rising fast at first and slower later, spread over about 48 s, so harder levels
+  are denser. New enemies come in along the way: each enemy unlocks at a difficulty (see "First appears in level"
+  in `02-enemies-catalog.md` and `02-enemies-fleet.md`); a level's signature enemies, in its finale, are the ones
+  it unlocks first. Not playtested yet *(placeholder)*
 - Continues: yes
 
 ## Game over and victory
@@ -166,4 +171,4 @@ the play area. Every missile explodes in an orange fireball where it hits.
   points *(placeholder)*
 - Continue restarts the current level with 5 lives, a score of 0 and the weapons at level 1 *(placeholder; open:
   should continue keep the score?)*
-- Win condition: finishing the last level, 5-8 ("ALL LEVELS COMPLETE / YOU WIN")
+- Win condition: finishing the last level, 8-6 ("ALL LEVELS COMPLETE / YOU WIN")

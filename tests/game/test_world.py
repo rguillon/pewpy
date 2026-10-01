@@ -3,6 +3,7 @@ import pytest
 from pewpy import config
 from pewpy.game import bosses
 from pewpy.game.boss_catalog import BOSSES
+from pewpy.game.bosses import make_boss
 from pewpy.game.enemies import (
     ClusterBomb,
     Drone,
@@ -580,3 +581,34 @@ def test_weapon_levels_survive_losing_a_life():
     assert world.lives == config.PLAYER_LIVES - 1
     assert world.arsenal.selected == "missiles"
     assert world.arsenal.levels["missiles"] == 3
+
+
+@pytest.mark.parametrize("kind", BOSSES)
+def test_every_part_of_every_boss_can_be_shot_from_below(kind):
+    """Shots fly up: under a part they go over the core up to it (the parts in front of it destroyed)."""
+    for target in BOSSES[kind].parts:
+        world = make_world()
+        boss = make_boss(BOSSES[kind], 0.0, top=0.2)
+        boss.parts_released = True
+        world.enemies += [boss, *boss.parts]
+        world.update(DT, Controls())  # the parts take their places
+        part = next(part for part in boss.parts if part.name == target.name)
+        for other in boss.parts:
+            other.alive = other is part
+        world.player_bullets.append(Bullet(x=part.x, y=part.y - part.height / 2 - 0.03, vy=3.0, width=0.02))
+        run(world, 0.1)
+        assert part.health < target.health, target.name
+        assert boss.health == BOSSES[kind].health
+
+
+def test_the_laser_goes_over_a_boss_core_up_to_the_part_above_it():
+    world = armed_world("laser", 1)
+    boss = make_boss(BOSSES["reaper"], 0.0, top=0.2)
+    boss.parts_released = True
+    world.enemies += [boss, *boss.parts]
+    world.update(DT, Controls())
+    cutter = next(part for part in boss.parts if part.name == "cutter")
+    world.player.x = cutter.x
+    run(world, 0.5, Controls(fire=True))
+    assert cutter.health < BOSSES["reaper"].parts[2].health
+    assert boss.health == BOSSES["reaper"].health

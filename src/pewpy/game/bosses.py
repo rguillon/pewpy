@@ -197,6 +197,10 @@ class Boss(Enemy):
     def wreckage(self) -> list[Enemy]:
         return [part for part in self.parts if part.alive]
 
+    def covered(self, x: float) -> bool:
+        """Whether a living part is mounted over the column at `x`: there, shots fly over the core up to the part."""
+        return any(part.alive and abs(x - part.x) < part.width / 2 for part in self.parts)
+
     def explosions(self) -> list[tuple[float, float, float]]:
         size = max(self.width, self.height)
         return [(self.x + dx * self.width, self.y + dy * self.height, scale * size) for dx, dy, scale in EXPLOSIONS]

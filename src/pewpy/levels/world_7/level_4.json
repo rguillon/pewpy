@@ -1,0 +1,303 @@
+{
+  "name": "Pipe Maze",
+  "scroll_speed": 0.287,
+  "background": "refinery",
+  "background_seed": 541,
+  "time_of_day": "dusk",
+  "clouds": 0.3,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "units": [
+          "pipes",
+          "pipes",
+          "plant",
+          "stack",
+          "tanks",
+          "pipes"
+        ]
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.33
+    },
+    {
+      "time": 2.0,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 2.0,
+      "enemy": "javelin",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 5.1,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 7.0,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 8.2,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 8.2,
+      "enemy": "javelin",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 11.1,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 13.3,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.32,
+      "x": 0.0
+    },
+    {
+      "time": 14.6,
+      "enemy": "needle",
+      "count": 2,
+      "x": 0.0
+    },
+    {
+      "time": 16.3,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 16.3,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 16.3,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.05,
+      "x": 0.0
+    },
+    {
+      "time": 16.3,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 17.6,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 18.9,
+      "enemy": "splitter",
+      "count": 7,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 18.9,
+      "enemy": "hornet",
+      "count": 8,
+      "formation": "column",
+      "interval": 0.9,
+      "x": -0.33
+    },
+    {
+      "time": 24.1,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.59
+    },
+    {
+      "time": 25.5,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 25.5,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 26.8,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 28.6,
+      "enemy": "flak_cannon",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 30.2,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 30.2,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.68
+    },
+    {
+      "time": 30.2,
+      "enemy": "javelin",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 33.0,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 33.0,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.74
+    },
+    {
+      "time": 34.6,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 35.9,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 38.0,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 38.0,
+      "enemy": "javelin",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 40.3,
+      "enemy": "drone",
+      "count": 10,
+      "formation": "column",
+      "interval": 0.45,
+      "x": 0.67
+    },
+    {
+      "time": 42.4,
+      "enemy": "drone",
+      "count": 10,
+      "formation": "column",
+      "interval": 0.45,
+      "x": 0.67
+    },
+    {
+      "time": 44.6,
+      "enemy": "drone",
+      "count": 10,
+      "formation": "column",
+      "interval": 0.45,
+      "x": -0.67
+    },
+    {
+      "time": 46.7,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
+      "enemy": "drone",
+      "count": 9,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "dreadnought"
+    }
+  ]
+}

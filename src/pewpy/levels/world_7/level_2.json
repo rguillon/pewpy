@@ -1,0 +1,263 @@
+{
+  "name": "Tank Farm",
+  "scroll_speed": 0.275,
+  "background": "refinery",
+  "background_seed": 6307,
+  "clouds": 0.2,
+  "scenery": {
+    "settlement": {
+      "layout": {
+        "units": [
+          "tanks",
+          "tanks",
+          "tanks",
+          "pipes",
+          "stack",
+          "tanks"
+        ]
+      }
+    }
+  },
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "dart",
+      "count": 9,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 4.0,
+      "enemy": "wisp",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 5.1,
+      "enemy": "albatross",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 7.0,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 10.2,
+      "enemy": "rocket_truck",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "x": -0.58
+    },
+    {
+      "time": 10.2,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 10.2,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 11.8,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 12.9,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.58
+    },
+    {
+      "time": 14.1,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": 0.08
+    },
+    {
+      "time": 15.3,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.15
+    },
+    {
+      "time": 15.3,
+      "enemy": "rocket_truck",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "x": 0.0
+    },
+    {
+      "time": 17.1,
+      "enemy": "albatross",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 19.3,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 21.7,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 23.3,
+      "enemy": "albatross",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 23.3,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 24.6,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 24.6,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.5
+    },
+    {
+      "time": 24.6,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 26.2,
+      "enemy": "rocket_truck",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "x": -0.58
+    },
+    {
+      "time": 28.1,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 29.4,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 31.7,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 33.3,
+      "enemy": "harrier",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 35.5,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 38.9,
+      "enemy": "hunter",
+      "count": 2,
+      "formation": "column",
+      "x": 0.3
+    },
+    {
+      "time": 41.7,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 43.3,
+      "enemy": "hunter",
+      "count": 2,
+      "formation": "column",
+      "x": 0.33
+    },
+    {
+      "time": 43.3,
+      "enemy": "tank",
+      "count": 2,
+      "formation": "column",
+      "interval": 3.0,
+      "x": 0.75
+    },
+    {
+      "time": 44.4,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 44.4,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 46.2,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "tugmaster"
+    }
+  ]
+}

@@ -52,6 +52,16 @@ def test_parts_join_the_world_and_follow_the_core():
         assert part.y == pytest.approx(boss.y + part.offset_y)
 
 
+def test_a_living_part_covers_the_columns_under_it():
+    boss = make_boss(BOSSES["reaper"], 0.0)
+    boss.update(DT, BELOW, 0.2)
+    cutter = next(part for part in boss.parts if part.name == "cutter")
+    assert boss.covered(cutter.x)
+    assert not boss.covered(boss.x + boss.width / 2 - 0.01)  # the core's edge, no part over it
+    cutter.alive = False
+    assert not boss.covered(cutter.x)
+
+
 def test_no_shots_while_coming_down_or_during_a_phase_pause():
     boss = make_boss(BOSSES["warden"], 0.0)
     assert not [entity for entity in arrive(boss) if not isinstance(entity, BossPart)]

@@ -1,0 +1,240 @@
+{
+  "name": "Smelter",
+  "scroll_speed": 0.281,
+  "background": "refinery",
+  "background_seed": 5216,
+  "time_of_day": "dusk",
+  "clouds": 0.5,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "weaver",
+      "count": 14,
+      "formation": "column",
+      "interval": 0.38,
+      "x": -0.67
+    },
+    {
+      "time": 2.0,
+      "enemy": "manta",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.5
+    },
+    {
+      "time": 3.1,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 6.4,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 10.0,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 12.7,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.7
+    },
+    {
+      "time": 14.0,
+      "enemy": "warhawk",
+      "x": 0.0
+    },
+    {
+      "time": 16.9,
+      "enemy": "manta",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.5
+    },
+    {
+      "time": 17.9,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 17.9,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 20.4,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 22.0,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 24.1,
+      "enemy": "rapier",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 27.4,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.55
+    },
+    {
+      "time": 28.5,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": -0.6
+    },
+    {
+      "time": 29.5,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 30.6,
+      "enemy": "brawler",
+      "x": 0.5
+    },
+    {
+      "time": 32.0,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 32.0,
+      "enemy": "serpent",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.45
+    },
+    {
+      "time": 34.2,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 35.5,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": -0.6
+    },
+    {
+      "time": 35.5,
+      "enemy": "rampart",
+      "x": -0.33
+    },
+    {
+      "time": 37.1,
+      "enemy": "lancer",
+      "count": 2,
+      "formation": "column",
+      "x": -0.15
+    },
+    {
+      "time": 39.7,
+      "enemy": "turret",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.67
+    },
+    {
+      "time": 39.7,
+      "enemy": "missile_silo",
+      "count": 1,
+      "formation": "column",
+      "x": 0.07
+    },
+    {
+      "time": 39.7,
+      "enemy": "brawler",
+      "x": 0.5
+    },
+    {
+      "time": 41.2,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 42.2,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 43.5,
+      "enemy": "warhawk",
+      "x": 0.33
+    },
+    {
+      "time": 45.4,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 46.7,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 54.0,
+      "enemy": "magma_rig"
+    }
+  ]
+}

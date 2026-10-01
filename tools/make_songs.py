@@ -95,6 +95,19 @@ PLANS = (
     Plan(
         "world_5", "Grid Runner", "G", 120, ("i", "VI", "iv7", "V"), 61, drums="four", bass="sixteenths", arp="broken"
     ),
+    Plan("world_6", "Red Rock Run", "A", 108, ("i", "VII", "VI", "V"), 71, bass="gallop", arp="updown"),
+    Plan("world_7", "Furnace Heart", "B", 116, ("i", "iv", "VII", "III"), 81, drums="four", brass=True),
+    Plan(
+        "world_8",
+        "Neon Skyline",
+        "E",
+        124,
+        ("i", "VI", "III", "VII"),
+        91,
+        drums="four",
+        bass="sixteenths",
+        arp="broken",
+    ),
     Plan(
         "boss",
         "Overdrive",

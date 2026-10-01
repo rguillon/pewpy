@@ -187,6 +187,7 @@ class World:
                 enemy
                 for enemy in self.enemies
                 if enemy.alive
+                and not _behind_a_part(enemy, player.x)
                 and enemy.y + enemy.height / 2 > bottom
                 and enemy.y - enemy.height / 2 < self.view_top  # not above the screen
                 and abs(enemy.x - player.x) < (stats.width + enemy.width) / 2
@@ -247,7 +248,7 @@ class World:
     def _collide(self) -> None:
         for bullet in self.player_bullets:
             for enemy in self.enemies:
-                if enemy.alive and bullet.overlaps(enemy):
+                if enemy.alive and bullet.overlaps(enemy) and not _behind_a_part(enemy, bullet.x):
                     self._shot_hits(bullet, enemy)
                     break
 
@@ -320,3 +321,8 @@ class World:
             if e.alive and (not e.leaves_screen or e.in_play_area(top=self.view_top, side=self.view_side))
         ]
         self.pickups = [p for p in self.pickups if p.alive and p.in_play_area()]
+
+
+def _behind_a_part(enemy: Enemy, x: float) -> bool:
+    """A boss's core under one of its living parts at `x`: shots and the laser go over it, up to the part."""
+    return isinstance(enemy, Boss) and enemy.covered(x)

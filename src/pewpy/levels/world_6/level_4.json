@@ -1,0 +1,243 @@
+{
+  "name": "Canyon Dusk",
+  "scroll_speed": 0.275,
+  "background": "canyon",
+  "background_seed": 4331,
+  "time_of_day": "dusk",
+  "clouds": 0.25,
+  "waves": [
+    {
+      "time": 2.0,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 3.2,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.6
+    },
+    {
+      "time": 4.6,
+      "enemy": "freighter",
+      "count": 2,
+      "x": -0.5
+    },
+    {
+      "time": 6.8,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.65
+    },
+    {
+      "time": 8.0,
+      "enemy": "stalker",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 8.0,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 9.4,
+      "enemy": "hunter",
+      "count": 2,
+      "formation": "column",
+      "x": 0.3
+    },
+    {
+      "time": 12.1,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 13.2,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 1.0
+    },
+    {
+      "time": 13.2,
+      "enemy": "needle",
+      "count": 2,
+      "x": 0.0
+    },
+    {
+      "time": 13.2,
+      "enemy": "turret",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 15.7,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.58
+    },
+    {
+      "time": 17.1,
+      "enemy": "rampart",
+      "x": 0.0
+    },
+    {
+      "time": 19.1,
+      "enemy": "stalker",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 19.1,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.65
+    },
+    {
+      "time": 19.1,
+      "enemy": "stalker",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 20.8,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 22.1,
+      "enemy": "bomber",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.6
+    },
+    {
+      "time": 23.3,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 23.3,
+      "enemy": "kestrel",
+      "count": 3,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.6
+    },
+    {
+      "time": 27.0,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 30.7,
+      "enemy": "albatross",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 30.7,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 34.3,
+      "enemy": "rocketeer",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 35.7,
+      "enemy": "stalker",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 38.0,
+      "enemy": "rampart",
+      "x": -0.33
+    },
+    {
+      "time": 38.0,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 39.2,
+      "enemy": "stalker",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 40.6,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.18
+    },
+    {
+      "time": 41.8,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 43.7,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 44.9,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 44.9,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 46.8,
+      "enemy": "needle",
+      "x": 0.33
+    },
+    {
+      "time": 48.0,
+      "enemy": "condor",
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "foundry"
+    }
+  ]
+}
