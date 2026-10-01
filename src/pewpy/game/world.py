@@ -156,7 +156,8 @@ class World:
 
     def scroll_speed(self, enemy: Enemy) -> float:
         """How fast the scenery under `enemy` scrolls down the play plane: the ground scrolls slower on screen than
-        the level (it's far below, see GROUND_SPEED), so units on the ground go with it, not with the level."""
+        the level (it's far below, see GROUND_SPEED), so units on the ground go with it, not with the level.
+        """
         return self.level.scroll_speed * (GROUND_SPEED if enemy.ground else 1.0)
 
     def _add(self, created: list[Entity]) -> None:
@@ -221,7 +222,8 @@ class World:
 
     def _clear_field(self) -> None:
         """Once the boss is beaten: every enemy left (missiles, mines...) blows up, without points, and enemy
-        bullets vanish, so the player can safely pick up what the boss dropped."""
+        bullets vanish, so the player can safely pick up what the boss dropped.
+        """
         for enemy in self.enemies:
             if enemy.alive:
                 enemy.alive = False
@@ -233,7 +235,13 @@ class World:
     def _maybe_drop(self, enemy: Enemy) -> None:
         if self.rng.random() >= enemy.drop_chance:
             return
-        kind = self.rng.choice(WEAPONS) if self.rng.random() < config.PICKUP_UPGRADE_SHARE else "repair"
+        roll = self.rng.random()
+        if roll < config.PICKUP_UPGRADE_SHARE:
+            kind = self.rng.choice(WEAPONS)
+        elif roll < config.PICKUP_UPGRADE_SHARE + config.PICKUP_LIFE_SHARE:
+            kind = "life"
+        else:
+            kind = "repair"
         self.pickups.append(Pickup(x=enemy.x, y=enemy.y, kind=kind))
 
     def _collide(self) -> None:
@@ -292,6 +300,11 @@ class World:
             self.events.append(Event("pickup", pickup.x, pickup.y, source=pickup.kind))
             if pickup.kind == "repair":
                 self.player.health = min(self.ship.health, self.player.health + config.REPAIR_AMOUNT)
+            elif pickup.kind == "life":
+                if self.lives < config.MAX_LIVES:
+                    self.lives += 1
+                else:
+                    self.score += config.EXTRA_LIFE_POINTS
             elif not self.arsenal.upgrade(pickup.kind):
                 self.score += config.MAX_LEVEL_UPGRADE_POINTS
 

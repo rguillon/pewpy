@@ -67,7 +67,8 @@ class Phase:
     """Guns as (source, gun): the source is CORE or a part's name. `sway`: side to side speed.
 
     It ends once every part in `until_destroyed` is destroyed, or once the core's health is below `until_below`
-    (a fraction of its full health); the last phase lasts until the end."""
+    (a fraction of its full health); the last phase lasts until the end.
+    """
 
     guns: tuple[tuple[str, Gun], ...]
     sway: float

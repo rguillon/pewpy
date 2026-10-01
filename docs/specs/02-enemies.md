@@ -16,7 +16,7 @@
 - Enemies flash white for 0.05 s when hit, and the whole time the laser touches them.
 - Only enemies destroyed by the player's weapons score and drop pickups (including those a missile's explosion
   destroys), not rammed ones. Every destroyed or rammed enemy explodes (see `05-visuals.md`).
-- "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 70% upgrade capsule, 30% repair
+- "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 70% upgrade capsule, 4% extra life, 26% repair
   (see `01-gameplay.md`).
 - Looks: every enemy is a voxel model in its colors, drawn in `src/pewpy/models/<name>.json` and built in code
   (`src/pewpy/graphics/models.py`); the size given is its hitbox.

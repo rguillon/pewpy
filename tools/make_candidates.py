@@ -156,7 +156,8 @@ def _inside(x: float, y: float, points: list[Point]) -> bool:
 
 class Parts(Canvas):
     """What each cell of an aircraft's drawing is, for building it in 3D (see `aircraft_layers`): "F" fuselage,
-    "W" wing or tailplane, "V" upright fin, "P" engine pod, "G" gun."""
+    "W" wing or tailplane, "V" upright fin, "P" engine pod, "G" gun.
+    """
 
 
 def aircraft(rng: Rng) -> tuple[Canvas, bool, Parts]:
@@ -201,7 +202,8 @@ AIRCRAFT_FIN = 2  # an upright fin stands this many cubes above the fuselage at 
 def aircraft_layers(cv: Canvas, parts: Parts) -> dict[tuple[int, int, int], str]:
     """The aircraft in 3D: (column, row, layer) -> its drawing's character; layers from the middle plane, negative
     ones up towards the camera. A round fuselage (its width on the drawing gives its depth), a canopy on top of it,
-    thin wings and tailplanes rising a little towards their tips, upright fins, pods and guns slung underneath."""
+    thin wings and tailplanes rising a little towards their tips, upright fins, pods and guns slung underneath.
+    """
     middle = (cv.w - 1) / 2
     cells: dict[tuple[int, int, int], str] = {}
     fin_rows = sorted({y for _, y in parts.cells_of("V")})
@@ -216,7 +218,7 @@ def aircraft_layers(cv: Canvas, parts: Parts) -> dict[tuple[int, int, int], str]
             height = AIRCRAFT_FIN + (fin_rows[-1] - y if fin_rows else 0)  # taller towards the back
             layers = range(-height, 1)
         elif part == "P":
-            layers = range(0, 2)  # under the wing
+            layers = range(2)  # under the wing
         elif part == "G":
             layers = range(1, 2)
         else:  # wings, tailplanes, and anything else thin
@@ -228,7 +230,8 @@ def aircraft_layers(cv: Canvas, parts: Parts) -> dict[tuple[int, int, int], str]
 
 def layered_drawing(cells: dict[tuple[int, int, int], str], cv: Canvas, colors: dict) -> dict:
     """A 3D drawing: its layers from the top (nearest the camera) down, symmetric around the middle plane (the
-    game puts the middle one on it), and each character's color."""
+    game puts the middle one on it), and each character's color.
+    """
     extent = max(abs(layer) for _, _, layer in cells)
     layers = [
         ["".join(cells.get((x, y, layer), ".") for x in range(cv.w)) for y in range(cv.h)]
@@ -532,7 +535,8 @@ def industrial(rng: Rng, lopsided: bool) -> tuple[Canvas, bool]:
 
 def trim(cv: Canvas, symmetric: bool, also: Canvas | None = None) -> None:
     """Drop the empty rows and columns around the ship (a symmetric one stays centred); `also` is cropped the same
-    way."""
+    way.
+    """
     rows = [y for y in range(cv.h) if any(cv.filled(x, y) for x in range(cv.w))]
     columns = [x for x in range(cv.w) if any(cv.filled(x, y) for y in range(cv.h))]
     if not rows or not columns:
@@ -548,7 +552,8 @@ def trim(cv: Canvas, symmetric: bool, also: Canvas | None = None) -> None:
 
 def detail(rng: Rng, cv: Canvas, symmetric: bool) -> list[dict]:
     """Bands, panel lines, plates, a spine, the cockpit and sensor, markings, guns, nozzles; the engines' flames. A
-    symmetric ship gets them on its left half, mirrored."""
+    symmetric ship gets them on its left half, mirrored.
+    """
     _bands(rng, cv)
     _wing_edges(cv)
     _panel_lines(rng, cv)

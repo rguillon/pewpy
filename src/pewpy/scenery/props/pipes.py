@@ -1,5 +1,6 @@
 """Pipe racks: three to six pipes of different sizes (some in another metal) on supports, sometimes a loop rising
-over the rack."""
+over the rack.
+"""
 
 import random
 

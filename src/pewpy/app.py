@@ -310,7 +310,8 @@ class PewPewApp(ShowBase):
 
     def finalizeExit(self) -> None:
         """Under WSL, the GPU goes through Mesa's d3d12 driver (see `make run`), which can hang while the window is
-        torn down: leave at once instead (nothing is left to save)."""
+        torn down: leave at once instead (nothing is left to save).
+        """
         if os.environ.get("GALLIUM_DRIVER") == "d3d12":
             sys.stdout.flush()
             sys.stderr.flush()
@@ -453,7 +454,8 @@ class PewPewApp(ShowBase):
 
     def _models_menu(self, note: str = "") -> Menu:
         """The Models, Bosses and Candidates screens' menu: the page's title, and "Next page" when there are several
-        ("Previous page" too when there are more than two)."""
+        ("Previous page" too when there are more than two).
+        """
         titles = self._showcase_titles()
         reload_item = MenuItem("Reload models", self._reload_models)
         back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
@@ -490,6 +492,7 @@ class PewPewApp(ShowBase):
         self.shield_bubble = models.shield_bubble_model()
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
+        self.pickup_models["life"] = models.extra_life_model()
         self.player_models = {spec.drawing: models.drawing_model(spec.drawing) for spec in SHIPS.values()}
         # Bosses and their parts: one model per drawing, built when first needed (they're big: building them all
         # takes seconds), see _boss_model.
@@ -511,7 +514,8 @@ class PewPewApp(ShowBase):
 
     def _showcase_titles(self) -> list[str]:
         """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's one per
-        world."""
+        world.
+        """
         if self.states.state in (State.CANDIDATES, State.BOSS_CANDIDATES):
             bosses = self.states.state is State.BOSS_CANDIDATES
             count = len(models.boss_candidate_names() if bosses else models.candidate_names())
@@ -528,7 +532,8 @@ class PewPewApp(ShowBase):
 
     def _showcase_page(self, index: int) -> tuple[list[tuple[str, NodePath]], float, float]:
         """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
-        models are built (boss models are big)."""
+        models are built (boss models are big).
+        """
         if self.states.state is State.CANDIDATES:
             names = models.candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
             return [self._candidate(name) for name in names], SHOWCASE_CANDIDATE_SIZE, showcase.RADIUS
@@ -545,7 +550,8 @@ class PewPewApp(ShowBase):
 
     def _showcase_entries(self, page: str) -> list[tuple[str, NodePath]]:
         """(name, model) of the ships, enemies, projectiles and pickups on a page of the Models screen: each fitted in
-        a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes)."""
+        a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes).
+        """
         entries = []
         for kind in self.ship_models:
             if kind is Player and page == PICKUPS_PAGE:
@@ -557,22 +563,25 @@ class PewPewApp(ShowBase):
                 name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
                 entries.append((name, _fitted(self._make_model(entity), max(entity.width, entity.height))))
         if page == PICKUPS_PAGE:
-            for kind in [*WEAPONS, "repair"]:
-                name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else "Repair"
+            for kind in [*WEAPONS, "repair", "life"]:
+                names = {"repair": "Repair", "life": "Extra life"}
+                name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else names[kind]
                 entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
         return entries
 
     def _candidate(self, name: str) -> tuple[str, NodePath]:
         """A model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes, all drawn at
         the same scale so small and big ones compare (read again every time: edited drawings show when the page is
-        shown again)."""
+        shown again).
+        """
         voxels = models.load_voxels(name)
         label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height}"
         return label, _fitted(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _boss_candidate(self, name: str) -> tuple[str, NodePath]:
         """A boss candidate with its parts in place, numbered like its file, all drawn to the same scale (read again
-        every time, like the enemy candidates)."""
+        every time, like the enemy candidates).
+        """
         voxels = models.load_voxels(name)
         whole = NodePath(name)
         models.drawing_model(name).reparentTo(whole)
@@ -761,7 +770,8 @@ class PewPewApp(ShowBase):
 
     def _make_model(self, entity: Entity) -> NodePath:
         """A copy of the entity's model: models are in world units, all with the same cubes, their size from their
-        drawing (about their hitbox). Copied, not instanced, so each Turret can aim its own barrel."""
+        drawing (about their hitbox). Copied, not instanced, so each Turret can aim its own barrel.
+        """
         node = NodePath("entity")
         if isinstance(entity, Boss | BossPart):
             self._boss_model(entity.drawing).copyTo(node)
@@ -1036,7 +1046,8 @@ class PewPewApp(ShowBase):
 
 def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT) -> tuple[float, float, float, float]:
     """(left, right, bottom, top) of the biggest centered region of shape `aspect` (width / height) in the window,
-    as fractions of the window."""
+    as fractions of the window.
+    """
     window_aspect = window_width / max(window_height, 1)
     if window_aspect > aspect:  # too wide: bars on the left and right
         width = aspect / window_aspect
@@ -1056,7 +1067,8 @@ def _fitted(model: NodePath, size: float) -> NodePath:
 
 def flame_scale(time: float, phase: float, thrust: float = 0.0) -> float:
     """An engine flame's length right now, compared with its steady length: wavering, longer with `thrust` (-1 to
-    1). `phase` keeps flames from wavering together."""
+    1). `phase` keeps flames from wavering together.
+    """
     slow, fast = FLAME_FLICKER
     waver = slow * math.sin(time * 23 + phase) + fast * math.sin(time * 61 + phase * 2.3)
     return max(0.1, 1 + waver + FLAME_THRUST * thrust)
@@ -1068,7 +1080,8 @@ def _is_round_bullet(entity: Entity) -> bool:
 
 def _bullet_sprite(bullet: Entity) -> Sprite:
     """A bullet as a soft circle (an oval for the player's long bullets), a bit bigger than its hitbox: the edge
-    fades out, the solid middle is about the hitbox."""
+    fades out, the solid middle is about the hitbox.
+    """
     if isinstance(bullet, Bullet) and bullet.hostile:
         color = BULLET_COLORS.get(bullet.style, ENEMY_BULLET_COLOR)
         if bullet.style == "beam":  # as long as the beam itself: only its sides fade out

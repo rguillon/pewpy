@@ -41,7 +41,8 @@ class VoxModel:
 
 def _gray_palette() -> list[RGBA]:
     """Used when a file has no palette of its own (MagicaVoxel then means its default one, which isn't known
-    here): shades of grey, so the shape still shows."""
+    here): shades of grey, so the shape still shows.
+    """
     return [(i, i, i, 255) for i in range(256)]
 
 

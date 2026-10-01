@@ -1,5 +1,6 @@
 """Process plants: furnace halls with glowing windows, roofs flat or sawtooth, chimneys or fans on top, sometimes
-a lower annex."""
+a lower annex.
+"""
 
 import random
 

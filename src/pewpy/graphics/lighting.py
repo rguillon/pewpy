@@ -192,7 +192,8 @@ def setup(base: ShowBase) -> None:
 
 def light(root: NodePath) -> None:
     """A scene's lights (a soft ambient light and a sun) and the shiny shader, for everything under `root`: the
-    game's scene, or another one drawn the same way (the level select's preview)."""
+    game's scene, or another one drawn the same way (the level select's preview).
+    """
     ambient = AmbientLight("ambient")
     ambient.setColor((0.35, 0.35, 0.4, 1))
     root.setLight(root.attachNewNode(ambient))

@@ -1,10 +1,15 @@
 """Playing the sound effects and music through Panda3D's audio (OpenAL).
 
-The effects are synthesized at start (see sfx.py) and the songs rendered in the background (see library.py); both
-reach Panda3D as WAV files in a folder in memory (a ramdisk mounted in Panda3D's virtual file system).
+The effects are synthesized at start (see sfx.py) and reach Panda3D as WAV files in a folder in memory (a ramdisk
+mounted in Panda3D's virtual file system). The songs are rendered in the background (see library.py) and played
+from their WAV file in the cache (or, without a cache, from the ramdisk).
+
+A song is streamed from its file, and OpenAL keeps finished songs in its own cache, their streams still open: a
+song's file must never be deleted or rewritten while the game runs (deleting one from the ramdisk made the game
+crash when OpenAL later let go of it). So each song's file is made once, under a name of its own, and kept.
 """
 
-import itertools
+from pathlib import Path
 
 from direct.showbase.Loader import Loader
 from panda3d.core import AudioManager, AudioSound, Filename, VirtualFileMountRamdisk, VirtualFileSystem
@@ -19,8 +24,6 @@ MOUNT = "/pewpy-audio"
 COPIES = 4  # of each effect, to play over each other
 FADE_OUT = 0.8  # seconds, when the song changes
 PAUSED_VOLUME = 0.35  # of the music's, while the game is paused
-
-_counter = itertools.count()
 
 
 def _mounted() -> VirtualFileSystem:
@@ -60,8 +63,8 @@ class Audio:
         self.quiet = False
         self.playing: Music | None = None
         self.song: AudioSound | None = None
-        self.song_path: Filename | None = None
-        self.fading: list[tuple[AudioSound, Filename, float]] = []  # songs fading out: (sound, file, volume)
+        self.fading: list[tuple[AudioSound, float]] = []  # songs fading out: (sound, volume)
+        self.song_files: dict[tuple[str, bool], Filename] = {}  # each song's file, once it's made: kept
 
     def play(self, name: str) -> None:
         copies = self.effects.get(name)
@@ -112,50 +115,61 @@ class Audio:
             self._fade_out()
             self._start_wanted()
         still = []
-        for sound, path, volume in self.fading:
+        for sound, volume in self.fading:
             volume -= dt / FADE_OUT * config.MUSIC_VOLUME
             if volume <= 0:
                 sound.stop()
-                self.vfs.deleteFile(path)
             else:
                 sound.setVolume(volume)
-                still.append((sound, path, volume))
+                still.append((sound, volume))
         self.fading = still
 
     def _fade_out(self) -> None:
-        if self.song is not None and self.song_path is not None:
-            self.fading.append((self.song, self.song_path, self.song.getVolume()))
-        self.song = self.song_path = None
+        if self.song is not None:
+            self.fading.append((self.song, self.song.getVolume()))
+        self.song = None
         self.playing = None
+
+    def _song_file(self, music: Music) -> Filename | None:
+        """The song's WAV file (None while it's still rendering, or if there's no such song)."""
+        key = (music.song, music.loop)
+        if key in self.song_files:
+            return self.song_files[key]
+        wav = self.library.take(music.song, music.loop)
+        if wav is None:
+            return None
+        cached = self.library.cached(music.song, music.loop)
+        if cached is not None:
+            path = Filename.fromOsSpecific(str(Path(cached).resolve()))
+        else:  # no cache folder: a copy in memory, for as long as the game runs
+            path = Filename(f"{MOUNT}/music-{music.song}-{'loop' if music.loop else 'once'}.wav")
+            self.vfs.writeFile(path, wav, False)
+        self.library.forget(music.song, music.loop)
+        self.song_files[key] = path
+        return path
 
     def _start_wanted(self) -> None:
         music = self.wanted
         if music is None or self.music_manager is None or not self.music_manager.isValid():
             return
-        wav = self.library.take(music.song, music.loop)
-        if wav is None:  # still rendering (or there's no such song): tried again next frame
+        path = self._song_file(music)
+        if path is None:  # still rendering (or there's no such song): tried again next frame
             return
-        path = Filename(f"{MOUNT}/music-{music.song}-{next(_counter)}.wav")  # a new name: not a cached older one
-        self.vfs.writeFile(path, wav, False)
-        self.library.forget(music.song, music.loop)
         song = self.loader.loadMusic(path)
         if song is None:
-            self.vfs.deleteFile(path)
             self.playing = music  # can't be played: not tried again
             return
         song.setLoop(music.loop)
         song.setVolume(self._volume())
         song.play()
-        self.song, self.song_path, self.playing = song, path, music
+        self.song, self.playing = song, music
 
     def stop(self) -> None:
         self.set_laser(False)
-        for sound, path, _ in self.fading:
+        for sound, _ in self.fading:
             sound.stop()
-            self.vfs.deleteFile(path)
         self.fading = []
-        if self.song is not None and self.song_path is not None:
+        if self.song is not None:
             self.song.stop()
-            self.vfs.deleteFile(self.song_path)
-        self.song = self.song_path = None
+        self.song = None
         self.playing = self.wanted = None

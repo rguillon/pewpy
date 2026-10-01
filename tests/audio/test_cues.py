@@ -22,6 +22,7 @@ from pewpy.game.world import Event
         (Event("burn", 0, 0), None),
         (Event("pickup", 0, 0, source="repair"), "repair"),
         (Event("pickup", 0, 0, source="laser"), "pickup"),
+        (Event("pickup", 0, 0, source="life"), "extra_life"),
         (Event("boss", 0, 0, source="warden"), "alarm"),
     ],
 )

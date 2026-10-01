@@ -157,7 +157,8 @@ class Flora:
 @dataclass(frozen=True)
 class PropColors:
     """The props standing on the grounds (props/); lists: each one picks among them. Each prop varies its
-    colors a little around these."""
+    colors a little around these.
+    """
 
     building_walls: tuple[Color3, ...]
     roofs: tuple[Color3, ...]

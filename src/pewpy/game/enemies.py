@@ -78,7 +78,8 @@ class Enemy(Entity):
 
     def appearance(self) -> str:
         """How to draw the enemy right now: "normal", "flash" (white), "hit" (brighter), "shield",
-        "armored" (darker) or "hidden"."""
+        "armored" (darker) or "hidden".
+        """
         return "flash" if self.flash_time > 0 else "normal"
 
     @property
@@ -627,7 +628,8 @@ class Bomber(Enemy):
 @dataclass(eq=False)
 class Lancer(Enemy):
     """Hovers near the top, sliding towards the player's side; glows while charging, then fires a laser beam straight
-    down for a moment, holding still. Leaves after a while."""
+    down for a moment, holding still. Leaves after a while.
+    """
 
     drop_chance: ClassVar[float] = 0.15
     fire_interval: ClassVar[float] = 3.5
@@ -719,7 +721,8 @@ class Serpent(Enemy):
 @dataclass(eq=False)
 class Buckshot(Enemy):
     """Comes down to the middle of the screen, fires two shotgun blasts of small pellets at the player, then dives
-    away."""
+    away.
+    """
 
     drop_chance: ClassVar[float] = 0.1
     pellets: ClassVar[int] = 7

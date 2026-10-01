@@ -84,7 +84,8 @@ class Sprite:
 
 class SpriteBatch:
     """Up to `capacity` sprites. `glow`: light is added to what's behind (sparks, fire); otherwise they're drawn
-    over it, solid in the middle (bullets, readable on any background)."""
+    over it, solid in the middle (bullets, readable on any background).
+    """
 
     def __init__(self, render: NodePath, lens: Lens, capacity: int, glow: bool, core: float, hot: float) -> None:
         self.capacity = capacity

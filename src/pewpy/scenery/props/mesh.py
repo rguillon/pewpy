@@ -249,7 +249,8 @@ class PropMesh:
         material: int = PLAIN,
     ) -> None:
         """A roof along the footprint's longer side, from its cross-section: (share of the way across, height
-        above the eaves) from one edge to the other; the two ends closed with the walls' color."""
+        above the eaves) from one edge to the other; the two ends closed with the walls' color.
+        """
         x0, x1, y0, y1 = footprint
         along_x = (x1 - x0) >= (y1 - y0)
         start, end, low, high = (x0, x1, y0, y1) if along_x else (y0, y1, x0, x1)  # along the ridge, then across
@@ -280,7 +281,8 @@ class PropMesh:
         cap: Color | None = None,
     ) -> None:
         """A shape turned around the upright axis at (x, y): `profile` is (z, radius) from the bottom up, smooth
-        shaded; `cap` closes its top with a disc of that color."""
+        shaded; `cap` closes its top with a disc of that color.
+        """
         angles = np.linspace(0, 2 * np.pi, segments + 1)
         cos, sin = np.cos(angles), np.sin(angles)
         ring = segments + 1

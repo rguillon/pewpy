@@ -44,7 +44,8 @@ class Surface(IntEnum):
 class Prop:
     """Something standing on the ground. `kind`: "building", "house", "barn", "silo", "greenhouse", "tank",
     "plant", "stack", "pipes", "cooling_tower", "tree", "hedge", "palm" or "dead_tree"; `seed` picks its variant,
-    colors and details (see props/)."""
+    colors and details (see props/).
+    """
 
     kind: str
     x: float  # middle of its footprint
@@ -136,7 +137,8 @@ def shrink(rect: Rect, margin: float) -> Rect:
 def city(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
     """Blocks of buildings between streets (`block` apart, `street` wide): mostly low buildings, some mid-rises,
     a few towers (`tower_share`, `midrise_share`; their heights between `tower`, `midrise`, `lowrise`), the odd park
-    (`park_share`). Lots are `lot` wide at least, a `sidewalk` around them."""
+    (`park_share`). Lots are `lot` wide at least, a `sidewalk` around them.
+    """
     canvas = _Canvas(rng, width, loop, Surface.STREET, knobs["tree_size"])
     street = knobs["street"]
     towers, midrises = knobs["tower_share"], knobs["tower_share"] + knobs["midrise_share"]
@@ -156,7 +158,8 @@ def city(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
 
 def _alleys(canvas: _Canvas, block: Rect, width: float, share: float) -> list[Rect]:
     """Some blocks (`share` of them) are cut in two by a narrow alley, one way or the other: the two halves (or the
-    whole block)."""
+    whole block).
+    """
     rng = canvas.rng
     if rng.random() >= share:
         return [block]
@@ -182,7 +185,8 @@ def _park(canvas: _Canvas, lot: Rect) -> None:
 
 def refinery(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
     """Units between roads (`block` apart, `road` wide), on lots `lot` wide at least: tank farms, process plants with
-    furnaces, tall flaring stacks, pipe racks, cooling towers (`units`: one is picked per lot)."""
+    furnaces, tall flaring stacks, pipe racks, cooling towers (`units`: one is picked per lot).
+    """
     canvas = _Canvas(rng, width, loop, Surface.STREET, (0.0, 0.0))
     road = knobs["road"]
     units = tuple(knobs["units"])
@@ -225,19 +229,19 @@ def _refinery_unit(canvas: _Canvas, lot: Rect, unit: str) -> None:
         size = rng.uniform(0.035, 0.05)
         canvas.add("stack", (y - size / 2, y + size / 2, x - size / 2, x + size / 2), rng.uniform(0.3, 0.45))
         canvas.add("plant", (top, top + (bottom - top) * 0.35, left, right), rng.uniform(0.05, 0.09))
-    else:  # a pipe rack along the lot's longer side
-        if bottom - top > right - left:
-            middle = (left + right) / 2
-            canvas.add("pipes", (top, bottom, middle - 0.03, middle + 0.03), 0.03)
-        else:
-            middle = (top + bottom) / 2
-            canvas.add("pipes", (middle - 0.03, middle + 0.03, left, right), 0.03)
+    elif bottom - top > right - left:
+        middle = (left + right) / 2
+        canvas.add("pipes", (top, bottom, middle - 0.03, middle + 0.03), 0.03)
+    else:
+        middle = (top + bottom) / 2
+        canvas.add("pipes", (middle - 0.03, middle + 0.03, left, right), 0.03)
 
 
 def farmland(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
     """Patchwork fields (`fields`: one is picked per lot) between dirt roads (`block` apart, `road` wide), some with
     hedges around (`hedge_share`), orchards (`orchard_share`), farms with a house, a barn and a silo (`farm_share`),
-    rows of greenhouses (`greenhouse_share`), trees along the roads."""
+    rows of greenhouses (`greenhouse_share`), trees along the roads.
+    """
     canvas = _Canvas(rng, width, loop, Surface.DIRT_ROAD, knobs["tree_size"])
     road = knobs["road"]
     fields = tuple(Surface[name.upper()] for name in knobs["fields"])
@@ -314,7 +318,8 @@ def _hedges(canvas: _Canvas, lot: Rect) -> None:
 
 def place(props: list[Prop], heights: NDArray[np.float64], step_x: float, step_y: float) -> list[Prop]:
     """The props standing on the relief: each one's base is the lowest ground under its footprint (it's sunk a
-    little into slopes rather than floating)."""
+    little into slopes rather than floating).
+    """
     rows, columns = heights.shape
     placed = []
     for prop in props:

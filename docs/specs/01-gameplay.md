@@ -63,7 +63,7 @@ every ship; repairs fill up to the ship's own health.
 > (the play area is 2.5 wide and 2.0 tall). Angles are measured from straight up.
 
 The ship carries three weapons from the start: **bullets**, **laser** and **missiles**. Only the selected one
-fires; Shift switches to the next one, instantly. Each weapon has 3 upgrade levels and starts at level 1.
+fires; Shift switches to the next one, instantly. Each weapon has 5 upgrade levels and starts at level 1 *(the user's choice: it was 3, see decisions.md)*.
 The HUD shows the three weapons with their levels, the selected one highlighted.
 
 Shots fly until they are off the screen (the tilted camera shows more than the play area: up to about y 1.65).
@@ -78,6 +78,8 @@ Fast, reliable, good against groups at higher levels.
 | 1 | single shot | 1.0 | 10.0 | 2.5 |
 | 2 | 3-way spread: -12°, 0°, +12° | 0.8 each | 10.0 | 2.5 |
 | 3 | 5-way spread: -24°, -12°, 0°, +12°, +24° | 0.8 each | 10.0 | 2.5 |
+| 4 | 5-way spread: -24°, -12°, 0°, +12°, +24° | 1.0 each | 12.0 | 2.5 |
+| 5 | 7-way spread: -30° to +30°, every 10° | 1.0 each | 12.0 | 2.5 |
 
 Bullets are 0.02 x 0.05, fired from the ship's nose; they throw a few sparks where they hit.
 
@@ -91,6 +93,8 @@ touches the beam. Strong on a single target, but you have to line up.
 | 1 | 0.03 | 8.0 | no: the beam stops at the first enemy it touches |
 | 2 | 0.05 | 12.0 | no |
 | 3 | 0.08 | 18.0 | yes: the beam goes through every enemy above the ship |
+| 4 | 0.11 | 24.0 | yes |
+| 5 | 0.14 | 32.0 | yes |
 
 The beam reaches the top of the screen when nothing stops it. A Shield Carrier's shield stops it without
 damage. Enemies touching the beam flash white, and it throws sparks where it burns them.
@@ -105,6 +109,8 @@ enemy they hit.
 | 1 | 1 missile per shot, flies straight | 2.5 | 3.0 | 1.6 | |
 | 2 | 1 missile per shot, homing | 2.5 | 3.0 | 1.6 | Turns toward the nearest enemy at up to 180°/s; flies straight if there is none |
 | 3 | 2 missiles per shot (both sides at once), homing | 3.0 | 3.0 | 1.8 | Each explosion also does 1.5 damage to other enemies within 0.1 |
+| 4 | 2 missiles per shot, homing | 3.5 | 3.5 | 2.0 | Splash 2.0 |
+| 5 | 2 missiles per shot, homing | 4.0 | 4.0 | 2.2 | Splash 2.5 |
 
 Missiles are 0.03 x 0.07, fired 0.05 in from each side of the ship. Homing missiles only aim at enemies inside
 the play area. Every missile explodes in an orange fireball where it hits.
@@ -126,8 +132,9 @@ the play area. Every missile explodes in an orange fireball where it hits.
 
 | Pickup | Effect | Drop source / chance |
 |--------|--------|----------------------|
-| Upgrade capsule | Raises one weapon by one level (max 3), shown by its letter and color: B (yellow), L (cyan), M (orange). It doesn't change the selected weapon. At max level it gives 500 points instead. | Enemy drops, see "Drops" in `02-enemies.md`. Weapon picked at random, each equally likely. |
+| Upgrade capsule | Raises one weapon by one level (max 5), shown by its letter and color: B (yellow), L (cyan), M (orange). It doesn't change the selected weapon. At max level it gives 500 points instead. | Enemy drops, see "Drops" in `02-enemies.md`. Weapon picked at random, each equally likely. |
 | Repair | Restores 2 health, up to the maximum. White with a red cross. | Enemy drops, see "Drops" in `02-enemies.md`. |
+| Extra life | One more life, up to 9; beyond that, 1000 points. A green gem with a little white ship on it. *(the user's choice; look, cap and points are placeholders, see decisions.md)* | Enemy drops: 4% of what enemies drop *(placeholder)* |
 
 - Pickups are 0.08 x 0.08, drift down at 0.25 units/s and disappear off the bottom of the screen.
 - They are collected by touching them. Enemy bullets and enemies don't affect them.

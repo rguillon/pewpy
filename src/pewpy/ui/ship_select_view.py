@@ -1,5 +1,6 @@
 """The ship selection screen, under its menu: every ship side by side, spinning, with its name and bars comparing
-their characteristics; the highlighted one bigger, with its description and numbers at the bottom."""
+their characteristics; the highlighted one bigger, with its description and numbers at the bottom.
+"""
 
 from panda3d.core import CardMaker, Lens, NodePath, Point2, Point3, TextNode
 
@@ -58,7 +59,8 @@ class ShipSelectView:
         extent: tuple[float, float],
     ) -> None:
         """`models`: each ship's model, fitted to 1 x 1 x 1 (copied, so they can be shared with the game).
-        `extent`: aspect2d's right and top edges (the ships are placed in 3D to line up with the texts)."""
+        `extent`: aspect2d's right and top edges (the ships are placed in 3D to line up with the texts).
+        """
         self.ships = ships
         self.root = aspect2d.attachNewNode("ship_select")
         self.showcases: list[ModelShowcase] = []

@@ -59,7 +59,8 @@ def noise(count: int, seed: int = 0) -> FloatArray:
 def _filters(signal: FloatArray, *responses: Callable[[FloatArray], FloatArray]) -> list[FloatArray]:
     """`signal` (mono, or stereo in columns) through each filter, given by its gain at every frequency: in the
     frequency domain, transformed once for them all (padded to a power of two: much faster, and nothing wraps
-    around from the end to the start)."""
+    around from the end to the start).
+    """
     size = 1 << (len(signal) - 1).bit_length()
     hertz = np.fft.rfftfreq(size, 1.0 / RATE)
     spectrum = np.fft.rfft(signal, size, axis=0)
@@ -273,7 +274,8 @@ def _place(target: FloatArray, sound: FloatArray, start: int) -> None:
 
 def render(song: Song, loop: bool = True) -> FloatArray:
     """`song` as stereo samples (count x 2, -1 to 1) at RATE. Looping, what rings past the end is wrapped onto the
-    start, so it loops without a seam."""
+    start, so it loops without a seam.
+    """
     length = int(song.duration * RATE)
     count = length + int(TAIL * RATE)
     dry, ducked, delay_send, reverb_send, gated_send = (np.zeros((count, 2)) for _ in range(5))

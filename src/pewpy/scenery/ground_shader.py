@@ -576,7 +576,8 @@ def _geometry(name: str, vertices: np.ndarray, triangles: np.ndarray) -> NodePat
 
 def maps(relief: Relief, layout: Layout | None) -> dict[str, Texture]:
     """The textures both shaders read over the whole loop: the shadow heights and, for built-up grounds, the
-    surface map."""
+    surface map.
+    """
     shadow = Texture("shadow_heights")
     heights = np.ascontiguousarray(relief.shadow_heights, dtype=np.float32)
     shadow.setup2dTexture(heights.shape[1], heights.shape[0], Texture.T_float, Texture.F_r32)
@@ -657,7 +658,8 @@ def ground_inputs(
 def relief_chunk_model(relief: Relief, first_row: int, rows: int, max_height: float) -> NodePath:
     """Rows `first_row` to `first_row + rows` of a relief (one more, from the next strip, to close the gap), as a
     mesh. The node's origin is the top-left corner, on the base layer: x right, z up the
-    screen, heights towards the camera (-y)."""
+    screen, heights towards the camera (-y).
+    """
     picked = np.arange(first_row, first_row + rows + 1) % relief.rows
     heights = relief.heights[picked]
     normals = relief.normals[picked]

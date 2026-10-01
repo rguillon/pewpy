@@ -130,7 +130,8 @@ class EffectsView:
 
     def _laser_sprites(self) -> list[Sprite]:
         """Streaks of light shooting up the laser, a pulsing glow at the ship's nose and a flickering one where the
-        beam hits."""
+        beam hits.
+        """
         sprites = []
         for photon in self.effects.photons:
             width = photon.size * GLOW_SIZE * photon.fade

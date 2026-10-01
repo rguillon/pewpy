@@ -80,6 +80,17 @@ class Library:
                 pass  # no cache: rendered again next time
         return wav
 
+    def cached(self, name: str, loop: bool = True) -> Path | None:
+        """The song's WAV file in the cache, if it's there (each version of a song has its own file: a file is never
+        rewritten while something may be reading it).
+        """
+        try:
+            data = self.folder.joinpath(f"{name}.mid").read_bytes()
+        except OSError:
+            return None
+        path = self._cache_path(data, name, loop)
+        return path if path is not None and path.is_file() else None
+
     def request(self, name: str, loop: bool = True, first: bool = True) -> None:
         """Render `name` in the background (before the others waiting, if `first`); see `take`."""
         key = (name, loop)

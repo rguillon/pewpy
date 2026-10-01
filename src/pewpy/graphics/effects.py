@@ -34,7 +34,8 @@ THIN_BEAM = 0.03  # the level 1 laser's width
 @dataclass(frozen=True)
 class LaserGlow:
     """The laser this frame, as the effects see it: from `bottom` to `top` at `x`; `hits`: heights where it burns
-    something."""
+    something.
+    """
 
     x: float
     bottom: float

@@ -319,7 +319,8 @@ class MeshBuilder:
         self, corners: FloatArray, colors: FloatArray, brightness: FloatArray, uvs: FloatArray, normal: IntArray
     ) -> None:
         """Faces from their 4 corners (winding counter-clockwise seen from outside), each split in two triangles
-        along the brighter diagonal, or the shading would show a crease across the face (like `quad`)."""
+        along the brighter diagonal, or the shading would show a crease across the face (like `quad`).
+        """
         crease = brightness[:, 0] + brightness[:, 2] < brightness[:, 1] + brightness[:, 3]
         # Which corners make each face's two triangles: (a, b, d) and (b, c, d), or (a, b, c) and (a, c, d).
         picks = np.where(crease[:, None, None], [[0, 1, 3], [1, 2, 3]], [[0, 1, 2], [0, 2, 3]]).reshape(-1, 3)
@@ -380,7 +381,8 @@ FACE_CORNERS = ((-1, -1), (1, -1), (1, 1), (-1, 1))
 
 def face_axes(direction: Direction) -> tuple[IntArray, IntArray, IntArray]:
     """The normal of a voxel face looking along `direction` and two axes along the face (u, w), in cubes: u x w is
-    the normal, so corners taken along u then w wind counter-clockwise seen from outside."""
+    the normal, so corners taken along u then w wind counter-clockwise seen from outside.
+    """
     normal = np.array(direction, dtype=np.int64)
     u = np.array((0, 0, 1) if direction[0] else (1, 0, 0), dtype=np.int64)
     return normal, u, np.cross(normal, u)
@@ -410,7 +412,8 @@ class _Occupancy:
 def occlusion_level(side_a: BoolArray, side_b: BoolArray, corner: BoolArray) -> IntArray:
     """How many voxels touch voxel face corners (0 to 3), from the cells in front of each face along its two edges
     (`side_a`, `side_b`) and diagonally (`corner`). With both sides filled the corner is fully tucked in (3),
-    whatever the diagonal. OCCLUSION_BRIGHTNESS gives the brightness of each level."""
+    whatever the diagonal. OCCLUSION_BRIGHTNESS gives the brightness of each level.
+    """
     return np.where(side_a & side_b, 3, side_a.astype(np.int64) + side_b + corner)
 
 
@@ -550,7 +553,8 @@ class Engine:
 @dataclass(frozen=True)
 class Voxels:
     """A model's cubes, whatever it was drawn as: (column, row, layer) -> color, `width` columns and `height` rows
-    (row 0 at the top of the screen), layers counted from its middle plane (negative: towards the camera)."""
+    (row 0 at the top of the screen), layers counted from its middle plane (negative: towards the camera).
+    """
 
     cells: dict[Cell, Color]
     width: int
@@ -606,7 +610,8 @@ def load_drawing(name: str) -> tuple[list[str], Palette]:
 
 def load_voxels(name: str) -> Voxels:
     """A model's cubes, from `models/<name>.json`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model (read
-    again every time, so edited files show up with "Reload models")."""
+    again every time, so edited files show up with "Reload models").
+    """
     data, source = _read_drawing(name)
     return parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
 
@@ -630,7 +635,8 @@ def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels
       its y goes up the screen).
     Any of them can have "engines" (see `parse_engines`). A 3D drawing or a MagicaVoxel model can also have a
     "scale": how many of its cubes make one config.MODEL_VOXEL (finer models of the same size in the world; its
-    engines are in its own cubes)."""
+    engines are in its own cubes).
+    """
     keys = set(data) - OPTIONAL_DRAWING_KEYS if isinstance(data, dict) else set()
     if keys == LAYERED_KEYS:
         return replace(_parse_layers(data, source), scale=_scale(data, source))
@@ -690,7 +696,8 @@ def _layer_colors(palette: Any, source: str) -> dict[str, Color]:
 
 def voxels_from_vox(model: vox.VoxModel) -> Voxels:
     """A MagicaVoxel model lying on the ground, seen from above: its x across, its y up the screen, its z up
-    towards the camera."""
+    towards the camera.
+    """
     size_x, size_y, size_z = model.size
     cells = {}
     for x, y, z, index in model.voxels:
@@ -717,7 +724,8 @@ def voxels_to_vox(voxels: Voxels) -> vox.VoxModel:
 def parse_drawing(data: Any, source: str = "drawing") -> tuple[list[str], Palette]:
     """A drawing file: "rows" (the drawing, one string per row, "." or " " for no voxel) and "palette" (for each
     character, its "color" as red, green, blue from 0 to 1 and its "height": how many voxels thick it is, odd).
-    It can also have "engines" (see `parse_engines`)."""
+    It can also have "engines" (see `parse_engines`).
+    """
     if not isinstance(data, dict) or not DRAWING_KEYS <= set(data) <= DRAWING_KEYS | OPTIONAL_DRAWING_KEYS:
         keys = f"{sorted(DRAWING_KEYS)} and maybe {sorted(OPTIONAL_DRAWING_KEYS)}"
         raise VoxelDrawingError.malformed(source, f"expected the keys {keys}")
@@ -837,7 +845,8 @@ _FLAME_TEXTURES: list[Texture] = []
 
 def _flame_texture() -> Texture:
     """White, with the flame's shape in its alpha: widest and brightest at the nozzle (the top row), narrowing and
-    fading out towards the tip, soft at the edges. Built once."""
+    fading out towards the tip, soft at the edges. Built once.
+    """
     if _FLAME_TEXTURES:
         return _FLAME_TEXTURES[0]
     width, height = FLAME_TEXTURE_SIZE
@@ -900,7 +909,8 @@ def flak_cannon_model() -> NodePath:
 
 def tank_model() -> NodePath:
     """Hull plus a separate child node named "barrel" (the turret: dome and gun) that the game turns toward the
-    player, around the dome's middle. The hull's treads run along the top and bottom: it drives sideways."""
+    player, around the dome's middle. The hull's treads run along the top and bottom: it drives sideways.
+    """
     size = config.MODEL_VOXEL
     hull_rows, hull_palette = load_drawing("tank")
     dome_rows, dome_palette = load_drawing("tank_turret")
@@ -1007,7 +1017,8 @@ def missile_model() -> NodePath:
 def pickup_model(letter: str, color: Color) -> NodePath:
     """A blocky colored capsule with a letter that always faces the camera.
 
-    The capsule's drawing is in shades of grey, multiplied by the pickup's color."""
+    The capsule's drawing is in shades of grey, multiplied by the pickup's color.
+    """
     rows, palette = load_drawing("capsule")
     tinted = {char: (tint(grey, color), height) for char, (grey, height) in palette.items()}
     model = voxel_model(f"pickup_{letter}", rows, tinted)
@@ -1033,9 +1044,14 @@ def repair_model() -> NodePath:
     return drawing_model("repair")
 
 
+def extra_life_model() -> NodePath:
+    return drawing_model("extra_life")
+
+
 def laser_beam_model() -> NodePath:
     """The laser's bright core: a thin box, stretched to the beam's size (a 1 x 1 beam). The rest of the beam is
-    light: streaks shooting up it (effects.py) in a soft halo (effects_view.py)."""
+    light: streaks shooting up it (effects.py) in a soft halo (effects_view.py).
+    """
     mesh = MeshBuilder()
     mesh.box(Vec3(0, 0, 0), Vec3(0.25, 0.25, 1.0), (0.85, 1.0, 1.0, 0.95))
     beam = NodePath(mesh.build("laser"))

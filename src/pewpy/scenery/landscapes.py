@@ -45,7 +45,8 @@ def _level_for_share(values: FloatGrid, share: float) -> float:
 
 def _meander(rng: Generator, rows: int, columns: int, spacing: float, swing: float, step: float) -> FloatGrid:
     """How far each point is from a river winding down the loop (world units): it swings from side to side, a
-    whole number of bends per loop."""
+    whole number of bends per loop.
+    """
     bends = max(1, round(rows * step / spacing))
     phase = rng.uniform(0, 2 * math.pi)
     turn = 2 * math.pi * bends * np.arange(rows) / rows + phase
@@ -73,7 +74,8 @@ def mountains(rng: Generator, rows: int, columns: int, max_height: float, step: 
 
 def rolling(rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
     """Gently rolling ground for farmland: wide low swells, `height` high (`max_height` is for what stands on it,
-    not used)."""
+    not used).
+    """
     swells = _noise(rng, rows, columns, knobs["swell_size"], step)
     detail = _noise(rng, rows, columns, knobs["detail_size"], step)
     return Shape(knobs["height"] * (0.7 * swells + 0.3 * detail))
@@ -86,7 +88,8 @@ def level_ground(rng: Generator, rows: int, columns: int, max_height: float, ste
 
 def hills(rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
     """A dusty planet: low eroded hills pocked with craters (one per `crater_spacing` of the loop). Marks: the
-    craters' rims and the dust thrown out."""
+    craters' rims and the dust thrown out.
+    """
     value = _normalized(eroded_noise(rng, rows, columns, knobs["size"] / step, octaves=6))
     rims = np.zeros_like(value)
     for _ in range(max(1, round(rows * step / knobs["crater_spacing"]))):
@@ -113,7 +116,8 @@ def islands(rng: Generator, rows: int, columns: int, max_height: float, step: fl
 
 def desert(rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
     """Long dune ridges, flat-topped rock mesas, a few oasis pools ringed with grass (and palms, see `palms`).
-    Marks: 0 sand, 0.5 the grass around the pools, 1 rock."""
+    Marks: 0 sand, 0.5 the grass around the pools, 1 rock.
+    """
     crests = max(1, round(rows * step / knobs["dune_spacing"]))  # dune ridges per loop: whole, so they loop too
     y = np.arange(rows)[:, None] / rows
     x = np.arange(columns)[None, :] * step
@@ -146,7 +150,8 @@ def forest(rng: Generator, rows: int, columns: int, max_height: float, step: flo
 
 def canyon(rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
     """A plateau cut by a winding canyon: stepped cliffs, sandbanks, a river at the bottom. Marks: 0.5 sand. The
-    river, the canyon's floor and its walls reach `river`, `floor` and `floor + wall` from its middle."""
+    river, the canyon's floor and its walls reach `river`, `floor` and `floor + wall` from its middle.
+    """
     plateau = max_height * (0.85 + 0.15 * _noise(rng, rows, columns, 0.7, step))
     distance = _meander(rng, rows, columns, knobs["bend_spacing"], 0.22, step)
     distance = distance + 0.05 * (_noise(rng, rows, columns, 0.3, step) - 0.5)  # ragged walls
@@ -175,7 +180,8 @@ def pack_ice(rng: Generator, rows: int, columns: int, max_height: float, step: f
 
 def volcano(rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
     """Black volcanic hills with lakes (below `lava_level`, 0 to 1 of the noise) and rivers of lava (below 0) in the
-    low ground."""
+    low ground.
+    """
     value = _normalized(eroded_noise(rng, rows, columns, knobs["size"] / step, octaves=6))
     level = knobs["lava_level"]
     heights = np.where(

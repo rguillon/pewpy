@@ -1,5 +1,6 @@
 """Dead trees in the swamp: a bare grey trunk with a few broken branches, sometimes forked at the top or snapped
-short."""
+short.
+"""
 
 import random
 

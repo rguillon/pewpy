@@ -225,7 +225,8 @@ def test_ship_models_are_more_than_a_cube(build):
 @pytest.mark.parametrize(("kind", "function"), list(app.SHIP_MODELS.items()), ids=lambda item: str(item))
 def test_ship_models_are_about_the_size_of_their_hitbox(kind, function):
     """Every cube is config.MODEL_VOXEL (the Swarmer's): a model's drawing gives its size, which must fit its
-    hitbox."""
+    hitbox.
+    """
     entity = kind()
     points = all_points(getattr(models, function)())
     width = max(point.x for point in points) - min(point.x for point in points)

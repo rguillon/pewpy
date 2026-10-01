@@ -1,3 +1,4 @@
+from pewpy import crash
 from pewpy.app import main
 
-main()
+crash.run(main)

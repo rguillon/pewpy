@@ -52,7 +52,9 @@ class Bullet(Entity):
 
 @dataclass(eq=False)
 class Pickup(Entity):
-    """Dropped by enemies: an upgrade capsule for a weapon ("bullets", "laser", "missiles") or a "repair"."""
+    """Dropped by enemies: an upgrade capsule for a weapon ("bullets", "laser", "missiles"), a "repair" or an extra
+    "life".
+    """
 
     kind: str = "repair"
     vy: float = -config.PICKUP_SPEED

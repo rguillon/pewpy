@@ -148,7 +148,8 @@ class BackgroundView:
 
     def _relief(self, terrain: Terrain) -> list[NodePath]:
         """A smooth ground: a mesh per strip painted by the ground shader, and the props standing on it
-        (ground_shader.py)."""
+        (ground_shader.py).
+        """
         relief = terrain.relief
         ground = self.root.attachNewNode("relief")
         textures = ground_shader.maps(relief, terrain.layout)

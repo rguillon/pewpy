@@ -9,8 +9,12 @@ from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
 from pewpy.game.weapons import (
     BULLET_FIRE_RATE,
+    BULLET_FIRE_RATES,
+    BULLET_PATTERNS,
     LASER_LEVELS,
+    MAX_LEVEL,
     MISSILE_FIRE_RATE,
+    MISSILE_LEVELS,
     Arsenal,
     Missile,
 )
@@ -49,26 +53,60 @@ def test_switch_cycles_through_the_three_weapons():
     assert selected == ["laser", "missiles", "bullets", "laser"]
 
 
-def test_upgrade_stops_at_level_3():
+def test_upgrade_stops_at_level_5():
     arsenal = Arsenal()
-    assert arsenal.upgrade("laser")
-    assert arsenal.upgrade("laser")
+    for _ in range(4):
+        assert arsenal.upgrade("laser")
     assert not arsenal.upgrade("laser")
-    assert arsenal.levels["laser"] == 3
+    assert arsenal.levels["laser"] == 5
 
 
-@pytest.mark.parametrize(("level", "count", "damage"), [(1, 1, 1.0), (2, 3, 0.8), (3, 5, 0.8)])
+@pytest.mark.parametrize(
+    ("level", "count", "damage"), [(1, 1, 1.0), (2, 3, 0.8), (3, 5, 0.8), (4, 5, 1.0), (5, 7, 1.0)]
+)
 def test_bullet_patterns(level, count, damage):
     shots = arsenal_with("bullets", level).fire(DT, True, SHIP)
     assert len(shots) == count
     assert all(shot.damage == damage and shot.vy > 0 for shot in shots)
     angles = sorted(round(math.degrees(math.atan2(shot.vx, shot.vy))) for shot in shots)
-    assert angles == {1: [0], 2: [-12, 0, 12], 3: [-24, -12, 0, 12, 24]}[level]
+    expected = {
+        1: [0],
+        2: [-12, 0, 12],
+        3: [-24, -12, 0, 12, 24],
+        4: [-24, -12, 0, 12, 24],
+        5: [-30, -20, -10, 0, 10, 20, 30],
+    }
+    assert angles == expected[level]
 
 
 def test_fire_rates():
     assert len(shots_over(arsenal_with("bullets", 1), 2.0)) == pytest.approx(2 * BULLET_FIRE_RATE, abs=1)
     assert len(shots_over(arsenal_with("missiles", 1), 2.0)) == pytest.approx(2 * MISSILE_FIRE_RATE, abs=1)
+
+
+def test_the_top_levels_fire_faster():
+    bullets_5 = len(shots_over(arsenal_with("bullets", 5), 2.0)) / 7  # volleys of 7
+    assert bullets_5 == pytest.approx(2 * BULLET_FIRE_RATES[5], abs=1) and BULLET_FIRE_RATES[5] > BULLET_FIRE_RATE
+    missiles_5 = len(shots_over(arsenal_with("missiles", 5), 2.0)) / 2  # pairs
+    assert missiles_5 == pytest.approx(2 * MISSILE_LEVELS[5].fire_rate, abs=1)
+    assert MISSILE_LEVELS[5].fire_rate > MISSILE_FIRE_RATE
+
+
+def test_every_level_is_stronger_than_the_one_before():
+    for level in range(2, MAX_LEVEL + 1):
+        before, after = LASER_LEVELS[level - 1], LASER_LEVELS[level]
+        assert after.width >= before.width and after.damage_per_second > before.damage_per_second
+        missile, previous = MISSILE_LEVELS[level], MISSILE_LEVELS[level - 1]
+        assert (
+            missile.damage * missile.per_shot * missile.fire_rate
+            >= previous.damage * previous.per_shot * previous.fire_rate
+        )
+        angles, damage = BULLET_PATTERNS[level]
+        old_angles, old_damage = BULLET_PATTERNS[level - 1]
+        assert (
+            len(angles) * damage * BULLET_FIRE_RATES[level]
+            > len(old_angles) * old_damage * BULLET_FIRE_RATES[level - 1]
+        )
 
 
 def test_laser_fires_no_projectiles():
@@ -184,7 +222,7 @@ def test_destroyed_enemies_can_drop_pickups(monkeypatch):
     world.enemies.append(enemy)
     world.update(DT, Controls(fire=True))
     assert len(world.pickups) == 1
-    assert world.pickups[0].kind in {"bullets", "laser", "missiles", "repair"}
+    assert world.pickups[0].kind in {"bullets", "laser", "missiles", "repair", "life"}
     assert (world.pickups[0].x, world.pickups[0].y) == pytest.approx((0.0, 0.0), abs=0.01)
 
 
@@ -207,7 +245,7 @@ def test_upgrade_capsule_raises_that_weapon_and_keeps_the_selection():
 
 
 def test_upgrade_at_max_level_gives_points():
-    world = make_world("laser", 3)
+    world = make_world("laser", MAX_LEVEL)
     world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="laser"))
     world.update(DT, Controls())
     assert world.score == config.MAX_LEVEL_UPGRADE_POINTS
@@ -222,6 +260,34 @@ def test_repair_restores_health_up_to_the_maximum():
     world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="repair"))
     world.update(DT, Controls())
     assert world.player.health == SHIPS[DEFAULT_SHIP].health
+
+
+def test_an_extra_life_adds_a_life_up_to_the_most():
+    world = make_world()
+    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="life"))
+    world.update(DT, Controls())
+    assert world.lives == config.PLAYER_LIVES + 1
+    assert [event.source for event in world.events if event.kind == "pickup"] == ["life"]
+    world.lives = config.MAX_LIVES
+    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="life"))
+    world.update(DT, Controls())
+    assert world.lives == config.MAX_LIVES
+    assert world.score == config.EXTRA_LIFE_POINTS
+
+
+def test_drops_are_mostly_upgrades_sometimes_a_repair_rarely_a_life(monkeypatch):
+    monkeypatch.setattr(Drone, "drop_chance", 1.0)
+    world = make_world()
+    kinds = []
+    for _ in range(3000):
+        world.pickups = []
+        world._maybe_drop(still_enemy(x=0.0, y=0.0))
+        kinds.append(world.pickups[0].kind)
+    shares = {kind: kinds.count(kind) / len(kinds) for kind in set(kinds)}
+    upgrades = sum(shares.get(weapon, 0.0) for weapon in ("bullets", "laser", "missiles"))
+    assert upgrades == pytest.approx(config.PICKUP_UPGRADE_SHARE, abs=0.03)
+    assert shares["life"] == pytest.approx(config.PICKUP_LIFE_SHARE, abs=0.015)
+    assert shares["repair"] == pytest.approx(1 - config.PICKUP_UPGRADE_SHARE - config.PICKUP_LIFE_SHARE, abs=0.03)
 
 
 def test_pickups_drift_down_and_leave_the_screen():

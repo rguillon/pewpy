@@ -34,7 +34,8 @@ ROCK_SHAPES = 6  # different asteroid models, see models.py
 def mist_depths(scenery: SceneryParams) -> list[float]:
     """The cloud layers' depths over a ground: as deep as their `depth`, but always well above its highest point
     (the peaks of the mountains, the tops of the tallest towers), which is its depth less its highest height: so
-    nothing pokes up through them."""
+    nothing pokes up through them.
+    """
     ground = scenery.ground
     if ground is None:
         return []
@@ -142,7 +143,8 @@ class Scenery:
         clouds: float = 0.0,
     ) -> None:
         """`scenery`: its parameters, or a preset's name. `clouds`: how much see-through cloud drifts between the
-        ground and the ships, from 0 (none) to 1."""
+        ground and the ships, from 0 (none) to 1.
+        """
         self.params = params.resolve(scenery) if isinstance(scenery, str) else scenery
         scenery = self.params
         self.kind = scenery.name

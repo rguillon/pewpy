@@ -1,4 +1,4 @@
-"""Player weapons from 01-gameplay.md: bullets, laser and missiles, 3 levels each. Independent from rendering."""
+"""Player weapons from 01-gameplay.md: bullets, laser and missiles, 5 levels each. Independent from rendering."""
 
 import math
 from collections.abc import Sequence
@@ -8,14 +8,21 @@ from pewpy.game.entities import Bullet, Entity
 
 WEAPONS = ("bullets", "laser", "missiles")
 LETTERS = {"bullets": "B", "laser": "L", "missiles": "M"}
-MAX_LEVEL = 3
+MAX_LEVEL = 5
 
-# Bullets: angles from straight up (degrees) and damage per bullet, by level
-BULLET_FIRE_RATE = 10.0
+# Bullets: angles from straight up (degrees) and damage per bullet, by level; shots per second, by level
+BULLET_FIRE_RATE = 10.0  # at level 1
 BULLET_SPEED = 2.5
 BULLET_WIDTH = 0.02
 BULLET_HEIGHT = 0.05
-BULLET_PATTERNS = {1: ((0,), 1.0), 2: ((-12, 0, 12), 0.8), 3: ((-24, -12, 0, 12, 24), 0.8)}
+BULLET_PATTERNS = {
+    1: ((0,), 1.0),
+    2: ((-12, 0, 12), 0.8),
+    3: ((-24, -12, 0, 12, 24), 0.8),
+    4: ((-24, -12, 0, 12, 24), 1.0),
+    5: ((-30, -20, -10, 0, 10, 20, 30), 1.0),
+}
+BULLET_FIRE_RATES = {1: BULLET_FIRE_RATE, 2: BULLET_FIRE_RATE, 3: BULLET_FIRE_RATE, 4: 12.0, 5: 12.0}
 
 
 @dataclass(frozen=True)
@@ -29,6 +36,8 @@ LASER_LEVELS = {
     1: LaserStats(width=0.03, damage_per_second=8.0, pierces=False),
     2: LaserStats(width=0.05, damage_per_second=12.0, pierces=False),
     3: LaserStats(width=0.08, damage_per_second=18.0, pierces=True),
+    4: LaserStats(width=0.11, damage_per_second=24.0, pierces=True),
+    5: LaserStats(width=0.14, damage_per_second=32.0, pierces=True),
 }
 
 
@@ -39,9 +48,10 @@ class MissileStats:
     damage: float
     speed: float
     splash_damage: float = 0.0
+    fire_rate: float = 3.0  # shots per second
 
 
-MISSILE_FIRE_RATE = 3.0
+MISSILE_FIRE_RATE = 3.0  # at level 1
 MISSILE_TURN_RATE = math.radians(180)  # per second
 MISSILE_SPLASH_RADIUS = 0.1
 MISSILE_SIDE_OFFSET = 0.05
@@ -49,6 +59,8 @@ MISSILE_LEVELS = {
     1: MissileStats(per_shot=1, homing=False, damage=2.5, speed=1.6),
     2: MissileStats(per_shot=1, homing=True, damage=2.5, speed=1.6),
     3: MissileStats(per_shot=2, homing=True, damage=3.0, speed=1.8, splash_damage=1.5),
+    4: MissileStats(per_shot=2, homing=True, damage=3.5, speed=2.0, splash_damage=2.0, fire_rate=3.5),
+    5: MissileStats(per_shot=2, homing=True, damage=4.0, speed=2.2, splash_damage=2.5, fire_rate=4.0),
 }
 
 
@@ -119,12 +131,12 @@ class Arsenal:
             return []
         nose_y = ship.y + ship.height / 2
         if self.selected == "bullets":
-            self.cooldown += 1.0 / BULLET_FIRE_RATE
+            self.cooldown += 1.0 / BULLET_FIRE_RATES[self.level]
             angles, damage = BULLET_PATTERNS[self.level]
             return [_bullet(ship.x, nose_y, angle, damage) for angle in angles]
 
-        self.cooldown += 1.0 / MISSILE_FIRE_RATE
         stats = MISSILE_LEVELS[self.level]
+        self.cooldown += 1.0 / stats.fire_rate
         sides = (1, -1) if stats.per_shot == 2 else (self.next_side,)
         self.next_side = -self.next_side
         return [

@@ -33,7 +33,7 @@ def event_sound(event: Event) -> str | None:
     if kind in ("blast", "hurt"):
         return kind
     if kind == "pickup":
-        return "repair" if event.source == "repair" else "pickup"
+        return {"repair": "repair", "life": "extra_life"}.get(event.source, "pickup")
     if kind == "boss":
         return "alarm"
     return None
@@ -78,7 +78,8 @@ MENU_MUSIC = Music("title")
 
 def music(state: State, world: int, boss: bool) -> Music:
     """The song for a screen: `world` is the world being played (0 for the first), `boss` whether a boss is being
-    fought (or was just beaten)."""
+    fought (or was just beaten).
+    """
     if state is State.LEVEL_COMPLETE:
         return Music("level_complete", loop=False)
     if state is State.GAME_OVER:

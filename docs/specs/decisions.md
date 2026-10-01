@@ -177,6 +177,39 @@
 
 ## Decisions made
 
+### 2026-10-01 — Weapons go to level 5, and an extra life bonus (asked by the user in chat)
+- Decisions (the user's): 5 upgrade levels for each weapon (they had 3), and a bonus that gives an extra life.
+- Placeholders chosen (mine) for levels 4 and 5, each stronger than the one before: bullets 5-way at 1.0 damage, then
+  7-way (every 10 degrees), both at 12 shots a second; laser 0.11 wide at 24 damage a second, then 0.14 at 32, both
+  piercing; missiles in pairs at 3.5 damage (3.5 a second, speed 2.0, splash 2.0), then 4.0 (4 a second, 2.2, 2.5).
+  Fire rates are now per level (`BULLET_FIRE_RATES`, `MissileStats.fire_rate`).
+- The extra life is a pickup (`"life"`): a green gem with a little white ship on it (`models/extra_life.json`, a
+  recipe in `tools/make_models.py`), its own jingle. Placeholders: 4% of enemy drops (taken from repairs: 70%
+  upgrade, 4% life, 26% repair; about one per 500 kills), up to 9 lives, 1000 points beyond that
+  (`PICKUP_LIFE_SHARE`, `MAX_LIVES`, `EXTRA_LIFE_POINTS` in config.py). Extra lives on score thresholds stay TBD.
+- Recorded in 01-gameplay.md ("Weapons", "Power-ups and pickups") and 02-enemies.md (drops).
+
+### 2026-10-01 — Fix: the game crashed when the song changed (reported by the user, with the new crash report)
+- Cause: songs were played from WAV files written to an in-memory folder (Panda3D's ramdisk), and a song's file was
+  deleted once it had faded out. But OpenAL streams songs and keeps finished ones in its cache, their streams still
+  open on those files: when it later let go of one (on a song change, often the 5th or 6th), closing its stream
+  read freed memory and the game crashed (a segmentation fault in `OpenALAudioManager::discard_excess_cache`).
+- Fix: a song plays from its WAV file in the cache folder (each version of a song has its own file, never
+  rewritten), or without a cache from one copy in memory under the song's own name, made once and kept. No song
+  file is deleted while the game runs. A test checks it; 40 song changes in a row play without a crash (it crashed
+  at the 6th).
+
+### 2026-10-01 — Crash reports (asked by the user in chat: crashes to debug)
+- Decision (the user's): print the full stack trace when the game crashes.
+- Done (`pewpy.crash`, used by `python -m pewpy`, so `make run` and the packaged game): an uncaught exception, in
+  the game loop, an event handler or a background thread (the songs), prints its full stack trace with the
+  exceptions it came from on stderr, and writes a fuller report to `crash.log` (`~/.local/state/pewpy/` on Linux,
+  `%LOCALAPPDATA%\pewpy\` on Windows): the time, the Python and Panda3D versions, the platform, the thread, and
+  every frame's local variables. Then the game leaves with exit code 1 (it used to be 0 under WSL, where the exit
+  skips the window's teardown). A native crash (a segmentation fault in Panda3D or the graphics driver) prints
+  every thread's Python stack (faulthandler) on stderr. The packaged game has no console: its stderr goes to
+  `%LOCALAPPDATA%\pewpy\output.log` as before.
+
 ### 2026-10-01 — Props in their own files, and more varied (asked by the user in chat)
 - Decision (the user's): a subdirectory for the props standing on the grounds, each kind in its own file, and more
   diversity among them.

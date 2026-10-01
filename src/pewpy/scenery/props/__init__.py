@@ -65,7 +65,8 @@ def build(mesh: PropMesh, prop: Prop, colors: PropColors) -> None:
 
 def strip_arrays(props: list[Prop], first_y: float, colors: PropColors) -> tuple[FloatArray, IndexArray]:
     """Every prop of a strip, in the strip's model space: x right, y away from the camera (heights towards the
-    camera are -y), z up the screen from the strip's top edge (`first_y` down the loop)."""
+    camera are -y), z up the screen from the strip's top edge (`first_y` down the loop).
+    """
     mesh = PropMesh()
     for prop in props:
         build(mesh, prop, colors)

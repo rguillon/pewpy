@@ -214,7 +214,8 @@ class Imp(FleetEnemy):
 @dataclass(eq=False)
 class Wisp(FleetEnemy):
     """Blinks: shows for a moment (firing once at the player), vanishes (can't be hit) and shows again elsewhere,
-    a bit lower. After a few blinks it drops away."""
+    a bit lower. After a few blinks it drops away.
+    """
 
     drawing: ClassVar[str] = "wisp"
     drop_chance: ClassVar[float] = 0.08
@@ -456,7 +457,8 @@ class Scrapper(FleetEnemy):
 @dataclass(eq=False)
 class Brawler(FleetEnemy):
     """A lopsided gunboat: drifts from side to side on its way down, firing heavy shots at the player from its one
-    big cannon."""
+    big cannon.
+    """
 
     drawing: ClassVar[str] = "brawler"
     drop_chance: ClassVar[float] = 0.2
@@ -808,7 +810,8 @@ class Behemoth(FleetEnemy):
 @dataclass(eq=False)
 class Warhawk(Hoverer):
     """A heavy fighter: strafes near the top, alternating a spiral of shots and a triple of heavy shots at the
-    player, then leaves."""
+    player, then leaves.
+    """
 
     drawing: ClassVar[str] = "warhawk"
     drop_chance: ClassVar[float] = 0.5
@@ -889,7 +892,8 @@ class Stormcrow(Hoverer):
 @dataclass(eq=False)
 class Pincer(Hoverer):
     """Heavy: comes down, creeps after the player's side and fires two laser beams from its prongs, holding still
-    (the gap between them is narrower than a ship: get out from under it). Glows while charging."""
+    (the gap between them is narrower than a ship: get out from under it). Glows while charging.
+    """
 
     drawing: ClassVar[str] = "pincer"
     drop_chance: ClassVar[float] = 0.45

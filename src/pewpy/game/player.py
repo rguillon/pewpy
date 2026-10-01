@@ -60,6 +60,7 @@ class Player(Entity):
             move_x: Horizontal input, -1 (left) to 1 (right).
             move_y: Vertical input, -1 (down) to 1 (up).
             firing: Whether the fire button is held (self-repairing ships only repair when it isn't).
+
         """
         self.invulnerable_time = max(0.0, self.invulnerable_time - dt)
         self.since_fired = 0.0 if firing else self.since_fired + dt

@@ -70,7 +70,8 @@ class Relief:
 
 def periodic_noise(rng: np.random.Generator, rows: int, columns: int, cell: float) -> FloatGrid:
     """Smooth value noise from 0 to 1 on a (rows, columns) grid, a random value about every `cell` points, looping
-    along the rows (the cell is stretched a little so a whole number of them fits the loop)."""
+    along the rows (the cell is stretched a little so a whole number of them fits the loop).
+    """
     lattice_rows = max(round(rows / cell), 1)
     y = np.arange(rows) * lattice_rows / rows
     x = np.arange(columns) / cell
@@ -87,7 +88,8 @@ def periodic_noise(rng: np.random.Generator, rows: int, columns: int, cell: floa
 
 def ridged_mountains(rng: np.random.Generator, rows: int, columns: int, cell: float, octaves: int = 6) -> FloatGrid:
     """Ridged multifractal noise from 0 to 1: sharp ridges and valleys, finer ridges mostly on the high ground
-    (each octave is weighted by the one before, like eroded mountains)."""
+    (each octave is weighted by the one before, like eroded mountains).
+    """
     total = np.zeros((rows, columns))
     weight = np.ones((rows, columns))
     amplitude, norm = 1.0, 0.0
@@ -104,7 +106,8 @@ def ridged_mountains(rng: np.random.Generator, rows: int, columns: int, cell: fl
 
 def eroded_noise(rng: np.random.Generator, rows: int, columns: int, cell: float, octaves: int = 7) -> FloatGrid:
     """Layered noise where each finer layer is damped where the layers before it are steep: slopes stay smooth and
-    detail gathers on crests and valley floors, a cheap look of erosion (branching valleys rather than blobs)."""
+    detail gathers on crests and valley floors, a cheap look of erosion (branching valleys rather than blobs).
+    """
     total = np.zeros((rows, columns))
     slope_x, slope_y = np.zeros_like(total), np.zeros_like(total)
     amplitude, norm = 1.0, 0.0
@@ -126,7 +129,8 @@ def make_relief(
 ) -> Relief:
     """Normals, cavity and shadows of a landscape (looping along the rows). `occluders`: the heights with what
     stands on the ground (buildings, trees): they cast shadows and make hollows too. `fluid`: below 0 is under a
-    flat fluid."""
+    flat fluid.
+    """
     depth = -shape.heights if fluid else np.full_like(shape.heights, -1.0)
     heights = np.maximum(shape.heights, 0.0) if fluid else shape.heights
     marks = shape.marks if shape.marks is not None else np.zeros_like(heights)
@@ -145,7 +149,8 @@ def make_relief(
 
 def _shadow_heights(solid: FloatGrid, step_x: float, step_y: float) -> FloatGrid:
     """How high the shadows reach at every point: march towards the sun, a grid point at a time along the
-    diagonal, and keep the highest sun ray passing over what's there."""
+    diagonal, and keep the highest sun ray passing over what's there.
+    """
     columns = solid.shape[1]
     step = math.hypot(step_x, step_y)
     reach = np.full_like(solid, -1.0)
@@ -159,7 +164,8 @@ def _shadow_heights(solid: FloatGrid, step_x: float, step_y: float) -> FloatGrid
 
 def _cavity(heights: FloatGrid, solid: FloatGrid) -> FloatGrid:
     """How much lower each point is than the average of what's around it (`solid`: with the props), scaled to 0-1
-    (blurred with a box filter)."""
+    (blurred with a box filter).
+    """
     blurred = solid
     for axis in (0, 1):
         total = np.zeros_like(blurred)

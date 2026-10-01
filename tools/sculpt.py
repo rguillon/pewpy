@@ -15,6 +15,7 @@ Colors are named materials (see MATERIALS); a recipe can add its own (a paint co
 
 import json
 import math
+import string
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -58,7 +59,8 @@ class Model:
         only: Callable[[str | None], bool] | None = None,
     ) -> None:
         """Every cube whose middle is `inside`, within `bounds` (x0, x1, y0, y1, z0, z1 in units), and its mirror
-        image. `only`: which cubes it may replace (by their material, None where empty)."""
+        image. `only`: which cubes it may replace (by their material, None where empty).
+        """
         if material not in self.materials:
             raise KeyError(material)
         s = self.scale
@@ -100,7 +102,8 @@ class Model:
     ) -> None:
         """A hull along y (from y[0] to y[1], in units), around x = `center` (default: the middle): at each point,
         `section(t)` (t from 0 to 1 along it) gives (half width, top, bottom, chamfer), an octagon-like cross-section
-        with its corners cut by `chamfer`."""
+        with its corners cut by `chamfer`.
+        """
         middle = self.width / 2 if center is None else center
         y0, y1 = y
 
@@ -138,7 +141,8 @@ class Model:
         mirror: bool = True,
     ) -> None:
         """A flat shape (a wing): inside the polygon `outline` ((x, y) corners, units), from z[0] to z[1]; `z` can
-        also depend on the place, (x, y) -> (bottom, top), for wings that rise or taper."""
+        also depend on the place, (x, y) -> (bottom, top), for wings that rise or taper.
+        """
         xs, ys = [p[0] for p in outline], [p[1] for p in outline]
         if isinstance(z, tuple):
             fixed = z
@@ -199,7 +203,8 @@ class Model:
     def finish(self, seams: Iterable[float] = (), keep: frozenset[str] = frozenset()) -> None:
         """Panel seams across the hull at rows `seams` (units: the top cube of each plated column there is recessed a
         cube, darker), lighter top edges where the hull drops away, darker undersides. Materials in `keep` (glass,
-        lights, paint...) are left alone."""
+        lights, paint...) are left alone.
+        """
         s = self.scale
         tops = self.tops()
         for row in seams:
@@ -226,10 +231,11 @@ class Model:
 
     def drawing(self, engines: list[dict] | None = None) -> dict:
         """The game's 3D drawing: layers from the top (nearest the camera) down, the middle one on z = 0. Engines
-        are given in units and written in the drawing's cubes."""
+        are given in units and written in the drawing's cubes.
+        """
         s = self.scale
         used = sorted(set(self.cells.values()))
-        letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        letters = string.ascii_letters
         char = {material: letters[index] for index, material in enumerate(used)}
         extent = max((abs(k) for _, _, k in self.cells), default=0)
         layers = [
@@ -253,7 +259,8 @@ class Model:
 
 def _scaled_engine(engine: dict, scale: int) -> dict:
     """An engine in units -> in the drawing's cubes (a cube's middle: unit column 5 is cubes 10 and 11 at scale 2,
-    so its middle is 10.5)."""
+    so its middle is 10.5).
+    """
     result = dict(engine)
     for key in ("x", "y"):
         result[key] = round((engine[key] + 0.5) * scale - 0.5, 3)

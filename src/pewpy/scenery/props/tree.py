@@ -1,5 +1,6 @@
 """Trees: round broadleaf crowns, pointed conifers, or a bushy cluster of small crowns. Seen from above, the crown
-is all that shows: few sides, there can be hundreds on screen."""
+is all that shows: few sides, there can be hundreds on screen.
+"""
 
 import random
 
