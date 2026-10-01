@@ -5,11 +5,14 @@
 The game shall have a global state machine for each possible state to easily transition between states:
 
 The states are:
-- Main menu: start (to the world selection), models, bosses, enemy candidates, boss candidates, or quit
+- Main menu: start (to the world selection), models, bosses, enemy candidates, boss candidates, AI learning,
+  AI rating, or quit
 - Models: every ship and pickup model on show, for working on them (see `04-ui-audio.md`)
 - Bosses: every boss on show, a world per page (see `04-ui-audio.md`)
 - Enemy candidates, Boss candidates: numbered model candidates for new enemies (10 per page) and bosses (4 per
   page), to pick from (see `04-ui-audio.md`)
+- AI learning, AI rating: the AI learning to play while one of its brains plays on screen, and the levels'
+  ratings for each ship (see `07-ai.md`); Escape goes back to the main menu
 - World selection: select one of the worlds (see `03-levels.md`)
 - Level selection: select one of the world's levels to play
 - The actual game

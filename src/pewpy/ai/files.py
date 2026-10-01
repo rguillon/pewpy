@@ -1,0 +1,77 @@
+"""Where the AI keeps what it learned: one brain per ship (`<ship>.npz`, with its training's progress) and the
+levels' ratings (`ratings.json`), in the user's data folder (~/.local/share/pewpy/ai, %LOCALAPPDATA%\\pewpy\\ai on
+Windows).
+"""
+
+import json
+import os
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+from pewpy.ai import sensors
+from pewpy.ai.brain import Brain
+
+
+def ai_folder() -> Path:
+    if sys.platform == "win32":
+        base = os.environ.get("LOCALAPPDATA") or str(Path.home() / "AppData" / "Local")
+        return Path(base) / "pewpy" / "ai"
+    base = os.environ.get("XDG_DATA_HOME") or str(Path.home() / ".local" / "share")
+    return Path(base) / "pewpy" / "ai"
+
+
+@dataclass
+class Training:
+    """A ship's brain and how its training went: per generation, the best try's fitness and the share of levels
+    the brain cleared."""
+
+    brain: Brain
+    generation: int = 0
+    history: list[dict[str, float]] = field(default_factory=list)
+
+
+def brain_path(folder: Path, ship: str) -> Path:
+    return folder / f"{ship}.npz"
+
+
+def save_training(folder: Path, ship: str, training: Training) -> None:
+    folder.mkdir(parents=True, exist_ok=True)
+    path = brain_path(folder, ship)
+    temporary = path.with_suffix(".tmp.npz")
+    np.savez(
+        temporary,
+        weights=training.brain.weights,
+        hidden=np.array(training.brain.hidden),
+        inputs=np.array(training.brain.inputs),
+        generation=np.array(training.generation),
+        history=np.array(json.dumps(training.history)),
+    )
+    temporary.replace(path)  # never a half-written brain, even if the game is closed while saving
+
+
+def load_training(folder: Path, ship: str) -> Training | None:
+    """The ship's brain, or None if it has none yet (or one made for other sensors)."""
+    path = brain_path(folder, ship)
+    if not path.exists():
+        return None
+    with np.load(path) as data:
+        if int(data["inputs"]) != sensors.SIZE:
+            return None  # made for sensors that have changed since: it would see nonsense
+        brain = Brain(data["weights"], tuple(int(n) for n in data["hidden"]), int(data["inputs"]))
+        return Training(brain, int(data["generation"]), json.loads(str(data["history"])))
+
+
+def save_ratings(folder: Path, ratings: dict[str, Any]) -> Path:
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / "ratings.json"
+    path.write_text(json.dumps(ratings, indent=2) + "\n")
+    return path
+
+
+def load_ratings(folder: Path) -> dict[str, Any] | None:
+    path = folder / "ratings.json"
+    return json.loads(path.read_text()) if path.exists() else None

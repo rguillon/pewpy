@@ -9,6 +9,7 @@ from collections.abc import Callable
 from functools import partial
 from typing import Literal
 
+import numpy as np
 from direct.gui.OnscreenText import OnscreenText
 from direct.showbase.ShowBase import ShowBase
 from direct.task.Task import Task
@@ -28,6 +29,12 @@ from panda3d.core import (
 )
 
 from pewpy import config
+from pewpy.ai import files as ai_files
+from pewpy.ai.brain import Brain
+from pewpy.ai.pilot import Pilot
+from pewpy.ai.rating import RUNS as RATING_RUNS
+from pewpy.ai.rating import places as rated_places
+from pewpy.ai.sessions import LearningSession, RatingSession, Session
 from pewpy.audio.cues import event_sounds, music
 from pewpy.audio.library import Library, cache_folder
 from pewpy.audio.sound import Audio
@@ -80,6 +87,7 @@ from pewpy.graphics.sprites import Sprite, SpriteBatch
 from pewpy.scenery.background import Scenery
 from pewpy.scenery.background_view import BackgroundView, CameraView, sky_color, space_color
 from pewpy.ui import showcase
+from pewpy.ui.ai_panel import AIPanel, learning_text, rating_columns, rating_title
 from pewpy.ui.level_preview import LevelPreview
 from pewpy.ui.menu import Menu, MenuItem
 from pewpy.ui.menu_view import MenuView
@@ -163,7 +171,11 @@ MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
     "Ground enemies": lambda kind: issubclass(kind, Enemy) and kind.ground,
 }
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
-EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
+EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE, State.AI_LEARNING})
+AI_STATES = frozenset({State.AI_LEARNING, State.AI_RATING})
+AI_WORKERS = max(
+    1, (os.cpu_count() or 2) - 2
+)  # processes learning or rating: a core left for the game, one for the rest
 FLASH_COLOR: Color = (1.0, 1.0, 1.0, 1)
 BACKGROUND_COLOR: Color = space_color()
 GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps this shape (width / height)
@@ -269,6 +281,11 @@ class PewPewApp(ShowBase):
 
         self.menu_view = MenuView(self.aspect2d)
         self._setup_hud()
+        self.ai_session: Session | None = None  # learning or rating in the background, on the AI screens
+        self.stopped_ai: list[Session] = []  # stopped, still finishing what they were doing
+        self.pilot: Pilot | None = None  # the AI flying the ship on screen
+        self.ai_watching = ""  # what the AI on screen plays
+        self.ai_panel = AIPanel(self.aspect2d)
         # The level select's window on the highlighted level (none without a window: tests, tools).
         self.level_preview = LevelPreview(self.win, self.cam, self.render, self.aspect2d) if self.win else None
         self._fit_letterbox()
@@ -317,6 +334,8 @@ class PewPewApp(ShowBase):
         """Under WSL, the GPU goes through Mesa's d3d12 driver (see `make run`), which can hang while the window is
         torn down: leave at once instead (nothing is left to save).
         """
+        self._stop_ai()
+        self._finish_stopped_ai(wait=30.0)  # the brains are saved as it stops
         if os.environ.get("GALLIUM_DRIVER") == "d3d12":
             sys.stdout.flush()
             sys.stderr.flush()
@@ -414,6 +433,9 @@ class PewPewApp(ShowBase):
         elif self.states.state is State.PLAYING:
             self.audio.play("menu_back")
             self.states.transition(State.PAUSED)
+        elif self.states.state in AI_STATES:
+            self.audio.play("menu_back")
+            self.states.transition(State.MAIN_MENU)
 
     def _menu(self, state: State) -> Menu | None:
         """The menu shown in each state (None while playing)."""
@@ -429,6 +451,8 @@ class PewPewApp(ShowBase):
                 MenuItem("Bosses", go(State.BOSSES)),
                 MenuItem("Enemy candidates", go(State.CANDIDATES)),
                 MenuItem("Boss candidates", go(State.BOSS_CANDIDATES)),
+                MenuItem("AI learning", go(State.AI_LEARNING)),
+                MenuItem("AI rating", go(State.AI_RATING)),
             ]
             return Menu("PEWPEW", [*items, MenuItem("Quit", self.userExit)])
         if state in SHOWCASE_STATES:
@@ -864,6 +888,7 @@ class PewPewApp(ShowBase):
             self._preview_level()
         elif self.level_preview is not None:
             self.level_preview.clear()
+        self._switch_ai(previous, current)
         if current is State.MAIN_MENU:
             self.world = None
             self.effects.clear()
@@ -882,15 +907,13 @@ class PewPewApp(ShowBase):
         dt = min(self.clock.getDt(), 0.1)  # avoid huge steps after a stall
         world = self.world
         if world is not None and self.states.state is State.PLAYING:
-            world.update(dt, self._controls())
-            self._show_events(world.events, dt)
-            self.audio.play_all(event_sounds(world.events))
-            self.effects.set_laser(self._laser_glow(world), dt)
-            self.background.scenery.update(dt, world.level.scroll_speed)
+            self._play(world, self._controls(), dt)
             if world.game_over:
                 self.states.transition(State.GAME_OVER)
             elif world.completed:
                 self.states.transition(State.LEVEL_COMPLETE)
+        elif self.states.state in AI_STATES:
+            self._update_ai(dt)
         if self.states.state in EFFECTS_RUN_IN:
             self.effects.update(dt)
         if self.showcase:
@@ -904,6 +927,92 @@ class PewPewApp(ShowBase):
         self._update_hud()
         self._update_fps()
         return Task.cont
+
+    def _play(self, world: World, controls: Controls, dt: float) -> None:
+        """One step of a level: the world, its effects, sounds and scenery."""
+        world.update(dt, controls)
+        self._show_events(world.events, dt)
+        self.audio.play_all(event_sounds(world.events))
+        self.effects.set_laser(self._laser_glow(world), dt)
+        self.background.scenery.update(dt, world.level.scroll_speed)
+
+    def _switch_ai(self, previous: State, current: State) -> None:
+        """Start the AI screens' work on the way in, stop it on the way out."""
+        if previous in AI_STATES and current not in AI_STATES:
+            self._stop_ai()
+        if current is State.AI_LEARNING:
+            self._start_learning()
+        elif current is State.AI_RATING:
+            self._start_rating()
+
+    def _start_learning(self) -> None:
+        self._finish_stopped_ai()
+        self.ai_session = LearningSession(list(SHIPS), ai_files.ai_folder(), AI_WORKERS)
+        self.ai_session.start()
+        self._watch_ai()
+
+    def _start_rating(self) -> None:
+        self._finish_stopped_ai()
+        self.ai_session = RatingSession(list(SHIPS), ai_files.ai_folder(), RATING_RUNS, AI_WORKERS)
+        self.ai_session.start()
+
+    def _stop_ai(self) -> None:
+        """Ask the AI's work to stop: it ends what it is doing (a generation) and saves, in the background."""
+        if self.ai_session is not None:
+            self.ai_session.stop()
+            self.stopped_ai.append(self.ai_session)
+            self.ai_session = None
+        self.pilot = None
+        self.ai_panel.clear()
+
+    def _finish_stopped_ai(self, wait: float = 60.0) -> None:
+        """Wait for stopped work to have saved, before starting more (both would write the same brains)."""
+        for session in self.stopped_ai:
+            session.stop(wait)
+        self.stopped_ai = []
+
+    def _watch_ai(self) -> None:
+        """A level played on screen by the brain of the ship learning now (as it is so far), on a level drawn at
+        random; another one when it ends."""
+        session = self.ai_session
+        if not isinstance(session, LearningSession):
+            return
+        ship = session.training
+        brain = session.brain(ship) or Brain.random(np.random.default_rng())
+        index = int(np.random.default_rng().integers(len(self.levels)))
+        level = self.levels[index]
+        screen = self.camera_view.area(0.0)
+        self.world = World(level, view_top=screen.top, view_side=screen.right, ship=SHIPS[ship])
+        self.pilot = Pilot(brain)
+        self.ai_watching = f"On screen: {SHIPS[ship].name} on {self._label(index)} {level.name}"
+        self._show_background(level)
+        self._prepare_bosses(level)
+        self.effects.clear()
+        self._show_hud(True)
+
+    def _update_ai(self, dt: float) -> None:
+        session = self.ai_session
+        world, pilot = self.world, self.pilot
+        if world is not None and pilot is not None:
+            self._play(world, pilot.fly(world), dt)
+            if world.game_over or world.completed:
+                self._watch_ai()
+        if isinstance(session, LearningSession):
+            with session.lock:
+                text = learning_text(
+                    session.training, dict(session.reports), dict(session.checks), self.ai_watching, session.error
+                )
+            self.ai_panel.show_learning(text)
+        elif isinstance(session, RatingSession):
+            table = session.table()
+            places = [(place, level.name) for place, level in rated_places()]
+            rated = sum(len(ratings) for ratings in table.values())
+            total = len(places) * len(session.ships)
+            now = next((ship for ship in session.ships if len(table[ship]) < len(places)), None)
+            doing = f"Rating {SHIPS[now].name}: {rated}/{total} ratings" if now else ""
+            saved = str(session.folder / "ratings.json") if session.saved else ""
+            title = rating_title(session.ships, session.runs, doing, saved, session.error)
+            self.ai_panel.show_rating(title, rating_columns(places, session.ships, table), len(session.ships))
 
     def _show_events(self, events: list[Event], dt: float) -> None:
         for event in events:

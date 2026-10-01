@@ -18,6 +18,7 @@ The game design lives in `docs/specs/`. Read the relevant spec files **before** 
 | `docs/specs/04-ui-audio.md` | Menus, HUD, game flow, sound, music |
 | `docs/specs/05-visuals.md` | Art style, assets, effects |
 | `docs/specs/06-technical.md` | Architecture, Panda3D usage, performance, testing, packaging |
+| `docs/specs/07-ai.md` | The AI player: learning to play, rating the levels |
 | `docs/specs/roadmap.md` | Milestones — what to build, in which order |
 
 Rules:

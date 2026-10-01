@@ -31,6 +31,14 @@ boss-candidates: ## Generate boss model candidates for the Boss candidates scree
 levels: ## Generate the game's levels from the worlds' plan in tools/make_levels.py (options: ARGS="--seed 1234", see --help)
 	@uv run python -m tools.make_levels $(ARGS)
 
+.PHONY: learn
+learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
+	@uv run python -u -m pewpy.ai learn $(ARGS)
+
+.PHONY: rate
+rate: ## Rate every level for every ship from how the trained AI fares: its clear rate (options: ARGS="--runs 20", see --help)
+	@uv run python -u -m pewpy.ai rate $(ARGS)
+
 .PHONY: songs
 songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
 	@uv run python -m tools.make_songs $(ARGS)

@@ -99,3 +99,13 @@ def test_the_boss_candidates_screen_opens_from_the_main_menu_and_goes_back_to_it
     assert not machine.can_transition(State.CANDIDATES)
     machine.transition(State.MAIN_MENU)
     assert machine.state is State.MAIN_MENU
+
+
+@pytest.mark.parametrize("screen", [State.AI_LEARNING, State.AI_RATING])
+def test_the_ai_screens_open_from_the_main_menu_and_go_back_to_it(screen):
+    machine = StateMachine()
+    machine.transition(screen)
+    assert machine.state is screen
+    assert not machine.can_transition(State.PLAYING)
+    machine.transition(State.MAIN_MENU)
+    assert machine.state is State.MAIN_MENU

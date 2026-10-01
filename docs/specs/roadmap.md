@@ -40,4 +40,5 @@
 
 ## Later / ideas
 
+- [x] AI player: learns to play by itself and rates every level for every ship (`07-ai.md`)
 - TBD

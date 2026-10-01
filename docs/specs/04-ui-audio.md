@@ -29,7 +29,7 @@ Pause -> Main menu
   and its description and numbers show at the bottom; then the world select: one entry per world, then Back to the ship select; then that
   world's level select: its 6
   levels, like "2-5 Twilight Grove", then Back, with a window above the list showing the highlighted level's
-  ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Enemy candidates, Boss candidates, Quit *(entries are a
+  ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Enemy candidates, Boss candidates, AI learning, AI rating (see `07-ai.md`), Quit *(entries are a
   placeholder)*
 
 ### Models

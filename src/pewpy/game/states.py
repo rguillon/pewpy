@@ -17,6 +17,8 @@ class State(Enum):
     PAUSED = auto()
     GAME_OVER = auto()
     LEVEL_COMPLETE = auto()
+    AI_LEARNING = auto()  # the AI learns to play, in the background, while one of its brains plays on screen
+    AI_RATING = auto()  # the trained AI rates every level for every ship
 
 
 TRANSITIONS: dict[State, frozenset[State]] = {
@@ -26,7 +28,11 @@ TRANSITIONS: dict[State, frozenset[State]] = {
         State.BOSSES,
         State.CANDIDATES,
         State.BOSS_CANDIDATES,
+        State.AI_LEARNING,
+        State.AI_RATING,
     }),
+    State.AI_LEARNING: frozenset({State.MAIN_MENU}),
+    State.AI_RATING: frozenset({State.MAIN_MENU}),
     State.CANDIDATES: frozenset({State.MAIN_MENU}),
     State.BOSS_CANDIDATES: frozenset({State.MAIN_MENU}),
     State.SHIP_SELECT: frozenset({State.WORLD_SELECT, State.MAIN_MENU}),

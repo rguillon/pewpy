@@ -5,7 +5,8 @@
 - Python: 3.10+ (from `pyproject.toml`)
 - Panda3D version: TBD (1.10.x is currently installed)
 - Extra libraries allowed (e.g. panda3d-gltf, numpy): `types-panda3d` (dev only, so `ty` can type-check
-  Panda3D); `numpy` (building the voxel meshes); others: TBD
+  Panda3D); `numpy` (building the voxel meshes, the AI's neural networks: no machine learning library, see `07-ai.md`);
+  others: TBD
 
 ## Performance
 
@@ -24,7 +25,8 @@
 - Overall structure (states/scenes, entity classes, ECS…): grouped by domain, the game's rules kept apart from
   Panda3D *(placeholder)*: `pewpy/` (`app.py`: the window, input, drawing; `config.py`, `data.py`), `game/` (the
   rules, no Panda3D: entities, player, weapons, world, states, levels, enemies, bosses), `scenery/` (backgrounds
-  and grounds), `graphics/` (models, lighting, effects), `ui/` (menus and the model screens), `audio/`; data in
+  and grounds), `graphics/` (models, lighting, effects), `ui/` (menus and the model screens), `audio/`, `ai/` (the
+  AI player, no Panda3D, see `07-ai.md`); data in
   `levels/` and `models/`
 - Game loop timing (variable dt / fixed timestep): TBD
 - Collision detection (Panda3D CollisionTraverser / custom simple circles-boxes): TBD

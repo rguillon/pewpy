@@ -1,0 +1,117 @@
+"""The AI screens' text (07-ai.md): the learning progress of each ship over the AI playing, and the ratings table.
+
+The texts are made by plain functions (`learning_text`, `rating_columns`); AIPanel only draws them.
+"""
+
+from typing import Literal
+
+from direct.gui.OnscreenText import OnscreenText
+from panda3d.core import NodePath, TextNode
+
+from pewpy.ai.learning import Report
+from pewpy.ai.rating import Rating
+from pewpy.game.player import SHIPS
+
+Color = tuple[float, float, float, float]
+TextAlign = Literal[0, 1, 2, 3, 4, 5]  # TextNode.ALeft, ARight...
+
+TEXT_COLOR: Color = (0.85, 0.88, 0.95, 1)
+TITLE_COLOR: Color = (1.0, 0.9, 0.3, 1)
+SCALE = 0.042
+TABLE_SCALE = 0.034
+ROW = 1.25  # a line's height, in text scales
+ROWS_PER_COLUMN = 24  # the ratings table in two halves, side by side (worlds 1 to 4, then 5 to 8)
+VALUE_WIDTH = 0.17  # each ship's column of the table
+NAME_WIDTH = 0.5
+
+
+def learning_text(
+    training: str, reports: dict[str, Report], checks: dict[str, tuple[float, float]], watching: str, error: str | None
+) -> str:
+    lines = ["AI LEARNING  (Esc: stop, it goes on from here next time)", ""]
+    for ship, spec in SHIPS.items():
+        mark = ">" if ship == training else " "
+        report = reports.get(ship)
+        state = f"generation {report.generation}  best {report.best:.0f}" if report else "waiting for its turn"
+        clears = ""
+        if ship in checks:
+            cleared, progress = checks[ship]
+            clears = f"  clears {100 * cleared:.0f}% of the levels, gets {100 * progress:.0f}% of the way"
+        lines.append(f"{mark} {spec.name:<11} {state}{clears}")
+    lines += ["", watching]
+    if error:
+        lines += ["", f"Stopped: {error}"]
+    return "\n".join(lines)
+
+
+def rating_title(ships: list[str], runs: int, rating: str, saved_to: str, error: str | None) -> str:
+    if not ships:
+        return "AI RATING\n\nNo ship has learned yet: start AI learning first.  (Esc: back)"
+    head = f"AI RATING  clear rate in % over {runs} runs, the lower the harder  (Esc: stop)"
+    status = f"Saved to {saved_to}" if saved_to else rating
+    return f"{head}\n{f'Stopped: {error}' if error else status}"
+
+
+def rating_columns(places: list[tuple[str, str]], ships: list[str], table: dict[str, list[Rating]]) -> list[list[str]]:
+    """The table as columns of lines: for each half, the levels' places and names, then each ship's clear rates."""
+    columns = []
+    for start in range(0, len(places), ROWS_PER_COLUMN):
+        half = places[start : start + ROWS_PER_COLUMN]
+        columns.append(["LEVEL", *(f"{place}  {name}" for place, name in half)])
+        for ship in ships:
+            rates = table.get(ship, [])
+            cells = [
+                f"{rates[index].clear_rate:.0f}" if index < len(rates) else ""
+                for index in range(start, start + len(half))
+            ]
+            columns.append([SHIPS[ship].name[:5], *cells])
+    return columns
+
+
+class AIPanel:
+    def __init__(self, parent: NodePath) -> None:
+        self.root = parent.attachNewNode("ai_panel")
+        self.texts: list[OnscreenText] = []
+        self.shown: list[str] = []
+
+    def clear(self) -> None:
+        for text in self.texts:
+            text.destroy()
+        self.texts, self.shown = [], []
+
+    def show_learning(self, text: str) -> None:
+        self._show([(text, -1.2, 0.9, TextNode.ALeft, SCALE, TEXT_COLOR)])
+
+    def show_rating(self, title: str, columns: list[list[str]], ships: int) -> None:
+        texts: list[tuple[str, float, float, TextAlign, float, Color]] = [
+            (title, -1.2, 0.9, TextNode.ALeft, SCALE, TITLE_COLOR)
+        ]
+        x = -1.2
+        for index, column in enumerate(columns):
+            first_of_half = index % (ships + 1) == 0
+            if first_of_half and index:
+                x += 0.08
+            align: TextAlign = TextNode.ALeft if first_of_half else TextNode.ARight
+            width = NAME_WIDTH if first_of_half else VALUE_WIDTH
+            anchor = x if first_of_half else x + width
+            texts.append(("\n".join(column), anchor, 0.75, align, TABLE_SCALE, TEXT_COLOR))
+            x += width
+        self._show(texts)
+
+    def _show(self, texts: list[tuple[str, float, float, TextAlign, float, Color]]) -> None:
+        """Rebuild the texts only when they changed (Panda3D remakes a text's geometry each time it is set)."""
+        wanted = [text for text, *_ in texts]
+        if wanted == self.shown:
+            return
+        if len(texts) != len(self.texts):
+            self.clear()
+            for text, x, z, align, scale, color in texts:
+                self.texts.append(
+                    OnscreenText(
+                        text=text, pos=(x, z), align=align, scale=scale, fg=color, mayChange=True, parent=self.root
+                    )
+                )
+        else:
+            for node, (text, *_rest) in zip(self.texts, texts, strict=True):
+                node.setText(text)
+        self.shown = wanted
