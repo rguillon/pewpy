@@ -32,6 +32,7 @@ REACH = 1.0  # targets are seen this far away (world units) at most
 HALF_WIDTH = config.PLAY_WIDTH / 2
 HALF_HEIGHT = config.PLAY_HEIGHT / 2
 SIZE = len(MOVES) * len(HORIZONS) + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3
+SAFEST = len(MOVES) * len(HORIZONS)  # where the safest move's direction (x, y) is in the view
 NO_THREATS = np.zeros((0, 6))
 TIMES = [np.linspace(horizon / STEPS, horizon, STEPS) for horizon in HORIZONS]  # when the radar looks
 

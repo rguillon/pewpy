@@ -27,11 +27,12 @@ def ai_folder() -> Path:
 @dataclass
 class Training:
     """A ship's brain and how its training went: per generation, the best try's fitness and the share of levels
-    the brain cleared."""
+    the brain cleared; and how many worlds it trains on so far (learning.py)."""
 
     brain: Brain
     generation: int = 0
     history: list[dict[str, float]] = field(default_factory=list)
+    worlds: int = 1
 
 
 def brain_path(folder: Path, ship: str) -> Path:
@@ -48,6 +49,7 @@ def save_training(folder: Path, ship: str, training: Training) -> None:
         hidden=np.array(training.brain.hidden),
         inputs=np.array(training.brain.inputs),
         generation=np.array(training.generation),
+        worlds=np.array(training.worlds),
         history=np.array(json.dumps(training.history)),
     )
     temporary.replace(path)  # never a half-written brain, even if the game is closed while saving
@@ -62,7 +64,8 @@ def load_training(folder: Path, ship: str) -> Training | None:
         if int(data["inputs"]) != sensors.SIZE:
             return None  # made for sensors that have changed since: it would see nonsense
         brain = Brain(data["weights"], tuple(int(n) for n in data["hidden"]), int(data["inputs"]))
-        return Training(brain, int(data["generation"]), json.loads(str(data["history"])))
+        worlds = int(data["worlds"]) if "worlds" in data else 1
+        return Training(brain, int(data["generation"]), json.loads(str(data["history"])), worlds)
 
 
 def save_ratings(folder: Path, ratings: dict[str, Any]) -> Path:

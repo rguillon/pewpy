@@ -29,6 +29,7 @@ def main() -> None:
         def report(step) -> None:
             cleared = (
                 f"  clears {100 * step.cleared:.0f}% of the levels, gets {100 * (step.progress or 0):.0f}% of the way"
+                f"  (trains on {step.worlds} world{'s' if step.worlds > 1 else ''})"
                 if step.cleared is not None
                 else ""
             )

@@ -1,9 +1,12 @@
 """Teaching a ship's brain to play every level, by evolution strategies (evolution.py).
 
-Each generation, every try of the population plays the same LEVELS_PER_TRY levels, drawn among all of them, with
-one life each; its fitness is the mean of its runs' (episode.py). The tries play in worker processes, in parallel.
-Every CHECK_EVERY generations the brain itself plays every level once: the share it clears and how far it gets
-are its progress, and it is saved (files.py), so learning can stop at any time and go on later.
+Each generation, every try of the population plays the same LEVELS_PER_TRY levels, drawn among the worlds open to
+it, with one life each; its fitness is the mean of its runs' (episode.py). The tries play in worker processes, in
+parallel. Every CHECK_EVERY generations the brain itself plays every level once: the share it clears and how far it
+gets are its progress, and it is saved (files.py), so learning can stop at any time and go on later.
+
+A curriculum: a new brain trains on world 1 only; the next world opens once it clears OPEN_NEXT of the open worlds'
+levels at a check.
 """
 
 import os
@@ -20,15 +23,27 @@ from pewpy.ai import files
 from pewpy.ai.brain import HIDDEN, Brain
 from pewpy.ai.episode import play
 from pewpy.ai.evolution import Evolution
-from pewpy.game.level import Level, load_levels
+from pewpy.game.level import Level, load_levels, load_worlds
 
 LEVELS_PER_TRY = 3
 CHECK_EVERY = 10  # generations
+OPEN_NEXT = 0.5  # the share of the open worlds' levels to clear at a check for the next world to open
 
 
 @cache
 def _levels() -> tuple[Level, ...]:
     return tuple(load_levels())
+
+
+@cache
+def _world_sizes() -> tuple[int, ...]:
+    """How many levels each world has, in order (_levels() has them one world after the other)."""
+    return tuple(len(world.levels) for world in load_worlds())
+
+
+def open_levels(worlds: int) -> int:
+    """How many levels the first `worlds` worlds have (the levels training draws from)."""
+    return min(sum(_world_sizes()[:worlds]), len(_levels())) or len(_levels())
 
 
 def try_weights(task: tuple[np.ndarray, tuple[int, ...], str, tuple[tuple[int, int], ...]]) -> float:
@@ -58,6 +73,7 @@ class Report:
     mean: float
     cleared: float | None  # the share of levels the brain clears, when it was checked this generation...
     progress: float | None = None  # ...and how far into them it gets on average, from 0 to 1
+    worlds: int = 1  # the worlds it trains on
 
 
 class Learner:
@@ -81,7 +97,7 @@ class Learner:
         return self.training.brain
 
     def step(self) -> Report:
-        levels = len(_levels())
+        levels = open_levels(self.training.worlds)
         runs = tuple((self.rng.randrange(levels), self.rng.randrange(1_000_000)) for _ in range(LEVELS_PER_TRY))
         nudges, tries = self.evolution.ask()
         hidden = self.brain.hidden
@@ -93,16 +109,22 @@ class Learner:
         record = {"generation": self.training.generation, "best": float(fitness.max()), "mean": float(fitness.mean())}
         if self.training.generation % CHECK_EVERY == 0:
             cleared, progress = self.check()
-            record |= {"cleared": cleared, "progress": progress}
+            record |= {"cleared": cleared, "progress": progress, "worlds": self.training.worlds}
             self.training.history.append(record)
             files.save_training(self.folder, self.ship, self.training)
-        return Report(self.ship, self.training.generation, record["best"], record["mean"], cleared, progress)
+        return Report(
+            self.ship, self.training.generation, record["best"], record["mean"], cleared, progress, self.training.worlds
+        )
 
     def check(self) -> tuple[float, float]:
-        """The share of levels the brain clears (one life each), and how far into them it gets on average."""
+        """The share of levels the brain clears (one life each), and how far into them it gets on average; opens
+        the next world when it clears enough of the open ones."""
         weights, hidden = self.brain.weights, self.brain.hidden
         tasks = [(weights, hidden, self.ship, index, index) for index in range(len(_levels()))]
         results = list(self.executor.map(check_level, tasks))
+        opened = open_levels(self.training.worlds)
+        if self.training.worlds < len(_world_sizes()) and np.mean([c for c, _ in results[:opened]]) >= OPEN_NEXT:
+            self.training.worlds += 1
         return float(np.mean([cleared for cleared, _ in results])), float(np.mean([gone for _, gone in results]))
 
     def save(self) -> None:

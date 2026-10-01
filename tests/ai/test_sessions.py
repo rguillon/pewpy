@@ -15,6 +15,7 @@ DRONES = Level(name="Drones", scroll_speed=0.2, waves=(Wave(time=0.5, enemy="dro
 @pytest.fixture(autouse=True)
 def small_game(monkeypatch):
     monkeypatch.setattr(learning, "_levels", lambda: (EMPTY, DRONES))
+    monkeypatch.setattr(learning, "_world_sizes", lambda: (2,))
     monkeypatch.setattr(learning, "CHECK_EVERY", 1)
     monkeypatch.setattr(rating, "places", lambda: (("1-1", EMPTY), ("1-2", DRONES)))
 

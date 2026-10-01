@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from pewpy.ai import sensors
-from pewpy.ai.brain import FIRE_BIAS, OUTPUTS, Brain, parameter_count, shapes
+from pewpy.ai.brain import FIRE_BIAS, OUTPUTS, RADAR_GAIN, Brain, parameter_count, shapes
 
 
 def test_a_brain_maps_a_view_to_its_outputs():
@@ -10,7 +10,17 @@ def test_a_brain_maps_a_view_to_its_outputs():
     out = brain.think(np.zeros(sensors.SIZE))
     assert out.shape == (OUTPUTS,)
     assert out[2] == pytest.approx(FIRE_BIAS)  # no input, no other bias: the fire button held
-    assert not brain.layers[-1].any()  # the direct path starts closed
+    direct = brain.layers[-1]
+    assert direct[sensors.SAFEST, 0] == direct[sensors.SAFEST + 1, 1] == RADAR_GAIN
+    assert np.count_nonzero(direct) == 2  # the direct path starts closed but from the radar's safest way
+
+
+def test_a_new_brain_flies_the_radars_safest_way():
+    brain = Brain.random(np.random.default_rng(0))
+    view = np.zeros(sensors.SIZE)
+    view[sensors.SAFEST : sensors.SAFEST + 2] = (1.0, 0.0)  # the safest way: right
+    out = brain.think(view)
+    assert out[0] > 1.0 and abs(out[1]) < 1.0
 
 
 def test_the_weights_are_one_flat_vector_shared_with_the_layers():

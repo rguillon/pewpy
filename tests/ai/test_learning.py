@@ -15,6 +15,7 @@ LEVELS = (
 @pytest.fixture(autouse=True)
 def small_game(monkeypatch):
     monkeypatch.setattr(learning, "_levels", lambda: LEVELS)
+    monkeypatch.setattr(learning, "_world_sizes", lambda: (1, 1))  # a world of each level
     monkeypatch.setattr(learning, "CHECK_EVERY", 2)
     monkeypatch.setattr("pewpy.ai.evolution.POPULATION", 4)
 
@@ -41,6 +42,38 @@ def test_learning_goes_on_from_the_saved_brain(tmp_path):
         again = Learner("vanguard", tmp_path, executor)
     assert again.training.generation == 1
     assert (again.brain.weights == learner.brain.weights).all()
+
+
+def test_a_new_brain_trains_on_the_first_world_only(tmp_path, monkeypatch):
+    played = []
+    try_weights = learning.try_weights
+
+    def recording(task):
+        played.append(task[3])
+        return try_weights(task)
+
+    monkeypatch.setattr(learning, "try_weights", recording)
+    with ThreadPoolExecutor(2) as executor:
+        learner = Learner("vanguard", tmp_path, executor)
+        learner.evolution.population = 4
+        learner.step()
+    assert played and all(index == 0 for runs in played for index, _ in runs)
+
+
+def test_the_next_world_opens_when_enough_of_the_open_levels_are_cleared(tmp_path, monkeypatch):
+    with ThreadPoolExecutor(2) as executor:
+        learner = Learner("vanguard", tmp_path, executor)
+        monkeypatch.setattr(learning, "check_level", lambda task: (False, 0.1))
+        learner.check()
+        assert learner.training.worlds == 1
+        monkeypatch.setattr(learning, "check_level", lambda task: (task[3] == 0, 0.5))
+        learner.check()
+        assert learner.training.worlds == 2
+        learner.check()
+        assert learner.training.worlds == 2  # no world after the last
+    learner.save()
+    saved = files.load_training(tmp_path, "vanguard")
+    assert saved is not None and saved.worlds == 2
 
 
 def test_learn_trains_every_ship_in_turns_until_told_to_stop(tmp_path, monkeypatch):

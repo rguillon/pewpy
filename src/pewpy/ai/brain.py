@@ -16,6 +16,7 @@ from pewpy.game.weapons import WEAPONS
 HIDDEN = (24,)  # neurons in each hidden layer
 OUTPUTS = 3 + len(WEAPONS)
 FIRE_BIAS = 1.0  # a new brain starts with the fire button held: shooting is nearly always right
+RADAR_GAIN = 3.0  # a new brain starts flying the radar's safest way, the stick this far over (clamped to 1)
 
 
 def shapes(inputs: int = sensors.SIZE, hidden: tuple[int, ...] = HIDDEN) -> list[tuple[int, int]]:
@@ -47,7 +48,7 @@ class Brain:
     @classmethod
     def random(cls, rng: np.random.Generator, hidden: tuple[int, ...] = HIDDEN) -> "Brain":
         """A new brain: small random weights (scaled for each layer's inputs), no biases but FIRE_BIAS, the direct
-        path closed."""
+        path closed but from the radar's safest way to the stick (RADAR_GAIN): it dodges before it learns anything."""
         parts = []
         layers = shapes(sensors.SIZE, hidden)
         for rows, columns in layers[:-1]:
@@ -55,7 +56,9 @@ class Brain:
             layer[-1] = 0.0
             parts.append(layer.ravel())
         parts[-1].reshape(-1, OUTPUTS)[-1, 2] = FIRE_BIAS
-        parts.append(np.zeros(sensors.SIZE * OUTPUTS))  # the direct path starts closed
+        direct = np.zeros((sensors.SIZE, OUTPUTS))
+        direct[sensors.SAFEST, 0] = direct[sensors.SAFEST + 1, 1] = RADAR_GAIN
+        parts.append(direct.ravel())
         return cls(np.concatenate(parts), hidden)
 
     def think(self, view: np.ndarray) -> np.ndarray:
