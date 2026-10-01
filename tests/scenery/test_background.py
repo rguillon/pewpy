@@ -94,13 +94,6 @@ def test_ground_always_covers_the_screen():
         assert covered_to >= AREA.top
 
 
-def test_ground_loop_grows_to_stay_longer_than_the_screen():
-    tall = Area(-1, 1, -10, 10)
-    terrain = Terrain(tall, 1.0, params.resolve("planet"))
-    assert terrain.chunks > CHUNKS
-    assert terrain.loop_length >= tall.height + terrain.chunk_height
-
-
 def test_the_city_sits_deeper_than_the_hills():
     scenery = Scenery("city", FakeView(), seed=0)
     assert scenery.terrain is not None

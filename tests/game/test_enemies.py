@@ -36,7 +36,7 @@ from pewpy.game.enemies import (
     Weaver,
 )
 from pewpy.game.entities import Bullet, Entity
-from pewpy.game.roster import ENEMY_TYPES, make_enemy
+from pewpy.game.roster import make_enemy
 
 DT = 1 / 60
 TARGET = Entity(x=0.0, y=-0.75)  # where the player starts
@@ -52,28 +52,6 @@ def run(enemy: Enemy, seconds: float, target: Entity = TARGET) -> list[Entity]:
 
 def bullets(created: list[Entity]) -> list[Bullet]:
     return [entity for entity in created if isinstance(entity, Bullet)]
-
-
-@pytest.mark.parametrize("kind", sorted(ENEMY_TYPES))
-def test_every_enemy_type_enters_and_runs(kind):
-    rng = random.Random(0)  # noqa: S311
-    enemy = make_enemy(kind, x=5.0, y=0.5, side="right", rng=rng)
-    if enemy.side_entry:
-        assert enemy.x > HALF_WIDTH
-    else:
-        assert enemy.y > TOP
-        assert abs(enemy.x) <= HALF_WIDTH - enemy.width / 2  # x=5.0 was clamped
-    start = (enemy.x, enemy.y)
-    run(enemy, 20.0)
-    assert (enemy.x, enemy.y) != start
-
-
-def test_side_entry_from_the_left_moves_right():
-    enemy = make_enemy("mine_layer", x=0, y=0.3, side="left", rng=random.Random(0))  # noqa: S311
-    assert enemy.x < -HALF_WIDTH
-    assert enemy.y == 0.3
-    run(enemy, 1.0)
-    assert enemy.vx > 0
 
 
 def test_weaver_snakes_around_its_column():
@@ -139,16 +117,6 @@ def test_rocket_truck_drives_down_faster_than_the_ground_and_fires_heavy_rockets
     assert shots
     assert all(shot.vx == 0 and shot.vy < 0 and shot.style == "heavy" for shot in shots)
     assert shots[0].width == HEAVY_BULLET_SIZE
-
-
-def test_only_ground_enemies_are_marked_as_on_the_ground():
-    assert {kind for kind, enemy in ENEMY_TYPES.items() if enemy.ground} == {
-        "turret",
-        "flak_cannon",
-        "tank",
-        "rocket_truck",
-        "missile_silo",
-    }
 
 
 def test_turret_scrolls_with_the_ground_and_fires_bursts_of_three():

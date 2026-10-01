@@ -3,6 +3,8 @@ import pytest
 from pewpy.scenery import params
 from pewpy.scenery.params import SceneryError, merge, resolve
 
+GROUNDS = [name for name in params.backgrounds() if params.resolve(name).ground is not None]
+
 
 def test_every_preset_is_complete_and_checked():
     for name in params.backgrounds():
@@ -80,3 +82,10 @@ def test_every_style_and_settlement_lists_its_colors():
     for names in params.SURFACE_COLORS.values():
         assert set(names) <= set(ground_shader.SURFACE_SLOTS)
     assert all(len(names) <= ground_shader.PALETTE_SIZE for names in params.STYLE_COLORS.values())
+
+
+@pytest.mark.parametrize("name", GROUNDS)
+def test_every_ground_stays_behind_the_ships(name):
+    ground = params.resolve(name).ground
+    assert ground is not None
+    assert ground.depth - ground.max_height > 0.1  # the ships fly at depth 0 and are about 0.1 deep

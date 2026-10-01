@@ -1,6 +1,10 @@
 import pytest
 
 from pewpy.game.level import Level, LevelError, Wave, load_levels, load_worlds, parse_level
+from pewpy.game.roster import ENEMY_TYPES
+from pewpy.scenery import params
+
+GROUNDS = [name for name in params.backgrounds() if params.resolve(name).ground is not None]
 
 
 def test_bundled_levels_load_as_five_worlds_of_eight():
@@ -137,3 +141,22 @@ def test_every_level_has_a_complete_scenery():
     for level in load_levels():
         look = level.scenery_params()
         assert level.time_of_day in look.times_of_day
+
+
+def test_levels_accept_bosses():
+    level = parse_level({"name": "end", "waves": [{"time": 60, "enemy": "overmind"}]})
+    assert level.spawns()[0].enemy == "overmind"
+
+
+def test_every_ground_has_levels():
+    assert set(GROUNDS) <= {level.background for level in load_levels()}
+
+
+def test_no_ground_enemies_over_water_or_clouds():
+    # Turrets, tanks and the like are on the ground: they would look odd on the sea, the ice floes or the clouds.
+    for level in load_levels():
+        if level.background in ("pack_ice", "swamp", "clouds", "ocean"):
+            ground = [
+                wave.enemy for wave in level.waves if wave.enemy in ENEMY_TYPES and ENEMY_TYPES[wave.enemy].ground
+            ]
+            assert ground == [], level.name

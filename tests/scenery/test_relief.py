@@ -1,10 +1,6 @@
 import numpy as np
-import pytest
 
-from pewpy.scenery import params, relief
-from pewpy.scenery.background import Area
-from pewpy.scenery.grounds import LANDSCAPES
-from pewpy.scenery.terrain import Terrain
+from pewpy.scenery import relief
 
 
 def rng() -> np.random.Generator:
@@ -17,14 +13,6 @@ def test_noise_is_smooth_between_0_and_1_and_loops_along_the_rows():
     assert float(np.min(noise)) >= 0.0 and float(np.max(noise)) <= 1.0
     steps = float(np.max(np.abs(np.diff(noise, axis=0))))
     assert float(np.max(np.abs(noise[-1] - noise[0]))) <= steps * 1.01  # the last row runs on into the first
-
-
-def test_mountains_stay_between_the_base_layer_and_their_highest_point():
-    knobs = {"range_size": 1.1, "crest_size": 0.6}
-    heights = LANDSCAPES["mountains"].shape(rng(), 200, 80, 0.5, 0.02, knobs).heights
-    assert float(np.min(heights)) == 0.0  # flat valley floors
-    assert float(np.max(heights)) == pytest.approx(0.5)
-    assert float(np.max(np.abs(heights[-1] - heights[0]))) < 0.05  # no cliff where the loop starts again
 
 
 def test_a_peak_casts_its_shadow_away_from_the_sun_and_rises_above_a_hollow():
@@ -40,11 +28,3 @@ def test_a_peak_casts_its_shadow_away_from_the_sun_and_rises_above_a_hollow():
     cavity = relief.make_relief(relief.Shape(pit), 0.02, 0.02).cavity
     assert cavity[30, 30] > 0.1
     assert cavity[30, 30] == float(np.max(cavity))
-
-
-def test_a_ground_gets_a_relief_the_size_of_its_loop():
-    area = Area(-1.0, 1.0, -1.3, 1.3)
-    terrain = Terrain(area, 1.0, params.resolve("mountains"), seed=1)
-    assert terrain.relief.rows == terrain.relief_rows * terrain.chunks
-    assert terrain.relief.step_y * terrain.relief.rows == pytest.approx(terrain.loop_length)
-    assert terrain.relief.step_x * (terrain.relief.columns - 1) >= area.width

@@ -1,4 +1,5 @@
-"""Drawing the particles of effects.py: debris are small lit cubes, glowing particles soft circles (sprites.py).
+"""Drawing the particles of the effects (particle_system.py): debris are small lit cubes, glowing particles soft
+circles (sprites.py).
 
 Moving hundreds of nodes each frame is slow, so there is a single cube mesh drawn once per debris particle
 (instancing). Each frame, their positions, colors and rotations are packed into a small float texture (one
@@ -11,7 +12,8 @@ from array import array
 from panda3d.core import Lens, NodePath, OmniBoundingVolume, Shader, Texture, Vec3
 
 from pewpy.graphics import models
-from pewpy.graphics.effects import MAX_PARTICLES, PHOTON_STRETCH, Effects
+from pewpy.graphics.effects.laser import PHOTON_STRETCH
+from pewpy.graphics.particle_system import MAX_PARTICLES, ParticleSystem
 from pewpy.graphics.sprites import Sprite, SpriteBatch
 
 VERTEX_SHADER = """
@@ -84,7 +86,7 @@ LASER_SPRITES = 256  # room in the glow batch for the laser's streaks and halo, 
 class EffectsView:
     """Debris are small lit cubes, tumbling; glowing particles (sparks, fireballs) are soft circles adding light."""
 
-    def __init__(self, effects: Effects, render: NodePath, lens: Lens) -> None:
+    def __init__(self, effects: ParticleSystem, render: NodePath, lens: Lens) -> None:
         self.effects = effects
         self.glows = SpriteBatch(render, lens, MAX_PARTICLES + LASER_SPRITES, glow=True, core=0.25, hot=0.6)
         mesh = models.MeshBuilder()
@@ -133,10 +135,10 @@ class EffectsView:
         beam hits.
         """
         sprites = []
-        for photon in self.effects.photons:
+        for photon in self.effects.light.photons:
             width = photon.size * GLOW_SIZE * photon.fade
             sprites.append(Sprite(photon.x, photon.y, width, width * PHOTON_STRETCH, photon.color))
-        laser = self.effects.laser
+        laser = self.effects.light.laser
         if laser is not None:
             halo = laser.width * HALO_WIDTH
             steps = min(int((laser.top - laser.bottom) / laser.width), LASER_SPRITES // 2)

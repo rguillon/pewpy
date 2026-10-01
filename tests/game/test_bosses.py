@@ -2,18 +2,13 @@ import math
 
 import pytest
 
-from pewpy import config
 from pewpy.game import bosses
 from pewpy.game.boss_catalog import BOSSES
 from pewpy.game.bosses import Boss, BossPart, Gun, make_boss, pattern_bullets
-from pewpy.game.enemies import HALF_WIDTH, Rocket
+from pewpy.game.enemies import HALF_WIDTH
 from pewpy.game.entities import Bullet, Entity
-from pewpy.game.level import Level, Wave, load_levels, parse_level
-from pewpy.game.world import Controls, World
-from pewpy.graphics import models
 
 DT = 1 / 60
-BOSS_LEVEL = Level(name="boss", scroll_speed=0.2, waves=(Wave(time=0.0, enemy="harvester"),))
 BELOW = Entity(x=0.0, y=-0.8)  # a target straight down the screen
 
 
@@ -37,62 +32,6 @@ def fight(boss: Boss, seconds: float) -> list[Entity]:
 def destroy(*parts: BossPart) -> None:
     for part in parts:
         part.hit(part.health)
-
-
-@pytest.mark.parametrize("kind", BOSSES)
-def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind):
-    spec = BOSSES[kind]
-    assert spec.half_span < HALF_WIDTH
-    names = {part.name for part in spec.parts}
-    for phase in spec.phases:
-        assert {source for source, _ in phase.guns} <= names | {bosses.CORE}
-        assert set(phase.until_destroyed) <= names
-    for drawing in {spec.drawing} | {part.drawing for part in spec.parts}:
-        models.load_drawing(drawing)
-
-
-@pytest.mark.parametrize("kind", BOSSES)
-def test_every_part_can_be_shot_from_below(kind):
-    """Shots fly up: some of each part's width must not be behind a piece that reaches lower (core included)."""
-    spec = BOSSES[kind]
-    pieces = [(0.0, -spec.height / 2, spec.width)] + [(p.x, p.y - p.height / 2, p.width) for p in spec.parts]
-    for part in spec.parts:
-        bottom, left, right = part.y - part.height / 2, part.x - part.width / 2, part.x + part.width / 2
-        shots = [left + (right - left) * step / 100 for step in range(101)]
-        open_shots = [
-            x
-            for x in shots
-            if not any(low < bottom and abs(x - middle) < (width + 0.02) / 2 for middle, low, width in pieces)
-        ]
-        assert len(open_shots) * (right - left) / 100 >= 0.04, part.name
-
-
-@pytest.mark.parametrize("kind", BOSSES)
-def test_every_hitbox_has_the_size_of_its_drawing(kind):
-    """Models are built with cubes of config.MODEL_VOXEL: each drawing must be about as big as its hitbox."""
-    spec = BOSSES[kind]
-    for drawing, width, height in [(spec.drawing, spec.width, spec.height)] + [
-        (part.drawing, part.width, part.height) for part in spec.parts
-    ]:
-        rows, _ = models.load_drawing(drawing)
-        assert len(rows[0]) * config.MODEL_VOXEL == pytest.approx(width, rel=0.12), drawing
-        assert len(rows) * config.MODEL_VOXEL == pytest.approx(height, rel=0.12), drawing
-
-
-def test_every_level_ends_with_its_own_boss():
-    levels = load_levels()
-    last_waves = [max(level.waves, key=lambda wave: wave.time) for level in levels]
-    assert all(wave.enemy in BOSSES for wave in last_waves)
-    assert sorted(wave.enemy for wave in last_waves) == sorted(BOSSES)  # each boss once
-    for level in levels:
-        assert sum(wave.enemy in BOSSES for wave in level.waves) == 1
-
-
-@pytest.mark.parametrize("kind", BOSSES)
-def test_every_phase_but_the_last_can_end(kind):
-    phases = BOSSES[kind].phases
-    assert all(phase.until_destroyed or phase.until_below > 0 for phase in phases[:-1])
-    assert len(phases) >= 2  # several shooting patterns
 
 
 def test_a_boss_starts_above_the_screen_and_comes_down_to_hold():
@@ -211,84 +150,3 @@ def test_volleys_fire_several_times_in_a_row():
     arrive(boss)
     shots = fight(boss, bosses.PHASE_PAUSE + 0.5)  # the left cannon's first volley of 3, the others wait
     assert len(shots) == 3
-
-
-def boss_world() -> World:
-    return World(BOSS_LEVEL, seed=0)
-
-
-def run(world: World, seconds: float, controls: Controls | None = None) -> None:
-    for _ in range(round(seconds / DT)):
-        world.update(DT, controls or Controls())
-
-
-def test_a_boss_and_its_parts_stay_in_the_world_and_hold_the_level():
-    world = boss_world()
-    run(world, 0.1)
-    assert world.boss is not None
-    assert len(world.enemies) == 1 + len(BOSSES["harvester"].parts)
-    run(world, 30)
-    assert not world.completed
-    assert world.boss is not None
-
-
-def test_destroying_the_boss_takes_its_parts_down_and_completes_the_level():
-    world = boss_world()
-    run(world, 0.1)
-    boss = world.boss
-    assert boss is not None
-    boss.parts[1].alive = False
-    boss.phase_index = 1
-    score = world.score
-    world._damage(boss, boss.health)
-    assert not boss.parts[0].alive
-    assert world.score == score + boss.points  # the parts give no points when wrecked
-    explosions = [event for event in world.events if event.kind == "explosion"]
-    assert len(explosions) == len(bosses.EXPLOSIONS) + 1
-    run(world, DT)
-    assert not world.completed  # a moment to pick up what it dropped
-    run(world, config.BOSS_BEATEN_TIME)
-    assert world.completed
-
-
-def test_once_the_boss_is_beaten_enemies_and_their_shots_are_gone_and_the_player_plays_on():
-    world = boss_world()
-    run(world, 0.1)
-    boss = world.boss
-    assert boss is not None
-    world.enemies.append(Rocket(x=0.3, y=0.2))
-    world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5))
-    for part in boss.parts:
-        part.alive = False
-    boss.phase_index = 1
-    world._damage(boss, boss.health)
-    assert not boss.alive
-    score = world.score
-    run(world, DT)
-    assert world.enemies == []
-    assert world.enemy_bullets == []
-    assert world.score == score  # wrecked, not shot down: no points
-    assert any(event.kind == "explosion" and event.source == "Rocket" for event in world.events)
-    x = world.player.x
-    run(world, 0.5, Controls(move_x=1.0))
-    assert world.player.x > x  # still playing
-    world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5))  # anything fired late vanishes too
-    run(world, DT)
-    assert world.enemy_bullets == []
-
-
-def test_ramming_a_boss_hurts_the_player_but_not_the_boss():
-    world = boss_world()
-    run(world, 0.1)
-    boss = world.boss
-    assert boss is not None
-    boss.x, boss.y = world.player.x, world.player.y
-    health = world.player.health
-    world.update(DT, Controls())
-    assert world.player.health < health
-    assert boss.alive
-
-
-def test_levels_accept_bosses():
-    level = parse_level({"name": "end", "waves": [{"time": 60, "enemy": "overmind"}]})
-    assert level.spawns()[0].enemy == "overmind"

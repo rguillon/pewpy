@@ -1050,7 +1050,7 @@ def extra_life_model() -> NodePath:
 
 def laser_beam_model() -> NodePath:
     """The laser's bright core: a thin box, stretched to the beam's size (a 1 x 1 beam). The rest of the beam is
-    light: streaks shooting up it (effects.py) in a soft halo (effects_view.py).
+    light: streaks shooting up it (effects/laser.py) in a soft halo (effects_view.py).
     """
     mesh = MeshBuilder()
     mesh.box(Vec3(0, 0, 0), Vec3(0.25, 0.25, 1.0), (0.85, 1.0, 1.0, 0.95))

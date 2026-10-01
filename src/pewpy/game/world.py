@@ -25,7 +25,7 @@ class Controls:
 
 @dataclass(frozen=True)
 class Event:
-    """Something the effects show (see effects.py) or the sounds play (see audio/cues.py), collected during one
+    """Something the effects show (see graphics/effects/) or the sounds play (see audio/cues.py), collected during one
     update.
 
     kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy class

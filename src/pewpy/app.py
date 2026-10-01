@@ -69,8 +69,13 @@ from pewpy.game.states import State, StateMachine
 from pewpy.game.weapons import LETTERS, WEAPONS, Arsenal, Missile
 from pewpy.game.world import Controls, Event, World
 from pewpy.graphics import lighting, models
-from pewpy.graphics.effects import Effects, LaserGlow
+from pewpy.graphics.effects.blast import Blast
+from pewpy.graphics.effects.burn import Burn
+from pewpy.graphics.effects.explosion import Explosion
+from pewpy.graphics.effects.impact import Impact
+from pewpy.graphics.effects.laser import LaserGlow
 from pewpy.graphics.effects_view import EffectsView
+from pewpy.graphics.particle_system import ParticleSystem
 from pewpy.graphics.sprites import Sprite, SpriteBatch
 from pewpy.scenery.background import Scenery
 from pewpy.scenery.background_view import BackgroundView, CameraView, sky_color, space_color
@@ -247,7 +252,7 @@ class PewPewApp(ShowBase):
         self.flames: dict[Entity, list[tuple[NodePath, float]]] = {}  # engine flames and their steady length
         self.camera_view = CameraView(self.cam, self.cam.node().getLens(), self.render)
         self.background = BackgroundView(Scenery("space", self.camera_view), self.render)  # behind the menus
-        self.effects = Effects()
+        self.effects = ParticleSystem()
         self.effects_view = EffectsView(self.effects, self.render, self.cam.node().getLens())
 
         self.keys_down: set[str] = set()
@@ -904,14 +909,14 @@ class PewPewApp(ShowBase):
         for event in events:
             if event.kind == "impact":
                 # Sparks fly back the way the shot came: down from enemies, up from the player.
-                self.effects.impact(event.x, event.y, towards=-1.0 if event.source == "enemy" else 1.0)
+                self.effects.play(Impact(event.x, event.y, towards=-1.0 if event.source == "enemy" else 1.0))
             elif event.kind == "explosion":
                 colors = self.debris_colors.get(event.source, (models.METAL,))
-                self.effects.explosion(event.x, event.y, event.size, colors)
+                self.effects.play(Explosion(event.x, event.y, event.size, colors))
             elif event.kind == "blast":
-                self.effects.blast(event.x, event.y, event.size)
+                self.effects.play(Blast(event.x, event.y, event.size))
             elif event.kind == "burn":
-                self.effects.burn(event.x, event.y, dt)
+                self.effects.play(Burn(event.x, event.y, dt))
 
     def _sync_nodes(self) -> None:
         self.effects_view.sync()

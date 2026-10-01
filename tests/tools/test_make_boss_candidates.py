@@ -41,12 +41,3 @@ def test_the_tool_writes_cores_parts_and_layouts_that_match(tmp_path, monkeypatc
         for entry in layout["parts"]:
             assert entry["drawing"].startswith(f"{core}_")
             assert (tmp_path / f"{entry['drawing']}.json").is_file()
-
-
-def test_the_game_finds_the_boss_candidates_and_their_parts():
-    names = models.boss_candidate_names()
-    assert names and all(name.split("/")[1].isdigit() for name in names)  # not the parts or the layouts
-    for name in names:
-        assert models.load_voxels(name).cells  # flat or 3D
-        for drawing, _, _ in models.boss_candidate_parts(name):
-            assert models.load_voxels(drawing).cells

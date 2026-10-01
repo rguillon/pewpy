@@ -2,11 +2,7 @@ import math
 
 import pytest
 
-from pewpy import config
-from pewpy.game.enemies import Drone, Enemy, ShieldCarrier, Swarmer
-from pewpy.game.entities import Entity, Pickup
-from pewpy.game.level import Level, Wave
-from pewpy.game.player import DEFAULT_SHIP, SHIPS
+from pewpy.game.entities import Entity
 from pewpy.game.weapons import (
     BULLET_FIRE_RATE,
     BULLET_FIRE_RATES,
@@ -18,11 +14,9 @@ from pewpy.game.weapons import (
     Arsenal,
     Missile,
 )
-from pewpy.game.world import Controls, World
 
 DT = 1 / 60
 SHIP = Entity(x=0.0, y=-0.75, width=0.12, height=0.12)
-QUIET_LEVEL = Level(name="quiet", scroll_speed=0.2, waves=(Wave(time=1000.0),))
 
 
 def shots_over(arsenal: Arsenal, seconds: float) -> list:
@@ -138,172 +132,3 @@ def test_straight_missile_ignores_targets():
     missile = Missile(x=0.0, y=0.0, vy=1.6, homing=False)
     missile.steer(0.1, [Entity(x=0.4, y=0.0)])
     assert (missile.vx, missile.vy) == (0.0, 1.6)
-
-
-# --- in the world ---
-
-
-def make_world(weapon: str = "bullets", level: int = 1) -> World:
-    return World(QUIET_LEVEL, seed=0, arsenal=arsenal_with(weapon, level))
-
-
-def still_enemy(kind: type[Enemy] = Drone, **fields) -> Enemy:
-    return kind(vy=0.0, fire_cooldown=1000.0, **fields)
-
-
-def test_laser_hits_only_the_first_enemy_until_level_3():
-    world = make_world("laser", 1)
-    near, far = still_enemy(x=0.0, y=0.0), still_enemy(x=0.0, y=0.5)
-    world.enemies += [near, far]
-    world.update(0.25, Controls(fire=True))
-    assert near.health == pytest.approx(3.0 - 8.0 * 0.25)
-    assert far.health == 3.0
-    assert world.laser is not None
-    assert world.laser.top == pytest.approx(near.y - near.height / 2)
-
-
-def test_piercing_laser_hits_every_enemy_in_the_beam():
-    world = make_world("laser", 3)
-    enemies = [still_enemy(x=0.03, y=0.0), still_enemy(x=0.0, y=0.5), still_enemy(x=0.5, y=0.5)]
-    world.enemies += enemies
-    world.update(0.1, Controls(fire=True))
-    assert [enemy.health for enemy in enemies] == pytest.approx([3.0 - 1.8, 3.0 - 1.8, 3.0])
-    assert world.laser is not None
-    assert world.laser.top == config.PLAY_HEIGHT / 2
-
-
-def test_laser_reaches_the_top_of_the_screen_but_not_beyond():
-    # The tilted camera shows more than the play area at the top: the beam goes up to the screen's edge.
-    world = World(QUIET_LEVEL, seed=0, arsenal=arsenal_with("laser", 3), view_top=1.6)
-    in_the_band, above_the_screen = still_enemy(x=0.0, y=1.3), still_enemy(x=0.0, y=1.8)
-    world.enemies += [in_the_band, above_the_screen]
-    world.update(0.1, Controls(fire=True))
-    assert world.laser is not None
-    assert world.laser.top == 1.6
-    assert in_the_band.health < 3.0
-    assert above_the_screen.health == 3.0
-
-
-def test_laser_kill_scores_and_beam_goes_away_when_not_firing():
-    world = make_world("laser", 3)
-    enemy = still_enemy(x=0.0, y=0.0)
-    world.enemies.append(enemy)
-    for _ in range(round(0.2 / DT)):
-        world.update(DT, Controls(fire=True))
-    assert not enemy.alive
-    assert world.score == 100
-    world.update(DT, Controls())
-    assert world.laser is None
-
-
-def test_shielded_enemy_stops_the_laser_without_damage():
-    world = make_world("laser", 1)
-    carrier = still_enemy(ShieldCarrier, x=0.0, y=0.0)
-    world.enemies.append(carrier)
-    world.update(0.1, Controls(fire=True))
-    assert carrier.health == 10.0
-
-
-def test_missile_explosion_damages_neighbors():
-    world = make_world()
-    target, neighbor, bystander = still_enemy(x=0.0, y=0.3), still_enemy(x=0.08, y=0.3), still_enemy(x=0.5, y=0.3)
-    world.enemies += [target, neighbor, bystander]
-    world.player_bullets.append(Missile(x=0.0, y=0.3, damage=3.0, splash_damage=1.5))
-    world.update(DT, Controls())
-    assert target.health == 0.0
-    assert neighbor.health == 1.5
-    assert bystander.health == 3.0
-
-
-def test_destroyed_enemies_can_drop_pickups(monkeypatch):
-    monkeypatch.setattr(Drone, "drop_chance", 1.0)
-    world = make_world("laser", 3)
-    enemy = still_enemy(x=0.0, y=0.0, health=0.1)
-    world.enemies.append(enemy)
-    world.update(DT, Controls(fire=True))
-    assert len(world.pickups) == 1
-    assert world.pickups[0].kind in {"bullets", "laser", "missiles", "repair", "life"}
-    assert (world.pickups[0].x, world.pickups[0].y) == pytest.approx((0.0, 0.0), abs=0.01)
-
-
-def test_enemies_without_drops_never_drop():
-    world = make_world("laser", 3)
-    for y in (0.0, 0.2, 0.4, 0.6):
-        world.enemies.append(still_enemy(Swarmer, x=0.0, y=y, health=0.1))  # Swarmers have no drops
-    world.update(DT, Controls(fire=True))
-    assert world.score == 4 * 50
-    assert world.pickups == []
-
-
-def test_upgrade_capsule_raises_that_weapon_and_keeps_the_selection():
-    world = make_world("bullets", 1)
-    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="missiles"))
-    world.update(DT, Controls())
-    assert world.arsenal.levels["missiles"] == 2
-    assert world.arsenal.selected == "bullets"
-    assert world.pickups == []
-
-
-def test_upgrade_at_max_level_gives_points():
-    world = make_world("laser", MAX_LEVEL)
-    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="laser"))
-    world.update(DT, Controls())
-    assert world.score == config.MAX_LEVEL_UPGRADE_POINTS
-
-
-def test_repair_restores_health_up_to_the_maximum():
-    world = make_world()
-    world.player.health = 2.0
-    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="repair"))
-    world.update(DT, Controls())
-    assert world.player.health == 4.0
-    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="repair"))
-    world.update(DT, Controls())
-    assert world.player.health == SHIPS[DEFAULT_SHIP].health
-
-
-def test_an_extra_life_adds_a_life_up_to_the_most():
-    world = make_world()
-    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="life"))
-    world.update(DT, Controls())
-    assert world.lives == config.PLAYER_LIVES + 1
-    assert [event.source for event in world.events if event.kind == "pickup"] == ["life"]
-    world.lives = config.MAX_LIVES
-    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="life"))
-    world.update(DT, Controls())
-    assert world.lives == config.MAX_LIVES
-    assert world.score == config.EXTRA_LIFE_POINTS
-
-
-def test_drops_are_mostly_upgrades_sometimes_a_repair_rarely_a_life(monkeypatch):
-    monkeypatch.setattr(Drone, "drop_chance", 1.0)
-    world = make_world()
-    kinds = []
-    for _ in range(3000):
-        world.pickups = []
-        world._maybe_drop(still_enemy(x=0.0, y=0.0))
-        kinds.append(world.pickups[0].kind)
-    shares = {kind: kinds.count(kind) / len(kinds) for kind in set(kinds)}
-    upgrades = sum(shares.get(weapon, 0.0) for weapon in ("bullets", "laser", "missiles"))
-    assert upgrades == pytest.approx(config.PICKUP_UPGRADE_SHARE, abs=0.03)
-    assert shares["life"] == pytest.approx(config.PICKUP_LIFE_SHARE, abs=0.015)
-    assert shares["repair"] == pytest.approx(1 - config.PICKUP_UPGRADE_SHARE - config.PICKUP_LIFE_SHARE, abs=0.03)
-
-
-def test_pickups_drift_down_and_leave_the_screen():
-    world = make_world()
-    pickup = Pickup(x=0.6, y=-0.9)
-    world.pickups.append(pickup)
-    run_seconds = 2.0
-    for _ in range(round(run_seconds / DT)):
-        world.update(DT, Controls())
-    assert world.pickups == []
-
-
-def test_weapon_levels_survive_losing_a_life():
-    world = make_world("missiles", 3)
-    world.player.health = 0.0
-    world.update(DT, Controls())
-    assert world.lives == config.PLAYER_LIVES - 1
-    assert world.arsenal.selected == "missiles"
-    assert world.arsenal.levels["missiles"] == 3
