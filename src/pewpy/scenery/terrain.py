@@ -1,7 +1,7 @@
 """The grounds scrolling under the ship: hills, cities, islands in a sea... (see background.py).
 
-A ground is a smooth relief (relief.py) shaped by its landscape (landscapes.py), maybe built up with a settlement
-(settlement.py) or dotted with flora, all from the level's scenery (params.py). It's a seamless loop of strips
+A ground is a smooth relief (relief.py) shaped by its landscape, maybe built up with a settlement or dotted with
+flora (each kind in grounds/), all from the level's scenery (params.py). It's a seamless loop of strips
 ("chunks") scrolling down; background_view.py draws them (ground_shader.py). Independent from Panda3D.
 """
 
@@ -12,11 +12,11 @@ from dataclasses import dataclass
 import numpy as np
 
 from pewpy import config
-from pewpy.scenery import landscapes, relief, settlement
-from pewpy.scenery.landscapes import LANDSCAPES
+from pewpy.scenery import relief, settlement
+from pewpy.scenery.grounds import FLORAS, LANDSCAPES, SETTLEMENTS
 from pewpy.scenery.params import SceneryParams
 from pewpy.scenery.relief import RELIEF_STEP, Relief
-from pewpy.scenery.settlement import SETTLEMENTS, Layout, Prop
+from pewpy.scenery.settlement import Layout, Prop
 
 # How fast the ground seems to move on screen, as a fraction of the level's scroll speed. Kept away from the
 # enemies' speeds (as fractions of level 2's scroll speed: parked Snipers 0, Gunships 0.6, Turrets 1.0,
@@ -74,18 +74,20 @@ class Terrain:
         self.offset = 0.0  # how far the ground has scrolled, in world units
         rng = np.random.default_rng(self.rng.randrange(2**32))
         landscape = LANDSCAPES[ground.landscape]
-        shape = landscape(rng, self.relief_rows * self.chunks, columns, ground.max_height, RELIEF_STEP, ground.shape)
+        shape = landscape.shape(
+            rng, self.relief_rows * self.chunks, columns, ground.max_height, RELIEF_STEP, ground.shape
+        )
         fluid = scenery.fluid is not None
         surface = np.maximum(shape.heights, 0.0) if fluid else shape.heights
         props: list[Prop] = []
         self.layout: Layout | None = None
         if scenery.settlement is not None:
-            generate = SETTLEMENTS[scenery.settlement.kind]
-            self.layout = generate(self.rng, self.width, self.loop_length, scenery.settlement.layout)
+            built_up = SETTLEMENTS[scenery.settlement.kind]
+            self.layout = built_up.layout(self.rng, self.width, self.loop_length, scenery.settlement.layout)
             props += self.layout.props
         if scenery.flora is not None:
-            flora = landscapes.FLORAS[scenery.flora.kind]
-            props += flora(self.rng, shape, RELIEF_STEP, RELIEF_STEP, scenery.flora.knobs)
+            flora = FLORAS[scenery.flora.kind]
+            props += flora.props(self.rng, shape, RELIEF_STEP, RELIEF_STEP, scenery.flora.knobs)
         self.props: list[Prop] = []  # standing on the relief
         occluders = None
         if props:

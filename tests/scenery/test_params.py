@@ -73,10 +73,10 @@ def test_mistakes_are_reported_with_where_they_are(background, changes, message)
 
 
 def test_every_style_and_settlement_lists_its_colors():
-    from pewpy.scenery import ground_shader, settlement
+    from pewpy.scenery import ground_shader, grounds
 
     assert set(params.STYLE_COLORS) >= set(ground_shader.STYLES)
-    assert set(params.SURFACE_COLORS) == set(settlement.SETTLEMENTS)
+    assert set(params.SURFACE_COLORS) == set(grounds.SETTLEMENTS)
     for names in params.SURFACE_COLORS.values():
         assert set(names) <= set(ground_shader.SURFACE_SLOTS)
     assert all(len(names) <= ground_shader.PALETTE_SIZE for names in params.STYLE_COLORS.values())

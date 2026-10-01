@@ -7,7 +7,7 @@ shadows of a low sun, which the ground shader (ground_shader.py) uses with the h
 
 On grounds with a fluid (water, lava, or the gaps of a cloud deck), everything below height 0 is under it: the
 surface is flat there and `depth` says how deep it is. A landscape can also mark each point with a number from 0 to
-1 (`marks`: forest or clearing, reeds or mud...) for the shader. The landscapes are in landscapes.py.
+1 (`marks`: forest or clearing, reeds or mud...) for the shader. The landscapes are in grounds/ (see landscapes.py).
 
 Numpy only, independent from Panda3D.
 """

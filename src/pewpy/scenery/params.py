@@ -9,16 +9,17 @@ DEPENDS_ON). The result must be complete: the code has no values of its own.
 What a scenery has decides what's drawn: stars, nebulas and a distant planet (space), asteroids (debris), or a
 ground (its landscape, painted by the ground shader; maybe a fluid below height 0, a settlement on it, flora).
 Generators named in the data (a landscape, a settlement, flora) take their own numbers ("knobs"), checked against
-what each one needs (see KNOBS in landscapes.py and settlement.py). Colors are [red, green, blue] from 0 to 1.
+what each one needs (its `knobs`, see grounds/). Colors are [red, green, blue] from 0 to 1.
 
 Independent from Panda3D.
 """
 
 import json
 import types
+from collections.abc import Mapping
 from dataclasses import dataclass, fields, is_dataclass
 from functools import cache
-from typing import Any, Union, get_args, get_origin, get_type_hints
+from typing import Any, Protocol, Union, get_args, get_origin, get_type_hints
 
 from pewpy.data import data_folder
 
@@ -121,7 +122,7 @@ class Rocks:
 
 @dataclass(frozen=True)
 class Ground:
-    landscape: str  # its shape (landscapes.py LANDSCAPES)...
+    landscape: str  # its shape (grounds/ LANDSCAPES)...
     shape: Knobs  # ...and that landscape's numbers
     style: str  # how the ground shader paints it (ground_shader.py STYLES)...
     colors: dict[str, Color3]  # ...with these colors (STYLE_COLORS names them; built-up grounds: the settlement's)
@@ -139,16 +140,16 @@ class Fluid:
 
 @dataclass(frozen=True)
 class Settlement:
-    """Streets, fields, yards painted on the ground, and what stands on them (settlement.py)."""
+    """Streets, fields, yards painted on the ground, and what stands on them (grounds/ SETTLEMENTS)."""
 
-    kind: str  # settlement.py SETTLEMENTS
+    kind: str  # grounds/ SETTLEMENTS
     colors: dict[str, Color3]  # of what covers the ground (ground_shader.py SURFACE_COLORS)
     layout: Knobs  # the settlement's numbers
 
 
 @dataclass(frozen=True)
 class Flora:
-    """Sparse props placed from the landscape's shape (landscapes.py FLORAS)."""
+    """Sparse props placed from the landscape's shape (grounds/ FLORAS)."""
 
     kind: str
     knobs: Knobs
@@ -312,25 +313,32 @@ def resolve(background: str, overrides: dict[str, Any] | None = None) -> Scenery
 
 def _check_generators(params: SceneryParams) -> None:
     """The generators and painters named exist, and get the numbers and colors they need."""
-    from pewpy.scenery import landscapes, settlement
+    from pewpy.scenery import grounds
 
     name = params.name
     if params.ground is not None:
-        _check_knobs(params.ground.landscape, params.ground.shape, landscapes.KNOBS, f"{name}.ground.shape")
+        _check_knobs(params.ground.landscape, params.ground.shape, grounds.LANDSCAPES, f"{name}.ground.shape")
         _check_names(params.ground.style, params.ground.colors, STYLE_COLORS, f"{name}.ground.colors")
     if params.fluid is not None:
         _check_names(params.fluid.kind, params.fluid.colors, FLUID_COLORS, f"{name}.fluid.colors")
     if params.settlement is not None:
-        _check_knobs(params.settlement.kind, params.settlement.layout, settlement.KNOBS, f"{name}.settlement.layout")
+        _check_knobs(params.settlement.kind, params.settlement.layout, grounds.SETTLEMENTS, f"{name}.settlement.layout")
         _check_names(params.settlement.kind, params.settlement.colors, SURFACE_COLORS, f"{name}.settlement.colors")
     if params.flora is not None:
-        _check_knobs(params.flora.kind, params.flora.knobs, landscapes.FLORA_KNOBS, f"{name}.flora.knobs")
+        _check_knobs(params.flora.kind, params.flora.knobs, grounds.FLORAS, f"{name}.flora.knobs")
 
 
-def _check_knobs(kind: str, knobs: Knobs, needed: dict[str, tuple[str, ...]], where: str) -> None:
-    if kind not in needed:
-        raise SceneryError(where, f"unknown {kind!r}, expected one of {sorted(needed)}")
-    _exactly(set(knobs), set(needed[kind]), where)
+class _Generator(Protocol):
+    """A landscape, a flora or a settlement (grounds/): it names the numbers it needs."""
+
+    @property
+    def knobs(self) -> tuple[str, ...]: ...
+
+
+def _check_knobs(kind: str, knobs: Knobs, generators: Mapping[str, _Generator], where: str) -> None:
+    if kind not in generators:
+        raise SceneryError(where, f"unknown {kind!r}, expected one of {sorted(generators)}")
+    _exactly(set(knobs), set(generators[kind].knobs), where)
 
 
 def _check_names(kind: str, colors: dict[str, Color3], names: dict[str, tuple[str, ...]], where: str) -> None:

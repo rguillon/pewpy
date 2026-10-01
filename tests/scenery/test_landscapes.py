@@ -3,8 +3,9 @@ import random
 import numpy as np
 import pytest
 
-from pewpy.scenery import landscapes, params
+from pewpy.scenery import grounds, landscapes, params
 from pewpy.scenery.background import Area
+from pewpy.scenery.relief import Shape
 from pewpy.scenery.terrain import Terrain
 
 ROWS, COLUMNS, STEP = 210, 120, 0.02
@@ -16,11 +17,11 @@ def seeded(seed: int) -> random.Random:
     return random.Random(seed)  # noqa: S311 - layouts, not cryptography
 
 
-def shape_of(name: str) -> landscapes.Shape:
+def shape_of(name: str) -> Shape:
     ground = params.resolve(name).ground
     assert ground is not None
-    landscape = landscapes.LANDSCAPES[ground.landscape]
-    return landscape(np.random.default_rng(3), ROWS, COLUMNS, ground.max_height, STEP, ground.shape)
+    landscape = grounds.LANDSCAPES[ground.landscape]
+    return landscape.shape(np.random.default_rng(3), ROWS, COLUMNS, ground.max_height, STEP, ground.shape)
 
 
 def depth(name: str) -> float:
@@ -72,11 +73,14 @@ def test_flora_stands_on_land(name, kind):
 
 def test_scattering_is_random_but_reproducible():
     where = np.ones((10, 10), dtype=bool)
-    first = landscapes._scatter(seeded(1), where, 0.5, 0.02, 0.02)
-    assert first == landscapes._scatter(seeded(1), where, 0.5, 0.02, 0.02)
+    first = landscapes.scatter(seeded(1), where, 0.5, 0.02, 0.02)
+    assert first == landscapes.scatter(seeded(1), where, 0.5, 0.02, 0.02)
     assert 20 < len(first) < 80
 
 
-def test_every_landscape_and_flora_names_its_numbers():
-    assert set(landscapes.KNOBS) == set(landscapes.LANDSCAPES)
-    assert set(landscapes.FLORA_KNOBS) == set(landscapes.FLORAS)
+@pytest.mark.parametrize(
+    "generator", [*grounds.LANDSCAPES.values(), *grounds.FLORAS.values(), *grounds.SETTLEMENTS.values()]
+)
+def test_every_landscape_flora_and_settlement_names_its_numbers(generator):
+    assert generator.knobs
+    assert all(isinstance(name, str) for name in generator.knobs)

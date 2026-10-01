@@ -5,7 +5,8 @@ import pytest
 
 from pewpy.scenery import params, props, settlement
 from pewpy.scenery.background import Area
-from pewpy.scenery.settlement import SETTLEMENTS, Prop, Surface
+from pewpy.scenery.grounds import SETTLEMENTS
+from pewpy.scenery.settlement import Prop, Surface
 from pewpy.scenery.terrain import Terrain
 
 WIDTH, LOOP = 2.4, 4.2
@@ -26,7 +27,7 @@ def depth(name: str) -> float:
 
 @pytest.mark.parametrize("name", SETTLEMENTS)
 def test_every_prop_stands_inside_the_ground_without_crossing_the_loop_end(name):
-    layout = SETTLEMENTS[name](seeded(1), WIDTH, LOOP, knobs(name))
+    layout = SETTLEMENTS[name].layout(seeded(1), WIDTH, LOOP, knobs(name))
     assert layout.surface.shape == (round(LOOP / settlement.SURFACE_STEP), round(WIDTH / settlement.SURFACE_STEP))
     assert layout.props
     for prop in layout.props:
@@ -42,7 +43,7 @@ def seeded(seed: int) -> random.Random:
 
 
 def test_the_city_has_streets_pavements_and_buildings_of_every_size():
-    layout = settlement.city(seeded(2), WIDTH, LOOP, knobs("city"))
+    layout = SETTLEMENTS["city"].layout(seeded(2), WIDTH, LOOP, knobs("city"))
     surfaces = set(np.unique(layout.surface).tolist())
     assert {Surface.STREET, Surface.PAVEMENT} <= surfaces
     heights = [prop.height for prop in layout.props if prop.kind == "building"]
@@ -50,14 +51,14 @@ def test_the_city_has_streets_pavements_and_buildings_of_every_size():
 
 
 def test_farmland_has_fields_farms_and_trees():
-    layout = settlement.farmland(seeded(3), WIDTH, LOOP, knobs("farmland"))
+    layout = SETTLEMENTS["farmland"].layout(seeded(3), WIDTH, LOOP, knobs("farmland"))
     assert {Surface.WHEAT, Surface.DIRT_ROAD} <= set(np.unique(layout.surface).tolist())
     kinds = {prop.kind for prop in layout.props}
     assert {"house", "barn", "silo", "tree"} <= kinds
 
 
 def test_refinery_has_tanks_stacks_and_plants():
-    kinds = {prop.kind for prop in settlement.refinery(seeded(4), WIDTH, LOOP, knobs("refinery")).props}
+    kinds = {prop.kind for prop in SETTLEMENTS["refinery"].layout(seeded(4), WIDTH, LOOP, knobs("refinery")).props}
     assert {"tank", "stack", "plant"} <= kinds
 
 
@@ -105,12 +106,12 @@ def test_the_refinery_has_cooling_towers_and_the_farms_greenhouses():
     refinery = {
         prop.kind
         for seed in range(3)
-        for prop in settlement.refinery(seeded(seed), WIDTH, LOOP, knobs("refinery")).props
+        for prop in SETTLEMENTS["refinery"].layout(seeded(seed), WIDTH, LOOP, knobs("refinery")).props
     }
     farmland = {
         prop.kind
         for seed in range(3)
-        for prop in settlement.farmland(seeded(seed), WIDTH, LOOP, knobs("farmland")).props
+        for prop in SETTLEMENTS["farmland"].layout(seeded(seed), WIDTH, LOOP, knobs("farmland")).props
     }
     assert "cooling_tower" in refinery
     assert "greenhouse" in farmland

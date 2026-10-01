@@ -1,8 +1,9 @@
 import numpy as np
 import pytest
 
-from pewpy.scenery import landscapes, params, relief
+from pewpy.scenery import params, relief
 from pewpy.scenery.background import Area
+from pewpy.scenery.grounds import LANDSCAPES
 from pewpy.scenery.terrain import Terrain
 
 
@@ -20,7 +21,7 @@ def test_noise_is_smooth_between_0_and_1_and_loops_along_the_rows():
 
 def test_mountains_stay_between_the_base_layer_and_their_highest_point():
     knobs = {"range_size": 1.1, "crest_size": 0.6}
-    heights = landscapes.mountains(rng(), 200, 80, 0.5, 0.02, knobs).heights
+    heights = LANDSCAPES["mountains"].shape(rng(), 200, 80, 0.5, 0.02, knobs).heights
     assert float(np.min(heights)) == 0.0  # flat valley floors
     assert float(np.max(heights)) == pytest.approx(0.5)
     assert float(np.max(np.abs(heights[-1] - heights[0]))) < 0.05  # no cliff where the loop starts again

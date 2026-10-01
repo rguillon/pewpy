@@ -273,7 +273,7 @@ vec3 built_up(vec2 p, float large, float medium, float fine, out vec3 glow, out 
     return color;
 }
 
-// Natural grounds. `height`: 0 to 1 of the ground's highest point; `mark`: the landscape's own (landscapes.py).
+// Natural grounds. `height`: 0 to 1 of the ground's highest point; `mark`: the landscape's own (grounds/).
 
 // The nearest of scattered points (about one per `size` world units, looping along y): the distance to it, the way
 // to it, and a number of its own.
