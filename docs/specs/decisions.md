@@ -177,6 +177,24 @@
 
 ## Decisions made
 
+### 2026-10-01 — Sound effects and synthwave MIDI music (asked by the user in chat)
+- Decisions (the user's): sound effects, and music as MIDI, generated synthwave songs (04-ui-audio.md had "Music
+  style" and "Music source" TBD).
+- Panda3D's audio (OpenAL) can't play MIDI, so the game has its own synthesizer (`audio/synth.py`, numpy): it
+  renders a MIDI file to audio in the style (detuned saw pads and leads, a square arpeggio, a filtered bass, 80s
+  drums; a ping-pong delay, a long reverb, a gated reverb on the snare, the pads and bass ducking under the kick).
+  A song takes 2 to 3 s to render: in a background thread, once, kept as WAV in the user's cache folder
+  (`~/.cache/pewpy/music`, `%LOCALAPPDATA%\pewpy\music` on Windows), rendered again when the song changes.
+- Songs: `tools/make_songs.py` (`make songs`) composes them, each from its own seed (the same songs every time; `--seed`
+  for new tunes): a minor key, a chord progression, sections (intro, verse, chorus with the tune, breakdown,
+  chorus), tom fills and crashes between them. Placeholders: 9 songs (title, a song per world, boss, two jingles),
+  their keys and tempos (72 to 132 bpm), and which plays where (04-ui-audio.md, "Audio").
+- Sound effects: placeholders, synthesized too (`audio/sfx.py`), for the events in 04-ui-audio.md and a few more
+  (missiles, the laser's hum, hits taken, a boss's siren, weapon switch). The world now reports shots, hits taken,
+  pickups and a boss coming as events.
+- Volumes (`SFX_VOLUME`, `MUSIC_VOLUME` in config.py), the M key for the music, the music lower while paused:
+  placeholders. Options for the volumes wait for the options menu (roadmap, Milestone 5).
+
 ### 2026-10-01 — The code in subdirectories (asked by the user in chat)
 - Decision (the user's): organize the code into subdirectories.
 - Placeholder chosen (06-technical.md's "Overall structure" is TBD), grouped by domain, the game's rules kept apart

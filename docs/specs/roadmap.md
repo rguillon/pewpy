@@ -34,7 +34,7 @@
 ## Milestone 5 — Polish
 
 - [ ] Menus, pause, options
-- [ ] Sound and music
+- [x] Sound and music
 - [ ] Effects (explosions, particles, screen shake)
 - [ ] High scores
 

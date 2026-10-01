@@ -28,6 +28,10 @@ from panda3d.core import (
 )
 
 from pewpy import config
+from pewpy.audio.cues import event_sounds, music
+from pewpy.audio.library import Library, cache_folder
+from pewpy.audio.sound import Audio
+from pewpy.data import data_folder
 from pewpy.game.boss_catalog import BOSSES
 from pewpy.game.bosses import Boss, BossPart, BossSpec
 from pewpy.game.enemies import (
@@ -93,6 +97,7 @@ SWITCH_WEAPON_KEY = "shift"
 MENU_MOVES = {"arrow_up": -1, "arrow_down": 1}
 MENU_CHOOSE_KEY = "enter"
 BACK_KEY = "escape"
+MUSIC_KEY = "m"  # music on and off
 WEAPON_COLORS: dict[str, Color] = {
     "bullets": (1.0, 0.9, 0.2, 1),
     "laser": (0.3, 0.9, 1.0, 1),
@@ -255,6 +260,8 @@ class PewPewApp(ShowBase):
         self.accept(MENU_CHOOSE_KEY, self._on_choose)
         self.accept(BACK_KEY, self._on_back)
         self._disable_modifier_keys()
+        self._setup_audio()
+        self.accept(MUSIC_KEY, self.audio.toggle_music)
 
         self.menu_view = MenuView(self.aspect2d)
         self._setup_hud()
@@ -281,6 +288,26 @@ class PewPewApp(ShowBase):
     def _switch_weapon(self) -> None:
         if self.world is not None and self.states.state is State.PLAYING:
             self.world.arsenal.switch()
+            self.audio.play("switch")
+
+    def _setup_audio(self) -> None:
+        library = Library(data_folder() / "music", cache_folder())
+        manager = self.sfxManagerList[0] if self.sfxManagerList else None
+        self.audio = Audio(self.loader, manager, self.musicManager, library)
+        # Rendered in the background in the order they're likely needed (once: they're kept on disk).
+        library.request("title", first=False)
+        for index in range(len(self.worlds)):
+            library.request(f"world_{index + 1}", first=False)
+        library.request("boss", first=False)
+        library.request("level_complete", loop=False, first=False)
+        library.request("game_over", loop=False, first=False)
+
+    def _update_audio(self, dt: float) -> None:
+        world, state = self.world, self.states.state
+        self.audio.set_laser(world is not None and state is State.PLAYING and world.laser is not None)
+        boss = world is not None and (world.boss is not None or world.boss_beaten)
+        self.audio.set_music(music(state, self.places[self.level_index][0], boss), quiet=state is State.PAUSED)
+        self.audio.update(dt)
 
     def finalizeExit(self) -> None:
         """Under WSL, the GPU goes through Mesa's d3d12 driver (see `make run`), which can hang while the window is
@@ -364,6 +391,7 @@ class PewPewApp(ShowBase):
         menu = self.menu_view.menu
         if menu is not None and key in MENU_MOVES:
             menu.move(MENU_MOVES[key])
+            self.audio.play("menu_move")
             self.menu_view.refresh()
             self._highlight_ship()
             if self.states.state is State.LEVEL_SELECT:
@@ -371,12 +399,15 @@ class PewPewApp(ShowBase):
 
     def _on_choose(self) -> None:
         if self.menu_view.menu is not None:
+            self.audio.play("menu_choose")
             self.menu_view.menu.choose()
 
     def _on_back(self) -> None:
         if self.menu_view.menu is not None:
+            self.audio.play("menu_back")
             self.menu_view.menu.go_back()
         elif self.states.state is State.PLAYING:
+            self.audio.play("menu_back")
             self.states.transition(State.PAUSED)
 
     def _menu(self, state: State) -> Menu | None:
@@ -837,6 +868,7 @@ class PewPewApp(ShowBase):
         if world is not None and self.states.state is State.PLAYING:
             world.update(dt, self._controls())
             self._show_events(world.events, dt)
+            self.audio.play_all(event_sounds(world.events))
             self.effects.set_laser(self._laser_glow(world), dt)
             self.background.scenery.update(dt, world.level.scroll_speed)
             if world.game_over:
@@ -851,6 +883,7 @@ class PewPewApp(ShowBase):
             self.ship_select.update(dt)
         if self.level_preview is not None:
             self.level_preview.update(dt)
+        self._update_audio(dt)
         self._sync_nodes()
         self._update_hud()
         self._update_fps()

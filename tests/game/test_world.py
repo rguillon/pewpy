@@ -2,7 +2,7 @@ import pytest
 
 from pewpy import config
 from pewpy.game.enemies import ClusterBomb, Drone, FlakCannon, HomingMissile, ShieldCarrier, Splitter, Swarmer
-from pewpy.game.entities import Bullet
+from pewpy.game.entities import Bullet, Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
 from pewpy.game.weapons import BULLET_FIRE_RATE
@@ -216,16 +216,16 @@ def test_the_player_getting_hit_and_losing_a_life_is_reported():
     world.enemy_bullets.append(Bullet(x=world.player.x, y=world.player.y, vy=0.0, damage=1.0, hostile=True))
     x, y = world.player.x, world.player.y
     world.update(DT, Controls())
-    assert kinds(world) == ["impact", "explosion"]
+    assert kinds(world) == ["impact", "hurt", "explosion"]
     assert world.events[0].source == "player"
-    assert (world.events[1].source, world.events[1].x, world.events[1].y) == ("Player", x, y)
+    assert (world.events[2].source, world.events[2].x, world.events[2].y) == ("Player", x, y)
 
 
 def test_ramming_an_enemy_blows_it_up_too():
     world = make_world()
     world.enemies.append(Drone(x=world.player.x, y=world.player.y, vy=0.0, fire_cooldown=1000.0))
     world.update(DT, Controls())
-    assert kinds(world) == ["explosion"]
+    assert kinds(world) == ["explosion", "hurt"]
     assert world.score == 0  # still no points for ramming
 
 
@@ -301,3 +301,26 @@ def test_ground_units_scroll_with_the_ground_and_flyers_with_the_level():
     world.update(DT, Controls())
     assert turret.vy == pytest.approx(-QUIET_LEVEL.scroll_speed * GROUND_SPEED)
     assert world.scroll_speed(drone) == QUIET_LEVEL.scroll_speed
+
+
+def test_shots_fired_are_reported_with_the_weapon():
+    world = make_world()
+    world.update(DT, Controls(fire=True))
+    assert kinds(world) == ["shot"]
+    assert world.events[0].source == "bullets"
+    world.update(DT, Controls(fire=True))
+    assert "shot" not in kinds(world)  # not until the next shot
+
+
+def test_pickups_collected_are_reported():
+    world = make_world()
+    world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="repair"))
+    world.update(DT, Controls())
+    assert kinds(world) == ["pickup"]
+    assert world.events[0].source == "repair"
+
+
+def test_a_boss_coming_is_reported():
+    world = make_world(Level(name="boss", scroll_speed=0.2, waves=(Wave(time=0.0, enemy="warden"),)))
+    world.update(DT, Controls())
+    assert "boss" in kinds(world)

@@ -25,11 +25,14 @@ class Controls:
 
 @dataclass(frozen=True)
 class Event:
-    """Something the effects show (see effects.py), collected during one update.
+    """Something the effects show (see effects.py) or the sounds play (see audio/cues.py), collected during one
+    update.
 
     kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy class
-    name like "Drone", a boss's drawing like "warden", or "Player"), "blast" (a missile exploded, `size` = its splash radius) or "burn" (the
-    laser is burning an enemy at x, y).
+    name like "Drone", a boss's drawing like "warden", or "Player"), "blast" (a missile exploded, `size` = its splash
+    radius), "burn" (the laser is burning an enemy at x, y), "shot" (the player fired `source`: "bullets" or
+    "missiles"), "hurt" (the player was hit), "pickup" (the player picked up `source`: "repair" or a weapon) or
+    "boss" (a boss came).
     """
 
     kind: str
@@ -111,7 +114,10 @@ class World:
             return
         self.time += dt
         self.player.update(dt, controls.move_x, controls.move_y, controls.fire)
-        self.player_bullets += self.arsenal.fire(dt, controls.fire, self.player)
+        shots = self.arsenal.fire(dt, controls.fire, self.player)
+        if shots:
+            self.events.append(Event("shot", self.player.x, self.player.y, source=self.arsenal.selected))
+        self.player_bullets += shots
         self._spawn_enemies()
         self._update_enemies(dt)
         self._move_shots(dt)
@@ -137,6 +143,7 @@ class World:
             spawn = self.pending_spawns.pop(0)
             if spawn.enemy in BOSSES:
                 self.enemies.append(make_boss(BOSSES[spawn.enemy], spawn.x, self.view_top))
+                self.events.append(Event("boss", spawn.x, self.view_top, source=spawn.enemy))
                 continue
             enemy = make_enemy(spawn.enemy, spawn.x, spawn.y, spawn.side, self.rng, self.view_top, self.view_side)
             self.enemies.append(enemy)
@@ -244,6 +251,7 @@ class World:
                 bullet.alive = bullet.pierces  # a beam goes on (the player is briefly invulnerable after a hit)
                 self.events.append(Event("impact", player.x, player.y if bullet.pierces else bullet.y, source="player"))
                 player.take_hit(bullet.damage)
+                self.events.append(Event("hurt", player.x, player.y))
                 return
         for enemy in self.enemies:
             if enemy.alive and enemy.overlaps(player):
@@ -251,6 +259,7 @@ class World:
                     enemy.alive = False
                     self._explode(enemy)  # rammed: no points
                 player.take_hit(config.ENEMY_RAM_DAMAGE)
+                self.events.append(Event("hurt", player.x, player.y))
                 return
 
     def _shot_hits(self, bullet: Bullet, enemy: Enemy) -> None:
@@ -280,6 +289,7 @@ class World:
             if not pickup.overlaps(self.player):
                 continue
             pickup.alive = False
+            self.events.append(Event("pickup", pickup.x, pickup.y, source=pickup.kind))
             if pickup.kind == "repair":
                 self.player.health = min(self.ship.health, self.player.health + config.REPAIR_AMOUNT)
             elif not self.arsenal.upgrade(pickup.kind):

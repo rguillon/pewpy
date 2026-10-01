@@ -96,15 +96,20 @@ Pause -> Main menu
 
 ## Audio
 
-- Music style: TBD
-- Music source (your files, free assets, generated): TBD
-- Sound effects needed:
+- Music style: synthwave *(the user's choice, see decisions.md)*
+- Music source (your files, free assets, generated): generated MIDI songs *(the user's choice)*: `make songs`
+  writes them to `src/pewpy/music/` (tools/make_songs.py); the game plays them with its own synthesizer. Any MIDI
+  file can replace one. Songs *(placeholder, see decisions.md)*: "title" on the menus, "world_1" to "world_5" for
+  each world's levels, "boss" from when a boss comes until the level ends, and two jingles played once,
+  "level_complete" and "game_over". Lower while paused; M turns the music on and off.
+- Sound effects needed *(placeholders: synthesized, see decisions.md)*:
 
 | Event | Description |
 |-------|-------------|
-| Player shot | TBD |
-| Enemy hit | TBD |
-| Explosion | TBD |
-| Pickup | TBD |
-| Player death | TBD |
-| Menu select | TBD |
+| Player shot | Bullets: a quick falling "pew"; missiles: a rising whoosh; the laser: a hum while it fires |
+| Enemy hit | A short metallic tick |
+| Explosion | Three sizes, by the size of what blew up (a boss's is long); a missile's blast |
+| Pickup | An upgrade: a quick major arpeggio up; a repair: a bright glide up |
+| Player death | A big blast and a falling wail; hit without dying: a harsh falling buzz |
+| Menu select | A blip moving, two rising blips choosing, two falling going back; switching weapons: two blips |
+| Boss coming | A two-tone siren |

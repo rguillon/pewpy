@@ -9,6 +9,11 @@ SHOW_FPS = True  # frames per second in the top-right corner, on every screen
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 1024
 
+# Sound (placeholders until 04-ui-audio.md is decided): see audio/
+SFX_VOLUME = 0.8  # 0 to 1
+MUSIC_VOLUME = 0.6
+MUSIC_ON = True  # the M key turns the music on and off
+
 # 3D camera: sits in front of the play area, tilted so the top of the screen is farther away
 CAMERA_FOV = 40.0  # vertical field of view, degrees
 CAMERA_TILT = 25.0  # degrees; 0 looks straight at the play area
