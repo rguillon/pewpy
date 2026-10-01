@@ -55,14 +55,18 @@ Pause -> Main menu
   used in the game) on show like the Models screen, 10 per page, each labelled with its number ("#007"); the title
   says which numbers and the page, like "11-20 (2/10)".
 - Entries: Next page, Previous page, Reload models, Back. Drawings are read again whenever a page is shown.
-- Made by `make candidates` (tools/make_candidates.py).
+- Made by `make candidates` (tools/make_candidates.py), as real 3D voxel models: the aircraft built from their
+  parts, the industrial ships sculpted from a plan (a chamfered hull, higher on top than underneath, a raised spine
+  and cockpit, recessed panel lines, thin wings rising to their tips).
 
 ### Boss candidates
 
 - For picking new bosses: boss candidates (`src/pewpy/models/boss_candidates/`: a core, its parts' drawings and
   where they go, see tools/make_boss_candidates.py; not used in the game), each whole with its parts, 4 per page,
   all drawn to the same scale, labelled with their number, size in cubes and how many parts ("#007  51x42 +2").
-- Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`.
+- Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`, as real 3D voxel models
+  sculpted from a plan: stepped decks and a superstructure on the hull, the bridge on top, recessed panel lines and
+  hangar bays; each part stands on the hull where it's mounted.
 
 ### Options
 

@@ -7,14 +7,23 @@ from tools import make_boss_candidates as tool
 
 def test_every_boss_is_a_core_with_engines_and_parts_that_load():
     for candidate in tool.generate(6, seed=2, pool_factor=2):
-        rows, palette = models.parse_drawing(candidate["core"], "core")
-        assert models.voxel_cells(rows, palette)
-        assert len(rows[0]) >= 20
+        core = models.parse_voxels(candidate["core"], "core")
+        assert core.cells and core.width >= 20
         assert models.parse_engines(candidate["core"], "core")
         for part_drawing, x, y in candidate["parts"]:
-            part_rows, part_palette = models.parse_drawing(part_drawing, "part")
-            assert models.voxel_cells(part_rows, part_palette)
-            assert abs(x) <= len(rows[0]) / 2 and abs(y) <= len(rows) / 2  # on the core
+            assert models.parse_voxels(part_drawing, "part").cells
+            assert abs(x) <= core.width / 2 and abs(y) <= core.height / 2  # on the core
+
+
+def test_cores_and_parts_are_real_3d_and_parts_stand_on_the_core():
+    for candidate in tool.generate(4, seed=7, pool_factor=2):
+        assert "layers" in candidate["core"]
+        core = models.parse_voxels(candidate["core"], "core")
+        layers = [layer for _, _, layer in core.cells]
+        assert -min(layers) > max(layers)  # decks and superstructure on top, a flatter underside
+        for part_drawing, _, _ in candidate["parts"]:
+            part = models.parse_voxels(part_drawing, "part")
+            assert max(layer for _, _, layer in part.cells) < 0  # all above the middle plane: on the core
 
 
 def test_the_same_seed_makes_the_same_bosses():
@@ -38,7 +47,6 @@ def test_the_game_finds_the_boss_candidates_and_their_parts():
     names = models.boss_candidate_names()
     assert names and all(name.split("/")[1].isdigit() for name in names)  # not the parts or the layouts
     for name in names:
-        rows, palette = models.load_drawing(name)
-        assert models.voxel_cells(rows, palette)
+        assert models.load_voxels(name).cells  # flat or 3D
         for drawing, _, _ in models.boss_candidate_parts(name):
-            models.load_drawing(drawing)
+            assert models.load_voxels(drawing).cells

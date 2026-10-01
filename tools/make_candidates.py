@@ -1,9 +1,9 @@
 """Generate enemy model candidates: voxel drawings for the Candidates screen (src/pewpy/models/candidates/).
 
-    uv run python tools/make_candidates.py                       # 200 ships, a new random batch each time
-    uv run python tools/make_candidates.py --kind aircraft --count 50
-    uv run python tools/make_candidates.py --seed 1234           # the same batch again
-    uv run python tools/make_candidates.py --append --count 20   # add to the batch instead of replacing it
+    uv run python -m tools.make_candidates                     # 200 ships, a new random batch each time
+    uv run python -m tools.make_candidates --kind aircraft --count 50
+    uv run python -m tools.make_candidates --seed 1234           # the same batch again
+    uv run python -m tools.make_candidates --append --count 20   # add to the batch instead of replacing it
 
 (or `make candidates ARGS="--kind aircraft --count 50"`). Then open Main menu > Enemy candidates (or "Reload models" there).
 
@@ -13,6 +13,9 @@ Enemies point down the screen: nose on the last row, engines at the back (flames
 - industrial: a core hull (spindle, block, wedge, egg, segmented, cross, crescent, frame, diamond, arrowhead) with
   1 to 3 attachments (wings, nacelles, booms, mandibles, fins, turrets, a side cannon, containers, radiators,
   antennas), symmetric or lopsided.
+Every ship is a real 3D model ("layers"): the aircraft are built from their parts (`aircraft_layers`); the industrial
+ships are drawn as a plan, then sculpted (tools/shaping.py): a hull chamfered from its outline, higher on top than
+underneath, a spine and a cockpit raised on it, recessed panel lines, thin wings rising to their tips, rounded pods.
 Many more ships are generated than kept (`--pool`): the ones kept are the most different from each other (outline,
 size, proportions), so there are no near-duplicates.
 """
@@ -24,6 +27,9 @@ import random
 import time
 from collections.abc import Callable
 from pathlib import Path
+from typing import TypeVar
+
+from tools.shaping import Shaping, engines_at_height, sculpt
 
 DEFAULT_OUT = Path(__file__).resolve().parent.parent / "src" / "pewpy" / "models" / "candidates"
 # Shares of each group, by --kind.
@@ -73,10 +79,12 @@ GREYS = {  # char: (color, height in cubes)
     "t": ((0.3, 0.31, 0.33), 5),  # turrets, containers
 }
 COCKPIT = ((0.08, 0.2, 0.28), 5)
+UNDERSIDE = 0.72  # the hull's underside, this much as bright as its plating
 HULL = "hHNSkt"  # what counts as hull (for engines)
 
 Point = tuple[float, float]
 Rng = random.Random
+T = TypeVar("T")
 
 
 class Canvas:
@@ -673,6 +681,28 @@ def _nozzles(rng: Rng, cv: Canvas, spine: int, symmetric: bool) -> None:
         cv.set(x, top, "o")
 
 
+def industrial_shaping(cv: Canvas) -> Shaping:
+    """How an industrial ship's plan becomes 3D: its hull thicker on bigger ships."""
+    top = max(1, min(4, round(min(cv.w, cv.h) * 0.16)))
+    return Shaping(
+        roles={
+            "S": "raised",
+            "c": "raised",
+            "R": "raised",
+            "k": "seam",
+            "w": "wing",
+            "W": "wing",
+            "q": "wing",
+            "t": "pod",
+            "r": "gun",
+        },
+        tiers={"S": 1, "c": 1, "R": 2},
+        top=top,
+        bottom=max(1, top - 1),
+        pod=max(1, top - 1),
+    )
+
+
 def palette(rng: Rng, used: set[str]) -> dict:
     tint = HULL_TINTS[rng.choice(list(HULL_TINTS))]
     marking, sensor = ACCENTS[rng.choice(list(ACCENTS))]
@@ -685,6 +715,7 @@ def palette(rng: Rng, used: set[str]) -> dict:
     entries["q"] = (marking, 1)  # on wings: as thin as them
     entries["R"] = (sensor, 5)
     entries["L"] = (rng.choice(LIVERIES), 3)
+    entries["D"] = (tuple(round(c * UNDERSIDE, 3) for c in entries["h"][0]), 1)  # the underside (3D ships only)
     return {char: {"color": list(color), "height": height} for char, (color, height) in entries.items() if char in used}
 
 
@@ -702,8 +733,10 @@ def features(rows: list[str], symmetric: bool) -> list[float]:
     return [*grid, 3 * width / 35, 3 * height / 35, 2 * math.log(width / height), 0.4 * (not symmetric), 2 * filled]
 
 
-def ship(rng: Rng, group: str) -> tuple[list[float], dict] | None:
-    """One ship of a group ("aircraft", "symmetric" or "lopsided"): its features and its drawing."""
+def ship(rng: Rng, group: str) -> tuple[list[float], Callable[[], dict]] | None:
+    """One ship of a group ("aircraft", "symmetric" or "lopsided"): its features, and what makes its drawing (only
+    the ships kept are built in 3D).
+    """
     parts: Parts | None = None
     if group == "aircraft":
         cv, symmetric, parts = aircraft(rng)
@@ -714,18 +747,19 @@ def ship(rng: Rng, group: str) -> tuple[list[float], dict] | None:
         return None
     engines = detail(rng, cv, symmetric)
     rows = cv.rows()
-    used = {char for row in rows for char in row} - {"."}
-    colors = palette(rng, used)
-    if parts is not None:  # aircraft are real 3D models (layers); the others, flat drawings with thicknesses
-        return features(rows, symmetric), {
-            **layered_drawing(aircraft_layers(cv, parts), cv, colors),
-            "engines": engines,
-        }
-    return features(rows, symmetric), {"rows": rows, "palette": colors, "engines": engines}
+    colors = palette(rng, {char for row in rows for char in row} | {"D", "h"})  # underside, under raised cells
+
+    def make() -> dict:
+        if parts is not None:
+            return {**layered_drawing(aircraft_layers(cv, parts), cv, colors), "engines": engines}
+        cells, heights = sculpt(cv, industrial_shaping(cv))
+        return {**layered_drawing(cells, cv, colors), "engines": engines_at_height(engines, heights)}
+
+    return features(rows, symmetric), make
 
 
-def most_different(pool: list[tuple[list[float], dict]], count: int) -> list[dict]:
-    """`count` drawings of the pool: each next one is the farthest from all those already kept."""
+def most_different(pool: list[tuple[list[float], T]], count: int) -> list[T]:
+    """`count` things of the pool, by their features: each next one is the farthest from all those already kept."""
     kept = [0]
     distance = [math.dist(f, pool[0][0]) for f, _ in pool]
     while len(kept) < min(count, len(pool)):
@@ -743,7 +777,7 @@ def generate(count: int, kind: str, seed: int, pool_factor: int) -> list[dict]:
         wanted = count - len(drawings) if index == len(shares) - 1 else round(count * share)
         pool = [made for _ in range(wanted * pool_factor) if (made := ship(rng, group)) is not None]
         if pool:
-            drawings += most_different(pool, wanted)
+            drawings += [make() for make in most_different(pool, wanted)]
     rng.shuffle(drawings)
     return drawings
 

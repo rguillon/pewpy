@@ -19,7 +19,10 @@ halo ring, engine nacelles, radiator panels, masts); medium (41 to 61 cubes wide
 115, half the screen); a fifth of them lopsided. Details: raised decks and a bridge, hangar bays, armor bands, engine
 banks, lights, and a paint scheme (plain, two-tone or glowing seams). Parts (11 kinds: turrets, cannons, generators,
 missile launchers, drills, missile pods, beam emitters, shield nodes, radar dishes, flak guns, claws), sized to the
-boss, up to 10 on the biggest, each on a thin socket. As for the enemies (tools/make_candidates.py), many more are
+boss, up to 10 on the biggest, each on a socket. Everything is a real 3D model ("layers"), sculpted from its plan
+(tools/shaping.py): a chamfered hull, higher on top than underneath, raised decks stacked on it with the bridge on
+top, recessed panel lines and hangar bays, thin wings and sponsons; each part stands on the core's surface where it
+is mounted, its barrels at half its height. As for the enemies (tools/make_candidates.py), many more are
 made than kept, and the ones kept are the most different from each other (outline, size, family, parts).
 """
 
@@ -35,6 +38,7 @@ from tools.make_candidates import (
     ACCENTS,
     HULL_TINTS,
     LIVERIES,
+    UNDERSIDE,
     Canvas,
     Rng,
     _bands,
@@ -42,9 +46,11 @@ from tools.make_candidates import (
     _panel_lines,
     _wing_edges,
     features,
+    layered_drawing,
     most_different,
     trim,
 )
+from tools.shaping import Shaping, engines_at_height, lifted, sculpt
 
 DEFAULT_OUT = Path(__file__).resolve().parent.parent / "src" / "pewpy" / "models" / "boss_candidates"
 LOPSIDED_SHARE = 0.2
@@ -81,6 +87,52 @@ PART_GREYS = {
     "W": ((0.45, 0.46, 0.49), 5),
 }
 BRIDGE = ((0.08, 0.2, 0.28), 15)
+
+
+def core_shaping(cv: Canvas) -> Shaping:
+    """How a core's plan becomes 3D: lower decks (T), the superstructure on them (S) with the bridge (c), its sensor
+    (R) on top; thicker on bigger bosses.
+    """
+    top = max(3, min(7, round(cv.w * 0.06)))
+    return Shaping(
+        roles={
+            "T": "raised",
+            "S": "raised",
+            "c": "raised",
+            "R": "raised",
+            "k": "seam",
+            "g": "seam",
+            "w": "wing",
+            "W": "wing",
+            "q": "wing",
+            "r": "gun",
+        },
+        tiers={"T": 1, "S": 2, "c": 2, "R": 3},
+        top=top,
+        bottom=top - 1,
+        edge=1,
+        tier_height=2,
+        wing=2,
+        lift=0.04,
+        fill="T",
+    )
+
+
+def part_shaping(cv: Canvas) -> Shaping:
+    """How a part's plan becomes 3D: flat underneath (it stands on the core), its dome or glowing core raised, its
+    barrels at half its height.
+    """
+    top = max(2, min(5, round(min(cv.w, cv.h) * 0.2)))
+    return Shaping(
+        roles={"S": "raised", "G": "raised", "k": "seam", "r": "gun"},
+        tiers={"S": 1, "G": 1},
+        top=top,
+        bottom=1,
+        tier_height=2,
+        gun=top // 2,
+        fill="t",
+        plating="hHNt",
+    )
 
 
 # Core families: each draws a hull symmetric around column `mx`, from row `top` to row `bottom` (the back is at
@@ -668,20 +720,14 @@ def palette(greys: dict, tint: tuple[float, float, float], accent: str, livery: 
     entries["G"] = (sensor, 11)  # a part's glowing core
     entries["R"] = (sensor, 17)
     entries["L"] = (livery, 9)
+    entries["D"] = (tuple(round(c * UNDERSIDE, 3) for c in entries["h"][0]), 1)  # the underside
     return {char: {"color": list(color), "height": height} for char, (color, height) in entries.items()}
 
 
-def drawing(cv: Canvas, colors: dict, engines: list[dict] | None = None) -> dict:
-    rows = cv.rows()
-    used = {char for row in rows for char in row} - {"."}
-    result = {"rows": rows, "palette": {char: entry for char, entry in colors.items() if char in used}}
-    if engines:
-        result["engines"] = engines
-    return result
-
-
-def boss(rng: Rng, lopsided: bool) -> tuple[list[float], dict] | None:
-    """A boss: its features (for telling bosses apart) and its drawings {"core": ..., "parts": [(drawing, x, y)]}."""
+def boss(rng: Rng, lopsided: bool) -> tuple[list[float], Callable[[], dict]] | None:
+    """A boss: its features (for telling bosses apart), and what makes its drawings {"core": ..., "parts": [(drawing,
+    x, y)]} (only the bosses kept are built in 3D).
+    """
     cv, family, size = core(rng, lopsided)
     trim(cv, not lopsided)
     if cv.w < 20 or cv.h < 15:
@@ -706,14 +752,26 @@ def boss(rng: Rng, lopsided: bool) -> tuple[list[float], dict] | None:
         engines = [{**engine, "x": x} for engine in engines for x in {engine["x"], cv.w - 1 - engine["x"]}]
     tint = HULL_TINTS[rng.choice(list(HULL_TINTS))]
     accent, livery = rng.choice(list(ACCENTS)), rng.choice(LIVERIES)
-    core_drawing = drawing(cv, palette(CORE_GREYS, tint, accent, livery), engines)
-    placed = []
-    for part_cv, x, y, mirrored in parts:
-        part_drawing = drawing(part_cv, palette(PART_GREYS, tint, accent, livery))
-        # From the core's middle, in cubes, y up the screen.
-        for px in [x] + ([cv.w - 1 - x] if mirrored else []):
-            placed.append((part_drawing, px - (cv.w - 1) / 2, (cv.h - 1) / 2 - y))
-    return _features(cv, family, scheme, placed, not lopsided), {"core": core_drawing, "parts": placed}
+    # From the core's middle, in cubes, y up the screen.
+    spots = [(part_cv, px, y) for part_cv, x, y, mirrored in parts for px in [x] + ([cv.w - 1 - x] if mirrored else [])]
+    placed = [(part_cv, px - (cv.w - 1) / 2, (cv.h - 1) / 2 - y) for part_cv, px, y in spots]
+
+    def make() -> dict:
+        cells, heights = sculpt(cv, core_shaping(cv))
+        core_drawing = {
+            **layered_drawing(cells, cv, palette(CORE_GREYS, tint, accent, livery)),
+            "engines": engines_at_height(engines, heights),
+        }
+        colors = palette(PART_GREYS, tint, accent, livery)
+        shaped = {id(part_cv): sculpt(part_cv, part_shaping(part_cv))[0] for part_cv, _, _ in spots}
+        drawings = []
+        for (part_cv, px, y), (_, x, up) in zip(spots, placed, strict=True):
+            # Standing on the core's top there: its lowest cubes just above the core's highest (no overlap).
+            lift = heights.get((px, y), (0, 0))[1] + 1 + part_shaping(part_cv).bottom
+            drawings.append((layered_drawing(lifted(shaped[id(part_cv)], lift), part_cv, colors), x, up))
+        return {"core": core_drawing, "parts": drawings}
+
+    return _features(cv, family, scheme, placed, not lopsided), make
 
 
 def _features(cv: Canvas, family: str, scheme: str, parts: list, symmetric: bool) -> list[float]:
@@ -737,7 +795,7 @@ def generate(count: int, seed: int, pool_factor: int) -> list[dict]:
     for group, wanted in ((False, count - lopsided), (True, lopsided)):
         pool = [made for _ in range(wanted * pool_factor) if (made := boss(rng, group)) is not None]
         if pool and wanted:
-            kept += most_different(pool, wanted)
+            kept += [make() for make in most_different(pool, wanted)]
     rng.shuffle(kept)
     return kept
 

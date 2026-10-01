@@ -1,21 +1,24 @@
-import importlib.util
 import json
 import sys
-from pathlib import Path
 
 import pytest
 
 from pewpy.graphics import models
-
-TOOL = Path(__file__).resolve().parents[2] / "tools" / "make_candidates.py"
+from tools import make_candidates
 
 
 def load_tool():
-    spec = importlib.util.spec_from_file_location("make_candidates", TOOL)
-    assert spec is not None and spec.loader is not None
-    tool = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(tool)
-    return tool
+    return make_candidates
+
+
+def not_an_extrusion(voxels: models.Voxels) -> bool:
+    """Some columns go up further than they go down (a flat drawing's are centred on the middle plane)."""
+    tops: dict[tuple[int, int], int] = {}
+    bottoms: dict[tuple[int, int], int] = {}
+    for column, row, layer in voxels.cells:
+        tops[column, row] = min(tops.get((column, row), layer), layer)
+        bottoms[column, row] = max(bottoms.get((column, row), layer), layer)
+    return any(-tops[cell] != bottoms[cell] for cell in tops)
 
 
 @pytest.mark.parametrize("kind", ["all", "aircraft", "industrial"])
@@ -23,7 +26,8 @@ def test_every_generated_drawing_is_a_valid_enemy_model(kind):
     drawings = load_tool().generate(12, kind, seed=3, pool_factor=2)
     assert len(drawings) == 12
     for drawing in drawings:
-        assert models.parse_voxels(drawing, "candidate").cells  # flat or 3D (the aircraft)
+        assert "layers" in drawing  # every candidate is a real 3D model
+        assert models.parse_voxels(drawing, "candidate").cells
         engines = models.parse_engines(drawing, "candidate")
         assert engines and all(engine.towards == "top" for engine in engines)
 
@@ -35,13 +39,16 @@ def test_aircraft_are_real_3d_models():
         voxels = models.parse_voxels(drawing, "candidate")
         layers = {layer for _, _, layer in voxels.cells}
         assert min(layers) < 0 < max(layers) or min(layers) < -1  # something above the middle plane: canopy, fins
-        # Not an extrusion: some columns go up without going as far down.
-        tops: dict[tuple[int, int], int] = {}
-        bottoms: dict[tuple[int, int], int] = {}
-        for column, row, layer in voxels.cells:
-            tops[column, row] = min(tops.get((column, row), layer), layer)
-            bottoms[column, row] = max(bottoms.get((column, row), layer), layer)
-        assert any(-tops[cell] != bottoms[cell] for cell in tops)
+        assert not_an_extrusion(voxels)
+
+
+def test_industrial_ships_are_sculpted_in_3d():
+    for drawing in load_tool().generate(8, "industrial", seed=6, pool_factor=2):
+        voxels = models.parse_voxels(drawing, "candidate")
+        layers = [layer for _, _, layer in voxels.cells]
+        assert -min(layers) > max(layers)  # higher on top than underneath
+        assert not_an_extrusion(voxels)
+        assert all("z" in engine for engine in drawing["engines"])  # flames at their nozzles' height
 
 
 def test_the_same_seed_makes_the_same_batch():
@@ -56,4 +63,4 @@ def test_the_tool_writes_numbered_files_and_can_append(tmp_path, monkeypatch):
         tool.main()
     names = sorted(path.name for path in tmp_path.glob("*.json"))
     assert names == ["001.json", "002.json", "003.json", "004.json", "005.json"]
-    assert json.loads((tmp_path / "005.json").read_text())["rows"]
+    assert json.loads((tmp_path / "005.json").read_text())["layers"]
