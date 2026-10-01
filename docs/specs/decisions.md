@@ -177,6 +177,21 @@
 
 ## Decisions made
 
+### 2026-10-01 — The code in subdirectories (asked by the user in chat)
+- Decision (the user's): organize the code into subdirectories.
+- Placeholder chosen (06-technical.md's "Overall structure" is TBD), grouped by domain, the game's rules kept apart
+  from Panda3D so they're tested without a window:
+  - `pewpy/`: `app.py` (the window, input, drawing; the entry point), `config.py`, `data.py`, `__main__.py`;
+  - `pewpy/game/`: the rules, no Panda3D: entities, player, weapons, world, states, level, enemies, fleet,
+    roster, bosses, boss_catalog;
+  - `pewpy/scenery/`: backgrounds and grounds: their shapes and layouts (background, terrain, relief, landscapes,
+    settlement) and drawing them (background_view, ground_look, ground_shader, prop_meshes);
+  - `pewpy/graphics/`: models, vox, lighting, sprites, effects, effects_view;
+  - `pewpy/ui/`: menu, menu_view, showcase, ship_select_view, level_preview;
+  - data unchanged: `pewpy/levels/`, `pewpy/models/`.
+- Modules moved with `git mv` (their history follows), every import rewritten; nothing else changed. Earlier
+  entries below name modules where they were then.
+
 ### 2026-10-01 — Real 3D models: 3D drawings and MagicaVoxel (asked by the user in chat: option C + B)
 - Decision (the user's): of the ways to make models real 3D voxels, try B (3D drawings as layers) + C (MagicaVoxel
   import); the automatic sculpting (D) was tried and reverted.

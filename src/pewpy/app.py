@@ -27,14 +27,10 @@ from panda3d.core import (
     loadPrcFileData,
 )
 
-from pewpy import config, lighting, models, showcase
-from pewpy.background import Scenery
-from pewpy.background_view import SPACE_COLOR, BackgroundView, CameraView, sky_color
-from pewpy.boss_catalog import BOSSES
-from pewpy.bosses import Boss, BossPart, BossSpec
-from pewpy.effects import Effects, LaserGlow
-from pewpy.effects_view import EffectsView
-from pewpy.enemies import (
+from pewpy import config
+from pewpy.game.boss_catalog import BOSSES
+from pewpy.game.bosses import Boss, BossPart, BossSpec
+from pewpy.game.enemies import (
     Bomber,
     Buckshot,
     ClusterBomb,
@@ -61,20 +57,26 @@ from pewpy.enemies import (
     Turret,
     Weaver,
 )
-from pewpy.entities import Bullet, Entity, Pickup
-from pewpy.fleet import FLEET
-from pewpy.level import Level, load_worlds
-from pewpy.level_preview import LevelPreview
-from pewpy.menu import Menu, MenuItem
-from pewpy.menu_view import MenuView
-from pewpy.player import DEFAULT_SHIP, SHIPS, Player
-from pewpy.ship_select_view import ShipSelectView
-from pewpy.showcase import ModelShowcase
-from pewpy.sprites import Sprite, SpriteBatch
-from pewpy.states import State, StateMachine
-from pewpy.terrain import GROUND_VOXEL
-from pewpy.weapons import LETTERS, WEAPONS, Arsenal, Missile
-from pewpy.world import Controls, Event, World
+from pewpy.game.entities import Bullet, Entity, Pickup
+from pewpy.game.fleet import FLEET
+from pewpy.game.level import Level, load_worlds
+from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
+from pewpy.game.states import State, StateMachine
+from pewpy.game.weapons import LETTERS, WEAPONS, Arsenal, Missile
+from pewpy.game.world import Controls, Event, World
+from pewpy.graphics import lighting, models
+from pewpy.graphics.effects import Effects, LaserGlow
+from pewpy.graphics.effects_view import EffectsView
+from pewpy.graphics.sprites import Sprite, SpriteBatch
+from pewpy.scenery.background import Scenery
+from pewpy.scenery.background_view import SPACE_COLOR, BackgroundView, CameraView, sky_color
+from pewpy.scenery.terrain import GROUND_VOXEL
+from pewpy.ui import showcase
+from pewpy.ui.level_preview import LevelPreview
+from pewpy.ui.menu import Menu, MenuItem
+from pewpy.ui.menu_view import MenuView
+from pewpy.ui.ship_select_view import ShipSelectView
+from pewpy.ui.showcase import ModelShowcase
 
 Color = tuple[float, float, float, float]
 TextAlign = Literal[0, 1, 2, 3, 4, 5]  # TextNode.ALeft, ARight, ACenter...

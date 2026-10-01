@@ -19,7 +19,7 @@
 ## Assets
 
 - Source of models / sprites (made by you, free packs, placeholders generated in code): generated in code
-  (`src/pewpy/models.py`), no 3D files. The voxel drawings (rows of characters, and each character's color and
+  (`src/pewpy/graphics/models.py`), no 3D files. The voxel drawings (rows of characters, and each character's color and
   height in voxels) are JSON files in `src/pewpy/models/`, one per model
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
 - Asset folder layout: `src/pewpy/models/<name>.json` for the voxel drawings; other assets TBD

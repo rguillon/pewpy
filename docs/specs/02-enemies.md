@@ -19,7 +19,7 @@
 - "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 70% upgrade capsule, 30% repair
   (see `01-gameplay.md`).
 - Looks: every enemy is a voxel model in its colors, drawn in `src/pewpy/models/<name>.json` and built in code
-  (`src/pewpy/models.py`); the size given is its hitbox.
+  (`src/pewpy/graphics/models.py`); the size given is its hitbox.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
 
 ## Enemy weapons
@@ -298,7 +298,7 @@ Besides plain shots (pink, 0.03), enemies use:
 
 ## The second fleet
 
-Picked by the user from the model candidates (see `04-ui-audio.md`, "Candidates"; `src/pewpy/fleet.py`). Their
+Picked by the user from the model candidates (see `04-ui-audio.md`, "Candidates"; `src/pewpy/game/fleet.py`). Their
 models are the chosen drawings, renamed (`src/pewpy/models/<name>.json`); their hitbox is the drawing's size. Each
 level has two waves of them, in its two biggest gaps; the heavies (Behemoth, Warhawk, Pincer, Stormcrow, Condor,
 Rampart) at least 22 s before the boss, so the fights don't overlap. *(placeholder, see decisions.md: every number)*
@@ -636,8 +636,8 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 
 ## Bosses
 
-> Placeholders chosen by Claude (see decisions.md): the rules in `src/pewpy/bosses.py`, every boss in
-> `src/pewpy/boss_catalog.py`. Every level ends with its own boss (see `03-levels.md`), harder through each world.
+> Placeholders chosen by Claude (see decisions.md): the rules in `src/pewpy/game/bosses.py`, every boss in
+> `src/pewpy/game/boss_catalog.py`. Every level ends with its own boss (see `03-levels.md`), harder through each world.
 
 General rules for every boss:
 

@@ -14,7 +14,7 @@ import argparse
 import json
 from pathlib import Path
 
-from pewpy import models, vox
+from pewpy.graphics import models, vox
 
 MODELS = Path(__file__).resolve().parent.parent / "src" / "pewpy" / "models"
 
