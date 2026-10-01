@@ -12,6 +12,7 @@ from pewpy.game.entities import Bullet, Entity, Pickup
 from pewpy.game.level import Level
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player, ShipSpec
 from pewpy.game.roster import make_enemy
+from pewpy.game.secondary import LIGHTNING_DAMAGE, LIGHTNING_FLASH, SECONDARY_WEAPONS, SecondaryWeapon
 from pewpy.game.weapons import MISSILE_SPLASH_RADIUS, WEAPONS, Arsenal, Beam, LaserStats, Missile
 from pewpy.scenery.terrain import GROUND_SPEED
 
@@ -30,9 +31,10 @@ class Event:
 
     kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy class
     name like "Drone", a boss's drawing like "warden", or "Player"), "blast" (a missile exploded, `size` = its splash
-    radius), "burn" (the laser is burning an enemy at x, y), "shot" (the player fired `source`: "bullets" or
-    "missiles"), "hurt" (the player was hit), "pickup" (the player picked up `source`: "repair" or a weapon) or
-    "boss" (a boss came).
+    radius), "burn" (the laser is burning an enemy at x, y), "shot" (the player fired `source`: "bullets",
+    "missiles" or "turret"), "zap" (the lightning gun struck), "hurt" (the player was hit), "disarmed" (a hit took
+    the player's secondary weapon `source` instead of health), "pickup" (the player picked up `source`: "repair",
+    "life", a weapon or a secondary weapon) or "boss" (a boss came).
     """
 
     kind: str
@@ -86,6 +88,8 @@ class World:
         self.enemy_bullets: list[Bullet] = []
         self.pickups: list[Pickup] = []
         self.laser: Beam | None = None
+        self.bolt: list[tuple[float, float]] = []  # the last lightning strike, from the ship, while it shows
+        self.bolt_time = 0.0
         self.boss_beaten_time = 0.0  # counts down once the boss is destroyed: the level ends at 0
         self.boss_beaten = False
         self._created: list[Entity] = []  # enemies created while iterating, added after collisions
@@ -122,6 +126,7 @@ class World:
         self._update_enemies(dt)
         self._move_shots(dt)
         self._fire_laser(dt, self.arsenal.laser(controls.fire))
+        self._fire_secondary(dt)
         self._collide()
         self._add(self._created)
         self._created = []
@@ -135,6 +140,7 @@ class World:
             player = self.player
             self.events.append(Event("explosion", player.x, player.y, PLAYER_EXPLOSION_SIZE, "Player"))
             self.lives -= 1
+            self.arsenal.secondary = None  # it blew up with the ship
             if not self.game_over:
                 self.start_life()
 
@@ -203,6 +209,29 @@ class World:
             self.events.append(Event("burn", player.x, enemy.y - enemy.height / 2))
             self._damage(enemy, stats.damage_per_second * dt)
 
+    def _fire_secondary(self, dt: float) -> None:
+        self.bolt_time = max(self.bolt_time - dt, 0.0)
+        if self.bolt_time <= 0:
+            self.bolt = []
+        secondary = self.arsenal.secondary
+        if secondary is None:
+            return
+        player = self.player
+        targets = [
+            enemy for enemy in self.enemies if enemy.alive and enemy.on_screen and not _behind_a_part(enemy, enemy.x)
+        ]
+        shots, struck = secondary.fire(dt, player, targets)
+        if shots:
+            self.events.append(Event("shot", player.x, player.y, source="turret"))
+            self.player_bullets += shots
+        if struck:
+            self.events.append(Event("zap", player.x, player.y))
+            self.bolt = [(player.x, player.y + player.height / 2), *((enemy.x, enemy.y) for enemy in struck)]
+            self.bolt_time = LIGHTNING_FLASH
+            for enemy in struck:
+                self.events.append(Event("impact", enemy.x, enemy.y, source="enemy"))
+                self._damage(enemy, LIGHTNING_DAMAGE)
+
     def _damage(self, enemy: Enemy, amount: float) -> None:
         """Damage from the player's weapons: scores, splits and drops when the enemy is destroyed."""
         if not enemy.alive:
@@ -237,10 +266,13 @@ class World:
         if self.rng.random() >= enemy.drop_chance:
             return
         roll = self.rng.random()
+        life = config.PICKUP_UPGRADE_SHARE + config.PICKUP_LIFE_SHARE
         if roll < config.PICKUP_UPGRADE_SHARE:
             kind = self.rng.choice(WEAPONS)
-        elif roll < config.PICKUP_UPGRADE_SHARE + config.PICKUP_LIFE_SHARE:
+        elif roll < life:
             kind = "life"
+        elif roll < life + config.PICKUP_SECONDARY_SHARE:
+            kind = self.rng.choice(SECONDARY_WEAPONS)
         else:
             kind = "repair"
         self.pickups.append(Pickup(x=enemy.x, y=enemy.y, kind=kind))
@@ -259,17 +291,27 @@ class World:
             if bullet.overlaps(player):
                 bullet.alive = bullet.pierces  # a beam goes on (the player is briefly invulnerable after a hit)
                 self.events.append(Event("impact", player.x, player.y if bullet.pierces else bullet.y, source="player"))
-                player.take_hit(bullet.damage)
-                self.events.append(Event("hurt", player.x, player.y))
+                self._hurt(bullet.damage)
                 return
         for enemy in self.enemies:
             if enemy.alive and enemy.overlaps(player):
                 if enemy.rammable:
                     enemy.alive = False
                     self._explode(enemy)  # rammed: no points
-                player.take_hit(config.ENEMY_RAM_DAMAGE)
-                self.events.append(Event("hurt", player.x, player.y))
+                self._hurt(config.ENEMY_RAM_DAMAGE)
                 return
+
+    def _hurt(self, damage: float) -> None:
+        """The player is hit: the secondary weapon goes instead of health, if the ship has one."""
+        player = self.player
+        secondary = self.arsenal.secondary
+        if secondary is None:
+            player.take_hit(damage)
+            self.events.append(Event("hurt", player.x, player.y))
+            return
+        self.arsenal.secondary = None
+        player.take_hit(0.0)  # blinks, invulnerable for a while, all the same
+        self.events.append(Event("disarmed", player.x, player.y, source=secondary.kind))
 
     def _shot_hits(self, bullet: Bullet, enemy: Enemy) -> None:
         bullet.alive = False  # a shielded enemy absorbs the shot without damage
@@ -306,6 +348,8 @@ class World:
                     self.lives += 1
                 else:
                     self.score += config.EXTRA_LIFE_POINTS
+            elif pickup.kind in SECONDARY_WEAPONS:
+                self.arsenal.secondary = SecondaryWeapon(pickup.kind)  # replaces the one the ship had
             elif not self.arsenal.upgrade(pickup.kind):
                 self.score += config.MAX_LEVEL_UPGRADE_POINTS
 

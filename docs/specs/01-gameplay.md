@@ -129,6 +129,29 @@ the play area. Every missile explodes in an orange fireball where it hits.
 - "Continue" after game over resets all three weapons to level 1 and selects bullets.
 - When the lives run out, display a game over screen (continue or back to the main menu)
 
+## Secondary weapons
+
+Some enemy drops give the ship a **secondary weapon** *(the user's idea)*. It fires on its own, whether Fire is
+held or not, on top of the selected weapon. *(Everything below the first two rules is a placeholder;
+`secondary.py`)*
+
+- **A hit takes the secondary weapon instead of health** *(the user's choice)*: a shot or a ram while carrying one
+  destroys the secondary weapon (a small explosion on the ship), the health stays, and the ship blinks,
+  invulnerable for 1 second, as after any hit.
+- The ship carries one secondary weapon at most: picking up another one replaces it.
+- Losing a life loses the secondary weapon; it goes on to the next level; "Continue" starts without one.
+- It is drawn on top of the ship, and shown on the HUD after the weapon levels (see `04-ui-audio.md`).
+
+| Secondary | Pickup | What it does |
+|-----------|--------|--------------|
+| Turret | T, green | A little machine-gun turret on the ship: 5 shots a second at the nearest enemy on screen, turning to aim at it; 0.6 damage per shot, speed 2.5, shots 0.025 across. It doesn't fire without a target. |
+| Lightning gun | Z, violet | Every 0.6 s, a bolt strikes the nearest enemy within 0.7 of the ship, then jumps to the nearest enemy not struck yet within 0.35 of the last one, up to 4 enemies; 2 damage to each. It waits for an enemy in range. The bolt shows for 0.12 s. |
+
+Both only aim at enemies inside the play area, and not at a boss's core while its parts cover it. Like the main
+weapons, they score and make enemies drop pickups.
+
+- open: should they need Fire held? Should picking up the one already carried give points?
+
 ## Special / bomb
 
 - Effect: TBD
@@ -141,6 +164,7 @@ the play area. Every missile explodes in an orange fireball where it hits.
 | Upgrade capsule | Raises one weapon by one level (max 5), shown by its letter and color: B (yellow), L (cyan), M (orange). It doesn't change the selected weapon. At max level it gives 500 points instead. | Enemy drops, see "Drops" in `02-enemies.md`. Weapon picked at random, each equally likely. |
 | Repair | Restores 2 health, up to the maximum. White with a red cross. | Enemy drops, see "Drops" in `02-enemies.md`. |
 | Extra life | One more life, up to 9; beyond that, 1000 points. A green gem with a little white ship on it. *(the user's choice; look, cap and points are placeholders)* | Enemy drops: 4% of what enemies drop *(placeholder)* |
+| Secondary weapon | Gives the ship a turret (T, green capsule) or a lightning gun (Z, violet capsule), see "Secondary weapons" | Enemy drops: 8% of what enemies drop, each equally likely *(placeholder)* |
 
 - Pickups are 0.08 x 0.08, drift down at 0.25 units/s and disappear off the bottom of the screen.
 - They are collected by touching them. Enemy bullets and enemies don't affect them.

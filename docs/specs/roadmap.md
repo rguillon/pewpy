@@ -41,4 +41,5 @@
 ## Later / ideas
 
 - [x] AI player: learns to play by itself and rates every level for every ship (`07-ai.md`)
+- [x] Secondary weapons from enemy drops: a turret and a lightning gun, lost instead of health when hit (`01-gameplay.md`)
 - TBD

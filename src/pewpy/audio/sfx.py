@@ -99,6 +99,19 @@ def hurt() -> FloatArray:
     return _fade(lowpass(buzz, 2500), 0.08) * 0.45
 
 
+def zap() -> FloatArray:
+    """The lightning gun striking: a crackling buzz, quickly gone."""
+    t = _time(0.18)
+    buzz = oscillator("saw", _glide(0.18, 1400, 500)) * (noise(len(t), 21) > 0.2)
+    return _fade(highpass(buzz + 0.6 * noise(len(t), 22), 600), 0.06) * 0.35
+
+
+def disarmed() -> FloatArray:
+    """A hit took the secondary weapon: a short crunch and a falling blip."""
+    blip = _fade(oscillator("square", _glide(0.3, 900, 220)), 0.1)
+    return np.tanh(_boom(0.3, 4000, 160, 23) + lowpass(blip, 4000) * 0.6) * 0.5
+
+
 def blast() -> FloatArray:
     """A missile exploding."""
     return _boom(0.5, 3500, 130, 14) * 0.55
@@ -174,6 +187,8 @@ EFFECTS: dict[str, Callable[[], FloatArray]] = {
     "player_explosion": player_explosion,
     "hurt": hurt,
     "blast": blast,
+    "zap": zap,
+    "disarmed": disarmed,
     "pickup": pickup,
     "repair": repair,
     "extra_life": extra_life,

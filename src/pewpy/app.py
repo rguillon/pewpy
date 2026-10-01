@@ -1,8 +1,10 @@
 """Panda3D application: window, camera, input and rendering."""
 
 import importlib
+import itertools
 import math
 import os
+import random
 import re
 import sys
 from collections.abc import Callable
@@ -18,6 +20,7 @@ from panda3d.core import (
     Camera,
     CardMaker,
     GraphicsEngine,
+    LineSegs,
     ModifierButtons,
     NodePath,
     PerspectiveLens,
@@ -72,6 +75,7 @@ from pewpy.game.entities import Bullet, Entity, Pickup
 from pewpy.game.fleet import FLEET
 from pewpy.game.level import Level, load_worlds
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
+from pewpy.game.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.states import State, StateMachine
 from pewpy.game.weapons import LETTERS, WEAPONS, Arsenal, Missile
 from pewpy.game.world import Controls, Event, World
@@ -115,6 +119,16 @@ WEAPON_COLORS: dict[str, Color] = {
     "laser": (0.3, 0.9, 1.0, 1),
     "missiles": (1.0, 0.6, 0.15, 1),
 }
+SECONDARY_COLORS: dict[str, Color] = {
+    "turret": (0.45, 1.0, 0.4, 1),
+    "lightning": (0.8, 0.55, 1.0, 1),
+}
+SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
+DISARMED_EXPLOSION_SIZE = 0.08
+BOLT_COLOR: Color = (0.85, 0.75, 1.0, 1)
+BOLT_THICKNESS = 3.0  # pixels
+BOLT_STEP = 0.05  # a lightning bolt zigzags every this many world units...
+BOLT_ZIGZAG = 0.025  # ...this far to each side, differently every frame
 HUD_DIM_COLOR: Color = (0.5, 0.5, 0.55, 1)
 PICKUP_SPIN_SPEED = 120.0  # degrees per second
 
@@ -252,6 +266,8 @@ class PewPewApp(ShowBase):
         self.laser_node = models.laser_beam_model()
         self.laser_node.reparentTo(self.render)
         self.laser_node.hide()
+        self.bolt_node = self.render.attachNewNode("bolt")
+        self.bolt_rng = random.Random()  # noqa: S311 - looks only
 
         self.worlds = load_worlds()
         self.levels = [level for world in self.worlds for level in world.levels]  # in playing order
@@ -522,6 +538,9 @@ class PewPewApp(ShowBase):
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
         self.pickup_models["life"] = models.extra_life_model()
+        for kind in SECONDARY_WEAPONS:
+            self.pickup_models[kind] = models.pickup_model(SECONDARY_LETTERS[kind], SECONDARY_COLORS[kind])
+        self.secondary_models = {"turret": models.gun_turret_model(), "lightning": models.lightning_coil_model()}
         self.player_models = {spec.drawing: models.drawing_model(spec.drawing) for spec in SHIPS.values()}
         # Bosses and their parts: one model per drawing, built when first needed (they're big: building them all
         # takes seconds), see _boss_model.
@@ -592,8 +611,9 @@ class PewPewApp(ShowBase):
                 name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
                 entries.append((name, _fitted(self._make_model(entity), max(entity.width, entity.height))))
         if page == PICKUPS_PAGE:
-            for kind in [*WEAPONS, "repair", "life"]:
+            for kind in [*WEAPONS, "repair", "life", *SECONDARY_WEAPONS]:
                 names = {"repair": "Repair", "life": "Extra life"}
+                names.update({key: f"{SECONDARY_NAMES[key]} {SECONDARY_LETTERS[key]}" for key in SECONDARY_WEAPONS})
                 name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else names[kind]
                 entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
         return entries
@@ -752,6 +772,8 @@ class PewPewApp(ShowBase):
             weapon: self._hud_text(center, x, above_bar, TextNode.ACenter, HUD_SMALL, HUD_DIM_COLOR)
             for weapon, x in zip(WEAPONS, (-WEAPON_SPACING, 0.0, WEAPON_SPACING), strict=True)
         }
+        # The secondary weapon after them, if the ship carries one: "+T" or "+Z".
+        self.secondary_text = self._hud_text(center, 2 * WEAPON_SPACING, above_bar, TextNode.ACenter, HUD_SMALL * 1.25)
 
         # The boss's health bar at the top edge, its name under it: only while a boss is on screen.
         self.boss_hud = self.a2dTopCenter.attachNewNode("hud_boss")
@@ -771,6 +793,7 @@ class PewPewApp(ShowBase):
         self._hud_score: int | None = None
         self._hud_lives: int | None = None
         self._hud_weapon_state: dict[str, tuple[int, bool]] = {}
+        self._hud_secondary: str | None = None
         self._hud_boss_name: str | None = None
         self._hud_boss_visible = False
 
@@ -807,6 +830,13 @@ class PewPewApp(ShowBase):
             return node
         if isinstance(entity, Player):
             self.player_models[entity.ship.drawing].copyTo(node)
+            bounds = node.getTightBounds()
+            front = bounds[0].y if bounds else 0.0  # the secondary weapons sit on top of the ship, hidden until carried
+            for kind, model in self.secondary_models.items():
+                mount = node.attachNewNode(f"secondary_{kind}")
+                mount.setY(front)
+                model.copyTo(mount)
+                mount.hide()
             return node
         model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self.ship_models[type(entity)]
         model.copyTo(node)
@@ -1026,6 +1056,9 @@ class PewPewApp(ShowBase):
                 self.effects.play(Blast(event.x, event.y, event.size))
             elif event.kind == "burn":
                 self.effects.play(Burn(event.x, event.y, dt))
+            elif event.kind == "disarmed":  # the secondary weapon blew up on the ship
+                colors = (SECONDARY_COLORS[event.source], models.METAL)
+                self.effects.play(Explosion(event.x, event.y, DISARMED_EXPLOSION_SIZE, colors))
 
     def _sync_nodes(self) -> None:
         self.effects_view.sync()
@@ -1049,6 +1082,7 @@ class PewPewApp(ShowBase):
                 blink_off = entity.invulnerable and int(entity.invulnerable_time * 10) % 2 == 1
                 node.hide() if blink_off else node.show()
                 node.setH(-entity.vx / entity.ship.speed * PLAYER_BANK_ANGLE)  # roll around the nose axis
+                self._show_secondary(node)
             elif isinstance(entity, Enemy) and self.world is not None:
                 self._show_enemy_appearance(entity, node)
                 self._orient_enemy(entity, node, self.world.player)
@@ -1057,6 +1091,40 @@ class PewPewApp(ShowBase):
             elif isinstance(entity, Pickup) and self.world is not None:
                 node.setH(self.world.time * PICKUP_SPIN_SPEED)
         self._show_laser()
+        self._show_bolt()
+
+    def _show_secondary(self, ship: NodePath) -> None:
+        secondary = self.world.arsenal.secondary if self.world else None
+        for kind in SECONDARY_WEAPONS:
+            mount = ship.find(f"secondary_{kind}")
+            mount.show() if secondary is not None and secondary.kind == kind else mount.hide()
+        if secondary is not None and secondary.kind == "turret":
+            ship.find("secondary_turret/**/barrel").setR(models.facing_roll(secondary.aim_x, secondary.aim_y))
+
+    def _show_bolt(self) -> None:
+        """The lightning gun's last strike, while it shows: a zigzag line, redrawn every frame so it crackles."""
+        self.bolt_node.getChildren().detach()
+        points = self.world.bolt if self.world else []
+        if len(points) < 2:
+            return
+        lines = LineSegs("bolt")
+        lines.setThickness(BOLT_THICKNESS)
+        lines.setColor(*BOLT_COLOR)
+        lines.moveTo(points[0][0], 0, points[0][1])
+        for (x0, z0), (x1, z1) in itertools.pairwise(points):
+            length = math.hypot(x1 - x0, z1 - z0)
+            steps = max(1, round(length / BOLT_STEP))
+            side_x, side_z = (-(z1 - z0) / length, (x1 - x0) / length) if length else (0.0, 0.0)
+            for step in range(1, steps + 1):
+                along = step / steps
+                zig = self.bolt_rng.uniform(-BOLT_ZIGZAG, BOLT_ZIGZAG) if step < steps else 0.0
+                lines.drawTo(x0 + (x1 - x0) * along + side_x * zig, 0, z0 + (z1 - z0) * along + side_z * zig)
+        bolt = self.bolt_node.attachNewNode(lines.create())
+        bolt.setLightOff()
+        bolt.setShaderOff()
+        bolt.setBin("fixed", 0)
+        bolt.setDepthTest(False)
+        bolt.setDepthWrite(False)
 
     def _flicker(self, entity: Entity) -> None:
         thrust = entity.vy / entity.ship.speed if isinstance(entity, Player) else 0.0
@@ -1133,16 +1201,7 @@ class PewPewApp(ShowBase):
             self.lives_text.setText(f"Lives {self.world.lives}")
         fraction = max(self.world.player.health, 0) / self.world.ship.health
         self.health_fill.setSx(max(fraction, 0.001))  # a zero scale makes Panda3D print warnings
-        arsenal = self.world.arsenal
-        for weapon, text in self.weapon_texts.items():
-            selected = weapon == arsenal.selected
-            state = (arsenal.levels[weapon], selected)
-            if self._hud_weapon_state.get(weapon) == state:
-                continue  # setText/setFg/setTextScale rebuild the text's geometry: skip when nothing changed
-            self._hud_weapon_state[weapon] = state
-            text.setText(f"{LETTERS[weapon]}{arsenal.levels[weapon]}")
-            text.setFg(WEAPON_COLORS[weapon] if selected else HUD_DIM_COLOR)
-            text.setTextScale(HUD_SMALL * 1.25 if selected else HUD_SMALL)
+        self._update_weapons_hud(self.world.arsenal)
         boss = self.world.boss
         if boss is None or boss.y - boss.height / 2 > self.world.view_top:  # none, or still above the screen
             if self._hud_boss_visible:
@@ -1156,6 +1215,23 @@ class PewPewApp(ShowBase):
             self._hud_boss_name = boss.spec.name
             self.boss_name.setText(boss.spec.name)
         self.boss_fill.setSx(max(boss.health_fraction, 0.001))
+
+    def _update_weapons_hud(self, arsenal: Arsenal) -> None:
+        for weapon, text in self.weapon_texts.items():
+            selected = weapon == arsenal.selected
+            state = (arsenal.levels[weapon], selected)
+            if self._hud_weapon_state.get(weapon) == state:
+                continue  # setText/setFg/setTextScale rebuild the text's geometry: skip when nothing changed
+            self._hud_weapon_state[weapon] = state
+            text.setText(f"{LETTERS[weapon]}{arsenal.levels[weapon]}")
+            text.setFg(WEAPON_COLORS[weapon] if selected else HUD_DIM_COLOR)
+            text.setTextScale(HUD_SMALL * 1.25 if selected else HUD_SMALL)
+        secondary = arsenal.secondary.kind if arsenal.secondary else None
+        if secondary != self._hud_secondary:
+            self._hud_secondary = secondary
+            self.secondary_text.setText(f"+{SECONDARY_LETTERS[secondary]}" if secondary else "")
+            if secondary:
+                self.secondary_text.setFg(SECONDARY_COLORS[secondary])
 
 
 def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT) -> tuple[float, float, float, float]:

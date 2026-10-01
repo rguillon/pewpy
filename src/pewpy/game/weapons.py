@@ -5,6 +5,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 
 from pewpy.game.entities import Bullet, Entity
+from pewpy.game.secondary import SecondaryWeapon
 
 WEAPONS = ("bullets", "laser", "missiles")
 LETTERS = {"bullets": "B", "laser": "L", "missiles": "M"}
@@ -96,12 +97,15 @@ class Beam:
 
 @dataclass
 class Arsenal:
-    """The three weapons the ship carries, their levels, and which one is selected."""
+    """The three weapons the ship carries, their levels, which one is selected, and the secondary weapon if it has
+    one (see secondary.py).
+    """
 
     levels: dict[str, int] = field(default_factory=lambda: dict.fromkeys(WEAPONS, 1))
     selected: str = "bullets"
     cooldown: float = 0.0
     next_side: int = 1  # missiles alternate: 1 = right, -1 = left
+    secondary: SecondaryWeapon | None = None
 
     @property
     def level(self) -> int:

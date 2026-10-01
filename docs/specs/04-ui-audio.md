@@ -92,7 +92,7 @@ Pause -> Main menu
 | Lives | Bottom-right corner, close to the edges *(placeholder)* | TBD |
 | Health | Bottom center, at the edge: a thin bar, green over dark red *(placeholder)* | One bar per life |
 | Bombs | TBD | TBD |
-| Weapon level | Bottom center, just over the health bar *(placeholder)* | The three weapons with their level, e.g. "B2 L1 M3"; the selected one is highlighted |
+| Weapon level | Bottom center, just over the health bar *(placeholder)* | The three weapons with their level, e.g. "B2 L1 M3"; the selected one is highlighted; then the secondary weapon if the ship carries one, "+T" or "+Z" in its color *(placeholder)* |
 | Frames per second | Top-right corner, small and dim, on every screen (menus too) *(the user's choice)* | Averaged over a second, refreshed twice a second; `SHOW_FPS` in `config.py` turns it off |
 | Boss health bar | Top center, at the edge: a wide orange bar over dark red, the boss's name under it *(placeholder)* | Only while the boss is on screen; counts the core and its parts together |
 
@@ -112,10 +112,10 @@ Pause -> Main menu
 
 | Event | Description |
 |-------|-------------|
-| Player shot | Bullets: a quick falling "pew"; missiles: a rising whoosh; the laser: a hum while it fires |
+| Player shot | Bullets and the turret: a quick falling "pew"; missiles: a rising whoosh; the laser: a hum while it fires; the lightning gun: a short crackling buzz |
 | Enemy hit | A short metallic tick |
 | Explosion | Three sizes, by the size of what blew up (a boss's is long); a missile's blast |
 | Pickup | An upgrade: a quick major arpeggio up; a repair: a bright glide up; an extra life: a bright fanfare climbing two octaves |
-| Player death | A big blast and a falling wail; hit without dying: a harsh falling buzz |
+| Player death | A big blast and a falling wail; hit without dying: a harsh falling buzz; a hit taking the secondary weapon: a short crunch and a falling blip |
 | Menu select | A blip moving, two rising blips choosing, two falling going back; switching weapons: two blips |
 | Boss coming | A two-tone siren |

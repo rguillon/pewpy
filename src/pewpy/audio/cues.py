@@ -30,7 +30,7 @@ def event_sound(event: Event) -> str | None:
         if event.size >= BIG_EXPLOSION:
             return "explosion_big"
         return "explosion" if event.size >= SMALL_EXPLOSION else "explosion_small"
-    if kind in ("blast", "hurt"):
+    if kind in ("blast", "hurt", "zap", "disarmed"):
         return kind
     if kind == "pickup":
         return {"repair": "repair", "life": "extra_life"}.get(event.source, "pickup")

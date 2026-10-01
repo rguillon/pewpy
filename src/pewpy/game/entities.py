@@ -52,8 +52,8 @@ class Bullet(Entity):
 
 @dataclass(eq=False)
 class Pickup(Entity):
-    """Dropped by enemies: an upgrade capsule for a weapon ("bullets", "laser", "missiles"), a "repair" or an extra
-    "life".
+    """Dropped by enemies: an upgrade capsule for a weapon ("bullets", "laser", "missiles"), a "repair", an extra
+    "life" or a secondary weapon ("turret", "lightning").
     """
 
     kind: str = "repair"

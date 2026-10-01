@@ -36,8 +36,9 @@ PLAYER_INVULNERABILITY_TIME = 1.0  # seconds
 # Pickups (01-gameplay.md)
 PICKUP_SIZE = 0.08
 PICKUP_SPEED = 0.25  # drifting down, world units per second
-PICKUP_UPGRADE_SHARE = 0.7  # when an enemy drops something: 70% upgrade capsule...
-PICKUP_LIFE_SHARE = 0.04  # ...4% extra life, the rest (26%) repair (placeholder)
+PICKUP_UPGRADE_SHARE = 0.64  # when an enemy drops something: 64% upgrade capsule...
+PICKUP_LIFE_SHARE = 0.04  # ...4% extra life...
+PICKUP_SECONDARY_SHARE = 0.08  # ...8% secondary weapon, the rest (24%) repair (placeholder)
 MAX_LIVES = 9  # an extra life beyond this gives EXTRA_LIFE_POINTS instead
 EXTRA_LIFE_POINTS = 1000
 REPAIR_AMOUNT = 2.0

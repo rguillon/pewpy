@@ -496,7 +496,7 @@ def test_destroyed_enemies_can_drop_pickups(monkeypatch):
     world.enemies.append(enemy)
     world.update(DT, Controls(fire=True))
     assert len(world.pickups) == 1
-    assert world.pickups[0].kind in {"bullets", "laser", "missiles", "repair", "life"}
+    assert world.pickups[0].kind in {"bullets", "laser", "missiles", "repair", "life", "turret", "lightning"}
     assert (world.pickups[0].x, world.pickups[0].y) == pytest.approx((0.0, 0.0), abs=0.01)
 
 
@@ -549,7 +549,7 @@ def test_an_extra_life_adds_a_life_up_to_the_most():
     assert world.score == config.EXTRA_LIFE_POINTS
 
 
-def test_drops_are_mostly_upgrades_sometimes_a_repair_rarely_a_life(monkeypatch):
+def test_drops_are_mostly_upgrades_sometimes_a_repair_or_secondary_weapon_rarely_a_life(monkeypatch):
     monkeypatch.setattr(Drone, "drop_chance", 1.0)
     world = armed_world()
     kinds = []
@@ -561,7 +561,10 @@ def test_drops_are_mostly_upgrades_sometimes_a_repair_rarely_a_life(monkeypatch)
     upgrades = sum(shares.get(weapon, 0.0) for weapon in ("bullets", "laser", "missiles"))
     assert upgrades == pytest.approx(config.PICKUP_UPGRADE_SHARE, abs=0.03)
     assert shares["life"] == pytest.approx(config.PICKUP_LIFE_SHARE, abs=0.015)
-    assert shares["repair"] == pytest.approx(1 - config.PICKUP_UPGRADE_SHARE - config.PICKUP_LIFE_SHARE, abs=0.03)
+    secondaries = shares.get("turret", 0.0) + shares.get("lightning", 0.0)
+    assert secondaries == pytest.approx(config.PICKUP_SECONDARY_SHARE, abs=0.02)
+    others = config.PICKUP_UPGRADE_SHARE + config.PICKUP_LIFE_SHARE + config.PICKUP_SECONDARY_SHARE
+    assert shares["repair"] == pytest.approx(1 - others, abs=0.03)
 
 
 def test_pickups_drift_down_and_leave_the_screen():

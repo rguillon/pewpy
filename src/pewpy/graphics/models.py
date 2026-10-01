@@ -1040,6 +1040,31 @@ def pickup_model(letter: str, color: Color) -> NodePath:
     return model
 
 
+def gun_turret_model() -> NodePath:
+    """The player's machine-gun turret, sitting on the ship: a dome plus a child node named "barrel" pointing down
+    the screen (-Z), which the game turns toward what the turret shoots at.
+    """
+    size = config.MODEL_VOXEL
+    dome = MeshBuilder()
+    dome.ellipsoid(Vec3(0, 0, 0), Vec3(3 * size, 2 * size, 3 * size), (0.4, 0.75, 0.35, 1))
+    barrel = MeshBuilder()
+    barrel.box(Vec3(0, -1.5 * size, -3.5 * size), Vec3(1.2 * size, 1.2 * size, 7 * size), (0.25, 0.27, 0.3, 1))
+    model = NodePath(dome.build("gun_turret"))
+    model.attachNewNode(barrel.build("barrel"))
+    return model
+
+
+def lightning_coil_model() -> NodePath:
+    """The lightning gun, sitting on the ship: a glowing violet orb."""
+    size = config.MODEL_VOXEL
+    mesh = MeshBuilder()
+    mesh.ellipsoid(Vec3(0, 0, 0), Vec3(2.5 * size, 2.5 * size, 2.5 * size), (0.8, 0.6, 1.0, 1), rings=6, segments=10)
+    orb = NodePath(mesh.build("lightning_coil"))
+    orb.setLightOff()
+    orb.setShaderOff()
+    return orb
+
+
 def repair_model() -> NodePath:
     return drawing_model("repair")
 
