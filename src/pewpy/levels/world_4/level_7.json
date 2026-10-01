@@ -2,7 +2,6 @@
   "name": "Ashen Slopes",
   "scroll_speed": 0.288,
   "background": "volcano",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 3131,
   "clouds": 0.5,

@@ -2,7 +2,6 @@
   "name": "Pack Ice",
   "scroll_speed": 0.268,
   "background": "pack_ice",
-  "ground_voxel": 0.04,
   "background_seed": 1818,
   "clouds": 0.2,
   "waves": [

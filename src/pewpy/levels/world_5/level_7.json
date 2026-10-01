@@ -2,7 +2,6 @@
   "name": "Skyline",
   "scroll_speed": 0.308,
   "background": "city",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 3939,
   "clouds": 0.3,

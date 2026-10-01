@@ -2,7 +2,6 @@
   "name": "Storm Top",
   "scroll_speed": 0.284,
   "background": "clouds",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 2222,
   "clouds": 0.9,

@@ -2,7 +2,6 @@
   "name": "Neon Rain",
   "scroll_speed": 0.3,
   "background": "city",
-  "ground_voxel": 0.04,
   "time_of_day": "night",
   "background_seed": 3737,
   "clouds": 0.7,

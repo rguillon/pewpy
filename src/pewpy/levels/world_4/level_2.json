@@ -2,7 +2,6 @@
   "name": "Red Canyon",
   "scroll_speed": 0.268,
   "background": "canyon",
-  "ground_voxel": 0.04,
   "background_seed": 2626,
   "clouds": 0.15,
   "waves": [

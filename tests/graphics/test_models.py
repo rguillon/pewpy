@@ -8,7 +8,6 @@ from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
 from pewpy import app, config
 from pewpy.graphics import models
-from pewpy.scenery import ground_look
 
 SHIP_MODELS = [
     models.player_model,
@@ -178,68 +177,6 @@ def test_only_voxel_faces_get_bevel_coordinates():
     assert models.make_cube().getGeom(0).getVertexData().hasColumn("texcoord")
 
 
-def test_ground_columns_rise_towards_the_camera():
-    cells = models.ground_cells([[0, 2]], first_row=5)
-    assert set(cells) == {(0, 5, 0), (1, 5, 0), (1, 5, -1), (1, 5, -2)}
-
-
-def test_buried_ground_voxels_are_not_drawn_but_still_hide_faces():
-    # A 3 x 3 plateau of height 2 is a 3 x 3 x 3 block: only its very middle voxel is buried on every side.
-    plateau = [[2, 2, 2], [2, 2, 2], [2, 2, 2]]
-    cells = models.ground_cells(plateau, 0, max_height=2)
-    buried = [cell for cell in cells if models.buried(cell, frozenset(cells))]
-    assert buried == [(1, 1, -1)]
-    # Same outside as drawing every voxel: 5 faces of 3 x 3 on the outside (the back one too), 2 triangles each.
-    points = all_points(ground_look.ground_chunk_model("planet", plateau, zeros(plateau), 1.0, [], [], max_height=2))
-    assert len(points) == (4 * 3 * 3 + 3 * 3 + 3 * 3) * 2 * 3
-
-
-def test_city_cells_light_some_windows_and_one_beacon_per_tower():
-    heights = [[0, 0, 0, 0], [0, 6, 6, 2], [0, 6, 6, 2]]
-    lots = [[0, 0, 0, 0], [0, 1, 1, 2], [0, 1, 1, 2]]
-    cells, glowing = models.city_cells(heights, lots, max_height=6)
-    assert glowing <= set(cells)
-    beacons = [cell for cell in glowing if cells[cell] == models.BEACON_COLOR]
-    assert beacons == [(1, 1, -6)]  # the tower's corner; the low building gets none
-    assert (1, 1, -7) not in cells or cells[(1, 1, -7)] != models.BEACON_COLOR
-    windows = {cell for cell in glowing if cells[cell] in models.WINDOW_COLORS}
-    assert all(-cell[2] % 2 == 1 for cell in windows)  # windows only on odd floors
-
-
-def test_city_lights_are_not_pink_like_enemy_bullets():
-    for color in (*models.WINDOW_COLORS, models.STREET_LIGHT_COLOR, models.BEACON_COLOR):
-        red, green, blue, _ = color
-        assert not (red > 0.3 and blue > 0.3 and green < red)  # pink / magenta
-
-
-def test_islands_rise_from_the_water_in_colored_bands():
-    cells = models.island_cells([[0, 1, 4]], max_height=4)
-    assert (0, 0, 0) not in cells and (0, 0, -1) not in cells  # water: no voxel
-    assert set(cells) == {(1, 0, -1), (2, 0, -1), (2, 0, -2), (2, 0, -3), (2, 0, -4)}
-    beach, peak = models.ISLAND_COLORS[0][1], models.ISLAND_COLORS[-1][1]
-    assert cells[(1, 0, -1)] != cells[(2, 0, -4)]
-    assert max(cells[(1, 0, -1)][:3]) <= max(beach[:3]) * 1.2
-    assert max(cells[(2, 0, -4)][:3]) <= max(peak[:3]) * 1.2
-
-
-def test_the_sea_is_a_water_surface_facing_the_camera():
-    shallows = [[0.0, 1.0], [0.0, 1.0], [0.0, 1.0]]  # two rows of the strip, plus the next strip's first
-    node = ground_look.ground_chunk_model(
-        "ocean", [[0, 0], [0, 0]], zeros([[0, 0], [0, 0]]), 1.0, [0, 0], [0, 0], 3, shallows
-    )
-    geom_node = node.node()
-    assert isinstance(geom_node, GeomNode)
-    triangles = triangles_of(geom_node)
-    assert triangles
-    for _, normal in triangles:
-        assert normal.y == pytest.approx(-1.0)  # towards the camera
-    mesh = models.MeshBuilder()
-    models.water_surface(mesh, shallows, 1.0, 2)
-    assert {uv for triangle in mesh.triangles for _, _, uv in triangle} == {models.WATER_UV}
-    brightness = {color[2] for triangle in mesh.triangles for _, color, _ in triangle}
-    assert max(brightness) > min(brightness)  # lighter in the shallows
-
-
 def test_glowing_voxel_faces_are_marked_for_the_shader():
     mesh = models.MeshBuilder()
     mesh.cells({(0, 0, 0): WHITE, (1, 0, 0): WHITE}, 1.0, Vec3(0, 0, 0), glowing=frozenset({(1, 0, 0)}))
@@ -247,17 +184,12 @@ def test_glowing_voxel_faces_are_marked_for_the_shader():
     assert uvs == set(models.QUAD_UVS) | set(models.GLOW_UVS)
 
 
-def test_ground_strips_have_no_faces_at_the_seams():
-    flat = [[1, 1], [1, 1]]
-    alone = all_points(ground_look.ground_chunk_model("planet", flat, zeros(flat), 1.0, [], [], 3))
-    joined = all_points(ground_look.ground_chunk_model("planet", flat, zeros(flat), 1.0, [1, 1], [1, 1], 3))
-    # The neighboring strips hide the faces along the top and bottom edges (2 columns x 2 layers each),
-    # 2 triangles of 3 points per face.
-    assert len(alone) - len(joined) == 2 * (2 * 2) * 2 * 3
+ROCKS = ((0.16, 0.15, 0.15, 1.0), (0.2, 0.18, 0.16, 1.0))
 
 
 @pytest.mark.parametrize(
-    "build", [models.distant_planet_model, *(partial(models.rock_model, shape) for shape in range(3))]
+    "build",
+    [partial(models.distant_planet_model, ROCKS), *(partial(models.rock_model, shape, ROCKS) for shape in range(3))],
 )
 def test_background_models_fit_the_unit_box(build):
     points = all_points(build())
@@ -267,8 +199,8 @@ def test_background_models_fit_the_unit_box(build):
 
 
 def test_rocks_differ_by_shape_and_repeat_for_the_same_shape():
-    assert all_points(models.rock_model(1)) == all_points(models.rock_model(1))
-    assert all_points(models.rock_model(1)) != all_points(models.rock_model(2))
+    assert all_points(models.rock_model(1, ROCKS)) == all_points(models.rock_model(1, ROCKS))
+    assert all_points(models.rock_model(1, ROCKS)) != all_points(models.rock_model(2, ROCKS))
 
 
 def test_voxel_thickness_is_centered_on_the_depth():

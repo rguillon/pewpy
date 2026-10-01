@@ -2,7 +2,6 @@
   "name": "Harvest Dusk",
   "scroll_speed": 0.26,
   "background": "farmland",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 1313,
   "clouds": 0.1,

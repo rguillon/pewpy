@@ -2,7 +2,6 @@
   "name": "Refinery",
   "scroll_speed": 0.288,
   "background": "refinery",
-  "ground_voxel": 0.04,
   "background_seed": 3434,
   "clouds": 0.4,
   "waves": [

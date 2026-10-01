@@ -2,7 +2,6 @@
   "name": "Flare Stacks",
   "scroll_speed": 0.304,
   "background": "refinery",
-  "ground_voxel": 0.04,
   "time_of_day": "night",
   "background_seed": 3838,
   "clouds": 0.6,

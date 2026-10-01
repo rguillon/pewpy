@@ -2,7 +2,6 @@
   "name": "Mire",
   "scroll_speed": 0.256,
   "background": "swamp",
-  "ground_voxel": 0.04,
   "background_seed": 1212,
   "clouds": 0.6,
   "waves": [

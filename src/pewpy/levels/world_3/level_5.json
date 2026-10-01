@@ -2,7 +2,6 @@
   "name": "Polar Night",
   "scroll_speed": 0.28,
   "background": "pack_ice",
-  "ground_voxel": 0.04,
   "time_of_day": "night",
   "background_seed": 2121,
   "clouds": 0.6,

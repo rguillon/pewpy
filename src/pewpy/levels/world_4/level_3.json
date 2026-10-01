@@ -2,7 +2,6 @@
   "name": "Ember Fields",
   "scroll_speed": 0.272,
   "background": "volcano",
-  "ground_voxel": 0.04,
   "background_seed": 2727,
   "clouds": 0.3,
   "waves": [

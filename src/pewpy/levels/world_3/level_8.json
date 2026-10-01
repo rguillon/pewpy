@@ -2,7 +2,6 @@
   "name": "Frozen Deep",
   "scroll_speed": 0.292,
   "background": "pack_ice",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 2424,
   "clouds": 0.3,

@@ -2,7 +2,6 @@
   "name": "High Peaks",
   "scroll_speed": 0.276,
   "background": "mountains",
-  "ground_voxel": 0.04,
   "background_seed": 2828,
   "clouds": 0.6,
   "waves": [

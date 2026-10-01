@@ -2,7 +2,6 @@
   "name": "Crater Fields",
   "scroll_speed": 0.264,
   "background": "planet",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 1414,
   "clouds": 0.35,

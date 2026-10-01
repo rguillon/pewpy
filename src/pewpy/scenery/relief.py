@@ -1,7 +1,7 @@
-"""Smooth grounds: a continuous height field instead of voxel columns (see terrain.py for the voxel ones).
+"""Smooth grounds: a continuous height field (see terrain.py).
 
 A relief is a grid of heights (world units, rising towards the camera from the ground's base layer) sampled every
-`step` world units, looping along the rows like the voxel grounds: the row after the last one is row 0 again.
+`step` world units, looping along the rows: the row after the last one is row 0 again.
 It also has each point's normal, how tucked-in it is (`cavity`: valleys and hollows get less sky light) and the
 shadows of a low sun, which the ground shader (ground_shader.py) uses with the height and slope to paint it.
 

@@ -5,17 +5,16 @@ Levels are grouped in worlds (in the menus): `levels/world_<number>/` holds `wor
 """
 
 import json
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, field, fields
 from typing import Any
 
 from pewpy.data import data_folder
 from pewpy.game.boss_catalog import BOSSES
 from pewpy.game.roster import ENEMY_TYPES
-from pewpy.scenery.background import BACKGROUNDS
-from pewpy.scenery.terrain import GROUND_VOXEL
+from pewpy.scenery import params
+from pewpy.scenery.params import SceneryError, SceneryParams
 
 FORMATIONS = frozenset({"line", "column"})
-TIMES_OF_DAY = frozenset({"day", "dusk", "night"})  # tints the ground and its haze, see background_view.py
 SIDES = frozenset({"left", "right"})
 
 
@@ -63,11 +62,15 @@ class Level:
     name: str
     scroll_speed: float
     waves: tuple[Wave, ...]
-    background: str = "space"  # one of background.BACKGROUNDS
-    ground_voxel: float = GROUND_VOXEL  # size of the ground's voxels (planet background)
-    time_of_day: str = "day"
+    background: str = "space"  # a preset of levels/sceneries.json (see scenery/params.py)...
+    scenery: dict[str, Any] = field(default_factory=dict, hash=False)  # ...and the level's changes to it
+    time_of_day: str = "day"  # one of the scenery's times of day: tints the ground, its haze and its sky
     background_seed: int | None = None  # the background's layout (and colors, in space); None: different each time
     clouds: float = 0.0  # see-through clouds over the ground, from 0 (none) to 1 (the most)
+
+    def scenery_params(self) -> SceneryParams:
+        """The background's preset with the level's changes."""
+        return params.resolve(self.background, self.scenery)
 
     def spawns(self) -> list[Spawn]:
         """Every enemy of the level, sorted by the time it enters the screen."""
@@ -92,17 +95,31 @@ def parse_level(data: dict[str, Any], source: str = "level") -> Level:
     """Build a Level from decoded JSON, with readable errors for typos and bad values."""
     _check_keys(
         data,
-        {"name", "scroll_speed", "background", "ground_voxel", "time_of_day", "background_seed", "clouds", "waves"},
+        {
+            "name",
+            "scroll_speed",
+            "background",
+            "scenery",
+            "time_of_day",
+            "background_seed",
+            "clouds",
+            "waves",
+        },
         source,
     )
     clouds = float(data.get("clouds", 0.0))
     if not 0.0 <= clouds <= 1.0:
         raise LevelError(source, f"'clouds' must be from 0 to 1, not {clouds}")
-    time_of_day = str(data.get("time_of_day", "day"))
-    _check_choice(time_of_day, TIMES_OF_DAY, "time_of_day", source)
     seed = data.get("background_seed")
     background = str(data.get("background", "space"))
-    _check_choice(background, frozenset(BACKGROUNDS), "background", source)
+    _check_choice(background, frozenset(params.backgrounds()), "background", source)
+    scenery = data.get("scenery", {})
+    try:
+        look = params.resolve(background, scenery)
+    except SceneryError as error:
+        raise LevelError(source, f"scenery: {error}") from error
+    time_of_day = str(data.get("time_of_day", "day"))
+    _check_choice(time_of_day, look.times_of_day, "time_of_day", source)
     waves = []
     wave_keys = {field.name for field in fields(Wave)}
     for index, wave_data in enumerate(data.get("waves", [])):
@@ -125,7 +142,7 @@ def parse_level(data: dict[str, Any], source: str = "level") -> Level:
         scroll_speed=float(data.get("scroll_speed", 0.2)),
         waves=tuple(waves),
         background=background,
-        ground_voxel=float(data.get("ground_voxel", GROUND_VOXEL)),
+        scenery=scenery,
         time_of_day=time_of_day,
         background_seed=None if seed is None else int(seed),
         clouds=clouds,

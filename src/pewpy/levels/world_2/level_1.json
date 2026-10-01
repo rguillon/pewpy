@@ -2,7 +2,6 @@
   "name": "Ground Defense",
   "scroll_speed": 0.25,
   "background": "planet",
-  "ground_voxel": 0.04,
   "background_seed": 909,
   "clouds": 0.3,
   "waves": [

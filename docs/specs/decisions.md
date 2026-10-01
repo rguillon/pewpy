@@ -177,6 +177,28 @@
 
 ## Decisions made
 
+### 2026-10-01 — Scenery values in data, not in the code (asked by the user in chat)
+- Decision (the user's): the scenery code's constants become parameters of the level descriptions; the user chose
+  presets with overrides, and the look and layout values (not the technical ones).
+- `src/pewpy/levels/sceneries.json`: a "default" entry (what every scenery shares: sky, light, haze, times of day,
+  see-through clouds, the props' colors) and a preset per background (space, debris and the 13 grounds). A level
+  names its preset (`background`) and changes any value in `scenery`; values are merged level over preset over
+  default, checked when the level loads (typos and wrong values are reported with where they are). Read by
+  `pewpy.scenery.params`. Moved there: every color (also the ~60 that were written in the ground shader, now
+  shader inputs), haze, sky, water, lava, depths and heights, the landscapes' main sizes and shares, the
+  settlements' blocks, streets, lots, building heights and shares, flora, stars, nebulas, the distant planet,
+  asteroids, clouds, times of day.
+- Kept in code (technical, as chosen): the relief's grid step, strip sizes, the sun's direction and shadows, the
+  ground's scroll speed (gameplay uses it), margins, the shader code itself.
+- Removed: the voxel grounds left from before the smooth ones (`ground_look.py`, the voxel generators of
+  `terrain.py`, their helpers in `models.py`): every ground had a smooth relief, so they were generated but never
+  drawn. With them went the level field `ground_voxel` (removed from the 32 level files) and the voxel constants.
+  The ground's layouts changed (they were drawn from a random sequence the voxel generator used first), not its
+  look: verified on screenshots of every level, and before removing them, that moving the values to data changed
+  no pixel.
+- The pre-commit JSON formatter skips `sceneries.json`, which keeps each color on one line.
+- Recorded in 03-levels.md ("Level data format", "Backgrounds").
+
 ### 2026-10-01 — Sound effects and synthwave MIDI music (asked by the user in chat)
 - Decisions (the user's): sound effects, and music as MIDI, generated synthwave songs (04-ui-audio.md had "Music
   style" and "Music source" TBD).

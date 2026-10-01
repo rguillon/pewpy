@@ -2,7 +2,6 @@
   "name": "Patchwork",
   "scroll_speed": 0.248,
   "background": "farmland",
-  "ground_voxel": 0.04,
   "background_seed": 1010,
   "clouds": 0.15,
   "waves": [

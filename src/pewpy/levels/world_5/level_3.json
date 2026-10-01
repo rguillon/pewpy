@@ -2,7 +2,6 @@
   "name": "Downtown",
   "scroll_speed": 0.292,
   "background": "city",
-  "ground_voxel": 0.04,
   "background_seed": 3535,
   "clouds": 0.1,
   "waves": [

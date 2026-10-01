@@ -63,17 +63,16 @@ class LevelPreview:
             self.cache[self.shown][0].root.hide()
         if key not in self.cache:
             scenery = Scenery(
-                level.background,
+                level.scenery_params(),
                 self.view,
                 seed=level.background_seed,
-                ground_voxel=level.ground_voxel,
                 clouds=level.clouds,
             )
             self.cache[key] = (BackgroundView(scenery, self.root, level.time_of_day), level)
         view, _ = self.cache[key]
         view.root.show()
         self.shown = key
-        self.region.setClearColor(sky_color(level.background, level.time_of_day))
+        self.region.setClearColor(sky_color(self.cache[key][0].scenery.params, level.time_of_day))
         self.region.setActive(True)
         self.frame.show()
 

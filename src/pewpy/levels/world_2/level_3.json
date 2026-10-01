@@ -2,7 +2,6 @@
   "name": "Greenwood",
   "scroll_speed": 0.252,
   "background": "forest",
-  "ground_voxel": 0.04,
   "background_seed": 1111,
   "clouds": 0.5,
   "waves": [

@@ -2,7 +2,6 @@
   "name": "Neon City",
   "scroll_speed": 0.284,
   "background": "city",
-  "ground_voxel": 0.04,
   "background_seed": 3333,
   "clouds": 0.2,
   "waves": [

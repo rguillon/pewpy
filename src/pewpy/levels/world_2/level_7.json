@@ -2,7 +2,6 @@
   "name": "Moonlit Woods",
   "scroll_speed": 0.268,
   "background": "forest",
-  "ground_voxel": 0.04,
   "time_of_day": "night",
   "background_seed": 1515,
   "clouds": 0.25,

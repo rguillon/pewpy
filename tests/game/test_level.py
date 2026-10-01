@@ -59,7 +59,6 @@ def test_parse_level():
 
 def test_parse_level_background():
     assert parse_level({"background": "debris"}).background == "debris"
-    assert parse_level({"background": "planet", "ground_voxel": 0.02}).ground_voxel == 0.02
     assert parse_level({"background": "city"}).background == "city"
     assert parse_level({"background": "ocean"}).background == "ocean"
 
@@ -115,8 +114,26 @@ def test_parse_level_time_of_day_and_background_seed():
         ({"waves": [{"time": 1}, {"time": 2, "count": 0}]}, "wave 2: 'count' must be at least 1"),
         ({"background": "jungle"}, "unknown background 'jungle'"),
         ({"time_of_day": "noon"}, "unknown time_of_day 'noon'"),
+        ({"background": "ocean", "scenery": {"fluid": {"colours": {}}}}, "ocean.fluid: unknown keys ['colours']"),
+        ({"background": "city", "scenery": {"ground": {"depth": "deep"}}}, "city.ground.depth: expected a number"),
     ],
 )
 def test_parse_level_reports_mistakes(data, message):
     with pytest.raises(LevelError, match=message.replace("[", r"\[").replace("]", r"\]")):
         parse_level(data, "level_9.json")
+
+
+def test_a_level_can_change_its_scenery():
+    level = parse_level({"background": "ocean", "scenery": {"fluid": {"colors": {"deep": [0.1, 0.0, 0.0]}}}})
+    look = level.scenery_params()
+    assert look.fluid is not None
+    assert look.fluid.colors["deep"] == (0.1, 0.0, 0.0)
+    preset = parse_level({"background": "ocean"}).scenery_params().fluid
+    assert preset is not None
+    assert look.fluid.colors["foam"] == preset.colors["foam"]  # the rest stays
+
+
+def test_every_level_has_a_complete_scenery():
+    for level in load_levels():
+        look = level.scenery_params()
+        assert level.time_of_day in look.times_of_day

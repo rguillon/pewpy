@@ -3,17 +3,30 @@ import random
 import numpy as np
 import pytest
 
-from pewpy.scenery import prop_meshes, settlement
+from pewpy.scenery import params, prop_meshes, settlement
 from pewpy.scenery.background import Area
 from pewpy.scenery.settlement import SETTLEMENTS, Prop, Surface
-from pewpy.scenery.terrain import BIOMES, Terrain
+from pewpy.scenery.terrain import Terrain
 
 WIDTH, LOOP = 2.4, 4.2
 
 
+def knobs(name: str) -> params.Knobs:
+    """The settlement's numbers in the preset of the same name."""
+    found = params.resolve(name).settlement
+    assert found is not None
+    return found.layout
+
+
+def depth(name: str) -> float:
+    ground = params.resolve(name).ground
+    assert ground is not None
+    return ground.depth
+
+
 @pytest.mark.parametrize("name", SETTLEMENTS)
 def test_every_prop_stands_inside_the_ground_without_crossing_the_loop_end(name):
-    layout = SETTLEMENTS[name](seeded(1), WIDTH, LOOP)
+    layout = SETTLEMENTS[name](seeded(1), WIDTH, LOOP, knobs(name))
     assert layout.surface.shape == (round(LOOP / settlement.SURFACE_STEP), round(WIDTH / settlement.SURFACE_STEP))
     assert layout.props
     for prop in layout.props:
@@ -21,7 +34,7 @@ def test_every_prop_stands_inside_the_ground_without_crossing_the_loop_end(name)
         assert prop.x - prop.width / 2 >= -0.03 and prop.x + prop.width / 2 <= WIDTH + 0.03
         assert prop.height > 0
         # Nothing reaches the ships: every biome keeps its tallest thing 0.1 behind the play plane.
-        assert prop.height <= BIOMES[name].depth - 0.1
+        assert prop.height <= depth(name) - 0.1
 
 
 def seeded(seed: int) -> random.Random:
@@ -29,7 +42,7 @@ def seeded(seed: int) -> random.Random:
 
 
 def test_the_city_has_streets_pavements_and_buildings_of_every_size():
-    layout = settlement.city(seeded(2), WIDTH, LOOP)
+    layout = settlement.city(seeded(2), WIDTH, LOOP, knobs("city"))
     surfaces = set(np.unique(layout.surface).tolist())
     assert {Surface.STREET, Surface.PAVEMENT} <= surfaces
     heights = [prop.height for prop in layout.props if prop.kind == "building"]
@@ -37,14 +50,14 @@ def test_the_city_has_streets_pavements_and_buildings_of_every_size():
 
 
 def test_farmland_has_fields_farms_and_trees():
-    layout = settlement.farmland(seeded(3), WIDTH, LOOP)
+    layout = settlement.farmland(seeded(3), WIDTH, LOOP, knobs("farmland"))
     assert {Surface.WHEAT, Surface.DIRT_ROAD} <= set(np.unique(layout.surface).tolist())
     kinds = {prop.kind for prop in layout.props}
     assert {"house", "barn", "silo", "tree"} <= kinds
 
 
 def test_refinery_has_tanks_stacks_and_plants():
-    kinds = {prop.kind for prop in settlement.refinery(seeded(4), WIDTH, LOOP).props}
+    kinds = {prop.kind for prop in settlement.refinery(seeded(4), WIDTH, LOOP, knobs("refinery")).props}
     assert {"tank", "stack", "plant"} <= kinds
 
 
@@ -65,7 +78,7 @@ def test_props_stand_on_the_lowest_ground_under_them_and_rise_above_it_for_shado
 )
 def test_every_kind_of_prop_has_a_mesh_around_its_footprint(kind):
     prop = Prop(kind, x=0.5, y=0.3, width=0.12, length=0.1, height=0.3 if kind == "building" else 0.06, seed=7)
-    vertices, triangles = prop_meshes.strip_arrays([prop], first_y=0.2)
+    vertices, triangles = prop_meshes.strip_arrays([prop], first_y=0.2, colors=params.resolve("city").props)
     assert len(triangles) % 3 == 0 and len(triangles) > 0
     assert int(np.max(triangles)) < len(vertices)
     assert np.isfinite(vertices).all()
@@ -79,7 +92,7 @@ def test_every_kind_of_prop_has_a_mesh_around_its_footprint(kind):
 
 
 def test_a_built_up_terrain_splits_its_props_between_its_chunks():
-    terrain = Terrain(Area(-1.0, 1.0, -1.3, 1.3), 1.0, seed=5, biome="city")
+    terrain = Terrain(Area(-1.0, 1.0, -1.3, 1.3), 1.0, params.resolve("city"), seed=5)
     assert terrain.layout is not None and terrain.props
     shares = [terrain.chunk_props(chunk) for chunk in range(terrain.chunks)]
     assert sum(len(share) for share in shares) == len(terrain.props)

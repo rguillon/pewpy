@@ -4,7 +4,8 @@ A layout is what the ground is covered with, as a surface map painted by the gro
 yards, fields...), plus the props standing on it: buildings, tanks, stacks, pipe racks, houses, barns, silos, trees,
 hedges. prop_meshes.py builds the props, ground_shader.py draws both.
 
-Positions are in world units: x from the ground's left edge, y down the loop (like the relief's rows); the layout
+Each settlement's numbers (block sizes, shares, building heights...) come from the level's scenery (`layout`, see
+params.py and KNOBS below). Positions are in world units: x from the ground's left edge, y down the loop (like the relief's rows); the layout
 loops along y like the rest of the ground (the grids of blocks divide the loop exactly and nothing crosses its end).
 Independent from Panda3D.
 """
@@ -17,6 +18,8 @@ from itertools import pairwise
 
 import numpy as np
 from numpy.typing import NDArray
+
+from pewpy.scenery.params import Knobs
 
 SURFACE_STEP = 0.005  # world units between two points of the surface map
 
@@ -62,31 +65,18 @@ class Layout:
 
 
 Rect = tuple[float, float, float, float]  # (top, bottom, left, right): y from top to bottom, x from left to right
-# (rng, width, loop length) -> the layout
-SettlementGenerator = Callable[[random.Random, float, float], Layout]
-
-CITY_BLOCK = 0.38  # about, from one street to the next
-CITY_STREET = 0.07
-CITY_ALLEY = 0.035  # narrow streets cutting through some blocks
-ALLEY_SHARE = 0.4
-CITY_LOT = 0.06  # the smallest building lot
-SIDEWALK = 0.012
-CITY_TOWER = (0.31, 0.48)  # heights of the few towers...
-CITY_MIDRISE = (0.12, 0.26)  # ...mid-rises...
-CITY_LOWRISE = (0.03, 0.11)  # ...and the most common, low buildings
-REFINERY_BLOCK = 0.55
-REFINERY_ROAD = 0.07
-FARM_BLOCK = 0.5
-FARM_ROAD = 0.035
-TREE_SIZE = (0.03, 0.05)  # crown diameters
-FIELDS = (Surface.WHEAT, Surface.WHEAT, Surface.CROP, Surface.CROP, Surface.PLOWED, Surface.LAVENDER)
+# (rng, width, loop length, knobs) -> the layout
+SettlementGenerator = Callable[[random.Random, float, float, Knobs], Layout]
 
 
 class _Canvas:
     """The surface map being painted, and the props placed so far."""
 
-    def __init__(self, rng: random.Random, width: float, loop: float, background: Surface) -> None:
+    def __init__(
+        self, rng: random.Random, width: float, loop: float, background: Surface, tree_size: tuple[float, float]
+    ) -> None:
         self.rng = rng
+        self.tree_size = tree_size  # crown diameters
         self.width = width
         self.loop = loop
         rows, columns = round(loop / SURFACE_STEP), round(width / SURFACE_STEP)
@@ -105,7 +95,7 @@ class _Canvas:
         self.props.append(Prop(kind, *middle, right - left, bottom - top, height, self.rng.randrange(1 << 30)))
 
     def tree(self, x: float, y: float, size: float | None = None) -> None:
-        size = size or self.rng.uniform(*TREE_SIZE)
+        size = size or self.rng.uniform(*self.tree_size)
         rect = (y - size / 2, y + size / 2, x - size / 2, x + size / 2)
         self.add("tree", rect, size * self.rng.uniform(0.8, 1.1))
 
@@ -142,36 +132,41 @@ def shrink(rect: Rect, margin: float) -> Rect:
     return (top + margin, bottom - margin, left + margin, right - margin)
 
 
-def city(rng: random.Random, width: float, loop: float) -> Layout:
-    """Blocks of buildings between streets: mostly low buildings, some mid-rises, a few towers, the odd park."""
-    canvas = _Canvas(rng, width, loop, Surface.STREET)
-    for top, bottom, left, right in grid(width, loop, CITY_BLOCK):
-        block = (top + CITY_STREET, bottom, left + CITY_STREET, right)  # the street runs along its top and left
+def city(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
+    """Blocks of buildings between streets (`block` apart, `street` wide): mostly low buildings, some mid-rises,
+    a few towers (`tower_share`, `midrise_share`; their heights between `tower`, `midrise`, `lowrise`), the odd park
+    (`park_share`). Lots are `lot` wide at least, a `sidewalk` around them."""
+    canvas = _Canvas(rng, width, loop, Surface.STREET, knobs["tree_size"])
+    street = knobs["street"]
+    towers, midrises = knobs["tower_share"], knobs["tower_share"] + knobs["midrise_share"]
+    for top, bottom, left, right in grid(width, loop, knobs["block"]):
+        block = (top + street, bottom, left + street, right)  # the street runs along its top and left
         canvas.fill(block, Surface.PAVEMENT)
-        for part in _alleys(canvas, block):
-            for lot in lots(rng, shrink(part, SIDEWALK), CITY_LOT):
-                if rng.random() < 0.07:
+        for part in _alleys(canvas, block, knobs["alley"], knobs["alley_share"]):
+            for lot in lots(rng, shrink(part, knobs["sidewalk"]), knobs["lot"]):
+                if rng.random() < knobs["park_share"]:
                     _park(canvas, lot)
                     continue
                 roll = rng.random()
-                span = CITY_TOWER if roll < 0.08 else CITY_MIDRISE if roll < 0.35 else CITY_LOWRISE
+                span = knobs["tower"] if roll < towers else knobs["midrise"] if roll < midrises else knobs["lowrise"]
                 canvas.add("building", shrink(lot, rng.uniform(0.004, 0.012)), rng.uniform(*span))
     return canvas.layout()
 
 
-def _alleys(canvas: _Canvas, block: Rect) -> list[Rect]:
-    """Some blocks are cut in two by a narrow alley, one way or the other: the two halves (or the whole block)."""
+def _alleys(canvas: _Canvas, block: Rect, width: float, share: float) -> list[Rect]:
+    """Some blocks (`share` of them) are cut in two by a narrow alley, one way or the other: the two halves (or the
+    whole block)."""
     rng = canvas.rng
-    if rng.random() >= ALLEY_SHARE:
+    if rng.random() >= share:
         return [block]
     top, bottom, left, right = block
     if rng.random() < 0.5:  # across the block
         middle = rng.uniform(top + 0.35 * (bottom - top), top + 0.65 * (bottom - top))
-        alley = (middle - CITY_ALLEY / 2, middle + CITY_ALLEY / 2, left, right)
+        alley = (middle - width / 2, middle + width / 2, left, right)
         halves = [(top, alley[0], left, right), (alley[1], bottom, left, right)]
     else:  # along it
         middle = rng.uniform(left + 0.35 * (right - left), left + 0.65 * (right - left))
-        alley = (top, bottom, middle - CITY_ALLEY / 2, middle + CITY_ALLEY / 2)
+        alley = (top, bottom, middle - width / 2, middle + width / 2)
         halves = [(top, bottom, left, alley[2]), (top, bottom, alley[3], right)]
     canvas.fill(alley, Surface.STREET)
     return halves
@@ -184,14 +179,17 @@ def _park(canvas: _Canvas, lot: Rect) -> None:
         canvas.tree(canvas.rng.uniform(left, right), canvas.rng.uniform(top, bottom))
 
 
-def refinery(rng: random.Random, width: float, loop: float) -> Layout:
-    """Units between roads: tank farms, process plants with furnaces, tall flaring stacks, pipe racks."""
-    canvas = _Canvas(rng, width, loop, Surface.STREET)
-    for top, bottom, left, right in grid(width, loop, REFINERY_BLOCK):
-        block = (top + REFINERY_ROAD, bottom, left + REFINERY_ROAD, right)
-        for lot in lots(rng, block, 0.14):
+def refinery(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
+    """Units between roads (`block` apart, `road` wide), on lots `lot` wide at least: tank farms, process plants with
+    furnaces, tall flaring stacks, pipe racks (`units`: one is picked per lot)."""
+    canvas = _Canvas(rng, width, loop, Surface.STREET, (0.0, 0.0))
+    road = knobs["road"]
+    units = tuple(knobs["units"])
+    for top, bottom, left, right in grid(width, loop, knobs["block"]):
+        block = (top + road, bottom, left + road, right)
+        for lot in lots(rng, block, knobs["lot"]):
             canvas.fill(shrink(lot, 0.008), Surface.YARD, rng.randrange(256))
-            _refinery_unit(canvas, shrink(lot, 0.02), rng.choice(("tanks", "tanks", "plant", "stack", "pipes")))
+            _refinery_unit(canvas, shrink(lot, 0.02), rng.choice(units))
     return canvas.layout()
 
 
@@ -225,25 +223,29 @@ def _refinery_unit(canvas: _Canvas, lot: Rect, unit: str) -> None:
             canvas.add("pipes", (middle - 0.03, middle + 0.03, left, right), 0.03)
 
 
-def farmland(rng: random.Random, width: float, loop: float) -> Layout:
-    """Patchwork fields between dirt roads, some with hedges around, orchards, farms with a house, a barn and a
-    silo, trees along the roads."""
-    canvas = _Canvas(rng, width, loop, Surface.DIRT_ROAD)
-    for top, bottom, left, right in grid(width, loop, FARM_BLOCK):
-        block = (top + FARM_ROAD, bottom, left + FARM_ROAD, right)
-        for lot in lots(rng, block, 0.12):
+def farmland(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
+    """Patchwork fields (`fields`: one is picked per lot) between dirt roads (`block` apart, `road` wide), some with
+    hedges around (`hedge_share`), orchards (`orchard_share`), farms with a house, a barn and a silo (`farm_share`),
+    trees along the roads."""
+    canvas = _Canvas(rng, width, loop, Surface.DIRT_ROAD, knobs["tree_size"])
+    road = knobs["road"]
+    fields = tuple(Surface[name.upper()] for name in knobs["fields"])
+    farms, orchards = knobs["farm_share"], knobs["farm_share"] + knobs["orchard_share"]
+    for top, bottom, left, right in grid(width, loop, knobs["block"]):
+        block = (top + road, bottom, left + road, right)
+        for lot in lots(rng, block, knobs["lot"]):
             roll = rng.random()
-            if roll < 0.12:
+            if roll < farms:
                 _farm(canvas, lot)
-            elif roll < 0.24:
+            elif roll < orchards:
                 _orchard(canvas, lot)
             else:
-                canvas.fill(lot, rng.choice(FIELDS), rng.randrange(256))
-                if rng.random() < 0.45:
+                canvas.fill(lot, rng.choice(fields), rng.randrange(256))
+                if rng.random() < knobs["hedge_share"]:
                     _hedges(canvas, lot)
         for _ in range(rng.randrange(3)):  # a few trees along the road
-            x = rng.uniform(left + FARM_ROAD, right)
-            canvas.tree(x, top + FARM_ROAD + 0.012)
+            x = rng.uniform(left + road, right)
+            canvas.tree(x, top + road + 0.012)
     return canvas.layout()
 
 
@@ -316,3 +318,23 @@ def occluders(props: list[Prop], heights: NDArray[np.float64], step_x: float, st
 
 
 SETTLEMENTS: dict[str, SettlementGenerator] = {"city": city, "refinery": refinery, "farmland": farmland}
+# The numbers each settlement needs (settlement.layout in the scenery).
+KNOBS: dict[str, tuple[str, ...]] = {
+    "city": (
+        "block",
+        "street",
+        "alley",
+        "alley_share",
+        "lot",
+        "sidewalk",
+        "park_share",
+        "tower_share",
+        "midrise_share",
+        "tower",
+        "midrise",
+        "lowrise",
+        "tree_size",
+    ),
+    "refinery": ("block", "road", "lot", "units"),
+    "farmland": ("block", "road", "lot", "farm_share", "orchard_share", "hedge_share", "fields", "tree_size"),
+}

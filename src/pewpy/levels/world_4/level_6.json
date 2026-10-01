@@ -2,7 +2,6 @@
   "name": "Canyon Dusk",
   "scroll_speed": 0.284,
   "background": "canyon",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 3030,
   "clouds": 0.25,

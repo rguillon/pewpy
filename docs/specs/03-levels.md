@@ -13,8 +13,8 @@
   harder level by level, up to the world's big boss at x-8.
 - Level data format: `src/pewpy/levels/world_<number>/level_<number>.json`, one JSON file per level, and
   `world.json` in each world's folder with the world's name (see `pewpy.level`). Level fields: `name`,
-  `scroll_speed`, `background` (see "Backgrounds"), `ground_voxel` (size of the ground's voxels, default 0.07;
-  the ground levels use 0.04), `time_of_day` (`day`, `dusk` or `night`, default `day`), `background_seed` (the
+  `scroll_speed`, `background` (see "Backgrounds"), `scenery` (changes to the background's preset, see
+  "Backgrounds"), `time_of_day` (`day`, `dusk` or `night`, default `day`), `background_seed` (the
   background's layout, and in space its colors: the same every time), `clouds` (see-through clouds over the
   ground, from 0 for none to 1 for the most, default 0), and `waves`.
 - Checkpoints on death? No: losing a life restarts the level from the beginning.
@@ -25,7 +25,13 @@
 ## Backgrounds
 
 Each level has one background (see `05-visuals.md`). All kept dark and muted so bullets stand out; the grounds
-are made of voxels and fade into haze towards the top of the screen.
+fade into haze towards the top of the screen.
+
+Each background is a preset of `src/pewpy/levels/sceneries.json`, which holds every value of the sceneries: colors
+(of the grounds, water, lava, props, the sky, the haze), sizes and shares (city blocks, streets, building heights,
+fields, islands, dunes...), depths, stars, nebulas, asteroids, clouds, times of day. A level's `scenery` changes
+any of them for that level, e.g. `"scenery": {"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}}` for greener
+water (see `pewpy.scenery.params`).
 
 | Background | Look |
 |------------|------|

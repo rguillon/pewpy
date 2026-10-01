@@ -2,7 +2,6 @@
   "name": "Cloud Deck",
   "scroll_speed": 0.272,
   "background": "clouds",
-  "ground_voxel": 0.04,
   "background_seed": 1919,
   "clouds": 0.7,
   "waves": [

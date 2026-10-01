@@ -9,7 +9,7 @@ repos:
       - id: check-json
         exclude: ^.devcontainer/devcontainer.json
       - id: pretty-format-json
-        exclude: ^(.devcontainer/devcontainer.json|src/pewpew/models/)
+        exclude: ^(.devcontainer/devcontainer.json|src/pewpew/models/|src/pewpy/levels/sceneries.json)
         args: [--autofix, --no-sort-keys]
       - id: end-of-file-fixer
       - id: trailing-whitespace

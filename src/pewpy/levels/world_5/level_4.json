@@ -2,7 +2,6 @@
   "name": "Smelter",
   "scroll_speed": 0.296,
   "background": "refinery",
-  "ground_voxel": 0.04,
   "time_of_day": "dusk",
   "background_seed": 3636,
   "clouds": 0.5,

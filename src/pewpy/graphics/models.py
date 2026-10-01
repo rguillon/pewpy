@@ -12,7 +12,6 @@ stretched to their size.
 The player points up the screen (+Z); enemies point down (-Z). The first row of a drawing is the top of the screen.
 """
 
-import itertools
 import json
 import math
 import random
@@ -1028,38 +1027,7 @@ def laser_beam_model() -> NodePath:
     return beam
 
 
-# Backgrounds (background.py): dark and muted, so bullets and ships stay easy to see.
-GROUND_COLORS: tuple[Color, ...] = (  # by height above the base layer: dusty brown, unlike the grey turrets
-    (0.05, 0.045, 0.04, 1),
-    (0.075, 0.065, 0.05, 1),
-    (0.1, 0.085, 0.065, 1),
-    (0.13, 0.11, 0.08, 1),
-)
-# Islands, by height above the sea (share of the highest peak): beaches, grass, forest, rock. Muted.
-ISLAND_COLORS: tuple[tuple[float, Color], ...] = (
-    (0.15, (0.2, 0.18, 0.12, 1)),
-    (0.45, (0.07, 0.13, 0.07, 1)),
-    (0.8, (0.045, 0.095, 0.05, 1)),
-    (1.0, (0.13, 0.125, 0.12, 1)),
-)
-DEEP_WATER: Color = (0.02, 0.06, 0.1, 1)
-SHALLOW_WATER_BRIGHTNESS = 2.6  # shallow water is DEEP_WATER this many times brighter (more teal-looking)
-WATER_GRID = 3  # the water surface's color follows the shallows every this many voxels
-
-# Night city: dark buildings, dim window lights (well below the bullets' brightness).
-BUILDING_COLORS: tuple[Color, ...] = (
-    (0.07, 0.08, 0.12, 1),
-    (0.09, 0.075, 0.13, 1),
-    (0.06, 0.09, 0.11, 1),
-    (0.1, 0.1, 0.12, 1),
-)
-STREET_COLOR: Color = (0.03, 0.032, 0.045, 1)
-PLAZA_COLOR: Color = (0.05, 0.055, 0.07, 1)
-WINDOW_COLORS: tuple[Color, ...] = ((0.12, 0.42, 0.46, 1), (0.5, 0.32, 0.12, 1))  # teal, amber
-STREET_LIGHT_COLOR: Color = (0.08, 0.32, 0.4, 1)  # dim cyan: nothing pink, like the enemy bullets
-BEACON_COLOR: Color = (0.45, 0.06, 0.05, 1)
-ROCK_COLORS: tuple[Color, ...] = ((0.16, 0.15, 0.15, 1), (0.2, 0.18, 0.16, 1), (0.13, 0.13, 0.15, 1))
-PLANET_COLORS: tuple[Color, ...] = ((0.12, 0.13, 0.25, 1), (0.16, 0.14, 0.28, 1), (0.1, 0.16, 0.24, 1))
+# Backgrounds (background.py): asteroids and a distant planet, colored by the level's scenery.
 
 
 def mottle(color: Color, cell: Cell, amount: float = 0.08) -> Color:
@@ -1069,125 +1037,8 @@ def mottle(color: Color, cell: Cell, amount: float = 0.08) -> Color:
     return shade(color, 1 + amount * (2 * noise - 1))
 
 
-def ground_cells(heights: list[list[int]], first_row: int = 0, max_height: int = 3) -> dict[Cell, Color]:
-    """A voxel column per height: the base layer plus `height` voxels rising towards the camera (layer < 0).
-
-    The color depends on the column's height, as a share of `max_height`.
-    """
-    cells = {}
-    for row, line in enumerate(heights):
-        for column, height in enumerate(line):
-            color = GROUND_COLORS[min(height * len(GROUND_COLORS) // (max_height + 1), len(GROUND_COLORS) - 1)]
-            for level in range(height + 1):
-                cell = (column, first_row + row, -level)
-                cells[cell] = mottle(color, cell)
-    return cells
-
-
-def city_cells(
-    heights: list[list[int]], lots: list[list[int]], max_height: int
-) -> tuple[dict[Cell, Color], frozenset[Cell]]:
-    """A night city: (cells, glowing cells). Buildings have floors of wall and rows of windows, some lit;
-    roofs are a bit lighter with small blocks (machinery) on them, the tallest towers have one red beacon at a
-    corner; streets (lot 0) have a few lights."""
-    cells: dict[Cell, Color] = {}
-    glowing: set[Cell] = set()
-    for row, (line, line_lots) in enumerate(zip(heights, lots, strict=True)):
-        for column, (height, lot) in enumerate(zip(line, line_lots, strict=True)):
-            if lot == 0 or height == 0:
-                _street(cells, glowing, (column, row, 0), plaza=lot != 0)
-            else:
-                corner = (column == 0 or line_lots[column - 1] != lot) and (row == 0 or lots[row - 1][column] != lot)
-                beacon = corner and height >= 0.7 * max_height
-                _building_column(cells, glowing, (column, row), height, lot, beacon)
-    return cells, frozenset(glowing)
-
-
-def _street(cells: dict[Cell, Color], glowing: set[Cell], cell: Cell, plaza: bool) -> None:
-    column, row, _ = cell
-    if _noise(column, row, 1) < 0.05:
-        cells[cell] = STREET_LIGHT_COLOR
-        glowing.add(cell)
-    else:
-        cells[cell] = mottle(PLAZA_COLOR if plaza else STREET_COLOR, cell)
-
-
-def _building_column(
-    cells: dict[Cell, Color], glowing: set[Cell], place: tuple[int, int], height: int, lot: int, beacon: bool
-) -> None:
-    column, row = place
-    base = BUILDING_COLORS[lot % len(BUILDING_COLORS)]
-    lit_share = 0.08 + 0.35 * _noise(lot, 0, 3)  # some buildings are busier than others
-    window = WINDOW_COLORS[lot % len(WINDOW_COLORS)]
-    for level in range(height):
-        cell = (column, row, -level)
-        if level % 2 == 0:  # floor slab
-            cells[cell] = mottle(base, cell)
-        elif _noise(column, row, level) < lit_share:  # a row of windows: lit...
-            cells[cell] = window
-            glowing.add(cell)
-        else:  # ...or dark glass
-            cells[cell] = shade(base, 0.55)
-    roof = (column, row, -height)
-    if beacon:
-        cells[roof] = BEACON_COLOR
-        glowing.add(roof)
-        return
-    cells[roof] = mottle(shade(base, 1.2), roof)
-    if _noise(column, row, 4) < 0.07:  # rooftop machinery
-        machinery = (column, row, -height - 1)
-        cells[machinery] = mottle(shade(base, 0.9), machinery)
-
-
-def island_cells(heights: list[list[int]], max_height: int) -> dict[Cell, Color]:
-    """Land voxels (height 0 is water: no voxel), colored by their own height, so slopes show bands."""
-    cells = {}
-    for row, line in enumerate(heights):
-        for column, height in enumerate(line):
-            for level in range(1, height + 1):
-                share = level / max(max_height, 1)
-                color = next(color for limit, color in ISLAND_COLORS if share <= limit)
-                cell = (column, row, -level)
-                cells[cell] = mottle(color, cell, 0.12)
-    return cells
-
-
-def water_surface(
-    mesh: MeshBuilder, shallows: list[list[float]], voxel: float, columns: int, deep: Color = DEEP_WATER
-) -> None:
-    """The sea as a flat surface just below the first land voxels, lighter where `shallows` is high.
-
-    `shallows` has one more row than the strip (its bottom edge). A coarse grid: the colors blend in between.
-    """
-    rows = len(shallows) - 1
-    xs = [*range(0, columns, WATER_GRID), columns]
-    zs = [*range(0, rows, WATER_GRID), rows]
-
-    def corner(column: int, row: int) -> tuple[Vec3, float]:
-        shallow = shallows[row][min(column, columns - 1)]
-        # At the bottom of the first land voxels (level 1, centered one voxel in front of the base layer).
-        return Vec3(column * voxel, -voxel / 2, -row * voxel), 1 + (SHALLOW_WATER_BRIGHTNESS - 1) * shallow
-
-    for top, bottom in itertools.pairwise(zs):
-        for left, right in itertools.pairwise(xs):
-            (a, ba), (b, bb) = corner(left, bottom), corner(right, bottom)
-            (c, bc), (d, bd) = corner(right, top), corner(left, top)
-            behind = (a + c) / 2 + Vec3(0, 1, 0)  # the surface faces the camera (-Y)
-            mesh.quad(a, b, c, d, deep, behind, (ba, bb, bc, bd), (WATER_UV, WATER_UV, WATER_UV, WATER_UV))
-
-
-def _noise(a: int, b: int, c: int) -> float:
-    """A number in [0, 1), always the same for the same arguments."""
-    return ((a * 73856093) ^ (b * 19349663) ^ (c * 83492791)) % 10007 / 10007
-
-
-def buried(cell: Cell, solid: frozenset[Cell]) -> bool:
-    column, row, layer = cell
-    return all((column + dx, row - dz, layer + dy) in solid for dx, dy, dz in FACE_DIRECTIONS)
-
-
-def rock_model(shape: int) -> NodePath:
-    """A lumpy voxel asteroid, the same for the same `shape`; fits the unit box."""
+def rock_model(shape: int, colors: tuple[Color, ...]) -> NodePath:
+    """A lumpy voxel asteroid of `colors`, the same for the same `shape`; fits the unit box."""
     rng = random.Random(shape)  # noqa: S311 - visual randomness, not cryptography
     radius = 3
     stretch = Vec3(rng.uniform(0.75, 1.0), rng.uniform(0.75, 1.0), rng.uniform(0.75, 1.0))
@@ -1198,13 +1049,13 @@ def rock_model(shape: int) -> NodePath:
                 distance = Vec3(column / stretch.x, row / stretch.z, layer / stretch.y).length()
                 if distance <= radius + rng.uniform(-0.6, 0.4):
                     cell = (column, row, layer)
-                    cells[cell] = mottle(rng.choice(ROCK_COLORS), cell, 0.15)
+                    cells[cell] = mottle(rng.choice(colors), cell, 0.15)
     mesh = MeshBuilder()
     mesh.cells(cells, 1 / (2 * radius + 1), Vec3(0, 0, 0))
     return NodePath(mesh.build(f"rock_{shape}"))
 
 
-def distant_planet_model(colors: tuple[Color, ...] = PLANET_COLORS, seed: int = 7) -> NodePath:
+def distant_planet_model(colors: tuple[Color, ...], seed: int = 7) -> NodePath:
     """A big voxel planet with muted bands of `colors`; fits the unit box."""
     radius = 9
     rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography

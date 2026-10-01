@@ -3,54 +3,28 @@
 from panda3d.core import Lens, NodePath, Point2, Point3, Vec3
 
 from pewpy.graphics import models
-from pewpy.scenery import background, ground_look, ground_shader, prop_meshes
+from pewpy.scenery import background, ground_shader, params, prop_meshes
 from pewpy.scenery.background import Area, Scenery
-from pewpy.scenery.terrain import BIOMES, Terrain
+from pewpy.scenery.params import Color3, SceneryParams
+from pewpy.scenery.terrain import Terrain
 
 AREA_MARGIN = 0.05  # world units beyond the screen edges, so nothing pops in at the edges
-# Space levels pick one of each by their background seed (Scenery.variant). All dim and muted.
-NEBULA_PALETTES: tuple[tuple[models.Color, ...], ...] = (
-    ((0.1, 0.04, 0.14, 1), (0.03, 0.08, 0.12, 1), (0.06, 0.05, 0.14, 1)),  # purple and teal
-    ((0.14, 0.05, 0.03, 1), (0.12, 0.08, 0.02, 1), (0.08, 0.03, 0.06, 1)),  # ember
-    ((0.03, 0.1, 0.06, 1), (0.02, 0.07, 0.1, 1), (0.05, 0.09, 0.04, 1)),  # green
-    ((0.03, 0.05, 0.14, 1), (0.02, 0.09, 0.13, 1), (0.07, 0.07, 0.12, 1)),  # deep blue
-)
-PLANET_PALETTES: tuple[tuple[models.Color, ...], ...] = (
-    models.PLANET_COLORS,  # blue-violet
-    ((0.25, 0.15, 0.1, 1), (0.3, 0.2, 0.12, 1), (0.22, 0.12, 0.1, 1)),  # rusty
-    ((0.1, 0.2, 0.18, 1), (0.14, 0.22, 0.16, 1), (0.08, 0.16, 0.2, 1)),  # sea green
-)
-# See-through clouds over the grounds: a pale grey-blue, mixed with the air's color; each one more or less opaque.
-MIST_COLOR: tuple[float, float, float] = (0.62, 0.65, 0.72)
-MIST_AIR = 0.35
-MIST_NIGHT = 0.55  # how bright clouds stay when the ground goes dark
-MIST_OPACITY = (0.14, 0.34)
-# Time of day (Level.time_of_day): (tint of the ground, tint of its haze and sky).
-TIMES_OF_DAY: dict[str, tuple[tuple[float, float, float], tuple[float, float, float]]] = {
-    "day": ((1.0, 1.0, 1.0), (1.0, 1.0, 1.0)),
-    "dusk": ((1.0, 0.78, 0.66), (1.2, 0.8, 0.7)),
-    "night": ((0.42, 0.48, 0.68), (0.35, 0.4, 0.6)),
-}
-# The ground is big and right behind the action: less shine than the ships (shader inputs, see lighting.py).
-GROUND_LOOK = {"specular": 0.15, "reflectivity": 0.05, "bevel_strength": 0.5}
-CITY_LOOK = {"specular": 0.35, "reflectivity": 0.12, "bevel_strength": 0.4}  # a bit of glass and metal
-LOOKS = {  # by Biome.look; the water has its own, in the shader
-    "ground": GROUND_LOOK,
-    "city": CITY_LOOK,
-    "matte": {"specular": 0.06, "reflectivity": 0.02, "bevel_strength": 0.4},  # sand, rock, fields, clouds
-    "ice": {"specular": 0.5, "reflectivity": 0.15, "bevel_strength": 0.5},
-}
 
 
-SPACE_COLOR: models.Color = (0.02, 0.02, 0.08, 1)  # what the camera clears to, outside the grounds
+def _opaque(color: Color3) -> models.Color:
+    return (color[0], color[1], color[2], 1.0)
 
 
-def sky_color(kind: str, time_of_day: str = "day") -> models.Color:
+def space_color() -> models.Color:
+    """What the camera clears to around the game area and behind the menus: space's sky."""
+    return _opaque(params.resolve("space").sky)
+
+
+def sky_color(scenery: SceneryParams, time_of_day: str = "day") -> models.Color:
     """What shows where a background draws nothing (between clouds...): its sky, tinted by the time of day."""
-    biome = BIOMES.get(kind)
-    _, air = TIMES_OF_DAY[time_of_day]
-    red, green, blue, alpha = biome.sky if biome and biome.sky else SPACE_COLOR
-    return (red * air[0], green * air[1], blue * air[2], alpha)
+    air = scenery.times_of_day[time_of_day].air
+    red, green, blue = scenery.sky
+    return (red * air[0], green * air[1], blue * air[2], 1.0)
 
 
 class CameraView:
@@ -91,20 +65,24 @@ class BackgroundView:
     def __init__(self, scenery: Scenery, render: NodePath, time_of_day: str = "day") -> None:
         self.scenery = scenery
         self.root = render.attachNewNode(f"background_{scenery.kind}")
-        tint, air = TIMES_OF_DAY[time_of_day]
-        self.mist_color: tuple[float, float, float] = MIST_COLOR
+        look = scenery.params
+        times = look.times_of_day[time_of_day]
+        tint, air = times.ground, times.air
+        mist = look.mist
+        self.mist_color: tuple[float, float, float] = mist.color
         if scenery.terrain:
-            red, green, blue, amount = BIOMES[scenery.terrain.biome].haze
-            haze = (red * air[0], green * air[1], blue * air[2], amount)
+            red, green, blue = look.haze.color
+            haze = (red * air[0], green * air[1], blue * air[2], look.haze.amount)
             self.root.setShaderInput("haze", haze)  # the air, far away
             self.root.setShaderInput("tint", tint)
             # Clouds: pale, in the air's color, lit like the ground but dimming less at night (the lights below
             # still catch them).
             red, green, blue = (
-                (base * (MIST_NIGHT + (1 - MIST_NIGHT) * light)) * (1 - MIST_AIR) + far * MIST_AIR
-                for base, light, far in zip(MIST_COLOR, tint, haze[:3], strict=True)
+                (base * (mist.night + (1 - mist.night) * light)) * (1 - mist.air) + far * mist.air
+                for base, light, far in zip(mist.color, tint, haze[:3], strict=True)
             )
             self.mist_color = (red, green, blue)
+        self.star_depth = look.stars.depth if look.stars else 0.0
         self.star_nodes = [self._star_layer(layer) for layer in scenery.starfield.layers] if scenery.starfield else []
         self.layer_nodes = [[self._drifter(layer, drifter) for drifter in layer.drifters] for layer in scenery.layers]
         self.ground_nodes = self._ground(scenery.terrain) if scenery.terrain else []
@@ -113,7 +91,7 @@ class BackgroundView:
     def sync(self) -> None:
         if self.scenery.starfield:
             for layer, node in zip(self.scenery.starfield.layers, self.star_nodes, strict=True):
-                node.setPos(0, background.STAR_DEPTH, -layer.offset)
+                node.setPos(0, self.star_depth, -layer.offset)
         for layer, nodes in zip(self.scenery.layers, self.layer_nodes, strict=True):
             for drifter, node in zip(layer.drifters, nodes, strict=True):
                 node.setPos(drifter.x, layer.depth, drifter.y)
@@ -145,62 +123,39 @@ class BackgroundView:
         return node
 
     def _drifter(self, layer: background.DriftLayer, drifter: background.Drifter) -> NodePath:
+        look = self.scenery.params
         if layer.kind == "mist":
             model = models.mist_model(drifter.shape)
-            opacity = MIST_OPACITY[0] + (MIST_OPACITY[1] - MIST_OPACITY[0]) * (drifter.shape % 10) / 9
-            model.setColor(*self.mist_color, opacity)
-        elif layer.kind == "cloud":
-            nebula = NEBULA_PALETTES[self.scenery.variant % len(NEBULA_PALETTES)]
-            model = models.cloud_model(nebula[drifter.shape % len(nebula)], seed=drifter.shape)
-        elif layer.kind == "planet":
-            palette = PLANET_PALETTES[self.scenery.variant % len(PLANET_PALETTES)]
+            low, high = look.mist.opacity
+            model.setColor(*self.mist_color, low + (high - low) * (drifter.shape % 10) / 9)
+        elif layer.kind == "cloud" and look.nebulas is not None:
+            palettes = look.nebulas.palettes
+            nebula = palettes[self.scenery.variant % len(palettes)]
+            model = models.cloud_model(_opaque(nebula[drifter.shape % len(nebula)]), seed=drifter.shape)
+        elif layer.kind == "planet" and look.planet is not None:
+            palettes = look.planet.palettes
+            palette = tuple(_opaque(color) for color in palettes[self.scenery.variant % len(palettes)])
             model = models.distant_planet_model(palette, seed=self.scenery.variant)
         else:
-            model = models.rock_model(drifter.shape)
+            colors = tuple(_opaque(color) for color in look.rocks.colors) if look.rocks else ()
+            model = models.rock_model(drifter.shape, colors)
         model.reparentTo(self.root)
         model.setScale(drifter.size)
         return model
 
     def _ground(self, terrain: Terrain) -> list[NodePath]:
-        if terrain.relief is not None:
-            return self._relief(terrain)
-        nodes = []
-        for chunk in range(terrain.chunks):
-            rows = terrain.chunk_rows(chunk)
-            first = chunk * terrain.chunk_rows_count
-            above = terrain.heights[first - 1]  # row -1 is the loop's last row
-            below = terrain.heights[(first + len(rows)) % terrain.rows]
-            shallows = terrain.chunk_shallows(chunk) if terrain.water else None
-            node = ground_look.ground_chunk_model(
-                terrain.biome,
-                rows,
-                terrain.chunk_kinds(chunk),
-                terrain.voxel,
-                above,
-                below,
-                terrain.max_height,
-                shallows,
-            )
-            node.reparentTo(self.root)
-            for name, value in LOOKS[BIOMES[terrain.biome].look].items():
-                node.setShaderInput(name, value)
-            node.setShaderInput("water_offset", (0.0, -first * terrain.voxel))  # this strip's place in the loop
-            node.setShaderInput("water_loop", terrain.loop_length)
-            nodes.append(node)
-        return nodes
+        return self._relief(terrain)
 
     def _relief(self, terrain: Terrain) -> list[NodePath]:
         """A smooth ground: a mesh per strip painted by the ground shader, and the props standing on it
         (ground_shader.py)."""
         relief = terrain.relief
-        if relief is None:
-            return []
         ground = self.root.attachNewNode("relief")
         textures = ground_shader.maps(relief, terrain.layout)
         width = (relief.columns - 1) * relief.step_x
-        fluid = BIOMES[terrain.biome].fluid
-        ground_shader.ground_inputs(ground, terrain.biome, fluid, textures, terrain.loop_length, width)
-        max_height = BIOMES[terrain.biome].max_height
+        look = terrain.scenery
+        ground_shader.ground_inputs(ground, look, textures, terrain.loop_length, width)
+        max_height = look.ground.max_height if look.ground else 1.0
         nodes = []
         for chunk in range(terrain.chunks):
             strip = ground.attachNewNode(f"strip_{chunk}")
@@ -211,7 +166,7 @@ class BackgroundView:
             model.reparentTo(strip)
             props = terrain.chunk_props(chunk)
             if props:
-                vertices, triangles = prop_meshes.strip_arrays(props, chunk * terrain.chunk_height)
+                vertices, triangles = prop_meshes.strip_arrays(props, chunk * terrain.chunk_height, look.props)
                 ground_shader.props_model(vertices, triangles).reparentTo(strip)
             nodes.append(strip)
         return nodes

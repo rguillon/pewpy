@@ -73,8 +73,7 @@ from pewpy.graphics.effects import Effects, LaserGlow
 from pewpy.graphics.effects_view import EffectsView
 from pewpy.graphics.sprites import Sprite, SpriteBatch
 from pewpy.scenery.background import Scenery
-from pewpy.scenery.background_view import SPACE_COLOR, BackgroundView, CameraView, sky_color
-from pewpy.scenery.terrain import GROUND_VOXEL
+from pewpy.scenery.background_view import BackgroundView, CameraView, sky_color, space_color
 from pewpy.ui import showcase
 from pewpy.ui.level_preview import LevelPreview
 from pewpy.ui.menu import Menu, MenuItem
@@ -161,7 +160,7 @@ MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
 EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
 FLASH_COLOR: Color = (1.0, 1.0, 1.0, 1)
-BACKGROUND_COLOR: Color = SPACE_COLOR
+BACKGROUND_COLOR: Color = space_color()
 GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps this shape (width / height)
 PLAYER_BULLET_COLOR: Color = (0.3, 1.0, 0.25, 1)  # bright green
 ENEMY_BULLET_COLOR: Color = (1.0, 0.5, 0.9, 1)
@@ -793,26 +792,28 @@ class PewPewApp(ShowBase):
             ship=SHIPS[self.ship_key],
         )
         level = self.levels[index]
-        self._show_background(
-            level.background, level.ground_voxel, level.time_of_day, level.background_seed, level.clouds
-        )
+        self._show_background(level)
         self._prepare_bosses(level)
         self.effects.clear()
         self.states.transition(State.PLAYING)
 
-    def _show_background(
-        self,
-        kind: str,
-        ground_voxel: float = GROUND_VOXEL,
-        time_of_day: str = "day",
-        seed: int | None = None,
-        clouds: float = 0.0,
-    ) -> None:
+    def _show_background(self, level: Level | None = None) -> None:
+        """A level's scenery (none: space, behind the menus)."""
         self.background.destroy()
-        scenery = Scenery(kind, self.camera_view, seed=seed, ground_voxel=ground_voxel, clouds=clouds)
+        if level is None:
+            scenery = Scenery("space", self.camera_view)
+            time_of_day = "day"
+        else:
+            scenery = Scenery(
+                level.scenery_params(),
+                self.camera_view,
+                seed=level.background_seed,
+                clouds=level.clouds,
+            )
+            time_of_day = level.time_of_day
         self.background = BackgroundView(scenery, self.render, time_of_day)
         if self.win is not None:  # the sky shows through gaps, like between clouds
-            self.camNode.getDisplayRegion(0).setClearColor(sky_color(kind, time_of_day))
+            self.camNode.getDisplayRegion(0).setClearColor(sky_color(scenery.params, time_of_day))
 
     def _continue(self) -> None:
         # Continue restarts the level with full lives, a score of 0 and weapons back to level 1.
@@ -852,7 +853,7 @@ class PewPewApp(ShowBase):
             self.world = None
             self.effects.clear()
             if self.background.scenery.kind != "space":
-                self._show_background("space")
+                self._show_background()
         self._show_hud(self.world is not None)
 
     def _controls(self) -> Controls:
