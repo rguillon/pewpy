@@ -23,10 +23,25 @@ def test_every_generated_drawing_is_a_valid_enemy_model(kind):
     drawings = load_tool().generate(12, kind, seed=3, pool_factor=2)
     assert len(drawings) == 12
     for drawing in drawings:
-        rows, palette = models.parse_drawing(drawing, "candidate")
-        assert models.voxel_cells(rows, palette)
+        assert models.parse_voxels(drawing, "candidate").cells  # flat or 3D (the aircraft)
         engines = models.parse_engines(drawing, "candidate")
         assert engines and all(engine.towards == "top" for engine in engines)
+
+
+def test_aircraft_are_real_3d_models():
+    drawings = load_tool().generate(6, "aircraft", seed=5, pool_factor=2)
+    for drawing in drawings:
+        assert "layers" in drawing
+        voxels = models.parse_voxels(drawing, "candidate")
+        layers = {layer for _, _, layer in voxels.cells}
+        assert min(layers) < 0 < max(layers) or min(layers) < -1  # something above the middle plane: canopy, fins
+        # Not an extrusion: some columns go up without going as far down.
+        tops: dict[tuple[int, int], int] = {}
+        bottoms: dict[tuple[int, int], int] = {}
+        for column, row, layer in voxels.cells:
+            tops[column, row] = min(tops.get((column, row), layer), layer)
+            bottoms[column, row] = max(bottoms.get((column, row), layer), layer)
+        assert any(-tops[cell] != bottoms[cell] for cell in tops)
 
 
 def test_the_same_seed_makes_the_same_batch():

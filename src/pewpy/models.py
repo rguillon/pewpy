@@ -39,7 +39,7 @@ from panda3d.core import (
     Vec3,
 )
 
-from pewpy import config
+from pewpy import config, vox
 from pewpy.data import data_folder
 
 Color = tuple[float, float, float, float]
@@ -205,6 +205,12 @@ class MeshBuilder:
         width, height = len(rows[0]), len(rows)
         origin = center + Vec3(-(width - 1) / 2 * size, 0, (height - 1) / 2 * size)
         self.cells(voxel_cells(rows, palette), size, origin)
+
+    def drawn_cells(self, voxels: "Voxels", size: float, center: Vec3 | None = None) -> None:
+        """Add a model's cubes (of `size`), the middle of its drawing at `center`."""
+        center = center or Vec3(0, 0, 0)
+        origin = center + Vec3(-(voxels.width - 1) / 2 * size, 0, (voxels.height - 1) / 2 * size)
+        self.cells(voxels.cells, size, origin)
 
     def cells(
         self,
@@ -507,11 +513,13 @@ CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.json: drawings fo
 # models/boss_candidates/<number>.json: possible new bosses' cores, with <number>_a.json... their parts' drawings and
 # <number>.parts.json where the parts go (see tools/make_boss_candidates.py). Not in the game either.
 BOSS_CANDIDATES_FOLDER = "boss_candidates"
-DRAWING_KEYS = {"rows", "palette"}
+DRAWING_KEYS = {"rows", "palette"}  # a flat drawing, each color given a thickness
+LAYERED_KEYS = {"layers", "palette"}  # a 3D drawing: slices, the top one (nearest the camera) first
+VOX_KEYS = {"vox"}  # a MagicaVoxel model next to the file
 OPTIONAL_DRAWING_KEYS = {"engines"}
 PALETTE_KEYS = {"color", "height"}
 ENGINE_KEYS = {"x", "y", "width", "length", "towards"}
-OPTIONAL_ENGINE_KEYS = {"color"}
+OPTIONAL_ENGINE_KEYS = {"color", "z"}
 # Engine flames (see Engine): pale blue by default, a white-hot core, soft edges fading out towards the tip.
 FLAME_COLOR: Color = (0.45, 0.8, 1.0, 1)
 FLAME_CORE_COLOR: Color = (0.95, 0.98, 1.0, 1)
@@ -526,7 +534,8 @@ class Engine:
 
     `x`, `y`: column and row of the nozzle's middle (can be between two voxels, e.g. 5.5); the flame starts at the
     edge of that voxel and goes `length` voxels towards the drawing's "top" or "bottom" (first or last row),
-    `width` voxels wide at the nozzle.
+    `width` voxels wide at the nozzle. `z`: how many voxels above the model's middle plane (towards the camera) it
+    is, for 3D models whose engines aren't on it.
     """
 
     x: float
@@ -535,6 +544,17 @@ class Engine:
     length: float
     towards: str
     color: Color = FLAME_COLOR
+    z: float = 0.0
+
+
+@dataclass(frozen=True)
+class Voxels:
+    """A model's cubes, whatever it was drawn as: (column, row, layer) -> color, `width` columns and `height` rows
+    (row 0 at the top of the screen), layers counted from its middle plane (negative: towards the camera)."""
+
+    cells: dict[Cell, Color]
+    width: int
+    height: int
 
 
 def make_cube(name: str = "cube") -> GeomNode:
@@ -547,6 +567,8 @@ def make_cube(name: str = "cube") -> GeomNode:
 def candidate_names() -> list[str]:
     """The model candidates' drawings, like "candidates/001", in order."""
     folder = data_folder() / DRAWINGS_FOLDER / CANDIDATES_FOLDER
+    if not folder.is_dir():  # not in the packaged game
+        return []
     files = sorted(entry.name for entry in folder.iterdir() if entry.name.endswith(".json"))
     return [f"{CANDIDATES_FOLDER}/{name.removesuffix('.json')}" for name in files]
 
@@ -576,6 +598,13 @@ def load_drawing(name: str) -> tuple[list[str], Palette]:
     return parse_drawing(data, source)
 
 
+def load_voxels(name: str) -> Voxels:
+    """A model's cubes, from `models/<name>.json`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model (read
+    again every time, so edited files show up with "Reload models")."""
+    data, source = _read_drawing(name)
+    return parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
+
+
 def load_engines(name: str) -> list[Engine]:
     data, source = _read_drawing(name)
     return parse_engines(data, source)
@@ -584,6 +613,87 @@ def load_engines(name: str) -> list[Engine]:
 def _read_drawing(name: str) -> tuple[Any, str]:
     source = f"{name}.json"
     return json.loads((data_folder() / DRAWINGS_FOLDER / source).read_text()), source
+
+
+def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:
+    """A model file in any of its forms (`folder`: where a .vox file it names is, within models/):
+    - a flat drawing: see `parse_drawing`;
+    - a 3D drawing: "layers", a list of slices from the top (nearest the camera) down, each written like a flat
+      drawing's rows, and "palette" (for each character, its "color");
+    - a MagicaVoxel model: "vox", the name of a .vox file next to it (MagicaVoxel's z is up, towards the camera;
+      its y goes up the screen).
+    Any of them can have "engines" (see `parse_engines`)."""
+    keys = set(data) - OPTIONAL_DRAWING_KEYS if isinstance(data, dict) else set()
+    if keys == LAYERED_KEYS:
+        return _parse_layers(data, source)
+    if keys == VOX_KEYS:
+        if not isinstance(data["vox"], str):
+            raise VoxelDrawingError.malformed(source, "'vox' must be a file name")
+        path = data_folder() / DRAWINGS_FOLDER / folder / data["vox"]
+        try:
+            return voxels_from_vox(vox.read(path.read_bytes()))
+        except (OSError, vox.VoxError) as error:
+            raise VoxelDrawingError.malformed(source, f"{data['vox']}: {error}") from error
+    rows, palette = parse_drawing(data, source)
+    return Voxels(voxel_cells(rows, palette), len(rows[0]), len(rows))
+
+
+def _parse_layers(data: Any, source: str) -> Voxels:
+    layers = data["layers"]
+    if not isinstance(layers, list) or not layers or not all(isinstance(layer, list) and layer for layer in layers):
+        raise VoxelDrawingError.malformed(source, "'layers' must be a list of layers, each a list of rows")
+    colors = _layer_colors(data["palette"], source)
+    width, height = len(layers[0][0]), len(layers[0])
+    cells = {}
+    for index, layer in enumerate(layers):
+        if len(layer) != height or not all(isinstance(row, str) and len(row) == width for row in layer):
+            raise VoxelDrawingError.malformed(source, f"layer {index + 1}: every layer must have the same rows")
+        for row_index, row in enumerate(layer):
+            for column, char in enumerate(row):
+                if char in EMPTY:
+                    continue
+                if char not in colors:
+                    raise VoxelDrawingError.malformed(source, f"character {char!r} is not in the palette")
+                cells[column, row_index, index - len(layers) // 2] = colors[char]  # the middle layer on the plane
+    return Voxels(cells, width, height)
+
+
+def _layer_colors(palette: Any, source: str) -> dict[str, Color]:
+    """A 3D drawing's palette: each character's "color" (no height: the layers give the shape)."""
+    if not isinstance(palette, dict):
+        raise VoxelDrawingError.malformed(source, "'palette' must map characters to a color")
+    colors = {}
+    for char, entry in palette.items():
+        if not isinstance(entry, dict) or set(entry) != {"color"}:
+            raise VoxelDrawingError.malformed(source, f"palette {char!r}: expected exactly the key 'color'")
+        colors[char] = _palette_entry(char, {"color": entry["color"], "height": 1}, source)[0]
+    return colors
+
+
+def voxels_from_vox(model: vox.VoxModel) -> Voxels:
+    """A MagicaVoxel model lying on the ground, seen from above: its x across, its y up the screen, its z up
+    towards the camera."""
+    size_x, size_y, size_z = model.size
+    cells = {}
+    for x, y, z, index in model.voxels:
+        red, green, blue, _ = model.palette[index - 1]
+        cells[x, size_y - 1 - y, size_z // 2 - z] = (red / 255, green / 255, blue / 255, 1.0)
+    return Voxels(cells, size_x, size_y)
+
+
+def voxels_to_vox(voxels: Voxels) -> vox.VoxModel:
+    """The other way (for editing a model in MagicaVoxel): the same cubes, the same colors (up to 255 of them)."""
+    layers = [layer for _, _, layer in voxels.cells] or [0]
+    size_z = 2 * max(abs(min(layers)), abs(max(layers))) + 1
+    palette: dict[tuple[int, int, int, int], int] = {}
+    points = []
+    for (column, row, layer), color in voxels.cells.items():
+        rgba = (round(color[0] * 255), round(color[1] * 255), round(color[2] * 255), 255)
+        index = palette.setdefault(rgba, len(palette) + 1)
+        if index > 255:
+            raise VoxelDrawingError.malformed("vox", "more than 255 colors")
+        points.append((column, voxels.height - 1 - row, size_z // 2 - layer, index))
+    return vox.VoxModel((voxels.width, voxels.height, size_z), points, list(palette))
 
 
 def parse_drawing(data: Any, source: str = "drawing") -> tuple[list[str], Palette]:
@@ -645,31 +755,38 @@ def parse_engines(data: Any, source: str = "drawing") -> list[Engine]:
         if "color" in entry:
             red, green, blue, _ = _palette_entry("e", {"color": entry["color"], "height": 1}, source)[0]
             color = (red, green, blue, 1.0)
+        z = entry.get("z", 0.0)
+        if not isinstance(z, int | float) or isinstance(z, bool):
+            raise VoxelDrawingError.malformed(source, f"{where}: 'z' must be a number")
         x, y, width, length = (float(value) for value in numbers)
-        engines.append(Engine(x, y, width, length, entry["towards"], color))
+        engines.append(Engine(x, y, width, length, entry["towards"], color, float(z)))
     return engines
 
 
 def drawing_model(name: str) -> NodePath:
     """The drawing's voxel model, with a flame (a child node named "flame") for each of its engines."""
     data, source = _read_drawing(name)
-    rows, palette = parse_drawing(data, source)
-    model = voxel_model(name, rows, palette)
+    voxels = parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
+    mesh = MeshBuilder()
+    mesh.drawn_cells(voxels, config.MODEL_VOXEL)
+    model = NodePath(mesh.build(name))
     for engine in parse_engines(data, source):
-        add_flame(model, engine, rows, config.MODEL_VOXEL)
+        add_flame(model, engine, (voxels.width, voxels.height), config.MODEL_VOXEL)
     return model
 
 
-def add_flame(model: NodePath, engine: Engine, rows: list[str], size: float) -> NodePath:
-    """A flame under `model` at `engine`'s nozzle, `size` being the model's voxel size.
+def add_flame(model: NodePath, engine: Engine, shape: tuple[int, int], size: float) -> NodePath:
+    """A flame under `model` at `engine`'s nozzle, `shape` being the model's (columns, rows) and `size` its voxel
+    size.
 
     Its length is its Z scale: the game makes it flicker by changing it.
     """
-    x = (engine.x - (len(rows[0]) - 1) / 2) * size
+    columns, rows = shape
+    x = (engine.x - (columns - 1) / 2) * size
     edge = engine.y + (0.5 if engine.towards == "bottom" else -0.5)  # the side of the voxel the flame leaves from
-    z = ((len(rows) - 1) / 2 - edge) * size
+    z = ((rows - 1) / 2 - edge) * size
     flame = model.attachNewNode("flame")
-    flame.setPos(x, 0, z)
+    flame.setPos(x, -engine.z * size, z)
     flame.setR(FLAME_DIRECTIONS[engine.towards])
     flame.setScale(engine.width * size, engine.width * size, engine.length * size)
     for part, color, scale in (("glow", engine.color, (1.0, 1.0)), ("core", FLAME_CORE_COLOR, FLAME_CORE_SIZE)):

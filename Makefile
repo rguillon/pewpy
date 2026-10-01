@@ -27,6 +27,10 @@ candidates: ## Generate enemy model candidates for the Enemy candidates screen (
 boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
 	@uv run python -m tools.make_boss_candidates $(ARGS)
 
+.PHONY: voxels
+voxels: ## Move a model between flat, 3D (layered) and MagicaVoxel forms (ARGS="export drone", "use drone", "layers drone")
+	@uv run python -m tools.voxels $(ARGS)
+
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"

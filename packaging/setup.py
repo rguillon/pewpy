@@ -28,7 +28,7 @@ setup(
             "gui_apps": {"pewpy": "src/pewpy/__main__.py"},
             "platforms": ["win_amd64"],
             "plugins": ["pandagl", "p3openal_audio"],
-            "include_patterns": ["src/pewpy/levels/**/*.json", "src/pewpy/models/*.json"],
+            "include_patterns": ["src/pewpy/levels/**/*.json", "src/pewpy/models/*.json", "src/pewpy/models/*.vox"],
             "rename_paths": {"src/pewpy/": "pewpy/"},
             "exclude_patterns": [".venv/**", ".git/**", "build/**", "dist/**", "site/**", "tests/**", "docs/**"],
             "requirements_path": "build/requirements.txt",

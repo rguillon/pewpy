@@ -132,6 +132,10 @@ class Canvas:
             if side == "both":
                 self.set(round(self.mirror(x)), y, char)
 
+    def rows_chars(self) -> str:
+        """Every character drawn."""
+        return "".join({char for row in self.cells for char in row} - {"."})
+
     def cells_of(self, chars: str) -> list[tuple[int, int]]:
         return [(x, y) for y in range(self.h) for x in range(self.w) if self.get(x, y) in chars]
 
@@ -150,11 +154,16 @@ def _inside(x: float, y: float, points: list[Point]) -> bool:
 # Aircraft.
 
 
-def aircraft(rng: Rng) -> tuple[Canvas, bool]:
+class Parts(Canvas):
+    """What each cell of an aircraft's drawing is, for building it in 3D (see `aircraft_layers`): "F" fuselage,
+    "W" wing or tailplane, "V" upright fin, "P" engine pod, "G" gun."""
+
+
+def aircraft(rng: Rng) -> tuple[Canvas, bool, Parts]:
     small = rng.random() < 0.25
     width = rng.randrange(9, 16, 2) if small else rng.randrange(15, 32, 2)
     height = rng.randint(9, 15) if small else rng.randint(14, 30)
-    cv = Canvas(width, height)
+    cv, parts = Canvas(width, height), Parts(width, height)
     body = rng.choice((0.6, 1.0)) if small else rng.choice((0.6, 1.0, 1.0, 1.5, 2.0))
     _fuselage(rng, cv, body)
     root_x = width // 2 - round(body) - 0.5
@@ -162,15 +171,74 @@ def aircraft(rng: Rng) -> tuple[Canvas, bool]:
     front = height * rng.uniform(0.5, 0.72)  # the wing root's leading edge (towards the nose)
     points = WING_PLANS[plan](rng, height, root_x, front)
     cv.polygon(points, "w", "both")
+    parts.polygon(points, "W", "both")
     if plan not in ("delta", "ogival") or rng.random() < 0.3:
         _tail(rng, cv, root_x, front, min(y for _, y in points))
+    for x, y in cv.cells_of("w"):
+        parts.set(x, y, "W")  # the tailplane too
+    for x, y in cv.cells_of("h"):
+        parts.set(x, y, "F")  # the fuselage, over the wings' roots
     _fins(rng, cv, body)
+    for x, y in cv.cells_of("S"):
+        parts.set(x, y, "V")
     _pods_and_weapons(rng, cv, root_x, front)
+    for x, y in cv.cells_of("N"):
+        parts.set(x, y, "P")
+    for x, y in cv.cells_of("r"):
+        parts.set(x, y, "G")
     if rng.random() < 0.12:  # the odd lopsided one: a pod on one wing only
         x = round(root_x * 0.4)
         cv.rect(x, x + 1, front - 4, front, "t")
-        return cv, False
-    return cv, True
+        parts.rect(x, x + 1, front - 4, front, "P")
+        return cv, False, parts
+    return cv, True, parts
+
+
+AIRCRAFT_DIHEDRAL = 0.06  # wings rise towards their tips: cubes up per cube out
+AIRCRAFT_FIN = 2  # an upright fin stands this many cubes above the fuselage at its front, more towards the back
+
+
+def aircraft_layers(cv: Canvas, parts: Parts) -> dict[tuple[int, int, int], str]:
+    """The aircraft in 3D: (column, row, layer) -> its drawing's character; layers from the middle plane, negative
+    ones up towards the camera. A round fuselage (its width on the drawing gives its depth), a canopy on top of it,
+    thin wings and tailplanes rising a little towards their tips, upright fins, pods and guns slung underneath."""
+    middle = (cv.w - 1) / 2
+    cells: dict[tuple[int, int, int], str] = {}
+    fin_rows = sorted({y for _, y in parts.cells_of("V")})
+    for x, y in cv.cells_of(cv.rows_chars()):
+        char, part = cv.get(x, y), parts.get(x, y)
+        if part == "F":
+            radius = sum(parts.get(column, y) == "F" for column in range(cv.w)) / 2 + 0.3
+            depth = round(math.sqrt(max(0.0, radius * radius - (x - middle) ** 2)))
+            top = depth + (1 if char in "cR" else 0)  # the canopy bulges on top
+            layers = range(-top, depth + 1)
+        elif part == "V":
+            height = AIRCRAFT_FIN + (fin_rows[-1] - y if fin_rows else 0)  # taller towards the back
+            layers = range(-height, 1)
+        elif part == "P":
+            layers = range(0, 2)  # under the wing
+        elif part == "G":
+            layers = range(1, 2)
+        else:  # wings, tailplanes, and anything else thin
+            layers = range(-round(abs(x - middle) * AIRCRAFT_DIHEDRAL), -round(abs(x - middle) * AIRCRAFT_DIHEDRAL) + 1)
+        for layer in layers:
+            cells[x, y, layer] = char
+    return cells
+
+
+def layered_drawing(cells: dict[tuple[int, int, int], str], cv: Canvas, colors: dict) -> dict:
+    """A 3D drawing: its layers from the top (nearest the camera) down, symmetric around the middle plane (the
+    game puts the middle one on it), and each character's color."""
+    extent = max(abs(layer) for _, _, layer in cells)
+    layers = [
+        ["".join(cells.get((x, y, layer), ".") for x in range(cv.w)) for y in range(cv.h)]
+        for layer in range(-extent, extent + 1)
+    ]
+    used = set(cells.values())
+    return {
+        "layers": layers,
+        "palette": {char: {"color": entry["color"]} for char, entry in colors.items() if char in used},
+    }
 
 
 def _fuselage(rng: Rng, cv: Canvas, body: float) -> None:
@@ -462,8 +530,9 @@ def industrial(rng: Rng, lopsided: bool) -> tuple[Canvas, bool]:
 # Details, on every ship.
 
 
-def trim(cv: Canvas, symmetric: bool) -> None:
-    """Drop the empty rows and columns around the ship (a symmetric one stays centred)."""
+def trim(cv: Canvas, symmetric: bool, also: Canvas | None = None) -> None:
+    """Drop the empty rows and columns around the ship (a symmetric one stays centred); `also` is cropped the same
+    way."""
     rows = [y for y in range(cv.h) if any(cv.filled(x, y) for x in range(cv.w))]
     columns = [x for x in range(cv.w) if any(cv.filled(x, y) for y in range(cv.h))]
     if not rows or not columns:
@@ -472,8 +541,9 @@ def trim(cv: Canvas, symmetric: bool) -> None:
     if symmetric:
         left = min(left, cv.w - 1 - right)
         right = cv.w - 1 - left
-    cv.cells = [row[left : right + 1] for row in cv.cells[rows[0] : rows[-1] + 1]]
-    cv.h, cv.w = len(cv.cells), len(cv.cells[0])
+    for canvas in [cv] + ([also] if also is not None else []):
+        canvas.cells = [row[left : right + 1] for row in canvas.cells[rows[0] : rows[-1] + 1]]
+        canvas.h, canvas.w = len(canvas.cells), len(canvas.cells[0])
 
 
 def detail(rng: Rng, cv: Canvas, symmetric: bool) -> list[dict]:
@@ -629,14 +699,24 @@ def features(rows: list[str], symmetric: bool) -> list[float]:
 
 def ship(rng: Rng, group: str) -> tuple[list[float], dict] | None:
     """One ship of a group ("aircraft", "symmetric" or "lopsided"): its features and its drawing."""
-    cv, symmetric = aircraft(rng) if group == "aircraft" else industrial(rng, group == "lopsided")
-    trim(cv, symmetric)
+    parts: Parts | None = None
+    if group == "aircraft":
+        cv, symmetric, parts = aircraft(rng)
+    else:
+        cv, symmetric = industrial(rng, group == "lopsided")
+    trim(cv, symmetric, parts)
     if cv.w < 5 or cv.h < 5:
         return None
     engines = detail(rng, cv, symmetric)
     rows = cv.rows()
     used = {char for row in rows for char in row} - {"."}
-    return features(rows, symmetric), {"rows": rows, "palette": palette(rng, used), "engines": engines}
+    colors = palette(rng, used)
+    if parts is not None:  # aircraft are real 3D models (layers); the others, flat drawings with thicknesses
+        return features(rows, symmetric), {
+            **layered_drawing(aircraft_layers(cv, parts), cv, colors),
+            "engines": engines,
+        }
+    return features(rows, symmetric), {"rows": rows, "palette": colors, "engines": engines}
 
 
 def most_different(pool: list[tuple[list[float], dict]], count: int) -> list[dict]:

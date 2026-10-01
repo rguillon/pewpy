@@ -534,14 +534,14 @@ class PewPewApp(ShowBase):
         """A model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes, all drawn at
         the same scale so small and big ones compare (read again every time: edited drawings show when the page is
         shown again)."""
-        rows, _ = models.load_drawing(name)
-        label = f"#{name.rsplit('/', 1)[-1]}  {len(rows[0])}x{len(rows)}"
+        voxels = models.load_voxels(name)
+        label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height}"
         return label, _fitted(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _boss_candidate(self, name: str) -> tuple[str, NodePath]:
         """A boss candidate with its parts in place, numbered like its file, all drawn to the same scale (read again
         every time, like the enemy candidates)."""
-        rows, _ = models.load_drawing(name)
+        voxels = models.load_voxels(name)
         whole = NodePath(name)
         models.drawing_model(name).reparentTo(whole)
         parts = models.boss_candidate_parts(name)
@@ -549,7 +549,7 @@ class PewPewApp(ShowBase):
             piece = models.drawing_model(drawing)
             piece.reparentTo(whole)
             piece.setPos(x * config.MODEL_VOXEL, 0, y * config.MODEL_VOXEL)
-        label = f"#{name.rsplit('/', 1)[-1]}  {len(rows[0])}x{len(rows)} +{len(parts)}"  # size, and parts
+        label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height} +{len(parts)}"  # size, and parts
         return label, _fitted(whole, BOSS_CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _whole_boss(self, spec: BossSpec) -> NodePath:

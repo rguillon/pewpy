@@ -177,6 +177,20 @@
 
 ## Decisions made
 
+### 2026-10-01 — Real 3D models: 3D drawings and MagicaVoxel (asked by the user in chat: option C + B)
+- Decision (the user's): of the ways to make models real 3D voxels, try B (3D drawings as layers) + C (MagicaVoxel
+  import); the automatic sculpting (D) was tried and reverted.
+- Done: a model file (`models/<name>.json`) is one of three forms, all read into the same cubes (`load_voxels`):
+  a flat drawing as before (rows, each color a thickness), a 3D drawing ("layers": slices from the top, nearest
+  the camera, down, the middle one on the model's middle plane; a palette of colors), or a MagicaVoxel model
+  ("vox": a .vox file next to it; lying on the ground seen from above, its z up towards the camera). Engines can
+  have a "z" (cubes above the middle plane). `vox.py` reads and writes .vox files (the first model; the palette;
+  no palette means grey). `tools/voxels.py` (`make voxels ARGS="..."`): export a model to .vox (to edit it in
+  MagicaVoxel), use its .vox, or turn it into layers; engines are kept. The packaged game includes .vox models.
+- The aircraft candidates (tools/make_candidates.py) are now real 3D: round fuselages, a canopy on top, thin
+  wings rising a little to their tips, upright fins taller at the back, pods and guns underneath. The industrial
+  ships and the bosses are still flat drawings. No existing model was changed.
+
 ### 2026-09-30 — Clouds above the mountains (asked by the user in chat: peaks went higher than the clouds)
 - The see-through clouds were at fixed depths (0.08 and 0.18 behind the ships), but the mountains' peaks reach 0.2
   and the planet's hills 0.14, so peaks showed through or in front of them. Now each cloud layer is at most 40 %
