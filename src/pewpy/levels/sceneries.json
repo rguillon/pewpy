@@ -72,7 +72,13 @@
       "dead_wood": [0.2, 0.17, 0.14],
       "concrete": [0.36, 0.35, 0.33],
       "glasshouse": [0.42, 0.5, 0.48],
-      "vent": [0.05, 0.05, 0.055]
+      "vent": [0.05, 0.05, 0.055],
+      "apron": [0.17, 0.17, 0.18],
+      "marking": [0.5, 0.44, 0.16],
+      "hull": [[0.42, 0.44, 0.47], [0.36, 0.38, 0.42], [0.45, 0.43, 0.4]],
+      "hangar_walls": [[0.24, 0.27, 0.22], [0.28, 0.28, 0.3], [0.3, 0.27, 0.22]],
+      "containers": [[0.42, 0.16, 0.09], [0.11, 0.23, 0.38], [0.4, 0.33, 0.09], [0.13, 0.28, 0.16], [0.33, 0.33, 0.34]],
+      "scifi_light": [0.25, 0.8, 0.95]
     },
     "stars": null,
     "nebulas": null,
@@ -81,7 +87,8 @@
     "ground": null,
     "fluid": null,
     "settlement": null,
-    "flora": null
+    "flora": null,
+    "outposts": null
   },
   "space": {
     "stars": {
@@ -215,6 +222,11 @@
         "lowrise": [0.03, 0.11],
         "tree_size": [0.03, 0.05]
       }
+    },
+    "outposts": {
+      "kinds": ["colony", "airfield", "radar_station"],
+      "spacing": 1.5,
+      "size": [0.26, 0.4]
     }
   },
   "ocean": {
@@ -243,6 +255,11 @@
         "shallow": [0.052, 0.156, 0.26],
         "foam": [0.3, 0.33, 0.36]
       }
+    },
+    "outposts": {
+      "kinds": ["airfield", "colony", "radar_station"],
+      "spacing": 1.6,
+      "size": [0.26, 0.4]
     }
   },
   "desert": {
@@ -316,6 +333,11 @@
         "shallow": [0.052, 0.156, 0.156],
         "foam": [0.3, 0.33, 0.36]
       }
+    },
+    "outposts": {
+      "kinds": ["factory", "depot", "radar_station", "airfield"],
+      "spacing": 1.6,
+      "size": [0.26, 0.4]
     }
   },
   "canyon": {
@@ -352,6 +374,11 @@
         "shallow": [0.078, 0.208, 0.208],
         "foam": [0.3, 0.33, 0.36]
       }
+    },
+    "outposts": {
+      "kinds": ["factory", "depot", "radar_station", "colony"],
+      "spacing": 1.6,
+      "size": [0.26, 0.4]
     }
   },
   "farmland": {
@@ -396,6 +423,11 @@
         "fields": ["wheat", "wheat", "crop", "crop", "plowed", "lavender"],
         "tree_size": [0.03, 0.05]
       }
+    },
+    "outposts": {
+      "kinds": ["airfield", "depot", "factory"],
+      "spacing": 1.6,
+      "size": [0.26, 0.4]
     }
   },
   "pack_ice": {
@@ -493,6 +525,11 @@
         "size": 0.03,
         "height": [0.04, 0.07]
       }
+    },
+    "outposts": {
+      "kinds": ["colony", "radar_station", "depot"],
+      "spacing": 1.7,
+      "size": [0.26, 0.4]
     }
   },
   "clouds": {
@@ -555,6 +592,11 @@
         "lot": 0.14,
         "units": ["tanks", "tanks", "plant", "stack", "pipes", "cooling"]
       }
+    },
+    "outposts": {
+      "kinds": ["factory", "depot", "airfield"],
+      "spacing": 1.5,
+      "size": [0.26, 0.4]
     }
   },
   "mountains": {
@@ -580,6 +622,11 @@
       },
       "depth": 0.7,
       "max_height": 0.5
+    },
+    "outposts": {
+      "kinds": ["radar_station", "radar_station", "colony", "airfield"],
+      "spacing": 1.7,
+      "size": [0.26, 0.4]
     }
   }
 }

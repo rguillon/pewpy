@@ -13,7 +13,7 @@ import numpy as np
 
 from pewpy import config
 from pewpy.scenery import relief, settlement
-from pewpy.scenery.grounds import FLORAS, LANDSCAPES, SETTLEMENTS
+from pewpy.scenery.grounds import FLORAS, LANDSCAPES, SETTLEMENTS, outposts
 from pewpy.scenery.params import SceneryParams
 from pewpy.scenery.relief import RELIEF_STEP, Relief
 from pewpy.scenery.settlement import Layout, Prop
@@ -78,7 +78,6 @@ class Terrain:
             rng, self.relief_rows * self.chunks, columns, ground.max_height, RELIEF_STEP, ground.shape
         )
         fluid = scenery.fluid is not None
-        surface = np.maximum(shape.heights, 0.0) if fluid else shape.heights
         props: list[Prop] = []
         self.layout: Layout | None = None
         if scenery.settlement is not None:
@@ -88,6 +87,13 @@ class Terrain:
         if scenery.flora is not None:
             flora = FLORAS[scenery.flora.kind]
             props += flora.props(self.rng, shape, RELIEF_STEP, RELIEF_STEP, scenery.flora.knobs)
+        if scenery.outposts is not None:  # levels the ground under them, makes room among the rest
+            rng = random.Random(self.rng.randrange(2**32))  # noqa: S311 - visual randomness
+            shape, compounds, sites = outposts.build(rng, shape, RELIEF_STEP, scenery.outposts, fluid)
+            props = [*outposts.outside(props, sites), *compounds]
+            if self.layout is not None and scenery.settlement is not None:
+                self.layout = outposts.clear(self.layout, sites, outposts.SURFACES[scenery.settlement.kind])
+        surface = np.maximum(shape.heights, 0.0) if fluid else shape.heights
         self.props: list[Prop] = []  # standing on the relief
         occluders = None
         if props:

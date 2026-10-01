@@ -24,6 +24,7 @@ from numpy.typing import NDArray
 from pewpy.scenery.params import Knobs
 
 SURFACE_STEP = 0.005  # world units between two points of the surface map
+ROUND = frozenset({"tree", "tank", "silo", "stack", "cooling_tower", "radar", "dome", "antenna", "pylon", "pad"})
 
 
 class Surface(IntEnum):
@@ -45,7 +46,8 @@ class Surface(IntEnum):
 @dataclass(frozen=True)
 class Prop:
     """Something standing on the ground. `kind`: "building", "house", "barn", "silo", "greenhouse", "tank",
-    "plant", "stack", "pipes", "cooling_tower", "tree", "hedge", "palm" or "dead_tree"; `seed` picks its variant,
+    "plant", "stack", "pipes", "cooling_tower", "tree", "hedge", "palm", "dead_tree", or in the outposts "apron",
+    "hangar", "warehouse", "containers", "radar", "dome", "antenna", "pad", "pylon"; `seed` picks its variant,
     colors and details (see props/).
     """
 
@@ -163,7 +165,7 @@ def occluders(props: list[Prop], heights: NDArray[np.float64], step_x: float, st
     result = heights.copy()
     rows, columns = heights.shape
     for prop in props:
-        shrink_by = 0.8 if prop.kind in ("tree", "tank", "silo", "stack", "cooling_tower") else 1.0  # round ones
+        shrink_by = 0.8 if prop.kind in ROUND else 1.0
         half_x, half_y = prop.width * shrink_by / 2, prop.length * shrink_by / 2
         first_column = max(int(np.ceil((prop.x - half_x) / step_x)), 0)
         last_column = min(int(np.floor((prop.x + half_x) / step_x)), columns - 1)

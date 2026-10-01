@@ -1,5 +1,6 @@
 """Every kind of ground, each in its own module: the landscapes (landscapes.py Landscape), the floras standing on some
-of them (landscapes.py Flora) and the settlements built on others (settlement.py Settlement).
+of them (landscapes.py Flora), the settlements built on others (settlement.py Settlement), and the outposts any of
+them can have (outposts.py).
 
 The level's scenery names them (`ground.landscape`, `flora.kind`, `settlement.kind`, see params.py); these registries
 give each name its generator. Independent from Panda3D.
@@ -16,6 +17,7 @@ from pewpy.scenery.grounds import (
     islands,
     level_ground,
     mountains,
+    outposts,
     pack_ice,
     refinery,
     rolling,
@@ -25,7 +27,7 @@ from pewpy.scenery.grounds import (
 from pewpy.scenery.landscapes import Flora, Landscape
 from pewpy.scenery.settlement import Settlement
 
-__all__ = ["FLORAS", "LANDSCAPES", "SETTLEMENTS"]
+__all__ = ["FLORAS", "LANDSCAPES", "SETTLEMENTS", "outposts"]
 
 LANDSCAPES: dict[str, Landscape] = {
     "mountains": mountains.Mountains(),

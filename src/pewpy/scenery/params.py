@@ -7,7 +7,8 @@ replaced; but naming another landscape, painter or generator takes the new one's
 DEPENDS_ON). The result must be complete: the code has no values of its own.
 
 What a scenery has decides what's drawn: stars, nebulas and a distant planet (space), asteroids (debris), or a
-ground (its landscape, painted by the ground shader; maybe a fluid below height 0, a settlement on it, flora).
+ground (its landscape, painted by the ground shader; maybe a fluid below height 0, a settlement on it, flora,
+outposts).
 Generators named in the data (a landscape, a settlement, flora) take their own numbers ("knobs"), checked against
 what each one needs (its `knobs`, see grounds/). Colors are [red, green, blue] from 0 to 1.
 
@@ -156,6 +157,15 @@ class Flora:
 
 
 @dataclass(frozen=True)
+class Outposts:
+    """Compounds set on the ground wherever it is flattest, on a levelled apron (grounds/outposts.py)."""
+
+    kinds: tuple[str, ...]  # grounds/outposts.py COMPOUNDS: each compound picks one
+    spacing: float  # about this far apart (world units)
+    size: tuple[float, float]  # across, each somewhere between
+
+
+@dataclass(frozen=True)
 class PropColors:
     """The props standing on the grounds (props/); lists: each one picks among them. Each prop varies its
     colors a little around these.
@@ -187,6 +197,12 @@ class PropColors:
     concrete: Color3  # cooling towers
     glasshouse: Color3  # greenhouses
     vent: Color3  # dark openings: a cooling tower's inside, a chimney's mouth
+    apron: Color3  # the concrete under the outposts, landing pads
+    marking: Color3  # lines painted on aprons and landing pads
+    hull: tuple[Color3, ...]  # sci-fi panels: domes, radars, pylons, parked craft
+    hangar_walls: tuple[Color3, ...]
+    containers: tuple[Color3, ...]
+    scifi_light: Color3  # glowing bands, pad lights, pylon crystals
 
 
 @dataclass(frozen=True)
@@ -206,6 +222,7 @@ class SceneryParams:
     fluid: Fluid | None
     settlement: Settlement | None
     flora: Flora | None
+    outposts: Outposts | None
 
 
 # What depends on which generator or painter an object names: when `over` names another one, these are replaced by
@@ -326,6 +343,11 @@ def _check_generators(params: SceneryParams) -> None:
         _check_names(params.settlement.kind, params.settlement.colors, SURFACE_COLORS, f"{name}.settlement.colors")
     if params.flora is not None:
         _check_knobs(params.flora.kind, params.flora.knobs, grounds.FLORAS, f"{name}.flora.knobs")
+    if params.outposts is not None:
+        compounds = grounds.outposts.COMPOUNDS
+        unknown = sorted(set(params.outposts.kinds) - set(compounds))
+        if unknown or not params.outposts.kinds:
+            raise SceneryError(f"{name}.outposts.kinds", f"unknown {unknown}, expected some of {sorted(compounds)}")
 
 
 class _Generator(Protocol):

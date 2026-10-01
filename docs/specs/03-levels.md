@@ -42,7 +42,7 @@ fade into haze towards the top of the screen.
 
 Each background is a preset of `src/pewpy/levels/sceneries.json`, which holds every value of the sceneries: colors
 (of the grounds, water, lava, props, the sky, the haze), sizes and shares (city blocks, streets, building heights,
-fields, islands, dunes...), depths, stars, nebulas, asteroids, clouds, times of day. A level's `scenery` changes
+fields, islands, dunes, outposts...), depths, stars, nebulas, asteroids, clouds, times of day. A level's `scenery` changes
 any of them for that level, e.g. `"scenery": {"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}}` for greener
 water (see `pewpy.scenery.params`).
 
@@ -67,6 +67,44 @@ later worlds *(open: which ones, and where)*.
 | `mountains` | Snowy ridges, glaciers, pine forests |
 | `city` | A sci-fi city at night: blocks of towers with lit windows, street lights, red beacons |
 | `refinery` | Tanks, pipe yards, plants with glowing furnaces, cooling towers, flaming stacks, at night |
+
+Every world's ground also has **outposts** *(the user's idea: hangars, industrial buildings, sci-fi stuff)*:
+small compounds set where the ground is flattest (and dry, and open: in a forest's clearings, not on reeds). About
+a third stand on a concrete apron with painted lines, packed; the others stand on the bare ground, looser, a third
+of their lots left empty (`PAVED_SHARE`, `EMPTY_LOTS`) *(placeholder; the user's choice: not all on concrete)*. The ground under each is levelled and blends back into the land around it;
+on the city, the refinery and the farmland a compound takes the place of what stood there, on pavement, yard or
+farmyard. A compound is cut into a few lots: its main buildings first, the rest picked among its others
+(`grounds/outposts.py`):
+
+| Compound | Main buildings | Others |
+|----------|----------------|--------|
+| `airfield` | A hangar, a landing pad | Hangars, containers, an antenna mast, a tank, an industrial hall, pads |
+| `radar_station` | A radar, an antenna mast | Radars, a dome, an industrial hall, containers |
+| `factory` | Two industrial halls | Containers, tanks, a flaring stack, halls, a hangar |
+| `depot` | Container stacks, an industrial hall | More containers, a tank, an antenna, a hangar |
+| `colony` | A dome, a landing pad | Domes, energy pylons, an antenna, a radar |
+
+The new props: hangars (vaulted halls, sometimes two side by side, a dark door with a light over it), industrial
+halls (sawtooth roofs with glazed teeth or flat roofs with vents, loading doors, sometimes an office block),
+container stacks (one to three high, in rows), radars (a dish looking up, or a radome on a tower), domes (on a
+ring wall with a glowing cyan band; some are glass, with plants inside), antenna masts (a red light at the tip),
+landing pads (eight-sided, a painted ring and cross, cyan lights, sometimes a small craft parked), energy pylons
+(six-sided spires with glowing rings and a crystal). Their colors are in `props` (`apron`, `marking`, `hull`,
+`hangar_walls`, `containers`, `scifi_light`).
+
+Each preset picks its compounds (`outposts.kinds`), how far apart they are (`spacing`, about 1.5 to 1.7: about
+five per ground loop) and their size (`size`, 0.26 to 0.4 across) *(placeholder)*:
+
+| Preset | Compounds |
+|--------|-----------|
+| `mountains` | Radar stations (twice as likely), a colony, an airfield |
+| `forest` | A factory, a depot, a radar station, an airfield |
+| `swamp` | A colony, a radar station, a depot |
+| `farmland` | An airfield, a depot, a factory |
+| `ocean` | An airfield, a colony, a radar station |
+| `canyon` | A factory, a depot, a radar station, a colony |
+| `refinery` | A factory, a depot, an airfield |
+| `city` | A colony, an airfield, a radar station |
 
 On the grounds, `time_of_day` tints the ground, its haze and the sky: `dusk` warmer, `night` darker and bluer;
 lights (windows, lava, flames) keep their colors. The ground scrolls at 30% of the level's speed on screen,

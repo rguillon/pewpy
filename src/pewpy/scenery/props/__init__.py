@@ -1,4 +1,5 @@
-"""The props standing on the grounds (grounds/: the settlements and floras): buildings, farms, refinery units, trees...
+"""The props standing on the grounds (grounds/: the settlements, floras and outposts): buildings, farms, refinery
+units, trees, hangars, radars, domes...
 
 Each kind is built by its own module (`build(mesh, rng, prop, colors)`), from its seed: every kind has variants
 (a tower with one or two setbacks, a hipped or gabled roof, a domed or floating-roof tank...), and colors that vary
@@ -17,20 +18,29 @@ from collections.abc import Callable
 
 from pewpy.scenery.params import PropColors
 from pewpy.scenery.props import (
+    antenna,
+    apron,
     barn,
     building,
+    containers,
     cooling_tower,
     dead_tree,
+    dome,
     greenhouse,
+    hangar,
     hedge,
     house,
+    pad,
     palm,
     pipes,
     plant,
+    pylon,
+    radar,
     silo,
     stack,
     tank,
     tree,
+    warehouse,
 )
 from pewpy.scenery.props.mesh import SUNK, FloatArray, IndexArray, PropMesh
 from pewpy.scenery.settlement import Prop
@@ -53,6 +63,15 @@ BUILDERS: dict[str, Builder] = {
     "palm": palm.build,
     "dead_tree": dead_tree.build,
     "hedge": hedge.build,
+    "apron": apron.build,
+    "hangar": hangar.build,
+    "warehouse": warehouse.build,
+    "containers": containers.build,
+    "radar": radar.build,
+    "dome": dome.build,
+    "antenna": antenna.build,
+    "pad": pad.build,
+    "pylon": pylon.build,
 }
 
 
