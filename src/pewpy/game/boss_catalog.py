@@ -1,4 +1,4 @@
-"""Every boss: one at the end of each level (02-enemies.md, "Bosses"). Placeholders, see decisions.md.
+"""Every boss: one at the end of each level (02-enemies-bosses.md). Placeholders.
 
 Sizes are hitboxes, and have the shape of the boss's drawing in `models/` (the model is drawn at that size with
 square voxels). Parts are at (x, y) from the core's middle.

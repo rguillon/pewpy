@@ -1,6 +1,6 @@
 """Tunable game constants.
 
-Values marked "placeholder" are not decided in the specs yet; see docs/specs/decisions.md.
+Values marked "placeholder" are not decided in the specs yet; they are marked *(placeholder)* in docs/specs/.
 """
 
 # Window (the user's choice: 1280 x 1024, a 5:4 landscape window)
@@ -37,7 +37,7 @@ PLAYER_INVULNERABILITY_TIME = 1.0  # seconds
 PICKUP_SIZE = 0.08
 PICKUP_SPEED = 0.25  # drifting down, world units per second
 PICKUP_UPGRADE_SHARE = 0.7  # when an enemy drops something: 70% upgrade capsule...
-PICKUP_LIFE_SHARE = 0.04  # ...4% extra life, the rest (26%) repair (placeholder, see decisions.md)
+PICKUP_LIFE_SHARE = 0.04  # ...4% extra life, the rest (26%) repair (placeholder)
 MAX_LIVES = 9  # an extra life beyond this gives EXTRA_LIFE_POINTS instead
 EXTRA_LIFE_POINTS = 1000
 REPAIR_AMOUNT = 2.0

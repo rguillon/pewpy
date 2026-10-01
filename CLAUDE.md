@@ -10,23 +10,29 @@ The game design lives in `docs/specs/`. Read the relevant spec files **before** 
 |------|--------|
 | `docs/specs/00-vision.md` | Pitch, genre, camera, scope, references |
 | `docs/specs/01-gameplay.md` | Controls, player ship, weapons, power-ups, scoring, difficulty |
-| `docs/specs/02-enemies.md` | Enemy catalog, movement patterns, bosses |
+| `docs/specs/02-enemies.md` | Enemy general rules, enemy weapons, index of the files below |
+| `docs/specs/02-enemies-catalog.md` | The first enemies (Drone … Buckshot) |
+| `docs/specs/02-enemies-fleet.md` | The second fleet (Albatross … Pincer) |
+| `docs/specs/02-enemies-bosses.md` | Boss rules, then every boss (one per level) |
 | `docs/specs/03-levels.md` | Levels, waves, scrolling, backgrounds |
 | `docs/specs/04-ui-audio.md` | Menus, HUD, game flow, sound, music |
 | `docs/specs/05-visuals.md` | Art style, assets, effects |
 | `docs/specs/06-technical.md` | Architecture, Panda3D usage, performance, testing, packaging |
 | `docs/specs/roadmap.md` | Milestones — what to build, in which order |
-| `docs/specs/decisions.md` | Decision log and open questions |
 
 Rules:
 
 - The specs win over anything said casually in chat. If chat and spec conflict, point it out and ask which one is right.
 - `TBD` means **not decided yet**. Do not silently invent an answer. Either ask, or pick a sensible
-  placeholder, implement it so it's easy to change (a constant or config value), and log it in
-  `docs/specs/decisions.md` under "Open questions".
+  placeholder, implement it so it's easy to change (a constant or config value), and write it into the spec
+  where it belongs, marked *(placeholder)*; add a short "open: …" note there if a question remains.
 - Work milestone by milestone following `roadmap.md`. Tick checkboxes (`- [x]`) when an item is done and tested.
-- Never edit spec content the user wrote, except to tick roadmap boxes and append to `decisions.md`.
-  Suggest spec changes in chat instead.
+- Keep the specs up to date: whenever the user decides something in chat or a change alters how the game
+  works, update the relevant spec file directly. There is no separate decision log. Don't change what the
+  user decided without asking; if chat and spec conflict, ask first (see above).
+- Specs describe the game, not its history: no bug-fix stories, performance measurements or "it used to be".
+- Read only the spec files a task needs. In a long one (the bosses file), grep for the `### ` heading you
+  need and read that section.
 
 ## Project conventions
 

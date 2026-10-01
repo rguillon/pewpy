@@ -24,7 +24,7 @@ Color = tuple[float, float, float]
 Cell = tuple[int, int, int]
 Inside = Callable[[float, float, float], bool]  # (x, y, z) in units -> inside the shape?
 
-# The industrial look (see decisions.md, "Industrial sci-fi ships"): greys a little dark, teal glass, orange lights.
+# The industrial look: greys a little dark, teal glass, orange lights.
 MATERIALS: dict[str, Color] = {
     "hull": (0.42, 0.43, 0.46),  # the main plating
     "hull_light": (0.55, 0.56, 0.59),  # spines, top edges

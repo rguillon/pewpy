@@ -1,4 +1,4 @@
-"""Bosses from 02-enemies.md, independent from rendering.
+"""Bosses from 02-enemies-bosses.md, independent from rendering.
 
 A boss is a core (the Boss) and parts (BossPart) placed around it, each one an enemy of its own in the world, so
 shots, the laser and missiles hit them like any enemy. The core moves and fires every gun: a gun belongs to the

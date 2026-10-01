@@ -30,19 +30,22 @@ The states are:
 | Pause | escape | TBD |
 | Menus | up/down arrows move the highlight, enter chooses, escape goes back | TBD |
 
-- Auto-fire when holding the button? Yes: holding Fire keeps firing *(placeholder, see decisions.md)*
+- Auto-fire when holding the button? Yes: holding Fire keeps firing *(placeholder)*
 - Rebindable keys? TBD
 
 ## Player ship
 
-- Movement speed: 1.0 (the Vanguard's; see "Ships" below)
-- Player movement have a little inertia
+- Movement speed: 1.0 (the Vanguard's; see "Ships" below), in world units per second: 2 s to cross the play
+  area from bottom to top *(placeholder unit; open: or express it in screen heights per second?)*
+- Player movement have a little inertia: the speed eases towards the target in about 0.2 s, with a short drift
+  on release (`PLAYER_RESPONSIVENESS` in `config.py`) *(placeholder)*
 - full ship  Hitbox
 - Starting lives: 5
 - Health bar: 5 health per life (the Vanguard's; see "Ships" below). An enemy bullet does 1 damage, ramming an
   enemy 2. At 0 health the ship explodes, a life is lost and the level restarts (see "Game over and victory")
 - Invulnerability time after being hit: 1 second (the ship blinks)
 - Cant leave the screen edges
+- The ship rolls up to 25° when moving sideways, for looks only (`PLAYER_BANK_ANGLE` in `app.py`) *(placeholder)*
 
 ### Ships
 
@@ -54,7 +57,7 @@ The player picks a ship before the world (see 04-ui-audio.md). It is kept for ev
 | Juggernaut | 8 | 0.8 | 0.14 | Heavy armor, a bit slower (and a bigger target) |
 | Phantom | 3 | 1.3 | 0.10 | Repairs 0.5 health a second once it hasn't fired for 1.5 s, up to full |
 
-*(numbers are a placeholder, see decisions.md; `SHIPS` in `player.py`)* Weapons, lives and repairs work the same for
+*(numbers are a placeholder; `SHIPS` in `player.py`)* Weapons, lives and repairs work the same for
 every ship; repairs fill up to the ship's own health.
 
 ## Weapons
@@ -63,7 +66,7 @@ every ship; repairs fill up to the ship's own health.
 > (the play area is 2.5 wide and 2.0 tall). Angles are measured from straight up.
 
 The ship carries three weapons from the start: **bullets**, **laser** and **missiles**. Only the selected one
-fires; Shift switches to the next one, instantly. Each weapon has 5 upgrade levels and starts at level 1 *(the user's choice: it was 3, see decisions.md)*.
+fires; Shift switches to the next one, instantly. Each weapon has 5 upgrade levels and starts at level 1 *(the user's choice: it was 3)*.
 The HUD shows the three weapons with their levels, the selected one highlighted.
 
 Shots fly until they are off the screen (the tilted camera shows more than the play area: up to about y 1.65).
@@ -134,7 +137,7 @@ the play area. Every missile explodes in an orange fireball where it hits.
 |--------|--------|----------------------|
 | Upgrade capsule | Raises one weapon by one level (max 5), shown by its letter and color: B (yellow), L (cyan), M (orange). It doesn't change the selected weapon. At max level it gives 500 points instead. | Enemy drops, see "Drops" in `02-enemies.md`. Weapon picked at random, each equally likely. |
 | Repair | Restores 2 health, up to the maximum. White with a red cross. | Enemy drops, see "Drops" in `02-enemies.md`. |
-| Extra life | One more life, up to 9; beyond that, 1000 points. A green gem with a little white ship on it. *(the user's choice; look, cap and points are placeholders, see decisions.md)* | Enemy drops: 4% of what enemies drop *(placeholder)* |
+| Extra life | One more life, up to 9; beyond that, 1000 points. A green gem with a little white ship on it. *(the user's choice; look, cap and points are placeholders)* | Enemy drops: 4% of what enemies drop *(placeholder)* |
 
 - Pickups are 0.08 x 0.08, drift down at 0.25 units/s and disappear off the bottom of the screen.
 - They are collected by touching them. Enemy bullets and enemies don't affect them.
@@ -153,10 +156,14 @@ the play area. Every missile explodes in an orange fireball where it hits.
   enemies close together
 - Difficulty ramp across levels: from 1-1 to 5-8 (40 levels), the generated levels send bigger groups (about
   +3.5% per level) and waves come faster (from about 3.5 s to 2.1 s apart); new enemies come in along the way
-  (see "First appears in level" in `02-enemies.md`). Not playtested yet *(placeholder, see decisions.md)*
+  (see "First appears in level" in `02-enemies-catalog.md` and `02-enemies-fleet.md`). Not playtested yet *(placeholder)*
 - Continues: yes
 
 ## Game over and victory
 
 - Game over condition: when the live counter reach zero and the player selected no to continue
+- Losing a life puts the score back to what it was when the level started, so replaying waves can't farm
+  points *(placeholder)*
+- Continue restarts the current level with 5 lives, a score of 0 and the weapons at level 1 *(placeholder; open:
+  should continue keep the score?)*
 - Win condition: finishing the last level, 5-8 ("ALL LEVELS COMPLETE / YOU WIN")

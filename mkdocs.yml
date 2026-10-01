@@ -12,13 +12,16 @@ nav:
   - Specs:
       - Vision: specs/00-vision.md
       - Gameplay: specs/01-gameplay.md
-      - Enemies: specs/02-enemies.md
+      - Enemies:
+          - Rules: specs/02-enemies.md
+          - Catalog: specs/02-enemies-catalog.md
+          - Second fleet: specs/02-enemies-fleet.md
+          - Bosses: specs/02-enemies-bosses.md
       - Levels: specs/03-levels.md
       - UI and Audio: specs/04-ui-audio.md
       - Visuals: specs/05-visuals.md
       - Technical: specs/06-technical.md
       - Roadmap: specs/roadmap.md
-      - Decisions: specs/decisions.md
   - Modules: modules.md
 plugins:
   - search

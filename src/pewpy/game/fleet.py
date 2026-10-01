@@ -1,4 +1,4 @@
-"""The second fleet of enemies (02-enemies.md): the ones picked from the model candidates. Independent from rendering.
+"""The second fleet of enemies (02-enemies-fleet.md): the ones picked from the model candidates. Independent from rendering.
 
 Each enemy's drawing is in `models/<drawing>.json`; its hitbox is the drawing's size (cubes of config.MODEL_VOXEL).
 Offsets like a gun's place are in cubes from the drawing's middle (x right, y up the screen), times VOXEL.

@@ -16,20 +16,21 @@ Playing -> Game over -> Continue (restart the level) or Main menu
 Pause -> Main menu
 ```
 
-*(placeholder, see decisions.md: menus, keys and HUD layout; level end and the LEVEL_COMPLETE state; worlds)*
+*(placeholder: menus, keys and HUD layout; level end and the LEVEL_COMPLETE state; worlds)*
 
 ## Screens
 
 ### Title / main menu
 
 - Every menu: Up/Down move the highlight (wrapping around), Enter chooses, Escape goes back.
+- Behind the main menu: a space background *(placeholder)*.
 - Entries: Start (to the ship select: one entry per ship, then Back; under the menu, every ship side by side with
   its name and bars comparing armor, speed, size and repair; the highlighted one is bigger, spins, has bright bars,
   and its description and numbers show at the bottom; then the world select: one entry per world, then Back to the ship select; then that
   world's level select: its 8
   levels, like "2-5 Harvest Dusk", then Back, with a window above the list showing the highlighted level's
   ground scrolling by, as in the game; both open on the last level played), Models, Bosses, Enemy candidates, Boss candidates, Quit *(entries are a
-  placeholder, see decisions.md)*
+  placeholder)*
 
 ### Models
 
@@ -70,12 +71,11 @@ Pause -> Main menu
 
 ### Pause
 
-- Entries: Resume, Main menu; Escape resumes *(placeholder, see decisions.md)*
+- Entries: Resume, Main menu; Escape resumes *(placeholder)*
 
 ### Game over / high scores
 
-- Game over: Continue (restart the level), Main menu; Escape goes to the main menu *(placeholder, see
-  decisions.md)*
+- Game over: Continue (restart the level), Main menu; Escape goes to the main menu *(placeholder)*
 - High scores: TBD
 
 ## HUD (in-game display)
@@ -84,32 +84,34 @@ Pause -> Main menu
 
 | Element | Position | Notes |
 |---------|----------|-------|
-| Score | Bottom-left corner, close to the edges *(placeholder, see decisions.md)* | TBD |
-| Lives | Bottom-right corner, close to the edges *(placeholder, see decisions.md)* | TBD |
-| Health | Bottom center, at the edge: a thin bar, green over dark red *(placeholder, see decisions.md)* | One bar per life |
+| Score | Bottom-left corner, close to the edges *(placeholder)* | TBD |
+| Lives | Bottom-right corner, close to the edges *(placeholder)* | TBD |
+| Health | Bottom center, at the edge: a thin bar, green over dark red *(placeholder)* | One bar per life |
 | Bombs | TBD | TBD |
-| Weapon level | Bottom center, just over the health bar *(placeholder, see decisions.md)* | The three weapons with their level, e.g. "B2 L1 M3"; the selected one is highlighted |
-| Frames per second | Top-right corner, small and dim, on every screen (menus too) *(see decisions.md)* | Averaged over a second, refreshed twice a second; `SHOW_FPS` in `config.py` turns it off |
-| Boss health bar | Top center, at the edge: a wide orange bar over dark red, the boss's name under it *(placeholder, see decisions.md)* | Only while the boss is on screen; counts the core and its parts together |
+| Weapon level | Bottom center, just over the health bar *(placeholder)* | The three weapons with their level, e.g. "B2 L1 M3"; the selected one is highlighted |
+| Frames per second | Top-right corner, small and dim, on every screen (menus too) *(the user's choice)* | Averaged over a second, refreshed twice a second; `SHOW_FPS` in `config.py` turns it off |
+| Boss health bar | Top center, at the edge: a wide orange bar over dark red, the boss's name under it *(placeholder)* | Only while the boss is on screen; counts the core and its parts together |
 
 - Font: TBD
 
 ## Audio
 
-- Music style: synthwave *(the user's choice, see decisions.md)*
+- Music style: synthwave *(the user's choice)*
 - Music source (your files, free assets, generated): generated MIDI songs *(the user's choice)*: `make songs`
   writes them to `src/pewpy/music/` (tools/make_songs.py); the game plays them with its own synthesizer. Any MIDI
-  file can replace one. Songs *(placeholder, see decisions.md)*: "title" on the menus, "world_1" to "world_5" for
+  file can replace one. Songs *(placeholder)*: "title" on the menus, "world_1" to "world_5" for
   each world's levels, "boss" from when a boss comes until the level ends, and two jingles played once,
-  "level_complete" and "game_over". Lower while paused; M turns the music on and off.
-- Sound effects needed *(placeholders: synthesized, see decisions.md)*:
+  "level_complete" and "game_over". Lower while paused; M turns the music on and off. Volumes: `SFX_VOLUME`, `MUSIC_VOLUME` in `config.py`
+  *(placeholders, until the options menu)*. Each song is rendered once, in the background, and kept as a WAV
+  in the user's cache folder (`~/.cache/pewpy/music`, `%LOCALAPPDATA%\pewpy\music` on Windows).
+- Sound effects needed *(placeholders: synthesized)*:
 
 | Event | Description |
 |-------|-------------|
 | Player shot | Bullets: a quick falling "pew"; missiles: a rising whoosh; the laser: a hum while it fires |
 | Enemy hit | A short metallic tick |
 | Explosion | Three sizes, by the size of what blew up (a boss's is long); a missile's blast |
-| Pickup | An upgrade: a quick major arpeggio up; a repair: a bright glide up |
+| Pickup | An upgrade: a quick major arpeggio up; a repair: a bright glide up; an extra life: a bright fanfare climbing two octaves |
 | Player death | A big blast and a falling wail; hit without dying: a harsh falling buzz |
 | Menu select | A blip moving, two rising blips choosing, two falling going back; switching weapons: two blips |
 | Boss coming | A two-tone siren |

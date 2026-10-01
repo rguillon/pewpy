@@ -8,15 +8,20 @@
   start.
 - Scroll speed: constant within a level, set per level.
 - Level length: time based. The level ends when every wave has entered and no enemy is left.
-- Bosses: every level ends with its own boss (see the worlds' tables and `02-enemies.md`), a wave like any other
-  (`"enemy": "warden"`) about 6 s after the last one; the level ends 3 s after it is destroyed: every enemy left blows up (no points), enemy shots vanish, and the player plays on to pick up what it dropped *(placeholder, see decisions.md)*. Each world's bosses get
+- Bosses: every level ends with its own boss (see the worlds' tables and `02-enemies-bosses.md`), a wave like any other
+  (`"enemy": "warden"`) about 6 s after the last one; the level ends 3 s after it is destroyed: every enemy left blows up (no points), enemy shots vanish, and the player plays on to pick up what it dropped *(placeholder)*. Each world's bosses get
   harder level by level, up to the world's big boss at x-8.
 - Level data format: `src/pewpy/levels/world_<number>/level_<number>.json`, one JSON file per level, and
   `world.json` in each world's folder with the world's name (see `pewpy.level`). Level fields: `name`,
   `scroll_speed`, `background` (see "Backgrounds"), `scenery` (changes to the background's preset, see
   "Backgrounds"), `time_of_day` (`day`, `dusk` or `night`, default `day`), `background_seed` (the
   background's layout, and in space its colors: the same every time), `clouds` (see-through clouds over the
-  ground, from 0 for none to 1 for the most, default 0), and `waves`.
+  ground, from 0 for none to 1 for the most, default 0), and `waves`. Each wave: `time` (seconds from the level
+  start, required), `enemy` (an enemy of `pewpy.game.roster` or a boss of `pewpy.game.boss_catalog`), `count`,
+  `formation` (`line`: side by side, `spacing` apart, centred on `x`; `column`: one after another at the same
+  place, `interval` seconds apart), `x`, and for the enemies entering from a side, `side` (`left` / `right`)
+  and `y`. Typos and unknown values are reported with the file and the wave's number *(placeholder; open: TOML
+  or YAML would be easier to write by hand)*.
 - Checkpoints on death? No: losing a life restarts the level from the beginning.
 - Transitions between levels: "LEVEL COMPLETE" screen ("WORLD COMPLETE" after a world's last level), Enter goes
   to the next level, into the next world after a world's last level. After the last level (5-8): "ALL LEVELS
@@ -38,7 +43,7 @@ water (see `pewpy.scenery.params`).
 | `space` | Stars, faint nebula clouds, a distant voxel planet; nebula and planet colors and the planet's size vary by level |
 | `debris` | Stars and tumbling voxel asteroids at two depths |
 | `planet` | Rolling hills and craters |
-| `farmland` | Patchwork fields (wheat, crops, plowed earth, lavender), hedges, orchards, farms with silos, dirt roads |
+| `farmland` | Patchwork fields (wheat, crops, plowed earth, lavender), hedges, orchards, farms with silos and greenhouses, dirt roads |
 | `forest` | A canopy of round treetops, clearings, a winding river |
 | `swamp` | Murky water with muddy islets, reeds and dead trees |
 | `ocean` | A sea with islands: beaches, grass, forest and rocky tops; animated water, lighter in the shallows |
@@ -49,11 +54,12 @@ water (see `pewpy.scenery.params`).
 | `volcano` | Black volcanic hills with glowing lava rivers |
 | `mountains` | Snowy ridges, glaciers, pine forests |
 | `city` | A sci-fi city at night: blocks of towers with lit windows, street lights, red beacons |
-| `refinery` | Tanks, pipe yards, plants with glowing furnaces, flaming stacks, at night |
+| `refinery` | Tanks, pipe yards, plants with glowing furnaces, cooling towers, flaming stacks, at night |
 
 On the grounds, `time_of_day` tints the ground, its haze and the sky: `dusk` warmer, `night` darker and bluer;
 lights (windows, lava, flames) keep their colors. The ground scrolls at 30% of the level's speed on screen,
-as if flying high, so it never moves with the enemies (Turrets slide over it too).
+as if flying high, so it never moves with the flying enemies; ground enemies scroll with it (see
+`02-enemies-catalog.md`).
 
 Over the grounds, `clouds` adds soft see-through clouds in two layers between the ground and the ships (up to 10
 per layer), drifting down a bit faster than the ground and slightly sideways in a wind, pale and in the color

@@ -1,4 +1,4 @@
-"""Enemy types from 02-enemies.md, independent from rendering.
+"""Enemy types from 02-enemies-catalog.md, independent from rendering.
 
 Each enemy moves itself in `update` and returns the bullets or enemies it creates.
 """

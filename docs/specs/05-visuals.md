@@ -21,6 +21,10 @@
 - Source of models / sprites (made by you, free packs, placeholders generated in code): generated in code
   (`src/pewpy/graphics/models.py`), no 3D files. The voxel drawings (rows of characters, and each character's color and
   height in voxels) are JSON files in `src/pewpy/models/`, one per model
+- Model file forms: a model file (`src/pewpy/models/<name>.json`) is a flat drawing (rows of characters, each
+  color a thickness), a 3D drawing (`"layers"`: slices from the top down, with a palette), or a MagicaVoxel model
+  (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). `make voxels` moves
+  a model between the three forms; `make models` remodels ships from their recipes in `tools/make_models.py`.
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
 - Asset folder layout: `src/pewpy/models/<name>.json` for the voxel drawings; other assets TBD
 
@@ -30,10 +34,10 @@
 
 | Effect | Description |
 |--------|-------------|
-| Explosions | A fireball of soft glowing circles (pale yellow in the middle, orange to red around, swelling then shrinking, adding light where they overlap), round sparks, and tumbling voxel debris cubes in the colors of what blew up; bigger things blow up bigger. Missiles explode in an orange fireball with a ring of sparks. *(details are a placeholder, see decisions.md)* |
-| Laser | A thin white-cyan core that flickers, in a soft cyan halo, with streaks of light shooting up it from the ship's nose (about 3 to 4 screen heights a second, wobbling a little) and vanishing where the beam ends; more streaks for a wider beam. A pulsing glow at the nose and a flickering one on each enemy it burns. Streaks in flight when the beam is cut fly on and fade out. (`effects.py`, `effects_view.py`) *(placeholder, see decisions.md)* |
-| Hit flash | Enemies flash white when hit (see `02-enemies.md`), and the whole time the laser touches them *(placeholder, see decisions.md)* |
+| Explosions | A fireball of soft glowing circles (pale yellow in the middle, orange to red around, swelling then shrinking, adding light where they overlap), round sparks, and tumbling voxel debris cubes in the colors of what blew up; bigger things blow up bigger. Missiles explode in an orange fireball with a ring of sparks. *(details are a placeholder)* |
+| Laser | A thin white-cyan core that flickers, in a soft cyan halo, with streaks of light shooting up it from the ship's nose (about 3 to 4 screen heights a second, wobbling a little) and vanishing where the beam ends; more streaks for a wider beam. A pulsing glow at the nose and a flickering one on each enemy it burns. Streaks in flight when the beam is cut fly on and fade out. (`effects.py`, `effects_view.py`) *(placeholder)* |
+| Hit flash | Enemies flash white when hit (see `02-enemies.md`), and the whole time the laser touches them *(placeholder)* |
 | Screen shake | TBD |
-| Particles (engine trail, debris) | Sparks (soft glowing circles) where shots hit (enemies, shields, the player) and where the laser burns; voxel debris cubes from explosions. Engine flames: the player, the player's missiles and the ships that fly (enemies and bosses) have a jet flame behind each engine, pale blue with a white-hot core, soft and fading towards the tip, flickering; the player's grow when flying up and shrink when flying down. Each model's drawing says where its engines are and how big their flames are (`"engines"` in `src/pewpy/models/<name>.json`). *(placeholder, see decisions.md)* |
-| Background (parallax layers, starfield, 3D terrain) | One per level, matching its setting, dark and muted so bullets and enemies stand out; see "Backgrounds" in `03-levels.md`. Frozen in menus and pause. *(details are a placeholder, see decisions.md)* |
+| Particles (engine trail, debris) | Sparks (soft glowing circles) where shots hit (enemies, shields, the player) and where the laser burns; voxel debris cubes from explosions. Engine flames: the player, the player's missiles and the ships that fly (enemies and bosses) have a jet flame behind each engine, pale blue with a white-hot core, soft and fading towards the tip, flickering; the player's grow when flying up and shrink when flying down. Each model's drawing says where its engines are and how big their flames are (`"engines"` in `src/pewpy/models/<name>.json`). *(placeholder)* |
+| Background (parallax layers, starfield, 3D terrain) | One per level, matching its setting, dark and muted so bullets and enemies stand out; see "Backgrounds" in `03-levels.md`. Frozen in menus and pause. *(details are a placeholder)* |
 | Post-processing (bloom, CRT filter…) | None yet (lighting is done in the models' shader); bloom: TBD |
