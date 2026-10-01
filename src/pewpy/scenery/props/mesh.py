@@ -1,4 +1,5 @@
-"""Meshes of the props standing on the built-up grounds (settlement.py): buildings, tanks, stacks, trees...
+"""The mesh every prop is built into (see __init__.py), and its shapes: boxes, cylinders, discs, ellipsoids, gabled
+roofs, shapes turned on a lathe.
 
 Built in bulk with numpy as plain arrays (ground_shader.py turns them into Panda3D geometry). Every vertex has
 14 floats: position (3), normal (3), color (red, green, blue, material) and texture data (4: along the wall,
@@ -10,14 +11,13 @@ strip's model space (x right, y away from the camera, z up the screen) by `strip
 Their colors come from the level's scenery (`props`, see params.py). Independent from Panda3D.
 """
 
+import itertools
 import math
 import random
-from collections.abc import Callable
 
 import numpy as np
 from numpy.typing import NDArray
 
-from pewpy.scenery.params import PropColors
 from pewpy.scenery.settlement import Prop
 
 Color = tuple[float, float, float]
@@ -229,198 +229,112 @@ class PropMesh:
         vertices[:, 12] = self.seed
         self._add(vertices, np.array([0, 1, 2], dtype=np.uint32))
 
+    def face(self, corners: list[tuple[float, float, float]], color: Color, material: int) -> None:
+        """A flat face of 3 or 4 corners (a roof's slope), its normal facing up."""
+        a, b, c = (np.array(corner) for corner in corners[:3])
+        normal = np.cross(b - a, c - a)
+        normal /= np.linalg.norm(normal) or 1.0
+        if normal[2] < 0:
+            normal = -normal
+        points = corners if len(corners) == 4 else [*corners, corners[2]]
+        self.quad(points, (float(normal[0]), float(normal[1]), float(normal[2])), color, material)
+
+    def ridge_roof(
+        self,
+        footprint: tuple[float, float, float, float],
+        eaves: float,
+        section: list[tuple[float, float]],
+        walls: Color,
+        roof: Color,
+        material: int = PLAIN,
+    ) -> None:
+        """A roof along the footprint's longer side, from its cross-section: (share of the way across, height
+        above the eaves) from one edge to the other; the two ends closed with the walls' color."""
+        x0, x1, y0, y1 = footprint
+        along_x = (x1 - x0) >= (y1 - y0)
+        start, end, low, high = (x0, x1, y0, y1) if along_x else (y0, y1, x0, x1)  # along the ridge, then across
+        points = [(low + (high - low) * share, eaves + rise) for share, rise in section]
+
+        def point(along: float, across: float, z: float) -> tuple[float, float, float]:
+            return (along, across, z) if along_x else (across, along, z)
+
+        for (pa, za), (pb, zb) in itertools.pairwise(points):
+            self.face(
+                [point(start, pa, za), point(end, pa, za), point(end, pb, zb), point(start, pb, zb)], roof, material
+            )
+        middle = (low + high) / 2
+        for at, direction in ((start, -1.0), (end, 1.0)):  # the ends: triangles fanning from the middle
+            normal = (direction, 0.0, 0.0) if along_x else (0.0, direction, 0.0)
+            for (pa, za), (pb, zb) in itertools.pairwise(points):
+                bottom = point(at, middle, eaves)
+                self.quad([point(at, pa, za), point(at, pb, zb), bottom, bottom], normal, walls, material)
+
+    def lathe(
+        self,
+        x: float,
+        y: float,
+        profile: list[tuple[float, float]],
+        color: Color,
+        material: int,
+        segments: int = 14,
+        cap: Color | None = None,
+    ) -> None:
+        """A shape turned around the upright axis at (x, y): `profile` is (z, radius) from the bottom up, smooth
+        shaded; `cap` closes its top with a disc of that color."""
+        angles = np.linspace(0, 2 * np.pi, segments + 1)
+        cos, sin = np.cos(angles), np.sin(angles)
+        ring = segments + 1
+        levels = len(profile)
+        vertices = np.zeros((levels * ring, 14), dtype=np.float32)
+        for level, (z, r) in enumerate(profile):
+            below = profile[max(level - 1, 0)]
+            above = profile[min(level + 1, levels - 1)]
+            slope_z, slope_r = above[0] - below[0], above[1] - below[1]  # along the profile
+            length = math.hypot(slope_z, slope_r) or 1.0
+            out, up = slope_z / length, -slope_r / length  # the normal: across the profile, outwards
+            part = vertices[level * ring : (level + 1) * ring]
+            part[:, 0] = x + r * cos
+            part[:, 1] = y + r * sin
+            part[:, 2] = z
+            part[:, 3] = out * cos
+            part[:, 4] = out * sin
+            part[:, 5] = up
+            part[:, 10] = angles * r
+            part[:, 11] = z - profile[0][0]
+        vertices[:, 6:9] = color
+        vertices[:, 9] = material
+        vertices[:, 12] = self.seed
+        a = np.arange(segments, dtype=np.uint32)
+        bands = [
+            np.stack([a, a + 1, a + 1 + ring, a, a + 1 + ring, a + ring], axis=-1).reshape(-1) + level * ring
+            for level in range(levels - 1)
+        ]
+        self._add(vertices, np.concatenate(bands).astype(np.uint32))
+        if cap is not None:
+            top_z, top_r = profile[-1]
+            if top_r > 0:
+                self.disc(x, y, top_r, top_z, cap, PLAIN if material in (LIGHT,) else material, segments)
+
     def arrays(self) -> tuple[FloatArray, IndexArray]:
         if not self.vertices:
             return np.zeros((0, 14), dtype=np.float32), np.zeros(0, dtype=np.uint32)
         return np.concatenate(self.vertices), np.concatenate(self.indices)
 
 
-def build(mesh: PropMesh, prop: Prop, colors: PropColors) -> None:
-    """Add a prop to a mesh."""
-    rng = random.Random(prop.seed)  # noqa: S311 - looks, not cryptography
-    mesh.seed = (prop.seed % 997) / 997
-    BUILDERS[prop.kind](mesh, rng, prop, colors)
-
-
-def _footprint(prop: Prop) -> tuple[float, float, float, float]:
+def footprint(prop: Prop) -> tuple[float, float, float, float]:
+    """(x0, x1, y0, y1): the prop's footprint."""
     return prop.x - prop.width / 2, prop.x + prop.width / 2, prop.y - prop.length / 2, prop.y + prop.length / 2
 
 
-def _radius(prop: Prop) -> float:
+def radius(prop: Prop) -> float:
+    """The biggest round thing that fits its footprint."""
     return min(prop.width, prop.length) / 2
 
 
-def _house(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    x0, x1, y0, y1 = _footprint(prop)
-    eaves, ridge = prop.base + prop.height * 0.6, prop.base + prop.height
-    mesh.gabled(x0, x1, y0, y1, prop.base, eaves, ridge, c.house_walls, rng.choice(c.house_roofs), HOMES)
+def shade(color: Color, factor: float) -> Color:
+    return (min(color[0] * factor, 1.0), min(color[1] * factor, 1.0), min(color[2] * factor, 1.0))
 
 
-def _barn(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    x0, x1, y0, y1 = _footprint(prop)
-    eaves, ridge = prop.base + prop.height * 0.55, prop.base + prop.height
-    mesh.gabled(x0, x1, y0, y1, prop.base, eaves, ridge, c.barn_walls, c.barn_roof, PLAIN)
-
-
-def _silo(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    radius, top = _radius(prop), prop.base + prop.height
-    mesh.cylinder(prop.x, prop.y, radius, prop.base, top, c.silo, METAL)
-    mesh.ellipsoid(prop.x, prop.y, top, (radius, radius, radius * 0.7), c.silo, METAL, lower=0.0)
-
-
-def _tank(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    radius, top = _radius(prop), prop.base + prop.height
-    metal = rng.choice(c.refinery_metals)
-    mesh.cylinder(prop.x, prop.y, radius, prop.base, top, metal, METAL, segments=20)
-    lid = (metal[0] * 1.15, metal[1] * 1.15, metal[2] * 1.15)
-    mesh.ellipsoid(prop.x, prop.y, top, (radius, radius, radius * 0.12), lid, METAL, lower=0.0, segments=20, rings=3)
-
-
-def _plant(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    x0, x1, y0, y1 = _footprint(prop)
-    top = prop.base + prop.height
-    mesh.box(x0, x1, y0, y1, prop.base, top, c.plant_walls, FURNACE, top=c.plant_roof, top_material=ROOFING)
-    for _ in range(rng.randint(1, 2)):  # small chimneys
-        cx, cy = rng.uniform(x0 + 0.015, x1 - 0.015), rng.uniform(y0 + 0.015, y1 - 0.015)
-        mesh.cylinder(cx, cy, 0.007, top, top + rng.uniform(0.03, 0.06), c.stack, PLAIN, segments=8)
-
-
-def _stack(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    radius, top = _radius(prop), prop.base + prop.height
-    mesh.cylinder(prop.x, prop.y, radius * 0.6, prop.base, top, c.stack, PLAIN, segments=12)
-    flame = (radius * 0.8, radius * 0.8, radius * 1.6)
-    mesh.ellipsoid(prop.x, prop.y, top + radius * 0.7, flame, c.flame, LIGHT, segments=8, rings=4)
-
-
-def _tree(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    # Seen from above, a crown is all that shows (no trunk, no underside): a few sides and rings are plenty, and
-    # there can be hundreds of trees on screen.
-    crown = (prop.width / 2, prop.length / 2, prop.height * 0.45)
-    middle = prop.base + prop.height * 0.55
-    mesh.ellipsoid(prop.x, prop.y, middle, crown, rng.choice(c.trees), FOLIAGE, lower=-0.5, segments=7, rings=3)
-
-
-def _hedge(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    x0, x1, y0, y1 = _footprint(prop)
-    mesh.box(x0, x1, y0, y1, prop.base, prop.base + prop.height, c.hedge, FOLIAGE)
-
-
-def _building(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    x0, x1, y0, y1 = _footprint(prop)
-    z0, height = prop.base, prop.height
-    walls = rng.choice(c.building_walls)
-    roof = rng.choice(c.roofs)
-    material = OFFICE if height > 0.12 or rng.random() < 0.5 else HOMES
-    top = z0 + height
-    if height > 0.25 and min(x1 - x0, y1 - y0) > 0.07:  # a tower: a setback, and its upper part narrower
-        waist = z0 + height * rng.uniform(0.55, 0.8)
-        mesh.box(x0, x1, y0, y1, z0, waist, walls, material, top=roof, top_material=ROOFING)
-        inset = min(x1 - x0, y1 - y0) * rng.uniform(0.12, 0.25)
-        x0, x1, y0, y1 = x0 + inset, x1 - inset, y0 + inset, y1 - inset
-        mesh.box(x0, x1, y0, y1, waist, top, walls, material, top=roof, top_material=ROOFING)
-        mesh.box(x0, x0 + 0.006, y0, y0 + 0.006, top, top + 0.006, c.beacon, LIGHT)  # a red light on a corner
-    else:
-        mesh.box(x0, x1, y0, y1, z0, top, walls, material, top=roof, top_material=ROOFING)
-    for _ in range(rng.randint(0, 3)):  # machinery on the roof
-        size = rng.uniform(0.008, 0.018)
-        cx, cy = rng.uniform(x0 + size, x1 - size), rng.uniform(y0 + size, y1 - size)
-        if x1 - x0 > 2 * size and y1 - y0 > 2 * size:
-            mesh.box(
-                cx - size / 2, cx + size / 2, cy - size / 2, cy + size / 2, top, top + size * 0.6, c.roof_unit, PLAIN
-            )
-
-
-def _palm(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    """A thin trunk and a star of drooping fronds."""
-    x, y, z0, height, reach = prop.x, prop.y, prop.base, prop.height, prop.width / 2
-    top = z0 + height
-    mesh.box(x - 0.0015, x + 0.0015, y - 0.0015, y + 0.0015, z0, top, c.palm_trunk, PLAIN)
-    turn = rng.uniform(0, 2 * math.pi)
-    for index in range(6):
-        angle = turn + index * math.pi / 3
-        along = (math.cos(angle), math.sin(angle))
-        side = (-along[1] * 0.006, along[0] * 0.006)
-        tip = (x + along[0] * reach, y + along[1] * reach, top - height * 0.25)
-        corners = [
-            (x - side[0], y - side[1], top),
-            (x + side[0], y + side[1], top),
-            (tip[0], tip[1], tip[2]),
-            (tip[0], tip[1], tip[2]),
-        ]
-        mesh.quad(corners, (along[0] * 0.3, along[1] * 0.3, 1.0), c.palm_fronds, FOLIAGE)
-
-
-def _dead_tree(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    """A bare grey trunk with a couple of broken branches."""
-    x, y, z0, height = prop.x, prop.y, prop.base, prop.height
-    mesh.box(x - 0.002, x + 0.002, y - 0.002, y + 0.002, z0, z0 + height, c.dead_wood, PLAIN)
-    for _ in range(rng.randint(1, 3)):
-        z = z0 + height * rng.uniform(0.45, 0.85)
-        length = rng.uniform(0.008, 0.016) * rng.choice((-1, 1))
-        if rng.random() < 0.5:
-            mesh.box(min(x, x + length), max(x, x + length), y - 0.0012, y + 0.0012, z, z + 0.0025, c.dead_wood, PLAIN)
-        else:
-            mesh.box(x - 0.0012, x + 0.0012, min(y, y + length), max(y, y + length), z, z + 0.0025, c.dead_wood, PLAIN)
-
-
-def _pipes(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
-    x0, x1, y0, y1 = _footprint(prop)
-    z0, height = prop.base, prop.height
-    along_y = (y1 - y0) > (x1 - x0)
-    length = (y1 - y0) if along_y else (x1 - x0)
-    across = (x0, x1) if along_y else (y0, y1)
-    count = 4
-    for index in range(count):
-        offset = across[0] + (across[1] - across[0]) * (index + 0.5) / count
-        radius = 0.004 + 0.002 * (index % 2)
-        z = z0 + height
-        # A pipe lying along the rack: a cylinder built upright, then turned over by swapping axes.
-        start = len(mesh.vertices)
-        mesh.cylinder(0.0, 0.0, radius, 0.0, length, c.pipe, METAL, segments=8)
-        for vertices in mesh.vertices[start:]:
-            px, py, pz = vertices[:, 0].copy(), vertices[:, 1].copy(), vertices[:, 2].copy()
-            nx, ny, nz = vertices[:, 3].copy(), vertices[:, 4].copy(), vertices[:, 5].copy()
-            if along_y:
-                vertices[:, 0], vertices[:, 1], vertices[:, 2] = offset + px, y0 + pz, z + py
-                vertices[:, 3], vertices[:, 4], vertices[:, 5] = nx, nz, ny
-            else:
-                vertices[:, 0], vertices[:, 1], vertices[:, 2] = x0 + pz, offset + px, z + py
-                vertices[:, 3], vertices[:, 4], vertices[:, 5] = nz, nx, ny
-    step = 0.06
-    for index in range(int(length / step) + 1):  # supports
-        at = index * step
-        if along_y:
-            mesh.box(x0, x1, y0 + at, y0 + at + 0.004, z0, z0 + height, c.pipe, PLAIN)
-        else:
-            mesh.box(x0 + at, x0 + at + 0.004, y0, y1, z0, z0 + height, c.pipe, PLAIN)
-
-
-BUILDERS: dict[str, Callable[[PropMesh, random.Random, Prop, PropColors], None]] = {
-    "building": _building,
-    "house": _house,
-    "barn": _barn,
-    "silo": _silo,
-    "tank": _tank,
-    "plant": _plant,
-    "stack": _stack,
-    "pipes": _pipes,
-    "tree": _tree,
-    "palm": _palm,
-    "dead_tree": _dead_tree,
-    "hedge": _hedge,
-}
-
-
-def strip_arrays(props: list[Prop], first_y: float, colors: PropColors) -> tuple[FloatArray, IndexArray]:
-    """Every prop of a strip, in the strip's model space: x right, y away from the camera (heights towards the
-    camera are -y), z up the screen from the strip's top edge (`first_y` down the loop)."""
-    mesh = PropMesh()
-    for prop in props:
-        build(mesh, prop, colors)
-    vertices, indices = mesh.arrays()
-    model = vertices.copy()
-    model[:, 1] = -vertices[:, 2]
-    model[:, 2] = -(vertices[:, 1] - first_y)
-    model[:, 4] = -vertices[:, 5]
-    model[:, 5] = -vertices[:, 4]
-    return model, indices
+def varied(rng: random.Random, color: Color, amount: float = 0.08) -> Color:
+    """The color a little lighter or darker: no two props quite the same."""
+    return shade(color, 1.0 + rng.uniform(-amount, amount))

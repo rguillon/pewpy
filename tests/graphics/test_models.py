@@ -144,9 +144,9 @@ def test_merged_faces_cover_exactly_the_faces_of_the_cubes():
         for corners, normal in triangles_of(node):
             key = (round(normal.x), round(normal.y), round(normal.z))
             area[key] = area.get(key, 0.0) + (corners[1] - corners[0]).cross(corners[2] - corners[0]).length() / 2
-        rows, palette = models.load_drawing(build.__name__.removesuffix("_model"))
-        cells = models.voxel_cells(rows, palette)
-        voxel = config.MODEL_VOXEL
+        voxels = models.load_voxels(build.__name__.removesuffix("_model"))
+        cells = voxels.cells
+        voxel = voxels.size
         for direction in models.FACE_DIRECTIONS:
             dx, dy, dz = direction
             visible = sum((column + dx, row - dz, layer + dy) not in cells for column, row, layer in cells)
@@ -271,8 +271,28 @@ def test_every_drawing_file_loads():
     names = sorted(file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json"))
     assert "player" in names
     for name in names:
-        rows, palette = models.load_drawing(name)
-        assert models.voxel_cells(rows, palette)
+        assert models.load_voxels(name).cells
+
+
+def test_a_finer_model_is_the_same_size_in_the_world():
+    flat = {"rows": ["aa", "aa"], "palette": {"a": {"color": [1, 1, 1], "height": 1}}}
+    fine = {"layers": [["aaaa"] * 4, ["aaaa"] * 4, ["aaaa"] * 4], "palette": {"a": {"color": [1, 1, 1]}}, "scale": 2}
+    coarse_voxels, fine_voxels = models.parse_voxels(flat), models.parse_voxels(fine)
+    assert fine_voxels.scale == 2 and fine_voxels.size == config.MODEL_VOXEL / 2
+    assert fine_voxels.width * fine_voxels.size == coarse_voxels.width * coarse_voxels.size
+
+
+@pytest.mark.parametrize("scale", [0, 1.5, "2"])
+def test_a_scale_must_be_a_whole_number(scale):
+    data = {"layers": [["a"]], "palette": {"a": {"color": [1, 1, 1]}}, "scale": scale}
+    with pytest.raises(models.VoxelDrawingError, match="'scale' must be a whole number"):
+        models.parse_voxels(data)
+
+
+def test_only_3d_drawings_have_a_scale():
+    data = {"rows": ["a"], "palette": {"a": {"color": [1, 1, 1], "height": 1}}, "scale": 2}
+    with pytest.raises(models.VoxelDrawingError, match="only 3D drawings"):
+        models.parse_voxels(data)
 
 
 def test_a_drawing_gives_rows_and_a_palette_of_colors_and_heights():

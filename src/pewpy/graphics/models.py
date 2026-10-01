@@ -15,7 +15,7 @@ The player points up the screen (+Z); enemies point down (-Z). The first row of 
 import json
 import math
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any
 
 import numpy as np
@@ -516,7 +516,7 @@ BOSS_CANDIDATES_FOLDER = "boss_candidates"
 DRAWING_KEYS = {"rows", "palette"}  # a flat drawing, each color given a thickness
 LAYERED_KEYS = {"layers", "palette"}  # a 3D drawing: slices, the top one (nearest the camera) first
 VOX_KEYS = {"vox"}  # a MagicaVoxel model next to the file
-OPTIONAL_DRAWING_KEYS = {"engines"}
+OPTIONAL_DRAWING_KEYS = {"engines", "scale"}
 PALETTE_KEYS = {"color", "height"}
 ENGINE_KEYS = {"x", "y", "width", "length", "towards"}
 OPTIONAL_ENGINE_KEYS = {"color", "z"}
@@ -555,6 +555,12 @@ class Voxels:
     cells: dict[Cell, Color]
     width: int
     height: int
+    scale: int = 1  # cubes per config.MODEL_VOXEL: a finer model, the same size in the world
+
+    @property
+    def size(self) -> float:
+        """A cube's size in the world."""
+        return config.MODEL_VOXEL / self.scale
 
 
 def make_cube(name: str = "cube") -> GeomNode:
@@ -622,20 +628,32 @@ def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels
       drawing's rows, and "palette" (for each character, its "color");
     - a MagicaVoxel model: "vox", the name of a .vox file next to it (MagicaVoxel's z is up, towards the camera;
       its y goes up the screen).
-    Any of them can have "engines" (see `parse_engines`)."""
+    Any of them can have "engines" (see `parse_engines`). A 3D drawing or a MagicaVoxel model can also have a
+    "scale": how many of its cubes make one config.MODEL_VOXEL (finer models of the same size in the world; its
+    engines are in its own cubes)."""
     keys = set(data) - OPTIONAL_DRAWING_KEYS if isinstance(data, dict) else set()
     if keys == LAYERED_KEYS:
-        return _parse_layers(data, source)
+        return replace(_parse_layers(data, source), scale=_scale(data, source))
     if keys == VOX_KEYS:
         if not isinstance(data["vox"], str):
             raise VoxelDrawingError.malformed(source, "'vox' must be a file name")
         path = data_folder() / DRAWINGS_FOLDER / folder / data["vox"]
         try:
-            return voxels_from_vox(vox.read(path.read_bytes()))
+            voxels = voxels_from_vox(vox.read(path.read_bytes()))
         except (OSError, vox.VoxError) as error:
             raise VoxelDrawingError.malformed(source, f"{data['vox']}: {error}") from error
+        return replace(voxels, scale=_scale(data, source))
+    if "scale" in data:
+        raise VoxelDrawingError.malformed(source, "only 3D drawings and .vox models can have a 'scale'")
     rows, palette = parse_drawing(data, source)
     return Voxels(voxel_cells(rows, palette), len(rows[0]), len(rows))
+
+
+def _scale(data: dict[str, Any], source: str) -> int:
+    scale = data.get("scale", 1)
+    if isinstance(scale, bool) or not isinstance(scale, int) or scale < 1:
+        raise VoxelDrawingError.malformed(source, "'scale' must be a whole number, 1 or more")
+    return scale
 
 
 def _parse_layers(data: Any, source: str) -> Voxels:
@@ -768,10 +786,10 @@ def drawing_model(name: str) -> NodePath:
     data, source = _read_drawing(name)
     voxels = parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
     mesh = MeshBuilder()
-    mesh.drawn_cells(voxels, config.MODEL_VOXEL)
+    mesh.drawn_cells(voxels, voxels.size)
     model = NodePath(mesh.build(name))
     for engine in parse_engines(data, source):
-        add_flame(model, engine, (voxels.width, voxels.height), config.MODEL_VOXEL)
+        add_flame(model, engine, (voxels.width, voxels.height), voxels.size)
     return model
 
 

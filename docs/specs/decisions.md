@@ -177,6 +177,24 @@
 
 ## Decisions made
 
+### 2026-10-01 — Props in their own files, and more varied (asked by the user in chat)
+- Decision (the user's): a subdirectory for the props standing on the grounds, each kind in its own file, and more
+  diversity among them.
+- `src/pewpy/scenery/props/`: `mesh.py` (the mesh they're built into and its shapes: boxes, cylinders, discs,
+  ellipsoids, gabled roofs, roofs from a cross-section, shapes turned on a lathe), a module per kind (`build(mesh,
+  rng, prop, colors)`), and `__init__.py` (the registry, `build`, `strip_arrays`). It replaces `prop_meshes.py`.
+- Placeholders chosen (mine), each picked by the prop's seed, colors varying a little around the scenery's:
+  buildings (towers with one or two setbacks, some with a mast and its light; mid-rises on a podium; roofs with
+  machinery, a water tank on legs or a few planters), houses (gabled or hipped, some with a chimney), barns
+  (gabled or gambrel, a door), silos (dome or cone, banded, some in pairs), tanks (domed, floating-roof, or a
+  sphere on legs), plants (an annex, sawtooth roof lights, chimneys or fans), stacks (a flare, or one or two
+  chimneys banded red), pipe racks (3 to 6 pipes of different sizes and metals, some with a loop), trees (round,
+  conifer, or a cluster), palms (leaning, 5 to 8 fronds), dead trees (some snapped or forked), hedges (bushes of
+  varied heights, the odd gap).
+- New kinds: cooling towers in the refinery (a unit like the others, `units` in its preset) and greenhouses on the
+  farms (glasshouses or polytunnels, `greenhouse_share` 0.05). New prop colors in `sceneries.json`: `concrete`,
+  `glasshouse`, `vent`.
+
 ### 2026-10-01 — Scenery values in data, not in the code (asked by the user in chat)
 - Decision (the user's): the scenery code's constants become parameters of the level descriptions; the user chose
   presets with overrides, and the look and layout values (not the technical ones).

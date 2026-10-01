@@ -7,7 +7,7 @@
 (or `uv run python -m tools.voxels ...`). NAME is a model's file name without ".json", like "drone", or
 "candidates/007". In MagicaVoxel the ship lies on the ground seen from above like in the game: its nose where it
 points on screen, z up towards the camera. Engines stay in the .json file ("x" and "y" on the drawing, "z" cubes
-above its middle plane); "use" and "layers" keep them. `git checkout` a model's .json to go back.
+above its middle plane), and so does a finer model's "scale"; "use" and "layers" keep them. `git checkout` a model's .json to go back.
 """
 
 import argparse
@@ -37,7 +37,7 @@ def use(name: str) -> Path:
     if not (MODELS / f"{name}.vox").is_file():
         raise NotExportedError(name)
     data = json.loads(path.read_text())
-    data = {"vox": f"{Path(name).name}.vox", **({"engines": data["engines"]} if "engines" in data else {})}
+    data = {"vox": f"{Path(name).name}.vox", **_kept(data)}
     path.write_text(json.dumps(data, indent=2) + "\n")
     models.load_voxels(name)  # it reads
     return path
@@ -67,9 +67,16 @@ def layers(name: str) -> Path:
         for layer in range(-extent, extent + 1)
     ]
     palette = {char: {"color": [round(value, 3) for value in color[:3]]} for color, char in chars.items()}
-    result = {"layers": slices, "palette": palette, **({"engines": data["engines"]} if "engines" in data else {})}
+    scale = {"scale": voxels.scale} if voxels.scale != 1 else {}
+    result = {**scale, "layers": slices, "palette": palette, **_kept(data, scale=False)}
     path.write_text(json.dumps(result, indent=2) + "\n")
     return path
+
+
+def _kept(data: dict, scale: bool = True) -> dict:
+    """What a model file keeps whatever its form: its engines, and its scale (finer models)."""
+    keys = ("scale", "engines") if scale else ("engines",)
+    return {key: data[key] for key in keys if key in data}
 
 
 def main() -> None:

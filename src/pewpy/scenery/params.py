@@ -156,7 +156,8 @@ class Flora:
 
 @dataclass(frozen=True)
 class PropColors:
-    """The props standing on the grounds (prop_meshes.py); lists: each one picks among them."""
+    """The props standing on the grounds (props/); lists: each one picks among them. Each prop varies its
+    colors a little around these."""
 
     building_walls: tuple[Color3, ...]
     roofs: tuple[Color3, ...]
@@ -181,6 +182,9 @@ class PropColors:
     palm_fronds: Color3
     palm_trunk: Color3
     dead_wood: Color3
+    concrete: Color3  # cooling towers
+    glasshouse: Color3  # greenhouses
+    vent: Color3  # dark openings: a cooling tower's inside, a chimney's mouth
 
 
 @dataclass(frozen=True)

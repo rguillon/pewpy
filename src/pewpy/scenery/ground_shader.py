@@ -6,7 +6,7 @@ the height, the slope, how tucked-in the spot is (the relief's cavity) and proce
 scree, snow, meadows, pines. On built-up grounds: from the layout's surface map (settlement.py: streets, pavements,
 yards, fields...). Fine noise also bends the normal, so surfaces look rough at any distance.
 
-The prop shader paints buildings, tanks, trees... from each face's material (prop_meshes.py): rows of windows
+The prop shader paints buildings, tanks, trees... from each face's material (props/): rows of windows
 (more of them lit at dusk and night), glowing furnaces, flames and beacons, metal sheen, leafy crowns.
 
 Their colors come from the level's scenery (params.py), as shader inputs: each painter reads its colors from
@@ -464,7 +464,7 @@ void main() {
 """
 
 PROP_SHADER = """
-// v_data: red, green, blue, material (prop_meshes.py); v_wall: along the wall, up the wall, the prop's seed, unused
+// v_data: red, green, blue, material (props/); v_wall: along the wall, up the wall, the prop's seed, unused
 uniform vec3 window_lights[2];
 uniform vec3 glass_color;  // unlit windows
 uniform vec3 furnace_color;
@@ -684,7 +684,7 @@ def relief_chunk_model(relief: Relief, first_row: int, rows: int, max_height: fl
 
 
 def props_model(vertices: np.ndarray, triangles: np.ndarray) -> NodePath:
-    """A strip's props (prop_meshes.strip_arrays)."""
+    """A strip's props (props.strip_arrays)."""
     path = _geometry("props", vertices, triangles)
     path.setShader(_shader("props"), 20)
     path.setTwoSided(True)

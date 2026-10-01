@@ -3,7 +3,7 @@
 from panda3d.core import Lens, NodePath, Point2, Point3, Vec3
 
 from pewpy.graphics import models
-from pewpy.scenery import background, ground_shader, params, prop_meshes
+from pewpy.scenery import background, ground_shader, params, props
 from pewpy.scenery.background import Area, Scenery
 from pewpy.scenery.params import Color3, SceneryParams
 from pewpy.scenery.terrain import Terrain
@@ -164,9 +164,9 @@ class BackgroundView:
                 relief, chunk * terrain.relief_rows, terrain.relief_rows, max_height
             )
             model.reparentTo(strip)
-            props = terrain.chunk_props(chunk)
-            if props:
-                vertices, triangles = prop_meshes.strip_arrays(props, chunk * terrain.chunk_height, look.props)
+            standing = terrain.chunk_props(chunk)
+            if standing:
+                vertices, triangles = props.strip_arrays(standing, chunk * terrain.chunk_height, look.props)
                 ground_shader.props_model(vertices, triangles).reparentTo(strip)
             nodes.append(strip)
         return nodes

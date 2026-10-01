@@ -2,7 +2,7 @@
 
 A layout is what the ground is covered with, as a surface map painted by the ground shader (streets, pavements,
 yards, fields...), plus the props standing on it: buildings, tanks, stacks, pipe racks, houses, barns, silos, trees,
-hedges. prop_meshes.py builds the props, ground_shader.py draws both.
+hedges, greenhouses, cooling towers. props/ builds the props, ground_shader.py draws both.
 
 Each settlement's numbers (block sizes, shares, building heights...) come from the level's scenery (`layout`, see
 params.py and KNOBS below). Positions are in world units: x from the ground's left edge, y down the loop (like the relief's rows); the layout
@@ -42,8 +42,9 @@ class Surface(IntEnum):
 
 @dataclass(frozen=True)
 class Prop:
-    """Something standing on the ground. `kind`: "building", "house", "barn", "silo", "tank", "plant", "stack",
-    "pipes", "tree" or "hedge"; `seed` picks its colors and details (see prop_meshes.py)."""
+    """Something standing on the ground. `kind`: "building", "house", "barn", "silo", "greenhouse", "tank",
+    "plant", "stack", "pipes", "cooling_tower", "tree", "hedge", "palm" or "dead_tree"; `seed` picks its variant,
+    colors and details (see props/)."""
 
     kind: str
     x: float  # middle of its footprint
@@ -181,7 +182,7 @@ def _park(canvas: _Canvas, lot: Rect) -> None:
 
 def refinery(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
     """Units between roads (`block` apart, `road` wide), on lots `lot` wide at least: tank farms, process plants with
-    furnaces, tall flaring stacks, pipe racks (`units`: one is picked per lot)."""
+    furnaces, tall flaring stacks, pipe racks, cooling towers (`units`: one is picked per lot)."""
     canvas = _Canvas(rng, width, loop, Surface.STREET, (0.0, 0.0))
     road = knobs["road"]
     units = tuple(knobs["units"])
@@ -209,6 +210,16 @@ def _refinery_unit(canvas: _Canvas, lot: Rect, unit: str) -> None:
                 canvas.add("tank", (y - size / 2, y + size / 2, x - size / 2, x + size / 2), height)
     elif unit == "plant":
         canvas.add("plant", shrink(lot, 0.01), rng.uniform(0.07, 0.16))
+    elif unit == "cooling":  # one big cooling tower, or two smaller ones
+        size = min(bottom - top, right - left)
+        if (right - left) > 1.8 * (bottom - top):
+            for middle in (left + (right - left) * 0.27, left + (right - left) * 0.73):
+                half = min(size, (right - left) / 2) * 0.45
+                y = (top + bottom) / 2
+                canvas.add("cooling_tower", (y - half, y + half, middle - half, middle + half), rng.uniform(0.14, 0.2))
+        else:
+            y, x, half = (top + bottom) / 2, (left + right) / 2, size * 0.45
+            canvas.add("cooling_tower", (y - half, y + half, x - half, x + half), rng.uniform(0.18, 0.28))
     elif unit == "stack":
         y, x = (top + bottom) / 2, (left + right) / 2
         size = rng.uniform(0.035, 0.05)
@@ -226,11 +237,12 @@ def _refinery_unit(canvas: _Canvas, lot: Rect, unit: str) -> None:
 def farmland(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
     """Patchwork fields (`fields`: one is picked per lot) between dirt roads (`block` apart, `road` wide), some with
     hedges around (`hedge_share`), orchards (`orchard_share`), farms with a house, a barn and a silo (`farm_share`),
-    trees along the roads."""
+    rows of greenhouses (`greenhouse_share`), trees along the roads."""
     canvas = _Canvas(rng, width, loop, Surface.DIRT_ROAD, knobs["tree_size"])
     road = knobs["road"]
     fields = tuple(Surface[name.upper()] for name in knobs["fields"])
     farms, orchards = knobs["farm_share"], knobs["farm_share"] + knobs["orchard_share"]
+    greenhouses = orchards + knobs["greenhouse_share"]
     for top, bottom, left, right in grid(width, loop, knobs["block"]):
         block = (top + road, bottom, left + road, right)
         for lot in lots(rng, block, knobs["lot"]):
@@ -239,6 +251,8 @@ def farmland(rng: random.Random, width: float, loop: float, knobs: Knobs) -> Lay
                 _farm(canvas, lot)
             elif roll < orchards:
                 _orchard(canvas, lot)
+            elif roll < greenhouses:
+                _greenhouses(canvas, lot)
             else:
                 canvas.fill(lot, rng.choice(fields), rng.randrange(256))
                 if rng.random() < knobs["hedge_share"]:
@@ -261,6 +275,20 @@ def _farm(canvas: _Canvas, lot: Rect) -> None:
     canvas.add("silo", (y0 + 0.055, y0 + 0.08, x0 + 0.105, x0 + 0.13), rng.uniform(0.07, 0.1))
     for _ in range(3):
         canvas.tree(x0 + rng.uniform(0.07, 0.13), y0 + rng.uniform(0.0, 0.04))
+
+
+def _greenhouses(canvas: _Canvas, lot: Rect) -> None:
+    """Long greenhouses side by side, on packed earth."""
+    canvas.fill(lot, Surface.FARMYARD)
+    top, bottom, left, right = shrink(lot, 0.012)
+    along_x = (right - left) >= (bottom - top)
+    across = (bottom - top) if along_x else (right - left)
+    count = max(1, int(across / 0.035))
+    width = across / count
+    for index in range(count):
+        a, b = index * width + 0.004, (index + 1) * width - 0.004
+        rect = (top + a, top + b, left, right) if along_x else (top, bottom, left + a, left + b)
+        canvas.add("greenhouse", rect, 0.018)
 
 
 def _orchard(canvas: _Canvas, lot: Rect) -> None:
@@ -302,7 +330,7 @@ def occluders(props: list[Prop], heights: NDArray[np.float64], step_x: float, st
     result = heights.copy()
     rows, columns = heights.shape
     for prop in props:
-        shrink_by = 0.8 if prop.kind in ("tree", "tank", "silo", "stack") else 1.0  # round ones
+        shrink_by = 0.8 if prop.kind in ("tree", "tank", "silo", "stack", "cooling_tower") else 1.0  # round ones
         half_x, half_y = prop.width * shrink_by / 2, prop.length * shrink_by / 2
         first_column = max(int(np.ceil((prop.x - half_x) / step_x)), 0)
         last_column = min(int(np.floor((prop.x + half_x) / step_x)), columns - 1)
@@ -336,5 +364,15 @@ KNOBS: dict[str, tuple[str, ...]] = {
         "tree_size",
     ),
     "refinery": ("block", "road", "lot", "units"),
-    "farmland": ("block", "road", "lot", "farm_share", "orchard_share", "hedge_share", "fields", "tree_size"),
+    "farmland": (
+        "block",
+        "road",
+        "lot",
+        "farm_share",
+        "orchard_share",
+        "greenhouse_share",
+        "hedge_share",
+        "fields",
+        "tree_size",
+    ),
 }

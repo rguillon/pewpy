@@ -41,10 +41,11 @@ def test_bad_layered_drawings_are_rejected(data, problem):
 
 
 def test_flat_drawings_still_read_as_before():
-    voxels = models.load_voxels("drone")
-    rows, palette = models.load_drawing("drone")
+    data = {"rows": [".a.", "aba"], "palette": {"a": {"color": RED, "height": 3}, "b": {"color": BLUE, "height": 1}}}
+    voxels = models.parse_voxels(data)
+    rows, palette = models.parse_drawing(data)
     assert voxels.cells == models.voxel_cells(rows, palette)
-    assert (voxels.width, voxels.height) == (len(rows[0]), len(rows))
+    assert (voxels.width, voxels.height, voxels.scale) == (3, 2, 1)
 
 
 def test_vox_files_round_trip():
@@ -124,3 +125,13 @@ def test_the_tool_runs_from_the_command_line(model_folder, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["voxels.py", "export", "drone", "player"])
     tool.main()
     assert (model_folder / "drone.vox").is_file() and (model_folder / "player.vox").is_file()
+
+
+def test_a_finer_model_keeps_its_scale_through_the_tool(model_folder):
+    data = {"scale": 2, "layers": [["aa", "aa"]], "palette": {"a": {"color": RED}}}
+    (model_folder / "fine.json").write_text(json.dumps(data))
+    tool.export("fine")
+    tool.use("fine")
+    assert models.load_voxels("fine").scale == 2
+    tool.layers("fine")
+    assert json.loads((model_folder / "fine.json").read_text())["scale"] == 2

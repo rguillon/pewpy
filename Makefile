@@ -31,6 +31,10 @@ boss-candidates: ## Generate boss model candidates for the Boss candidates scree
 songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
 	@uv run python -m tools.make_songs $(ARGS)
 
+.PHONY: models
+models: ## Remodel ships in real 3D from their recipes in tools/make_models.py (ARGS="player drone": just these)
+	@uv run python -m tools.make_models $(ARGS)
+
 .PHONY: voxels
 voxels: ## Move a model between flat, 3D (layered) and MagicaVoxel forms (ARGS="export drone", "use drone", "layers drone")
 	@uv run python -m tools.voxels $(ARGS)
