@@ -5,8 +5,8 @@ it, with one life each; its fitness is the mean of its runs' (episode.py). The t
 parallel. Every CHECK_EVERY generations the brain itself plays every level once: the share it clears and how far it
 gets are its progress, and it is saved (files.py), so learning can stop at any time and go on later.
 
-A curriculum: a new brain trains on world 1 only; the next world opens once it clears OPEN_NEXT of the open worlds'
-levels at a check.
+A curriculum: a new brain trains on world 1 only; the next world opens once it gets OPEN_NEXT of the way into the
+open worlds' levels on average at a check.
 """
 
 import os
@@ -27,7 +27,7 @@ from pewpy.game.level import Level, load_levels, load_worlds
 
 LEVELS_PER_TRY = 3
 CHECK_EVERY = 10  # generations
-OPEN_NEXT = 0.5  # the share of the open worlds' levels to clear at a check for the next world to open
+OPEN_NEXT = 0.5  # how far into the open worlds' levels (on average, 0.5: the final boss) for the next world to open
 
 
 @cache
@@ -118,12 +118,12 @@ class Learner:
 
     def check(self) -> tuple[float, float]:
         """The share of levels the brain clears (one life each), and how far into them it gets on average; opens
-        the next world when it clears enough of the open ones."""
+        the next world when it gets far enough into the open ones."""
         weights, hidden = self.brain.weights, self.brain.hidden
         tasks = [(weights, hidden, self.ship, index, index) for index in range(len(_levels()))]
         results = list(self.executor.map(check_level, tasks))
         opened = open_levels(self.training.worlds)
-        if self.training.worlds < len(_world_sizes()) and np.mean([c for c, _ in results[:opened]]) >= OPEN_NEXT:
+        if self.training.worlds < len(_world_sizes()) and np.mean([gone for _, gone in results[:opened]]) >= OPEN_NEXT:
             self.training.worlds += 1
         return float(np.mean([cleared for cleared, _ in results])), float(np.mean([gone for _, gone in results]))
 

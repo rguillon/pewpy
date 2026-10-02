@@ -1,8 +1,10 @@
 """What the AI sees of the world: a fixed list of numbers, mostly from -1 to 1, around its ship.
 
-- A danger radar: for each of MOVES (8 directions and staying put), how close the enemy shots and the enemies come to
-  the ship if it flew that way for each of HORIZONS (everything going on at its speed): the room left, from 0
-  (a hit) to 1 (CLEAR or more); and the safest of the moves (its direction, the long horizon counting double).
+- A danger radar that plans ahead: for each of MOVES (8 directions and staying put), the ship flies it for FIRST
+  seconds then the best of MOVES until HORIZON (with its inertia, everything else going on at its speed, the threats
+  within NEAR): how long before a hit (closer than MARGIN; from 0 to 1, the whole HORIZON: none) and the room left on the way (from 0 to
+  1, CLEAR or more); the safest of the moves (its direction); and the move to aim, the safe move (within TOLERANCE
+  of the safest) that best brings the ship under its target (the boss, else the nearest enemy above it).
 - The NEAREST_SHOTS nearest enemy shots: where they are from the ship and how fast they go.
 - Lanes across the whole screen (LANES columns): how many enemy shots and how many enemies are in each, above the
   ship, so it can pick a lane to fly in and to shoot up.
@@ -20,9 +22,16 @@ from pewpy.game.weapons import MAX_LEVEL, WEAPONS
 from pewpy.game.world import World
 
 MOVES = ((0.0, 0.0), *((math.cos(a * math.pi / 4), math.sin(a * math.pi / 4)) for a in range(8)))
-HORIZONS = (0.3, 0.7)  # seconds
-STEPS = 4  # positions checked along each horizon
+FIRST = 0.25  # seconds of the first move of a plan, then the second until HORIZON
+HORIZON = 0.8  # seconds
+STEPS = 10  # positions checked along a plan
+NEAR = 0.9  # world units: farther threats can't reach the ship within HORIZON
 CLEAR = 0.2  # world units of room: safe enough
+MARGIN = 0.02  # world units: closer than this counts as a hit (the threats don't fly quite straight)
+UNHIT = 1.5  # a plan's score without a hit (one with a hit scores its time before it, as a share of HORIZON)
+TOLERANCE = 0.1  # how much less than the safest a move can score and still be safe to aim with
+HOME = 0.0  # the height the ship aims from (the middle of the screen: room to dodge all around)...
+HOME_WEIGHT = 0.3  # ...minding it this much less than being under its target
 NEAREST_SHOTS = 6
 SHOT_RANGE = 0.6  # where the shots are, in this unit
 LANES = 8
@@ -31,46 +40,112 @@ REACH = 1.0  # targets are seen this far away (world units) at most
 
 HALF_WIDTH = config.PLAY_WIDTH / 2
 HALF_HEIGHT = config.PLAY_HEIGHT / 2
-SIZE = len(MOVES) * len(HORIZONS) + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3
-SAFEST = len(MOVES) * len(HORIZONS)  # where the safest move's direction (x, y) is in the view
+SIZE = 2 * len(MOVES) + 2 + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3
+SAFEST = 2 * len(MOVES)  # where the safest move's direction (x, y) is in the view
+AIM = SAFEST + 2  # where the move to aim's direction (x, y) is
 NO_THREATS = np.zeros((0, 6))
-TIMES = [np.linspace(horizon / STEPS, horizon, STEPS) for horizon in HORIZONS]  # when the radar looks
+TIMES = np.linspace(HORIZON / STEPS, HORIZON, STEPS)  # when the radar looks
+_FIRSTS = np.repeat(np.arange(len(MOVES)), len(MOVES))  # every plan: its first move...
+_SECONDS = np.tile(np.arange(len(MOVES)), len(MOVES))  # ...and its second
+_AIM_STEP = int(np.searchsorted(TIMES, FIRST))  # where the ship is told to be when aiming: after the first move
 
 
 def _rows(entities: list) -> np.ndarray:
-    """Living entities as rows of (x, y, vx, vy, width, height)."""
-    rows = [(e.x, e.y, e.vx, e.vy, e.width, e.height) for e in entities if e.alive]
+    """Living entities as rows of (x, y, vx, vy, width, height); a shot snaking across its line of flight (an
+    `amplitude`) is as wide as its snaking, so flying straight is all the radar needs to foresee."""
+    rows = []
+    for e in entities:
+        if e.alive:
+            sway = 2 * getattr(e, "amplitude", 0.0)
+            rows.append((e.x, e.y, e.vx, e.vy, e.width + sway, e.height + sway))
     return np.array(rows, dtype=float) if rows else NO_THREATS
 
 
-def radar(world: World, threats: np.ndarray) -> np.ndarray:
-    """For each move and horizon, the room left between the ship and the nearest threat (at worst along the way)."""
+def _glide(position: np.ndarray, velocity: np.ndarray, target: np.ndarray, times: np.ndarray) -> np.ndarray:
+    """Where the ship is after `times` (positions, velocities and targets as (plans, 2)), its velocity easing
+    towards the target velocity as Player.update does it: (plans, 2, times)."""
+    ease = config.PLAYER_RESPONSIVENESS
+    lag = (velocity - target)[..., None] * (1 - np.exp(-ease * times)) / ease
+    return position[..., None] + target[..., None] * times + lag
+
+
+def plans(world: World) -> tuple[np.ndarray, np.ndarray]:
+    """Where the ship is along every plan (a first move for FIRST seconds, then a second one), at TIMES, kept in the
+    play area: x and y, (plans, steps); plan i is MOVES[i // len(MOVES)] then MOVES[i % len(MOVES)]."""
     player = world.player
-    if not len(threats):
-        return np.ones(len(MOVES) * len(HORIZONS))
-    moves = np.array(MOVES) * player.ship.speed  # (moves, 2)
-    reach_x = (threats[:, 4] + player.width) / 2  # (threats,)
-    reach_y = (threats[:, 5] + player.height) / 2
+    moves = np.array(MOVES) * player.ship.speed
+    first, second = moves[_FIRSTS], moves[_SECONDS]
+    start = np.array([[player.x, player.y]])
+    velocity = np.array([[player.vx, player.vy]])
+    before = _glide(start, velocity, first, np.minimum(TIMES, FIRST))
+    ease = config.PLAYER_RESPONSIVENESS
+    turn = _glide(start, velocity, first, np.array([FIRST]))[..., 0]
+    turn_velocity = first + (velocity - first) * np.exp(-ease * FIRST)
+    after = _glide(turn, turn_velocity, second, np.maximum(TIMES - FIRST, 0.0))
+    path = np.where(TIMES <= FIRST, before, after)
     max_x = (config.PLAY_WIDTH - player.width) / 2
     max_y = (config.PLAY_HEIGHT - player.height) / 2
-    rooms = []
-    for times in TIMES:  # (steps,)
-        ship_x = np.clip(player.x + moves[:, 0, None] * times, -max_x, max_x)  # (moves, steps)
-        ship_y = np.clip(player.y + moves[:, 1, None] * times, -max_y, max_y)
-        threat_x = threats[:, 0] + threats[:, 2] * times[:, None]  # (steps, threats)
-        threat_y = threats[:, 1] + threats[:, 3] * times[:, None]
-        gap_x = np.abs(threat_x[None] - ship_x[:, :, None]) - reach_x  # (moves, steps, threats)
-        gap_y = np.abs(threat_y[None] - ship_y[:, :, None]) - reach_y
-        room = np.maximum(gap_x, gap_y).min(axis=(1, 2))
-        rooms.append(np.clip(room / CLEAR, 0.0, 1.0))
-    return np.concatenate(rooms)
+    return np.clip(path[:, 0], -max_x, max_x), np.clip(path[:, 1], -max_y, max_y)
 
 
-def safest(rooms: np.ndarray) -> tuple[float, float]:
-    """The direction of the move with the most room (the long horizon counting double; staying put when tied)."""
+def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
+    """For each move, its best plan's time before a hit (share of HORIZON, 1: none) and room left (share of CLEAR),
+    and the score that ranks the moves (see UNHIT); and where each move takes the ship (x and y after FIRST)."""
+    player = world.player
+    ship_x, ship_y = plans(world)
+    if len(threats):
+        near = (np.abs(threats[:, 0] - player.x) < NEAR + threats[:, 4] / 2) & (
+            np.abs(threats[:, 1] - player.y) < NEAR + threats[:, 5] / 2
+        )
+        threats = threats[near]
     count = len(MOVES)
-    score = sum((index + 1) * rooms[index * count : (index + 1) * count] for index in range(len(HORIZONS)))
+    if len(threats):
+        threat_x = threats[:, 0] + threats[:, 2] * TIMES[:, None]  # (steps, threats)
+        threat_y = threats[:, 1] + threats[:, 3] * TIMES[:, None]
+        gap_x = np.abs(threat_x[None] - ship_x[:, :, None]) - (threats[:, 4] + player.width) / 2  # (plans, ...)
+        gap_y = np.abs(threat_y[None] - ship_y[:, :, None]) - (threats[:, 5] + player.height) / 2
+        gap = np.maximum(gap_x, gap_y).min(axis=2)  # (plans, steps)
+        hit = gap < MARGIN
+        first_hit = np.where(hit.any(axis=1), hit.argmax(axis=1), STEPS)
+        time = np.where(first_hit < STEPS, TIMES[np.minimum(first_hit, STEPS - 1)] / HORIZON, 1.0)
+        room = np.clip(gap.min(axis=1) / CLEAR, 0.0, 1.0)
+    else:
+        time = room = np.ones(len(_FIRSTS))
+    score = np.where(time < 1.0, time, UNHIT) + CLEAR * room
+    best = score.reshape(count, count).argmax(axis=1)  # each move's best second move
+    pick = np.arange(count) * count + best
+    after_first = np.arange(count) * count
+    return time[pick], room[pick], score[pick], ship_x[after_first, _AIM_STEP], ship_y[after_first, _AIM_STEP]
+
+
+def target(world: World) -> float | None:
+    """Where across the ship should be to shoot: under the boss, else under the nearest enemy above it on screen."""
+    if world.boss is not None:
+        return world.boss.x
+    player = world.player
+    above = [
+        enemy
+        for enemy in world.enemies
+        if enemy.alive and player.y < enemy.y < world.view_top and abs(enemy.x) < world.view_side
+    ]
+    if not above:
+        return None
+    return min(above, key=lambda enemy: abs(enemy.x - player.x) + 0.3 * (enemy.y - player.y)).x
+
+
+def safest(score: np.ndarray) -> tuple[float, float]:
+    """The direction of the move with the best score (staying put when tied)."""
     return MOVES[int(np.argmax(score))]
+
+
+def aim(score: np.ndarray, reach_x: np.ndarray, reach_y: np.ndarray, aim_x: float | None) -> tuple[float, float]:
+    """The direction of the safe move (within TOLERANCE of the safest) that takes the ship nearest under `aim_x`, at
+    HOME height; the safest move without a target."""
+    if aim_x is None:
+        return safest(score)
+    safe = score >= score.max() - TOLERANCE
+    cost = np.abs(reach_x - aim_x) + HOME_WEIGHT * np.abs(reach_y - HOME)
+    return MOVES[int(np.argmin(np.where(safe, cost, np.inf)))]
 
 
 def _nearest_shots(shots: np.ndarray, x: float, y: float) -> np.ndarray:
@@ -116,10 +191,12 @@ def sense(world: World) -> np.ndarray:
             targets += [0.0, 0.0, 0.0]
     pickup = min(world.pickups, key=lambda p: math.hypot(p.x - player.x, p.y - player.y), default=None)
     boss = world.boss
-    rooms = radar(world, np.concatenate([shots, enemies]))
+    time, room, score, reach_x, reach_y = radar(world, np.concatenate([shots, enemies]))
     return np.concatenate([
-        rooms,
-        safest(rooms),
+        time,
+        room,
+        safest(score),
+        aim(score, reach_x, reach_y, target(world)),
         _nearest_shots(shots, player.x, player.y),
         _lanes(shots, player.y),
         _lanes(enemies, player.y),

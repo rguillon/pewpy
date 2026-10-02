@@ -16,7 +16,9 @@ from pewpy.game.weapons import WEAPONS
 HIDDEN = (24,)  # neurons in each hidden layer
 OUTPUTS = 3 + len(WEAPONS)
 FIRE_BIAS = 1.0  # a new brain starts with the fire button held: shooting is nearly always right
-RADAR_GAIN = 3.0  # a new brain starts flying the radar's safest way, the stick this far over (clamped to 1)
+WEAPON_BIAS = 1.0  # ...and with the bullets selected (the first weapon), not switching at random
+RADAR_GAIN = 3.0  # a new brain starts flying the radar's move to aim, the stick this far over (clamped to 1)
+STICK_NOISE = 0.1  # how much less its hidden layer moves the stick than the other outputs at first
 
 
 def shapes(inputs: int = sensors.SIZE, hidden: tuple[int, ...] = HIDDEN) -> list[tuple[int, int]]:
@@ -47,17 +49,21 @@ class Brain:
 
     @classmethod
     def random(cls, rng: np.random.Generator, hidden: tuple[int, ...] = HIDDEN) -> "Brain":
-        """A new brain: small random weights (scaled for each layer's inputs), no biases but FIRE_BIAS, the direct
-        path closed but from the radar's safest way to the stick (RADAR_GAIN): it dodges before it learns anything."""
+        """A new brain: small random weights (scaled for each layer's inputs; smaller to the stick, STICK_NOISE), no
+        biases but FIRE_BIAS and WEAPON_BIAS, the direct path closed but from the radar's move to aim to the stick
+        (RADAR_GAIN): it dodges and aims before it learns anything."""
         parts = []
         layers = shapes(sensors.SIZE, hidden)
         for rows, columns in layers[:-1]:
             layer = rng.normal(0.0, 1.0 / np.sqrt(rows - 1), (rows, columns))
             layer[-1] = 0.0
             parts.append(layer.ravel())
-        parts[-1].reshape(-1, OUTPUTS)[-1, 2] = FIRE_BIAS
+        out = parts[-1].reshape(-1, OUTPUTS)
+        out[:-1, :2] *= STICK_NOISE
+        out[-1, 2] = FIRE_BIAS
+        out[-1, 3] = WEAPON_BIAS
         direct = np.zeros((sensors.SIZE, OUTPUTS))
-        direct[sensors.SAFEST, 0] = direct[sensors.SAFEST + 1, 1] = RADAR_GAIN
+        direct[sensors.AIM, 0] = direct[sensors.AIM + 1, 1] = RADAR_GAIN
         parts.append(direct.ravel())
         return cls(np.concatenate(parts), hidden)
 

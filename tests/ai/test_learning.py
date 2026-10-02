@@ -60,13 +60,13 @@ def test_a_new_brain_trains_on_the_first_world_only(tmp_path, monkeypatch):
     assert played and all(index == 0 for runs in played for index, _ in runs)
 
 
-def test_the_next_world_opens_when_enough_of_the_open_levels_are_cleared(tmp_path, monkeypatch):
+def test_the_next_world_opens_when_the_brain_gets_far_enough_into_the_open_levels(tmp_path, monkeypatch):
     with ThreadPoolExecutor(2) as executor:
         learner = Learner("vanguard", tmp_path, executor)
         monkeypatch.setattr(learning, "check_level", lambda task: (False, 0.1))
         learner.check()
         assert learner.training.worlds == 1
-        monkeypatch.setattr(learning, "check_level", lambda task: (task[3] == 0, 0.5))
+        monkeypatch.setattr(learning, "check_level", lambda task: (False, 0.6 if task[3] == 0 else 0.0))
         learner.check()
         assert learner.training.worlds == 2
         learner.check()

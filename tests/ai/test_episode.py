@@ -35,8 +35,15 @@ def test_a_run_ends_when_the_level_is_over_and_its_fitness_counts_clearing_it():
     assert outcome.fitness > lost.fitness + episode.CLEARED - 1
 
 
-def test_fitness_grows_with_time_score_and_the_boss_damaged():
-    base = Outcome(cleared=False, time=10.0, progress=0.5, score=0, lives_lost=1, health_left=0.0)
-    assert Outcome(False, 20.0, 0.5, 0, 1, 0.0).fitness > base.fitness
-    assert Outcome(False, 10.0, 0.5, 1000, 1, 0.0).fitness > base.fitness
-    assert Outcome(False, 10.0, 1.5, 0, 1, 0.0).fitness == pytest.approx(base.fitness + episode.BOSS_DAMAGE / 2)
+def test_fitness_grows_with_the_waves_reached_the_score_and_the_bosses_damaged():
+    base = Outcome(cleared=False, time=10.0, progress=0.5, score=0, lives_lost=1, health_left=0.0, advanced=10.0)
+    assert Outcome(False, 10.0, 0.5, 0, 1, 0.0, advanced=20.0).fitness > base.fitness
+    assert Outcome(False, 10.0, 0.5, 1000, 1, 0.0, advanced=10.0).fitness > base.fitness
+    damaged = Outcome(False, 10.0, 0.5, 0, 1, 0.0, advanced=10.0, bosses=0.5)
+    assert damaged.fitness == pytest.approx(base.fitness + episode.BOSS_DAMAGE / 2)
+
+
+def test_dodging_a_boss_longer_earns_nothing():
+    assert Outcome(False, 100.0, 0.5, 0, 1, 0.0, advanced=50.0).fitness == pytest.approx(
+        Outcome(False, 60.0, 0.5, 0, 1, 0.0, advanced=50.0).fitness
+    )

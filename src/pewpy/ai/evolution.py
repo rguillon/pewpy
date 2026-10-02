@@ -10,8 +10,8 @@ from dataclasses import dataclass, field
 import numpy as np
 
 POPULATION = 64  # tries per generation (even)
-NOISE = 0.05  # how big the nudges are
-LEARNING_RATE = 0.06
+NOISE = 0.02  # how big the nudges are
+LEARNING_RATE = 0.01  # Adam moves every weight about this much a step: small, or the brain it starts from is lost
 WEIGHT_DECAY = 0.005  # keeps the weights small
 BETAS = (0.9, 0.999)  # Adam's
 
