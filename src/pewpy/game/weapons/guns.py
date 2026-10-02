@@ -1,7 +1,7 @@
 """Guns (01-gameplay.md "Weapons", 02-enemies.md "Enemy weapons", 02-enemies-bosses.md): how the player's weapons
 and every enemy and boss fire their bullets, launch their projectiles or fire their beams. Independent from rendering.
 
-A gun (Gun) is data, read from the JSON files (the player's weapons in `src/pewpy/weapons/`, the enemies' with
+A gun (Gun) is data, read from the JSON files (the player's weapons in `data/weapons/`, the enemies' with
 them, see pewpy.game.enemies.spec); its GunState counts down to its next shot. `step` runs a gun for a frame and
 returns what it fired: bullets of several kinds (see bullets.py and Gun.style), enemies (projectiles like rockets and
 homing missiles, mines, Sparks...) or beams. Two patterns aren't fired by `step`: "ray" (the player's laser, which

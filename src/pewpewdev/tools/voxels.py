@@ -14,10 +14,10 @@ import argparse
 import json
 from pathlib import Path
 
-from pewpewdev.paths import GAME
+from pewpewdev.paths import DATA
 from pewpy.graphics import models, vox
 
-MODELS = GAME / "models"
+MODELS = DATA / "models"
 
 
 class NotExportedError(SystemExit):

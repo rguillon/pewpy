@@ -1,4 +1,4 @@
-"""Make the final bosses (src/pewpy/bosses/final_bosses.json) from their plans (final_boss_plans.json, next to this
+"""Make the final bosses (data/bosses/final_bosses.json) from their plans (final_boss_plans.json, next to this
 file), 02-enemies-bosses.md:
 
     make final-bosses
@@ -21,11 +21,11 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any
 
-from pewpewdev.paths import GAME
+from pewpewdev.paths import DATA
 from pewpy.game.weapons.guns import Gun
 
 PLANS = Path(__file__).with_name("final_boss_plans.json")
-OUT = GAME / "bosses" / "final_bosses.json"
+OUT = DATA / "bosses" / "final_bosses.json"
 CORE = "core"  # the gun source that is the boss itself
 HOLD_Y = 0.55  # where a boss stops coming down (the top of the screen is at 1)
 ENTRY_SPEED = 0.25

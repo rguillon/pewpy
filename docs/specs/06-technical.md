@@ -29,7 +29,7 @@
   bullets, and in `player/` the arsenal and the secondary weapon); `enemies/` (the one Enemy class for enemies and
   bosses, its descriptions, motions, the kinds and the roster)), `scenery/` (backgrounds
   and grounds), `graphics/` (models, lighting, effects), `ui/` (menus, the ship select, the level preview),
-  `audio/`; data in `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
+  `audio/`. The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` and `music/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (making the levels, the final bosses, models,
   candidates and songs), `app.py` (the game with the dev screens, `make dev`: the model screens, AI learning and rating), with
   their own `states.py`, `candidates.py` and `ui/`
@@ -38,7 +38,7 @@
   shot down, and states. Each state has motions (`game/enemies/motions.py`), guns (`game/weapons/guns.py`),
   a look, whether it can be hurt, and exits to other states (a timer, a height, lined up with the player, a cycle of
   its age, visits, parts destroyed, health lost, volleys fired...), each doing actions on the way (set a speed, aim,
-  relocate, fire, die). The enemies are in `src/pewpy/enemies/*.json`, the bosses in `src/pewpy/bosses/*.json`, written the same way
+  relocate, fire, die). The enemies are in `data/enemies/*.json`, the bosses in `data/bosses/*.json`, written the same way
   (`game/enemies/spec.py` reads them): a boss is only an enemy with parts, `"boss": true`, a state coming down and
   a state per phase (each starting with a `warmup`); only its configuration differs. The final bosses are made by a
   dev tool from short plans (`make final-bosses`, `pewpewdev/tools/make_final_bosses.py`). A new
@@ -47,7 +47,7 @@
 - Weapons as data *(the user's choice)*: the player's weapons and the enemies' are the same guns
   (`game/weapons/guns.py`): a pattern (aimed, fan, ring, beams, the player's laser "ray", the lightning "chain"),
   timing (interval or rate, volleys, charging, reloading), and what they fire (bullets of a style and size, missiles,
-  enemies). The player's are in `src/pewpy/weapons/` (`player.json`: one gun per level of each weapon;
+  enemies). The player's are in `data/weapons/` (`player.json`: one gun per level of each weapon;
   `secondary.json`), the enemies' in their own descriptions. Only how they look is in code (`app.py`, `graphics/`).
 - Game loop timing (variable dt / fixed timestep): TBD
 - Collision detection (Panda3D CollisionTraverser / custom simple circles-boxes): TBD

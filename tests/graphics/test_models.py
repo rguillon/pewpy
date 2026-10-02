@@ -1,12 +1,12 @@
 import math
 from functools import partial
-from importlib import resources
 
 import numpy as np
 import pytest
 from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
 from pewpy import config
+from pewpy.data import data_folder
 from pewpy.game.enemies.enemy import make
 from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.player import Player
@@ -272,7 +272,7 @@ def test_main_colors_are_what_most_of_a_model_is_made_of():
 
 
 def test_every_drawing_file_loads():
-    folder = resources.files("pewpy") / models.DRAWINGS_FOLDER
+    folder = data_folder() / models.DRAWINGS_FOLDER
     names = sorted(file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json"))
     assert "player" in names
     for name in names:

@@ -1,4 +1,4 @@
-"""Generate the game's synthwave songs as MIDI files (src/pewpy/music/).
+"""Generate the game's synthwave songs as MIDI files (data/music/).
 
     make songs                               # every song, each from its own seed: the same songs every time
     make songs ARGS="--seed 1234"            # new songs: the same plans (keys, tempos, chords), new tunes
@@ -21,11 +21,11 @@ from collections.abc import Iterator
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from pewpewdev.paths import BUILD, GAME
+from pewpewdev.paths import BUILD, DATA
 from pewpy.audio import midi, synth
 from pewpy.audio.midi import DRUMS, Note, Song
 
-OUT = GAME / "music"
+OUT = DATA / "music"
 PREVIEWS = BUILD / "music"
 
 BASS, PAD, ARP, LEAD, BRASS = 0, 1, 2, 3, 4  # channels

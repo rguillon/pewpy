@@ -1,5 +1,5 @@
 """The player's weapons from 01-gameplay.md: bullets, laser and missiles, with their levels, in
-`src/pewpy/weapons/player.json` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
+`data/weapons/player.json` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
 """
 
 import json

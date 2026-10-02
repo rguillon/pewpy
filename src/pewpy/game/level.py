@@ -1,4 +1,4 @@
-"""Level data: loading and validating the JSON files in `src/pewpy/levels/`.
+"""Level data: loading and validating the JSON files in `data/levels/`.
 
 Levels are grouped in worlds (in the menus): `levels/world_<number>/` holds `world.json` (the world's name) and
 `level_<number>.json` for each of its levels.

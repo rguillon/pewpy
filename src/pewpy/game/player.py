@@ -1,4 +1,4 @@
-"""Player ship logic, independent from rendering. The ships the player can pick are in `src/pewpy/ships.json`."""
+"""Player ship logic, independent from rendering. The ships the player can pick are in `data/ships.json`."""
 
 import json
 import math

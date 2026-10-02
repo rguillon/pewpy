@@ -37,7 +37,7 @@ Rules:
 
 ## Project conventions
 
-- Package layout: the game in `src/pewpy/`; the dev tools in `src/pewpewdev/` (the AI, the tools making levels,
+- Package layout: the game in `src/pewpy/`, its data files (JSON, drawings, music) in `data/`; the dev tools in `src/pewpewdev/` (the AI, the tools making levels,
   models and songs, the dev screens), never imported by the game; tests in `tests/`, for the game only: the dev
   tools get no unit tests (they are still linted and type-checked). Tooling: `uv`, `ruff`, `ty`, `pytest` (see `Makefile`).
 - Install: `make install`. Checks: `make check`. Tests: `make test`.

@@ -1,5 +1,5 @@
 """Secondary weapons from 01-gameplay.md: a machine-gun turret or a lightning gun, picked up from enemy drops, in
-`src/pewpy/weapons/secondary.json` (each is a gun, see pewpy.game.weapons.guns).
+`data/weapons/secondary.json` (each is a gun, see pewpy.game.weapons.guns).
 
 They fire on their own, next to the selected weapon, at the nearest enemy. The ship carries one at most, and a hit
 takes it away instead of health. Independent from rendering.

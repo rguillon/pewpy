@@ -2,7 +2,7 @@
 
 Ships are voxel models, like pixel art extruded into blocks: each one is drawn as rows of characters, and a
 palette gives every character a color and a thickness (in voxels, centered on the ship's depth), so the hull,
-cockpit and wings stand out at different depths. The drawings are JSON files in `src/pewpy/models/` (see
+cockpit and wings stand out at different depths. The drawings are JSON files in `data/models/` (see
 `parse_drawing`); this module turns them, and the shapes that aren't drawings, into meshes.
 
 Model space: X is right, Z is up the screen, Y is depth (negative Y faces the camera, so it is the "top"
@@ -512,7 +512,7 @@ def facing_roll(dx: float, dz: float) -> float:
 
 
 METAL: Color = (0.55, 0.57, 0.62, 1)
-DRAWINGS_FOLDER = "models"  # src/pewpy/models/<name>.json, one voxel drawing each
+DRAWINGS_FOLDER = "models"  # data/models/<name>.json, one voxel drawing each
 DRAWING_KEYS = {"rows", "palette"}  # a flat drawing, each color given a thickness
 LAYERED_KEYS = {"layers", "palette"}  # a 3D drawing: slices, the top one (nearest the camera) first
 VOX_KEYS = {"vox"}  # a MagicaVoxel model next to the file

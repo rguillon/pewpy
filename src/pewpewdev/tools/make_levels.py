@@ -1,4 +1,4 @@
-"""Generate the game's levels (src/pewpy/levels/) from the plan of the worlds below (03-levels.md).
+"""Generate the game's levels (data/levels/) from the plan of the worlds below (03-levels.md).
 
     make levels                        # every world, the same levels every time
     make levels ARGS="--seed 1234"     # another draw of the waves (the looks and the bosses stay)
@@ -25,10 +25,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from pewpewdev.paths import GAME
+from pewpewdev.paths import DATA
 from pewpy.game.enemies.roster import ENEMY_TYPES
 
-LEVELS = GAME / "levels"
+LEVELS = DATA / "levels"
 DEFAULT_SEED = 2024
 
 # Difficulty: 1 (the first level) to 20 (the last one).

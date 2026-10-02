@@ -50,7 +50,7 @@ AI_WORKERS = max(
 )  # processes learning or rating: a core left for the game, one for the rest
 SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
 PICKUPS_PAGE = "Player, pickups and projectiles"
-# The second fleet (src/pewpy/enemies/fleet.json), on pages of their own.
+# The second fleet (data/enemies/fleet.json), on pages of their own.
 FLEET_KINDS: tuple[str, ...] = tuple(load_enemy_specs("enemies/fleet.json"))
 # The Models screen's pages (too many models for one circle): which enemies each shows, by kind; the first also
 # shows the player's ships, its missile and the pickups.

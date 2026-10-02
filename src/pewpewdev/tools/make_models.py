@@ -1,4 +1,4 @@
-"""Remodel the game's ships in real 3D voxels (src/pewpy/models/<name>.json), from recipes written with src/pewpewdev/tools/sculpt.py.
+"""Remodel the game's ships in real 3D voxels (data/models/<name>.json), from recipes written with src/pewpewdev/tools/sculpt.py.
 
     make models                       # every model that has a recipe
     make models ARGS="player drone"   # just these
@@ -14,10 +14,10 @@ import json
 import os
 from collections.abc import Callable
 
-from pewpewdev.paths import GAME
+from pewpewdev.paths import DATA
 from pewpewdev.tools.sculpt import Model
 
-MODELS = GAME / "models"
+MODELS = DATA / "models"
 
 Recipe = Callable[[], tuple[Model, list[dict] | None]]
 RECIPES: dict[str, Recipe] = {}

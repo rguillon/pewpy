@@ -1,5 +1,5 @@
 """What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through, each with its
-motions, its guns, its look and its ways out. Loaded from the JSON files in `src/pewpy/enemies/` and `src/pewpy/bosses/`
+motions, its guns, its look and its ways out. Loaded from the JSON files in `data/enemies/` and `data/bosses/`
 (a boss is an enemy with parts and phases, see kinds.py). Independent from rendering.
 
 In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of

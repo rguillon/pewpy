@@ -1,7 +1,8 @@
 """Panda3D's build_apps settings for `make package`: a standalone Windows build of the game.
 
 Run from the repository's root (the patterns below are relative to it). The code is frozen into `pewpy.exe`; the
-data files (rules, ships, weapons, enemies, bosses, levels, model drawings) are copied to a `pewpy` folder next to it (see pewpy/data.py). The Windows
+data files (data/: rules, ships, weapons, enemies, bosses, levels, model drawings, music) are copied to a `data`
+folder next to it (see pewpy/data.py). The Windows
 wheels of the dependencies (build/requirements.txt, exported from uv.lock) are downloaded, so this runs on any OS.
 """
 
@@ -29,17 +30,16 @@ setup(
             "platforms": ["win_amd64"],
             "plugins": ["pandagl", "p3openal_audio"],
             "include_patterns": [
-                "src/pewpy/rules.json",
-                "src/pewpy/ships.json",
-                "src/pewpy/bosses/*.json",
-                "src/pewpy/enemies/*.json",
-                "src/pewpy/weapons/*.json",
-                "src/pewpy/levels/**/*.json",
-                "src/pewpy/models/*.json",
-                "src/pewpy/models/*.vox",
-                "src/pewpy/music/*.mid",
+                "data/rules.json",
+                "data/ships.json",
+                "data/bosses/*.json",
+                "data/enemies/*.json",
+                "data/weapons/*.json",
+                "data/levels/**/*.json",
+                "data/models/*.json",
+                "data/models/*.vox",
+                "data/music/*.mid",
             ],
-            "rename_paths": {"src/pewpy/": "pewpy/"},
             "exclude_patterns": [".venv/**", ".git/**", "build/**", "dist/**", "site/**", "tests/**", "docs/**"],
             "requirements_path": "build/requirements.txt",
             "include_modules": {"*": NUMPY_CORE},

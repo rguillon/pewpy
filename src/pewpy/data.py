@@ -1,7 +1,9 @@
-"""Where the game's data files are (rules, ships, weapons, enemies, bosses, levels, model drawings).
+"""Where the game's data files are: the `data/` folder at the top of the project (rules, ships, weapons, enemies,
+bosses, levels, model drawings, music).
 
-Normally inside the installed `pewpy` package. In a packaged build (Panda3D's build_apps, see `make package`) the
-code is frozen into the executable, so the data files are copied to a `pewpy` folder next to it instead.
+An installed wheel carries it inside the `pewpy` package (`pewpy/data`, see pyproject.toml). In a packaged build
+(Panda3D's build_apps, see `make package`) the code is frozen into the executable, and the data files are copied to a
+`data` folder next to it.
 """
 
 import sys
@@ -15,8 +17,11 @@ if TYPE_CHECKING:  # only for the type checker: where it lives depends on the Py
     else:
         from importlib.abc import Traversable
 
+SOURCE_DATA = Path(__file__).resolve().parents[2] / "data"  # src/pewpy/data.py: two folders up, then data/
+
 
 def data_folder() -> "Traversable":
     if getattr(sys, "frozen", False):
-        return Path(sys.executable).parent / "pewpy"
-    return resources.files("pewpy")
+        return Path(sys.executable).parent / "data"
+    bundled = resources.files("pewpy") / "data"
+    return bundled if bundled.is_dir() else SOURCE_DATA

@@ -1,4 +1,4 @@
-"""Generate boss model candidates for the Boss candidates screen (src/pewpy/models/boss_candidates/).
+"""Generate boss model candidates for the Boss candidates screen (data/models/boss_candidates/).
 
     make boss-candidates                                  # 40 bosses, a new random batch each time
     make boss-candidates ARGS="--count 20 --seed 1234"    # the same batch again
@@ -34,7 +34,7 @@ import time
 from collections.abc import Callable
 from pathlib import Path
 
-from pewpewdev.paths import GAME
+from pewpewdev.paths import DATA
 from pewpewdev.tools.make_candidates import (
     ACCENTS,
     HULL_TINTS,
@@ -53,7 +53,7 @@ from pewpewdev.tools.make_candidates import (
 )
 from pewpewdev.tools.shaping import Shaping, engines_at_height, lifted, sculpt
 
-DEFAULT_OUT = GAME / "models" / "boss_candidates"
+DEFAULT_OUT = DATA / "models" / "boss_candidates"
 LOPSIDED_SHARE = 0.2
 COMBINED_SHARE = 0.25
 SIZES = {  # (share, width range, height range), in cubes

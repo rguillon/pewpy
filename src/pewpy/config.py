@@ -1,4 +1,4 @@
-"""Tunable game constants: the window, the play area, the camera, the looks; and, read from `src/pewpy/rules.json`,
+"""Tunable game constants: the window, the play area, the camera, the looks; and, read from `data/rules.json`,
 the game's rules.
 
 Values marked "placeholder" are not decided in the specs yet; they are marked *(placeholder)* in docs/specs/.
@@ -30,7 +30,7 @@ PLAY_WIDTH = 2.5
 PLAY_HEIGHT = 2.0
 WIDTH_SCALE = PLAY_WIDTH / 1.5
 
-# The game's rules (01-gameplay.md, 02-enemies.md): in `src/pewpy/rules.json`
+# The game's rules (01-gameplay.md, 02-enemies.md): in `data/rules.json`
 _RULES = json.loads((data_folder() / "rules.json").read_text())
 _PLAYER, _PICKUPS, _ENEMIES = _RULES["player"], _RULES["pickups"], _RULES["enemies"]
 
@@ -43,7 +43,7 @@ PLAYER_INVULNERABILITY_TIME: float = _PLAYER["invulnerability_time"]  # seconds,
 MAX_LIVES: int = _PLAYER["max_lives"]  # an extra life beyond this gives EXTRA_LIFE_POINTS instead
 EXTRA_LIFE_POINTS: int = _PLAYER["extra_life_points"]
 
-# Player weapons: in src/pewpy/weapons/ (see game/weapons/)
+# Player weapons: in data/weapons/ (see game/weapons/)
 
 PICKUP_SIZE: float = _PICKUPS["size"]
 PICKUP_SPEED: float = _PICKUPS["speed"]  # drifting down, world units per second
@@ -54,7 +54,7 @@ REPAIR_AMOUNT: float = _PICKUPS["repair_amount"]
 MAX_LEVEL_UPGRADE_POINTS: int = _PICKUPS["max_level_upgrade_points"]  # an upgrade for a weapon at its top level
 BOSS_BEATEN_TIME: float = _RULES["bosses"]["beaten_time"]  # seconds of play after the final boss, to pick things up
 
-# Enemies: each kind in src/pewpy/enemies/ (see game/enemies/)
+# Enemies: each kind in data/enemies/ (see game/enemies/)
 ENEMY_BULLET_SIZE: float = _ENEMIES["bullet_size"]
 ENEMY_BULLET_DAMAGE: float = _ENEMIES["bullet_damage"]
 ENEMY_RAM_DAMAGE: float = _ENEMIES["ram_damage"]  # damage to the player when an enemy collides with the ship

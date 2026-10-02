@@ -1,11 +1,11 @@
 """The enemy files as a whole (not each enemy: they're data)."""
 
 import json
-from importlib import resources
 
 import pytest
 
 from pewpy import config
+from pewpy.data import data_folder
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
@@ -28,7 +28,7 @@ def test_every_enemy_launched_or_released_exists(spec):
 
 @pytest.mark.parametrize("spec", load_enemy_specs("enemies/fleet.json").values(), ids=lambda spec: spec.kind)
 def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec):
-    drawing = json.loads((resources.files("pewpy") / "models" / f"{spec.drawing}.json").read_text())
+    drawing = json.loads((data_folder() / "models" / f"{spec.drawing}.json").read_text())
     rows = drawing["rows"]
     assert spec.width == pytest.approx(len(rows[0]) * config.MODEL_VOXEL)
     assert spec.height == pytest.approx(len(rows) * config.MODEL_VOXEL)

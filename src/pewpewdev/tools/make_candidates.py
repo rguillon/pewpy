@@ -1,4 +1,4 @@
-"""Generate enemy model candidates: voxel drawings for the Candidates screen (src/pewpy/models/candidates/).
+"""Generate enemy model candidates: voxel drawings for the Candidates screen (data/models/candidates/).
 
     uv run python -m pewpewdev.tools.make_candidates                     # 200 ships, a new random batch each time
     uv run python -m pewpewdev.tools.make_candidates --kind aircraft --count 50
@@ -29,10 +29,10 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import TypeVar
 
-from pewpewdev.paths import GAME
+from pewpewdev.paths import DATA
 from pewpewdev.tools.shaping import Shaping, engines_at_height, sculpt
 
-DEFAULT_OUT = GAME / "models" / "candidates"
+DEFAULT_OUT = DATA / "models" / "candidates"
 # Shares of each group, by --kind.
 MIXES = {
     "all": {"aircraft": 0.45, "symmetric": 0.32, "lopsided": 0.23},
