@@ -7,7 +7,7 @@ rating is that clear rate: the lower, the harder the level.
 from collections.abc import Callable, Iterable
 from concurrent.futures import Executor, ProcessPoolExecutor
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import cache
 from pathlib import Path
 from typing import Any
@@ -72,7 +72,7 @@ def rate(
     executor: Executor | None = None,
 ) -> dict[str, Any]:
     """Rate every level for each ship with the brain, if there is one; saved to ratings.json and returned."""
-    ratings: dict[str, Any] = {"date": datetime.now(timezone.utc).isoformat(timespec="seconds"), "runs": runs}
+    ratings: dict[str, Any] = {"date": datetime.now(UTC).isoformat(timespec="seconds"), "runs": runs}
     training = files.load_training(folder)
     if training is None:
         return ratings | {"ships": {}}
