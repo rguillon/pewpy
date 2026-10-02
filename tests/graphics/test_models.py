@@ -375,18 +375,6 @@ def test_ships_with_engines_have_flames():
     assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground
 
 
-def test_every_model_candidate_loads_and_builds_with_its_engines():
-    names = models.candidate_names()  # however many tools/make_candidates.py wrote
-    assert names
-    assert names[0] == "candidates/001"
-    for name in names:
-        assert models.load_voxels(name).cells  # flat or 3D
-        engines = models.load_engines(name)
-        assert engines  # every candidate flies
-        assert all(engine.towards == "top" for engine in engines)  # enemies point down: flames at the back
-        assert models.drawing_model(name).findAllMatches("**/flame").getNumPaths() == len(engines)
-
-
 def test_a_layered_drawing_is_real_3d_with_its_middle_layer_on_the_middle_plane():
     data = {
         "layers": [["a.", ".."], ["aa", "bb"], ["..", ".b"]],  # top (nearest the camera), middle, bottom
@@ -445,12 +433,3 @@ def test_an_engine_can_sit_above_the_middle_plane():
     assert engine.z == 2.0
     flame = models.add_flame(NodePath("ship"), engine, (1, 1), 0.5)
     assert flame.getY() == pytest.approx(-1.0)  # towards the camera (-Y)
-
-
-def test_the_game_finds_the_boss_candidates_and_their_parts():
-    names = models.boss_candidate_names()
-    assert names and all(name.split("/")[1].isdigit() for name in names)  # not the parts or the layouts
-    for name in names:
-        assert models.load_voxels(name).cells  # flat or 3D
-        for drawing, _, _ in models.boss_candidate_parts(name):
-            assert models.load_voxels(drawing).cells

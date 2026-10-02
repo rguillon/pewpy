@@ -37,7 +37,9 @@ Rules:
 
 ## Project conventions
 
-- Package layout: `src/pewpy/`, tests in `tests/`. Tooling: `uv`, `ruff`, `ty`, `pytest` (see `Makefile`).
+- Package layout: the game in `src/pewpy/`; the dev tools in `src/pewpewdev/` (the AI, the tools making levels,
+  models and songs, the dev screens), never imported by the game; tests in `tests/`, for the game only: the dev
+  tools get no unit tests (they are still linted and type-checked). Tooling: `uv`, `ruff`, `ty`, `pytest` (see `Makefile`).
 - Install: `make install`. Checks: `make check`. Tests: `make test`.
-- Run the game: `make run` (same as `uv run python -m pewpy`).
+- Run the game: `make run` (same as `uv run python -m pewpy`); with the dev screens: `make dev`.
 - Keep game logic (movement, collisions, scoring, waves) testable without opening a Panda3D window.

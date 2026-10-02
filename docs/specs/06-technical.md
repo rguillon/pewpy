@@ -25,9 +25,11 @@
 - Overall structure (states/scenes, entity classes, ECS…): grouped by domain, the game's rules kept apart from
   Panda3D *(placeholder)*: `pewpy/` (`app.py`: the window, input, drawing; `config.py`, `data.py`), `game/` (the
   rules, no Panda3D: entities, player, weapons, world, states, levels, enemies, bosses), `scenery/` (backgrounds
-  and grounds), `graphics/` (models, lighting, effects), `ui/` (menus and the model screens), `audio/`, `ai/` (the
-  AI player, no Panda3D, see `07-ai.md`); data in
-  `levels/` and `models/`
+  and grounds), `graphics/` (models, lighting, effects), `ui/` (menus, the ship select, the level preview),
+  `audio/`; data in `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
+  package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (making the levels, models, candidates and
+  songs), `app.py` (the game with the dev screens, `make dev`: the model screens, AI learning and rating), with
+  their own `states.py`, `candidates.py` and `ui/`
 - Game loop timing (variable dt / fixed timestep): TBD
 - Collision detection (Panda3D CollisionTraverser / custom simple circles-boxes): TBD
 - Configuration (constants in code / TOML file for tunable values): TBD
@@ -36,7 +38,9 @@
 ## Testing
 
 - What must be unit tested: the game logic (movement, collisions, scoring, wave spawning), kept separate from
-  rendering: `app.py` only handles window, input and drawing, so the logic is tested without opening a window
+  rendering: `app.py` only handles window, input and drawing, so the logic is tested without opening a window.
+  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpewdev`: the AI, the content tools, the dev
+  screens) have none, only the linters and the type checker.
 - Headless tests (Panda3D `window-type none`) acceptable? TBD
 
 ## Crash reports

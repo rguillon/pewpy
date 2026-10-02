@@ -24,7 +24,7 @@
 - Model file forms: a model file (`src/pewpy/models/<name>.json`) is a flat drawing (rows of characters, each
   color a thickness), a 3D drawing (`"layers"`: slices from the top down, with a palette), or a MagicaVoxel model
   (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). `make voxels` moves
-  a model between the three forms; `make models` remodels ships from their recipes in `tools/make_models.py`.
+  a model between the three forms; `make models` remodels ships from their recipes in `pewpewdev/tools/make_models.py`.
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
 - Asset folder layout: `src/pewpy/models/<name>.json` for the voxel drawings; other assets TBD
 

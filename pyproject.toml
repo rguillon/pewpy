@@ -114,4 +114,4 @@ skip_empty = true
 
 [tool.coverage.run]
 branch = true
-source = ["src"]
+source = ["src/pewpy"]  # the game only: the dev tools (src/pewpewdev) have no unit tests

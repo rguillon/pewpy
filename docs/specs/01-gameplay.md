@@ -5,14 +5,15 @@
 The game shall have a global state machine for each possible state to easily transition between states:
 
 The states are:
-- Main menu: start (to the world selection), models, bosses, enemy candidates, boss candidates, AI learning,
-  AI rating, or quit
-- Models: every ship and pickup model on show, for working on them (see `04-ui-audio.md`)
-- Bosses: every boss on show, a world per page (see `04-ui-audio.md`)
-- Enemy candidates, Boss candidates: numbered model candidates for new enemies (10 per page) and bosses (4 per
-  page), to pick from (see `04-ui-audio.md`)
-- AI learning, AI rating: the AI learning to play while one of its brains plays on screen, and the levels'
-  ratings for each ship (see `07-ai.md`); Escape goes back to the main menu
+- Main menu: start (to the ship selection), or quit
+- Only with the dev tools (`make dev`, see `04-ui-audio.md`), screens opening from the main menu and going back to
+  it:
+  - Models: every ship and pickup model on show, for working on them
+  - Bosses: every boss on show, a world per page
+  - Enemy candidates, Boss candidates: numbered model candidates for new enemies (10 per page) and bosses (4 per
+    page), to pick from
+  - AI learning, AI rating: the AI learning to play while one of its brains plays on screen, and the levels'
+    ratings for each ship (see `07-ai.md`); Escape goes back to the main menu
 - World selection: select one of the worlds (see `03-levels.md`)
 - Level selection: select one of the world's levels to play
 - The actual game
@@ -184,7 +185,7 @@ weapons, they score and make enemies drop pickups.
   enemies close together
 - Difficulty ramp across levels: each level has a difficulty from 1 (1-1) to 20 (8-6): 2 (world - 1) + level, so
   the levels of a world get harder one by one and a world starts as hard as the third level of the world before
-  (see `03-levels.md`). With the difficulty, the generated levels (`tools/make_levels.py`) scroll faster (0.2 to
+  (see `03-levels.md`). With the difficulty, the generated levels (`pewpewdev/tools/make_levels.py`) scroll faster (0.2 to
   0.31), send bigger groups (about +7% per step), and send more: each half of a level has enemies adding up to a threat
   (their points) from 8600 to 22500, rising fast at first and slower later, spread over about 46 s, so harder
   levels are denser; the second half is as hard as a level 2 steps harder (see `03-levels.md`). New enemies come in

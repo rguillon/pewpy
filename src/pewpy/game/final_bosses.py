@@ -1,6 +1,6 @@
 """The final bosses: one at the end of each level, after its mini boss (02-enemies-bosses.md). Placeholders.
 
-Each is a big core (a boss candidate, see tools/make_boss_candidates.py) with its parts, and four attacks. Its
+Each is a big core (a boss candidate, see pewpewdev/tools/make_boss_candidates.py) with its parts, and four attacks. Its
 phases come from them (see `final_boss`): the front parts first, then the back ones, while the core is armored;
 then the core, then the core in a rage. Everything gets harder with the level's difficulty (1 to 20).
 """

@@ -1,15 +1,11 @@
 """Global game state machine (01-gameplay.md, "Global state")."""
 
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from enum import Enum, auto
 
 
 class State(Enum):
     MAIN_MENU = auto()
-    MODELS = auto()  # every ship and pickup on show, for working on the models
-    BOSSES = auto()  # every boss on show, a world per page
-    CANDIDATES = auto()  # numbered model candidates for new enemies (models/candidates), to pick from
-    BOSS_CANDIDATES = auto()  # the same for new bosses (models/boss_candidates)
     SHIP_SELECT = auto()  # picking the player's ship, before the world
     WORLD_SELECT = auto()
     LEVEL_SELECT = auto()
@@ -17,27 +13,13 @@ class State(Enum):
     PAUSED = auto()
     GAME_OVER = auto()
     LEVEL_COMPLETE = auto()
-    AI_LEARNING = auto()  # the AI learns to play, in the background, while one of its brains plays on screen
-    AI_RATING = auto()  # the trained AI rates every level for every ship
 
 
-TRANSITIONS: dict[State, frozenset[State]] = {
-    State.MAIN_MENU: frozenset({
-        State.SHIP_SELECT,
-        State.MODELS,
-        State.BOSSES,
-        State.CANDIDATES,
-        State.BOSS_CANDIDATES,
-        State.AI_LEARNING,
-        State.AI_RATING,
-    }),
-    State.AI_LEARNING: frozenset({State.MAIN_MENU}),
-    State.AI_RATING: frozenset({State.MAIN_MENU}),
-    State.CANDIDATES: frozenset({State.MAIN_MENU}),
-    State.BOSS_CANDIDATES: frozenset({State.MAIN_MENU}),
+# Where each state can go. The states are any Enum's members: the dev tools (pewpewdev) add screens of their own.
+Transitions = Mapping[Enum, frozenset[Enum]]
+TRANSITIONS: Transitions = {
+    State.MAIN_MENU: frozenset({State.SHIP_SELECT}),
     State.SHIP_SELECT: frozenset({State.WORLD_SELECT, State.MAIN_MENU}),
-    State.MODELS: frozenset({State.MAIN_MENU}),
-    State.BOSSES: frozenset({State.MAIN_MENU}),
     State.WORLD_SELECT: frozenset({State.LEVEL_SELECT, State.SHIP_SELECT}),
     State.LEVEL_SELECT: frozenset({State.PLAYING, State.WORLD_SELECT}),
     State.PLAYING: frozenset({State.PAUSED, State.GAME_OVER, State.LEVEL_COMPLETE}),
@@ -48,23 +30,25 @@ TRANSITIONS: dict[State, frozenset[State]] = {
 
 
 class InvalidTransitionError(Exception):
-    def __init__(self, current: State, target: State) -> None:
+    def __init__(self, current: Enum, target: Enum) -> None:
         super().__init__(f"cannot go from {current.name} to {target.name}")
 
 
 class StateMachine:
     def __init__(
         self,
-        initial: State = State.MAIN_MENU,
-        on_change: Callable[[State, State], None] | None = None,
+        initial: Enum = State.MAIN_MENU,
+        on_change: Callable[[Enum, Enum], None] | None = None,
+        transitions: Transitions = TRANSITIONS,
     ) -> None:
         self.state = initial
         self.on_change = on_change
+        self.transitions = transitions
 
-    def can_transition(self, target: State) -> bool:
-        return target in TRANSITIONS[self.state]
+    def can_transition(self, target: Enum) -> bool:
+        return target in self.transitions[self.state]
 
-    def transition(self, target: State) -> None:
+    def transition(self, target: Enum) -> None:
         if not self.can_transition(target):
             raise InvalidTransitionError(self.state, target)
         previous, self.state = self.state, target

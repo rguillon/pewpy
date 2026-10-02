@@ -1,17 +1,15 @@
 """Panda3D application: window, camera, input and rendering."""
 
-import importlib
 import itertools
 import math
 import os
 import random
-import re
 import sys
 from collections.abc import Callable
+from enum import Enum
 from functools import partial
 from typing import Literal
 
-import numpy as np
 from direct.gui.OnscreenText import OnscreenText
 from direct.showbase.ShowBase import ShowBase
 from direct.task.Task import Task
@@ -32,18 +30,12 @@ from panda3d.core import (
 )
 
 from pewpy import config
-from pewpy.ai import files as ai_files
-from pewpy.ai.brain import Brain
-from pewpy.ai.pilot import Pilot
-from pewpy.ai.rating import RUNS as RATING_RUNS
-from pewpy.ai.rating import places as rated_places
-from pewpy.ai.sessions import LearningSession, RatingSession, Session
 from pewpy.audio.cues import event_sounds, music
 from pewpy.audio.library import Library, cache_folder
 from pewpy.audio.sound import Audio
 from pewpy.data import data_folder
 from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import Boss, BossPart, BossSpec
+from pewpy.game.bosses import Boss, BossPart
 from pewpy.game.enemies import (
     Bomber,
     Buckshot,
@@ -72,12 +64,11 @@ from pewpy.game.enemies import (
     Weaver,
 )
 from pewpy.game.entities import Bullet, Entity, Pickup
-from pewpy.game.final_bosses import FINAL_BOSSES
 from pewpy.game.fleet import FLEET
 from pewpy.game.level import Level, load_worlds
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
 from pewpy.game.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
-from pewpy.game.states import State, StateMachine
+from pewpy.game.states import TRANSITIONS, State, StateMachine, Transitions
 from pewpy.game.weapons import LETTERS, WEAPONS, Arsenal, Missile
 from pewpy.game.world import Controls, Event, World
 from pewpy.graphics import lighting, models
@@ -91,13 +82,10 @@ from pewpy.graphics.particle_system import ParticleSystem
 from pewpy.graphics.sprites import Sprite, SpriteBatch
 from pewpy.scenery.background import Scenery
 from pewpy.scenery.background_view import BackgroundView, CameraView, sky_color, space_color
-from pewpy.ui import showcase
-from pewpy.ui.ai_panel import AIPanel, learning_text, rating_columns, rating_title
 from pewpy.ui.level_preview import LevelPreview
 from pewpy.ui.menu import Menu, MenuItem
 from pewpy.ui.menu_view import MenuView
 from pewpy.ui.ship_select_view import ShipSelectView
-from pewpy.ui.showcase import ModelShowcase
 
 Color = tuple[float, float, float, float]
 TextAlign = Literal[0, 1, 2, 3, 4, 5]  # TextNode.ALeft, ARight, ACenter...
@@ -124,7 +112,6 @@ SECONDARY_COLORS: dict[str, Color] = {
     "turret": (0.45, 1.0, 0.4, 1),
     "lightning": (0.8, 0.55, 1.0, 1),
 }
-SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
 DISARMED_EXPLOSION_SIZE = 0.08
 BOLT_COLOR: Color = (0.85, 0.75, 1.0, 1)
 BOLT_THICKNESS = 3.0  # pixels
@@ -164,33 +151,8 @@ SHIP_MODELS: dict[type[Entity], str] = {
     ClusterBomb: "cluster_bomb_model",
 }
 MINE_SPIN_SPEED = 90.0  # degrees per second
-SHOWCASE_STATES = frozenset({
-    State.MODELS,
-    State.BOSSES,
-    State.CANDIDATES,
-    State.BOSS_CANDIDATES,
-})  # screens showing models in a turning circle
-# Things launched by others rather than placed by the levels: missiles, rockets, bombs, mines.
-PROJECTILES: tuple[type[Entity], ...] = (Missile, Rocket, HomingMissile, ClusterBomb, Mine)
-PICKUPS_PAGE = "Player, pickups and projectiles"
-FLEET_KINDS: tuple[type[Entity], ...] = tuple(FLEET.values())  # the second fleet (fleet.py), on pages of their own
-# The Models screen's pages (too many models for one circle): which ship models each shows (the first also shows
-# the pickups).
-MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
-    PICKUPS_PAGE: lambda kind: kind is Player or kind in PROJECTILES,
-    "Flying enemies": lambda kind: (
-        issubclass(kind, Enemy) and not kind.ground and kind not in PROJECTILES + FLEET_KINDS
-    ),
-    "The fleet (1/2)": lambda kind: kind in FLEET_KINDS[: len(FLEET_KINDS) // 2],
-    "The fleet (2/2)": lambda kind: kind in FLEET_KINDS[len(FLEET_KINDS) // 2 :],
-    "Ground enemies": lambda kind: issubclass(kind, Enemy) and kind.ground,
-}
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
-EFFECTS_RUN_IN = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE, State.AI_LEARNING})
-AI_STATES = frozenset({State.AI_LEARNING, State.AI_RATING})
-AI_WORKERS = max(
-    1, (os.cpu_count() or 2) - 2
-)  # processes learning or rating: a core left for the game, one for the rest
+EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
 FLASH_COLOR: Color = (1.0, 1.0, 1.0, 1)
 BACKGROUND_COLOR: Color = space_color()
 GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps this shape (width / height)
@@ -225,17 +187,6 @@ FPS_REFRESH = 0.5  # seconds between two updates of the frames per second
 WEAPON_SPACING = 0.15
 HEALTH_BAR_WIDTH = 0.5
 HEALTH_BAR_HEIGHT = 0.025
-CANDIDATES_PER_PAGE = 10
-SHOWCASE_CANDIDATE_SIZE = 0.26  # the Candidates screen's models (see showcase.MODEL_SIZE)...
-BOSS_CANDIDATES_PER_PAGE = 4
-BOSS_CANDIDATE_RADIUS = 0.75
-# How much wider than tall the model screens' circle is: an ellipse using a wide screen's sides (1 on a 3:4 screen).
-SHOWCASE_STRETCH = max(1.0, GAME_ASPECT / 0.75)
-SHOWCASE_BOSS_CANDIDATE_SIZE = 0.42  # bigger than the Bosses screen's: some candidates are huge...
-BOSS_CANDIDATE_SCALE = 125  # ...a boss this many cubes across fills that size (all drawn to the same scale)
-CANDIDATE_SCALE = 32  # ...a model this many cubes across fills that size: they're all drawn to the same scale
-SHOWCASE_BOSS_SIZE = 0.28  # the Models screen's boss pages: fewer models, drawn bigger (see showcase.MODEL_SIZE)
-SHOWCASE_BOSS_RADIUS = 0.6  # and a smaller circle, so the names fit on the screen
 BOSS_BAR_WIDTH = 1.1  # at the top edge, with the boss's name under it
 BOSS_BAR_HEIGHT = 0.025
 PLAYER_BANK_ANGLE = 25.0  # degrees of roll at full sideways speed
@@ -244,6 +195,12 @@ FLAME_THRUST = 0.35  # the player's flames: this much longer flying up at full s
 
 
 class PewPewApp(ShowBase):
+    """The game. The dev tools (pewpewdev.app) add screens of their own through `state_transitions`, `effects_run_in`,
+    `_main_menu_items`, `_setup_screens` and the methods they override."""
+
+    state_transitions: Transitions = TRANSITIONS
+    effects_run_in: frozenset[Enum] = EFFECTS_RUN_IN
+
     def __init__(self) -> None:
         loadPrcFileData(
             "",
@@ -266,10 +223,8 @@ class PewPewApp(ShowBase):
             self.render, self.cam.node().getLens(), MAX_BULLETS, glow=False, core=0.45, hot=0.35
         )
         self._build_models()
-        self.showcase: ModelShowcase | None = None
         self.ship_key = DEFAULT_SHIP  # the player's ship (picked on the ship selection screen)
         self.ship_select: ShipSelectView | None = None
-        self.showcase_page = 0  # the page shown on the Models or Bosses screen
         self.laser_node = models.laser_beam_model()
         self.laser_node.reparentTo(self.render)
         self.laser_node.hide()
@@ -304,18 +259,17 @@ class PewPewApp(ShowBase):
 
         self.menu_view = MenuView(self.aspect2d)
         self._setup_hud()
-        self.ai_session: Session | None = None  # learning or rating in the background, on the AI screens
-        self.stopped_ai: list[Session] = []  # stopped, still finishing what they were doing
-        self.pilot: Pilot | None = None  # the AI flying the ship on screen
-        self.ai_watching = ""  # what the AI on screen plays
-        self.ai_panel = AIPanel(self.aspect2d)
         # The level select's window on the highlighted level (none without a window: tests, tools).
         self.level_preview = LevelPreview(self.win, self.cam, self.render, self.aspect2d) if self.win else None
         self._fit_letterbox()
+        self._setup_screens()
 
-        self.states = StateMachine(on_change=self._on_state_change)
+        self.states = StateMachine(on_change=self._on_state_change, transitions=self.state_transitions)
         self._on_state_change(self.states.state, self.states.state)
         self.taskMgr.add(self._update, "update")
+
+    def _setup_screens(self) -> None:
+        """Set up more screens before the first one shows (the dev tools' screens)."""
 
     def _disable_modifier_keys(self) -> None:
         # By default Panda3D sends "shift-space" instead of "space" while Shift is held, which would stop
@@ -357,8 +311,6 @@ class PewPewApp(ShowBase):
         """Under WSL, the GPU goes through Mesa's d3d12 driver (see `make run`), which can hang while the window is
         torn down: leave at once instead (nothing is left to save).
         """
-        self._stop_ai()
-        self._finish_stopped_ai(wait=30.0)  # the brains are saved as it stops
         if os.environ.get("GALLIUM_DRIVER") == "d3d12":
             sys.stdout.flush()
             sys.stderr.flush()
@@ -456,30 +408,20 @@ class PewPewApp(ShowBase):
         elif self.states.state is State.PLAYING:
             self.audio.play("menu_back")
             self.states.transition(State.PAUSED)
-        elif self.states.state in AI_STATES:
-            self.audio.play("menu_back")
-            self.states.transition(State.MAIN_MENU)
 
-    def _menu(self, state: State) -> Menu | None:
+    def _go(self, target: Enum) -> Callable[[], None]:
+        return lambda: self.states.transition(target)
+
+    def _main_menu_items(self) -> list[MenuItem]:
+        """The main menu's items, but "Quit" (the last one)."""
+        return [MenuItem("Start", self._go(State.SHIP_SELECT))]
+
+    def _menu(self, state: Enum) -> Menu | None:
         """The menu shown in each state (None while playing)."""
-
-        def go(target: State) -> Callable[[], None]:
-            return lambda: self.states.transition(target)
-
+        go = self._go
         main_menu = MenuItem("Main menu", go(State.MAIN_MENU))
         if state is State.MAIN_MENU:
-            items = [
-                MenuItem("Start", go(State.SHIP_SELECT)),
-                MenuItem("Models", go(State.MODELS)),
-                MenuItem("Bosses", go(State.BOSSES)),
-                MenuItem("Enemy candidates", go(State.CANDIDATES)),
-                MenuItem("Boss candidates", go(State.BOSS_CANDIDATES)),
-                MenuItem("AI learning", go(State.AI_LEARNING)),
-                MenuItem("AI rating", go(State.AI_RATING)),
-            ]
-            return Menu("PEWPEW", [*items, MenuItem("Quit", self.userExit)])
-        if state in SHOWCASE_STATES:
-            return self._models_menu()
+            return Menu("PEWPEW", [*self._main_menu_items(), MenuItem("Quit", self.userExit)])
         if state is State.SHIP_SELECT:
             return self._ship_menu()
         if state is State.WORLD_SELECT:
@@ -503,37 +445,6 @@ class PewPewApp(ShowBase):
         else:
             title, next_item = "LEVEL COMPLETE", "Next level"
         return Menu(title, [MenuItem(next_item, self._next_level), main_menu], back=main_menu.action)
-
-    def _models_menu(self, note: str = "") -> Menu:
-        """The Models, Bosses and Candidates screens' menu: the page's title, and "Next page" when there are several
-        ("Previous page" too when there are more than two).
-        """
-        titles = self._showcase_titles()
-        reload_item = MenuItem("Reload models", self._reload_models)
-        back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
-        items = [reload_item, back]
-        if len(titles) > 2:
-            items.insert(0, MenuItem("Previous page", partial(self._turn_showcase_page, -1)))
-        if len(titles) > 1:
-            items.insert(0, MenuItem("Next page", partial(self._turn_showcase_page, 1)))
-        title = f"{self.states.state.name.replace('_', ' ')}\n{titles[self.showcase_page]}" + (
-            f"\n{note}" if note else ""
-        )
-        selected = items.index(reload_item) if note else 0
-        return Menu(title, items, back=back.action, selected=selected)
-
-    def _turn_showcase_page(self, step: int) -> None:
-        self.showcase_page = (self.showcase_page + step) % len(self._showcase_titles())
-        self._show_showcase()
-        self.menu_view.show(self._models_menu())
-
-    def _show_showcase(self) -> None:
-        if self.showcase:
-            self.showcase.destroy()
-        entries, size, radius = self._showcase_page(self.showcase_page)
-        if self.states.state is State.BOSS_CANDIDATES:
-            radius = BOSS_CANDIDATE_RADIUS  # big models: farther from the title and menu, up and down
-        self.showcase = ModelShowcase(entries, self.cam, size, radius, SHOWCASE_STRETCH)
 
     def _build_models(self) -> None:
         """Build every model from models.py (looked up by name, so a reloaded models.py is used)."""
@@ -567,127 +478,6 @@ class PewPewApp(ShowBase):
                 for drawing in [spec.drawing, *(part.drawing for part in spec.parts)]:
                     self._boss_model(drawing)
 
-    def _showcase_titles(self) -> list[str]:
-        """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's two per
-        world (its mini bosses, then its final bosses).
-        """
-        if self.states.state in (State.CANDIDATES, State.BOSS_CANDIDATES):
-            bosses = self.states.state is State.BOSS_CANDIDATES
-            count = len(models.boss_candidate_names() if bosses else models.candidate_names())
-            per_page = BOSS_CANDIDATES_PER_PAGE if bosses else CANDIDATES_PER_PAGE
-            pages = max(1, math.ceil(count / per_page))
-            return [
-                f"{page * per_page + 1}-{min(count, (page + 1) * per_page)} ({page + 1}/{pages})"
-                for page in range(pages)
-            ]
-        if self.states.state is not State.BOSSES:
-            return list(MODEL_PAGES)
-        count = 2 * len(self.worlds)
-        return [
-            f"{world.name}: {kind} ({2 * index + offset + 1}/{count})"
-            for index, world in enumerate(self.worlds)
-            for offset, kind in enumerate(("mini bosses", "final bosses"))
-        ]
-
-    def _showcase_page(self, index: int) -> tuple[list[tuple[str, NodePath]], float, float]:
-        """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
-        models are built (boss models are big).
-        """
-        if self.states.state is State.CANDIDATES:
-            names = models.candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
-            return [self._candidate(name) for name in names], SHOWCASE_CANDIDATE_SIZE, showcase.RADIUS
-        if self.states.state is State.BOSS_CANDIDATES:
-            per_page = BOSS_CANDIDATES_PER_PAGE
-            names = models.boss_candidate_names()[index * per_page : (index + 1) * per_page]
-            return [self._boss_candidate(name) for name in names], SHOWCASE_BOSS_CANDIDATE_SIZE, SHOWCASE_BOSS_RADIUS
-        if self.states.state is not State.BOSSES:
-            return self._showcase_entries(list(MODEL_PAGES)[index]), showcase.MODEL_SIZE, showcase.RADIUS
-        world = self.worlds[index // 2]
-        final = index % 2 == 1
-        specs = [
-            BOSSES[wave.enemy]
-            for level in world.levels
-            for wave in level.waves
-            if wave.enemy in BOSSES and (wave.enemy in FINAL_BOSSES) == final
-        ]
-        entries = [(spec.name.title(), self._whole_boss(spec)) for spec in specs]
-        return entries, SHOWCASE_BOSS_SIZE, SHOWCASE_BOSS_RADIUS
-
-    def _showcase_entries(self, page: str) -> list[tuple[str, NodePath]]:
-        """(name, model) of the ships, enemies, projectiles and pickups on a page of the Models screen: each fitted in
-        a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes).
-        """
-        entries = []
-        for kind in self.ship_models:
-            if kind is Player and page == PICKUPS_PAGE:
-                for spec in SHIPS.values():
-                    entries.append((spec.name.title(), _fitted(self.player_models[spec.drawing], spec.size)))
-                continue
-            if MODEL_PAGES[page](kind):
-                entity = kind()
-                name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
-                entries.append((name, _fitted(self._make_model(entity), max(entity.width, entity.height))))
-        if page == PICKUPS_PAGE:
-            for kind in [*WEAPONS, "repair", "life", *SECONDARY_WEAPONS]:
-                names = {"repair": "Repair", "life": "Extra life"}
-                names.update({key: f"{SECONDARY_NAMES[key]} {SECONDARY_LETTERS[key]}" for key in SECONDARY_WEAPONS})
-                name = f"{kind.capitalize()} {LETTERS[kind]}" if kind in LETTERS else names[kind]
-                entries.append((name, _fitted(self.pickup_models[kind], config.PICKUP_SIZE)))
-        return entries
-
-    def _candidate(self, name: str) -> tuple[str, NodePath]:
-        """A model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes, all drawn at
-        the same scale so small and big ones compare (read again every time: edited drawings show when the page is
-        shown again).
-        """
-        voxels = models.load_voxels(name)
-        label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height}"
-        return label, _fitted(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
-
-    def _boss_candidate(self, name: str) -> tuple[str, NodePath]:
-        """A boss candidate with its parts in place, numbered like its file, all drawn to the same scale (read again
-        every time, like the enemy candidates).
-        """
-        voxels = models.load_voxels(name)
-        whole = NodePath(name)
-        models.drawing_model(name).reparentTo(whole)
-        parts = models.boss_candidate_parts(name)
-        for drawing, x, y in parts:
-            piece = models.drawing_model(drawing)
-            piece.reparentTo(whole)
-            piece.setPos(x * config.MODEL_VOXEL, 0, y * config.MODEL_VOXEL)
-        label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height} +{len(parts)}"  # size, and parts
-        return label, _fitted(whole, BOSS_CANDIDATE_SCALE * config.MODEL_VOXEL)
-
-    def _whole_boss(self, spec: BossSpec) -> NodePath:
-        """A boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
-        whole = NodePath(spec.drawing)
-        pieces = [(spec.drawing, 0.0, 0.0, spec.width, spec.height)]
-        pieces += [(part.drawing, part.x, part.y, part.width, part.height) for part in spec.parts]
-        for drawing, x, y, _, _ in pieces:
-            piece = whole.attachNewNode(drawing)
-            self._boss_model(drawing).copyTo(piece)
-            piece.setPos(x, 0, y)
-        bottom = min(y - height / 2 for _, _, y, _, height in pieces)
-        extent = max(2 * spec.half_span, spec.top_reach - bottom)
-        box = NodePath("boss")
-        whole.reparentTo(box)
-        whole.setZ(-(spec.top_reach + bottom) / 2)
-        box.setScale(1 / extent)
-        return box
-
-    def _reload_models(self) -> None:
-        """Read models.py again and rebuild every model; on a mistake, keep the old ones and say what's wrong."""
-        try:
-            importlib.reload(models)
-            self._build_models()
-        except Exception as error:
-            message = f"{type(error).__name__}: {error}"
-            self.menu_view.show(self._models_menu(f"reload failed:\n{message[:60]}"))
-            return
-        self._show_showcase()
-        self.menu_view.show(self._models_menu("reloaded"))
-
     def _ship_menu(self) -> Menu:
         def pick(key: str) -> None:
             self.ship_key = key
@@ -701,7 +491,7 @@ class PewPewApp(ShowBase):
     def _show_ship_select(self) -> None:
         """Every ship side by side under the menu, with bars comparing them."""
         ships = list(SHIPS.values())
-        fitted = [_fitted(self.player_models[ship.drawing], ship.size) for ship in ships]
+        fitted = [fitted_model(self.player_models[ship.drawing], ship.size) for ship in ships]
         lens = self.cam.node().getLens()
         extent = (self.a2dRight, self.a2dTop)
         self.ship_select = ShipSelectView(ships, fitted, self.cam, lens, self.aspect2d, extent)
@@ -915,17 +705,8 @@ class PewPewApp(ShowBase):
     def _is_last_level(self) -> bool:
         return self.level_index >= len(self.levels) - 1
 
-    def _on_state_change(self, previous: State, current: State) -> None:
-        if current in SHOWCASE_STATES:
-            self.showcase_page = 0  # before the menu: its title shows the page
+    def _on_state_change(self, previous: Enum, current: Enum) -> None:
         self.menu_view.show(self._menu(current))
-        if current in SHOWCASE_STATES:
-            self._show_showcase()
-            self.background.root.hide()  # a plain dark background, to look at the models
-        elif self.showcase:
-            self.showcase.destroy()
-            self.showcase = None
-            self.background.root.show()
         if self.ship_select is not None:
             self.ship_select.destroy()
             self.ship_select = None
@@ -935,7 +716,6 @@ class PewPewApp(ShowBase):
             self._preview_level()
         elif self.level_preview is not None:
             self.level_preview.clear()
-        self._switch_ai(previous, current)
         if current is State.MAIN_MENU:
             self.world = None
             self.effects.clear()
@@ -950,8 +730,12 @@ class PewPewApp(ShowBase):
             fire=FIRE_KEY in self.keys_down,
         )
 
+    def _frame_time(self) -> float:
+        """Seconds since the last frame (at most 0.1: no huge steps after a stall)."""
+        return min(self.clock.getDt(), 0.1)
+
     def _update(self, task: Task) -> int:
-        dt = min(self.clock.getDt(), 0.1)  # avoid huge steps after a stall
+        dt = self._frame_time()
         world = self.world
         if world is not None and self.states.state is State.PLAYING:
             self._play(world, self._controls(), dt)
@@ -959,12 +743,8 @@ class PewPewApp(ShowBase):
                 self.states.transition(State.GAME_OVER)
             elif world.completed:
                 self.states.transition(State.LEVEL_COMPLETE)
-        elif self.states.state in AI_STATES:
-            self._update_ai(dt)
-        if self.states.state in EFFECTS_RUN_IN:
+        if self.states.state in self.effects_run_in:
             self.effects.update(dt)
-        if self.showcase:
-            self.showcase.update(dt)
         if self.ship_select:
             self.ship_select.update(dt)
         if self.level_preview is not None:
@@ -982,84 +762,6 @@ class PewPewApp(ShowBase):
         self.audio.play_all(event_sounds(world.events))
         self.effects.set_laser(self._laser_glow(world), dt)
         self.background.scenery.update(dt, world.level.scroll_speed)
-
-    def _switch_ai(self, previous: State, current: State) -> None:
-        """Start the AI screens' work on the way in, stop it on the way out."""
-        if previous in AI_STATES and current not in AI_STATES:
-            self._stop_ai()
-        if current is State.AI_LEARNING:
-            self._start_learning()
-        elif current is State.AI_RATING:
-            self._start_rating()
-
-    def _start_learning(self) -> None:
-        self._finish_stopped_ai()
-        self.ai_session = LearningSession(list(SHIPS), ai_files.ai_folder(), AI_WORKERS)
-        self.ai_session.start()
-        self._watch_ai()
-
-    def _start_rating(self) -> None:
-        self._finish_stopped_ai()
-        self.ai_session = RatingSession(list(SHIPS), ai_files.ai_folder(), RATING_RUNS, AI_WORKERS)
-        self.ai_session.start()
-
-    def _stop_ai(self) -> None:
-        """Ask the AI's work to stop: it ends what it is doing (a generation) and saves, in the background."""
-        if self.ai_session is not None:
-            self.ai_session.stop()
-            self.stopped_ai.append(self.ai_session)
-            self.ai_session = None
-        self.pilot = None
-        self.ai_panel.clear()
-
-    def _finish_stopped_ai(self, wait: float = 60.0) -> None:
-        """Wait for stopped work to have saved, before starting more (both would write the same brains)."""
-        for session in self.stopped_ai:
-            session.stop(wait)
-        self.stopped_ai = []
-
-    def _watch_ai(self) -> None:
-        """A level played on screen by the brain of the ship learning now (as it is so far), on a level drawn at
-        random; another one when it ends."""
-        session = self.ai_session
-        if not isinstance(session, LearningSession):
-            return
-        ship = session.training
-        brain = session.brain(ship) or Brain.random(np.random.default_rng())
-        index = int(np.random.default_rng().integers(len(self.levels)))
-        level = self.levels[index]
-        screen = self.camera_view.area(0.0)
-        self.world = World(level, view_top=screen.top, view_side=screen.right, ship=SHIPS[ship])
-        self.pilot = Pilot(brain)
-        self.ai_watching = f"On screen: {SHIPS[ship].name} on {self._label(index)} {level.name}"
-        self._show_background(level)
-        self._prepare_bosses(level)
-        self.effects.clear()
-        self._show_hud(True)
-
-    def _update_ai(self, dt: float) -> None:
-        session = self.ai_session
-        world, pilot = self.world, self.pilot
-        if world is not None and pilot is not None:
-            self._play(world, pilot.fly(world), dt)
-            if world.game_over or world.completed:
-                self._watch_ai()
-        if isinstance(session, LearningSession):
-            with session.lock:
-                text = learning_text(
-                    session.training, dict(session.reports), dict(session.checks), self.ai_watching, session.error
-                )
-            self.ai_panel.show_learning(text)
-        elif isinstance(session, RatingSession):
-            table = session.table()
-            places = [(place, level.name) for place, level in rated_places()]
-            rated = sum(len(ratings) for ratings in table.values())
-            total = len(places) * len(session.ships)
-            now = next((ship for ship in session.ships if len(table[ship]) < len(places)), None)
-            doing = f"Rating {SHIPS[now].name}: {rated}/{total} ratings" if now else ""
-            saved = str(session.folder / "ratings.json") if session.saved else ""
-            title = rating_title(session.ships, session.runs, doing, saved, session.error)
-            self.ai_panel.show_rating(title, rating_columns(places, session.ships, table), len(session.ships))
 
     def _show_events(self, events: list[Event], dt: float) -> None:
         for event in events:
@@ -1263,8 +965,9 @@ def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT
     return 0.0, 1.0, (1 - height) / 2, (1 + height) / 2
 
 
-def _fitted(model: NodePath, size: float) -> NodePath:
-    """A copy of a world-sized model, `size` across, fitted in a 1 x 1 x 1 box (for the Models screen)."""
+def fitted_model(model: NodePath, size: float) -> NodePath:
+    """A copy of a world-sized model, `size` across, fitted in a 1 x 1 x 1 box (for the ship select, and the dev
+    tools' Models screen)."""
     box = NodePath("fitted")
     inner = box.attachNewNode("scaled")
     inner.setScale(1 / size)

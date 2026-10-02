@@ -1,12 +1,13 @@
 """What to hear when: the sound for each game event, the song for each screen. No Panda3D.
 
-Songs are named after their files in music/ (see tools/make_songs.py): "title" on the menus, "world_1"... for each
+Songs are named after their files in music/ (see pewpewdev/tools/make_songs.py): "title" on the menus, "world_1"... for each
 world's levels, "boss" while a boss is fought (from when it comes until the level ends), and two jingles, played
 once: "level_complete" and "game_over".
 """
 
 from collections.abc import Iterable
 from dataclasses import dataclass, field
+from enum import Enum
 
 from pewpy.game.states import State
 from pewpy.game.world import Event
@@ -76,7 +77,7 @@ class Music:
 MENU_MUSIC = Music("title")
 
 
-def music(state: State, world: int, boss: bool) -> Music:
+def music(state: Enum, world: int, boss: bool) -> Music:
     """The song for a screen: `world` is the world being played (0 for the first), `boss` whether a boss is being
     fought (or was just beaten).
     """

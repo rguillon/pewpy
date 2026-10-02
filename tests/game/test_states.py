@@ -57,23 +57,6 @@ def test_invalid_transition_is_refused(start, target):
     assert machine.state is start
 
 
-def test_the_models_screen_opens_from_the_main_menu_and_goes_back_to_it():
-    machine = StateMachine()
-    machine.transition(State.MODELS)
-    assert not machine.can_transition(State.PLAYING)
-    machine.transition(State.MAIN_MENU)
-    assert machine.state is State.MAIN_MENU
-
-
-def test_the_bosses_screen_opens_from_the_main_menu_and_goes_back_to_it():
-    machine = StateMachine()
-    machine.transition(State.BOSSES)
-    assert not machine.can_transition(State.PLAYING)
-    assert not machine.can_transition(State.MODELS)
-    machine.transition(State.MAIN_MENU)
-    assert machine.state is State.MAIN_MENU
-
-
 def test_the_ship_select_goes_back_to_the_main_menu_and_the_world_select_back_to_it():
     machine = StateMachine()
     machine.transition(State.SHIP_SELECT)
@@ -83,29 +66,3 @@ def test_the_ship_select_goes_back_to_the_main_menu_and_the_world_select_back_to
     assert not machine.can_transition(State.MAIN_MENU)
     machine.transition(State.SHIP_SELECT)
     assert machine.state is State.SHIP_SELECT
-
-
-def test_the_candidates_screen_opens_from_the_main_menu_and_goes_back_to_it():
-    machine = StateMachine()
-    machine.transition(State.CANDIDATES)
-    assert not machine.can_transition(State.PLAYING)
-    machine.transition(State.MAIN_MENU)
-    assert machine.state is State.MAIN_MENU
-
-
-def test_the_boss_candidates_screen_opens_from_the_main_menu_and_goes_back_to_it():
-    machine = StateMachine()
-    machine.transition(State.BOSS_CANDIDATES)
-    assert not machine.can_transition(State.CANDIDATES)
-    machine.transition(State.MAIN_MENU)
-    assert machine.state is State.MAIN_MENU
-
-
-@pytest.mark.parametrize("screen", [State.AI_LEARNING, State.AI_RATING])
-def test_the_ai_screens_open_from_the_main_menu_and_go_back_to_it(screen):
-    machine = StateMachine()
-    machine.transition(screen)
-    assert machine.state is screen
-    assert not machine.can_transition(State.PLAYING)
-    machine.transition(State.MAIN_MENU)
-    assert machine.state is State.MAIN_MENU
