@@ -1,4 +1,4 @@
-"""Where the game's data files are (levels, model drawings).
+"""Where the game's data files are (bosses, levels, model drawings).
 
 Normally inside the installed `pewpy` package. In a packaged build (Panda3D's build_apps, see `make package`) the
 code is frozen into the executable, so the data files are copied to a `pewpy` folder next to it instead.

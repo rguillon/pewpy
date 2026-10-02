@@ -6,8 +6,9 @@
 
 ## Bosses
 
-> Placeholders chosen by Claude: the rules in `src/pewpy/game/bosses.py`, the mini bosses in
-> `src/pewpy/game/boss_catalog.py`, the final bosses in `src/pewpy/game/final_bosses.py`. Every level has two bosses
+> Placeholders chosen by Claude: the rules in `src/pewpy/game/bosses/boss.py`, the guns in
+> `src/pewpy/game/weapons/enemy/boss_guns.py`, the mini bosses in `src/pewpy/bosses/mini_bosses.json`, the final
+> bosses in `src/pewpy/bosses/final_bosses.json` (built by `src/pewpy/game/bosses/final_bosses.py`, see below). Every level has two bosses
 > of its own (see `03-levels.md`): a mini boss halfway (the "Boss: ..." sections below) and a bigger, harder final
 > boss at the end (see "Final bosses"), harder through each world.
 
@@ -928,7 +929,7 @@ General rules for every boss:
 
 ## Final bosses
 
-> Placeholders chosen by Claude, not playtested: `src/pewpy/game/final_bosses.py`.
+> Placeholders chosen by Claude, not playtested: `src/pewpy/bosses/final_bosses.json`, built by `src/pewpy/game/bosses/final_bosses.py`.
 
 Each level ends with a final boss, after its mini boss (see `03-levels.md`): bigger (0.5 to 0.77 wide, about half
 the screen for the last ones) and harder, with more parts and four phases. Same general rules as every boss (see

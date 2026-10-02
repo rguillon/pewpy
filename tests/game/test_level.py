@@ -1,7 +1,7 @@
 import pytest
 
+from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.game.level import Level, LevelError, Wave, load_levels, load_worlds, parse_level
-from pewpy.game.roster import ENEMY_TYPES
 from pewpy.scenery import params
 
 GROUNDS = [name for name in params.backgrounds() if params.resolve(name).ground is not None]

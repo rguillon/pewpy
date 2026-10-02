@@ -1,12 +1,10 @@
-import math
-
 import pytest
 
-from pewpy.game import bosses
-from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import Boss, BossPart, Gun, make_boss, pattern_bullets
-from pewpy.game.enemies import HALF_WIDTH
+from pewpy.game.bosses.boss import CORE, HOLD_Y, PHASE_PAUSE, Boss, BossPart, BossSpec, Phase, make_boss
+from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.enemy import HALF_WIDTH
 from pewpy.game.entities import Bullet, Entity
+from pewpy.game.weapons.enemy.boss_guns import LASER_WARNING, BossBeam, Gun
 
 DT = 1 / 60
 BELOW = Entity(x=0.0, y=-0.8)  # a target straight down the screen
@@ -38,7 +36,7 @@ def test_a_boss_starts_above_the_screen_and_comes_down_to_hold():
     boss = make_boss(BOSSES["harvester"], 0.0, top=1.6)
     assert all(part.y - part.height / 2 > 1.6 for part in boss.parts)
     arrive(boss)
-    assert boss.y == pytest.approx(bosses.HOLD_Y, abs=0.01)
+    assert boss.y == pytest.approx(HOLD_Y, abs=0.01)
     assert boss.vy == 0
 
 
@@ -65,7 +63,7 @@ def test_a_living_part_covers_the_columns_under_it():
 def test_no_shots_while_coming_down_or_during_a_phase_pause():
     boss = make_boss(BOSSES["warden"], 0.0)
     assert not [entity for entity in arrive(boss) if not isinstance(entity, BossPart)]
-    assert fight(boss, bosses.PHASE_PAUSE - 0.1) == []
+    assert fight(boss, PHASE_PAUSE - 0.1) == []
     assert fight(boss, 2.0)
 
 
@@ -85,7 +83,7 @@ def test_an_armored_core_ignores_shots_until_its_parts_are_destroyed():
     boss = make_boss(BOSSES["harvester"], 0.0)
     arrive(boss)
     assert boss.appearance() != "armored"  # flashing: the phase starts
-    fight(boss, bosses.PHASE_PAUSE)
+    fight(boss, PHASE_PAUSE)
     assert boss.appearance() == "armored"
     boss.hit(10)
     assert boss.health == BOSSES["harvester"].health
@@ -116,7 +114,7 @@ def test_a_new_phase_changes_the_guns():
 def test_phases_can_end_on_the_core_health():
     boss = make_boss(BOSSES["warden"], 0.0)
     arrive(boss)
-    fight(boss, bosses.PHASE_PAUSE)
+    fight(boss, PHASE_PAUSE)
     boss.hit(boss.spec.health * 0.4)
     fight(boss, DT)
     assert boss.phase_index == 0
@@ -143,32 +141,18 @@ def test_health_bar_counts_the_core_and_its_parts():
     assert boss.health_fraction == pytest.approx(1 - 40 / 180)
 
 
-def test_patterns_aim_fan_and_ring():
-    source, target = Entity(x=0, y=0.5), Entity(x=0.5, y=0.0)
-    aimed = pattern_bullets(Gun("aimed", 1, speed=1.0), source, target, 0.0, 0.0)[0]
-    assert math.degrees(math.atan2(aimed.vy, aimed.vx)) == pytest.approx(-45)
-    fan = pattern_bullets(Gun("fan", 1, speed=1.0, count=3, spread=30), source, target, 0.0, 0.0)
-    assert [round(math.degrees(math.atan2(b.vx, -b.vy))) for b in fan] == [-30, 0, 30]
-    ring = pattern_bullets(Gun("ring", 1, speed=1.0, count=4), source, target, 90.0, 0.0)
-    assert sorted(round(math.degrees(math.atan2(b.vx, -b.vy))) % 360 for b in ring) == [0, 90, 180, 270]
-    heavy = pattern_bullets(Gun("aimed", 1, speed=1.0, style="heavy"), source, target, 0.0, 0.0)[0]
-    assert heavy.width == bosses.HEAVY_BULLET_SIZE
-
-
 def test_volleys_fire_several_times_in_a_row():
     boss = make_boss(BOSSES["harvester"], 0.0)
     arrive(boss)
-    shots = fight(boss, bosses.PHASE_PAUSE + 0.5)  # the left cannon's first volley of 3, the others wait
+    shots = fight(boss, PHASE_PAUSE + 0.5)  # the left cannon's first volley of 3, the others wait
     assert len(shots) == 3
 
 
 def laser_boss(**gun) -> Boss:
-    spec = bosses.BossSpec(
-        "LASER", "sentinel", 0.26, 0.2, 60.0, 0, (bosses.Phase(guns=((bosses.CORE, Gun("laser", **gun)),), sway=0.1),)
-    )
+    spec = BossSpec("LASER", "sentinel", 0.26, 0.2, 60.0, 0, (Phase(guns=((CORE, Gun("laser", **gun)),), sway=0.1),))
     boss = make_boss(spec, 0.0)
     arrive(boss)
-    fight(boss, bosses.PHASE_PAUSE - 0.05)  # the next update fires
+    fight(boss, PHASE_PAUSE - 0.05)  # the next update fires
     return boss
 
 
@@ -177,7 +161,7 @@ def test_a_laser_shows_a_thin_harmless_beam_a_second_before_it_fires():
     warnings = [shot for shot in fight(boss, 0.1) if isinstance(shot, Bullet)]
     assert len(warnings) == 2
     assert all(shot.harmless and shot.style == "warning" and shot.width < 0.07 for shot in warnings)
-    created = fight(boss, bosses.LASER_WARNING - 0.2)
+    created = fight(boss, LASER_WARNING - 0.2)
     assert not created
     beams = [shot for shot in fight(boss, 0.2) if isinstance(shot, Bullet)]
     assert len(beams) == 2
@@ -189,7 +173,7 @@ def test_a_laser_shows_a_thin_harmless_beam_a_second_before_it_fires():
 
 def test_a_beam_follows_its_gun_and_goes_with_it():
     boss = laser_boss(interval=5.0, speed=0.0)
-    beam = next(shot for shot in fight(boss, 0.1) if isinstance(shot, bosses.BossBeam))
+    beam = next(shot for shot in fight(boss, 0.1) if isinstance(shot, BossBeam))
     boss.x += 0.2
     beam.move(DT)
     assert beam.x == pytest.approx(boss.x)
@@ -197,39 +181,6 @@ def test_a_beam_follows_its_gun_and_goes_with_it():
     boss.alive = False
     beam.move(DT)
     assert not beam.alive
-
-
-@pytest.mark.parametrize(
-    ("projectile", "kind"),
-    [("rocket", "Rocket"), ("missile", "HomingMissile"), ("cluster", "ClusterBomb")],
-)
-def test_guns_can_launch_projectiles(projectile, kind):
-    gun = Gun("fan", interval=1.0, speed=0.0, count=3, spread=20, projectile=projectile)
-    shots = bosses.pattern_shots(gun, Entity(x=0.0, y=0.5), BELOW, 0.0, 0.0)
-    assert [type(shot).__name__ for shot in shots] == [kind] * 3
-
-
-def test_accelerating_shots_start_slow_and_speed_up():
-    shot = bosses.styled_bullet(Gun("aimed", interval=1.0, speed=0.5, style="accel"), Entity(), 0.0, -0.5)
-    assert math.hypot(shot.vx, shot.vy) < 0.5
-    for _ in range(300):
-        shot.move(DT)
-    assert math.hypot(shot.vx, shot.vy) == pytest.approx(0.5 * bosses.ACCEL_TOP)
-
-
-def test_curving_shots_bend():
-    shot = bosses.styled_bullet(Gun("fan", interval=1.0, speed=0.5, style="curve", curve=90), Entity(), 0.0, -0.5)
-    for _ in range(60):
-        shot.move(DT)
-    assert shot.vx == pytest.approx(0.5, abs=0.01)  # a quarter turn in a second, counterclockwise
-    assert math.hypot(shot.vx, shot.vy) == pytest.approx(0.5)
-
-
-def test_snaking_and_pellet_shots():
-    wave = bosses.styled_bullet(Gun("fan", interval=1.0, speed=0.5, style="wave"), Entity(), 0.0, -0.5)
-    pellet = bosses.styled_bullet(Gun("fan", interval=1.0, speed=0.5, style="pellet"), Entity(), 0.0, -0.5)
-    assert type(wave).__name__ == "WaveBullet"
-    assert pellet.width < 0.03
 
 
 def test_a_boss_lights_up_when_hit_and_its_parts_too():

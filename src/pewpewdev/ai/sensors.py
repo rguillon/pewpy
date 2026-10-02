@@ -19,7 +19,7 @@ import numpy as np
 
 from pewpy import config
 from pewpy.game.player import SHIPS
-from pewpy.game.weapons import MAX_LEVEL, WEAPONS
+from pewpy.game.weapons.player.arsenal import MAX_LEVEL, WEAPONS
 from pewpy.game.world import World
 
 MOVES = ((0.0, 0.0), *((math.cos(a * math.pi / 4), math.sin(a * math.pi / 4)) for a in range(8)))

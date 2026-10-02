@@ -3,7 +3,7 @@ import math
 import pytest
 
 from pewpy.game.entities import Entity
-from pewpy.game.weapons import (
+from pewpy.game.weapons.player.arsenal import (
     BULLET_FIRE_RATE,
     BULLET_FIRE_RATES,
     BULLET_PATTERNS,

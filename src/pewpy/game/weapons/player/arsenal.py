@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 
 from pewpy.game.entities import Bullet, Entity
-from pewpy.game.secondary import SecondaryWeapon
+from pewpy.game.weapons.player.secondary import SecondaryWeapon
 
 WEAPONS = ("bullets", "laser", "missiles")
 LETTERS = {"bullets": "B", "laser": "L", "missiles": "M"}

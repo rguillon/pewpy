@@ -9,39 +9,22 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from pewpy import config
-from pewpy.game.enemies import (
-    HALF_WIDTH,
-    ClusterBomb,
-    Enemy,
-    HomingMissile,
-    Mine,
-    WaveBullet,
+from pewpy.game.enemies.catalog import Mine
+from pewpy.game.enemies.enemy import HALF_WIDTH, Enemy
+from pewpy.game.entities import Entity
+from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile
+from pewpy.game.weapons.enemy.shots import (
     aim_angle,
     aimed_bullet,
     angled_bullet,
+    beam,
     enemy_bullet,
     heavy_bullet,
+    wave_shot,
 )
-from pewpy.game.entities import Bullet, Entity
 
 VOXEL = config.MODEL_VOXEL
 BOTTOM = -config.PLAY_HEIGHT / 2
-
-
-def _wave_shot(x: float, y: float, vx: float, vy: float) -> WaveBullet:
-    """A violet shot snaking across its line of flight (like the Serpent's)."""
-    size = config.ENEMY_BULLET_SIZE
-    return WaveBullet(
-        x=x, y=y, vx=vx, vy=vy, width=size, height=size, damage=config.ENEMY_BULLET_DAMAGE, hostile=True, style="wave"
-    )
-
-
-def _beam(x: float, top: float, width: float, duration: float) -> Bullet:
-    """A laser beam from `top` straight down past the bottom of the screen (like the Lancer's)."""
-    bottom = BOTTOM - 0.1
-    beam = enemy_bullet(x, (top + bottom) / 2, 0.0, 0.0, "beam")
-    beam.width, beam.height, beam.life, beam.pierces = width, top - bottom, duration, True
-    return beam
 
 
 def _bounce(enemy: Enemy) -> None:
@@ -548,7 +531,7 @@ class Catamaran(FleetEnemy):
             return []
         self.shots += 1
         side = 1 if self.shots % 2 else -1
-        return [_wave_shot(self.x + side * self.hulls, self.y - self.height / 2, 0.0, -0.45)]
+        return [wave_shot(self.x + side * self.hulls, self.y - self.height / 2, 0.0, -0.45)]
 
 
 @dataclass(eq=False)
@@ -922,7 +905,7 @@ class Pincer(Hoverer):
                 return []
             self.beam_time = self.beam_duration
             bottom = self.y - self.height / 2
-            return [_beam(self.x + side * self.prongs, bottom, self.beam_width, self.beam_duration) for side in (-1, 1)]
+            return [beam(self.x + side * self.prongs, bottom, self.beam_width, self.beam_duration) for side in (-1, 1)]
         self.vx = _towards(self.x, target.x, 0.12)
         if self._reloaded(dt):
             self.charge_time, self.vx = self.charge_duration, 0.0

@@ -1,9 +1,8 @@
 import pytest
 
-from pewpy.game import bosses
-from pewpy.game.boss_catalog import BOSSES, MINI_BOSSES
-from pewpy.game.enemies import HALF_WIDTH
-from pewpy.game.final_bosses import FINAL_BOSSES
+from pewpy.game.bosses.boss import CORE
+from pewpy.game.bosses.catalog import BOSSES, FINAL_BOSSES, MINI_BOSSES
+from pewpy.game.enemies.enemy import HALF_WIDTH
 from pewpy.game.level import load_levels
 from pewpy.graphics import models
 
@@ -14,7 +13,7 @@ def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind):
     assert spec.half_span < HALF_WIDTH
     names = {part.name for part in spec.parts}
     for phase in spec.phases:
-        assert {source for source, _ in phase.guns} <= names | {bosses.CORE}
+        assert {source for source, _ in phase.guns} <= names | {CORE}
         assert set(phase.until_destroyed) <= names
     for drawing in {spec.drawing} | {part.drawing for part in spec.parts}:
         assert models.load_voxels(drawing).cells

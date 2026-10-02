@@ -134,7 +134,7 @@ Missiles are 0.03 x 0.07, fired 0.05 in from each side of the ship. Homing missi
 
 Some enemy drops give the ship a **secondary weapon** *(the user's idea)*. It fires on its own, whether Fire is
 held or not, on top of the selected weapon. *(Everything below the first two rules is a placeholder;
-`secondary.py`)*
+`game/weapons/player/secondary.py`)*
 
 - **A hit takes the secondary weapon instead of health** *(the user's choice)*: a shot or a ram while carrying one
   destroys the secondary weapon (a small explosion on the ship), the health stays, and the ship blinks,

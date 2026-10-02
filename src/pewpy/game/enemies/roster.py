@@ -1,15 +1,12 @@
-"""Every kind of enemy the levels can place (enemies.py and fleet.py), by name, and making one ready to enter."""
+"""Every kind of enemy the levels can place (catalog.py and fleet.py), by name, and making one ready to enter."""
 
 import random
 
-from pewpy.game.enemies import (
-    HALF_WIDTH,
-    TOP,
+from pewpy.game.enemies.catalog import (
     Bomber,
     Buckshot,
     Diver,
     Drone,
-    Enemy,
     FlakCannon,
     Gunship,
     Hunter,
@@ -27,7 +24,8 @@ from pewpy.game.enemies import (
     Turret,
     Weaver,
 )
-from pewpy.game.fleet import FLEET
+from pewpy.game.enemies.enemy import HALF_WIDTH, TOP, Enemy
+from pewpy.game.enemies.fleet import FLEET
 
 ENEMY_TYPES: dict[str, type[Enemy]] = {
     **FLEET,

@@ -1,11 +1,13 @@
 import pytest
 
 from pewpy import config
-from pewpy.game.enemies import Drone, Enemy
+from pewpy.game.enemies.catalog import Drone
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.entities import Bullet, Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import Player
-from pewpy.game.secondary import (
+from pewpy.game.weapons.player.arsenal import Arsenal
+from pewpy.game.weapons.player.secondary import (
     LIGHTNING_CHAIN,
     LIGHTNING_DAMAGE,
     LIGHTNING_FLASH,
@@ -16,7 +18,6 @@ from pewpy.game.secondary import (
     TURRET_FIRE_RATE,
     SecondaryWeapon,
 )
-from pewpy.game.weapons import Arsenal
 from pewpy.game.world import Controls, World
 
 DT = 1 / 60

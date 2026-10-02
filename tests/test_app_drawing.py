@@ -8,15 +8,15 @@ from panda3d.core import ButtonThrower, KeyboardButton, ModifierButtons, MouseWa
 from pewpy import app as app_module
 from pewpy import config
 from pewpy.app import PewPewApp
-from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import make_boss
-from pewpy.game.enemies import Diver, Drone, Mine, ShieldCarrier, Swarmer, Turret
+from pewpy.game.bosses.boss import make_boss
+from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.catalog import Diver, Drone, Mine, ShieldCarrier, Swarmer, Turret
+from pewpy.game.enemies.fleet import FLEET
 from pewpy.game.entities import Bullet, Pickup
-from pewpy.game.fleet import FLEET
 from pewpy.game.player import Player
-from pewpy.game.secondary import SecondaryWeapon
 from pewpy.game.states import State
-from pewpy.game.weapons import Beam, Missile
+from pewpy.game.weapons.player.arsenal import Beam, Missile
+from pewpy.game.weapons.player.secondary import SecondaryWeapon
 from pewpy.game.world import Event, World
 from pewpy.graphics import models
 

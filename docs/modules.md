@@ -4,11 +4,15 @@
 
 ::: pewpy.game.level
 
-::: pewpy.game.enemies
+::: pewpy.game.enemies.enemy
+
+::: pewpy.game.enemies.catalog
 
 ::: pewpy.game.player
 
-::: pewpy.game.weapons
+::: pewpy.game.weapons.player.arsenal
+
+::: pewpy.game.weapons.enemy.shots
 
 ::: pewpy.game.entities
 

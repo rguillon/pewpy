@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any
 
 from pewpewdev.paths import GAME
-from pewpy.game.roster import ENEMY_TYPES
+from pewpy.game.enemies.roster import ENEMY_TYPES
 
 LEVELS = GAME / "levels"
 DEFAULT_SEED = 2024

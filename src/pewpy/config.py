@@ -31,7 +31,7 @@ PLAYER_START_Y = -0.75
 PLAYER_LIVES = 5
 PLAYER_INVULNERABILITY_TIME = 1.0  # seconds
 
-# Player weapons: per-weapon values are in weapons.py (01-gameplay.md)
+# Player weapons: per-weapon values are in game/weapons/player/ (01-gameplay.md)
 
 # Pickups (01-gameplay.md)
 PICKUP_SIZE = 0.08
@@ -45,7 +45,7 @@ REPAIR_AMOUNT = 2.0
 BOSS_BEATEN_TIME = 3.0  # seconds of play after the boss is destroyed, to pick up what it dropped
 MAX_LEVEL_UPGRADE_POINTS = 500
 
-# Enemies: per-type values are in enemies.py (02-enemies.md)
+# Enemies: per-type values are in game/enemies/ (02-enemies.md)
 ENEMY_BULLET_SIZE = 0.03
 ENEMY_BULLET_DAMAGE = 1.0
 ENEMY_RAM_DAMAGE = 2.0  # damage to the player when an enemy collides with the ship

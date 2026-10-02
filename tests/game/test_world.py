@@ -1,24 +1,16 @@
 import pytest
 
 from pewpy import config
-from pewpy.game import bosses
-from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import make_boss
-from pewpy.game.enemies import (
-    ClusterBomb,
-    Drone,
-    Enemy,
-    FlakCannon,
-    HomingMissile,
-    Rocket,
-    ShieldCarrier,
-    Splitter,
-    Swarmer,
-)
+from pewpy.game.bosses.boss import EXPLOSIONS, make_boss
+from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.catalog import Drone, FlakCannon, ShieldCarrier, Splitter, Swarmer
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.entities import Bullet, Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
-from pewpy.game.weapons import BULLET_FIRE_RATE, MAX_LEVEL, Arsenal, Missile
+from pewpy.game.weapons.enemy.boss_guns import BossBeam
+from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
+from pewpy.game.weapons.player.arsenal import BULLET_FIRE_RATE, MAX_LEVEL, Arsenal, Missile
 from pewpy.game.world import Controls, World
 from pewpy.scenery.terrain import GROUND_SPEED
 
@@ -380,7 +372,7 @@ def test_destroying_the_boss_takes_its_parts_down_and_completes_the_level():
     assert not boss.parts[0].alive
     assert world.score == score + boss.points  # the parts give no points when wrecked
     explosions = [event for event in world.events if event.kind == "explosion"]
-    assert len(explosions) == len(bosses.EXPLOSIONS) + 1
+    assert len(explosions) == len(EXPLOSIONS) + 1
     run(world, DT)
     assert not world.completed  # a moment to pick up what it dropped
     run(world, config.BOSS_BEATEN_TIME)
@@ -668,7 +660,7 @@ def test_beating_a_mini_boss_clears_its_shots_but_the_level_goes_on_to_the_final
 def test_a_lasers_warning_beam_never_hurts():
     world = make_world()
     world.enemy_bullets.append(
-        bosses.BossBeam(x=world.player.x, y=0.0, width=0.01, height=3.0, hostile=True, harmless=True, life=1.0)
+        BossBeam(x=world.player.x, y=0.0, width=0.01, height=3.0, hostile=True, harmless=True, life=1.0)
     )
     run(world, 0.5)
     assert world.player.health == world.ship.health

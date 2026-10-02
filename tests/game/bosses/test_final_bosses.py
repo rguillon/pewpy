@@ -1,4 +1,5 @@
-from pewpy.game.final_bosses import FINAL_BOSSES, final_boss
+from pewpy.game.bosses.catalog import FINAL_BOSSES
+from pewpy.game.bosses.final_bosses import final_boss
 
 ATTACKS = ("fan", "aimed", "laser", "ring")
 

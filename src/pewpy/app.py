@@ -33,24 +33,20 @@ from pewpy.audio.cues import event_sounds, music
 from pewpy.audio.library import Library, cache_folder
 from pewpy.audio.sound import Audio
 from pewpy.data import data_folder
-from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import Boss, BossPart
-from pewpy.game.enemies import (
+from pewpy.game.bosses.boss import Boss, BossPart
+from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.catalog import (
     Bomber,
     Buckshot,
-    ClusterBomb,
     Diver,
     Drone,
-    Enemy,
     FlakCannon,
     Gunship,
-    HomingMissile,
     Hunter,
     Lancer,
     Mine,
     MineLayer,
     MissileSilo,
-    Rocket,
     Rocketeer,
     RocketTruck,
     Serpent,
@@ -62,13 +58,15 @@ from pewpy.game.enemies import (
     Turret,
     Weaver,
 )
+from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.fleet import FLEET
 from pewpy.game.entities import Bullet, Entity, Pickup
-from pewpy.game.fleet import FLEET
 from pewpy.game.level import Level, load_worlds
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
-from pewpy.game.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.states import TRANSITIONS, State, StateMachine, Transitions
-from pewpy.game.weapons import LETTERS, WEAPONS, Arsenal, Missile
+from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
+from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS, Arsenal, Missile
+from pewpy.game.weapons.player.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.world import Controls, Event, World
 from pewpy.graphics import lighting, models
 from pewpy.graphics.effects.blast import Blast

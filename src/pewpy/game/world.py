@@ -6,15 +6,15 @@ from dataclasses import dataclass
 from typing import cast
 
 from pewpy import config
-from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import Boss, make_boss
-from pewpy.game.enemies import Enemy
+from pewpy.game.bosses.boss import Boss, make_boss
+from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Bullet, Entity, Pickup
 from pewpy.game.level import Level
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player, ShipSpec
-from pewpy.game.roster import make_enemy
-from pewpy.game.secondary import LIGHTNING_DAMAGE, LIGHTNING_FLASH, SECONDARY_WEAPONS, SecondaryWeapon
-from pewpy.game.weapons import MISSILE_SPLASH_RADIUS, WEAPONS, Arsenal, Beam, LaserStats, Missile
+from pewpy.game.weapons.player.arsenal import MISSILE_SPLASH_RADIUS, WEAPONS, Arsenal, Beam, LaserStats, Missile
+from pewpy.game.weapons.player.secondary import LIGHTNING_DAMAGE, LIGHTNING_FLASH, SECONDARY_WEAPONS, SecondaryWeapon
 from pewpy.scenery.terrain import GROUND_SPEED
 
 

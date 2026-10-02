@@ -4,7 +4,7 @@ import pytest
 
 from pewpy import app as app_module
 from pewpy import config
-from pewpy.game.boss_catalog import BOSSES
+from pewpy.game.bosses.catalog import BOSSES
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State
 

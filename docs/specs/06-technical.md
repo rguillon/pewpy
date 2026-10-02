@@ -24,9 +24,11 @@
 
 - Overall structure (states/scenes, entity classes, ECS…): grouped by domain, the game's rules kept apart from
   Panda3D *(placeholder)*: `pewpy/` (`app.py`: the window, input, drawing; `config.py`, `data.py`), `game/` (the
-  rules, no Panda3D: entities, player, weapons, world, states, levels, enemies, bosses), `scenery/` (backgrounds
+  rules, no Panda3D: entities, player, world, states, levels; `weapons/` with `player/` (the selected and
+  secondary weapons) and `enemy/` (shots, projectiles, the bosses' guns); `enemies/` (their base, the catalog,
+  the second fleet, the roster); `bosses/` (the rules, building the final bosses, loading every boss)), `scenery/` (backgrounds
   and grounds), `graphics/` (models, lighting, effects), `ui/` (menus, the ship select, the level preview),
-  `audio/`; data in `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
+  `audio/`; data in `bosses/`, `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (making the levels, models, candidates and
   songs), `app.py` (the game with the dev screens, `make dev`: the model screens, AI learning and rating), with
   their own `states.py`, `candidates.py` and `ui/`
@@ -42,7 +44,9 @@
   Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpewdev`: the AI, the content tools, the dev
   screens) have none, only the linters and the type checker.
 - Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
-  fails below it. Code that can't happen is removed rather than tested.
+  fails below it. Code that can't happen is removed rather than tested. Content (levels, bosses, model drawings) is
+  data in JSON files loaded by the game, not declarations in Python, so it needs no tests of its own *(the user's
+  choice)*: the tests cover the code loading and building it.
 - The app itself (screens, drawing, HUD) is tested too, without a display: one app for the whole test session,
   drawing into an offscreen buffer through EGL (`load-display p3headlessgl`), silent, its songs not rendered
   (`tests/conftest.py`). CI installs the EGL and Mesa libraries for it.

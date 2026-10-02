@@ -25,16 +25,17 @@ from pewpewdev.states import DEV_TRANSITIONS, DevState
 from pewpewdev.ui.ai_panel import AIPanel, learning_text, rating_columns, rating_title
 from pewpy import config
 from pewpy.app import EFFECTS_RUN_IN, GAME_ASPECT, PewPewApp, fitted_model
-from pewpy.game.boss_catalog import BOSSES
-from pewpy.game.bosses import BossSpec
-from pewpy.game.enemies import ClusterBomb, Enemy, HomingMissile, Mine, Rocket
+from pewpy.game.bosses.boss import BossSpec
+from pewpy.game.bosses.catalog import BOSSES, FINAL_BOSSES
+from pewpy.game.enemies.catalog import Mine
+from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.fleet import FLEET
 from pewpy.game.entities import Entity
-from pewpy.game.final_bosses import FINAL_BOSSES
-from pewpy.game.fleet import FLEET
 from pewpy.game.player import SHIPS, Player
-from pewpy.game.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.states import State
-from pewpy.game.weapons import LETTERS, WEAPONS, Missile
+from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
+from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS, Missile
+from pewpy.game.weapons.player.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.world import World
 from pewpy.graphics import models
 from pewpy.ui import showcase
@@ -55,7 +56,9 @@ SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
 # Things launched by others rather than placed by the levels: missiles, rockets, bombs, mines.
 PROJECTILES: tuple[type[Entity], ...] = (Missile, Rocket, HomingMissile, ClusterBomb, Mine)
 PICKUPS_PAGE = "Player, pickups and projectiles"
-FLEET_KINDS: tuple[type[Entity], ...] = tuple(FLEET.values())  # the second fleet (fleet.py), on pages of their own
+FLEET_KINDS: tuple[type[Entity], ...] = tuple(
+    FLEET.values()
+)  # the second fleet (pewpy.game.enemies.fleet), on pages of their own
 # The Models screen's pages (too many models for one circle): which ship models each shows (the first also shows
 # the pickups).
 MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {

@@ -1,135 +1,22 @@
-"""Enemy types from 02-enemies-catalog.md, independent from rendering.
-
-Each enemy moves itself in `update` and returns the bullets or enemies it creates.
-"""
+"""Enemy types from 02-enemies-catalog.md, independent from rendering."""
 
 import math
 from dataclasses import dataclass
 from typing import ClassVar
 
 from pewpy import config
-from pewpy.game.entities import Bullet, Entity
-
-TOP = config.PLAY_HEIGHT / 2
-HALF_WIDTH = config.PLAY_WIDTH / 2
-HIT_FLASH_TIME = 0.05
-HEAVY_BULLET_SIZE = 0.05  # "heavy" shots: bigger and orange (the hitbox too)
-
-
-@dataclass(eq=False)
-class Enemy(Entity):
-    """Base enemy: flies with its velocity and never shoots. Subclasses add behavior in `behave`."""
-
-    side_entry: ClassVar[bool] = False  # True: enters from the left/right edge instead of the top
-    fire_interval: ClassVar[float] = 1.0
-    drop_chance: ClassVar[float] = 0.0  # chance to leave a pickup when shot down
-    rammable: ClassVar[bool] = True  # False: ramming it hurts the player but doesn't destroy it (bosses)
-    ground: ClassVar[bool] = False  # True: sits or drives on the ground (levels over water or clouds have none)
-    leaves_screen: ClassVar[bool] = True  # False: stays in the game even beyond the edges (bosses)
-    faces_travel: ClassVar[bool] = False  # True: its model turns to point the way it flies (it doesn't only go down)
-
-    health: float = 3.0
-    points: int = 100
-    fire_cooldown: float = 0.0
-    flash_time: float = 0.0
-    age: float = 0.0
-
-    def update(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
-        self.age += dt
-        self.flash_time = max(0.0, self.flash_time - dt)
-        created = self.behave(dt, target, scroll_speed)
-        self.move(dt)
-        return created
-
-    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
-        return []
-
-    @property
-    def vulnerable(self) -> bool:
-        return True
-
-    def hit(self, damage: float) -> None:
-        if not self.vulnerable:
-            return
-        self.health -= damage
-        self.flash_time = HIT_FLASH_TIME
-        if self.health <= 0:
-            self.alive = False
-
-    def on_destroyed(self) -> list["Enemy"]:
-        """Enemies created when this one is shot down."""
-        return []
-
-    def wreckage(self) -> list["Enemy"]:
-        """Enemies destroyed along with this one (a boss's parts), without points."""
-        return []
-
-    def explosions(self) -> list[tuple[float, float, float]]:
-        """(x, y, size) of each explosion when it blows up."""
-        return [(self.x, self.y, max(self.width, self.height))]
-
-    @property
-    def kind_name(self) -> str:
-        """What it is, for the effects (debris colors): its class name, like "Drone"."""
-        return type(self).__name__
-
-    def enter_from_side(self, direction: int) -> None:
-        """Set up movement for a side entry; `direction` is 1 when entering from the left, -1 from the right."""
-
-    def appearance(self) -> str:
-        """How to draw the enemy right now: "normal", "flash" (white), "hit" (brighter), "shield",
-        "armored" (darker) or "hidden".
-        """
-        return "flash" if self.flash_time > 0 else "normal"
-
-    @property
-    def on_screen(self) -> bool:
-        return self.y < TOP and abs(self.x) < HALF_WIDTH
-
-    def _reloaded(self, dt: float) -> bool:
-        """Count down to the next shot; True when it's time to fire (only while on screen)."""
-        self.fire_cooldown -= dt
-        if self.fire_cooldown <= 0 and self.on_screen:
-            self.fire_cooldown = self.fire_interval
-            return True
-        return False
-
-
-def enemy_bullet(x: float, y: float, vx: float, vy: float, style: str = "normal") -> Bullet:
-    return Bullet(
-        x=x,
-        y=y,
-        vx=vx,
-        vy=vy,
-        width=config.ENEMY_BULLET_SIZE,
-        height=config.ENEMY_BULLET_SIZE,
-        damage=config.ENEMY_BULLET_DAMAGE,
-        hostile=True,
-        style=style,
-    )
-
-
-def aimed_bullet(source: Entity, target: Entity, speed: float, style: str = "normal") -> Bullet:
-    dx, dy = target.x - source.x, target.y - source.y
-    distance = math.hypot(dx, dy) or 1.0
-    return enemy_bullet(source.x, source.y, dx / distance * speed, dy / distance * speed, style)
-
-
-def heavy_bullet(x: float, y: float, vx: float, vy: float) -> Bullet:
-    """A big orange shot (see HEAVY_BULLET_SIZE)."""
-    bullet = enemy_bullet(x, y, vx, vy, "heavy")
-    bullet.width = bullet.height = HEAVY_BULLET_SIZE
-    return bullet
-
-
-def aim_angle(source: Entity, target: Entity) -> float:
-    """Degrees from straight down (like `angled_bullet`) of the line from `source` to `target`."""
-    return math.degrees(math.atan2(target.x - source.x, source.y - target.y))
-
-
-def angled_bullet(source: Entity, degrees_from_down: float, speed: float) -> Bullet:
-    angle = math.radians(degrees_from_down)
-    return enemy_bullet(source.x, source.y, math.sin(angle) * speed, -math.cos(angle) * speed)
+from pewpy.game.enemies.enemy import HALF_WIDTH, Enemy
+from pewpy.game.entities import Entity
+from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
+from pewpy.game.weapons.enemy.shots import (
+    WaveBullet,
+    aim_angle,
+    aimed_bullet,
+    angled_bullet,
+    beam,
+    enemy_bullet,
+    heavy_bullet,
+)
 
 
 @dataclass(eq=False)
@@ -444,100 +331,6 @@ class RocketTruck(Enemy):
         return [heavy_bullet(self.x, self.y - self.height / 2, 0.0, -0.5)] if self._reloaded(dt) else []
 
 
-# ---- Enemy projectiles: small enemies of their own, so the player can shoot them down. They hit like ramming (see
-# config.ENEMY_RAM_DAMAGE) and aren't placed by the levels' waves: other enemies launch them.
-
-
-@dataclass(eq=False)
-class Rocket(Enemy):
-    """A dumb rocket: flies straight, speeding up until it reaches its top speed."""
-
-    acceleration: ClassVar[float] = 1.0
-    top_speed: ClassVar[float] = 1.1
-    width: float = 0.03
-    height: float = 0.07
-    vy: float = -0.25
-    health: float = 1.0
-    points: int = 10
-
-    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
-        speed = math.hypot(self.vx, self.vy)
-        if 0 < speed < self.top_speed:
-            faster = min(self.top_speed, speed + self.acceleration * dt) / speed
-            self.vx, self.vy = self.vx * faster, self.vy * faster
-        return []
-
-
-@dataclass(eq=False)
-class HomingMissile(Enemy):
-    """Turns towards the player (at most `turn_rate`) until its fuel runs out, then flies straight on."""
-
-    turn_rate: ClassVar[float] = math.radians(100)  # per second
-    speed: ClassVar[float] = 0.45
-    width: float = 0.04
-    height: float = 0.08
-    health: float = 2.0
-    points: int = 20
-    heading: float = -math.pi / 2  # direction of travel, radians; -pi/2 is straight down
-    fuel: float = 3.0
-
-    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
-        self.fuel -= dt
-        if self.fuel > 0:
-            wanted = math.atan2(target.y - self.y, target.x - self.x)
-            difference = (wanted - self.heading + math.pi) % (2 * math.pi) - math.pi
-            self.heading += max(-self.turn_rate * dt, min(self.turn_rate * dt, difference))
-        self.vx, self.vy = math.cos(self.heading) * self.speed, math.sin(self.heading) * self.speed
-        return []
-
-
-@dataclass(eq=False)
-class ClusterBomb(Enemy):
-    """Falls, then bursts into a ring of shots when its fuse runs out (unless it's shot down first)."""
-
-    shards: ClassVar[int] = 8
-    shard_speed: ClassVar[float] = 0.4
-    width: float = 0.05
-    height: float = 0.05
-    vy: float = -0.3
-    health: float = 1.0
-    points: int = 10
-    fuse: float = 1.2
-
-    def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
-        if self.fuse <= 0:
-            return []  # already burst
-        self.fuse -= dt
-        if self.fuse > 0:
-            return []
-        self.alive = False
-        return [angled_bullet(self, 360 * i / self.shards + 22.5, self.shard_speed) for i in range(self.shards)]
-
-
-@dataclass(eq=False)
-class WaveBullet(Bullet):
-    """A shot snaking from side to side across its line of flight."""
-
-    amplitude: float = 0.06
-    period: float = 0.7  # seconds for a full wave
-    age: float = 0.0
-    line_x: float | None = None  # where it would be flying straight
-    line_y: float = 0.0
-
-    def move(self, dt: float) -> None:
-        if self.line_x is None:
-            self.line_x, self.line_y = self.x, self.y
-        self.age += dt
-        self.line_x += self.vx * dt
-        self.line_y += self.vy * dt
-        speed = math.hypot(self.vx, self.vy) or 1.0
-        offset = self.amplitude * math.sin(2 * math.pi * self.age / self.period)
-        self.x, self.y = self.line_x - self.vy / speed * offset, self.line_y + self.vx / speed * offset
-
-
-# ---- Enemies with these weapons.
-
-
 @dataclass(eq=False)
 class Rocketeer(Enemy):
     """Flies down slowly, firing pairs of rockets that speed up."""
@@ -667,18 +460,12 @@ class Lancer(Enemy):
             if self.charge_time > 0:
                 return []
             self.beam_time = self.beam_duration
-            return [self._beam()]
+            return [beam(self.x, self.y - self.height / 2, self.beam_width, self.beam_duration)]
         gap = target.x - self.x
         self.vx = math.copysign(self.slide_speed, gap) if abs(gap) > 0.02 else 0.0  # towards the player's side
         if self._reloaded(dt):
             self.charge_time, self.vx = self.charge_duration, 0.0
         return []
-
-    def _beam(self) -> Bullet:
-        top, bottom = self.y - self.height / 2, -config.PLAY_HEIGHT / 2 - 0.1  # down past the bottom of the screen
-        beam = enemy_bullet(self.x, (top + bottom) / 2, 0.0, 0.0, "beam")
-        beam.width, beam.height, beam.life, beam.pierces = self.beam_width, top - bottom, self.beam_duration, True
-        return beam
 
     def appearance(self) -> str:
         return "flash" if self.charge_time > 0 else super().appearance()

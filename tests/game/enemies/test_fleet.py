@@ -5,10 +5,10 @@ from importlib import resources
 import pytest
 
 from pewpy import config
-from pewpy.game import fleet
-from pewpy.game.enemies import ClusterBomb, Enemy, HomingMissile, Mine, WaveBullet
-from pewpy.game.entities import Bullet, Entity
-from pewpy.game.fleet import (
+from pewpy.game.enemies import fleet
+from pewpy.game.enemies.catalog import Mine
+from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.fleet import (
     FLEET,
     Albatross,
     Behemoth,
@@ -40,6 +40,9 @@ from pewpy.game.fleet import (
     Warhawk,
     Wisp,
 )
+from pewpy.game.entities import Bullet, Entity
+from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile
+from pewpy.game.weapons.enemy.shots import WaveBullet
 
 DT = 1 / 60
 TARGET = Entity(x=0.0, y=-0.75)  # where the player starts

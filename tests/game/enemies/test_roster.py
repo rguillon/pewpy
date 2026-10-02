@@ -2,9 +2,9 @@ import random
 
 import pytest
 
-from pewpy.game.enemies import HALF_WIDTH, TOP, Enemy
+from pewpy.game.enemies.enemy import HALF_WIDTH, TOP, Enemy
+from pewpy.game.enemies.roster import ENEMY_TYPES, make_enemy
 from pewpy.game.entities import Entity
-from pewpy.game.roster import ENEMY_TYPES, make_enemy
 
 DT = 1 / 60
 TARGET = Entity(x=0.0, y=-0.75)  # where the player starts
