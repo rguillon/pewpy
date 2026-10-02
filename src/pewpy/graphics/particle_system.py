@@ -1,9 +1,10 @@
-"""Running the particle effects (effects/): plays them, moves their particles and the laser's light; effects_view.py
+"""Running the particle effects (effects/): plays them, moves their particles and the lasers' light; effects_view.py
 draws them. Independent from Panda3D.
 """
 
 import math
 import random
+from collections.abc import Sequence
 
 from pewpy.graphics.effects import Effect, Particle
 from pewpy.graphics.effects.laser import LaserGlow, LaserLight
@@ -24,9 +25,9 @@ class ParticleSystem:
         if len(self.particles) > MAX_PARTICLES:
             del self.particles[: len(self.particles) - MAX_PARTICLES]
 
-    def set_laser(self, laser: LaserGlow | None, dt: float) -> None:
-        """The laser this frame (None: off), for its light."""
-        self.light.set(laser, dt, self.rng)
+    def set_lasers(self, lasers: Sequence[LaserGlow], dt: float) -> None:
+        """The laser beams this frame (the player's, the enemies'), for their light."""
+        self.light.set(lasers, dt, self.rng)
 
     def update(self, dt: float) -> None:
         self.time += dt

@@ -36,7 +36,7 @@ def states(*names: str, **first: Any) -> list[dict[str, Any]]:
 def test_an_enemy_starts_as_described():
     drone = make("drone", 0.1, 0.9)
     assert (drone.x, drone.y, drone.vy, drone.health, drone.points) == (0.1, 0.9, -0.3, 3.0, 100)
-    assert (drone.kind, drone.kind_name, drone.drawing) == ("drone", "drone", "")
+    assert (drone.kind, drone.kind_name, drone.drawing) == ("drone", "drone", "drone")
     assert make("dart").kind_name == "dart"  # its drawing
 
 

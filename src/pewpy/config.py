@@ -1,7 +1,12 @@
-"""Tunable game constants.
+"""Tunable game constants: the window, the play area, the camera, the looks; and, read from `src/pewpy/rules.json`,
+the game's rules.
 
 Values marked "placeholder" are not decided in the specs yet; they are marked *(placeholder)* in docs/specs/.
 """
+
+import json
+
+from pewpy.data import data_folder
 
 # Window (the user's choice: 1280 x 1024, a 5:4 landscape window)
 WINDOW_TITLE = "pewpy"
@@ -25,30 +30,34 @@ PLAY_WIDTH = 2.5
 PLAY_HEIGHT = 2.0
 WIDTH_SCALE = PLAY_WIDTH / 1.5
 
-# Player ship (01-gameplay.md)
-PLAYER_RESPONSIVENESS = 12.0  # how fast velocity reaches target speed (1/s); lower = more inertia
-PLAYER_START_Y = -0.75
-PLAYER_LIVES = 5
-PLAYER_INVULNERABILITY_TIME = 1.0  # seconds
+# The game's rules (01-gameplay.md, 02-enemies.md): in `src/pewpy/rules.json`
+_RULES = json.loads((data_folder() / "rules.json").read_text())
+_PLAYER, _PICKUPS, _ENEMIES = _RULES["player"], _RULES["pickups"], _RULES["enemies"]
 
-# Player weapons: per-weapon values are in game/weapons/player/ (01-gameplay.md)
+PLAYER_RESPONSIVENESS: float = _PLAYER[
+    "responsiveness"
+]  # how fast velocity reaches target speed (1/s): lower, more inertia
+PLAYER_START_Y: float = _PLAYER["start_y"]
+PLAYER_LIVES: int = _PLAYER["lives"]
+PLAYER_INVULNERABILITY_TIME: float = _PLAYER["invulnerability_time"]  # seconds, after a hit
+MAX_LIVES: int = _PLAYER["max_lives"]  # an extra life beyond this gives EXTRA_LIFE_POINTS instead
+EXTRA_LIFE_POINTS: int = _PLAYER["extra_life_points"]
 
-# Pickups (01-gameplay.md)
-PICKUP_SIZE = 0.08
-PICKUP_SPEED = 0.25  # drifting down, world units per second
-PICKUP_UPGRADE_SHARE = 0.64  # when an enemy drops something: 64% upgrade capsule...
-PICKUP_LIFE_SHARE = 0.04  # ...4% extra life...
-PICKUP_SECONDARY_SHARE = 0.08  # ...8% secondary weapon, the rest (24%) repair (placeholder)
-MAX_LIVES = 9  # an extra life beyond this gives EXTRA_LIFE_POINTS instead
-EXTRA_LIFE_POINTS = 1000
-REPAIR_AMOUNT = 2.0
-BOSS_BEATEN_TIME = 3.0  # seconds of play after the boss is destroyed, to pick up what it dropped
-MAX_LEVEL_UPGRADE_POINTS = 500
+# Player weapons: in src/pewpy/weapons/ (see game/weapons/)
 
-# Enemies: per-type values are in game/enemies/ (02-enemies.md)
-ENEMY_BULLET_SIZE = 0.03
-ENEMY_BULLET_DAMAGE = 1.0
-ENEMY_RAM_DAMAGE = 2.0  # damage to the player when an enemy collides with the ship
+PICKUP_SIZE: float = _PICKUPS["size"]
+PICKUP_SPEED: float = _PICKUPS["speed"]  # drifting down, world units per second
+PICKUP_UPGRADE_SHARE: float = _PICKUPS["upgrade_share"]  # when an enemy drops something: an upgrade capsule...
+PICKUP_LIFE_SHARE: float = _PICKUPS["life_share"]  # ...an extra life...
+PICKUP_SECONDARY_SHARE: float = _PICKUPS["secondary_share"]  # ...a secondary weapon, else a repair
+REPAIR_AMOUNT: float = _PICKUPS["repair_amount"]
+MAX_LEVEL_UPGRADE_POINTS: int = _PICKUPS["max_level_upgrade_points"]  # an upgrade for a weapon at its top level
+BOSS_BEATEN_TIME: float = _RULES["bosses"]["beaten_time"]  # seconds of play after the final boss, to pick things up
+
+# Enemies: each kind in src/pewpy/enemies/ (see game/enemies/)
+ENEMY_BULLET_SIZE: float = _ENEMIES["bullet_size"]
+ENEMY_BULLET_DAMAGE: float = _ENEMIES["bullet_damage"]
+ENEMY_RAM_DAMAGE: float = _ENEMIES["ram_damage"]  # damage to the player when an enemy collides with the ship
 
 # Every voxel model is built with cubes of this size, the Swarmer's (its 0.06 hitbox over its 9 columns): a
 # model's size comes from its drawing (see models.py), which should about match its hitbox.

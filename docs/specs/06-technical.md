@@ -23,12 +23,13 @@
 > Leave `TBD` to let Claude propose something, or write your own preferences.
 
 - Overall structure (states/scenes, entity classes, ECS…): grouped by domain, the game's rules kept apart from
-  Panda3D *(placeholder)*: `pewpy/` (`app.py`: the window, input, drawing; `config.py`, `data.py`), `game/` (the
+  Panda3D *(placeholder)*: `pewpy/` (`app.py`: the window, input, drawing; `config.py`: the technical constants, and the game's rules read from
+  `rules.json`; `data.py`), `game/` (the
   rules, no Panda3D: entities, player, world, states, levels; `weapons/` (the guns everyone fires, the kinds of
   bullets, and in `player/` the arsenal and the secondary weapon); `enemies/` (the one Enemy class for enemies and
   bosses, its descriptions, motions, the kinds and the roster)), `scenery/` (backgrounds
   and grounds), `graphics/` (models, lighting, effects), `ui/` (menus, the ship select, the level preview),
-  `audio/`; data in `weapons/`, `enemies/`, `bosses/`, `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
+  `audio/`; data in `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (making the levels, the final bosses, models,
   candidates and songs), `app.py` (the game with the dev screens, `make dev`: the model screens, AI learning and rating), with
   their own `states.py`, `candidates.py` and `ui/`

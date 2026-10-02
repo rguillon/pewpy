@@ -1,9 +1,11 @@
-"""Player ship logic, independent from rendering."""
+"""Player ship logic, independent from rendering. The ships the player can pick are in `src/pewpy/ships.json`."""
 
+import json
 import math
 from dataclasses import dataclass, field
 
 from pewpy import config
+from pewpy.data import data_folder
 from pewpy.game.entities import Entity
 
 
@@ -21,21 +23,14 @@ class ShipSpec:
     regeneration_delay: float = 0.0  # seconds without firing before repairs start
 
 
-SHIPS: dict[str, ShipSpec] = {
-    "vanguard": ShipSpec("VANGUARD", "Balanced", "player", health=5.0, speed=1.0, size=0.12),
-    "juggernaut": ShipSpec("JUGGERNAUT", "Heavy armor, a bit slower", "player_heavy", health=8.0, speed=0.8, size=0.14),
-    "phantom": ShipSpec(
-        "PHANTOM",
-        "Fast, light armor, repairs itself when not firing",
-        "player_light",
-        health=3.0,
-        speed=1.3,
-        size=0.1,
-        regeneration=0.5,
-        regeneration_delay=1.5,
-    ),
-}
-DEFAULT_SHIP = "vanguard"
+def load_ships() -> dict[str, ShipSpec]:
+    """The ships of `ships.json`, by name, in the file's order (a ship's "note" is for the people editing it)."""
+    data = json.loads((data_folder() / "ships.json").read_text())
+    return {key: ShipSpec(**{k: v for k, v in ship.items() if k != "note"}) for key, ship in data.items()}
+
+
+SHIPS = load_ships()
+DEFAULT_SHIP = next(iter(SHIPS))  # the first one
 
 
 @dataclass(eq=False)

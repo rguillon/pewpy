@@ -1,6 +1,6 @@
 import random
 
-from pewpy.graphics.effects.laser import PHOTON_FADE, LaserGlow, LaserLight
+from pewpy.graphics.effects.laser import ENEMY_BURN_COLORS, PHOTON_FADE, LaserGlow, LaserLight
 
 DT = 1 / 60
 BEAM = LaserGlow(x=0.2, bottom=-0.5, top=0.5, width=0.03, hits=(0.5,))
@@ -15,7 +15,7 @@ class Clock:
         self.time = 0.0
 
     def frame(self, laser: LaserGlow | None) -> None:
-        self.light.set(laser, DT, self.rng)
+        self.light.set([] if laser is None else [laser], DT, self.rng)
         self.time += DT
         self.light.update(DT, self.time)
 
@@ -60,3 +60,31 @@ def test_wider_beams_send_more_streaks():
         thin.frame(BEAM)
         wide.frame(LaserGlow(x=0.2, bottom=-0.5, top=0.5, width=0.12))
     assert len(wide.light.photons) > len(thin.light.photons)
+
+
+def test_an_enemy_beam_sends_red_streaks_down_from_its_muzzle():
+    clock = Clock()
+    beam = LaserGlow(x=0.1, bottom=-1.1, top=0.4, width=0.035, hostile=True, key=3)
+    for _ in range(30):
+        clock.frame(beam)
+    photons = clock.light.photons
+    assert photons and all(beam.bottom < photon.y <= beam.top and photon.direction == -1 for photon in photons)
+    assert {photon.color for photon in photons} <= set(ENEMY_BURN_COLORS)
+    streak = photons[-1]
+    height = streak.y
+    clock.frame(beam)
+    assert streak.y < height  # flowing down
+    clock.frame(None)  # it stopped: its streaks fly on down and fade
+    assert all(photon.fade < 1 for photon in clock.light.photons)
+
+
+def test_several_beams_each_keep_their_own_streaks():
+    clock = Clock()
+    left = LaserGlow(x=-0.5, bottom=-1.1, top=0.4, width=0.03, hostile=True, key=1)
+    right = LaserGlow(x=0.5, bottom=-1.1, top=0.4, width=0.03, hostile=True, key=2)
+    for _ in range(10):
+        clock.light.set([left, right, BEAM], DT, clock.rng)
+        clock.light.update(DT, 0.0)
+    keys = {photon.key for photon in clock.light.photons}
+    assert keys == {0, 1, 2}
+    assert all(abs(photon.x - {1: -0.5, 2: 0.5, 0: 0.2}[photon.key]) < 0.05 for photon in clock.light.photons)

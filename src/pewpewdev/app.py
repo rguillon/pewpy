@@ -26,7 +26,7 @@ from pewpy import config
 from pewpy.app import EFFECTS_RUN_IN, GAME_ASPECT, PewPewApp, fitted_model
 from pewpy.game.enemies.enemy import make
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES, FINAL_BOSSES
-from pewpy.game.enemies.spec import EnemySpec
+from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State
 from pewpy.game.weapons.bullets import Missile
@@ -50,18 +50,16 @@ AI_WORKERS = max(
 )  # processes learning or rating: a core left for the game, one for the rest
 SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
 PICKUPS_PAGE = "Player, pickups and projectiles"
-# The second fleet (src/pewpy/enemies/fleet.json: the enemies with drawings), on pages of their own.
-FLEET_KINDS: tuple[str, ...] = tuple(kind for kind, spec in ENEMIES.items() if spec.drawing)
-# The Models screen's pages (too many models for one circle): which ship models each shows, by kind of enemy (or
-# "Player", "Missile"); the first also shows the pickups and what enemies launch rather than the levels place.
+# The second fleet (src/pewpy/enemies/fleet.json), on pages of their own.
+FLEET_KINDS: tuple[str, ...] = tuple(load_enemy_specs("enemies/fleet.json"))
+# The Models screen's pages (too many models for one circle): which enemies each shows, by kind; the first also
+# shows the player's ships, its missile and the pickups.
 MODEL_PAGES: dict[str, Callable[[str], bool]] = {
-    PICKUPS_PAGE: lambda kind: kind in ("Player", "Missile") or (kind in ENEMIES and not ENEMIES[kind].placeable),
-    "Flying enemies": lambda kind: (
-        kind in ENEMIES and ENEMIES[kind].placeable and not ENEMIES[kind].ground and kind not in FLEET_KINDS
-    ),
+    PICKUPS_PAGE: lambda kind: not ENEMIES[kind].placeable,
+    "Flying enemies": lambda kind: ENEMIES[kind].placeable and not ENEMIES[kind].ground and kind not in FLEET_KINDS,
     "The fleet (1/2)": lambda kind: kind in FLEET_KINDS[: len(FLEET_KINDS) // 2],
     "The fleet (2/2)": lambda kind: kind in FLEET_KINDS[len(FLEET_KINDS) // 2 :],
-    "Ground enemies": lambda kind: kind in ENEMIES and ENEMIES[kind].ground,
+    "Ground enemies": lambda kind: ENEMIES[kind].ground,
 }
 CANDIDATES_PER_PAGE = 10
 SHOWCASE_CANDIDATE_SIZE = 0.26  # the Candidates screen's models (see showcase.MODEL_SIZE)...
@@ -221,15 +219,16 @@ class DevApp(PewPewApp):
         a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes).
         """
         entries = []
-        for kind in self.ship_models:
-            if kind == "Player" and page == PICKUPS_PAGE:
-                for spec in SHIPS.values():
-                    entries.append((spec.name.title(), fitted_model(self.player_models[spec.drawing], spec.size)))
-                continue
+        if page == PICKUPS_PAGE:
+            for spec in SHIPS.values():
+                entries.append((spec.name.title(), fitted_model(self.player_models[spec.drawing], spec.size)))
+            missile = Missile()
+            entries.append(("Missile", fitted_model(self._make_model(missile), missile.height)))
+        for kind in ENEMIES:
             if MODEL_PAGES[page](kind):
-                entity = Missile() if kind == "Missile" else make(kind)
+                enemy = make(kind)
                 name = kind.replace("_", " ").title()  # mine_layer: "Mine Layer"
-                entries.append((name, fitted_model(self._make_model(entity), max(entity.width, entity.height))))
+                entries.append((name, fitted_model(self._make_model(enemy), max(enemy.width, enemy.height))))
         if page == PICKUPS_PAGE:
             for kind in [*WEAPONS, "repair", "life", *SECONDARY_WEAPONS]:
                 names = {"repair": "Repair", "life": "Extra life"}

@@ -15,6 +15,7 @@ The player points up the screen (+Z); enemies point down (-Z). The first row of 
 import json
 import math
 import random
+from collections.abc import Callable
 from dataclasses import dataclass, replace
 from typing import Any
 
@@ -834,24 +835,12 @@ def _flame_texture() -> Texture:
     return texture
 
 
-def player_model() -> NodePath:
-    return drawing_model("player")
-
-
-def drone_model() -> NodePath:
-    return drawing_model("drone")
-
-
-def weaver_model() -> NodePath:
-    return drawing_model("weaver")
-
-
-def diver_model() -> NodePath:
-    return drawing_model("diver")
-
-
-def gunship_model() -> NodePath:
-    return drawing_model("gunship")
+def model(drawing: str) -> NodePath:
+    """The model of a drawing (models/<drawing>.json); the turret's and the tank's are built with a barrel the game
+    turns (see BUILT_MODELS). Models point down the screen (-Z), so the game can turn them with `facing_roll`.
+    """
+    built = BUILT_MODELS.get(drawing)
+    return built() if built else drawing_model(drawing)
 
 
 def turret_model() -> NodePath:
@@ -869,10 +858,6 @@ def turret_model() -> NodePath:
     model = NodePath(base.build("turret"))
     model.attachNewNode(barrel.build("barrel"))
     return model
-
-
-def flak_cannon_model() -> NodePath:
-    return drawing_model("flak_cannon")
 
 
 def tank_model() -> NodePath:
@@ -896,68 +881,7 @@ def tank_model() -> NodePath:
     return model
 
 
-def rocket_truck_model() -> NodePath:
-    return drawing_model("rocket_truck")
-
-
-def rocketeer_model() -> NodePath:
-    return drawing_model("rocketeer")
-
-
-def hunter_model() -> NodePath:
-    return drawing_model("hunter")
-
-
-def missile_silo_model() -> NodePath:
-    return drawing_model("missile_silo")
-
-
-def bomber_model() -> NodePath:
-    return drawing_model("bomber")
-
-
-def lancer_model() -> NodePath:
-    return drawing_model("lancer")
-
-
-def serpent_model() -> NodePath:
-    return drawing_model("serpent")
-
-
-def buckshot_model() -> NodePath:
-    return drawing_model("buckshot")
-
-
-def rocket_model() -> NodePath:
-    return drawing_model("rocket")
-
-
-def homing_missile_model() -> NodePath:
-    return drawing_model("homing_missile")
-
-
-def cluster_bomb_model() -> NodePath:
-    return drawing_model("cluster_bomb")
-
-
-def swarmer_model() -> NodePath:
-    return drawing_model("swarmer")
-
-
-def sniper_model() -> NodePath:
-    return drawing_model("sniper")
-
-
-def mine_layer_model() -> NodePath:
-    return drawing_model("mine_layer")
-
-
-def mine_model() -> NodePath:
-    return drawing_model("mine")
-
-
-def shield_carrier_model() -> NodePath:
-    return drawing_model("shield_carrier")
+BUILT_MODELS: dict[str, Callable[[], NodePath]] = {"turret": turret_model, "tank": tank_model}
 
 
 def shield_bubble_model() -> NodePath:
@@ -970,16 +894,6 @@ def shield_bubble_model() -> NodePath:
     bubble.setLightOff()
     bubble.setShaderOff()
     return bubble
-
-
-def splitter_model() -> NodePath:
-    """Three lobes: it splits into three Swarmers."""
-    return drawing_model("splitter")
-
-
-def missile_model() -> NodePath:
-    """Points down the screen (-Z) like the enemies, so the game can turn it with `facing_roll`."""
-    return drawing_model("missile")
 
 
 def pickup_model(letter: str, color: Color) -> NodePath:
@@ -1041,12 +955,12 @@ def extra_life_model() -> NodePath:
     return drawing_model("extra_life")
 
 
-def laser_beam_model() -> NodePath:
-    """The laser's bright core: a thin box, stretched to the beam's size (a 1 x 1 beam). The rest of the beam is
-    light: streaks shooting up it (effects/laser.py) in a soft halo (effects_view.py).
+def laser_beam_model(color: Color = (0.85, 1.0, 1.0, 0.95)) -> NodePath:
+    """A laser's bright core: a thin box, stretched to the beam's size (a 1 x 1 beam). The rest of the beam is
+    light: streaks shooting along it (effects/laser.py) in a soft halo (effects_view.py).
     """
     mesh = MeshBuilder()
-    mesh.box(Vec3(0, 0, 0), Vec3(0.25, 0.25, 1.0), (0.85, 1.0, 1.0, 0.95))
+    mesh.box(Vec3(0, 0, 0), Vec3(0.25, 0.25, 1.0), color)
     beam = NodePath(mesh.build("laser"))
     beam.setTransparency(TransparencyAttrib.MAlpha)
     beam.setLightOff()

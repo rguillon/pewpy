@@ -8,7 +8,7 @@ import pytest
 from pewpy import config
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import ENEMY_TYPES
-from pewpy.game.enemies.spec import EnemySpec
+from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
 from pewpy.game.weapons.guns import PROJECTILES, Gun
 
 
@@ -26,8 +26,8 @@ def test_every_enemy_launched_or_released_exists(spec):
     assert all(spawn.kind in ENEMIES for spawn in spec.on_destroyed)
 
 
-@pytest.mark.parametrize("spec", [spec for spec in ENEMIES.values() if spec.drawing], ids=lambda spec: spec.kind)
-def test_every_hitbox_is_its_drawing_and_every_drawing_has_engines(spec):
+@pytest.mark.parametrize("spec", load_enemy_specs("enemies/fleet.json").values(), ids=lambda spec: spec.kind)
+def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec):
     drawing = json.loads((resources.files("pewpy") / "models" / f"{spec.drawing}.json").read_text())
     rows = drawing["rows"]
     assert spec.width == pytest.approx(len(rows[0]) * config.MODEL_VOXEL)

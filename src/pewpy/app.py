@@ -92,36 +92,6 @@ BOLT_ZIGZAG = 0.025  # ...this far to each side, differently every frame
 HUD_DIM_COLOR: Color = (0.5, 0.5, 0.55, 1)
 PICKUP_SPIN_SPEED = 120.0  # degrees per second
 
-# The models built in code: the name of their function in models.py (looked up by name, so the Models screen can
-# reload models.py), by kind of enemy, or by class for the player's ship and missiles. The others are drawings.
-SHIP_MODELS: dict[str, str] = {
-    "Player": "player_model",
-    "Missile": "missile_model",
-    "drone": "drone_model",
-    "weaver": "weaver_model",
-    "diver": "diver_model",
-    "gunship": "gunship_model",
-    "turret": "turret_model",
-    "swarmer": "swarmer_model",
-    "sniper": "sniper_model",
-    "mine_layer": "mine_layer_model",
-    "mine": "mine_model",
-    "shield_carrier": "shield_carrier_model",
-    "splitter": "splitter_model",
-    "flak_cannon": "flak_cannon_model",
-    "tank": "tank_model",
-    "rocket_truck": "rocket_truck_model",
-    "rocketeer": "rocketeer_model",
-    "hunter": "hunter_model",
-    "missile_silo": "missile_silo_model",
-    "bomber": "bomber_model",
-    "lancer": "lancer_model",
-    "serpent": "serpent_model",
-    "buckshot": "buckshot_model",
-    "rocket": "rocket_model",
-    "homing_missile": "homing_missile_model",
-    "cluster_bomb": "cluster_bomb_model",
-}
 MINE_SPIN_SPEED = 90.0  # degrees per second
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
 EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
@@ -133,15 +103,14 @@ ENEMY_BULLET_COLOR: Color = (1.0, 0.5, 0.9, 1)
 SNIPER_BULLET_COLOR: Color = (0.4, 0.6, 1.0, 1)
 HEAVY_BULLET_COLOR: Color = (1.0, 0.55, 0.15, 1)  # big shots: bosses, Rocket Trucks
 LASER_FLICKER = 0.12  # the player's laser beam's width flickers by this share
-BEAM_COLOR: Color = (1.0, 0.35, 0.25, 1)  # the Lancer's laser beam
+ENEMY_LASER_CORE: Color = (1.0, 0.82, 0.78, 0.95)  # enemies' laser beams: a white-hot core in a red light
 WAVE_BULLET_COLOR: Color = (0.75, 0.45, 1.0, 1)  # the Serpent's snaking shots
 ACCEL_BULLET_COLOR: Color = (0.3, 0.95, 1.0, 1)  # bosses' shots speeding up
 CURVE_BULLET_COLOR: Color = (1.0, 0.9, 0.3, 1)  # bosses' shots on bending paths
-WARNING_BEAM_COLOR: Color = (1.0, 0.35, 0.25, 0.6)  # a boss's laser about to fire: thin, harmless
+WARNING_BEAM_COLOR: Color = (1.0, 0.1, 0.1, 0.7)  # a laser about to fire: thin, harmless, red
 BULLET_COLORS: dict[str, Color] = {
     "sniper": SNIPER_BULLET_COLOR,
     "heavy": HEAVY_BULLET_COLOR,
-    "beam": BEAM_COLOR,
     "warning": WARNING_BEAM_COLOR,
     "wave": WAVE_BULLET_COLOR,
     "accel": ACCEL_BULLET_COLOR,
@@ -200,6 +169,8 @@ class PewPewApp(ShowBase):
         self.laser_node = models.laser_beam_model()
         self.laser_node.reparentTo(self.render)
         self.laser_node.hide()
+        self.enemy_laser_model = models.laser_beam_model(ENEMY_LASER_CORE)
+        self.beam_nodes: dict[Bullet, NodePath] = {}  # the enemies' laser beams
         self.bolt_node = self.render.attachNewNode("bolt")
         self.bolt_rng = random.Random()  # noqa: S311 - looks only
 
@@ -414,12 +385,13 @@ class PewPewApp(ShowBase):
 
     def _build_models(self) -> None:
         """Build every model from models.py (looked up by name, so a reloaded models.py is used)."""
-        self.ship_models = {kind: getattr(models, name)() for kind, name in SHIP_MODELS.items()}
-        self.ship_models.update({
-            spec.drawing: models.drawing_model(spec.drawing) for spec in ENEMIES.values() if spec.drawing
-        })
-        # Explosions throw debris in the colors of what blew up (see Enemy.kind_name).
-        self.debris_colors = {kind: models.main_colors(model) for kind, model in self.ship_models.items()}
+        # The enemies' and the player's missiles, by drawing (see EnemySpec.drawing, Missile.drawing).
+        self.ship_models = {drawing: models.model(drawing) for drawing in {spec.drawing for spec in ENEMIES.values()}}
+        self.ship_models[Missile.drawing] = models.model(Missile.drawing)
+        self.player_models = {spec.drawing: models.model(spec.drawing) for spec in SHIPS.values()}
+        # Explosions throw debris in the colors of what blew up (see Enemy.kind_name), the player's ship included.
+        self.debris_colors = {drawing: models.main_colors(model) for drawing, model in self.ship_models.items()}
+        self.debris_colors["Player"] = models.main_colors(self.player_models[SHIPS[DEFAULT_SHIP].drawing])
         self.shield_bubble = models.shield_bubble_model()
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
@@ -427,7 +399,6 @@ class PewPewApp(ShowBase):
         for kind in SECONDARY_WEAPONS:
             self.pickup_models[kind] = models.pickup_model(SECONDARY_LETTERS[kind], SECONDARY_COLORS[kind])
         self.secondary_models = {"turret": models.gun_turret_model(), "lightning": models.lightning_coil_model()}
-        self.player_models = {spec.drawing: models.drawing_model(spec.drawing) for spec in SHIPS.values()}
         # Bosses and their parts: one model per drawing, built when first needed (they're big: building them all
         # takes seconds), see _boss_model.
         self.boss_models: dict[str, NodePath] = {}
@@ -610,10 +581,7 @@ class PewPewApp(ShowBase):
                 model.copyTo(mount)
                 mount.hide()
             return node
-        if isinstance(entity, Pickup):
-            model = self.pickup_models[entity.kind]
-        else:
-            model = self.ship_models[entity.kind_name if isinstance(entity, Enemy) else type(entity).__name__]
+        model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self.ship_models[drawing_of(entity)]
         model.copyTo(node)
         if isinstance(entity, Enemy) and shielded(entity):
             bubble = node.attachNewNode("bubble")  # the bubble fits a 1 x 1 x 1 box: stretched around the ship
@@ -728,7 +696,7 @@ class PewPewApp(ShowBase):
         world.update(dt, controls)
         self._show_events(world.events, dt)
         self.audio.play_all(event_sounds(world.events))
-        self.effects.set_laser(self._laser_glow(world), dt)
+        self.effects.set_lasers(self._laser_glows(world), dt)
         self.background.scenery.update(dt, world.level.scroll_speed)
 
     def _show_events(self, events: list[Event], dt: float) -> None:
@@ -754,7 +722,8 @@ class PewPewApp(ShowBase):
         world = self.world
         entities = world.entities() if world else []
         self.bullet_sprites.show([_bullet_sprite(entity) for entity in entities if _is_round_bullet(entity)])
-        entities = [entity for entity in entities if not _is_round_bullet(entity)]
+        self._show_beams([entity for entity in entities if isinstance(entity, Bullet) and _is_beam(entity)])
+        entities = [entity for entity in entities if not isinstance(entity, Bullet) or isinstance(entity, Missile)]
         alive = set(entities)
         for entity in [entity for entity in self.nodes if entity not in alive]:
             self.nodes.pop(entity).removeNode()
@@ -826,12 +795,33 @@ class PewPewApp(ShowBase):
             flame.setSz(length * flame_scale(time, id(entity) % 97 + index * 1.7, thrust))
 
     @staticmethod
-    def _laser_glow(world: World) -> LaserGlow | None:
+    def _laser_glows(world: World) -> list[LaserGlow]:
+        """The laser beams this frame, for their light: the player's laser, and the enemies' beams."""
+        glows = [
+            LaserGlow(
+                shot.x, shot.y - shot.height / 2, shot.y + shot.height / 2, shot.width, hostile=True, key=id(shot)
+            )
+            for shot in world.enemy_bullets
+            if _is_beam(shot)
+        ]
         beam = world.laser
-        if beam is None:
-            return None
-        hits = tuple(event.y for event in world.events if event.kind == "burn")
-        return LaserGlow(beam.x, beam.bottom, beam.top, beam.width, hits)
+        if beam is not None:
+            hits = tuple(event.y for event in world.events if event.kind == "burn")
+            glows.append(LaserGlow(beam.x, beam.bottom, beam.top, beam.width, hits))
+        return glows
+
+    def _show_beams(self, beams: list[Bullet]) -> None:
+        """The enemies' laser beams' cores, flickering like the player's laser (their light is an effect)."""
+        for gone in [beam for beam in self.beam_nodes if beam not in beams]:
+            self.beam_nodes.pop(gone).removeNode()
+        flicker = 1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * 53.0)
+        for beam in beams:
+            node = self.beam_nodes.get(beam)
+            if node is None:
+                node = self.beam_nodes[beam] = self.render.attachNewNode("beam")
+                self.enemy_laser_model.copyTo(node)
+            node.setPos(beam.x, 0, beam.y)
+            node.setScale(beam.width * flicker, beam.width * flicker, max(beam.height, 0.001))
 
     def _show_laser(self) -> None:
         beam = self.world.laser if self.world else None
@@ -958,7 +948,12 @@ def flame_scale(time: float, phase: float, thrust: float = 0.0) -> float:
 
 
 def _is_round_bullet(entity: Entity) -> bool:
-    return isinstance(entity, Bullet) and not isinstance(entity, Missile)
+    return isinstance(entity, Bullet) and not isinstance(entity, Missile) and not _is_beam(entity)
+
+
+def _is_beam(bullet: Entity) -> bool:
+    """An enemy's laser beam (not its harmless warning): drawn like the player's laser."""
+    return isinstance(bullet, Bullet) and bullet.hostile and bullet.style == "beam"
 
 
 def _bullet_sprite(bullet: Entity) -> Sprite:
@@ -967,7 +962,7 @@ def _bullet_sprite(bullet: Entity) -> Sprite:
     """
     if isinstance(bullet, Bullet) and bullet.hostile:
         color = BULLET_COLORS.get(bullet.style, ENEMY_BULLET_COLOR)
-        if bullet.style in ("beam", "warning"):  # as long as the beam itself: only its sides fade out
+        if bullet.style == "warning":  # as long as the beam itself: only its sides fade out
             return Sprite(bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height, color)
     else:
         color = PLAYER_BULLET_COLOR
@@ -981,3 +976,8 @@ def main() -> None:
 def shielded(enemy: Enemy) -> bool:
     """Whether it has a shield (a state looking "shield"): its model has a bubble, shown while it's up."""
     return any(state.look == "shield" for state in enemy.spec.states)
+
+
+def drawing_of(entity: Entity) -> str:
+    """The drawing of an enemy or a missile: its model."""
+    return entity.drawing if isinstance(entity, Enemy | Missile) else ""

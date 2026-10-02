@@ -149,13 +149,13 @@ def test_bullets_are_sprites_colored_by_who_fired_them(app):
     player_shot = Bullet(x=0.0, y=0.0, width=0.02, height=0.05)
     sniper = Bullet(x=0.0, y=0.0, hostile=True, style="sniper")
     pellet = Bullet(x=0.0, y=0.0, hostile=True, style="pellet")
-    beam = Bullet(x=0.0, y=0.0, width=0.04, height=1.0, hostile=True, style="beam")
+    warning = Bullet(x=0.0, y=0.0, width=0.008, height=1.0, hostile=True, style="warning", harmless=True)
     assert app_module._bullet_sprite(player_shot).color == app_module.PLAYER_BULLET_COLOR
     assert app_module._bullet_sprite(sniper).color == app_module.SNIPER_BULLET_COLOR
     assert app_module._bullet_sprite(pellet).color == app_module.ENEMY_BULLET_COLOR
-    assert app_module._bullet_sprite(beam).height == 1.0  # as long as the beam: only its sides glow
+    assert app_module._bullet_sprite(warning).height == 1.0  # as long as the beam: only its sides glow
     world = play(app)
-    world.enemy_bullets = [sniper, beam]
+    world.enemy_bullets = [sniper, warning]
     app._sync_nodes()
     assert sniper not in app.nodes  # drawn as sprites, not models
 
@@ -164,15 +164,37 @@ def test_the_laser_beam_shows_while_firing(app):
     world = play(app)
     world.laser = Beam(x=0.1, bottom=-0.5, top=0.9, width=0.05)
     world.events = [Event("burn", 0.1, 0.4)]
-    glow = app._laser_glow(world)
-    assert glow is not None and glow.hits == (0.4,)
+    (glow,) = app._laser_glows(world)
+    assert glow.hits == (0.4,) and not glow.hostile
     app._sync_nodes()
     assert not app.laser_node.isHidden()
     assert app.laser_node.getX() == pytest.approx(0.1)
     world.laser = None
-    assert app._laser_glow(world) is None
+    assert app._laser_glows(world) == []
     app._sync_nodes()
     assert app.laser_node.isHidden()
+
+
+def test_enemy_beams_are_lasers_and_their_warnings_thin_red_sprites(app):
+    world = play(app)
+    beam = Bullet(x=0.2, y=-0.3, width=0.035, height=1.6, hostile=True, style="beam", pierces=True)
+    warning = Bullet(x=-0.2, y=-0.3, width=0.008, height=1.6, hostile=True, style="warning", harmless=True)
+    world.enemy_bullets = [beam, warning]
+    (glow,) = app._laser_glows(world)
+    assert glow.hostile and (glow.x, glow.top, glow.bottom) == pytest.approx((0.2, 0.5, -1.1))
+    app._sync_nodes()
+    assert set(app.beam_nodes) == {beam}  # a core like the player's laser
+    assert app.beam_nodes[beam].getX() == pytest.approx(0.2)
+    node = app.beam_nodes[beam]
+    beam.x = 0.25  # a boss's beam follows it
+    app._sync_nodes()
+    assert app.beam_nodes[beam] is node and node.getX() == pytest.approx(0.25)
+    assert beam not in app.nodes and warning not in app.nodes
+    sprite = app_module._bullet_sprite(warning)
+    assert sprite.color == app_module.WARNING_BEAM_COLOR and sprite.height == warning.height
+    world.enemy_bullets = []
+    app._sync_nodes()
+    assert app.beam_nodes == {}
 
 
 def test_the_lightning_bolt_zigzags_to_what_it_struck(app):

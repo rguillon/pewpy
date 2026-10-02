@@ -73,6 +73,7 @@ void main() {
 
 GLOW_SIZE = 1.6  # a soft circle's diameter, for a particle of size 1 (its edge fades, so it's drawn bigger)
 LASER_COLOR = (0.4, 0.92, 1.0, 1)
+ENEMY_LASER_COLOR = (1.0, 0.3, 0.2, 1)
 HIT_COLOR = (0.8, 1.0, 1.0, 1)
 # Glows at the ship's nose while the laser is on (it pulses) and where it hits something (it flickers): a base
 # size plus so many beam widths.
@@ -80,7 +81,9 @@ MUZZLE_GLOW = (0.05, 1.5)
 HIT_GLOW = (0.07, 1.5)
 HALO_WIDTH = 2.4  # the soft halo around the laser, in beam widths: glowing circles one beam width apart
 HALO_COLOR = (0.05, 0.22, 0.32, 1)  # dim: they overlap and add up
-LASER_SPRITES = 256  # room in the glow batch for the laser's streaks and halo, on top of the particles
+ENEMY_HALO_COLOR = (0.32, 0.05, 0.03, 1)
+HALO_SPRITES = 64  # at most, per beam (a long beam's circles are further apart)
+LASER_SPRITES = 1024  # room in the glow batch for the lasers' streaks and halos, on top of the particles
 
 
 class EffectsView:
@@ -131,22 +134,24 @@ class EffectsView:
             self.node.hide()
 
     def _laser_sprites(self) -> list[Sprite]:
-        """Streaks of light shooting up the laser, a pulsing glow at the ship's nose and a flickering one where the
-        beam hits.
+        """Streaks of light shooting along the lasers, a soft halo around each, a pulsing glow where it starts (the
+        ship's nose, an enemy's muzzle) and a flickering one where the player's burns something.
         """
         sprites = []
         for photon in self.effects.light.photons:
             width = photon.size * GLOW_SIZE * photon.fade
             sprites.append(Sprite(photon.x, photon.y, width, width * PHOTON_STRETCH, photon.color))
-        laser = self.effects.light.laser
-        if laser is not None:
+        time = self.effects.time
+        for laser in self.effects.light.lasers.values():
             halo = laser.width * HALO_WIDTH
-            steps = min(int((laser.top - laser.bottom) / laser.width), LASER_SPRITES // 2)
+            steps = min(int((laser.top - laser.bottom) / laser.width), HALO_SPRITES)
             step = (laser.top - laser.bottom) / max(steps, 1)
-            sprites += [Sprite(laser.x, laser.bottom + i * step, halo, halo, HALO_COLOR) for i in range(steps + 1)]
-            time = self.effects.time
+            color = ENEMY_HALO_COLOR if laser.hostile else HALO_COLOR
+            sprites += [Sprite(laser.x, laser.bottom + i * step, halo, halo, color) for i in range(steps + 1)]
             muzzle = (MUZZLE_GLOW[0] + laser.width * MUZZLE_GLOW[1]) * (1.0 + 0.15 * math.sin(time * 31.0))
-            sprites.append(Sprite(laser.x, laser.bottom, muzzle, muzzle, LASER_COLOR))
+            sprites.append(
+                Sprite(laser.x, laser.source, muzzle, muzzle, ENEMY_LASER_COLOR if laser.hostile else LASER_COLOR)
+            )
             flicker = 1.0 + 0.25 * math.sin(time * 47.0) * math.sin(time * 13.0)
             hit = (HIT_GLOW[0] + laser.width * HIT_GLOW[1]) * flicker
             sprites += [Sprite(laser.x, y, hit, hit, HIT_COLOR) for y in laser.hits]

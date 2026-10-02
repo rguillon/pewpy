@@ -17,9 +17,9 @@
 - Only enemies destroyed by the player's weapons score and drop pickups (including those a missile's explosion
   destroys), not rammed ones. Every destroyed or rammed enemy explodes (see `05-visuals.md`).
 - "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 64% upgrade capsule, 4% extra life, 8% secondary
-  weapon, 24% repair *(placeholder)* (see `01-gameplay.md`).
-- Looks: every enemy is a voxel model in its colors, drawn in `src/pewpy/models/<name>.json` and built in code
-  (`src/pewpy/graphics/models.py`); the size given is its hitbox.
+  weapon, 24% repair *(placeholder)* (see `01-gameplay.md`; the shares are in `src/pewpy/rules.json`).
+- Looks: every enemy is a voxel model in its colors, drawn in `src/pewpy/models/<name>.json` (its description names
+  its drawing) and built by `src/pewpy/graphics/models.py`; the size given is its hitbox.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
 - What each enemy does is data: `src/pewpy/enemies/` (`catalog.json`, `fleet.json`, `projectiles.json`), see
   `06-technical.md`, "Enemies as data".

@@ -40,10 +40,10 @@ def test_the_laser_light_follows_the_laser_and_clear_puts_everything_out():
     fx = ParticleSystem(seed=0)
     beam = LaserGlow(x=0.2, bottom=-0.5, top=0.5, width=0.03)
     for _ in range(10):
-        fx.set_laser(beam, DT)
+        fx.set_lasers([beam], DT)
         fx.update(DT)
-    assert fx.light.laser == beam
+    assert fx.light.lasers == {0: beam}
     assert fx.light.photons
     fx.play(Explosion(0.0, 0.0, size=0.1, colors=(RED,)))
     fx.clear()
-    assert fx.particles == [] and fx.light.photons == [] and fx.light.laser is None
+    assert fx.particles == [] and fx.light.photons == [] and fx.light.lasers == {}

@@ -1,6 +1,7 @@
 {
   "drone": {
     "note": "Comes straight down, firing at the player.",
+    "drawing": "drone",
     "health": 3.0,
     "points": 100,
     "drop_chance": 0.05,
@@ -24,6 +25,7 @@
   },
   "weaver": {
     "note": "Snakes down around its column, never shoots.",
+    "drawing": "weaver",
     "health": 2.0,
     "points": 80,
     "drop_chance": 0.05,
@@ -47,6 +49,7 @@
   },
   "diver": {
     "note": "Comes down, waits blinking, then dives at the player.",
+    "drawing": "diver",
     "size": [
       0.1,
       0.12
@@ -101,6 +104,7 @@
   },
   "gunship": {
     "note": "Slow, fires three-shot spreads.",
+    "drawing": "gunship",
     "size": [
       0.2,
       0.14
@@ -130,6 +134,7 @@
   },
   "turret": {
     "note": "On the ground, fires bursts of three at the player.",
+    "drawing": "turret",
     "size": [
       0.12,
       0.12
@@ -162,6 +167,7 @@
   },
   "swarmer": {
     "note": "Comes in from a side, curving down.",
+    "drawing": "swarmer",
     "size": [
       0.06,
       0.06
@@ -188,6 +194,7 @@
   },
   "sniper": {
     "note": "Stops near the top, strafes, glows, then fires a fast shot at the player. Leaves after a while.",
+    "drawing": "sniper",
     "size": [
       0.08,
       0.14
@@ -257,6 +264,7 @@
   },
   "mine_layer": {
     "note": "Crosses the screen, laying mines.",
+    "drawing": "mine_layer",
     "size": [
       0.18,
       0.08
@@ -289,6 +297,7 @@
   },
   "shield_carrier": {
     "note": "Shielded 2 s, then open 1.5 s: it fires a ring of shots as its shield drops.",
+    "drawing": "shield_carrier",
     "size": [
       0.2,
       0.2
@@ -344,6 +353,7 @@
   },
   "splitter": {
     "note": "Fires at the player; splits into three Swarmers when shot down.",
+    "drawing": "splitter",
     "size": [
       0.14,
       0.14
@@ -385,6 +395,7 @@
   },
   "flak_cannon": {
     "note": "A ground gun with two barrels, firing pairs of shots straight down the screen.",
+    "drawing": "flak_cannon",
     "size": [
       0.12,
       0.12
@@ -426,6 +437,7 @@
   },
   "tank": {
     "note": "Crawls sideways over the ground (turning back at the screen's edges) and aims its turret at the player.",
+    "drawing": "tank",
     "size": [
       0.16,
       0.12
@@ -463,6 +475,7 @@
   },
   "rocket_truck": {
     "note": "Drives down the road, faster than the ground scrolls, firing big rockets straight down the screen.",
+    "drawing": "rocket_truck",
     "size": [
       0.1,
       0.16
@@ -500,6 +513,7 @@
   },
   "rocketeer": {
     "note": "Flies down slowly, firing pairs of rockets that speed up.",
+    "drawing": "rocketeer",
     "size": [
       0.12,
       0.12
@@ -538,6 +552,7 @@
   },
   "hunter": {
     "note": "Comes down near the top, strafes left and right and launches homing missiles, then leaves.",
+    "drawing": "hunter",
     "size": [
       0.14,
       0.12
@@ -612,6 +627,7 @@
   },
   "missile_silo": {
     "note": "A silo in the ground: launches homing missiles upwards, which then turn round to chase the player.",
+    "drawing": "missile_silo",
     "size": [
       0.12,
       0.12
@@ -643,6 +659,7 @@
   },
   "bomber": {
     "note": "Crosses the screen, dropping cluster bombs.",
+    "drawing": "bomber",
     "size": [
       0.22,
       0.12
@@ -675,6 +692,7 @@
   },
   "lancer": {
     "note": "Hovers near the top, sliding towards the player's side; glows while charging, then fires a laser beam straight down for a moment, holding still. Leaves after a while.",
+    "drawing": "lancer",
     "size": [
       0.1,
       0.14
@@ -750,6 +768,7 @@
   },
   "serpent": {
     "note": "Flies down, firing aimed shots that snake from side to side.",
+    "drawing": "serpent",
     "size": [
       0.12,
       0.14
@@ -780,6 +799,7 @@
   },
   "buckshot": {
     "note": "Comes down to the middle of the screen, fires two shotgun blasts of small pellets at the player, then dives away.",
+    "drawing": "buckshot",
     "size": [
       0.12,
       0.12

@@ -6,26 +6,27 @@ import numpy as np
 import pytest
 from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
-from pewpy import app, config
+from pewpy import config
 from pewpy.game.enemies.enemy import make
+from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.player import Player
 from pewpy.game.weapons.bullets import Missile
 from pewpy.graphics import models, vox
 
 SHIP_MODELS = [
-    models.player_model,
-    models.drone_model,
-    models.weaver_model,
-    models.diver_model,
-    models.gunship_model,
+    partial(models.model, "player"),
+    partial(models.model, "drone"),
+    partial(models.model, "weaver"),
+    partial(models.model, "diver"),
+    partial(models.model, "gunship"),
     models.turret_model,
-    models.swarmer_model,
-    models.sniper_model,
-    models.mine_layer_model,
-    models.mine_model,
-    models.shield_carrier_model,
-    models.splitter_model,
-    models.missile_model,
+    partial(models.model, "swarmer"),
+    partial(models.model, "sniper"),
+    partial(models.model, "mine_layer"),
+    partial(models.model, "mine"),
+    partial(models.model, "shield_carrier"),
+    partial(models.model, "splitter"),
+    partial(models.model, "missile"),
     models.repair_model,
     lambda: models.pickup_model("B", (1, 1, 0, 1)),
 ]
@@ -139,14 +140,14 @@ def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes():
 
 def test_merged_faces_cover_exactly_the_faces_of_the_cubes():
     """Merging changes the triangles, not the surface: per direction, the area is the number of visible cube faces."""
-    for build in (models.player_model, models.gunship_model, models.drone_model):
-        node = build().node()
+    for drawing in ("player", "gunship", "drone"):
+        node = models.model(drawing).node()
         assert isinstance(node, GeomNode)
         area: dict[tuple[int, int, int], float] = {}
         for corners, normal in triangles_of(node):
             key = (round(normal.x), round(normal.y), round(normal.z))
             area[key] = area.get(key, 0.0) + (corners[1] - corners[0]).cross(corners[2] - corners[0]).length() / 2
-        voxels = models.load_voxels(build.__name__.removesuffix("_model"))
+        voxels = models.load_voxels(drawing)
         cells = voxels.cells
         voxel = voxels.size
         for direction in models.FACE_DIRECTIONS:
@@ -219,18 +220,19 @@ def test_bad_voxel_drawings_are_rejected(rows, palette):
         models.voxel_cells(rows, palette)
 
 
-@pytest.mark.parametrize("build", SHIP_MODELS, ids=lambda build: build.__name__)
+@pytest.mark.parametrize("build", SHIP_MODELS, ids=lambda build: getattr(build, "args", ("pickup",))[0])
 def test_ship_models_are_more_than_a_cube(build):
     assert len(all_points(build())) > 3 * 12
 
 
-@pytest.mark.parametrize(("kind", "function"), list(app.SHIP_MODELS.items()), ids=lambda item: str(item))
-def test_ship_models_are_about_the_size_of_their_hitbox(kind, function):
+@pytest.mark.parametrize("kind", ["Player", "Missile", *ENEMIES])
+def test_ship_models_are_about_the_size_of_their_hitbox(kind):
     """Every cube is config.MODEL_VOXEL (the Swarmer's): a model's drawing gives its size, which must fit its
     hitbox.
     """
     entity = {"Player": Player, "Missile": Missile}.get(kind, partial(make, kind))()
-    points = all_points(getattr(models, function)())
+    drawing = entity.ship.drawing if isinstance(entity, Player) else entity.drawing
+    points = all_points(models.model(drawing))
     width = max(point.x for point in points) - min(point.x for point in points)
     height = max(point.z for point in points) - min(point.z for point in points)
     assert width == pytest.approx(entity.width, rel=0.2)
@@ -240,8 +242,8 @@ def test_ship_models_are_about_the_size_of_their_hitbox(kind, function):
 
 def test_every_drawing_has_the_same_cubes():
     """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL, whatever its size."""
-    for build in (models.swarmer_model, models.player_model, models.gunship_model):
-        points = all_points(build())
+    for drawing in ("swarmer", "player", "gunship"):
+        points = all_points(models.model(drawing))
         xs = sorted({round(point.x / config.MODEL_VOXEL, 3) for point in points})
         assert all(abs(x - round(x * 2) / 2) < 1e-3 for x in xs)  # corners on the half-voxel grid
 
@@ -373,8 +375,8 @@ def test_a_flame_leaves_the_nozzle_voxel_towards_its_side():
 
 
 def test_ships_with_engines_have_flames():
-    assert len(models.player_model().findAllMatches("**/flame")) == 2
-    assert len(models.missile_model().findAllMatches("**/flame")) == 1
+    assert len(models.model("player").findAllMatches("**/flame")) == 2
+    assert len(models.model("missile").findAllMatches("**/flame")) == 1
     assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground
 
 
@@ -458,8 +460,8 @@ def test_main_colors_skip_see_through_parts_and_look_under_empty_nodes():
     holder = NodePath("holder")
     models.shield_bubble_model().reparentTo(holder)  # all see-through
     assert models.main_colors(holder) == ((1.0, 1.0, 1.0, 1.0),)  # nothing solid: white
-    models.drone_model().reparentTo(holder)
-    assert models.main_colors(holder) == models.main_colors(models.drone_model())
+    models.model("drone").reparentTo(holder)
+    assert models.main_colors(holder) == models.main_colors(models.model("drone"))
 
 
 def test_a_drawings_engines_are_read_from_its_file():

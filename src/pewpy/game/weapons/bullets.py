@@ -5,6 +5,7 @@ accelerating and curving shots, and laser beams. The guns fire them (see guns.py
 import math
 from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import ClassVar
 
 from pewpy import config
 from pewpy.game.entities import Bullet, Entity
@@ -19,6 +20,7 @@ class Missile(Bullet):
     second), maybe blowing up enemies within `splash_radius` too (`splash_damage` each).
     """
 
+    drawing: ClassVar[str] = "missile"  # its model: models/missile.json
     width: float = 0.03
     height: float = 0.07
     homing: bool = False

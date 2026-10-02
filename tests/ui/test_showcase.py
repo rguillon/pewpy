@@ -10,7 +10,7 @@ from pewpy.ui.showcase import ModelShowcase
 
 def make_showcase(count: int = 6) -> ModelShowcase:
     camera = NodePath("camera")
-    return ModelShowcase([(f"model {i}", models.drone_model()) for i in range(count)], camera)
+    return ModelShowcase([(f"model {i}", models.model("drone")) for i in range(count)], camera)
 
 
 def test_models_sit_on_a_circle_in_front_of_the_camera():
@@ -44,7 +44,7 @@ def test_every_model_has_its_name():
 
 def test_a_stretched_circle_is_wider_than_tall():
     camera = NodePath("camera")
-    show = ModelShowcase([(f"model {i}", models.drone_model()) for i in range(4)], camera, radius=0.5, stretch=2.0)
+    show = ModelShowcase([(f"model {i}", models.model("drone")) for i in range(4)], camera, radius=0.5, stretch=2.0)
     xs = [abs(slot.getPos(show.root).x) for slot in show.slots]
     zs = [abs(slot.getPos(show.root).z) for slot in show.slots]
     assert max(xs) == pytest.approx(1.0) and max(zs) == pytest.approx(0.5)

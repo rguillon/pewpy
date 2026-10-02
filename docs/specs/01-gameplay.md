@@ -42,7 +42,7 @@ The states are:
 - Movement speed: 1.0 (the Vanguard's; see "Ships" below), in world units per second: 2 s to cross the play
   area from bottom to top *(placeholder unit; open: or express it in screen heights per second?)*
 - Player movement have a little inertia: the speed eases towards the target in about 0.2 s, with a short drift
-  on release (`PLAYER_RESPONSIVENESS` in `config.py`) *(placeholder)*
+  on release (`responsiveness` in `src/pewpy/rules.json`) *(placeholder)*
 - full ship  Hitbox
 - Starting lives: 5
 - Health bar: 5 health per life (the Vanguard's; see "Ships" below). An enemy bullet does 1 damage, ramming an
@@ -61,7 +61,7 @@ The player picks a ship before the world (see 04-ui-audio.md). It is kept for ev
 | Juggernaut | 8 | 0.8 | 0.14 | Heavy armor, a bit slower (and a bigger target) |
 | Phantom | 3 | 1.3 | 0.10 | Repairs 0.5 health a second once it hasn't fired for 1.5 s, up to full |
 
-*(numbers are a placeholder; `SHIPS` in `player.py`)* Weapons, lives and repairs work the same for
+*(numbers are a placeholder; in `src/pewpy/ships.json`, the first one the default)* Weapons, lives and repairs work the same for
 every ship; repairs fill up to the ship's own health.
 
 ## Weapons
