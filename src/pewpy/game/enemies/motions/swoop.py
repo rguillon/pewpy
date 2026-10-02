@@ -1,15 +1,19 @@
 """The "swoop" motion."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.motion import Motion
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
-
-def swoop(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
+@dataclass(frozen=True)
+class Swoop(Motion):
     """Up and down: vy = amplitude * cos(age * rate)."""
-    enemy.vy = motion.amplitude * math.cos(enemy.age * motion.rate)
+
+    amplitude: float = 0.0
+    rate: float = 0.0
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        body.vy = self.amplitude * math.cos(body.age * self.rate)

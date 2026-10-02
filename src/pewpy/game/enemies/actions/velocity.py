@@ -1,15 +1,20 @@
-"""The "velocity" action: set the enemy's speeds (each one left as it is if not given)."""
+"""The "velocity" action."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.actions.action import Action
+from pewpy.game.enemies.body import Body
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Action
 
+@dataclass(frozen=True)
+class Velocity(Action):
+    """Set the enemy's speeds (each one left as it is if None)."""
 
-def velocity(enemy: "Enemy", action: "Action", target: Entity) -> list[Entity]:
-    enemy.vx = enemy.vx if action.vx is None else action.vx
-    enemy.vy = enemy.vy if action.vy is None else action.vy
-    return []
+    vx: float | None = None
+    vy: float | None = None
+
+    def do(self, body: Body, target: Entity) -> list[Entity]:
+        body.vx = body.vx if self.vx is None else self.vx
+        body.vy = body.vy if self.vy is None else self.vy
+        return []

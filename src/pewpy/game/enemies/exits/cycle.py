@@ -1,16 +1,19 @@
-"""The exit condition on `cycle`: (period, start, end): start <= age % period < end."""
+"""The "cycle" exit condition."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits.condition import Condition
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Exit
 
+@dataclass(frozen=True)
+class Cycle(Condition):
+    """start <= the enemy's age % period < end."""
 
-def cycle(enemy: "Enemy", way_out: "Exit", target: Entity) -> bool:
-    if way_out.cycle is None:
-        return True
-    period, start, end = way_out.cycle
-    return start <= enemy.age % period < end
+    period: float
+    start: float
+    end: float
+
+    def holds(self, body: Body, target: Entity) -> bool:
+        return self.start <= body.age % self.period < self.end

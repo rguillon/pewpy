@@ -1,5 +1,6 @@
 import pytest
 
+from pewpy.game.enemies.exits import Parts
 from pewpy.game.enemies.kinds import BOSSES, FINAL_BOSSES, MINI_BOSSES
 from pewpy.game.enemies.screen import HALF_WIDTH
 from pewpy.game.level import load_levels
@@ -14,7 +15,8 @@ def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind):
     names = {part.name for part in spec.parts}
     for state in spec.states:
         assert {source for source, _ in state.guns} <= names | {""}
-        assert all(set(way_out.parts) <= names for way_out in state.exits)
+        conditions = [condition for way_out in state.exits for condition in way_out.conditions]
+        assert all(set(condition.names) <= names for condition in conditions if isinstance(condition, Parts))
     for drawing in {spec.drawing} | {part.spec.drawing for part in spec.parts}:
         assert models.load_voxels(drawing).cells
 

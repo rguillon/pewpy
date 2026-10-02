@@ -1,15 +1,18 @@
 """The "patrol" motion."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.motion import Motion
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
-
-def patrol(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
+@dataclass(frozen=True)
+class Patrol(Motion):
     """Sideways at `speed`, towards the middle first (whenever it's standing still sideways)."""
-    if enemy.vx == 0:
-        enemy.vx = motion.speed if enemy.x <= 0 else -motion.speed
+
+    speed: float = 0.0
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        if body.vx == 0:
+            body.vx = self.speed if body.x <= 0 else -self.speed

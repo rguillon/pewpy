@@ -1,16 +1,20 @@
-"""The "sway" action: sideways at `speed` (widened with the screen), on the way it was going (right if still)."""
+"""The "sway" action."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
 from pewpy import config
+from pewpy.game.enemies.actions.action import Action
+from pewpy.game.enemies.body import Body
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Action
 
+@dataclass(frozen=True)
+class Sway(Action):
+    """Sideways at `speed` (widened with the screen), on the way it was going (right if still)."""
 
-def sway(enemy: "Enemy", action: "Action", target: Entity) -> list[Entity]:
-    enemy.vx = math.copysign(action.speed * config.WIDTH_SCALE, enemy.vx or 1.0)
-    return []
+    speed: float = 0.0
+
+    def do(self, body: Body, target: Entity) -> list[Entity]:
+        body.vx = math.copysign(self.speed * config.WIDTH_SCALE, body.vx or 1.0)
+        return []

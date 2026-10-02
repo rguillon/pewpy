@@ -1,16 +1,20 @@
 """The "track_x" motion."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.motion import Motion
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
-
-def track_x(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
+@dataclass(frozen=True)
+class TrackX(Motion):
     """Sideways towards the player's column, at `speed`; still once within `dead_zone` of it."""
-    gap = target.x - enemy.x
-    enemy.vx = math.copysign(motion.speed, gap) if abs(gap) > motion.dead_zone else 0.0
+
+    speed: float = 0.0
+    dead_zone: float = 0.02
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        gap = target.x - body.x
+        body.vx = math.copysign(self.speed, gap) if abs(gap) > self.dead_zone else 0.0

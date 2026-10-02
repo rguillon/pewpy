@@ -7,7 +7,7 @@ from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
 from pewpy import config
 from pewpy.data import data_folder
-from pewpy.game.enemies.enemy import make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.player import Player
 from pewpy.game.weapons.bullets import Missile
@@ -231,7 +231,7 @@ def test_ship_models_are_about_the_size_of_their_hitbox(kind):
     """Every cube is config.MODEL_VOXEL (the Swarmer's): a model's drawing gives its size, which must fit its
     hitbox.
     """
-    entity = {"Player": Player, "Missile": Missile}.get(kind, partial(make, kind))()
+    entity = {"Player": Player, "Missile": Missile}.get(kind, partial(Enemy.of_kind, kind))()
     drawing = entity.ship.drawing if isinstance(entity, Player) else entity.drawing
     points = all_points(models.model(drawing))
     width = max(point.x for point in points) - min(point.x for point in points)

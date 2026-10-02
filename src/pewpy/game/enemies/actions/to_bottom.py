@@ -1,15 +1,17 @@
-"""The "to_bottom" action: just below the bottom of the screen."""
+"""The "to_bottom" action."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.actions.action import Action
+from pewpy.game.enemies.body import Body
 from pewpy.game.enemies.screen import BOTTOM
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Action
 
+@dataclass(frozen=True)
+class ToBottom(Action):
+    """Just below the bottom of the screen."""
 
-def to_bottom(enemy: "Enemy", action: "Action", target: Entity) -> list[Entity]:
-    enemy.y = BOTTOM - enemy.height
-    return []
+    def do(self, body: Body, target: Entity) -> list[Entity]:
+        body.y = BOTTOM - body.height
+        return []

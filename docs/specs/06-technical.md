@@ -34,7 +34,8 @@
     (`guns/`: the guns everyone fires (`gun.py`, `state.py`, `patterns.py`, `styles.py`, `launch.py`, `laser.py`,
     `chain.py`, `timing/`: one module per way of timing shots); `bullets/`: one module per kind of shot; `player/`:
     the arsenal and the secondary weapon); `enemies/` (the one Enemy class for enemies and bosses, its descriptions
-    `spec.py`, `motions/`, `actions/` and `exits/` (one module each), the kinds and the roster).
+    `spec.py`, `motions/`, `actions/` and `exits/` (one class per module, each acting on the enemy's `Body`,
+    `body.py`, never on `Enemy` itself), the kinds and the roster).
   - `scenery/`: `params/` (the scenery's parameters), `background/` (stars, drifting layers in `layers/`, `view.py`
     drawing them), `ground/` (terrain, relief, the bases of `landscapes.py` and `settlement.py`, `kinds/` of ground,
     `props/`, and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
@@ -56,7 +57,8 @@
   (`game/enemies/spec.py` reads them): a boss is only an enemy with parts, `"boss": true`, a state coming down and
   a state per phase (each starting with a `warmup`); only its configuration differs. The final bosses are made by a
   dev tool from short plans (`make final-bosses`, `pewpewdev/tools/final_bosses/`). A new
-  behaviour is a new motion, exit, action or gun option in code, tested; the descriptions are data and need no
+  behaviour is a new motion, exit condition, action (a subclass of `Motion`, `Condition` or `Action`, with only the
+  fields it uses, registered by its name in its package) or gun option in code, tested; the descriptions are data and need no
   tests of their own.
 - Weapons as data *(the user's choice)*: the player's weapons and the enemies' are the same guns
   (`game/weapons/guns/`): a pattern (aimed, fan, ring, beams, the player's laser "ray", the lightning "chain"),

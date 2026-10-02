@@ -5,7 +5,7 @@ import pytest
 
 from pewpy import config
 from pewpy.game.controls import Controls
-from pewpy.game.enemies.enemy import Enemy, make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import BOSSES, KINDS
 from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Pickup
@@ -47,7 +47,7 @@ def armed_world(weapon: str = "bullets", level: int = 1) -> World:
 
 
 def placed(kind: str, **fields) -> Enemy:
-    made = make(kind)
+    made = Enemy.of_kind(kind)
     for name, value in fields.items():
         setattr(made, name, value)
     return made

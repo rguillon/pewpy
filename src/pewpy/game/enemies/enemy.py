@@ -3,19 +3,21 @@ description (EnemySpec, see spec.py). Independent from rendering.
 
 Each frame (`update`) it counts down its state's timer, goes to another state if one of the state's exits says so,
 moves (motions/), fires its state's guns (pewpy.game.weapons.guns), then moves with its speed. It returns
-the bullets and enemies it created. The ways out are checked by exits/, what's done on the way by actions/.
+the bullets and enemies it created. The ways out are checked by exits/, what's done on the way by actions/: they all
+act on its Body (body.py).
 """
+
+from __future__ import annotations  # a boss's parts are enemies too
 
 import math
 from dataclasses import dataclass, field
 
 from pewpy import config
-from pewpy.game.enemies.actions import ACTIONS
-from pewpy.game.enemies.exits import can_leave
+from pewpy.game.enemies.actions import Action
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits import Exit
 from pewpy.game.enemies.kinds import KINDS
-from pewpy.game.enemies.motions import MOTIONS
-from pewpy.game.enemies.screen import HALF_WIDTH, TOP
-from pewpy.game.enemies.spec import Action, EnemySpec, Exit, State
+from pewpy.game.enemies.spec import EnemySpec, Part, State
 from pewpy.game.entities import Entity
 from pewpy.game.weapons.guns import GunState, Shooter, step
 
@@ -24,30 +26,73 @@ WARMUP_FLASH = 0.1  # a boss blinks this fast while its phase warms up
 
 
 @dataclass(eq=False)
-class Enemy(Entity):
+class Enemy(Body):
     spec: EnemySpec = field(default_factory=lambda: EnemySpec(kind=""))
-    health: float = 3.0
     points: int = 100
     fire_cooldown: float = 0.0  # its first wait before firing (a "staggered" gun), set when it's placed
     flash_time: float = 0.0
-    age: float = 0.0
-    heading: float = -math.pi / 2  # radians, the way a steering enemy flies
     state_index: int = 0
-    timer: float = 0.0  # the state's countdown (see State.timer)
-    clock: float = 0.0  # seconds in the state
     warmup: float = 0.0  # a boss's phase: seconds left without shooting
-    visits: dict[int, int] = field(default_factory=dict)
-    guns: list[GunState] = field(default_factory=list)
+    entries: dict[int, int] = field(default_factory=dict)  # how many times it entered each state, by index
     started: bool = False
     timer_override: float | None = None  # replaces its first state's timer (a shell timed to burst on the player)
-    base_x: float | None = None  # weave
-    turn_timer: float = 0.0  # zigzag, erratic
-    turns: int = 0  # erratic
-    parts: list["Enemy"] = field(default_factory=list)
-    part_name: str = ""  # a boss's part: its name...
-    offset_x: float = 0.0  # ...and where it is from the core's middle
-    offset_y: float = 0.0
+    parts: list[Enemy] = field(default_factory=list)
+    mount: Part | None = None  # a boss's part: its name, and where it is from the core's middle
     parts_released: bool = False
+
+    @classmethod
+    def from_spec(cls, spec: EnemySpec, x: float = 0.0, y: float = 0.0) -> Enemy:
+        """An enemy of `spec` at (x, y), with its parts."""
+        enemy = cls(
+            x=x,
+            y=y,
+            vx=spec.velocity[0],
+            vy=spec.velocity[1],
+            width=spec.width,
+            height=spec.height,
+            health=spec.health,
+            points=spec.points,
+            spec=spec,
+            heading=math.radians(spec.heading),
+        )
+        for part in spec.parts:
+            piece = cls.from_spec(part.spec, x + part.x, y + part.y)
+            piece.mount = part
+            enemy.parts.append(piece)
+        return enemy
+
+    @classmethod
+    def of_kind(
+        cls, kind: str, x: float = 0.0, y: float = 0.0, heading: float | None = None, timer: float | None = None
+    ) -> Enemy:
+        """An enemy (or a boss) of the kind named `kind` (see kinds.py) at (x, y), maybe heading another way than its
+        own (radians) or with another first timer (see Enemy.timer_override).
+        """
+        enemy = cls.from_spec(KINDS[kind], x, y)
+        if heading is not None:
+            enemy.heading = heading
+        enemy.timer_override = timer
+        return enemy
+
+    @property
+    def part_name(self) -> str:
+        """A boss's part: its name ("" for anything else)."""
+        return self.mount.name if self.mount else ""
+
+    @property
+    def full_health(self) -> float:
+        return self.spec.health
+
+    @property
+    def half_span(self) -> float:
+        return self.spec.half_span
+
+    @property
+    def visits(self) -> int:
+        return self.entries[self.state_index]
+
+    def destroyed(self, part: str) -> bool:
+        return any(piece.part_name == part and not piece.alive for piece in self.parts)
 
     @property
     def kind(self) -> str:
@@ -110,10 +155,6 @@ class Enemy(Entity):
         return self.state.vulnerable
 
     @property
-    def on_screen(self) -> bool:
-        return self.y < TOP and abs(self.x) < HALF_WIDTH
-
-    @property
     def health_fraction(self) -> float:
         """Health left of the enemy and its parts together, from 1 (full) to 0."""
         full = self.spec.health + sum(part.spec.health for part in self.spec.parts)
@@ -125,8 +166,7 @@ class Enemy(Entity):
         self.flash_time = max(0.0, self.flash_time - dt)
         created = self.behave(dt, target, scroll_speed)
         self.move(dt)
-        for part in self.parts:
-            part.x, part.y = self.x + part.offset_x, self.y + part.offset_y
+        self._carry_parts()
         if self.parts and not self.parts_released:  # the parts join the world with it
             self.parts_released = True
             created = [*self.parts, *created]
@@ -147,7 +187,7 @@ class Enemy(Entity):
             way_out = self._exit(target, after_guns=False) if way_out.recheck else None
         if not self._holding():
             for motion in self.state.motions:
-                MOTIONS[motion.type](self, motion, dt, target, scroll_speed)
+                motion.apply(self, dt, target, scroll_speed)
         if self.warmup > 0:
             self.warmup -= dt
             return created
@@ -160,8 +200,7 @@ class Enemy(Entity):
     def place(self, x: float, y: float) -> None:
         """Put it (and its parts) at (x, y)."""
         self.x, self.y = x, y
-        for part in self.parts:
-            part.x, part.y = x + part.offset_x, y + part.offset_y
+        self._carry_parts()
 
     def enter_from_side(self, direction: int) -> None:
         """Set up a side entry; `direction` is 1 when entering from the left, -1 from the right."""
@@ -181,15 +220,15 @@ class Enemy(Entity):
         if self.health <= 0:
             self.alive = False
 
-    def on_destroyed(self) -> list["Enemy"]:
+    def on_destroyed(self) -> list[Enemy]:
         """Enemies released when this one is shot down."""
         released = []
         for spawn in self.spec.on_destroyed:
             heading = math.radians(spawn.heading) if spawn.heading is not None else None
-            released.append(make(spawn.kind, self.x, self.y, heading))
+            released.append(self.of_kind(spawn.kind, self.x, self.y, heading))
         return released
 
-    def wreckage(self) -> list["Enemy"]:
+    def wreckage(self) -> list[Enemy]:
         """Enemies destroyed along with this one (a boss's parts), without points."""
         return [part for part in self.parts if part.alive]
 
@@ -223,6 +262,11 @@ class Enemy(Entity):
             return state.look
         return "flash" if hit else "normal"
 
+    def _carry_parts(self) -> None:
+        for part in self.parts:
+            if part.mount is not None:
+                part.x, part.y = self.x + part.mount.x, self.y + part.mount.y
+
     def _tick(self, dt: float) -> None:
         if self.state.timer is not None:
             self.timer -= dt
@@ -230,7 +274,7 @@ class Enemy(Entity):
 
     def _enter(self, index: int) -> None:
         self.state_index = index
-        self.visits[index] = self.visits.get(index, 0) + 1
+        self.entries[index] = self.entries.get(index, 0) + 1
         state = self.state
         self.timer = state.timer if state.timer is not None else 0.0
         if self.timer_override is not None:
@@ -241,7 +285,7 @@ class Enemy(Entity):
 
     def _exit(self, target: Entity, after_guns: bool) -> Exit | None:
         for way_out in self.state.exits:
-            if (way_out.volleys > 0) == after_guns and can_leave(self, way_out, target):
+            if way_out.after_guns == after_guns and way_out.open(self, target):
                 return way_out
         return None
 
@@ -253,7 +297,7 @@ class Enemy(Entity):
     def _do(self, actions: tuple[Action, ...], target: Entity) -> list[Entity]:
         created: list[Entity] = []
         for action in actions:
-            created += ACTIONS[action.type](self, action, target)
+            created += action.do(self, target)
         return created
 
     def _holding(self) -> bool:
@@ -268,44 +312,13 @@ class Enemy(Entity):
         for (source, gun), state in zip(self.state.guns, self.guns, strict=True):
             piece = self if not source else next((part for part in self.parts if part.part_name == source), None)
             if piece is not None and piece.alive:
-                created += step(gun, state, self.shooter(piece, target), dt)
+                created += step(gun, state, self.shooter(target, piece), dt)
         return created
 
-    def shooter(self, piece: "Enemy", target: Entity) -> Shooter:
-        """What its guns need to know, firing from `piece` (itself or one of its parts) at `target`."""
-        return Shooter(piece, target, self.age, self.clock, self.timer, piece.on_screen, make, self._stop)
+    def shooter(self, target: Entity, piece: Body | None = None) -> Shooter:
+        """What its guns need to know, firing from `piece` (itself, or one of its parts) at `target`."""
+        piece = self if piece is None else piece
+        return Shooter(piece, target, self.age, self.clock, self.timer, piece.on_screen, self.of_kind, self._stop)
 
     def _stop(self) -> None:
         self.vx = 0.0
-
-
-def create(spec: EnemySpec, x: float = 0.0, y: float = 0.0) -> Enemy:
-    """An enemy of `spec` at (x, y), with its parts."""
-    enemy = Enemy(
-        x=x,
-        y=y,
-        vx=spec.velocity[0],
-        vy=spec.velocity[1],
-        width=spec.width,
-        height=spec.height,
-        health=spec.health,
-        points=spec.points,
-        spec=spec,
-        heading=math.radians(spec.heading),
-    )
-    for part in spec.parts:
-        piece = create(part.spec, x + part.x, y + part.y)
-        piece.part_name, piece.offset_x, piece.offset_y = part.name, part.x, part.y
-        enemy.parts.append(piece)
-    return enemy
-
-
-def make(kind: str, x: float = 0.0, y: float = 0.0, heading: float | None = None, timer: float | None = None) -> Enemy:
-    """An enemy (or a boss) of the kind named `kind` (see kinds.py) at (x, y), maybe heading another way than its own
-    (radians) or with another first timer (see Enemy.timer_override).
-    """
-    enemy = create(KINDS[kind], x, y)
-    if heading is not None:
-        enemy.heading = heading
-    enemy.timer_override = timer
-    return enemy

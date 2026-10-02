@@ -4,7 +4,7 @@ from dataclasses import replace
 import pytest
 
 from pewpy import config
-from pewpy.game.enemies.enemy import Enemy, make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.entities import Entity
 from pewpy.game.weapons import guns
 from pewpy.game.weapons.bullets import Bullet
@@ -18,7 +18,7 @@ SOURCE = Entity(x=0.0, y=0.5)
 def shooter(
     piece: Entity = SOURCE, target: Entity = BELOW, on_screen: bool = True, clock: float = 0.0, remaining: float = 0.0
 ) -> Shooter:
-    return Shooter(piece, target, 0.0, clock, remaining, on_screen, make)
+    return Shooter(piece, target, 0.0, clock, remaining, on_screen, Enemy.of_kind)
 
 
 def degrees(bullet: Entity) -> float:
@@ -153,7 +153,7 @@ def test_a_gun_can_fire_only_when_lined_up_with_the_player():
 
 def test_a_charging_gun_glows_then_fires_and_its_beam_holds_it_still():
     stops = []
-    aim = Shooter(SOURCE, BELOW, 0.0, 0.0, 0.0, True, make, lambda: stops.append(True))
+    aim = Shooter(SOURCE, BELOW, 0.0, 0.0, 0.0, True, Enemy.of_kind, lambda: stops.append(True))
     gun = Gun("beam", 2.0, speed=0.0, charge=0.5, hold=True, width=0.04, duration=0.3, origins=((0.0, -0.05),))
     state = GunState(cooldown=0.0)
     assert step(gun, state, aim, DT) == []

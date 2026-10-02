@@ -1,45 +1,65 @@
 """How enemies move (02-enemies.md), each motion in its own module: each motion of an enemy's state sets its speed
-(or its place) every frame; Enemy.move then moves it. Independent from rendering.
+(or its place) every frame (Motion.apply, see motion.py); the enemy then moves with its speed. Independent from
+rendering.
 
-A motion is `motion(enemy, motion, dt, target, scroll_speed)`: the enemy, its Motion (see pewpy.game.enemies.spec),
-the frame's time, the player and how fast the scenery under the enemy scrolls. The enemies' descriptions name them
-(Motion.type); MOTIONS gives each name its function.
+The enemies' descriptions name them (`type`, with the motion's fields next to it); MOTIONS gives each name its class
+and `parse_motion` reads one.
 """
 
-from collections.abc import Callable
-from typing import TYPE_CHECKING
+from typing import Any
 
-from pewpy.game.enemies.motions.accelerate import accelerate
-from pewpy.game.enemies.motions.bounce import bounce
-from pewpy.game.enemies.motions.circle import circle
-from pewpy.game.enemies.motions.erratic import erratic
-from pewpy.game.enemies.motions.forward import forward
-from pewpy.game.enemies.motions.patrol import patrol
-from pewpy.game.enemies.motions.scroll import scroll
-from pewpy.game.enemies.motions.steer import steer
-from pewpy.game.enemies.motions.swoop import swoop
-from pewpy.game.enemies.motions.track_x import track_x
-from pewpy.game.enemies.motions.weave import weave
-from pewpy.game.enemies.motions.zigzag import zigzag
-from pewpy.game.entities import Entity
+from pewpy.game.enemies.errors import UnknownNameError
+from pewpy.game.enemies.motions.accelerate import Accelerate
+from pewpy.game.enemies.motions.bounce import Bounce
+from pewpy.game.enemies.motions.circle import Circle
+from pewpy.game.enemies.motions.erratic import Erratic
+from pewpy.game.enemies.motions.forward import Forward
+from pewpy.game.enemies.motions.motion import Motion
+from pewpy.game.enemies.motions.patrol import Patrol
+from pewpy.game.enemies.motions.scroll import Scroll
+from pewpy.game.enemies.motions.steer import Steer
+from pewpy.game.enemies.motions.swoop import Swoop
+from pewpy.game.enemies.motions.track_x import TrackX
+from pewpy.game.enemies.motions.weave import Weave
+from pewpy.game.enemies.motions.zigzag import Zigzag
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
-
-__all__ = ["MOTIONS", "MotionFunction"]
-MotionFunction = Callable[["Enemy", "Motion", float, Entity, float], None]
-MOTIONS: dict[str, MotionFunction] = {
-    "scroll": scroll,
-    "patrol": patrol,
-    "bounce": bounce,
-    "weave": weave,
-    "swoop": swoop,
-    "circle": circle,
-    "steer": steer,
-    "forward": forward,
-    "accelerate": accelerate,
-    "track_x": track_x,
-    "zigzag": zigzag,
-    "erratic": erratic,
+__all__ = [
+    "MOTIONS",
+    "Accelerate",
+    "Bounce",
+    "Circle",
+    "Erratic",
+    "Forward",
+    "Motion",
+    "Patrol",
+    "Scroll",
+    "Steer",
+    "Swoop",
+    "TrackX",
+    "Weave",
+    "Zigzag",
+    "parse_motion",
+]
+MOTIONS: dict[str, type[Motion]] = {
+    "scroll": Scroll,
+    "patrol": Patrol,
+    "bounce": Bounce,
+    "weave": Weave,
+    "swoop": Swoop,
+    "circle": Circle,
+    "steer": Steer,
+    "forward": Forward,
+    "accelerate": Accelerate,
+    "track_x": TrackX,
+    "zigzag": Zigzag,
+    "erratic": Erratic,
 }
+
+
+def parse_motion(data: dict[str, Any]) -> Motion:
+    """A motion: its `type` and its fields."""
+    fields = dict(data)
+    kind = fields.pop("type")
+    if kind not in MOTIONS:
+        raise UnknownNameError("motion", kind)
+    return MOTIONS[kind](**fields)

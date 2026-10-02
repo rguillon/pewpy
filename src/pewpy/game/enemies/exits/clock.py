@@ -1,13 +1,17 @@
-"""The exit condition on `clock`: this many seconds in the state."""
+"""The "clock" exit condition."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits.condition import Condition
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Exit
 
+@dataclass(frozen=True)
+class Clock(Condition):
+    """This many seconds in the state."""
 
-def clock(enemy: "Enemy", way_out: "Exit", target: Entity) -> bool:
-    return way_out.clock is None or enemy.clock >= way_out.clock
+    seconds: float
+
+    def holds(self, body: Body, target: Entity) -> bool:
+        return body.clock >= self.seconds

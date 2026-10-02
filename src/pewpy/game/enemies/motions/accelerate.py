@@ -1,18 +1,22 @@
 """The "accelerate" motion."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.motion import Motion
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
-
-def accelerate(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
+@dataclass(frozen=True)
+class Accelerate(Motion):
     """Speed up by `rate` per second until `top`."""
-    speed = math.hypot(enemy.vx, enemy.vy)
-    if 0 < speed < motion.top:
-        faster = min(motion.top, speed + motion.rate * dt) / speed
-        enemy.vx, enemy.vy = enemy.vx * faster, enemy.vy * faster
+
+    rate: float = 0.0
+    top: float = 0.0
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        speed = math.hypot(body.vx, body.vy)
+        if 0 < speed < self.top:
+            faster = min(self.top, speed + self.rate * dt) / speed
+            body.vx, body.vy = body.vx * faster, body.vy * faster

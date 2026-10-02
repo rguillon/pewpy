@@ -1,13 +1,17 @@
-"""The exit condition on `aligned`: within this of the player's column."""
+"""The "aligned" exit condition."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits.condition import Condition
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Exit
 
+@dataclass(frozen=True)
+class Aligned(Condition):
+    """Within this of the player's column."""
 
-def aligned(enemy: "Enemy", way_out: "Exit", target: Entity) -> bool:
-    return way_out.aligned is None or abs(target.x - enemy.x) <= way_out.aligned
+    within: float
+
+    def holds(self, body: Body, target: Entity) -> bool:
+        return abs(target.x - body.x) <= self.within

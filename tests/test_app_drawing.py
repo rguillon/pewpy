@@ -7,7 +7,7 @@ from panda3d.core import ButtonThrower, KeyboardButton, ModifierButtons, MouseWa
 
 from pewpy import config
 from pewpy.app import PewPewApp, bullets, drawing, keys, window
-from pewpy.game.enemies.enemy import Enemy, make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Pickup
@@ -37,7 +37,7 @@ def node(app: PewPewApp, entity) -> NodePath:
 
 def test_every_kind_of_ship_gets_its_model(app):
     world = play(app)
-    world.enemies = [make(kind, 0.0, 0.5) for kind in ENEMIES]
+    world.enemies = [Enemy.of_kind(kind, 0.0, 0.5) for kind in ENEMIES]
     app._sync_nodes()
     assert all(enemy in app.nodes for enemy in world.enemies)
     world.enemies = []
@@ -69,7 +69,7 @@ def test_a_boss_and_its_parts_are_drawn_and_its_health_bar_shows_once_on_screen(
 )
 def test_enemies_show_how_they_are_doing(app, monkeypatch, appearance, hidden, shade):
     world = play(app)
-    drone = make("drone", 0.0, 0.5)
+    drone = Enemy.of_kind("drone", 0.0, 0.5)
     world.enemies = [drone]
     monkeypatch.setattr(drone, "appearance", lambda: appearance)
     shown = node(app, drone)
@@ -82,7 +82,7 @@ def test_enemies_show_how_they_are_doing(app, monkeypatch, appearance, hidden, s
 
 def test_a_shield_carrier_shows_its_bubble_only_while_shielded(app, monkeypatch):
     world = play(app)
-    carrier = make("shield_carrier", 0.0, 0.5)
+    carrier = Enemy.of_kind("shield_carrier", 0.0, 0.5)
     world.enemies = [carrier]
     monkeypatch.setattr(carrier, "appearance", lambda: "shield")
     assert not node(app, carrier).find("**/shield").isHidden()
@@ -100,11 +100,11 @@ def moving(enemy: Enemy, vx: float, vy: float) -> Enemy:
 def test_enemies_turn_to_aim_or_fly(app):
     world = play(app)
     world.player.x, world.player.y = 0.0, -0.5
-    turret = make("turret", 0.5, 0.0)
-    diver = moving(make("diver", 0.0, 0.5), 0.3, -0.3)
+    turret = Enemy.of_kind("turret", 0.5, 0.0)
+    diver = moving(Enemy.of_kind("diver", 0.0, 0.5), 0.3, -0.3)
     diver.go_to("dive")
-    swarmer = moving(make("swarmer", 0.0, 0.5), 0.4, 0.0)
-    mine = make("mine", 0.0, 0.5)
+    swarmer = moving(Enemy.of_kind("swarmer", 0.0, 0.5), 0.4, 0.0)
+    mine = Enemy.of_kind("mine", 0.0, 0.5)
     mine.age = 1.0
     world.enemies = [turret, diver, swarmer, mine]
     barrel = node(app, turret).find("**/barrel")

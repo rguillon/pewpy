@@ -1,26 +1,33 @@
 """The "steer" motion."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
 from pewpy import config
-from pewpy.game.enemies.motions.forward import forward
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.forward import Forward
 from pewpy.game.enemies.screen import HALF_WIDTH
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
+@dataclass(frozen=True)
+class Steer(Forward):
+    """Turn towards the player (`goal` "target") or straight down ("down"), at most `rate` radians per second
+    (narrowed with the screen if `widen`), flying at `speed`; `inside`: only once inside the screen.
+    """
 
-def steer(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
-    """Turn towards the player (or straight down), at most `rate`, flying at `speed`."""
-    rate = motion.rate / config.WIDTH_SCALE if motion.widen else motion.rate
-    if not motion.inside or abs(enemy.x) <= HALF_WIDTH + enemy.width / 2:
-        if motion.goal == "down":
-            difference = (-math.pi / 2 - enemy.heading + math.pi) % (2 * math.pi) - math.pi
-        else:
-            wanted = math.atan2(target.y - enemy.y, target.x - enemy.x)
-            difference = (wanted - enemy.heading + math.pi) % (2 * math.pi) - math.pi
-        enemy.heading += max(-rate * dt, min(rate * dt, difference))
-    forward(enemy, motion, dt, target, scroll_speed)
+    rate: float = 0.0
+    goal: str = "target"
+    widen: bool = False
+    inside: bool = False
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        rate = self.rate / config.WIDTH_SCALE if self.widen else self.rate
+        if not self.inside or abs(body.x) <= HALF_WIDTH + body.width / 2:
+            if self.goal == "down":
+                difference = (-math.pi / 2 - body.heading + math.pi) % (2 * math.pi) - math.pi
+            else:
+                wanted = math.atan2(target.y - body.y, target.x - body.x)
+                difference = (wanted - body.heading + math.pi) % (2 * math.pi) - math.pi
+            body.heading += max(-rate * dt, min(rate * dt, difference))
+        super().apply(body, dt, target, scroll_speed)

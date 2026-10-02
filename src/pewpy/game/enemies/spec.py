@@ -1,10 +1,12 @@
 """What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through, each with its
-motions, its guns, its look and its ways out. Loaded from the JSON files in `data/enemies/` and `data/bosses/`
-(a boss is an enemy with parts and phases, see kinds.py). Independent from rendering.
+motions (motions/), its guns, its look and its ways out (exits/). Loaded from the JSON files in `data/enemies/` and
+`data/bosses/` (a boss is an enemy with parts and phases, see kinds.py). Independent from rendering.
 
 In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
 the enemy's size or model cubes (see guns.distance).
 """
+
+from __future__ import annotations  # a boss's parts are enemies too: EnemySpec and Part refer to each other
 
 import json
 from dataclasses import dataclass
@@ -12,88 +14,17 @@ from typing import Any
 
 from pewpy import config
 from pewpy.data import data_folder
-from pewpy.game.enemies.actions import ACTIONS
-from pewpy.game.enemies.motions import MOTIONS
+from pewpy.game.enemies.actions import Action, parse_action
+from pewpy.game.enemies.errors import EnemySpecError
+from pewpy.game.enemies.exits import Exit, parse_exit
+from pewpy.game.enemies.motions import Motion, parse_motion
 from pewpy.game.weapons.guns import Distance, Gun, parse_gun
-
-
-class EnemySpecError(Exception):
-    def __init__(self, source: str, message: str) -> None:
-        super().__init__(f"{source}: {message}")
-
-
-class UnknownNameError(ValueError):
-    def __init__(self, what: str, name: object) -> None:
-        super().__init__(f"unknown {what} {name!r}")
-
-
-@dataclass(frozen=True)
-class Motion:
-    """How the enemy moves each frame (see motions/ for each `type`)."""
-
-    type: str
-    speed: float = 0.0
-    plus: float = 0.0  # scroll: added to the scrolling speed
-    stop_x: bool = False  # scroll: no sideways speed either
-    amplitude: float = 0.0  # weave: how far to each side; swoop: the up and down speed
-    period: float = 1.0  # weave
-    widen: bool = False  # weave: amplitude widened with the screen; steer: turn rate narrowed with it
-    rate: float = 0.0  # swoop: radians per second; steer: turn rate (radians per second); accelerate: per second
-    radius: float = 0.0  # circle
-    turn: float = 0.0  # circle: radians per second
-    descent: float = 0.0  # circle
-    goal: str = "target"  # steer: "target" (the player) or "down"
-    inside: bool = False  # steer: only once inside the screen
-    top: float = 0.0  # accelerate: its top speed
-    dead_zone: float = 0.02  # track_x
-    every: float = 0.0  # zigzag, erratic: seconds between turns
-    a: float = 0.0  # erratic: the new drift is speed * sin(turns * a + x * b)
-    b: float = 0.0
-    clamp: bool = False  # bounce: a boss's (its parts included, kept inside)
-
-
-@dataclass(frozen=True)
-class Action:
-    """Something done once, when the enemy appears or goes from a state to another (see actions/ for each `type`)."""
-
-    type: str
-    vx: float | None = None  # velocity: the speeds set (None: unchanged)
-    vy: float | None = None
-    speed: float = 0.0  # toward_middle, aim, sway
-    gain: float = 0.0  # swerve: vx = gain * (player's x - x), at most `limit` either way
-    limit: float = 0.0
-    step: float = 0.0  # relocate: moves across the screen by this share of it (wrapping round)...
-    dy: float = 0.0  # ...and by this up or down
-    gun: Gun | None = None  # fire: one shot of it
-
-
-@dataclass(frozen=True)
-class Exit:
-    """A way out of a state, to the state named `to`, once all its conditions hold (see exits/); `then` is done on the
-    way.
-    """
-
-    to: str
-    timer: bool = False  # the state's timer has run out
-    clock: float | None = None  # this many seconds in the state
-    below_y: float | None = None
-    above_y: float | None = None
-    aligned: float | None = None  # within this of the player's column
-    cycle: tuple[float, float, float] | None = None  # (period, start, end): start <= age % period < end
-    visits: int = 0  # the state has been entered this many times (this time included)
-    parts: tuple[str, ...] = ()  # these parts are destroyed
-    health_below: float = 0.0  # health below this share of the full health
-    idle: bool = False  # no gun is charging, firing a beam or in the middle of a volley
-    volleys: int = 0  # checked after the guns: this many volleys fired in the state
-    then: tuple[Action, ...] = ()
-    go_on: bool = False  # the frame goes on in the new state (a boss's phases), instead of ending there...
-    recheck: bool = False  # ...after checking the new state's exits too (otherwise one change per frame)
 
 
 @dataclass(frozen=True)
 class State:
     name: str
-    timer: float | None = None  # counts down from this when the state starts (see Exit.timer)
+    timer: float | None = None  # counts down from this when the state starts (see the exits' Timer)
     motions: tuple[Motion, ...] = ()
     guns: tuple[tuple[str, Gun], ...] = ()  # (what fires it: "" for the enemy itself, or a part's name; the gun)
     look: str = ""  # "flash", "hidden", "shield" or "armored" ("": its normal look, flashing when hit)
@@ -118,7 +49,7 @@ class Part:
     """A part of a boss: an enemy of its own, at (x, y) from the core's middle."""
 
     name: str
-    spec: "EnemySpec"
+    spec: EnemySpec
     x: float
     y: float
 
@@ -192,9 +123,6 @@ def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
         raise EnemySpecError(source, str(error)) from error
     names = {state.name for state in spec.states}
     for state in spec.states:
-        for motion in state.motions:
-            if motion.type not in MOTIONS:
-                raise EnemySpecError(source, str(UnknownNameError("motion", motion.type)))
         for exit_ in state.exits:
             if exit_.to not in names:
                 raise EnemySpecError(source, f"state {state.name!r} goes to unknown state {exit_.to!r}")
@@ -212,26 +140,7 @@ def parse_part(data: dict[str, Any], source: str) -> Part:
 
 def parse_state(data: dict[str, Any]) -> State:
     data = dict(data)
-    data["motions"] = tuple(Motion(**motion) for motion in data.get("motions", []))
+    data["motions"] = tuple(parse_motion(motion) for motion in data.get("motions", []))
     data["guns"] = tuple((gun.get("from", ""), parse_gun(gun)) for gun in data.get("guns", []))
     data["exits"] = tuple(parse_exit(exit_) for exit_ in data.get("exits", []))
     return State(**data)
-
-
-def parse_exit(data: dict[str, Any]) -> Exit:
-    data = dict(data)
-    data["then"] = tuple(parse_action(action) for action in data.get("then", []))
-    if "cycle" in data:
-        data["cycle"] = tuple(data["cycle"])
-    if "parts" in data:
-        data["parts"] = tuple(data["parts"])
-    return Exit(**data)
-
-
-def parse_action(data: dict[str, Any]) -> Action:
-    data = dict(data)
-    if data["type"] not in ACTIONS:
-        raise UnknownNameError("action", data["type"])
-    if "gun" in data:
-        data["gun"] = parse_gun(data["gun"])
-    return Action(**data)

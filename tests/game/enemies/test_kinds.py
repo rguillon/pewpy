@@ -6,6 +6,7 @@ import pytest
 
 from pewpy import config
 from pewpy.data import data_folder
+from pewpy.game.enemies.actions import Fire
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
@@ -14,7 +15,8 @@ from pewpy.game.weapons.guns import PROJECTILES, Gun
 
 def guns_of(spec: EnemySpec) -> list[Gun]:
     found = [gun for state in spec.states for _, gun in state.guns]
-    found += [action.gun for state in spec.states for exit_ in state.exits for action in exit_.then if action.gun]
+    actions = [action for state in spec.states for exit_ in state.exits for action in exit_.then]
+    found += [action.gun for action in actions if isinstance(action, Fire)]
     return found + [item for gun in found for item in gun.sequence]
 
 

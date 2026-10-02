@@ -1,6 +1,7 @@
 import pytest
 
-from pewpy.game.enemies.enemy import Enemy, create
+from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.exits import BelowY
 from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.enemies.screen import HALF_WIDTH
@@ -44,7 +45,9 @@ def test_a_boss_starts_above_the_screen_and_comes_down_to_hold():
     boss = make_boss("harvester", 0.0, top=1.6)
     assert all(part.y - part.height / 2 > 1.6 for part in boss.parts)
     arrive(boss)
-    assert boss.y == pytest.approx(boss.spec.states[0].exits[0].below_y, abs=0.01)  # where it holds
+    (hold,) = boss.spec.states[0].exits[0].conditions
+    assert isinstance(hold, BelowY)
+    assert boss.y == pytest.approx(hold.y, abs=0.01)  # where it holds
     assert boss.vy == 0
 
 
@@ -54,8 +57,9 @@ def test_parts_join_the_world_and_follow_the_core():
     assert [entity for entity in created if isinstance(entity, Enemy)] == boss.parts
     fight(boss, 3.0)
     for part in boss.parts:
-        assert part.x == pytest.approx(boss.x + part.offset_x)
-        assert part.y == pytest.approx(boss.y + part.offset_y)
+        assert part.mount is not None
+        assert part.x == pytest.approx(boss.x + part.mount.x)
+        assert part.y == pytest.approx(boss.y + part.mount.y)
 
 
 def test_a_living_part_covers_the_columns_under_it():
@@ -161,7 +165,7 @@ def laser_boss(**gun) -> Enemy:
     laser = {"pattern": "laser", "reload": "carry", "off_screen": "fire", **gun}
     phase = {"name": "phase 1", "motions": [{"type": "bounce", "clamp": True}], "guns": [laser], "warmup": PHASE_PAUSE}
     spec = parse_enemy("laser", {"size": [sentinel.width, sentinel.height], "states": [phase]}, "test")
-    boss = create(spec, 0.0, 0.55)
+    boss = Enemy.from_spec(spec, 0.0, 0.55)
     arrive(boss)
     fight(boss, PHASE_PAUSE - 0.05)  # the next update fires
     return boss

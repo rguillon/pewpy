@@ -1,16 +1,20 @@
 """The "scroll" motion."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.motion import Motion
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
+@dataclass(frozen=True)
+class Scroll(Motion):
+    """Fixed to the ground (or driving on it, `plus` faster); `stop_x`: no sideways speed either."""
 
-def scroll(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
-    """Fixed to the ground (or driving on it, `plus` faster)."""
-    if motion.stop_x:
-        enemy.vx = 0.0
-    enemy.vy = -scroll_speed + motion.plus
+    plus: float = 0.0
+    stop_x: bool = False
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        if self.stop_x:
+            body.vx = 0.0
+        body.vy = -scroll_speed + self.plus

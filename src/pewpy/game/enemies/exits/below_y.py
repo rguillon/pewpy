@@ -1,13 +1,17 @@
-"""The exit condition on `below_y`: the enemy is that low."""
+"""The "below_y" exit condition."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits.condition import Condition
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Exit
 
+@dataclass(frozen=True)
+class BelowY(Condition):
+    """The enemy is that low."""
 
-def below_y(enemy: "Enemy", way_out: "Exit", target: Entity) -> bool:
-    return way_out.below_y is None or enemy.y <= way_out.below_y
+    y: float
+
+    def holds(self, body: Body, target: Entity) -> bool:
+        return body.y <= self.y

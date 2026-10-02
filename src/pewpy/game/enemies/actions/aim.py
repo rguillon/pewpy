@@ -1,17 +1,21 @@
-"""The "aim" action: fly straight at the player, at `speed`."""
+"""The "aim" action."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.actions.action import Action
+from pewpy.game.enemies.body import Body
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Action
 
+@dataclass(frozen=True)
+class Aim(Action):
+    """Fly straight at the player, at `speed`."""
 
-def aim(enemy: "Enemy", action: "Action", target: Entity) -> list[Entity]:
-    dx, dy = target.x - enemy.x, target.y - enemy.y
-    distance = math.hypot(dx, dy) or 1.0
-    enemy.vx, enemy.vy = dx / distance * action.speed, dy / distance * action.speed
-    return []
+    speed: float = 0.0
+
+    def do(self, body: Body, target: Entity) -> list[Entity]:
+        dx, dy = target.x - body.x, target.y - body.y
+        distance = math.hypot(dx, dy) or 1.0
+        body.vx, body.vy = dx / distance * self.speed, dy / distance * self.speed
+        return []

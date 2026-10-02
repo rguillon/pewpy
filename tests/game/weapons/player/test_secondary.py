@@ -2,7 +2,7 @@ import pytest
 
 from pewpy import config
 from pewpy.game.controls import Controls
-from pewpy.game.enemies.enemy import Enemy, make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.entities import Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import Player
@@ -23,7 +23,7 @@ def armed_world(kind: str | None) -> World:
 
 
 def still_drone(x: float, y: float, health: float = 100.0) -> Enemy:
-    drone = make("drone", x, y)
+    drone = Enemy.of_kind("drone", x, y)
     drone.vy, drone.fire_cooldown, drone.health = 0.0, 1000.0, health
     return drone
 

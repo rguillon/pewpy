@@ -1,14 +1,19 @@
-"""The "swerve" action: sideways towards the player's column, `gain` times the gap, at most `limit` either way."""
+"""The "swerve" action."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.actions.action import Action
+from pewpy.game.enemies.body import Body
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Action
 
+@dataclass(frozen=True)
+class Swerve(Action):
+    """Sideways towards the player's column, `gain` times the gap, at most `limit` either way."""
 
-def swerve(enemy: "Enemy", action: "Action", target: Entity) -> list[Entity]:
-    enemy.vx = max(-action.limit, min(action.limit, (target.x - enemy.x) * action.gain))
-    return []
+    gain: float = 0.0
+    limit: float = 0.0
+
+    def do(self, body: Body, target: Entity) -> list[Entity]:
+        body.vx = max(-self.limit, min(self.limit, (target.x - body.x) * self.gain))
+        return []

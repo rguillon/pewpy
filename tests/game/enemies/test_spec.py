@@ -1,6 +1,9 @@
 import pytest
 
 from pewpy import config
+from pewpy.game.enemies.actions import Fire, Velocity
+from pewpy.game.enemies.exits import Cycle, Parts
+from pewpy.game.enemies.motions import Bounce
 from pewpy.game.enemies.spec import EnemySpec, EnemySpecError, Part, parse_enemy
 from pewpy.game.weapons.guns import Gun
 
@@ -34,15 +37,16 @@ def test_an_enemy_is_read_with_its_states_guns_and_exits():
     )  # fmt: skip
     assert (spec.width, spec.height) == pytest.approx((10 * config.MODEL_VOXEL, 20 * config.MODEL_VOXEL))
     assert spec.velocity == (0.0, -0.3)
-    assert spec.start[0].vx == 0.1
+    assert spec.start == (Velocity(vx=0.1),)
     state = spec.states[0]
     (_, aimed), (source, straight), (_, cycling) = state.guns
     assert aimed.angles == (-10, 10) and aimed.origins == (("0.5w", 0),)  # resolved when firing, on what carries it
     assert source == "gun" and straight.velocities == ((0.1, -0.2),)
     assert cycling.sequence == (Gun("ring", 0.0, 0.0, count=4),)
-    assert state.exits[0].cycle == (2.0, 0.0, 1.0) and state.exits[0].parts == ("gun",)
-    fired = state.exits[1].then[0].gun
-    assert fired is not None and fired.speed == 0.4
+    assert state.motions == (Bounce(),)
+    assert state.exits[0].conditions == (Cycle(2.0, 0.0, 1.0), Parts(("gun",)))
+    (fire,) = state.exits[1].then
+    assert isinstance(fire, Fire) and fire.gun.speed == 0.4
     assert spec.on_destroyed[0].kind == "swarmer"
 
 
@@ -58,6 +62,10 @@ def test_a_size_can_be_given_in_world_units():
         ({"states": [{"name": "a", "motions": [{"type": "teleport"}]}]}, "motion 'teleport'"),
         ({"states": [{"name": "a", "exits": [{"to": "b"}]}]}, "unknown state 'b'"),
         ({"start": [{"type": "explode"}]}, "action 'explode'"),
+        ({"start": [{"type": "fire"}]}, "gun"),
+        ({"states": [{"name": "a", "motions": [{"type": "bounce", "speed": 1}]}]}, "speed"),
+        ({"states": [{"name": "a", "exits": [{"to": "a", "soon": True}]}]}, "exit condition 'soon'"),
+        ({"states": [{"name": "a", "exits": [{"to": "a", "timer": False}]}]}, "timer can only be true"),
     ],
 )
 def test_mistakes_say_where_they_are(data, message):

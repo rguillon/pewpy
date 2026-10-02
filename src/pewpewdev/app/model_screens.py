@@ -13,7 +13,7 @@ from pewpewdev import candidates
 from pewpewdev.states import DevState
 from pewpy import config
 from pewpy.app import GAME_ASPECT, PewPewApp, fitted_model
-from pewpy.game.enemies.enemy import make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES, FINAL_BOSSES
 from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
 from pewpy.game.player import SHIPS
@@ -154,7 +154,7 @@ class ModelScreens(PewPewApp):
             entries.append(("Missile", fitted_model(self._make_model(missile), missile.height)))
         for kind in ENEMIES:
             if MODEL_PAGES[page](kind):
-                enemy = make(kind)
+                enemy = Enemy.of_kind(kind)
                 name = kind.replace("_", " ").title()  # mine_layer: "Mine Layer"
                 entries.append((name, fitted_model(self._make_model(enemy), max(enemy.width, enemy.height))))
         if page == PICKUPS_PAGE:

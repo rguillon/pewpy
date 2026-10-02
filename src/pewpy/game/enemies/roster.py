@@ -2,7 +2,7 @@
 
 import random
 
-from pewpy.game.enemies.enemy import Enemy, make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.enemies.screen import HALF_WIDTH, TOP
 from pewpy.game.enemies.spec import EnemySpec
@@ -27,7 +27,7 @@ def make_enemy(
     (the tilted camera shows more than the play area), so enemies appear off screen and fly in. `rng` staggers its
     first shot, so a group doesn't fire all at once (None: not staggered).
     """
-    enemy = make(kind)
+    enemy = Enemy.of_kind(kind)
     spec = enemy.spec
     if enemy.side_entry:
         direction = 1 if side == "left" else -1

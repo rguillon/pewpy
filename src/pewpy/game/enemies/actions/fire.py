@@ -1,17 +1,20 @@
-"""The "fire" action: one shot of its `gun` (while on screen, unless the gun fires off screen too)."""
+"""The "fire" action."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.actions.action import Action
+from pewpy.game.enemies.body import Body
 from pewpy.game.entities import Entity
-from pewpy.game.weapons.guns import fire as fire_gun
-
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Action
+from pewpy.game.weapons.guns import Gun, fire
 
 
-def fire(enemy: "Enemy", action: "Action", target: Entity) -> list[Entity]:
-    gun = action.gun
-    if gun is not None and (gun.off_screen == "fire" or enemy.on_screen):
-        return fire_gun(gun, enemy.shooter(enemy, target))
-    return []
+@dataclass(frozen=True)
+class Fire(Action):
+    """One shot of its `gun` (while on screen, unless the gun fires off screen too)."""
+
+    gun: Gun
+
+    def do(self, body: Body, target: Entity) -> list[Entity]:
+        if self.gun.off_screen == "fire" or body.on_screen:
+            return fire(self.gun, body.shooter(target))
+        return []

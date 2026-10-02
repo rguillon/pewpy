@@ -1,14 +1,17 @@
-"""The exit condition on `parts`: these parts are destroyed."""
+"""The "parts" exit condition."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits.condition import Condition
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Exit
 
+@dataclass(frozen=True)
+class Parts(Condition):
+    """These parts are destroyed."""
 
-def parts(enemy: "Enemy", way_out: "Exit", target: Entity) -> bool:
-    destroyed = {part.part_name for part in enemy.parts if not part.alive}
-    return set(way_out.parts) <= destroyed
+    names: tuple[str, ...]
+
+    def holds(self, body: Body, target: Entity) -> bool:
+        return all(body.destroyed(name) for name in self.names)

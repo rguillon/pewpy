@@ -4,7 +4,7 @@ from typing import Any
 import pytest
 
 from pewpy import config
-from pewpy.game.enemies.enemy import Enemy, create, make
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.screen import BOTTOM, HALF_WIDTH
 from pewpy.game.enemies.spec import EnemySpec, Part, parse_enemy
 from pewpy.game.entities import Entity
@@ -17,7 +17,7 @@ SCROLL = 0.2
 
 def described(data: dict[str, Any], x: float = 0.0, y: float = 0.5) -> Enemy:
     """An enemy described like in the JSON files."""
-    return create(parse_enemy("test", data, "test"), x, y)
+    return Enemy.from_spec(parse_enemy("test", data, "test"), x, y)
 
 
 def run(enemy: Enemy, seconds: float, target: Entity = TARGET) -> list[Entity]:
@@ -36,10 +36,10 @@ def states(*names: str, **first: Any) -> list[dict[str, Any]]:
 
 
 def test_an_enemy_starts_as_described():
-    drone = make("drone", 0.1, 0.9)
+    drone = Enemy.of_kind("drone", 0.1, 0.9)
     assert (drone.x, drone.y, drone.vy, drone.health, drone.points) == (0.1, 0.9, -0.3, 3.0, 100)
     assert (drone.kind, drone.kind_name, drone.drawing) == ("drone", "drone", "drone")
-    assert make("dart").kind_name == "dart"  # its drawing
+    assert Enemy.of_kind("dart").kind_name == "dart"  # its drawing
 
 
 def test_a_timer_runs_out_then_the_state_changes():
@@ -93,7 +93,7 @@ def test_a_state_can_be_left_differently_after_some_visits():
         }
     )  # fmt: skip
     run(looping, 0.25)
-    assert looping.state.name == "a" and looping.visits[0] == 3
+    assert looping.state.name == "a" and looping.visits == 3
     run(looping, 0.15)
     assert looping.state.name == "done"
 
@@ -160,8 +160,6 @@ def test_actions_set_its_speed():
     still.vx = 0.0
     run(still, DT)
     assert still.vx > 0  # still: goes right
-    left_alone = described({"states": states("a", "b", exits=[{"to": "b", "then": [{"type": "fire"}]}])})
-    assert run(left_alone, DT) == []  # a fire action without a gun does nothing
 
 
 def test_actions_move_it_fire_or_end_it():
@@ -266,12 +264,12 @@ def test_an_enemy_without_a_staggered_gun_has_the_default_fire_interval():
 
 
 def test_shot_down_it_can_release_enemies():
-    splitter = make("splitter", 0.1, 0.4)
+    splitter = Enemy.of_kind("splitter", 0.1, 0.4)
     released = splitter.on_destroyed()
     assert [enemy.kind for enemy in released] == ["swarmer"] * 3
     assert [round(math.degrees(enemy.heading)) for enemy in released] == [-135, -90, -45]
     assert all((enemy.x, enemy.y) == (0.1, 0.4) for enemy in released)
-    assert make("drone").on_destroyed() == []
+    assert Enemy.of_kind("drone").on_destroyed() == []
 
 
 def test_a_shield_keeps_shots_out():
@@ -301,7 +299,7 @@ def boss_with_arms() -> Enemy:
         kind="core", width=0.3, height=0.2, health=20.0, boss=True, states=gun,
         parts=(Part("left", arm, -0.3, 0.0), Part("right", arm, 0.3, 0.0)),
     )  # fmt: skip
-    return create(spec, 0.0, 0.5)
+    return Enemy.from_spec(spec, 0.0, 0.5)
 
 
 def test_parts_join_with_the_enemy_follow_it_and_fire_from_where_they_are():
@@ -360,15 +358,15 @@ def test_entering_from_a_side():
 
 
 def test_its_model_turns_as_described_or_as_its_state_says():
-    diver = make("diver")
+    diver = Enemy.of_kind("diver")
     assert diver.facing == "" and not diver.faces_travel
     diver.go_to("dive")
     assert diver.faces_travel
-    assert make("turret").facing == "player"
+    assert Enemy.of_kind("turret").facing == "player"
 
 
 def test_made_on_its_way_or_with_another_first_timer():
-    shell = make("cluster_bomb", 0.0, 0.5, heading=1.0, timer=0.1)
+    shell = Enemy.of_kind("cluster_bomb", 0.0, 0.5, heading=1.0, timer=0.1)
     assert shell.heading == 1.0
     run(shell, 0.15)
     assert not shell.alive  # burst early

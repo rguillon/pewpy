@@ -1,13 +1,17 @@
-"""The exit condition on `visits`: the state has been entered this many times (this time included)."""
+"""The "visits" exit condition."""
 
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.exits.condition import Condition
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Exit
 
+@dataclass(frozen=True)
+class Visits(Condition):
+    """The state has been entered this many times (this time included)."""
 
-def visits(enemy: "Enemy", way_out: "Exit", target: Entity) -> bool:
-    return enemy.visits[enemy.state_index] >= way_out.visits
+    count: int
+
+    def holds(self, body: Body, target: Entity) -> bool:
+        return body.visits >= self.count

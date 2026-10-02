@@ -1,15 +1,18 @@
 """The "forward" motion."""
 
 import math
-from typing import TYPE_CHECKING
+from dataclasses import dataclass
 
+from pewpy.game.enemies.body import Body
+from pewpy.game.enemies.motions.motion import Motion
 from pewpy.game.entities import Entity
 
-if TYPE_CHECKING:
-    from pewpy.game.enemies.enemy import Enemy
-    from pewpy.game.enemies.spec import Motion
 
-
-def forward(enemy: "Enemy", motion: "Motion", dt: float, target: Entity, scroll_speed: float) -> None:
+@dataclass(frozen=True)
+class Forward(Motion):
     """Straight on the way it's heading, at `speed`."""
-    enemy.vx, enemy.vy = math.cos(enemy.heading) * motion.speed, math.sin(enemy.heading) * motion.speed
+
+    speed: float = 0.0
+
+    def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        body.vx, body.vy = math.cos(body.heading) * self.speed, math.sin(body.heading) * self.speed
