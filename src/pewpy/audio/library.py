@@ -11,9 +11,12 @@ import sys
 import threading
 from collections import deque
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from pewpy.audio import midi, synth
-from pewpy.data import Traversable
+
+if TYPE_CHECKING:
+    from pewpy.data import Traversable
 
 SYNTH_VERSION = 1  # raise it when the synthesizer changes how songs sound: the cached ones are rendered again
 
@@ -39,7 +42,7 @@ def render_wav(data: bytes, loop: bool) -> bytes:
 class Library:
     """The songs in `folder` (name.mid), rendered on request, one at a time in a background thread."""
 
-    def __init__(self, folder: Traversable, cache: Path | None) -> None:
+    def __init__(self, folder: "Traversable", cache: Path | None) -> None:
         self.folder = folder
         self.cache = cache
         self.ready: dict[tuple[str, bool], bytes] = {}

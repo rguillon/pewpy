@@ -82,6 +82,11 @@ def test_mistakes_are_reported_with_where_they_are(background, changes, message)
         resolve(background, changes)
 
 
+def test_a_type_the_reader_does_not_know_is_reported():
+    with pytest.raises(SceneryError, match=re.escape("can't read a <class 'bytes'>")):
+        params._convert(bytes, "x", "ground.depth")
+
+
 def test_every_style_and_settlement_lists_its_colors():
     from pewpy.scenery import ground_shader, grounds
 

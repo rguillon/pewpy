@@ -55,12 +55,9 @@ def report(error: BaseException, thread: str = "") -> str:
     """The crash log's text: when and where, the versions, then the stack trace with every frame's local
     variables.
     """
-    try:
-        from panda3d.core import PandaSystem
+    from panda3d.core import PandaSystem
 
-        panda = PandaSystem.getVersionString()
-    except ImportError:  # pragma: no cover - Panda3D is always there in the game
-        panda = "?"
+    panda = PandaSystem.getVersionString()
     header = [
         f"pewpy crash, {datetime.datetime.now().astimezone():%Y-%m-%d %H:%M:%S %z}",
         f"Python {sys.version.split()[0]}, Panda3D {panda}, {platform.platform()}",

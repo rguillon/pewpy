@@ -286,7 +286,7 @@ def _convert(kind: Any, value: Any, where: str) -> Any:  # noqa: C901 - one case
         return {key: _convert(args[1], item, f"{where}.{key}") for key, item in value.items()}
     if kind is Any:
         return value
-    raise SceneryError(where, f"can't read a {kind}")  # pragma: no cover - a type the dataclasses don't use
+    raise SceneryError(where, f"can't read a {kind}")
 
 
 def build(cls: Any, data: Any, where: str = "", given: dict[str, Any] | None = None) -> Any:
