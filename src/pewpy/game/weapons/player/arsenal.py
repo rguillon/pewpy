@@ -6,7 +6,8 @@ import json
 from dataclasses import dataclass, field
 
 from pewpy.data import data_folder
-from pewpy.game.entities import Bullet, Entity
+from pewpy.game.entities import Entity
+from pewpy.game.weapons.bullets import Bullet
 from pewpy.game.weapons.guns import Gun, GunState, Shooter, parse_gun, step
 from pewpy.game.weapons.player.secondary import SecondaryWeapon
 

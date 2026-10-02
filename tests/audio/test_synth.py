@@ -87,16 +87,16 @@ def test_a_key_held_to_the_end_is_never_released():
 
 def test_the_echo_stops_at_the_end_of_the_sound():
     short = np.ones((100, 2))
-    echoed = synth._echo(short, seconds=50 / RATE, repeats=5)  # only the first repeat fits
+    echoed = synth.echo(short, seconds=50 / RATE, repeats=5)  # only the first repeat fits
     assert np.count_nonzero(echoed[:, 1]) > 0 and np.count_nonzero(echoed[:50]) == 0
 
 
 def test_what_starts_past_the_end_is_left_out():
     target = np.zeros((10, 2))
-    synth._place(target, np.ones((5, 2)), 10)
+    synth.place(target, np.ones((5, 2)), 10)
     assert not target.any()
     late_kick = Song(tempo=120.0, notes=[Note(100.0, 0.25, 36, 120, DRUMS)])
-    assert synth._ducking(late_kick, 1000).min() == 1.0
+    assert synth.ducking(late_kick, 1000).min() == 1.0
 
 
 def test_toms_ring_in_the_reverb():

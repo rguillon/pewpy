@@ -1,6 +1,6 @@
 """What to hear when: the sound for each game event, the song for each screen. No Panda3D.
 
-Songs are named after their files in music/ (see pewpewdev/tools/make_songs.py): "title" on the menus, "world_1"... for each
+Songs are named after their files in music/ (see pewpewdev/tools/songs/): "title" on the menus, "world_1"... for each
 world's levels, "boss" while a boss is fought (from when it comes until the level ends), and two jingles, played
 once: "level_complete" and "game_over".
 """
@@ -9,8 +9,8 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from enum import Enum
 
+from pewpy.game.events import Event
 from pewpy.game.states import State
-from pewpy.game.world import Event
 
 SMALL_EXPLOSION = 0.12  # explosions this big or more sound bigger (world units)
 BIG_EXPLOSION = 0.4

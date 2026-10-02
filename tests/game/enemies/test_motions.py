@@ -3,8 +3,9 @@ import math
 import pytest
 
 from pewpy import config
-from pewpy.game.enemies.enemy import HALF_WIDTH, Enemy, create
+from pewpy.game.enemies.enemy import Enemy, create
 from pewpy.game.enemies.motions import MOTIONS
+from pewpy.game.enemies.screen import HALF_WIDTH
 from pewpy.game.enemies.spec import EnemySpec, Motion, Part
 from pewpy.game.entities import Entity
 

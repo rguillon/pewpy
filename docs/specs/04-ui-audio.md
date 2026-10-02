@@ -39,7 +39,7 @@ Pause -> Main menu
   on itself with its name under it, the circle turning slowly, on a plain dark background. Three pages (too many
   models for one circle): the player, the pickups and the projectiles (the player's missile, enemy rockets,
   missiles and bombs, mines); the flying enemies; the ground enemies.
-- Entries: Next page (after the last page, back to the first), Reload models (reads `src/pewpy/graphics/models.py` and the drawings in `data/models/` again and rebuilds
+- Entries: Next page (after the last page, back to the first), Reload models (reads `src/pewpy/graphics/models/` and the drawings in `data/models/` again and rebuilds
   every model, in the game too; if a file has a mistake, the error is shown and the old models stay), Back. Escape
   goes back to the main menu.
 
@@ -57,14 +57,14 @@ Pause -> Main menu
   used in the game) on show like the Models screen, 10 per page, each labelled with its number ("#007"); the title
   says which numbers and the page, like "11-20 (2/10)".
 - Entries: Next page, Previous page, Reload models, Back. Drawings are read again whenever a page is shown.
-- Made by `make candidates` (pewpewdev/tools/make_candidates.py), as real 3D voxel models: the aircraft built from their
+- Made by `make candidates` (pewpewdev/tools/candidates/), as real 3D voxel models: the aircraft built from their
   parts, the industrial ships sculpted from a plan (a chamfered hull, higher on top than underneath, a raised spine
   and cockpit, recessed panel lines, thin wings rising to their tips).
 
 ### Boss candidates (dev tools)
 
 - For picking new bosses: boss candidates (`data/models/boss_candidates/`: a core, its parts' drawings and
-  where they go, see pewpewdev/tools/make_boss_candidates.py; not used in the game), each whole with its parts, 4 per page,
+  where they go, see pewpewdev/tools/boss_candidates/; not used in the game), each whole with its parts, 4 per page,
   all drawn to the same scale, labelled with their number, size in cubes and how many parts ("#007  51x42 +2").
 - Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`, as real 3D voxel models
   sculpted from a plan: stepped decks and a superstructure on the hull, the bridge on top, recessed panel lines and
@@ -104,7 +104,7 @@ Pause -> Main menu
 
 - Music style: synthwave *(the user's choice)*
 - Music source (your files, free assets, generated): generated MIDI songs *(the user's choice)*: `make songs`
-  writes them to `data/music/` (pewpewdev/tools/make_songs.py); the game plays them with its own synthesizer. Any MIDI
+  writes them to `data/music/` (pewpewdev/tools/songs/); the game plays them with its own synthesizer. Any MIDI
   file can replace one. Songs *(placeholder)*: "title" on the menus, "world_1" to "world_8" for
   each world's levels, "boss" while a boss is fought (from the final boss's coming, until the level ends), and two jingles played once,
   "level_complete" and "game_over". Lower while paused; M turns the music on and off. Volumes: `SFX_VOLUME`, `MUSIC_VOLUME` in `config.py`

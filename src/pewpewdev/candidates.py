@@ -1,5 +1,5 @@
-"""The model candidates, drawings for possible new enemies and bosses made by the tools (make_candidates.py,
-make_boss_candidates.py), kept with the game's models but not in the game: the Enemy candidates and Boss candidates
+"""The model candidates, drawings for possible new enemies and bosses made by the tools (tools/candidates/,
+tools/boss_candidates/), kept with the game's models but not in the game: the Enemy candidates and Boss candidates
 screens show them.
 """
 
@@ -10,7 +10,7 @@ from pewpy.graphics.models import DRAWINGS_FOLDER
 
 CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.json: drawings for possible new enemies
 # models/boss_candidates/<number>.json: possible new bosses' cores, with <number>_a.json... their parts' drawings and
-# <number>.parts.json where the parts go (see tools/make_boss_candidates.py).
+# <number>.parts.json where the parts go (see tools/boss_candidates/).
 BOSS_CANDIDATES_FOLDER = "boss_candidates"
 
 

@@ -1,6 +1,6 @@
 """The songs, rendered from their MIDI files to WAV in a background thread, and kept on disk. No Panda3D.
 
-Rendering a song takes a few seconds (see synth.py), so it's done once: the WAV goes in a cache folder (the user's
+Rendering a song takes a few seconds (see synth/), so it's done once: the WAV goes in a cache folder (the user's
 cache, see `cache_folder`), named after what it was made from (the MIDI file, the synthesizer's version), so a
 changed song is rendered again.
 """

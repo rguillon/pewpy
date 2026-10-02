@@ -3,7 +3,7 @@ import re
 import pytest
 
 from pewpy.scenery import params
-from pewpy.scenery.params import SceneryError, merge, resolve
+from pewpy.scenery.params import SceneryError, merge, reader, resolve
 
 GROUNDS = [name for name in params.backgrounds() if params.resolve(name).ground is not None]
 
@@ -84,17 +84,17 @@ def test_mistakes_are_reported_with_where_they_are(background, changes, message)
 
 def test_a_type_the_reader_does_not_know_is_reported():
     with pytest.raises(SceneryError, match=re.escape("can't read a <class 'bytes'>")):
-        params._convert(bytes, "x", "ground.depth")
+        reader._convert(bytes, "x", "ground.depth")
 
 
 def test_every_style_and_settlement_lists_its_colors():
-    from pewpy.scenery import ground_shader, grounds
+    from pewpy.scenery.ground import kinds, shader
 
-    assert set(params.STYLE_COLORS) >= set(ground_shader.STYLES)
-    assert set(params.SURFACE_COLORS) == set(grounds.SETTLEMENTS)
+    assert set(params.STYLE_COLORS) >= set(shader.STYLES)
+    assert set(params.SURFACE_COLORS) == set(kinds.SETTLEMENTS)
     for names in params.SURFACE_COLORS.values():
-        assert set(names) <= set(ground_shader.SURFACE_SLOTS)
-    assert all(len(names) <= ground_shader.PALETTE_SIZE for names in params.STYLE_COLORS.values())
+        assert set(names) <= set(shader.SURFACE_SLOTS)
+    assert all(len(names) <= shader.PALETTE_SIZE for names in params.STYLE_COLORS.values())
 
 
 @pytest.mark.parametrize("name", GROUNDS)

@@ -62,7 +62,7 @@ class Level:
     name: str
     scroll_speed: float
     waves: tuple[Wave, ...]
-    background: str = "space"  # a preset of levels/sceneries.json (see scenery/params.py)...
+    background: str = "space"  # a preset of levels/sceneries.json (see pewpy.scenery.params)...
     scenery: dict[str, Any] = field(default_factory=dict, hash=False)  # ...and the level's changes to it
     time_of_day: str = "day"  # one of the scenery's times of day: tints the ground, its haze and its sky
     background_seed: int | None = None  # the background's layout (and colors, in space); None: different each time

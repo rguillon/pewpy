@@ -137,7 +137,7 @@ def install() -> None:
 
 def run(main: Callable[[], None]) -> None:
     """Run the game, reporting a crash. A crash leaves at once with exit code 1: under WSL the graphics driver can
-    hang while the window is torn down (see app.py, finalizeExit).
+    hang while the window is torn down (see pewpy.app.window, finalizeExit).
     """
     install()
     try:

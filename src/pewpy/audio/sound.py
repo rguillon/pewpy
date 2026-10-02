@@ -1,6 +1,6 @@
 """Playing the sound effects and music through Panda3D's audio (OpenAL).
 
-The effects are synthesized at start (see sfx.py) and reach Panda3D as WAV files in a folder in memory (a ramdisk
+The effects are synthesized at start (see sfx/) and reach Panda3D as WAV files in a folder in memory (a ramdisk
 mounted in Panda3D's virtual file system). The songs are rendered in the background (see library.py) and played
 from their WAV file in the cache (or, without a cache, from the ramdisk).
 

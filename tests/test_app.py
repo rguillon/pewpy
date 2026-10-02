@@ -1,6 +1,7 @@
 import pytest
 
-from pewpy.app import FLAME_FLICKER, GAME_ASPECT, flame_scale, letterbox
+from pewpy.app import GAME_ASPECT, letterbox
+from pewpy.app.drawing import FLAME_FLICKER, flame_scale
 
 
 def region_shape(window_width: int, window_height: int) -> float:

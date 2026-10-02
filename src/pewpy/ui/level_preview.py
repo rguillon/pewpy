@@ -13,7 +13,7 @@ from panda3d.core import Camera, CardMaker, GraphicsOutput, NodePath, Perspectiv
 from pewpy.game.level import Level
 from pewpy.graphics import lighting
 from pewpy.scenery.background import Scenery
-from pewpy.scenery.background_view import BackgroundView, CameraView, sky_color
+from pewpy.scenery.background.view import BackgroundView, CameraView, sky_color
 
 Color = tuple[float, float, float, float]
 

@@ -1,13 +1,15 @@
 import pytest
 
 from pewpy import config
+from pewpy.game.controls import Controls
 from pewpy.game.enemies.enemy import Enemy, make
-from pewpy.game.entities import Bullet, Pickup
+from pewpy.game.entities import Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import Player
+from pewpy.game.weapons.bullets import Bullet
 from pewpy.game.weapons.player.arsenal import Arsenal
 from pewpy.game.weapons.player.secondary import SECONDARY_GUNS, SECONDARY_LETTERS, SECONDARY_WEAPONS, SecondaryWeapon
-from pewpy.game.world import Controls, World
+from pewpy.game.world import World
 
 TURRET = SECONDARY_GUNS["turret"]
 LIGHTNING = SECONDARY_GUNS["lightning"]

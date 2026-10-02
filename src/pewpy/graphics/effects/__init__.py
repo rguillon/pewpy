@@ -1,6 +1,6 @@
 """Particle effects (placeholder until 05-visuals.md is decided): what every effect is; each one is in its own module
-here. An effect throws out particles where something happened; particle_system.py moves them, effects_view.py draws
-them. The helpers below are shared by the effects. Independent from Panda3D.
+here. An effect throws out particles where something happened; system.py moves them, view.py draws
+them. The helpers below are shared by the effects. Independent from Panda3D, but for view.py.
 
 Positions are in world units: x right, y up the screen (like the game), z depth (away from the camera).
 Particles are tiny cubes: "debris" is lit like the ships, "glow" (sparks, flashes) shines on its own.

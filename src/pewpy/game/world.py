@@ -2,49 +2,22 @@
 
 import math
 import random
-from dataclasses import dataclass
 from typing import cast
 
 from pewpy import config
+from pewpy.game.controls import Controls
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.enemies.roster import make_enemy
-from pewpy.game.entities import Bullet, Entity, Pickup
+from pewpy.game.entities import Entity, Pickup
+from pewpy.game.events import Event
 from pewpy.game.level import Level
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player, ShipSpec
-from pewpy.game.weapons.bullets import Missile
+from pewpy.game.weapons.bullets import Bullet, Missile
 from pewpy.game.weapons.guns import Gun
 from pewpy.game.weapons.player.arsenal import WEAPONS, Arsenal, Beam
 from pewpy.game.weapons.player.secondary import SECONDARY_WEAPONS, SecondaryWeapon
-from pewpy.scenery.terrain import GROUND_SPEED
-
-
-@dataclass
-class Controls:
-    move_x: float = 0.0
-    move_y: float = 0.0
-    fire: bool = False
-
-
-@dataclass(frozen=True)
-class Event:
-    """Something the effects show (see graphics/effects/) or the sounds play (see audio/cues.py), collected during one
-    update.
-
-    kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy
-    kind like "drone", a drawing like "dart" or "warden", or "Player"), "blast" (a missile exploded, `size` = its splash
-    radius), "burn" (the laser is burning an enemy at x, y), "shot" (the player fired `source`: "bullets",
-    "missiles" or "turret"), "zap" (the lightning gun struck), "hurt" (the player was hit), "disarmed" (a hit took
-    the player's secondary weapon `source` instead of health), "pickup" (the player picked up `source`: "repair",
-    "life", a weapon or a secondary weapon) or "boss" (a boss came).
-    """
-
-    kind: str
-    x: float
-    y: float
-    size: float = 0.0
-    source: str = ""
-
+from pewpy.scenery.ground.terrain import GROUND_SPEED
 
 SHOT_MARGIN = 0.05  # shots are removed once this far past the edge of the screen (they're smaller than this)
 PLAYER_EXPLOSION_SIZE = 0.2

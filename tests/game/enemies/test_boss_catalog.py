@@ -1,7 +1,7 @@
 import pytest
 
-from pewpy.game.enemies.enemy import HALF_WIDTH
 from pewpy.game.enemies.kinds import BOSSES, FINAL_BOSSES, MINI_BOSSES
+from pewpy.game.enemies.screen import HALF_WIDTH
 from pewpy.game.level import load_levels
 from pewpy.graphics import models
 

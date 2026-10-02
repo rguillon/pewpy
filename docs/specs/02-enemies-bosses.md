@@ -929,8 +929,8 @@ General rules for every boss:
 
 ## Final bosses
 
-> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `src/pewpewdev/tools/final_boss_plans.json` by
-> `src/pewpewdev/tools/make_final_bosses.py` (`make final-bosses`).
+> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `src/pewpewdev/tools/final_bosses/plans.json` by
+> `src/pewpewdev/tools/final_bosses/` (`make final-bosses`).
 
 Each level ends with a final boss, after its mini boss (see `03-levels.md`): bigger (0.5 to 0.77 wide, about half
 the screen for the last ones) and harder, with more parts and four phases. Same general rules as every boss (see

@@ -5,8 +5,9 @@ import pytest
 
 from pewpy import config
 from pewpy.game.enemies.enemy import Enemy, make
-from pewpy.game.entities import Bullet, Entity
+from pewpy.game.entities import Entity
 from pewpy.game.weapons import guns
+from pewpy.game.weapons.bullets import Bullet
 from pewpy.game.weapons.guns import HEAVY_BULLET_SIZE, Gun, GunState, NoMakerError, Shooter, distance, fire, step
 
 DT = 1 / 60

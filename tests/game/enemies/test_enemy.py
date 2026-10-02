@@ -4,9 +4,11 @@ from typing import Any
 import pytest
 
 from pewpy import config
-from pewpy.game.enemies.enemy import BOTTOM, HALF_WIDTH, Enemy, create, make
+from pewpy.game.enemies.enemy import Enemy, create, make
+from pewpy.game.enemies.screen import BOTTOM, HALF_WIDTH
 from pewpy.game.enemies.spec import EnemySpec, Part, parse_enemy
-from pewpy.game.entities import Bullet, Entity
+from pewpy.game.entities import Entity
+from pewpy.game.weapons.bullets import Bullet
 
 DT = 1 / 60
 TARGET = Entity(x=0.0, y=-0.75)

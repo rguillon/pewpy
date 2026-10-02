@@ -1,11 +1,12 @@
 import pytest
 
-from pewpy.game.enemies.enemy import HALF_WIDTH, Enemy, create
+from pewpy.game.enemies.enemy import Enemy, create
 from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.enemies.roster import make_enemy
+from pewpy.game.enemies.screen import HALF_WIDTH
 from pewpy.game.enemies.spec import parse_enemy
-from pewpy.game.entities import Bullet, Entity
-from pewpy.game.weapons.bullets import BossBeam
+from pewpy.game.entities import Entity
+from pewpy.game.weapons.bullets import BossBeam, Bullet
 from pewpy.game.weapons.guns import LASER_WARNING
 
 DT = 1 / 60

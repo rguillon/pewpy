@@ -2,8 +2,8 @@ import pytest
 
 from pewpy.audio import cues
 from pewpy.audio.cues import Music, Throttle, event_sound, event_sounds, music
+from pewpy.game.events import Event
 from pewpy.game.states import State
-from pewpy.game.world import Event
 
 
 @pytest.mark.parametrize(

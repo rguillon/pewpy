@@ -10,7 +10,7 @@
   cubes, the Swarmer's (0.06 / 9 world units, `MODEL_VOXEL` in `config.py`), never stretched: a model's size comes
   from its drawing, about its hitbox (bigger ships have more cubes; a boss is up to about 70 cubes wide). Shiny look: per-pixel lighting,
   specular highlights, reflections of a made-up space environment, bevelled voxel edges and ambient occlusion
-  (`lighting.py`, `models.py`). The shield bubble is a smooth see-through effect; the laser is light (see "Laser" below); bullets
+  (`graphics/lighting.py`, `graphics/models/`). The shield bubble is a smooth see-through effect; the laser is light (see "Laser" below); bullets
   are soft round dots facing the camera: solid in the middle, fading out towards the edge (ovals for the
   player's long bullets, which are bright green), about 1.8 times their hitbox (`sprites.py`).
 - Color palette / mood: TBD
@@ -19,12 +19,12 @@
 ## Assets
 
 - Source of models / sprites (made by you, free packs, placeholders generated in code): generated in code
-  (`src/pewpy/graphics/models.py`), no 3D files. The voxel drawings (rows of characters, and each character's color and
+  (`src/pewpy/graphics/models/`), no 3D files. The voxel drawings (rows of characters, and each character's color and
   height in voxels) are JSON files in `data/models/`, one per model
 - Model file forms: a model file (`data/models/<name>.json`) is a flat drawing (rows of characters, each
   color a thickness), a 3D drawing (`"layers"`: slices from the top down, with a palette), or a MagicaVoxel model
   (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). `make voxels` moves
-  a model between the three forms; `make models` remodels ships from their recipes in `pewpewdev/tools/make_models.py`.
+  a model between the three forms; `make models` remodels ships from their recipes in `pewpewdev/tools/models/recipes/`.
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
 - Asset folder layout: `data/models/<name>.json` for the voxel drawings; other assets TBD
 

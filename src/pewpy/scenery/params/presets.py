@@ -1,0 +1,33 @@
+"""The presets of `levels/sceneries.json`, and resolving a level's scenery from its preset."""
+
+import json
+from functools import cache
+from typing import Any
+
+from pewpy.data import data_folder
+from pewpy.scenery.params.checks import check_generators
+from pewpy.scenery.params.reader import build, merge
+from pewpy.scenery.params.scenery import SceneryParams
+from pewpy.scenery.params.types import SceneryError
+
+
+@cache
+def presets() -> dict[str, Any]:
+    """The decoded `levels/sceneries.json`: "default" and the presets."""
+    return json.loads(data_folder().joinpath("levels").joinpath("sceneries.json").read_text())
+
+
+def backgrounds() -> tuple[str, ...]:
+    """The presets' names, in the file's order."""
+    return tuple(name for name in presets() if name != "default")
+
+
+def resolve(background: str, overrides: dict[str, Any] | None = None) -> SceneryParams:
+    """The parameters of preset `background` with a level's `overrides`, checked (SceneryError if they're wrong)."""
+    data = presets()
+    if background not in data or background == "default":
+        raise SceneryError("", f"unknown background {background!r}, expected one of {sorted(backgrounds())}")
+    merged = merge(merge(data["default"], data[background]), overrides or {})
+    params = build(SceneryParams, merged, background, given={"name": background})
+    check_generators(params)
+    return params

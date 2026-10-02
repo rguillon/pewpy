@@ -15,7 +15,8 @@ import json
 from pathlib import Path
 
 from pewpewdev.paths import DATA
-from pewpy.graphics import models, vox
+from pewpy.graphics import models
+from pewpy.graphics.models.drawings import vox
 
 MODELS = DATA / "models"
 

@@ -1,6 +1,6 @@
 """The Models screen: every model in a slowly turning circle, each spinning, its name underneath.
 
-For working on the models (models.py): the screen can reload them without restarting the game.
+For working on the models (pewpy.graphics.models): the screen can reload them without restarting the game.
 """
 
 import math

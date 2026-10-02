@@ -19,7 +19,7 @@
 - "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 64% upgrade capsule, 4% extra life, 8% secondary
   weapon, 24% repair *(placeholder)* (see `01-gameplay.md`; the shares are in `data/rules.json`).
 - Looks: every enemy is a voxel model in its colors, drawn in `data/models/<name>.json` (its description names
-  its drawing) and built by `src/pewpy/graphics/models.py`; the size given is its hitbox.
+  its drawing) and built by `src/pewpy/graphics/models/`; the size given is its hitbox.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
 - What each enemy does is data: `data/enemies/` (`catalog.json`, `fleet.json`, `projectiles.json`), see
   `06-technical.md`, "Enemies as data".

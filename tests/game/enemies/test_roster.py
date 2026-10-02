@@ -2,8 +2,9 @@ import random
 
 import pytest
 
-from pewpy.game.enemies.enemy import HALF_WIDTH, TOP, Enemy
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.roster import ENEMY_TYPES, make_enemy
+from pewpy.game.enemies.screen import HALF_WIDTH, TOP
 from pewpy.game.entities import Entity
 
 DT = 1 / 60

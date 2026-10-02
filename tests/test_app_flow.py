@@ -4,6 +4,7 @@ import pytest
 
 from pewpy import app as app_module
 from pewpy import config
+from pewpy.app import keys, window
 from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State
@@ -25,7 +26,7 @@ def press(app, key: str) -> None:
 def choose(app, label: str) -> None:
     menu = app.menu_view.menu
     menu.selected = labels(app).index(label)
-    press(app, app_module.MENU_CHOOSE_KEY)
+    press(app, keys.MENU_CHOOSE_KEY)
 
 
 def start_level(app, index: int = 0) -> None:
@@ -34,7 +35,7 @@ def start_level(app, index: int = 0) -> None:
     world, number = app.places[index]
     choose(app, f"{world + 1}. {app.worlds[world].name}")
     app.menu_view.menu.selected = number - 1
-    press(app, app_module.MENU_CHOOSE_KEY)
+    press(app, keys.MENU_CHOOSE_KEY)
 
 
 def test_the_main_menu_starts_or_quits(app, monkeypatch):
@@ -57,7 +58,7 @@ def test_the_arrows_move_the_highlight_and_escape_goes_back(app):
     press(app, "arrow_down-up")
     assert "arrow_down" not in app.keys_down
     frames(app)
-    press(app, app_module.BACK_KEY)
+    press(app, keys.BACK_KEY)
     assert app.states.state is State.MAIN_MENU
     assert app.ship_select is None
 
@@ -94,24 +95,24 @@ def test_playing_a_level(app):
     assert app.background.scenery.kind != "space"
     bosses = [wave.enemy for wave in app.world.level.waves if wave.enemy in BOSSES]
     assert bosses and all(BOSSES[boss].drawing in app.boss_models for boss in bosses)  # built before they come
-    press(app, app_module.FIRE_KEY)
+    press(app, keys.FIRE_KEY)
     press(app, "arrow_left")
     frames(app, 5)
     assert app.world.player.x < 0
     assert app.world.player_bullets or app.world.time > 0
     selected = app.world.arsenal.selected
-    press(app, app_module.SWITCH_WEAPON_KEY)
+    press(app, keys.SWITCH_WEAPON_KEY)
     assert app.world.arsenal.selected != selected
 
 
 def test_pausing_and_going_on(app):
     start_level(app)
-    press(app, app_module.BACK_KEY)
+    press(app, keys.BACK_KEY)
     assert app.states.state is State.PAUSED
     assert labels(app) == ["Resume", "Main menu"]
-    press(app, app_module.BACK_KEY)  # the pause menu's back: play on
+    press(app, keys.BACK_KEY)  # the pause menu's back: play on
     assert app.states.state is State.PLAYING
-    press(app, app_module.BACK_KEY)
+    press(app, keys.BACK_KEY)
     choose(app, "Main menu")
     assert app.states.state is State.MAIN_MENU
     assert app.world is None
@@ -119,7 +120,7 @@ def test_pausing_and_going_on(app):
 
 
 def test_the_weapon_only_switches_while_playing(app):
-    press(app, app_module.SWITCH_WEAPON_KEY)  # on the main menu: nothing to switch
+    press(app, keys.SWITCH_WEAPON_KEY)  # on the main menu: nothing to switch
     assert app.world is None
 
 
@@ -181,9 +182,9 @@ def test_the_world_select_opens_on_the_world_of_the_last_level_played(app):
 
 def test_the_music_key_turns_the_music_off_and_on(app):
     on = app.audio.music_on
-    press(app, app_module.MUSIC_KEY)
+    press(app, keys.MUSIC_KEY)
     assert app.audio.music_on is not on
-    press(app, app_module.MUSIC_KEY)
+    press(app, keys.MUSIC_KEY)
     assert app.audio.music_on is on
 
 
@@ -191,8 +192,8 @@ def test_the_music_key_turns_the_music_off_and_on(app):
 def test_leaving_the_game(app, monkeypatch, driver):
     exits, finals = [], []
     monkeypatch.setenv("GALLIUM_DRIVER", driver)
-    monkeypatch.setattr(app_module.os, "_exit", exits.append)
-    monkeypatch.setattr(app_module.ShowBase, "finalizeExit", lambda self: finals.append(True))
+    monkeypatch.setattr(window.os, "_exit", exits.append)
+    monkeypatch.setattr(window.ShowBase, "finalizeExit", lambda self: finals.append(True))
     app.finalizeExit()
     assert (exits, finals) == (([0], [True]) if driver else ([], [True]))
 

@@ -12,10 +12,9 @@ from typing import Any
 
 from pewpy import config
 from pewpy.data import data_folder
+from pewpy.game.enemies.actions import ACTIONS
 from pewpy.game.enemies.motions import MOTIONS
 from pewpy.game.weapons.guns import Distance, Gun, parse_gun
-
-ACTIONS = frozenset({"velocity", "toward_middle", "aim", "swerve", "sway", "relocate", "to_bottom", "fire", "die"})
 
 
 class EnemySpecError(Exception):
@@ -30,7 +29,7 @@ class UnknownNameError(ValueError):
 
 @dataclass(frozen=True)
 class Motion:
-    """How the enemy moves each frame (see motions.py for each `type`)."""
+    """How the enemy moves each frame (see motions/ for each `type`)."""
 
     type: str
     speed: float = 0.0
@@ -55,7 +54,7 @@ class Motion:
 
 @dataclass(frozen=True)
 class Action:
-    """Something done once, when the enemy appears or goes from a state to another."""
+    """Something done once, when the enemy appears or goes from a state to another (see actions/ for each `type`)."""
 
     type: str
     vx: float | None = None  # velocity: the speeds set (None: unchanged)
@@ -70,7 +69,9 @@ class Action:
 
 @dataclass(frozen=True)
 class Exit:
-    """A way out of a state, to the state named `to`, once all its conditions hold; `then` is done on the way."""
+    """A way out of a state, to the state named `to`, once all its conditions hold (see exits/); `then` is done on the
+    way.
+    """
 
     to: str
     timer: bool = False  # the state's timer has run out
@@ -126,7 +127,7 @@ class Part:
 class EnemySpec:
     kind: str
     name: str = ""  # shown over a boss's health bar
-    drawing: str = ""  # its model: models/<drawing>.json ("": built in code, see graphics/models.py)
+    drawing: str = ""  # its model: models/<drawing>.json ("": built in code, see graphics/models/)
     width: float = 0.1
     height: float = 0.1
     health: float = 3.0

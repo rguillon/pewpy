@@ -8,7 +8,7 @@ is decided).
 
 Each voxel face is bevelled: near its edges the shader bends the normal outwards, so every cube catches the
 light on its rims like a real rounded block. The texture coordinates of a voxel face count cubes across it
-(from 0; one face can cover several cubes, see models.py) and every cube gets its rims; other shapes have
+(from 0; one face can cover several cubes, see pewpy.graphics.models) and every cube gets its rims; other shapes have
 (0.5, 0.5) everywhere, which means no bevel.
 
 Water (the ocean background) is a flat surface whose normal the shader sways with moving waves, for glints.
@@ -134,7 +134,7 @@ vec3 waves(vec3 n) {
 }
 
 void main() {
-    // The texture coordinates say what kind of face this is (see models.py): 0 and up on voxel faces, counting
+    // The texture coordinates say what kind of face this is (see pewpy.graphics.models): 0 and up on voxel faces, counting
     // cubes (mode 0), -2 to -1 for glowing faces like lit windows (GLOW_UVS, mode 1), -3.5 for water (WATER_UV,
     // mode 2), -6 to -5 for burning faces like lava (BURN_UVS, mode 3).
     float mode = v_uv.x >= 0.0 ? 0.0 : ceil(-v_uv.x / 2.0);
@@ -209,7 +209,7 @@ def light(root: NodePath) -> None:
     root.setShaderInput("reflectivity", config.REFLECTIVITY)
     root.setShaderInput("bevel_width", config.BEVEL_WIDTH)
     root.setShaderInput("bevel_strength", config.BEVEL_STRENGTH)
-    root.setShaderInput("water_offset", (0.0, 0.0))  # set on each strip of sea, see background_view.py
+    root.setShaderInput("water_offset", (0.0, 0.0))  # set on each strip of sea, see pewpy.scenery.background.view
     root.setShaderInput("water_loop", 1.0)
-    root.setShaderInput("haze", (0.0, 0.0, 0.0, 0.0))  # set on the grounds, see background_view.py
+    root.setShaderInput("haze", (0.0, 0.0, 0.0, 0.0))  # set on the grounds, see pewpy.scenery.background.view
     root.setShaderInput("tint", (1.0, 1.0, 1.0))  # the same

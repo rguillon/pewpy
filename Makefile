@@ -25,19 +25,19 @@ dev: ## Run the game with the dev screens: models, bosses, candidates, AI learni
 
 .PHONY: candidates
 candidates: ## Generate enemy model candidates for the Enemy candidates screen (options: ARGS="--kind aircraft --count 50", see --help)
-	@uv run python -m pewpewdev.tools.make_candidates $(ARGS)
+	@uv run python -m pewpewdev.tools.candidates $(ARGS)
 
 .PHONY: boss-candidates
 boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
-	@uv run python -m pewpewdev.tools.make_boss_candidates $(ARGS)
+	@uv run python -m pewpewdev.tools.boss_candidates $(ARGS)
 
 .PHONY: levels
-levels: ## Generate the game's levels from the worlds' plan in src/pewpewdev/tools/make_levels.py (options: ARGS="--seed 1234", see --help)
-	@uv run python -m pewpewdev.tools.make_levels $(ARGS)
+levels: ## Generate the game's levels from the worlds' plans in src/pewpewdev/tools/levels/worlds/ (options: ARGS="--seed 1234", see --help)
+	@uv run python -m pewpewdev.tools.levels $(ARGS)
 
 .PHONY: final-bosses
-final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from their plans in src/pewpewdev/tools/final_boss_plans.json
-	@uv run python -m pewpewdev.tools.make_final_bosses $(ARGS)
+final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from their plans in src/pewpewdev/tools/final_bosses/plans.json
+	@uv run python -m pewpewdev.tools.final_bosses $(ARGS)
 
 .PHONY: learn
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
@@ -49,11 +49,11 @@ rate: ## Rate every level for every ship from how the trained AI fares: its clea
 
 .PHONY: songs
 songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
-	@uv run python -m pewpewdev.tools.make_songs $(ARGS)
+	@uv run python -m pewpewdev.tools.songs $(ARGS)
 
 .PHONY: models
-models: ## Remodel ships in real 3D from their recipes in src/pewpewdev/tools/make_models.py (ARGS="player drone": just these)
-	@uv run python -m pewpewdev.tools.make_models $(ARGS)
+models: ## Remodel ships in real 3D from their recipes in src/pewpewdev/tools/models/recipes/ (ARGS="player drone": just these)
+	@uv run python -m pewpewdev.tools.models $(ARGS)
 
 .PHONY: voxels
 voxels: ## Move a model between flat, 3D (layered) and MagicaVoxel forms (ARGS="export drone", "use drone", "layers drone")

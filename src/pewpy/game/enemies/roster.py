@@ -2,8 +2,9 @@
 
 import random
 
-from pewpy.game.enemies.enemy import HALF_WIDTH, TOP, Enemy, make
+from pewpy.game.enemies.enemy import Enemy, make
 from pewpy.game.enemies.kinds import ENEMIES
+from pewpy.game.enemies.screen import HALF_WIDTH, TOP
 from pewpy.game.enemies.spec import EnemySpec
 from pewpy.game.weapons.guns import distance
 

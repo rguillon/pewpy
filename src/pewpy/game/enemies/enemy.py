@@ -2,23 +2,23 @@
 description (EnemySpec, see spec.py). Independent from rendering.
 
 Each frame (`update`) it counts down its state's timer, goes to another state if one of the state's exits says so,
-moves (motions.py), fires its state's guns (pewpy.game.weapons.guns), then moves with its speed. It returns
-the bullets and enemies it created.
+moves (motions/), fires its state's guns (pewpy.game.weapons.guns), then moves with its speed. It returns
+the bullets and enemies it created. The ways out are checked by exits/, what's done on the way by actions/.
 """
 
 import math
 from dataclasses import dataclass, field
 
 from pewpy import config
+from pewpy.game.enemies.actions import ACTIONS
+from pewpy.game.enemies.exits import can_leave
 from pewpy.game.enemies.kinds import KINDS
 from pewpy.game.enemies.motions import MOTIONS
+from pewpy.game.enemies.screen import HALF_WIDTH, TOP
 from pewpy.game.enemies.spec import Action, EnemySpec, Exit, State
 from pewpy.game.entities import Entity
-from pewpy.game.weapons.guns import GunState, Shooter, fire, step
+from pewpy.game.weapons.guns import GunState, Shooter, step
 
-TOP = config.PLAY_HEIGHT / 2
-HALF_WIDTH = config.PLAY_WIDTH / 2
-BOTTOM = -config.PLAY_HEIGHT / 2
 HIT_FLASH_TIME = 0.05
 WARMUP_FLASH = 0.1  # a boss blinks this fast while its phase warms up
 
@@ -241,68 +241,19 @@ class Enemy(Entity):
 
     def _exit(self, target: Entity, after_guns: bool) -> Exit | None:
         for way_out in self.state.exits:
-            if (way_out.volleys > 0) == after_guns and self._can_leave(way_out, target):
+            if (way_out.volleys > 0) == after_guns and can_leave(self, way_out, target):
                 return way_out
         return None
-
-    def _can_leave(self, way_out: Exit, target: Entity) -> bool:  # noqa: C901 (one test per condition)
-        if way_out.timer and self.timer > 0:
-            return False
-        if way_out.clock is not None and self.clock < way_out.clock:
-            return False
-        if way_out.below_y is not None and self.y > way_out.below_y:
-            return False
-        if way_out.above_y is not None and self.y < way_out.above_y:
-            return False
-        if way_out.aligned is not None and abs(target.x - self.x) > way_out.aligned:
-            return False
-        if way_out.cycle is not None:
-            period, start, end = way_out.cycle
-            if not start <= self.age % period < end:
-                return False
-        if self.visits[self.state_index] < way_out.visits:
-            return False
-        destroyed = {part.part_name for part in self.parts if not part.alive}
-        if not set(way_out.parts) <= destroyed:
-            return False
-        if way_out.health_below and self.health >= way_out.health_below * self.spec.health:
-            return False
-        if way_out.idle and any(gun.busy for gun in self.guns):
-            return False
-        return sum(gun.volleys for gun in self.guns) >= way_out.volleys
 
     def _go(self, way_out: Exit, target: Entity) -> list[Entity]:
         created = self._do(way_out.then, target)
         self._enter(self.spec.state_index(way_out.to))
         return created
 
-    def _do(self, actions: tuple[Action, ...], target: Entity) -> list[Entity]:  # noqa: C901 (one branch per action)
+    def _do(self, actions: tuple[Action, ...], target: Entity) -> list[Entity]:
         created: list[Entity] = []
         for action in actions:
-            if action.type == "velocity":
-                self.vx = self.vx if action.vx is None else action.vx
-                self.vy = self.vy if action.vy is None else action.vy
-            elif action.type == "toward_middle":
-                self.vx = action.speed if self.x <= 0 else -action.speed
-            elif action.type == "aim":
-                dx, dy = target.x - self.x, target.y - self.y
-                distance = math.hypot(dx, dy) or 1.0
-                self.vx, self.vy = dx / distance * action.speed, dy / distance * action.speed
-            elif action.type == "swerve":
-                self.vx = max(-action.limit, min(action.limit, (target.x - self.x) * action.gain))
-            elif action.type == "sway":
-                self.vx = math.copysign(action.speed * config.WIDTH_SCALE, self.vx or 1.0)
-            elif action.type == "relocate":  # somewhere else across the screen, a share of it further (wrapping)
-                span = HALF_WIDTH - self.width
-                self.x = ((self.x / span + 1) / 2 + action.step) % 1.0 * 2 * span - span
-                self.y += action.dy
-            elif action.type == "to_bottom":
-                self.y = BOTTOM - self.height
-            elif action.type == "fire" and action.gun is not None:
-                if action.gun.off_screen == "fire" or self.on_screen:
-                    created += fire(action.gun, self._shooter(self, target))
-            elif action.type == "die":
-                self.alive = False
+            created += ACTIONS[action.type](self, action, target)
         return created
 
     def _holding(self) -> bool:
@@ -317,10 +268,11 @@ class Enemy(Entity):
         for (source, gun), state in zip(self.state.guns, self.guns, strict=True):
             piece = self if not source else next((part for part in self.parts if part.part_name == source), None)
             if piece is not None and piece.alive:
-                created += step(gun, state, self._shooter(piece, target), dt)
+                created += step(gun, state, self.shooter(piece, target), dt)
         return created
 
-    def _shooter(self, piece: "Enemy", target: Entity) -> Shooter:
+    def shooter(self, piece: "Enemy", target: Entity) -> Shooter:
+        """What its guns need to know, firing from `piece` (itself or one of its parts) at `target`."""
         return Shooter(piece, target, self.age, self.clock, self.timer, piece.on_screen, make, self._stop)
 
     def _stop(self) -> None:

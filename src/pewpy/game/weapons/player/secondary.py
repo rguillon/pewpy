@@ -12,7 +12,8 @@ from dataclasses import dataclass, field
 from typing import TypeVar
 
 from pewpy.data import data_folder
-from pewpy.game.entities import Bullet, Entity
+from pewpy.game.entities import Entity
+from pewpy.game.weapons.bullets import Bullet
 from pewpy.game.weapons.guns import Gun, GunState, Shooter, chain, nearest, parse_gun, step
 
 _SECONDARY = json.loads((data_folder() / "weapons" / "secondary.json").read_text())

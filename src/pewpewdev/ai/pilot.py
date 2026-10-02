@@ -6,8 +6,9 @@ import numpy as np
 
 from pewpewdev.ai import sensors
 from pewpewdev.ai.brain import Brain
+from pewpy.game.controls import Controls
 from pewpy.game.weapons.player.arsenal import WEAPONS
-from pewpy.game.world import Controls, World
+from pewpy.game.world import World
 
 THINK_EVERY = 2  # updates (at 60 per second: it decides 30 times a second)
 

@@ -5,18 +5,18 @@ import math
 import pytest
 from panda3d.core import ButtonThrower, KeyboardButton, ModifierButtons, MouseWatcher, NodePath
 
-from pewpy import app as app_module
 from pewpy import config
-from pewpy.app import PewPewApp
+from pewpy.app import PewPewApp, bullets, drawing, keys, window
 from pewpy.game.enemies.enemy import Enemy, make
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import make_enemy
-from pewpy.game.entities import Bullet, Pickup
+from pewpy.game.entities import Pickup
+from pewpy.game.events import Event
 from pewpy.game.states import State
-from pewpy.game.weapons.bullets import Missile
+from pewpy.game.weapons.bullets import Bullet, Missile
 from pewpy.game.weapons.player.arsenal import Beam
 from pewpy.game.weapons.player.secondary import SecondaryWeapon
-from pewpy.game.world import Event, World
+from pewpy.game.world import World
 from pewpy.graphics import models
 
 
@@ -65,7 +65,7 @@ def test_a_boss_and_its_parts_are_drawn_and_its_health_bar_shows_once_on_screen(
 
 @pytest.mark.parametrize(
     ("appearance", "hidden", "shade"),
-    [("hidden", True, None), ("flash", False, None), ("hit", False, app_module.HIT_SHADE), ("normal", False, None)],
+    [("hidden", True, None), ("flash", False, None), ("hit", False, drawing.HIT_SHADE), ("normal", False, None)],
 )
 def test_enemies_show_how_they_are_doing(app, monkeypatch, appearance, hidden, shade):
     world = play(app)
@@ -77,7 +77,7 @@ def test_enemies_show_how_they_are_doing(app, monkeypatch, appearance, hidden, s
     if shade:
         assert tuple(shown.getColorScale()) == pytest.approx(shade, abs=1e-3)
     if appearance == "flash":
-        assert tuple(shown.getColor()) == pytest.approx(app_module.FLASH_COLOR)
+        assert tuple(shown.getColor()) == pytest.approx(drawing.FLASH_COLOR)
 
 
 def test_a_shield_carrier_shows_its_bubble_only_while_shielded(app, monkeypatch):
@@ -89,7 +89,7 @@ def test_a_shield_carrier_shows_its_bubble_only_while_shielded(app, monkeypatch)
     monkeypatch.setattr(carrier, "appearance", lambda: "armored")
     shown = node(app, carrier)
     assert shown.find("**/shield").isHidden()
-    assert tuple(shown.getColorScale()) == pytest.approx(app_module.ARMORED_SHADE, abs=1e-3)
+    assert tuple(shown.getColorScale()) == pytest.approx(drawing.ARMORED_SHADE, abs=1e-3)
 
 
 def moving(enemy: Enemy, vx: float, vy: float) -> Enemy:
@@ -111,7 +111,7 @@ def test_enemies_turn_to_aim_or_fly(app):
     assert barrel.getR() == pytest.approx(models.facing_roll(-0.5, -0.5))
     assert node(app, diver).getR() == pytest.approx(models.facing_roll(0.3, -0.3))
     assert node(app, swarmer).getR() == pytest.approx(models.facing_roll(0.4, 0.0))
-    assert node(app, mine).getR() == pytest.approx(app_module.MINE_SPIN_SPEED)
+    assert node(app, mine).getR() == pytest.approx(drawing.MINE_SPIN_SPEED)
 
 
 def test_missiles_point_where_they_fly_and_pickups_spin(app):
@@ -122,7 +122,7 @@ def test_missiles_point_where_they_fly_and_pickups_spin(app):
     world.pickups = [pickup]
     world.time = 1.0
     assert node(app, missile).getR() == pytest.approx(models.facing_roll(0.5, 0.5))
-    assert node(app, pickup).getH() == pytest.approx(app_module.PICKUP_SPIN_SPEED)
+    assert node(app, pickup).getH() == pytest.approx(drawing.PICKUP_SPIN_SPEED)
 
 
 def test_the_player_banks_blinks_and_carries_its_secondary_weapon(app):
@@ -132,7 +132,7 @@ def test_the_player_banks_blinks_and_carries_its_secondary_weapon(app):
     player.invulnerable_time = 0.15  # blinking: hidden this tenth of a second
     shown = node(app, player)
     assert shown.isHidden()
-    assert shown.getH() == pytest.approx(-app_module.PLAYER_BANK_ANGLE)
+    assert shown.getH() == pytest.approx(-drawing.PLAYER_BANK_ANGLE)
     assert shown.find("secondary_turret").isHidden()
     world.arsenal.secondary = SecondaryWeapon("turret", aim_x=1.0, aim_y=0.0)
     player.invulnerable_time = 0.0
@@ -150,10 +150,10 @@ def test_bullets_are_sprites_colored_by_who_fired_them(app):
     sniper = Bullet(x=0.0, y=0.0, hostile=True, style="sniper")
     pellet = Bullet(x=0.0, y=0.0, hostile=True, style="pellet")
     warning = Bullet(x=0.0, y=0.0, width=0.008, height=1.0, hostile=True, style="warning", harmless=True)
-    assert app_module._bullet_sprite(player_shot).color == app_module.PLAYER_BULLET_COLOR
-    assert app_module._bullet_sprite(sniper).color == app_module.SNIPER_BULLET_COLOR
-    assert app_module._bullet_sprite(pellet).color == app_module.ENEMY_BULLET_COLOR
-    assert app_module._bullet_sprite(warning).height == 1.0  # as long as the beam: only its sides glow
+    assert bullets.bullet_sprite(player_shot).color == bullets.PLAYER_BULLET_COLOR
+    assert bullets.bullet_sprite(sniper).color == bullets.SNIPER_BULLET_COLOR
+    assert bullets.bullet_sprite(pellet).color == bullets.ENEMY_BULLET_COLOR
+    assert bullets.bullet_sprite(warning).height == 1.0  # as long as the beam: only its sides glow
     world = play(app)
     world.enemy_bullets = [sniper, warning]
     app._sync_nodes()
@@ -190,8 +190,8 @@ def test_enemy_beams_are_lasers_and_their_warnings_thin_red_sprites(app):
     app._sync_nodes()
     assert app.beam_nodes[beam] is node and node.getX() == pytest.approx(0.25)
     assert beam not in app.nodes and warning not in app.nodes
-    sprite = app_module._bullet_sprite(warning)
-    assert sprite.color == app_module.WARNING_BEAM_COLOR and sprite.height == warning.height
+    sprite = bullets.bullet_sprite(warning)
+    assert sprite.color == bullets.WARNING_BEAM_COLOR and sprite.height == warning.height
     world.enemy_bullets = []
     app._sync_nodes()
     assert app.beam_nodes == {}
@@ -249,11 +249,11 @@ def test_the_frames_per_second_can_be_hidden(app, monkeypatch):
 
 def test_enter_does_nothing_while_playing_and_escape_nothing_without_a_menu(app):
     play(app)
-    app.messenger.send(app_module.MENU_CHOOSE_KEY)
+    app.messenger.send(keys.MENU_CHOOSE_KEY)
     assert app.states.state is State.PLAYING
     app.states.transition(State.PAUSED)
     app.menu_view.menu = None  # (no screen of the game is like that: the dev tools' are)
-    app.messenger.send(app_module.BACK_KEY)
+    app.messenger.send(keys.BACK_KEY)
     assert app.states.state is State.PAUSED
 
 
@@ -282,8 +282,8 @@ def test_the_letterbox_follows_the_window(app, monkeypatch):
     region = app.cam.node().getDisplayRegion(0)
     left, right, bottom, top = (region.getLeft(), region.getRight(), region.getBottom(), region.getTop())
     width, height = app.win.getXSize() * (right - left), app.win.getYSize() * (top - bottom)
-    assert width / height == pytest.approx(app_module.GAME_ASPECT, rel=0.02)
-    assert app.getAspectRatio() == app_module.GAME_ASPECT
+    assert width / height == pytest.approx(window.GAME_ASPECT, rel=0.02)
+    assert app.getAspectRatio() == window.GAME_ASPECT
     assert math.isfinite(app.camera_view.area(0.0).top)
 
 

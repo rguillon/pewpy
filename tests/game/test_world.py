@@ -4,16 +4,17 @@ from dataclasses import replace
 import pytest
 
 from pewpy import config
+from pewpy.game.controls import Controls
 from pewpy.game.enemies.enemy import Enemy, make
 from pewpy.game.enemies.kinds import BOSSES, KINDS
 from pewpy.game.enemies.roster import make_enemy
-from pewpy.game.entities import Bullet, Pickup
+from pewpy.game.entities import Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
-from pewpy.game.weapons.bullets import BossBeam, Missile
+from pewpy.game.weapons.bullets import BossBeam, Bullet, Missile
 from pewpy.game.weapons.player.arsenal import LEVELS, MAX_LEVEL, Arsenal
-from pewpy.game.world import Controls, World
-from pewpy.scenery.terrain import GROUND_SPEED
+from pewpy.game.world import World
+from pewpy.scenery.ground.terrain import GROUND_SPEED
 
 DT = 1 / 60
 EMPTY_LEVEL = Level(name="empty", scroll_speed=0.2, waves=())

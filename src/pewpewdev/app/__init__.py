@@ -1,0 +1,87 @@
+"""The game with the dev tools' screens (`make dev`): the main menu also opens the Models, Bosses, Enemy candidates
+and Boss candidates screens (models on show, to work on them, model_screens.py) and the AI learning and AI rating
+screens (ai_screens.py).
+"""
+
+from enum import Enum
+
+from direct.task.Task import Task
+
+from pewpewdev.ai.pilot import Pilot
+from pewpewdev.ai.sessions import Session
+from pewpewdev.app.ai_screens import AI_STATES, AIScreens
+from pewpewdev.app.model_screens import SHOWCASE_STATES
+from pewpewdev.states import DEV_TRANSITIONS, DevState
+from pewpewdev.ui.ai_panel import AIPanel
+from pewpy.app import EFFECTS_RUN_IN
+from pewpy.game.states import State
+from pewpy.ui.menu import Menu, MenuItem
+from pewpy.ui.showcase import ModelShowcase
+
+
+class DevApp(AIScreens):
+    state_transitions = DEV_TRANSITIONS
+    effects_run_in = EFFECTS_RUN_IN | {DevState.AI_LEARNING}
+
+    def _setup_screens(self) -> None:
+        self.showcase: ModelShowcase | None = None
+        self.showcase_page = 0  # the page shown on the Models or Bosses screen
+        self.ai_session: Session | None = None  # learning or rating in the background, on the AI screens
+        self.stopped_ai: list[Session] = []  # stopped, still finishing what they were doing
+        self.pilot: Pilot | None = None  # the AI flying the ship on screen
+        self.ai_watching = ""  # what the AI on screen plays
+        self.ai_panel = AIPanel(self.aspect2d)
+
+    def _main_menu_items(self) -> list[MenuItem]:
+        go = self._go
+        return [
+            *super()._main_menu_items(),
+            MenuItem("Models", go(DevState.MODELS)),
+            MenuItem("Bosses", go(DevState.BOSSES)),
+            MenuItem("Enemy candidates", go(DevState.CANDIDATES)),
+            MenuItem("Boss candidates", go(DevState.BOSS_CANDIDATES)),
+            MenuItem("AI learning", go(DevState.AI_LEARNING)),
+            MenuItem("AI rating", go(DevState.AI_RATING)),
+        ]
+
+    def _menu(self, state: Enum) -> Menu | None:
+        if state in SHOWCASE_STATES:
+            return self._models_menu()
+        return super()._menu(state)
+
+    def _on_state_change(self, previous: Enum, current: Enum) -> None:
+        if current in SHOWCASE_STATES:
+            self.showcase_page = 0  # before the menu: its title shows the page
+        super()._on_state_change(previous, current)
+        if current in SHOWCASE_STATES:
+            self._show_showcase()
+            self.background.root.hide()  # a plain dark background, to look at the models
+        elif self.showcase:
+            self.showcase.destroy()
+            self.showcase = None
+            self.background.root.show()
+        self._switch_ai(previous, current)
+
+    def _update(self, task: Task) -> int:
+        dt = self._frame_time()
+        if self.states.state in AI_STATES:
+            self._update_ai(dt)
+        if self.showcase:
+            self.showcase.update(dt)
+        return super()._update(task)
+
+    def _on_back(self) -> None:
+        if self.menu_view.menu is None and self.states.state in AI_STATES:
+            self.audio.play("menu_back")
+            self.states.transition(State.MAIN_MENU)
+            return
+        super()._on_back()
+
+    def finalizeExit(self) -> None:
+        self._stop_ai()
+        self._finish_stopped_ai(wait=30.0)  # the brains are saved as it stops
+        super().finalizeExit()
+
+
+def main() -> None:
+    DevApp().run()

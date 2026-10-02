@@ -60,7 +60,7 @@ ENEMY_BULLET_DAMAGE: float = _ENEMIES["bullet_damage"]
 ENEMY_RAM_DAMAGE: float = _ENEMIES["ram_damage"]  # damage to the player when an enemy collides with the ship
 
 # Every voxel model is built with cubes of this size, the Swarmer's (its 0.06 hitbox over its 9 columns): a
-# model's size comes from its drawing (see models.py), which should about match its hitbox.
+# model's size comes from its drawing (see pewpy.graphics.models), which should about match its hitbox.
 MODEL_VOXEL = 0.06 / 9
 
 # Model look (placeholder until 05-visuals.md is decided): see lighting.py
