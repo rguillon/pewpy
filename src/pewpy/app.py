@@ -8,14 +8,13 @@ import sys
 from collections.abc import Callable
 from enum import Enum
 from functools import partial
-from typing import Literal
+from typing import Literal, cast
 
 from direct.gui.OnscreenText import OnscreenText
 from direct.showbase.ShowBase import ShowBase
 from direct.task.Task import Task
 from panda3d.core import (
     ButtonThrower,
-    Camera,
     CardMaker,
     GraphicsEngine,
     LineSegs,
@@ -259,8 +258,8 @@ class PewPewApp(ShowBase):
 
         self.menu_view = MenuView(self.aspect2d)
         self._setup_hud()
-        # The level select's window on the highlighted level (none without a window: tests, tools).
-        self.level_preview = LevelPreview(self.win, self.cam, self.render, self.aspect2d) if self.win else None
+        # The level select's window on the highlighted level.
+        self.level_preview = LevelPreview(self.win, self.cam, self.render, self.aspect2d)
         self._fit_letterbox()
         self._setup_screens()
 
@@ -277,11 +276,8 @@ class PewPewApp(ShowBase):
         if self.mouseWatcher is None:  # no window, e.g. offscreen
             return
         for path in self.mouseWatcher.findAllMatches("**/+ButtonThrower"):
-            thrower = path.node()
-            if isinstance(thrower, ButtonThrower):
-                thrower.setModifierButtons(ModifierButtons())
-        if self.mouseWatcherNode is not None:
-            self.mouseWatcherNode.setModifierButtons(ModifierButtons())
+            cast(ButtonThrower, path.node()).setModifierButtons(ModifierButtons())
+        self.mouseWatcherNode.setModifierButtons(ModifierButtons())
 
     def _switch_weapon(self) -> None:
         if self.world is not None and self.states.state is State.PLAYING:
@@ -320,8 +316,6 @@ class PewPewApp(ShowBase):
     def _setup_letterbox(self) -> None:
         # The game keeps its 3:4 shape whatever the window size: the 3D view and the HUD are drawn in a centered
         # region, with black bars around it. The window clears to black, the region to the space color.
-        if self.win is None:
-            return
         self.win.setClearColor((0, 0, 0, 1))
         region = self.camNode.getDisplayRegion(0)
         region.setClearColorActive(True)
@@ -329,14 +323,13 @@ class PewPewApp(ShowBase):
         self._fit_letterbox()
 
     def _fit_letterbox(self) -> None:
-        if self.win is None or not self.win.hasSize():
+        if not self.win.hasSize():
             return
         dimensions = letterbox(self.win.getXSize(), self.win.getYSize())
         for camera in (self.cam, self.cam2d, self.cam2dp):
             node = camera.node()
-            if isinstance(node, Camera):
-                for index in range(node.getNumDisplayRegions()):
-                    node.getDisplayRegion(index).setDimensions(*dimensions)
+            for index in range(node.getNumDisplayRegions()):
+                node.getDisplayRegion(index).setDimensions(*dimensions)
         preview = getattr(self, "level_preview", None)  # not made yet when the window first opens
         if preview is not None:
             preview.fit(dimensions)
@@ -394,7 +387,7 @@ class PewPewApp(ShowBase):
             self.menu_view.refresh()
             self._highlight_ship()
             if self.states.state is State.LEVEL_SELECT:
-                self._preview_level()
+                self._preview_level(menu)
 
     def _on_choose(self) -> None:
         if self.menu_view.menu is not None:
@@ -526,11 +519,8 @@ class PewPewApp(ShowBase):
         played = self.level_index - first if self.places[self.level_index][0] == self.world_index else 0
         return Menu(world.name.upper(), [*items, back], back=back.action, selected=played)
 
-    def _preview_level(self) -> None:
+    def _preview_level(self, menu: Menu) -> None:
         """On the level select: the highlighted level's background in the preview window (none on "Back")."""
-        menu = self.menu_view.menu
-        if self.level_preview is None or menu is None:
-            return
         world = self.worlds[self.world_index]
         if menu.selected >= len(world.levels):
             self.level_preview.hide()
@@ -688,8 +678,8 @@ class PewPewApp(ShowBase):
             )
             time_of_day = level.time_of_day
         self.background = BackgroundView(scenery, self.render, time_of_day)
-        if self.win is not None:  # the sky shows through gaps, like between clouds
-            self.camNode.getDisplayRegion(0).setClearColor(sky_color(scenery.params, time_of_day))
+        # The sky shows through gaps, like between clouds.
+        self.camNode.getDisplayRegion(0).setClearColor(sky_color(scenery.params, time_of_day))
 
     def _continue(self) -> None:
         # Continue restarts the level with full lives, a score of 0 and weapons back to level 1.
@@ -706,15 +696,16 @@ class PewPewApp(ShowBase):
         return self.level_index >= len(self.levels) - 1
 
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
-        self.menu_view.show(self._menu(current))
+        menu = self._menu(current)
+        self.menu_view.show(menu)
         if self.ship_select is not None:
             self.ship_select.destroy()
             self.ship_select = None
         if current is State.SHIP_SELECT:
             self._show_ship_select()
-        if current is State.LEVEL_SELECT:
-            self._preview_level()
-        elif self.level_preview is not None:
+        if current is State.LEVEL_SELECT and menu is not None:
+            self._preview_level(menu)
+        else:
             self.level_preview.clear()
         if current is State.MAIN_MENU:
             self.world = None
@@ -747,8 +738,7 @@ class PewPewApp(ShowBase):
             self.effects.update(dt)
         if self.ship_select:
             self.ship_select.update(dt)
-        if self.level_preview is not None:
-            self.level_preview.update(dt)
+        self.level_preview.update(dt)
         self._update_audio(dt)
         self._sync_nodes()
         self._update_hud()
@@ -783,13 +773,21 @@ class PewPewApp(ShowBase):
         self.effects_view.sync()
         self.background.sync()
 
-        entities = self.world.entities() if self.world else []
+        world = self.world
+        entities = world.entities() if world else []
         self.bullet_sprites.show([_bullet_sprite(entity) for entity in entities if _is_round_bullet(entity)])
         entities = [entity for entity in entities if not _is_round_bullet(entity)]
         alive = set(entities)
         for entity in [entity for entity in self.nodes if entity not in alive]:
             self.nodes.pop(entity).removeNode()
             self.flames.pop(entity, None)
+        if world is not None:
+            self._show_entities(world, entities)
+        self._show_laser()
+        self._show_bolt()
+
+    def _show_entities(self, world: World, entities: list[Entity]) -> None:
+        """Place the models of what's on screen (all but the round bullets), each turned and shaded as it is now."""
         for entity in entities:
             node = self.nodes.get(entity)
             if node is None:
@@ -802,15 +800,13 @@ class PewPewApp(ShowBase):
                 node.hide() if blink_off else node.show()
                 node.setH(-entity.vx / entity.ship.speed * PLAYER_BANK_ANGLE)  # roll around the nose axis
                 self._show_secondary(node)
-            elif isinstance(entity, Enemy) and self.world is not None:
+            elif isinstance(entity, Enemy):
                 self._show_enemy_appearance(entity, node)
-                self._orient_enemy(entity, node, self.world.player)
+                self._orient_enemy(entity, node, world.player)
             elif isinstance(entity, Missile):
                 node.setR(models.facing_roll(entity.vx, entity.vy))
-            elif isinstance(entity, Pickup) and self.world is not None:
-                node.setH(self.world.time * PICKUP_SPIN_SPEED)
-        self._show_laser()
-        self._show_bolt()
+            else:  # a pickup
+                node.setH(world.time * PICKUP_SPIN_SPEED)
 
     def _show_secondary(self, ship: NodePath) -> None:
         secondary = self.world.arsenal.secondary if self.world else None

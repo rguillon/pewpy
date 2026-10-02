@@ -165,3 +165,8 @@ def test_no_ground_enemies_over_water_or_clouds():
                 wave.enemy for wave in level.waves if wave.enemy in ENEMY_TYPES and ENEMY_TYPES[wave.enemy].ground
             ]
             assert ground == [], level.name
+
+
+def test_a_wave_with_an_unknown_key_says_so():
+    with pytest.raises(LevelError, match="speed"):
+        parse_level({"waves": [{"time": 1, "speed": 2}]})

@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 from pewpy.scenery import params
@@ -67,10 +69,16 @@ def test_a_ground_can_be_given_to_a_preset_without_one():
         ("forest", {"ground": {"colors": {"tree_d": [0, 0, 0]}}}, "unknown ['tree_d']"),
         ("city", {"settlement": {"kind": "village"}}, "unknown 'village'"),
         ("ocean", {"fluid": {"kind": "lava"}}, "missing ['crust', 'hot']"),
+        ("space", {"sky": None}, "space.sky: missing (null)"),
+        ("forest", {"ground": {"colors": [1]}}, "forest.ground.colors: expected an object"),
+        ("space", {"stars": 3}, "space.stars: expected an object"),
+        ("ocean", {"stars": {"count": 3}}, "ocean.stars: missing ['depth', 'layers']"),
+        ("forest", {"ground": {"style": "chalk"}}, "unknown 'chalk'"),
+        ("city", {"settlement": {"kind": 3}}, "city.settlement.kind: expected a name"),
     ],
 )
 def test_mistakes_are_reported_with_where_they_are(background, changes, message):
-    with pytest.raises(SceneryError, match=message.replace("[", r"\[").replace("]", r"\]")):
+    with pytest.raises(SceneryError, match=re.escape(message)):
         resolve(background, changes)
 
 

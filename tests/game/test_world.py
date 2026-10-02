@@ -684,3 +684,12 @@ def test_homing_missiles_and_the_turret_aim_at_enemies_above_the_play_area_still
     world.player_bullets.append(Missile(x=0.0, y=0.0, vy=1.6, homing=True))
     world._move_shots(DT)
     assert world.player_bullets[0].vx > 0  # turning towards the high enemy
+
+
+def test_an_enemy_already_destroyed_takes_no_more_damage():
+    world = make_world()
+    drone = Drone(x=0.0, y=0.5)
+    drone.alive = False
+    world.enemies = [drone]
+    world._damage(drone, 10.0)
+    assert world.score == 0

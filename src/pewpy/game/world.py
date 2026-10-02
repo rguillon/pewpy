@@ -3,6 +3,7 @@
 import math
 import random
 from dataclasses import dataclass
+from typing import cast
 
 from pewpy import config
 from pewpy.game.boss_catalog import BOSSES
@@ -173,8 +174,8 @@ class World:
         for entity in created:
             if isinstance(entity, Enemy):
                 self.enemies.append(entity)
-            elif isinstance(entity, Bullet):
-                self.enemy_bullets.append(entity)
+            else:  # what enemies make is enemies or their shots
+                self.enemy_bullets.append(cast(Bullet, entity))
 
     def in_sight(self, enemy: Enemy) -> bool:
         """Whether `enemy`'s middle is on the screen (which shows more than the play area: higher and wider), so the

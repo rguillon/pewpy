@@ -129,9 +129,6 @@ class SpriteBatch:
         else:
             self.node.hide()
 
-    def destroy(self) -> None:
-        self.node.removeNode()
-
 
 def pack(sprites: list[Sprite], capacity: int) -> bytes:
     """The float texture's data: a row of positions and widths, then a row of colors and heights.

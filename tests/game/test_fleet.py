@@ -311,3 +311,9 @@ def test_every_fleet_enemy_is_in_the_models_and_nothing_is_left_out():
     assert set(FLEET) == {kind.drawing for kind in FLEET.values()}
     assert all(issubclass(kind, Enemy) and not kind.ground for kind in FLEET.values())
     assert fleet.VOXEL == config.MODEL_VOXEL
+
+
+def test_a_hoverer_does_nothing_while_it_stays_unless_told_to():
+    hoverer = fleet.Hoverer(x=0.0, y=0.5, phase="stay")
+    assert hoverer.behave(0.1, Entity(), 0.0) == []
+    assert hoverer.phase == "stay"

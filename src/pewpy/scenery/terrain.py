@@ -11,7 +11,6 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from pewpy import config
 from pewpy.scenery import relief, settlement
 from pewpy.scenery.grounds import FLORAS, LANDSCAPES, SETTLEMENTS, outposts
 from pewpy.scenery.params import SceneryParams
@@ -34,11 +33,6 @@ class Area:
     right: float
     bottom: float
     top: float
-
-    @classmethod
-    def play_area(cls) -> "Area":
-        half_width, half_height = config.PLAY_WIDTH / 2, config.PLAY_HEIGHT / 2
-        return cls(-half_width, half_width, -half_height, half_height)
 
     @property
     def width(self) -> float:

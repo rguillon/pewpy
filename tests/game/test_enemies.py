@@ -321,3 +321,16 @@ def test_buckshots_fire_two_blasts_of_small_pellets_then_dive_away():
     assert all(pellet.width == Buckshot.pellet_size for pellet in pellets)
     assert len({round(math.hypot(p.vx, p.vy), 3) for p in pellets[: Buckshot.pellets]}) > 1  # a spray, not a line
     assert buckshot.phase == "leave" and buckshot.vy < 0
+
+
+def test_a_waiting_diver_blinks():
+    diver = Diver(phase="wait", wait_time=0.15)
+    assert diver.appearance() == "hidden"
+    diver.wait_time = 0.25
+    assert diver.appearance() == "normal"
+
+
+def test_a_hunter_turns_back_at_the_edge_of_the_screen():
+    hunter = Hunter(x=HALF_WIDTH, y=0.6, vx=0.12, phase="stay")
+    hunter.behave(0.01, TARGET, 0.0)
+    assert hunter.vx == -0.12

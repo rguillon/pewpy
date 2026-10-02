@@ -184,3 +184,9 @@ def test_clouds_always_float_above_the_highest_ground():
         layers = scenery.mist.layers
         assert all(depth <= layer.depth for depth, layer in zip(depths, layers, strict=True))
         assert all(depth > 0 for depth in depths)  # still behind the ships
+
+
+def test_a_drifter_blown_off_the_left_comes_back_on_the_right():
+    cloud = Drifter(AREA.left - 0.05, 0.0, size=0.1, speed_factor=0.0, wind=-0.1)
+    DriftLayer("mist", 0.1, AREA, [cloud]).update(1.0, scroll_speed=0.0)
+    assert AREA.right - 0.1 < cloud.x <= AREA.right + cloud.size

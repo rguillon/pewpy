@@ -73,3 +73,32 @@ def test_wav_bytes_are_a_wav_file():
     data = synth.wav_bytes(np.zeros((100, 2)))
     with wave.open(io.BytesIO(data)) as read:
         assert (read.getnchannels(), read.getframerate(), read.getnframes()) == (2, RATE, 100)
+
+
+def test_a_low_pass_above_what_can_be_heard_changes_nothing():
+    signal = synth.oscillator("saw", np.full(1000, 440.0))
+    assert synth.lowpass(signal, RATE) is signal
+
+
+def test_a_key_held_to_the_end_is_never_released():
+    level = synth.envelope(RATE // 10, RATE // 10, attack=0.001, decay=0.01, sustain=0.5, release=0.05)
+    assert level[-1] == pytest.approx(0.5, abs=0.01)
+
+
+def test_the_echo_stops_at_the_end_of_the_sound():
+    short = np.ones((100, 2))
+    echoed = synth._echo(short, seconds=50 / RATE, repeats=5)  # only the first repeat fits
+    assert np.count_nonzero(echoed[:, 1]) > 0 and np.count_nonzero(echoed[:50]) == 0
+
+
+def test_what_starts_past_the_end_is_left_out():
+    target = np.zeros((10, 2))
+    synth._place(target, np.ones((5, 2)), 10)
+    assert not target.any()
+    late_kick = Song(tempo=120.0, notes=[Note(100.0, 0.25, 36, 120, DRUMS)])
+    assert synth._ducking(late_kick, 1000).min() == 1.0
+
+
+def test_toms_ring_in_the_reverb():
+    toms = Song(tempo=120.0, notes=[Note(0.0, 0.25, 45, 120, DRUMS)], length=1.0)
+    assert np.std(synth.render(toms)) > 0

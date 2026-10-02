@@ -41,7 +41,11 @@
   rendering: `app.py` only handles window, input and drawing, so the logic is tested without opening a window.
   Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpewdev`: the AI, the content tools, the dev
   screens) have none, only the linters and the type checker.
-- Headless tests (Panda3D `window-type none`) acceptable? TBD
+- Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
+  fails below it. Code that can't happen is removed rather than tested.
+- The app itself (screens, drawing, HUD) is tested too, without a display: one app for the whole test session,
+  drawing into an offscreen buffer through EGL (`load-display p3headlessgl`), silent, its songs not rendered
+  (`tests/conftest.py`). CI installs the EGL and Mesa libraries for it.
 
 ## Crash reports
 

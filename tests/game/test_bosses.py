@@ -230,3 +230,15 @@ def test_snaking_and_pellet_shots():
     pellet = bosses.styled_bullet(Gun("fan", interval=1.0, speed=0.5, style="pellet"), Entity(), 0.0, -0.5)
     assert type(wave).__name__ == "WaveBullet"
     assert pellet.width < 0.03
+
+
+def test_a_boss_lights_up_when_hit_and_its_parts_too():
+    boss = make_boss(BOSSES["rockbreaker"], 0.0, 1.0)
+    boss.pause = 0.0
+    boss.flash_time = 0.1
+    assert boss.appearance() == "hit"
+    assert boss.drawing == BOSSES["rockbreaker"].drawing
+    part = boss.parts[0]
+    assert part.appearance() == "normal"
+    part.flash_time = 0.1
+    assert part.appearance() == "hit"

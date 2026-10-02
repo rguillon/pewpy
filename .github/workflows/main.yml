@@ -43,6 +43,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install the graphics libraries (the app's tests draw offscreen through EGL, without a display)
+        run: sudo apt-get update && sudo apt-get install -y libegl1 libgl1 libgl1-mesa-dri
+
       - name: Run tests
         run: uv run python -m pytest tests --cov --cov-config=pyproject.toml --cov-report=xml
 

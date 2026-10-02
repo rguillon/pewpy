@@ -67,12 +67,9 @@ class StarLayer:
 
 
 class Starfield:
-    def __init__(
-        self, stars: Stars, count: int | None = None, seed: int | None = None, area: Area | None = None
-    ) -> None:
-        """`count`: in all (default: the stars' count)."""
+    def __init__(self, stars: Stars, area: Area, count: int | None = None, seed: int | None = None) -> None:
+        """Stars over `area`; `count`: in all (default: the stars' count)."""
         rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
-        area = area or Area.play_area()
         count = stars.count if count is None else count
         self.layers = [
             StarLayer(
@@ -157,7 +154,7 @@ class Scenery:
             stars = scenery.stars
             area = view.area(stars.depth)
             count = round(stars.count * area.width * area.height / (config.PLAY_WIDTH * config.PLAY_HEIGHT))
-            self.starfield = Starfield(stars, count, self._seed(), area)
+            self.starfield = Starfield(stars, area, count, self._seed())
         if scenery.nebulas is not None:
             self.layers.append(self._clouds(view.area(scenery.nebulas.depth)))
         if scenery.planet is not None:

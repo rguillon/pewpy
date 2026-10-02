@@ -111,6 +111,9 @@ preview = true
 
 [tool.coverage.report]
 skip_empty = true
+fail_under = 100  # every line and branch of the game (src/pewpy) is tested
+show_missing = true
+skip_covered = true
 
 [tool.coverage.run]
 branch = true

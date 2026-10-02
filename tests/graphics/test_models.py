@@ -433,3 +433,74 @@ def test_an_engine_can_sit_above_the_middle_plane():
     assert engine.z == 2.0
     flame = models.add_flame(NodePath("ship"), engine, (1, 1), 0.5)
     assert flame.getY() == pytest.approx(-1.0)  # towards the camera (-Y)
+
+
+def test_a_quad_splits_along_its_brighter_diagonal():
+    corners = (Vec3(0, 0, 0), Vec3(1, 0, 0), Vec3(1, 0, 1), Vec3(0, 0, 1))
+    for brightness, diagonal in (((0.5, 1, 0.5, 1), (1, 3)), ((1, 0.5, 1, 0.5), (0, 2))):
+        mesh = models.MeshBuilder()
+        mesh.quad(*corners, (1, 1, 1, 1), Vec3(0, 1, 0), brightness)
+        triangles = triangles_of(mesh.build("quad"))
+        shared = set.intersection(*({tuple(round(v, 6) for v in point) for point in points} for points, _ in triangles))
+        assert shared == {tuple(corners[index]) for index in diagonal}
+
+
+def test_an_empty_mesh_builds_an_empty_node():
+    mesh = models.MeshBuilder()
+    mesh.cells({}, 1.0, Vec3(0, 0, 0))
+    assert mesh.build("nothing").getGeom(0).getVertexData().getNumRows() == 0
+
+
+def test_main_colors_skip_see_through_parts_and_look_under_empty_nodes():
+    holder = NodePath("holder")
+    models.shield_bubble_model().reparentTo(holder)  # all see-through
+    assert models.main_colors(holder) == ((1.0, 1.0, 1.0, 1.0),)  # nothing solid: white
+    models.drone_model().reparentTo(holder)
+    assert models.main_colors(holder) == models.main_colors(models.drone_model())
+
+
+def test_a_drawings_engines_are_read_from_its_file():
+    engines = models.load_engines("drone")
+    assert engines and all(isinstance(engine, models.Engine) for engine in engines)
+
+
+def test_a_model_can_be_a_magicavoxel_file(monkeypatch, tmp_path):
+    folder = tmp_path / models.DRAWINGS_FOLDER / "ships"
+    folder.mkdir(parents=True)
+    (folder / "box.vox").write_bytes(vox.write(vox.VoxModel((1, 1, 1), [(0, 0, 0, 1)], [(255, 0, 0, 255)])))
+    (folder / "box.json").write_text('{"vox": "box.vox", "scale": 2}')
+    (folder / "lost.json").write_text('{"vox": "nowhere.vox"}')
+    (folder / "odd.json").write_text('{"vox": 3}')
+    monkeypatch.setattr(models, "data_folder", lambda: tmp_path)
+    voxels = models.load_voxels("ships/box")
+    assert voxels.cells == {(0, 0, 0): (1.0, 0.0, 0.0, 1.0)} and voxels.scale == 2
+    with pytest.raises(models.VoxelDrawingError, match=r"nowhere\.vox"):
+        models.load_voxels("ships/lost")
+    with pytest.raises(models.VoxelDrawingError, match="file name"):
+        models.load_voxels("ships/odd")
+
+
+@pytest.mark.parametrize(
+    ("data", "problem"),
+    [
+        ({"layers": [["a"]], "palette": ["a"]}, "map characters to a color"),
+        ({"rows": ["a"], "palette": ["a"]}, "map characters to a color and a height"),
+        ({"rows": ["a"], "palette": {"a": {"color": RED, "height": 1}}, "engines": {}}, "must be a list"),
+    ],
+)
+def test_palettes_and_engines_of_the_wrong_kind_are_refused(data, problem):
+    with pytest.raises(models.VoxelDrawingError, match=problem):
+        models.parse_voxels(data, "ship.json")
+        models.parse_engines(data, "ship.json")
+
+
+def test_an_engine_height_must_be_a_number():
+    engine = {"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": "up"}
+    with pytest.raises(models.VoxelDrawingError, match="'z' must be a number"):
+        models.parse_engines({"rows": ["a"], "engines": [engine]}, "ship.json")
+
+
+def test_magicavoxel_takes_at_most_255_colors():
+    cells = {(index, 0, 0): (index % 256 / 255, float(index // 256), 0.0, 1.0) for index in range(300)}
+    with pytest.raises(models.VoxelDrawingError, match="255 colors"):
+        models.voxels_to_vox(models.Voxels(cells, 300, 1))

@@ -1,5 +1,6 @@
 import sys
 import threading
+from typing import Any, cast
 
 import pytest
 
@@ -109,3 +110,83 @@ def test_the_log_goes_to_the_users_folders(monkeypatch, tmp_path):
     monkeypatch.setattr(crash.sys, "platform", "win32")
     monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
     assert crash.crash_log() == tmp_path / "pewpy" / "crash.log"
+
+
+def test_the_log_without_a_state_folder_set_or_a_home(monkeypatch, tmp_path):
+    monkeypatch.setattr(crash.sys, "platform", "linux")
+    monkeypatch.delenv("XDG_STATE_HOME", raising=False)
+    monkeypatch.setattr(crash.Path, "home", lambda: tmp_path)
+    assert crash.crash_log() == tmp_path / ".local" / "state" / "pewpy" / crash.LOG_NAME
+
+    def homeless() -> crash.Path:
+        raise RuntimeError
+
+    monkeypatch.setattr(crash.Path, "home", homeless)
+    assert crash.crash_log() is None
+    assert crash.write_report(caught()) is None
+
+
+def test_a_log_that_cant_be_written_is_skipped(monkeypatch, tmp_path, capsys):
+    blocked = tmp_path / "a file, not a folder"
+    blocked.write_text("")
+    monkeypatch.setattr(crash.sys, "platform", "linux")
+    monkeypatch.setenv("XDG_STATE_HOME", str(blocked))
+    crash.handle(caught())
+    err = capsys.readouterr().err
+    assert "pewpy crashed" in err and "Full report" not in err
+
+
+def test_an_error_reported_twice_is_printed_once(state_folder, capsys):
+    error = caught()
+    crash.handle(error)
+    capsys.readouterr()
+    crash.handle(error)  # Panda3D passes it on after printing it through the hook
+    assert capsys.readouterr().err == ""
+    assert (state_folder / crash.LOG_NAME).is_file()
+
+
+def test_the_hooks_report_crashes_but_not_ctrl_c_or_exits(state_folder, monkeypatch, capsys):
+    passed_on = []
+    monkeypatch.setattr(crash.sys, "__excepthook__", lambda *args: passed_on.append(args[0]))
+    crash._excepthook(KeyboardInterrupt, KeyboardInterrupt(), None)
+    assert passed_on == [KeyboardInterrupt]
+    error = ValueError("in the game loop")
+    crash._excepthook(ValueError, error, None)
+    assert "ValueError: in the game loop" in capsys.readouterr().err
+
+    class Args:
+        exc_type = SystemExit
+        exc_value = SystemExit(0)
+        exc_traceback = None
+        thread = None
+
+    crash._thread_excepthook(cast("Any", Args()))  # a stand-in for threading's
+    assert capsys.readouterr().err == ""
+
+
+def test_native_crashes_print_every_thread(monkeypatch):
+    enabled = []
+    monkeypatch.setattr(sys, "excepthook", sys.excepthook)
+    monkeypatch.setattr(threading, "excepthook", threading.excepthook)
+    monkeypatch.setattr(crash.faulthandler, "is_enabled", lambda: False)
+    monkeypatch.setattr(crash.faulthandler, "enable", lambda **kwargs: enabled.append(kwargs["all_threads"]))
+    crash.install()
+    assert enabled == [True]
+
+
+def test_python_dash_m_pewpy_runs_the_game_reporting_crashes(monkeypatch):
+    import runpy
+
+    from pewpy import app
+
+    ran = []
+    monkeypatch.setattr(crash, "run", lambda main: ran.append(main))
+    runpy.run_module("pewpy", run_name="__main__")
+    assert ran == [app.main]
+    import importlib
+
+    import pewpy.__main__
+
+    ran.clear()
+    importlib.reload(pewpy.__main__)  # imported, not run: the game doesn't start
+    assert ran == []

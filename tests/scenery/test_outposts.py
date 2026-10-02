@@ -84,3 +84,10 @@ def test_some_compounds_are_paved_and_some_stand_on_the_ground():
 def test_unknown_compounds_are_reported():
     with pytest.raises(SceneryError, match=r"outposts\.kinds"):
         params.resolve("forest", {"outposts": {"kinds": ["castle"]}})
+
+
+def test_a_ground_too_small_for_a_compound_has_none():
+    shape = bumpy(rows=10, columns=10)  # 0.2 x 0.18: smaller than any compound
+    flattened, props, sites = outposts.build(random.Random(0), shape, STEP, KNOBS, fluid=False)  # noqa: S311
+    assert (sites, props) == ([], [])
+    assert np.array_equal(flattened.heights, shape.heights)

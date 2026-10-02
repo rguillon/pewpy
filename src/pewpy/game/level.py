@@ -127,10 +127,7 @@ def parse_level(data: dict[str, Any], source: str = "level") -> Level:
         _check_keys(wave_data, wave_keys, where)
         if "time" not in wave_data:
             raise LevelError(where, "missing 'time'")
-        try:
-            wave = Wave(**wave_data)
-        except TypeError as error:
-            raise LevelError(where, str(error)) from error
+        wave = Wave(**wave_data)  # its keys checked above
         _check_choice(wave.enemy, {**ENEMY_TYPES, **BOSSES}, "enemy", where)
         _check_choice(wave.side, SIDES, "side", where)
         _check_choice(wave.formation, FORMATIONS, "formation", where)

@@ -71,3 +71,46 @@ def test_the_cache_is_in_the_users_cache_folder(monkeypatch, tmp_path):
     monkeypatch.setattr(library_module.sys, "platform", "linux")
     monkeypatch.setenv("XDG_CACHE_HOME", str(tmp_path))
     assert library_module.cache_folder() == tmp_path / "pewpy" / "music"
+
+
+def test_the_cache_on_windows_and_without_a_home(monkeypatch, tmp_path):
+    monkeypatch.setattr(library_module.sys, "platform", "win32")
+    monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
+    assert library_module.cache_folder() == tmp_path / "pewpy" / "music"
+    monkeypatch.delenv("LOCALAPPDATA")
+    assert library_module.cache_folder() is None
+    monkeypatch.setattr(library_module.sys, "platform", "linux")
+    monkeypatch.delenv("XDG_CACHE_HOME", raising=False)
+    monkeypatch.setattr(library_module.Path, "home", lambda: tmp_path)
+    assert library_module.cache_folder() == tmp_path / ".cache" / "pewpy" / "music"
+
+    def homeless() -> Path:
+        raise RuntimeError
+
+    monkeypatch.setattr(library_module.Path, "home", homeless)
+    assert library_module.cache_folder() is None
+
+
+def test_a_folder_without_songs(tmp_path):
+    assert Library(tmp_path / "nowhere", None).names() == []
+
+
+def test_a_song_still_plays_when_the_cache_cant_be_written(songs, tmp_path):
+    blocked = tmp_path / "a file, not a folder"
+    blocked.write_text("")
+    library = Library(songs, blocked / "cache")
+    assert library.wav("tune")[:4] == b"RIFF"
+    assert library.cached("tune") is None
+    assert library.cached("missing") is None
+
+
+def test_requests_wait_their_turn_unless_wanted_first(songs, monkeypatch):
+    library = Library(songs, None)
+    monkeypatch.setattr(library, "_start", lambda: None)  # nothing renders: only the queue is looked at
+    (songs / "other.mid").write_bytes((songs / "tune.mid").read_bytes())
+    library.request("tune", first=False)
+    library.request("other", first=False)
+    assert list(library._queue) == [("tune", True), ("other", True)]
+    library.request("other")  # wanted now: first in line
+    assert list(library._queue) == [("other", True), ("tune", True)]
+    assert not library.wait(timeout=0.1)  # still waiting: it gives up
