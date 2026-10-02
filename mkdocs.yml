@@ -21,6 +21,7 @@ nav:
       - UI and Audio: specs/04-ui-audio.md
       - Visuals: specs/05-visuals.md
       - Technical: specs/06-technical.md
+      - AI player: specs/07-ai.md
       - Roadmap: specs/roadmap.md
   - Modules: modules.md
 plugins:
@@ -28,7 +29,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: ["src/pewpy"]
+          paths: ["src"]
 theme:
   name: material
   feature:

@@ -1,19 +1,19 @@
-::: pewpy.states
+::: pewpy.game.states
 
-::: pewpy.world
+::: pewpy.game.world
 
-::: pewpy.level
+::: pewpy.game.level
 
-::: pewpy.enemies
+::: pewpy.game.enemies
 
-::: pewpy.player
+::: pewpy.game.player
 
-::: pewpy.weapons
+::: pewpy.game.weapons
 
-::: pewpy.entities
+::: pewpy.game.entities
 
-::: pewpy.background
+::: pewpy.scenery.background
 
-::: pewpy.models
+::: pewpy.graphics.models
 
 ::: pewpy.config
