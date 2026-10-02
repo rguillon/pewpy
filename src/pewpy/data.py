@@ -11,11 +11,8 @@ from importlib import resources
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:  # only for the type checker: where it lives depends on the Python version
-    if sys.version_info >= (3, 11):
-        from importlib.resources.abc import Traversable
-    else:
-        from importlib.abc import Traversable
+if TYPE_CHECKING:  # only for the type checker
+    from importlib.resources.abc import Traversable
 
 SOURCE_DATA = Path(__file__).resolve().parents[2] / "data"  # src/pewpy/data.py: two folders up, then data/
 

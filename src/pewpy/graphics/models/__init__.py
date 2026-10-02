@@ -55,7 +55,6 @@ from pewpy.graphics.models.mesh.builder import (
     GLOW_UVS,
     NO_BEVEL,
     QUAD_UVS,
-    VERTEX_DTYPE,
     WATER_UV,
     MeshBuilder,
 )
@@ -105,7 +104,6 @@ __all__ = [
     "PALETTE_KEYS",
     "QUAD_UVS",
     "UV",
-    "VERTEX_DTYPE",
     "VOX_KEYS",
     "WATER_UV",
     "BoolArray",

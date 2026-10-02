@@ -10,7 +10,7 @@ import random
 
 from panda3d.core import LineSegs, NodePath
 
-from pewpy.app.bullets import MAX_BULLETS, bullet_sprite, is_beam, is_round_bullet
+from pewpy.app.bullets import BULLET_BODY, MAX_BULLETS, bullet_sprite, is_beam, is_round_bullet
 from pewpy.app.entity_models import SECONDARY_COLORS, shielded
 from pewpy.app.hud import Hud
 from pewpy.app.window import Color
@@ -60,9 +60,9 @@ class Drawing(Hud):
     flames: dict[Entity, list[tuple[NodePath, float]]]  # engine flames and their steady length
 
     def _setup_drawing(self) -> None:
-        # Bullets are soft round sprites (missiles have a model): solid in the middle, fading at the edge.
+        # Bullets are balls of energy (missiles have a model): solid in the middle, in a glowing halo.
         self.bullet_sprites = SpriteBatch(
-            self.render, self.cam.node().getLens(), MAX_BULLETS, glow=False, core=0.45, hot=0.35
+            self.render, self.cam.node().getLens(), MAX_BULLETS, glow=False, core=BULLET_BODY, hot=0.35
         )
         self.laser_node = models.laser_beam_model()
         self.laser_node.reparentTo(self.render)

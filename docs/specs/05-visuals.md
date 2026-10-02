@@ -11,8 +11,10 @@
   from its drawing, about its hitbox (bigger ships have more cubes; a boss is up to about 70 cubes wide). Shiny look: per-pixel lighting,
   specular highlights, reflections of a made-up space environment, bevelled voxel edges and ambient occlusion
   (`graphics/lighting.py`, `graphics/models/`). The shield bubble is a smooth see-through effect; the laser is light (see "Laser" below); bullets
-  are soft round dots facing the camera: solid in the middle, fading out towards the edge (ovals for the
-  player's long bullets, which are bright green), about 1.8 times their hitbox (`sprites.py`).
+  are balls of energy facing the camera: a white-hot core in a solid body of the bullet's color, about its hitbox,
+  with a brighter rim and an edge that ripples, the core throbbing, in a halo of light added to what's behind
+  (ovals for the player's long bullets, which are bright green); with the halo, about 3.2 times their hitbox
+  (`sprites.py`, `app/bullets.py`).
 - Color palette / mood: TBD
 - Target resolution and scaling (pixel-perfect?): TBD
 

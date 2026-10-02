@@ -1,8 +1,9 @@
 """Soft round sprites, drawn all at once: bullets, sparks, fireballs.
 
 Each sprite is a circle (or an oval) that always faces the camera: solid in the middle, fading out towards its
-edge. Like the particles, there is one small square drawn once per sprite (instancing), placed by the shader
-from a float texture holding every sprite's position, size and color, filled each frame.
+edge. An energy ball (a bullet) is drawn instead as a white-hot core in a colored body whose edge ripples, in a halo
+of light added to what's behind. Like the particles, there is one small square drawn once per sprite (instancing),
+placed by the shader from a float texture holding every sprite's position, size, color and energy, filled each frame.
 """
 
 import math
@@ -16,7 +17,6 @@ from panda3d.core import (
     OmniBoundingVolume,
     Shader,
     Texture,
-    TransparencyAttrib,
     Vec3,
 )
 
@@ -28,13 +28,14 @@ VERTEX_SHADER = """
 #version 150
 
 uniform mat4 p3d_ModelViewProjectionMatrix;
-uniform sampler2D sprites;  // row 0: position (x, depth, y) and width, row 1: color and height
+uniform sampler2D sprites;  // row 0: position (x, depth, y) and width, row 1: color and height, row 2: energy, phase
 uniform vec2 focal;  // the lens's focal lengths: world size at the sprite's distance -> screen size
 
 in vec4 p3d_Vertex;  // a square from -0.5 to 0.5 across (x) and up (z)
 
 out vec2 v_corner;
 out vec4 v_color;
+out vec2 v_energy;
 
 void main() {
     vec4 place = texelFetch(sprites, ivec2(gl_InstanceID, 0), 0);
@@ -46,17 +47,20 @@ void main() {
     gl_Position.xy += p3d_Vertex.xz * size * focal;
     v_corner = p3d_Vertex.xz * 2.0;  // -1 to 1 across the sprite
     v_color = vec4(look.rgb, 1.0);
+    v_energy = texelFetch(sprites, ivec2(gl_InstanceID, 2), 0).rg;
 }
 """
 
 FRAGMENT_SHADER = """
 #version 150
 
-uniform float core;  // how much of the radius is solid before the edge fades out
+uniform float core;  // how much of the radius is solid before the edge fades out (an energy ball's body)
 uniform float hot;  // how much whiter the middle is
+uniform float osg_FrameTime;
 
 in vec2 v_corner;
 in vec4 v_color;
+in vec2 v_energy;  // how much of an energy ball it is (0: a soft dot), and where its rippling starts (radians)
 
 out vec4 fragment_color;
 
@@ -67,7 +71,22 @@ void main() {
     }
     float opacity = 1.0 - smoothstep(core, 1.0, distance);
     vec3 color = mix(v_color.rgb, vec3(1.0), hot * (1.0 - smoothstep(0.0, core, distance)));
-    fragment_color = vec4(color * opacity, opacity);  // premultiplied: works for both blend modes
+    vec4 soft = vec4(color * opacity, opacity);  // premultiplied: works for both blend modes
+
+    // Energy ball: its body's edge ripples and its core throbs, each ball in its own time.
+    float time = osg_FrameTime * 9.0 + v_energy.y;
+    float angle = atan(v_corner.y, v_corner.x);
+    float ripple = 0.05 * sin(3.0 * angle + time) + 0.03 * sin(2.0 * angle - 1.3 * time);
+    float inside = distance / (core * (1.0 + ripple));  // below 1 in the body
+    float body = 1.0 - smoothstep(0.65, 1.0, inside);
+    float white = 1.0 - smoothstep(0.0, 0.75 + 0.1 * sin(2.0 * time), inside);
+    float rim = smoothstep(0.4, 0.9, inside) * body;  // a brighter rim: a ball, not a disc
+    vec3 lit = mix(v_color.rgb * (1.0 + 0.4 * rim), vec3(1.0), white);
+    // The halo is only added light (no opacity): it glows over the background without hiding it.
+    float halo = exp(-3.0 * max(distance - core, 0.0) / (1.0 - core)) * (1.0 - smoothstep(0.7, 1.0, distance));
+    vec4 ball = vec4(lit * body + v_color.rgb * 1.3 * halo * (1.0 - body), body);
+
+    fragment_color = mix(soft, ball, v_energy.x);
 }
 """
 
@@ -82,6 +101,8 @@ class Sprite:
     height: float
     color: Color
     depth: float = 0.0  # world Y (away from the camera)
+    energy: float = 0.0  # 1: an energy ball (see the module), 0: a soft dot
+    phase: float = 0.0  # where an energy ball's rippling starts (radians): balls side by side don't ripple as one
 
 
 class SpriteBatch:
@@ -115,10 +136,14 @@ class SpriteBatch:
             self.node.setAttrib(
                 ColorBlendAttrib.make(ColorBlendAttrib.MAdd, ColorBlendAttrib.OOne, ColorBlendAttrib.OOne)
             )
-        else:  # "over", with colors already multiplied by their opacity
-            self.node.setTransparency(TransparencyAttrib.MPremultipliedAlpha)
+        else:  # "over", colors already multiplied by their opacity: light with none is only added (no alpha test)
+            self.node.setAttrib(
+                ColorBlendAttrib.make(
+                    ColorBlendAttrib.MAdd, ColorBlendAttrib.OOne, ColorBlendAttrib.OOneMinusIncomingAlpha
+                )
+            )
         self.data = Texture("sprites")
-        self.data.setup2dTexture(capacity, 2, Texture.T_float, Texture.F_rgba32)
+        self.data.setup2dTexture(capacity, 3, Texture.T_float, Texture.F_rgba32)
         self.data.setMinfilter(Texture.FT_nearest)
         self.data.setMagfilter(Texture.FT_nearest)
         self.node.setShaderInput("sprites", self.data)
@@ -136,15 +161,17 @@ class SpriteBatch:
 
 
 def pack(sprites: list[Sprite], capacity: int) -> bytes:
-    """Pack the sprites as the float texture's data: a row of positions and widths, then a row of colors and heights.
+    """Pack the sprites as the float texture's data: rows of positions and widths, colors and heights, energies.
 
-    Panda3D keeps RGBA textures in memory as blue, green, red, alpha: each texel is written in that order, so the
-    shader reads .rgba = (x, depth, y, width) and (red, green, blue, height).
+    The energy row holds each sprite's energy and phase. Panda3D keeps RGBA textures in memory as blue, green, red,
+    alpha: each texel is written in that order, so the shader reads .rgba = (x, depth, y, width), (red, green, blue,
+    height) and (energy, phase, 0, 0).
     """
     padding = [0.0] * (4 * (capacity - len(sprites)))
-    places, looks = [], []
+    places, looks, energies = [], [], []
     for sprite in sprites:
         places += (sprite.y, sprite.depth, sprite.x, sprite.width)
         red, green, blue, _ = sprite.color
         looks += (blue, green, red, sprite.height)
-    return array("f", places + padding + looks + padding).tobytes()
+        energies += (0.0, sprite.phase, sprite.energy, 0.0)
+    return array("f", places + padding + looks + padding + energies + padding).tobytes()

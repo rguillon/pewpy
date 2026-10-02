@@ -3,7 +3,6 @@
 import math
 import random
 from collections.abc import Callable
-from typing import TypeVar
 
 from pewpewdev.tools.candidates.aircraft import (
     Parts,
@@ -26,7 +25,6 @@ MIXES = {
     "aircraft": {"aircraft": 1.0},
     "industrial": {"symmetric": 0.6, "lopsided": 0.4},
 }
-T = TypeVar("T")
 
 
 def features(rows: list[str], symmetric: bool) -> list[float]:
@@ -69,7 +67,7 @@ def ship(rng: Rng, group: str) -> tuple[list[float], Callable[[], dict]] | None:
     return features(rows, symmetric), make
 
 
-def most_different(pool: list[tuple[list[float], T]], count: int) -> list[T]:
+def most_different[T](pool: list[tuple[list[float], T]], count: int) -> list[T]:
     """`count` things of the pool, by their features: each next one is the farthest from all those already kept."""
     kept = [0]
     distance = [math.dist(f, pool[0][0]) for f, _ in pool]

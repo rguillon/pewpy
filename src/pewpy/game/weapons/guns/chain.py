@@ -2,22 +2,19 @@
 
 import math
 from collections.abc import Sequence
-from typing import TypeVar
 
 from pewpy.game.entities import Entity
 from pewpy.game.weapons.guns.gun import Gun
 
-T = TypeVar("T", bound=Entity)
 
-
-def nearest(origin: Entity, targets: Sequence[T], reach: float = math.inf) -> T | None:
+def nearest[T: Entity](origin: Entity, targets: Sequence[T], reach: float = math.inf) -> T | None:
     """Return the target nearest to `origin`, within `reach`."""
     distances = {id(target): math.hypot(target.x - origin.x, target.y - origin.y) for target in targets}
     near = [target for target in targets if distances[id(target)] <= reach]
     return min(near, key=lambda target: distances[id(target)], default=None)
 
 
-def chain(gun: Gun, origin: Entity, targets: Sequence[T]) -> list[T]:
+def chain[T: Entity](gun: Gun, origin: Entity, targets: Sequence[T]) -> list[T]:
     """Return what a "chain" gun strikes.
 
     The nearest target in range of `origin`, then each time the nearest one not struck yet within a jump of the last.

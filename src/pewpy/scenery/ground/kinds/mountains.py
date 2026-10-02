@@ -16,7 +16,7 @@ class Mountains(Landscape):
         """Shape eroded ranges (about `range_size` apart), sharp crests (`crest_size`) and flat valleys between them."""
         ranges = eroded_noise(rng, rows, columns, knobs["range_size"] / step)
         crests = ridged_mountains(rng, rows, columns, knobs["crest_size"] / step, octaves=5)
-        middle, top = np.percentile(ranges, 40), np.percentile(ranges, 90)
+        middle, top = float(np.percentile(ranges, 40)), float(np.percentile(ranges, 90))
         value = ranges + 0.6 * crests * smoothstep(middle, top, ranges)  # sharp crests on the high ground only
         value = normalized(value, 3, 99.7)  # the lowest 3 % flat: valley floors
         return Shape(max_height * value**1.4)

@@ -289,17 +289,24 @@ class MeshBuilder:
         """Build the mesh as a node."""
         positions, normals, colors, uvs = self._arrays()
         count = len(positions) * 3
-        vertices = np.empty(count, dtype=VERTEX_DTYPE)
-        vertices["position"] = positions.reshape(-1, 3)
-        vertices["normal"] = np.repeat(normals, 3, axis=0)
+        # One vertex as the GPU gets it: GeomVertexFormat.getV3n3c4t2(), a single interleaved array of 36 bytes
+        # (position, normal: 3 floats each; color: 4 bytes; uv: 2 floats).
         # Colors are stored as bytes; Panda3D converts a float the same way (in 32 bits, rounding down).
-        vertices["color"] = np.clip(np.floor(colors.reshape(-1, 4).astype(np.float32) * np.float32(255)), 0, 255)
-        vertices["uv"] = uvs.reshape(-1, 2)
+        color_bytes = np.clip(np.floor(colors.reshape(-1, 4).astype(np.float32) * np.float32(255)), 0, 255)
+        fields = (
+            positions.reshape(-1, 3).astype("<f4"),
+            np.repeat(normals, 3, axis=0).astype("<f4"),
+            color_bytes.astype(np.uint8),
+            uvs.reshape(-1, 2).astype("<f4"),
+        )
+        vertices = np.concatenate(
+            [field.view(np.uint8).reshape(count, field.shape[1] * field.itemsize) for field in fields], axis=1
+        )
         data = GeomVertexData(name, GeomVertexFormat.getV3n3c4t2(), Geom.UHStatic)
         data.uncleanSetNumRows(count)
         primitive = GeomTriangles(Geom.UHStatic)
         if count:
-            data.modifyArrayHandle(0).copyDataFrom(vertices.view(np.uint8))
+            data.modifyArrayHandle(0).copyDataFrom(vertices)
             primitive.addConsecutiveVertices(0, count)
         geom = Geom(data)
         geom.addPrimitive(primitive)
@@ -321,7 +328,3 @@ class MeshBuilder:
             return np.zeros((0, 3, 3)), np.zeros((0, 3)), np.zeros((0, 3, 4)), np.zeros((0, 3, 2))
         positions, normals, colors, uvs = (np.concatenate([block[part] for block in blocks]) for part in range(4))
         return positions, normals, colors, uvs
-
-
-# One vertex as the GPU gets it: GeomVertexFormat.getV3n3c4t2(), a single interleaved array of 36 bytes.
-VERTEX_DTYPE = np.dtype([("position", "<f4", 3), ("normal", "<f4", 3), ("color", "u1", 4), ("uv", "<f4", 2)])

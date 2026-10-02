@@ -1,4 +1,4 @@
-"""How bullets look: soft round sprites, colored by who fired them and their style."""
+"""How bullets look: balls of energy, colored by who fired them and their style."""
 
 from pewpy.app.window import Color
 from pewpy.game.entities import Entity
@@ -21,7 +21,9 @@ BULLET_COLORS: dict[str, Color] = {
     "accel": ACCEL_BULLET_COLOR,
     "curve": CURVE_BULLET_COLOR,
 }  # by Bullet.style; enemy shots of any other style (the Buckshot's pellets too) are pink
-BULLET_GLOW = 1.8  # a bullet's sprite, compared with its hitbox
+BULLET_GLOW = 3.2  # a bullet's sprite with its halo, compared with its hitbox
+BULLET_BODY = 0.3  # how much of the sprite's radius is the ball itself (about the hitbox), the rest is its halo
+WARNING_GLOW = 1.8  # a laser's warning, compared with the beam's width
 MAX_BULLETS = 512
 
 
@@ -36,14 +38,17 @@ def is_beam(bullet: Entity) -> bool:
 
 
 def bullet_sprite(bullet: Entity) -> Sprite:
-    """Make a bullet's sprite: a soft circle (an oval for the player's long bullets), a bit bigger than its hitbox.
+    """Make a bullet's sprite: a ball of energy (an oval for the player's long bullets) in a halo.
 
-    The edge fades out, the solid middle is about the hitbox.
+    The ball is about the hitbox; a laser's warning is a soft line instead, its sides fading out.
     """
     if isinstance(bullet, Bullet) and bullet.hostile:
         color = BULLET_COLORS.get(bullet.style, ENEMY_BULLET_COLOR)
         if bullet.style == "warning":  # as long as the beam itself: only its sides fade out
-            return Sprite(bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height, color)
+            return Sprite(bullet.x, bullet.y, bullet.width * WARNING_GLOW, bullet.height, color)
     else:
         color = PLAYER_BULLET_COLOR
-    return Sprite(bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height * BULLET_GLOW, color)
+    phase = id(bullet) % 628 / 100  # the same for the bullet's whole flight
+    return Sprite(
+        bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height * BULLET_GLOW, color, energy=1.0, phase=phase
+    )
