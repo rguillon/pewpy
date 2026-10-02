@@ -22,6 +22,7 @@ MIDRISE = 0.12
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a building: a tower, a mid-rise on a podium, or a plain block."""
     x0, x1, y0, y1 = footprint(prop)
     z0, height = prop.base, prop.height
     walls = varied(rng, rng.choice(c.building_walls))
@@ -49,7 +50,7 @@ def _tower(
     material: int,
     c: PropColors,
 ) -> tuple[float, float, float, float, float]:
-    """A setback tower (one or two narrower tiers), maybe crowned with a mast; a red light on a corner."""
+    """Build a setback tower (one or two narrower tiers), maybe crowned with a mast; a red light on a corner."""
     x0, x1, y0, y1 = footprint_
     top = z0 + height
     floor = z0
@@ -80,7 +81,7 @@ def _stepped(
     roof: tuple[float, float, float],
     material: int,
 ) -> tuple[float, float, float, float, float]:
-    """A mid-rise on a wider, lower podium along one side."""
+    """Build a mid-rise on a wider, lower podium along one side."""
     x0, x1, y0, y1 = footprint_
     podium = z0 + height * rng.uniform(0.25, 0.45)
     mesh.box(x0, x1, y0, y1, z0, podium, walls, material, top=roof, top_material=ROOFING)

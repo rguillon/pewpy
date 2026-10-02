@@ -8,7 +8,7 @@ def rng() -> np.random.Generator:
     return np.random.default_rng(0)
 
 
-def test_mountains_stay_between_the_base_layer_and_their_highest_point():
+def test_mountains_stay_between_the_base_layer_and_their_highest_point() -> None:
     knobs = {"range_size": 1.1, "crest_size": 0.6}
     heights = LANDSCAPES["mountains"].shape(rng(), 200, 80, 0.5, 0.02, knobs).heights
     assert float(np.min(heights)) == 0.0  # flat valley floors

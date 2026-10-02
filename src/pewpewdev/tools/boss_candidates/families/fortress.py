@@ -3,8 +3,8 @@
 from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
-def fortress(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """A square keep with round towers at its corners."""
+def fortress(_rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
+    """Draw a square keep with round towers at its corners."""
     tower = max(3.0, half * 0.25)
     cv.rect(mx - half + tower, mx + half - tower, top + tower, bottom - tower, "h")
     for y in (top + tower, bottom - tower):

@@ -1,6 +1,7 @@
 """The game app drawing a level being played: every kind of thing on screen, the effects, the HUD."""
 
 import math
+from typing import Any, cast
 
 import pytest
 from panda3d.core import ButtonThrower, KeyboardButton, ModifierButtons, MouseWatcher, NodePath
@@ -10,8 +11,9 @@ from pewpy.app import PewPewApp, bullets, drawing, keys, window
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import make_enemy
-from pewpy.game.entities import Pickup
+from pewpy.game.entities import Entity, Pickup
 from pewpy.game.events import Event
+from pewpy.game.level import parse_level
 from pewpy.game.states import State
 from pewpy.game.weapons.bullets import Bullet, Missile
 from pewpy.game.weapons.player.arsenal import Beam
@@ -30,12 +32,12 @@ def play(app: PewPewApp, index: int = 0) -> World:
     return app.world
 
 
-def node(app: PewPewApp, entity) -> NodePath:
+def node(app: PewPewApp, entity: Entity) -> NodePath:
     app._sync_nodes()
     return app.nodes[entity]
 
 
-def test_every_kind_of_ship_gets_its_model(app):
+def test_every_kind_of_ship_gets_its_model(app: PewPewApp) -> None:
     world = play(app)
     world.enemies = [Enemy.of_kind(kind, 0.0, 0.5) for kind in ENEMIES]
     app._sync_nodes()
@@ -45,7 +47,7 @@ def test_every_kind_of_ship_gets_its_model(app):
     assert set(app.nodes) == {world.player}
 
 
-def test_a_boss_and_its_parts_are_drawn_and_its_health_bar_shows_once_on_screen(app):
+def test_a_boss_and_its_parts_are_drawn_and_its_health_bar_shows_once_on_screen(app: PewPewApp) -> None:
     world = play(app)
     boss = make_enemy("rockbreaker", 0.0, 0.0, "left", None, world.view_top)
     boss.y = world.view_top + boss.height  # still above the screen
@@ -57,7 +59,8 @@ def test_a_boss_and_its_parts_are_drawn_and_its_health_bar_shows_once_on_screen(
     assert not app.boss_hud.isHidden()
     assert app.boss_name.getText() == BOSSES["rockbreaker"].name
     app._update_hud()  # the same boss: nothing to change
-    assert node(app, boss) is not None and node(app, boss.parts[0]) is not None
+    assert node(app, boss) is not None
+    assert node(app, boss.parts[0]) is not None
     world.enemies = []
     app._update_hud()
     assert app.boss_hud.isHidden()
@@ -67,7 +70,13 @@ def test_a_boss_and_its_parts_are_drawn_and_its_health_bar_shows_once_on_screen(
     ("appearance", "hidden", "shade"),
     [("hidden", True, None), ("flash", False, None), ("hit", False, drawing.HIT_SHADE), ("normal", False, None)],
 )
-def test_enemies_show_how_they_are_doing(app, monkeypatch, appearance, hidden, shade):
+def test_enemies_show_how_they_are_doing(
+    app: PewPewApp,
+    monkeypatch: pytest.MonkeyPatch,
+    appearance: str,
+    hidden: bool,
+    shade: tuple[float, float, float, float] | None,
+) -> None:
     world = play(app)
     drone = Enemy.of_kind("drone", 0.0, 0.5)
     world.enemies = [drone]
@@ -80,7 +89,7 @@ def test_enemies_show_how_they_are_doing(app, monkeypatch, appearance, hidden, s
         assert tuple(shown.getColor()) == pytest.approx(drawing.FLASH_COLOR)
 
 
-def test_a_shield_carrier_shows_its_bubble_only_while_shielded(app, monkeypatch):
+def test_a_shield_carrier_shows_its_bubble_only_while_shielded(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
     world = play(app)
     carrier = Enemy.of_kind("shield_carrier", 0.0, 0.5)
     world.enemies = [carrier]
@@ -97,7 +106,7 @@ def moving(enemy: Enemy, vx: float, vy: float) -> Enemy:
     return enemy
 
 
-def test_enemies_turn_to_aim_or_fly(app):
+def test_enemies_turn_to_aim_or_fly(app: PewPewApp) -> None:
     world = play(app)
     world.player.x, world.player.y = 0.0, -0.5
     turret = Enemy.of_kind("turret", 0.5, 0.0)
@@ -114,7 +123,7 @@ def test_enemies_turn_to_aim_or_fly(app):
     assert node(app, mine).getR() == pytest.approx(drawing.MINE_SPIN_SPEED)
 
 
-def test_missiles_point_where_they_fly_and_pickups_spin(app):
+def test_missiles_point_where_they_fly_and_pickups_spin(app: PewPewApp) -> None:
     world = play(app)
     missile = Missile(x=0.0, y=0.0, vx=0.5, vy=0.5)
     pickup = Pickup(x=0.2, y=0.2, kind="laser")
@@ -125,7 +134,7 @@ def test_missiles_point_where_they_fly_and_pickups_spin(app):
     assert node(app, pickup).getH() == pytest.approx(drawing.PICKUP_SPIN_SPEED)
 
 
-def test_the_player_banks_blinks_and_carries_its_secondary_weapon(app):
+def test_the_player_banks_blinks_and_carries_its_secondary_weapon(app: PewPewApp) -> None:
     world = play(app)
     player = world.player
     player.vx = player.ship.speed
@@ -142,10 +151,11 @@ def test_the_player_banks_blinks_and_carries_its_secondary_weapon(app):
     assert shown.find("secondary_turret/**/barrel").getR() == pytest.approx(models.facing_roll(1.0, 0.0))
     world.arsenal.secondary = SecondaryWeapon("lightning")
     shown = node(app, player)
-    assert shown.find("secondary_turret").isHidden() and not shown.find("secondary_lightning").isHidden()
+    assert shown.find("secondary_turret").isHidden()
+    assert not shown.find("secondary_lightning").isHidden()
 
 
-def test_bullets_are_sprites_colored_by_who_fired_them(app):
+def test_bullets_are_sprites_colored_by_who_fired_them(app: PewPewApp) -> None:
     player_shot = Bullet(x=0.0, y=0.0, width=0.02, height=0.05)
     sniper = Bullet(x=0.0, y=0.0, hostile=True, style="sniper")
     pellet = Bullet(x=0.0, y=0.0, hostile=True, style="pellet")
@@ -160,12 +170,13 @@ def test_bullets_are_sprites_colored_by_who_fired_them(app):
     assert sniper not in app.nodes  # drawn as sprites, not models
 
 
-def test_the_laser_beam_shows_while_firing(app):
+def test_the_laser_beam_shows_while_firing(app: PewPewApp) -> None:
     world = play(app)
     world.laser = Beam(x=0.1, bottom=-0.5, top=0.9, width=0.05)
     world.events = [Event("burn", 0.1, 0.4)]
     (glow,) = app._laser_glows(world)
-    assert glow.hits == (0.4,) and not glow.hostile
+    assert glow.hits == (0.4,)
+    assert not glow.hostile
     app._sync_nodes()
     assert not app.laser_node.isHidden()
     assert app.laser_node.getX() == pytest.approx(0.1)
@@ -175,29 +186,33 @@ def test_the_laser_beam_shows_while_firing(app):
     assert app.laser_node.isHidden()
 
 
-def test_enemy_beams_are_lasers_and_their_warnings_thin_red_sprites(app):
+def test_enemy_beams_are_lasers_and_their_warnings_thin_red_sprites(app: PewPewApp) -> None:
     world = play(app)
     beam = Bullet(x=0.2, y=-0.3, width=0.035, height=1.6, hostile=True, style="beam", pierces=True)
     warning = Bullet(x=-0.2, y=-0.3, width=0.008, height=1.6, hostile=True, style="warning", harmless=True)
     world.enemy_bullets = [beam, warning]
     (glow,) = app._laser_glows(world)
-    assert glow.hostile and (glow.x, glow.top, glow.bottom) == pytest.approx((0.2, 0.5, -1.1))
+    assert glow.hostile
+    assert (glow.x, glow.top, glow.bottom) == pytest.approx((0.2, 0.5, -1.1))
     app._sync_nodes()
     assert set(app.beam_nodes) == {beam}  # a core like the player's laser
     assert app.beam_nodes[beam].getX() == pytest.approx(0.2)
     node = app.beam_nodes[beam]
     beam.x = 0.25  # a boss's beam follows it
     app._sync_nodes()
-    assert app.beam_nodes[beam] is node and node.getX() == pytest.approx(0.25)
-    assert beam not in app.nodes and warning not in app.nodes
+    assert app.beam_nodes[beam] is node
+    assert node.getX() == pytest.approx(0.25)
+    assert beam not in app.nodes
+    assert warning not in app.nodes
     sprite = bullets.bullet_sprite(warning)
-    assert sprite.color == bullets.WARNING_BEAM_COLOR and sprite.height == warning.height
+    assert sprite.color == bullets.WARNING_BEAM_COLOR
+    assert sprite.height == warning.height
     world.enemy_bullets = []
     app._sync_nodes()
     assert app.beam_nodes == {}
 
 
-def test_the_lightning_bolt_zigzags_to_what_it_struck(app):
+def test_the_lightning_bolt_zigzags_to_what_it_struck(app: PewPewApp) -> None:
     world = play(app)
     world.bolt = [(0.0, -0.5), (0.0, -0.5), (0.3, 0.2)]  # a zero-length step too
     app._sync_nodes()
@@ -207,7 +222,7 @@ def test_the_lightning_bolt_zigzags_to_what_it_struck(app):
     assert app.bolt_node.getNumChildren() == 0
 
 
-def test_every_event_plays_its_effect(app, monkeypatch):
+def test_every_event_plays_its_effect(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
     play(app)
     played = []
     monkeypatch.setattr(app.effects, "play", played.append)
@@ -225,7 +240,7 @@ def test_every_event_plays_its_effect(app, monkeypatch):
     assert len(played) == 7
 
 
-def test_the_hud_shows_the_secondary_weapon(app):
+def test_the_hud_shows_the_secondary_weapon(app: PewPewApp) -> None:
     world = play(app)
     world.arsenal.secondary = SecondaryWeapon("lightning")
     app._update_hud()
@@ -235,7 +250,7 @@ def test_the_hud_shows_the_secondary_weapon(app):
     assert app.secondary_text.getText() == ""
 
 
-def test_the_frames_per_second_can_be_hidden(app, monkeypatch):
+def test_the_frames_per_second_can_be_hidden(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(config, "SHOW_FPS", False)
     app._setup_hud()
     assert app.fps_text.getParent().isHidden()
@@ -247,7 +262,7 @@ def test_the_frames_per_second_can_be_hidden(app, monkeypatch):
     assert app.fps_text.getText().endswith("FPS")
 
 
-def test_enter_does_nothing_while_playing_and_escape_nothing_without_a_menu(app):
+def test_enter_does_nothing_while_playing_and_escape_nothing_without_a_menu(app: PewPewApp) -> None:
     play(app)
     app.messenger.send(keys.MENU_CHOOSE_KEY)
     assert app.states.state is State.PLAYING
@@ -257,7 +272,7 @@ def test_enter_does_nothing_while_playing_and_escape_nothing_without_a_menu(app)
     assert app.states.state is State.PAUSED
 
 
-def test_shift_never_turns_space_into_shift_space(app, monkeypatch):
+def test_shift_never_turns_space_into_shift_space(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
     watcher = NodePath(MouseWatcher("watcher"))
     thrower = ButtonThrower("thrower")
     shift = ModifierButtons()
@@ -270,15 +285,15 @@ def test_shift_never_turns_space_into_shift_space(app, monkeypatch):
     assert thrower.getModifierButtons().getNumButtons() == 0
 
 
-def test_the_letterbox_follows_the_window(app, monkeypatch):
+def test_the_letterbox_follows_the_window(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
     class Sizeless:
-        def hasSize(self) -> bool:
+        def hasSize(self) -> bool:  # noqa: N802 - like Panda3D's
             return False
 
     monkeypatch.setattr(app, "win", Sizeless())
     app._fit_letterbox()  # the window isn't open yet: nothing to fit
     monkeypatch.undo()
-    app.windowEvent(None)  # any window event (ShowBase only minds the ones about its own window)
+    app.windowEvent(cast("Any", None))  # any window event (ShowBase only minds the ones about its own window)
     region = app.cam.node().getDisplayRegion(0)
     left, right, bottom, top = (region.getLeft(), region.getRight(), region.getBottom(), region.getTop())
     width, height = app.win.getXSize() * (right - left), app.win.getYSize() * (top - bottom)
@@ -287,11 +302,10 @@ def test_the_letterbox_follows_the_window(app, monkeypatch):
     assert math.isfinite(app.camera_view.area(0.0).top)
 
 
-def test_a_debris_field_draws_its_rocks(app):
-    from pewpy.game.level import parse_level
-
+def test_a_debris_field_draws_its_rocks(app: PewPewApp) -> None:
     play(app)
     app._show_background(parse_level({"background": "debris"}))
     rocks = [layer for layer in app.background.scenery.layers if layer.kind == "rock"]
-    assert rocks and rocks[0].drifters
+    assert rocks
+    assert rocks[0].drifters
     assert app.background.root.getNumChildren() > 0

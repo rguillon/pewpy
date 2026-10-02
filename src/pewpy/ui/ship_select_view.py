@@ -1,5 +1,6 @@
-"""The ship selection screen, under its menu: every ship side by side, spinning, with its name and bars comparing
-their characteristics; the highlighted one bigger, with its description and numbers at the bottom.
+"""The ship selection screen, under its menu: every ship side by side, spinning, with its name.
+
+Bars compare their characteristics; the highlighted one is bigger, with its description and numbers at the bottom.
 """
 
 from panda3d.core import CardMaker, Lens, NodePath, Point2, Point3, TextNode
@@ -42,6 +43,7 @@ def characteristics(ships: list[ShipSpec]) -> list[list[tuple[str, float]]]:
 
 
 def details(ship: ShipSpec) -> str:
+    """Describe a ship: its description and its numbers."""
     text = f"{ship.description}\nHealth {ship.health:g}   Speed {ship.speed:g}   Size {ship.size:g}"
     if ship.regeneration:
         text += f"\nRepairs {ship.regeneration:g} health a second, {ship.regeneration_delay:g} s after it stops firing"
@@ -49,6 +51,8 @@ def details(ship: ShipSpec) -> str:
 
 
 class ShipSelectView:
+    """The ship selection screen's ships, bars and texts."""
+
     def __init__(
         self,
         ships: list[ShipSpec],
@@ -58,8 +62,10 @@ class ShipSelectView:
         aspect2d: NodePath,
         extent: tuple[float, float],
     ) -> None:
-        """`models`: each ship's model, fitted to 1 x 1 x 1 (copied, so they can be shared with the game).
-        `extent`: aspect2d's right and top edges (the ships are placed in 3D to line up with the texts).
+        """Place the ships and their texts.
+
+        `models`: each ship's model, fitted to 1 x 1 x 1 (copied, so they can be shared with the game). `extent`:
+        aspect2d's right and top edges (the ships are placed in 3D to line up with the texts).
         """
         self.ships = ships
         self.root = aspect2d.attachNewNode("ship_select")
@@ -99,11 +105,13 @@ class ShipSelectView:
         self.details.setText(text)
 
     def update(self, dt: float) -> None:
+        """Spin the highlighted ship."""
         for position, showcase in enumerate(self.showcases):
             if position == self.selected:  # only the highlighted ship spins
                 showcase.update(dt)
 
     def destroy(self) -> None:
+        """Remove the screen's nodes."""
         for showcase in self.showcases:
             showcase.destroy()
         self.root.removeNode()
@@ -128,7 +136,7 @@ class ShipSelectView:
 
 
 def _on_screen(lens: Lens, film_x: float, film_y: float) -> Point3:
-    """The point DISTANCE in front of the camera (the showcase's plane) that shows at (film_x, film_y)."""
+    """Return the point DISTANCE in front of the camera (the showcase's plane) that shows at (film_x, film_y)."""
     near, far = Point3(), Point3()
     lens.extrude(Point2(film_x, film_y), near, far)
     return near + (far - near) * ((DISTANCE - near.y) / (far.y - near.y))

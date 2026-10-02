@@ -8,11 +8,14 @@ from pewpy.scenery.params import Knobs
 
 
 class Volcano(Landscape):
+    """Volcanic hills with lakes and rivers of lava."""
+
     knobs = ("size", "lava_level", "river_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """Black volcanic hills with lakes (below `lava_level`, 0 to 1 of the noise) and rivers of lava (below 0) in the
-        low ground.
+        """Shape black volcanic hills with lakes and rivers of lava in the low ground.
+
+        Lakes below `lava_level` (0 to 1 of the noise), rivers below 0.
         """
         value = normalized(eroded_noise(rng, rows, columns, knobs["size"] / step, octaves=6))
         level = knobs["lava_level"]

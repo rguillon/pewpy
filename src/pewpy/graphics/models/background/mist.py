@@ -10,11 +10,11 @@ _mist_textures: dict[int, Texture] = {}
 
 
 def mist_model(shape: int) -> NodePath:
-    """A soft, lumpy, see-through cloud on a 1 x 1 card, white: color it with setColor (alpha: how see-through)."""
+    """Make a soft, lumpy, see-through white cloud on a 1 x 1 card: color it with setColor (alpha: how see-through)."""
     shape %= MIST_TEXTURES
     if shape not in _mist_textures:
         size = 64
-        rng = random.Random(100 + shape)  # noqa: S311 - visual randomness, not cryptography
+        rng = random.Random(100 + shape)
         blobs = [(rng.uniform(0.3, 0.7), rng.uniform(0.3, 0.7), rng.uniform(0.1, 0.22)) for _ in range(7)]
         image = PNMImage(size, size, 4)
         for y in range(size):

@@ -2,9 +2,10 @@
 
 - A danger radar that plans ahead: for each of MOVES (8 directions and staying put), the ship flies it for FIRST
   seconds then the best of MOVES until HORIZON (with its inertia, everything else going on at its speed, the threats
-  within NEAR): how long before a hit (closer than MARGIN; from 0 to 1, the whole HORIZON: none) and the room left on the way (from 0 to
-  1, CLEAR or more); the safest of the moves (its direction); and the move to aim, the safe move (within TOLERANCE
-  of the safest) that best brings the ship under its target (the boss, else the nearest enemy above it).
+  within NEAR): how long before a hit (closer than MARGIN; from 0 to 1, the whole HORIZON: none) and the room left on
+  the way (from 0 to 1, CLEAR or more); the safest of the moves (its direction); and the move to aim, the safe move
+  (within TOLERANCE of the safest) that best brings the ship under its target (the boss, else the nearest enemy
+  above it).
 - The NEAREST_SHOTS nearest enemy shots: where they are from the ship and how fast they go.
 - Lanes across the whole screen (LANES columns): how many enemy shots and how many enemies are in each, above the
   ship, so it can pick a lane to fly in and to shoot up.
@@ -52,8 +53,11 @@ _AIM_STEP = int(np.searchsorted(TIMES, FIRST))  # where the ship is told to be w
 
 
 def _rows(entities: list) -> np.ndarray:
-    """Living entities as rows of (x, y, vx, vy, width, height); a shot snaking across its line of flight (an
-    `amplitude`) is as wide as its snaking, so flying straight is all the radar needs to foresee."""
+    """Return living entities as rows of (x, y, vx, vy, width, height).
+
+    A shot snaking across its line of flight (an `amplitude`) is as wide as its snaking, so flying straight is all the
+    radar needs to foresee.
+    """
     rows = []
     for e in entities:
         if e.alive:
@@ -63,16 +67,22 @@ def _rows(entities: list) -> np.ndarray:
 
 
 def _glide(position: np.ndarray, velocity: np.ndarray, target: np.ndarray, times: np.ndarray) -> np.ndarray:
-    """Where the ship is after `times` (positions, velocities and targets as (plans, 2)), its velocity easing
-    towards the target velocity as Player.update does it: (plans, 2, times)."""
+    """Return where the ship is after `times`: (plans, 2, times).
+
+    Positions, velocities and targets are (plans, 2); the velocity eases towards the target velocity as Player.update
+    does it.
+    """
     ease = config.PLAYER_RESPONSIVENESS
     lag = (velocity - target)[..., None] * (1 - np.exp(-ease * times)) / ease
     return position[..., None] + target[..., None] * times + lag
 
 
 def plans(world: World) -> tuple[np.ndarray, np.ndarray]:
-    """Where the ship is along every plan (a first move for FIRST seconds, then a second one), at TIMES, kept in the
-    play area: x and y, (plans, steps); plan i is MOVES[i // len(MOVES)] then MOVES[i % len(MOVES)]."""
+    """Return where the ship is along every plan, at TIMES, kept in the play area: x and y, (plans, steps).
+
+    A plan is a first move for FIRST seconds, then a second one: plan i is MOVES[i // len(MOVES)] then
+    MOVES[i % len(MOVES)].
+    """
     player = world.player
     moves = np.array(MOVES) * player.ship.speed
     first, second = moves[_FIRSTS], moves[_SECONDS]
@@ -90,8 +100,11 @@ def plans(world: World) -> tuple[np.ndarray, np.ndarray]:
 
 
 def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
-    """For each move, its best plan's time before a hit (share of HORIZON, 1: none) and room left (share of CLEAR),
-    and the score that ranks the moves (see UNHIT); and where each move takes the ship (x and y after FIRST)."""
+    """Sweep the radar over the moves.
+
+    For each move: its best plan's time before a hit (share of HORIZON, 1: none) and room left (share of CLEAR), and the
+    score that ranks the moves (see UNHIT); and where each move takes the ship (x and y after FIRST).
+    """
     player = world.player
     ship_x, ship_y = plans(world)
     if len(threats):
@@ -135,13 +148,15 @@ def target(world: World) -> float | None:
 
 
 def safest(score: np.ndarray) -> tuple[float, float]:
-    """The direction of the move with the best score (staying put when tied)."""
+    """Return the direction of the move with the best score (staying put when tied)."""
     return MOVES[int(np.argmax(score))]
 
 
 def aim(score: np.ndarray, reach_x: np.ndarray, reach_y: np.ndarray, aim_x: float | None) -> tuple[float, float]:
-    """The direction of the safe move (within TOLERANCE of the safest) that takes the ship nearest under `aim_x`, at
-    HOME height; the safest move without a target."""
+    """Return the direction of the safe move that takes the ship nearest under `aim_x`, at HOME height.
+
+    The safe moves are within TOLERANCE of the safest; without a target, the safest move.
+    """
     if aim_x is None:
         return safest(score)
     safe = score >= score.max() - TOLERANCE
@@ -174,7 +189,7 @@ def _towards(dx: float, dy: float) -> tuple[float, float]:
 
 
 def sense(world: World) -> np.ndarray:
-    """The AI's view of `world`, SIZE numbers."""
+    """Return the AI's view of `world`, SIZE numbers."""
     player = world.player
     shots = _rows([shot for shot in world.enemy_bullets if not shot.harmless])
     enemies = _rows(world.enemies)

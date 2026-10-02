@@ -25,6 +25,8 @@ def ranks(fitness: np.ndarray) -> np.ndarray:
 
 @dataclass
 class Evolution:
+    """Evolution strategies on a flat vector of weights, with an Adam step."""
+
     weights: np.ndarray
     rng: np.random.Generator
     population: int = POPULATION
@@ -35,6 +37,7 @@ class Evolution:
     velocity: np.ndarray = field(init=False)
 
     def __post_init__(self) -> None:
+        """Check the population is even and start the step's moments at zero."""
         if self.population < 2 or self.population % 2:
             msg = "the population must be even"
             raise ValueError(msg)
@@ -42,7 +45,7 @@ class Evolution:
         self.velocity = np.zeros_like(self.weights)
 
     def ask(self) -> tuple[np.ndarray, list[np.ndarray]]:
-        """This generation's nudges (half of them, the other half are their opposites) and the weights to try."""
+        """Return the generation's nudges (half of them, the other half are their opposites) and the weights to try."""
         nudges = self.rng.standard_normal((self.population // 2, len(self.weights)))
         tries = [self.weights + sign * self.noise * nudge for nudge in nudges for sign in (1.0, -1.0)]
         return nudges, tries

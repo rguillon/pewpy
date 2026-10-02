@@ -74,6 +74,8 @@ void main() {
 
 @dataclass(frozen=True)
 class Sprite:
+    """A flat shape facing the camera: where, how big, what color."""
+
     x: float  # world X
     y: float  # world Z (up the screen, like the game's y)
     width: float
@@ -83,8 +85,10 @@ class Sprite:
 
 
 class SpriteBatch:
-    """Up to `capacity` sprites. `glow`: light is added to what's behind (sparks, fire); otherwise they're drawn
-    over it, solid in the middle (bullets, readable on any background).
+    """Up to `capacity` sprites.
+
+    `glow`: light is added to what's behind (sparks, fire); otherwise they're drawn over it, solid in the middle
+    (bullets, readable on any background).
     """
 
     def __init__(self, render: NodePath, lens: Lens, capacity: int, glow: bool, core: float, hot: float) -> None:
@@ -121,6 +125,7 @@ class SpriteBatch:
         self.show([])
 
     def show(self, sprites: list[Sprite]) -> None:
+        """Show these sprites (up to the batch's capacity), instead of the last ones."""
         sprites = sprites[: self.capacity]
         self.data.setRamImage(pack(sprites, self.capacity))
         self.node.setInstanceCount(len(sprites))
@@ -131,7 +136,7 @@ class SpriteBatch:
 
 
 def pack(sprites: list[Sprite], capacity: int) -> bytes:
-    """The float texture's data: a row of positions and widths, then a row of colors and heights.
+    """Pack the sprites as the float texture's data: a row of positions and widths, then a row of colors and heights.
 
     Panda3D keeps RGBA textures in memory as blue, green, red, alpha: each texel is written in that order, so the
     shader reads .rgba = (x, depth, y, width) and (red, green, blue, height).

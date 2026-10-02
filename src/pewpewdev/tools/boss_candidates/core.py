@@ -14,7 +14,7 @@ SIZES = {  # (share, width range, height range), in cubes
 
 
 def core(rng: Rng, lopsided: bool) -> tuple[Canvas, str, str]:
-    """The core's outline: (canvas, family, size class)."""
+    """Draw the core's outline: return (canvas, family, size class)."""
     size = rng.choices(list(SIZES), [share for share, _, _ in SIZES.values()])[0]
     _, widths, heights = SIZES[size]
     cv = Canvas(rng.randrange(widths[0], widths[1] + 1, 2), rng.randint(*heights))
@@ -46,7 +46,7 @@ def core(rng: Rng, lopsided: bool) -> tuple[Canvas, str, str]:
 
 
 def superstructure(rng: Rng, cv: Canvas) -> None:
-    """Raised decks towards the back, a bridge with a sensor near the middle, hangar bays, lights."""
+    """Draw raised decks towards the back, a bridge with a sensor near the middle, hangar bays, lights."""
     mx = _middle(cv)
     top = rng.randint(2, max(2, cv.h // 3))
     width = rng.randint(2, max(2, cv.w // 10))
@@ -93,7 +93,7 @@ def armor(rng: Rng, cv: Canvas) -> None:
 
 
 def paint(rng: Rng, cv: Canvas) -> str:
-    """A paint scheme: plain, two-tone (big areas of the hull in the livery color) or glowing seams."""
+    """Pick a paint scheme: plain, two-tone (big areas of the hull in the livery color) or glowing seams."""
     scheme = rng.choice(("plain", "plain", "two-tone", "seams"))
     if scheme == "two-tone":
         split = rng.uniform(0.3, 0.7) * cv.h

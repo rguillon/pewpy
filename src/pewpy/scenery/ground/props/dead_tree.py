@@ -1,5 +1,6 @@
-"""Dead trees in the swamp: a bare grey trunk with a few broken branches, sometimes forked at the top or snapped
-short.
+"""Dead trees in the swamp: a bare grey trunk with a few broken branches.
+
+Sometimes forked at the top or snapped short.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a dead tree."""
     x, y, z0 = prop.x, prop.y, prop.base
     height = prop.height * (rng.uniform(0.45, 0.6) if rng.random() < 0.2 else 1.0)  # some snapped short
     wood = varied(rng, c.dead_wood, 0.12)

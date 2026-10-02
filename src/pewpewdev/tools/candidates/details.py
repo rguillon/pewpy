@@ -5,8 +5,9 @@ from pewpewdev.tools.candidates.palette import HULL
 
 
 def trim(cv: Canvas, symmetric: bool, also: Canvas | None = None) -> None:
-    """Drop the empty rows and columns around the ship (a symmetric one stays centred); `also` is cropped the same
-    way.
+    """Drop the empty rows and columns around the ship (a symmetric one stays centred).
+
+    `also` is cropped the same way.
     """
     rows = [y for y in range(cv.h) if any(cv.filled(x, y) for x in range(cv.w))]
     columns = [x for x in range(cv.w) if any(cv.filled(x, y) for y in range(cv.h))]
@@ -22,8 +23,9 @@ def trim(cv: Canvas, symmetric: bool, also: Canvas | None = None) -> None:
 
 
 def detail(rng: Rng, cv: Canvas, symmetric: bool) -> list[dict]:
-    """Bands, panel lines, plates, a spine, the cockpit and sensor, markings, guns, nozzles; the engines' flames. A
-    symmetric ship gets them on its left half, mirrored.
+    """Add bands, panel lines, plates, a spine, the cockpit and sensor, markings, guns, nozzles; the engines' flames.
+
+    A symmetric ship gets them on its left half, mirrored.
     """
     bands(rng, cv)
     wing_edges(cv)
@@ -49,6 +51,7 @@ def detail(rng: Rng, cv: Canvas, symmetric: bool) -> list[dict]:
 
 
 def bands(rng: Rng, cv: Canvas) -> None:
+    """Paint darker bands across the hull and a pattern on the wings."""
     band = rng.randint(2, 4)
     for x, y in cv.cells_of("hw"):
         if cv.get(x, y) == "h" and y % band == 0:
@@ -58,7 +61,7 @@ def bands(rng: Rng, cv: Canvas) -> None:
 
 
 def wing_edges(cv: Canvas) -> None:
-    """A light leading edge (towards the nose), a dark line of flaps at the back."""
+    """Paint a light leading edge (towards the nose), a dark line of flaps at the back."""
     for x, y in cv.cells_of("wW"):
         if not cv.filled(x, y + 1):
             cv.set(x, y, "W")
@@ -67,6 +70,7 @@ def wing_edges(cv: Canvas) -> None:
 
 
 def panel_lines(rng: Rng, cv: Canvas) -> None:
+    """Draw panel lines across the hull."""
     rows = set(range(2, cv.h - 2, rng.randint(3, 5)))
     for x, y in cv.cells_of("hH"):
         if y in rows and cv.filled(x, y - 1) and cv.filled(x, y + 1):
@@ -81,12 +85,13 @@ def plates(rng: Rng, cv: Canvas) -> None:
 
 
 def thickest_column(cv: Canvas) -> int:
+    """Return the column with the most hull (the nearest the middle when tied): where the spine goes."""
     counts = [sum(cv.get(x, y) in HULL for y in range(cv.h)) for x in range(cv.w)]
     return max(range(cv.w), key=lambda x: (counts[x], -abs(x - cv.w // 2)))
 
 
 def livery(rng: Rng, cv: Canvas) -> None:
-    """A painted band across the hull."""
+    """Paint a band across the hull."""
     top = rng.randint(0, max(0, cv.h // 2))
     bottom = top + rng.randint(2, 5)
     for x, y in cv.cells_of("hH"):
@@ -95,6 +100,7 @@ def livery(rng: Rng, cv: Canvas) -> None:
 
 
 def cockpit(rng: Rng, cv: Canvas, spine: int, symmetric: bool) -> None:
+    """Draw the cockpit near the nose, on the spine (or a little off it on a lopsided ship)."""
     nose = max((y for y in range(cv.h) if cv.filled(spine, y)), default=cv.h - 1)
     offset = 0 if symmetric or rng.random() < 0.5 else rng.choice((-1, 1)) * rng.randint(1, 2)  # off-centre
     y = max(0, nose - rng.randint(1, max(1, min(5, cv.h // 3))))
@@ -108,7 +114,7 @@ def cockpit(rng: Rng, cv: Canvas, spine: int, symmetric: bool) -> None:
 
 
 def markings(rng: Rng, cv: Canvas) -> None:
-    """The accent color: on the wings' edges (as thin as the wing), and on a few plates."""
+    """Paint the accent color: on the wings' edges (as thin as the wing), and on a few plates."""
     for x, y in cv.cells_of("wW"):
         if (not cv.filled(x - 1, y) or not cv.filled(x + 1, y)) and y % 3 == 0:
             cv.set(x, y, "q")

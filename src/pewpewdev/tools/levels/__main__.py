@@ -29,6 +29,7 @@ def write(folder: Path, levels: dict[tuple[int, int], dict[str, Any]]) -> None:
 
 
 def main() -> None:
+    """Generate the levels and write them."""
     parser = argparse.ArgumentParser(description=levels.__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED, help=f"the waves' draw (default {DEFAULT_SEED})")
     parser.add_argument("--out", type=Path, default=LEVELS, help="where (default: the game's levels)")

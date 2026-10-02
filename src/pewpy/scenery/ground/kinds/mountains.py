@@ -8,10 +8,12 @@ from pewpy.scenery.params import Knobs
 
 
 class Mountains(Landscape):
+    """Mountains: eroded ranges with sharp crests."""
+
     knobs = ("range_size", "crest_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """Eroded ranges (about `range_size` apart) with sharp crests (`crest_size`), flat valley floors between them."""
+        """Shape eroded ranges (about `range_size` apart), sharp crests (`crest_size`) and flat valleys between them."""
         ranges = eroded_noise(rng, rows, columns, knobs["range_size"] / step)
         crests = ridged_mountains(rng, rows, columns, knobs["crest_size"] / step, octaves=5)
         middle, top = np.percentile(ranges, 40), np.percentile(ranges, 90)

@@ -4,7 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def carrier(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """A long flat-topped hull with chamfered corners, a flight deck down the middle, sponsons on the sides."""
+    """Draw a long flat-topped hull with chamfered corners, a flight deck down the middle, sponsons on the sides."""
     cut, length = max(2.0, half * 0.25), bottom - top
     cv.polygon([(mx - half, top + cut), (mx - half + cut, top), (mx + half - cut, top), (mx + half, top + cut),
                 (mx + half, bottom - 2 * cut), (mx, bottom), (mx - half, bottom - 2 * cut)], "h")  # fmt: skip

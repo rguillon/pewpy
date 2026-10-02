@@ -7,8 +7,9 @@ from pewpy.scenery.params.types import Color3
 
 @dataclass(frozen=True)
 class PropColors:
-    """The props standing on the grounds (props/); lists: each one picks among them. Each prop varies its
-    colors a little around these.
+    """The props' colors: the props standing on the grounds (props/).
+
+    Lists: each one picks among them. Each prop varies its colors a little around these.
     """
 
     building_walls: tuple[Color3, ...]

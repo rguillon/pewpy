@@ -1,3 +1,5 @@
+"""Run the game with the dev tools' screens (`make dev`)."""
+
 import multiprocessing
 
 from pewpewdev.app import main

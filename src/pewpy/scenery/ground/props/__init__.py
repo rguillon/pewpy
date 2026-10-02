@@ -1,12 +1,13 @@
-"""The props standing on the grounds (grounds/: the settlements, floras and outposts): buildings, farms, refinery
-units, trees, hangars, radars, domes...
+"""The props standing on the grounds (grounds/: the settlements, floras and outposts).
+
+Buildings, farms, refinery units, trees, hangars, radars, domes...
 
 Each kind is built by its own module (`build(mesh, rng, prop, colors)`), from its seed: every kind has variants
 (a tower with one or two setbacks, a hipped or gabled roof, a domed or floating-roof tank...), and colors that vary
 a little around the scenery's (`props`, see pewpy.scenery.params). They're built in bulk with numpy as plain arrays
-(mesh.py); the ground's shader/ turns them into Panda3D geometry. Every vertex has 14 floats: position (3), normal (3),
-color (red, green, blue, material) and texture data (4: along the wall, up the wall, the prop's seed from 0 to 1,
-unused). The material tells the prop shader how to paint a face; the wall coordinates, in world units, place the
+(mesh.py); the ground's shader/ turns them into Panda3D geometry. Every vertex has 14 floats: position (3), normal
+(3), color (red, green, blue, material) and texture data (4: along the wall, up the wall, the prop's seed from 0 to
+1, unused). The material tells the prop shader how to paint a face; the wall coordinates, in world units, place the
 windows.
 
 Props are built in ground coordinates (x right, y down the loop, z up towards the camera), then turned into a
@@ -77,14 +78,16 @@ BUILDERS: dict[str, Builder] = {
 
 def build(mesh: PropMesh, prop: Prop, colors: PropColors) -> None:
     """Add a prop to a mesh."""
-    rng = random.Random(prop.seed)  # noqa: S311 - looks, not cryptography
+    rng = random.Random(prop.seed)
     mesh.seed = (prop.seed % 997) / 997
     BUILDERS[prop.kind](mesh, rng, prop, colors)
 
 
 def strip_arrays(props: list[Prop], first_y: float, colors: PropColors) -> tuple[FloatArray, IndexArray]:
-    """Every prop of a strip, in the strip's model space: x right, y away from the camera (heights towards the
-    camera are -y), z up the screen from the strip's top edge (`first_y` down the loop).
+    """Build every prop of a strip, in the strip's model space.
+
+    x right, y away from the camera (heights towards the camera are -y), z up the screen from the strip's top edge
+    (`first_y` down the loop).
     """
     mesh = PropMesh()
     for prop in props:

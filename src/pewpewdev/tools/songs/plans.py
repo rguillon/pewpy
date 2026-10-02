@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Plan:
+    """What a song is to be: its key, tempo, chords and how each instrument plays."""
+
     name: str  # the file's name
     title: str  # in the MIDI file
     key: str

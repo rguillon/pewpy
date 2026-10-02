@@ -11,10 +11,10 @@ FLAME_TEXTURE_SIZE = (32, 64)
 
 
 def add_flame(model: NodePath, engine: Engine, shape: tuple[int, int], size: float) -> NodePath:
-    """A flame under `model` at `engine`'s nozzle, `shape` being the model's (columns, rows) and `size` its voxel
-    size.
+    """Add a flame under `model` at `engine`'s nozzle.
 
-    Its length is its Z scale: the game makes it flicker by changing it.
+    `shape` is the model's (columns, rows) and `size` its voxel size. The flame's length is its Z scale: the game makes
+    it flicker by changing it.
     """
     columns, rows = shape
     x = (engine.x - (columns - 1) / 2) * size
@@ -53,8 +53,10 @@ _FLAME_TEXTURES: list[Texture] = []
 
 
 def _flame_texture() -> Texture:
-    """White, with the flame's shape in its alpha: widest and brightest at the nozzle (the top row), narrowing and
-    fading out towards the tip, soft at the edges. Built once.
+    """Make the flame's texture: white, with the flame's shape in its alpha.
+
+    Widest and brightest at the nozzle (the top row), narrowing and fading out towards the tip, soft at the edges. Built
+    once.
     """
     if _FLAME_TEXTURES:
         return _FLAME_TEXTURES[0]

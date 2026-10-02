@@ -9,8 +9,8 @@ from pewpy.scenery.params.types import Color3, Knobs, SceneryError
 
 
 def check_generators(params: SceneryParams) -> None:
-    """The generators and painters named exist, and get the numbers and colors they need."""
-    from pewpy.scenery.ground import kinds
+    """Check the generators and painters named exist, and get the numbers and colors they need."""
+    from pewpy.scenery.ground import kinds  # noqa: PLC0415 - the generators read the parameters: import cycle
 
     name = params.name
     if params.ground is not None:
@@ -27,7 +27,7 @@ def check_generators(params: SceneryParams) -> None:
         compounds = kinds.outposts.COMPOUNDS
         unknown = sorted(set(params.outposts.kinds) - set(compounds))
         if unknown or not params.outposts.kinds:
-            raise SceneryError(f"{name}.outposts.kinds", f"unknown {unknown}, expected some of {sorted(compounds)}")
+            raise SceneryError(f"{name}.outposts.kinds", f"unknown {unknown}, expected some of {sorted(compounds)}")  # noqa: EM102 - the error builds its message
 
 
 class _Generator(Protocol):

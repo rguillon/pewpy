@@ -8,6 +8,7 @@ from pewpewdev.tools.models.registry import MODELS
 
 
 def main() -> None:
+    """Remodel the ships the command line names (all with a recipe by default)."""
     parser = argparse.ArgumentParser(description=models.__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("names", nargs="*", help="models to remodel (default: all with a recipe)")
     args = parser.parse_args()

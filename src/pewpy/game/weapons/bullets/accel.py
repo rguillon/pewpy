@@ -14,6 +14,7 @@ class AccelBullet(Bullet):
     top_speed: float = 1.0
 
     def move(self, dt: float) -> None:
+        """Speed up towards `top_speed`, then move."""
         speed = math.hypot(self.vx, self.vy)
         if 0 < speed < self.top_speed:
             faster = min(self.top_speed, speed + self.rate * dt) / speed

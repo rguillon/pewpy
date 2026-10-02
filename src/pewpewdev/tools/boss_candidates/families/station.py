@@ -6,7 +6,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def station(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """An octagonal ring around a hub, joined by spokes."""
+    """Draw an octagonal ring around a hub, joined by spokes."""
     my, r = (top + bottom) / 2, min(half, (bottom - top) / 2)
     angles = [math.pi / 8 + i * math.pi / 4 for i in range(8)]
     cv.polygon([(mx + r * math.cos(a), my + r * math.sin(a)) for a in angles], "N")

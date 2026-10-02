@@ -16,7 +16,7 @@ def _sweep(count: int, start: float, end: float, speed: float) -> FloatArray:
 
 @cache
 def drum(pitch: int) -> FloatArray:
-    """A General MIDI drum (mono): kicks, snares and claps, hats, crashes, toms; anything else is a click."""
+    """Make a General MIDI drum (mono): kicks, snares and claps, hats, crashes, toms; anything else is a click."""
     if pitch in (35, 36):  # kick
         count = int(0.45 * RATE)
         body = oscillator("sine", _sweep(count, 160, 45, 30)) * np.exp(-np.arange(count) / (0.28 * RATE))

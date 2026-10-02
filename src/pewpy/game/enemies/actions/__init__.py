@@ -1,5 +1,7 @@
-"""What enemies do once (02-enemies.md), each action in its own module: when an enemy appears (EnemySpec.start) or
-goes from a state to another (Exit.then), see Action.do in action.py. Independent from rendering.
+"""What enemies do once (02-enemies.md), each action in its own module.
+
+An action is done when an enemy appears (EnemySpec.start) or goes from a state to another (Exit.then), see Action.do
+in action.py. Independent from rendering.
 
 The enemies' descriptions name them (`type`, with the action's fields next to it); ACTIONS gives each name its class
 and `parse_action` reads one.
@@ -48,11 +50,11 @@ ACTIONS: dict[str, type[Action]] = {
 
 
 def parse_action(data: dict[str, Any]) -> Action:
-    """An action: its `type` and its fields (a gun written as parse_gun reads it)."""
+    """Read an action: its `type` and its fields (a gun written as parse_gun reads it)."""
     fields = dict(data)
     kind = fields.pop("type")
     if kind not in ACTIONS:
-        raise UnknownNameError("action", kind)
+        raise UnknownNameError("action", kind)  # noqa: EM101 - the error builds its message
     if "gun" in fields:
         fields["gun"] = parse_gun(fields["gun"])
     return ACTIONS[kind](**fields)

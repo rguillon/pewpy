@@ -16,7 +16,7 @@ SCROLL = 0.2
 
 
 def described(data: dict[str, Any], x: float = 0.0, y: float = 0.5) -> Enemy:
-    """An enemy described like in the JSON files."""
+    """Make an enemy described like in the JSON files."""
     return Enemy.from_spec(parse_enemy("test", data, "test"), x, y)
 
 
@@ -31,18 +31,18 @@ def bullets(created: list[Entity]) -> list[Bullet]:
     return [entity for entity in created if isinstance(entity, Bullet)]
 
 
-def states(*names: str, **first: Any) -> list[dict[str, Any]]:
+def states(*names: str, **first: object) -> list[dict[str, Any]]:
     return [{"name": names[0], **first}, *({"name": name} for name in names[1:])]
 
 
-def test_an_enemy_starts_as_described():
+def test_an_enemy_starts_as_described() -> None:
     drone = Enemy.of_kind("drone", 0.1, 0.9)
     assert (drone.x, drone.y, drone.vy, drone.health, drone.points) == (0.1, 0.9, -0.3, 3.0, 100)
     assert (drone.kind, drone.kind_name, drone.drawing) == ("drone", "drone", "drone")
     assert Enemy.of_kind("dart").kind_name == "dart"  # its drawing
 
 
-def test_a_timer_runs_out_then_the_state_changes():
+def test_a_timer_runs_out_then_the_state_changes() -> None:
     enemy = described({"states": states("wait", "go", timer=0.5, exits=[{"to": "go", "timer": True}])})
     run(enemy, 0.4)
     assert enemy.state.name == "wait"
@@ -50,7 +50,7 @@ def test_a_timer_runs_out_then_the_state_changes():
     assert enemy.state.name == "go"
 
 
-def test_states_can_end_after_a_while_on_their_height_or_lined_up_with_the_player():
+def test_states_can_end_after_a_while_on_their_height_or_lined_up_with_the_player() -> None:
     clock = described({"states": states("a", "b", exits=[{"to": "b", "clock": 1.0}])})
     run(clock, 0.9)
     assert clock.state.name == "a"
@@ -69,7 +69,7 @@ def test_states_can_end_after_a_while_on_their_height_or_lined_up_with_the_playe
     assert aiming.state.name == "b"
 
 
-def test_states_can_follow_a_cycle_of_its_age():
+def test_states_can_follow_a_cycle_of_its_age() -> None:
     blinker = described({
         "states": [
             {"name": "on", "exits": [{"to": "off", "cycle": [1.0, 0.6, 1.0]}]},
@@ -83,22 +83,24 @@ def test_states_can_follow_a_cycle_of_its_age():
     assert seen.count("off") == pytest.approx(0.8 / DT, abs=2)
 
 
-def test_a_state_can_be_left_differently_after_some_visits():
+def test_a_state_can_be_left_differently_after_some_visits() -> None:
     looping = described(
         {
             "states": [
-                {"name": "a", "timer": 0.1, "exits": [{"to": "done", "timer": True, "visits": 3}, {"to": "a", "timer": True}]},
+                {"name": "a", "timer": 0.1,
+                 "exits": [{"to": "done", "timer": True, "visits": 3}, {"to": "a", "timer": True}]},
                 {"name": "done"},
             ]
         }
     )  # fmt: skip
     run(looping, 0.25)
-    assert looping.state.name == "a" and looping.visits == 3
+    assert looping.state.name == "a"
+    assert looping.visits == 3
     run(looping, 0.15)
     assert looping.state.name == "done"
 
 
-def test_a_state_can_wait_for_its_guns_to_be_idle():
+def test_a_state_can_wait_for_its_guns_to_be_idle() -> None:
     gun = {"pattern": "fan", "interval": 0.5, "speed": 0.5, "volley": 5, "gap": 0.1, "off_screen": "fire"}
     busy = described({"states": states("a", "b", guns=[gun], exits=[{"to": "b", "clock": 0.1, "idle": True}])})
     run(busy, 0.2)
@@ -107,16 +109,17 @@ def test_a_state_can_wait_for_its_guns_to_be_idle():
     assert busy.state.name == "b"
 
 
-def test_a_state_can_end_after_some_volleys_right_after_firing():
+def test_a_state_can_end_after_some_volleys_right_after_firing() -> None:
     gun = {"pattern": "fan", "interval": 0.3, "speed": 0.5, "off_screen": "fire"}
     then = [{"type": "velocity", "vy": -0.6}]
     blaster = described({"states": states("a", "b", guns=[gun], exits=[{"to": "b", "volleys": 2, "then": then}])})
     created = run(blaster, 0.7)
     assert len(bullets(created)) == 2
-    assert blaster.state.name == "b" and blaster.vy == -0.6
+    assert blaster.state.name == "b"
+    assert blaster.vy == -0.6
 
 
-def test_actions_set_its_speed():
+def test_actions_set_its_speed() -> None:
     left = described(
         {"states": states("a", "b", exits=[{"to": "b", "then": [{"type": "toward_middle", "speed": 0.2}]}])}, x=-0.4
     )
@@ -129,7 +132,8 @@ def test_actions_set_its_speed():
     assert right.vx == -0.2
     diver = described({"states": states("a", "b", exits=[{"to": "b", "then": [{"type": "aim", "speed": 1.2}]}])}, x=0.3)
     run(diver, DT)
-    assert math.hypot(diver.vx, diver.vy) == pytest.approx(1.2) and diver.vx < 0
+    assert math.hypot(diver.vx, diver.vy) == pytest.approx(1.2)
+    assert diver.vx < 0
     on_target = described(
         {"states": states("a", "b", exits=[{"to": "b", "then": [{"type": "aim", "speed": 1.2}]}])}, y=-0.75
     )
@@ -162,9 +166,10 @@ def test_actions_set_its_speed():
     assert still.vx > 0  # still: goes right
 
 
-def test_actions_move_it_fire_or_end_it():
+def test_actions_move_it_fire_or_end_it() -> None:
     wisp = described(
-        {"size": [0.1, 0.1], "states": states("a", "b", exits=[{"to": "b", "then": [{"type": "relocate", "step": 0.618, "dy": -0.15}]}])}
+        {"size": [0.1, 0.1],
+         "states": states("a", "b", exits=[{"to": "b", "then": [{"type": "relocate", "step": 0.618, "dy": -0.15}]}])}
     )  # fmt: skip
     run(wisp, DT)
     span = HALF_WIDTH - 0.1
@@ -181,13 +186,13 @@ def test_actions_move_it_fire_or_end_it():
     assert not bomb.alive
 
 
-def test_a_fire_action_waits_to_be_on_screen_unless_told_otherwise():
+def test_a_fire_action_waits_to_be_on_screen_unless_told_otherwise() -> None:
     exits = [{"to": "b", "then": [{"type": "fire", "gun": {"pattern": "fan", "interval": 0, "speed": 0.4}}]}]
     above = described({"states": states("a", "b", exits=exits)}, y=1.5)
     assert run(above, DT) == []
 
 
-def test_the_frame_can_go_on_in_the_new_state_and_check_it_once_more():
+def test_the_frame_can_go_on_in_the_new_state_and_check_it_once_more() -> None:
     boss = described({
         "states": [
             {"name": "enter", "exits": [{"to": "one", "below_y": 0.6, "go_on": True, "recheck": True}]},
@@ -202,7 +207,7 @@ def test_the_frame_can_go_on_in_the_new_state_and_check_it_once_more():
     assert boss.state.name == "three"
 
 
-def test_a_warming_up_state_doesnt_fire_and_blinks():
+def test_a_warming_up_state_doesnt_fire_and_blinks() -> None:
     gun = {"pattern": "fan", "interval": 0.5, "speed": 0.5, "off_screen": "fire"}
     phase = described({"states": [{"name": "phase", "warmup": 0.5, "guns": [gun]}]})
     looks = set()
@@ -210,11 +215,12 @@ def test_a_warming_up_state_doesnt_fire_and_blinks():
     for _ in range(round(0.45 / DT)):
         created += phase.update(DT, TARGET, SCROLL)
         looks.add(phase.appearance())
-    assert created == [] and looks == {"flash", "normal"}
+    assert created == []
+    assert looks == {"flash", "normal"}
     assert bullets(run(phase, 0.2))
 
 
-def test_how_it_looks():
+def test_how_it_looks() -> None:
     blinking = described({"states": [{"name": "wait", "timer": 0.8, "look": "hidden", "blink": 0.1, "blink_on": 1}]})
     seen = set()
     for _ in range(40):
@@ -235,7 +241,7 @@ def test_how_it_looks():
     assert plain.appearance() == "normal"
 
 
-def test_a_charging_gun_makes_it_glow_and_a_holding_one_stops_it():
+def test_a_charging_gun_makes_it_glow_and_a_holding_one_stops_it() -> None:
     gun = {
         "pattern": "beam",
         "interval": 1.0,
@@ -253,17 +259,18 @@ def test_a_charging_gun_makes_it_glow_and_a_holding_one_stops_it():
     assert lancer.appearance() == "flash"
     assert lancer.vx == 0.0  # held still, not tracking
     beams = bullets(run(lancer, 0.5))
-    assert len(beams) == 1 and lancer.vx == 0.0
+    assert len(beams) == 1
+    assert lancer.vx == 0.0
     run(lancer, 0.4)
     assert lancer.vx == -0.2  # free again: tracking the player
     assert lancer.fire_interval == 1.0
 
 
-def test_an_enemy_without_a_staggered_gun_has_the_default_fire_interval():
+def test_an_enemy_without_a_staggered_gun_has_the_default_fire_interval() -> None:
     assert described({}).fire_interval == 1.0
 
 
-def test_shot_down_it_can_release_enemies():
+def test_shot_down_it_can_release_enemies() -> None:
     splitter = Enemy.of_kind("splitter", 0.1, 0.4)
     released = splitter.on_destroyed()
     assert [enemy.kind for enemy in released] == ["swarmer"] * 3
@@ -272,16 +279,17 @@ def test_shot_down_it_can_release_enemies():
     assert Enemy.of_kind("drone").on_destroyed() == []
 
 
-def test_a_shield_keeps_shots_out():
+def test_a_shield_keeps_shots_out() -> None:
     shielded = described({"health": 5.0, "states": [{"name": "a", "vulnerable": False}]})
     shielded.hit(3.0)
-    assert shielded.health == 5.0 and shielded.flash_time == 0.0
+    assert shielded.health == 5.0
+    assert shielded.flash_time == 0.0
     plain = described({"health": 5.0})
     plain.hit(5.0)
     assert not plain.alive
 
 
-def test_explosions_one_in_the_middle_or_as_described():
+def test_explosions_one_in_the_middle_or_as_described() -> None:
     one = described({"size": [0.1, 0.2]}, x=0.1, y=0.2)
     assert one.explosions() == [(0.1, 0.2, 0.2)]
     many = described({"size": [0.2, 0.1], "explosions": [[0.5, 0.0, 1.0], [0.0, -0.5, 0.5]]}, x=0.0, y=0.0)
@@ -292,7 +300,9 @@ def boss_with_arms() -> Enemy:
     arm = EnemySpec(kind="arm", drawing="arm", width=0.1, height=0.1, health=10.0)
     gun = parse_enemy(
         "core",
-        {"states": [{"name": "a", "guns": [{"from": "left", "pattern": "fan", "interval": 0.2, "speed": 0.5, "off_screen": "fire"}]}]},
+        {"states": [{"name": "a",
+                     "guns": [{"from": "left", "pattern": "fan", "interval": 0.2, "speed": 0.5,
+                               "off_screen": "fire"}]}]},
         "test",
     ).states  # fmt: skip
     spec = EnemySpec(
@@ -302,7 +312,7 @@ def boss_with_arms() -> Enemy:
     return Enemy.from_spec(spec, 0.0, 0.5)
 
 
-def test_parts_join_with_the_enemy_follow_it_and_fire_from_where_they_are():
+def test_parts_join_with_the_enemy_follow_it_and_fire_from_where_they_are() -> None:
     boss = boss_with_arms()
     left, right = boss.parts
     assert (left.part_name, left.x, right.x) == ("left", -0.3, 0.3)
@@ -311,16 +321,18 @@ def test_parts_join_with_the_enemy_follow_it_and_fire_from_where_they_are():
     assert created[:2] == [left, right]
     assert left.x == pytest.approx(boss.x - 0.3)
     shots = bullets(run(boss, 0.5))
-    assert shots and all(shot.x < boss.x for shot in shots)  # from the left part
+    assert shots
+    assert all(shot.x < boss.x for shot in shots)
     left.alive = False
     assert bullets(run(boss, 0.5)) == []  # it's gone: its gun is silent
     assert boss.wreckage() == [right]
 
 
-def test_parts_cover_the_columns_under_them_and_count_in_its_health():
+def test_parts_cover_the_columns_under_them_and_count_in_its_health() -> None:
     boss = boss_with_arms()
     left, _ = boss.parts
-    assert boss.covered(-0.3) and not boss.covered(0.0)
+    assert boss.covered(-0.3)
+    assert not boss.covered(0.0)
     assert boss.health_fraction == 1.0
     left.health = 0.0
     left.alive = False
@@ -328,11 +340,12 @@ def test_parts_cover_the_columns_under_them_and_count_in_its_health():
     assert not boss.covered(-0.3)
 
 
-def test_an_exit_can_wait_for_parts_or_lost_health():
+def test_an_exit_can_wait_for_parts_or_lost_health() -> None:
     boss = boss_with_arms()
     spec = parse_enemy(
         "core",
-        {"states": [{"name": "a", "exits": [{"to": "b", "parts": ["left"]}, {"to": "c", "health_below": 0.5}]}, {"name": "b"}, {"name": "c"}]},
+        {"states": [{"name": "a", "exits": [{"to": "b", "parts": ["left"]}, {"to": "c", "health_below": 0.5}]},
+                    {"name": "b"}, {"name": "c"}]},
         "test",
     )  # fmt: skip
     boss.spec = EnemySpec(kind="core", health=20.0, states=spec.states, parts=boss.spec.parts)
@@ -348,24 +361,27 @@ def test_an_exit_can_wait_for_parts_or_lost_health():
     assert boss.state.name == "c"
 
 
-def test_entering_from_a_side():
+def test_entering_from_a_side() -> None:
     crosser = described({"side_entry": True, "side_speed": 0.2})
     crosser.enter_from_side(-1)
-    assert crosser.vx == pytest.approx(-0.2 * config.WIDTH_SCALE) and crosser.heading == math.pi
+    assert crosser.vx == pytest.approx(-0.2 * config.WIDTH_SCALE)
+    assert crosser.heading == math.pi
     steering = described({"side_entry": True})
     steering.enter_from_side(1)
-    assert steering.vx == 0.0 and steering.heading == 0.0
+    assert steering.vx == 0.0
+    assert steering.heading == 0.0
 
 
-def test_its_model_turns_as_described_or_as_its_state_says():
+def test_its_model_turns_as_described_or_as_its_state_says() -> None:
     diver = Enemy.of_kind("diver")
-    assert diver.facing == "" and not diver.faces_travel
+    assert diver.facing == ""
+    assert not diver.faces_travel
     diver.go_to("dive")
     assert diver.faces_travel
     assert Enemy.of_kind("turret").facing == "player"
 
 
-def test_made_on_its_way_or_with_another_first_timer():
+def test_made_on_its_way_or_with_another_first_timer() -> None:
     shell = Enemy.of_kind("cluster_bomb", 0.0, 0.5, heading=1.0, timer=0.1)
     assert shell.heading == 1.0
     run(shell, 0.15)

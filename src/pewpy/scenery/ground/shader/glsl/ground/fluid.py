@@ -21,7 +21,8 @@ vec3 fluid_surface(vec2 p, float depth, float shadow) {
         color = mix(color, fluid_colors[2], foam * 0.7);
         vec3 half_way = normalize(normalize(sun) + EYE);
         float glint = pow(max(dot(n, half_way), 0.0), 150.0) * 0.9 * (1.0 - shadow);
-        return color * tint * daylight(vec3(0.0, -1.0, 0.0), shadow, 1.0) + (sun_color * glint + sky_color * 0.08) * tint;
+        vec3 shine = sun_color * glint + sky_color * 0.08;
+        return color * tint * daylight(vec3(0.0, -1.0, 0.0), shadow, 1.0) + shine * tint;
     }
     if (fluid < 2.5) {
         float crust = smoothstep(0.42, 0.66, fbm(p + vec2(0.0, -t * 0.012), 10.0, 3));

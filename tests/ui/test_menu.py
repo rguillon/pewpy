@@ -8,7 +8,7 @@ def make_menu(chosen: list[str], back: bool = True, selected: int = 0) -> Menu:
     return Menu("TITLE", items, back=(lambda: chosen.append("back")) if back else None, selected=selected)
 
 
-def test_up_and_down_move_the_highlight_and_wrap_around():
+def test_up_and_down_move_the_highlight_and_wrap_around() -> None:
     menu = make_menu([])
     menu.move(1)
     assert menu.selected == 1
@@ -19,7 +19,7 @@ def test_up_and_down_move_the_highlight_and_wrap_around():
     assert menu.selected == 2  # before the first item: the last
 
 
-def test_enter_runs_the_highlighted_item():
+def test_enter_runs_the_highlighted_item() -> None:
     chosen: list[str] = []
     menu = make_menu(chosen)
     menu.move(1)
@@ -27,18 +27,18 @@ def test_enter_runs_the_highlighted_item():
     assert chosen == ["Levels"]
 
 
-def test_escape_goes_back_if_the_menu_can():
+def test_escape_goes_back_if_the_menu_can() -> None:
     chosen: list[str] = []
     make_menu(chosen).go_back()
     make_menu(chosen, back=False).go_back()
     assert chosen == ["back"]
 
 
-def test_a_menu_can_start_on_any_item():
+def test_a_menu_can_start_on_any_item() -> None:
     assert make_menu([], selected=2).selected == 2
     assert make_menu([], selected=4).selected == 1  # wraps, e.g. a level index past the end
 
 
-def test_a_menu_needs_items():
+def test_a_menu_needs_items() -> None:
     with pytest.raises(ValueError, match="at least one item"):
         Menu("EMPTY", [])

@@ -31,6 +31,7 @@ class DriftLayer:
     rng: random.Random = field(default_factory=random.Random)
 
     def update(self, dt: float, scroll_speed: float) -> None:
+        """Scroll the drifters down and turn them; one that leaves at the bottom comes back at the top."""
         for drifter in self.drifters:
             drifter.y -= scroll_speed * drifter.speed_factor * dt
             (heading, pitch, roll), (spin_h, spin_p, spin_r) = drifter.angle, drifter.spin

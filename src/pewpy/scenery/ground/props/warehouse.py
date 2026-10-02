@@ -1,5 +1,6 @@
-"""Industrial halls: a long building with a sawtooth roof (glazed north lights), or a flat roof with vents; loading
-doors along one side, sometimes an office block with windows at one end.
+"""Industrial halls: a long building with a sawtooth roof (glazed north lights), or a flat roof with vents.
+
+Loading doors along one side, sometimes an office block with windows at one end.
 """
 
 import random
@@ -13,6 +14,7 @@ TOOTH = 0.022  # a sawtooth roof's teeth, about this far apart
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build an industrial hall."""
     x0, x1, y0, y1 = footprint(prop)
     z0, top = prop.base, prop.base + prop.height
     walls = varied(rng, c.plant_walls)
@@ -76,7 +78,7 @@ def _sawtooth(
 def _doors(
     mesh: PropMesh, rng: random.Random, hall: Rect, z0: float, height: float, along_x: bool, c: PropColors
 ) -> None:
-    """Loading doors along one long side: dark, a little proud of the wall."""
+    """Add loading doors along one long side: dark, a little proud of the wall."""
     x0, x1, y0, y1 = hall
     start, end = (x0, x1) if along_x else (y0, y1)
     count = max(1, min(5, int((end - start) / 0.03)))

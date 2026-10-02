@@ -1,5 +1,7 @@
-"""A gun with a `window`: it fires every `gap` seconds during the first `window` seconds of each `interval` of the
-state, sweeping from `-reach` to `reach` degrees (the other way round every other time).
+"""A gun with a `window`: it fires in bursts, one in each `interval` of the state.
+
+It fires every `gap` seconds during the first `window` seconds of each interval, sweeping from `-reach` to `reach`
+degrees (the other way round every other time).
 """
 
 from pewpy.game.entities import Entity
@@ -10,6 +12,7 @@ from pewpy.game.weapons.guns.state import GunState
 
 
 def step(gun: Gun, state: GunState, shooter: Shooter, dt: float) -> list[Entity]:
+    """Fire every `gap` seconds while in the window, sweeping."""
     into = shooter.clock % gun.interval
     if into >= gun.window:
         return []

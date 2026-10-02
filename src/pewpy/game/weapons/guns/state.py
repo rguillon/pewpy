@@ -7,6 +7,8 @@ from pewpy.game.weapons.guns.gun import Gun
 
 @dataclass
 class GunState:
+    """Where a gun is at: its wait, its volley, its turn, its charge."""
+
     cooldown: float
     volley_left: int = 0
     volley_timer: float = 0.0

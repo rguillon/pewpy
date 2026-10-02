@@ -15,6 +15,7 @@ class Velocity(Action):
     vy: float | None = None
 
     def do(self, body: Body, target: Entity) -> list[Entity]:
+        """Set the speed (each axis given; the others keep theirs)."""
         body.vx = body.vx if self.vx is None else self.vx
         body.vy = body.vy if self.vy is None else self.vy
         return []

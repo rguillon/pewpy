@@ -8,6 +8,7 @@ from pewpy.scenery.params import DistantPlanet
 
 
 def planet_layer(rng: random.Random, planet: DistantPlanet, area: Area) -> DriftLayer:
+    """Make the distant planet's layer: one big planet on the left or the right."""
     side = rng.choice((0.25, 0.75))  # left or right
     size = rng.uniform(*planet.size)
     drifter = Drifter(area.left + area.width * side, area.top - area.height * 0.25, size, planet.speed)

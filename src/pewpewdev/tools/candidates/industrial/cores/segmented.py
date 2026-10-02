@@ -3,7 +3,8 @@
 from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
-def core_segmented(rng: Rng, cv: Canvas, mx: int, half: int) -> None:  # blocks of different widths, joined by a neck
+def core_segmented(rng: Rng, cv: Canvas, mx: int, half: int) -> None:
+    """Draw blocks of different widths, joined by a neck."""
     count = rng.randint(2, 4)
     length = cv.h / count
     for i in range(count):

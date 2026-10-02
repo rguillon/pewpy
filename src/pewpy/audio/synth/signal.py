@@ -8,4 +8,5 @@ FloatArray = np.ndarray
 
 
 def frequency(pitch: float) -> float:
+    """Return a MIDI pitch's frequency, in hertz."""
     return 440.0 * 2.0 ** ((pitch - 69) / 12)

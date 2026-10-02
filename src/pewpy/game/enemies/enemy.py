@@ -1,5 +1,6 @@
-"""The one kind of enemy (02-enemies.md): every enemy, boss, boss part and projectile is an Enemy running its
-description (EnemySpec, see spec.py). Independent from rendering.
+"""The one kind of enemy (02-enemies.md): every enemy, boss, boss part and projectile is an Enemy.
+
+Each runs its description (EnemySpec, see spec.py). Independent from rendering.
 
 Each frame (`update`) it counts down its state's timer, goes to another state if one of the state's exits says so,
 moves (motions/), fires its state's guns (pewpy.game.weapons.guns), then moves with its speed. It returns
@@ -11,15 +12,18 @@ from __future__ import annotations  # a boss's parts are enemies too
 
 import math
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from pewpy import config
-from pewpy.game.enemies.actions import Action
 from pewpy.game.enemies.body import Body
-from pewpy.game.enemies.exits import Exit
 from pewpy.game.enemies.kinds import KINDS
 from pewpy.game.enemies.spec import EnemySpec, Part, State
-from pewpy.game.entities import Entity
 from pewpy.game.weapons.guns import GunState, Shooter, step
+
+if TYPE_CHECKING:
+    from pewpy.game.enemies.actions import Action
+    from pewpy.game.enemies.exits import Exit
+    from pewpy.game.entities import Entity
 
 HIT_FLASH_TIME = 0.05
 WARMUP_FLASH = 0.1  # a boss blinks this fast while its phase warms up
@@ -27,6 +31,8 @@ WARMUP_FLASH = 0.1  # a boss blinks this fast while its phase warms up
 
 @dataclass(eq=False)
 class Enemy(Body):
+    """An enemy running its description: its states, guns and parts."""
+
     spec: EnemySpec = field(default_factory=lambda: EnemySpec(kind=""))
     points: int = 100
     fire_cooldown: float = 0.0  # its first wait before firing (a "staggered" gun), set when it's placed
@@ -42,7 +48,7 @@ class Enemy(Body):
 
     @classmethod
     def from_spec(cls, spec: EnemySpec, x: float = 0.0, y: float = 0.0) -> Enemy:
-        """An enemy of `spec` at (x, y), with its parts."""
+        """Make an enemy of `spec` at (x, y), with its parts."""
         enemy = cls(
             x=x,
             y=y,
@@ -65,8 +71,9 @@ class Enemy(Body):
     def of_kind(
         cls, kind: str, x: float = 0.0, y: float = 0.0, heading: float | None = None, timer: float | None = None
     ) -> Enemy:
-        """An enemy (or a boss) of the kind named `kind` (see kinds.py) at (x, y), maybe heading another way than its
-        own (radians) or with another first timer (see Enemy.timer_override).
+        """Make an enemy (or a boss) of the kind named `kind` (see kinds.py) at (x, y).
+
+        It may head another way than its own (radians) or have another first timer (see Enemy.timer_override).
         """
         enemy = cls.from_spec(KINDS[kind], x, y)
         if heading is not None:
@@ -81,21 +88,26 @@ class Enemy(Body):
 
     @property
     def full_health(self) -> float:
+        """Its health when it came in."""
         return self.spec.health
 
     @property
     def half_span(self) -> float:
+        """Half the width of the whole enemy, parts included."""
         return self.spec.half_span
 
     @property
     def visits(self) -> int:
+        """How many times it entered its current state."""
         return self.entries[self.state_index]
 
     def destroyed(self, part: str) -> bool:
+        """Tell whether its part `part` is destroyed."""
         return any(piece.part_name == part and not piece.alive for piece in self.parts)
 
     @property
     def kind(self) -> str:
+        """Its kind's name."""
         return self.spec.kind
 
     @property
@@ -105,34 +117,42 @@ class Enemy(Body):
 
     @property
     def drawing(self) -> str:
+        """Its model: models/<drawing>.json ("": built in code)."""
         return self.spec.drawing
 
     @property
     def state(self) -> State:
+        """The state it's in."""
         return self.spec.states[self.state_index]
 
     @property
     def side_entry(self) -> bool:
+        """Whether it enters from the left or right edge instead of the top."""
         return self.spec.side_entry
 
     @property
     def drop_chance(self) -> float:
+        """The chance it drops a pickup when destroyed."""
         return self.spec.drop_chance
 
     @property
     def rammable(self) -> bool:
+        """Whether the player can ram it."""
         return self.spec.rammable
 
     @property
     def ground(self) -> bool:
+        """Whether it sits or drives on the ground."""
         return self.spec.ground
 
     @property
     def leaves_screen(self) -> bool:
+        """Whether it goes away beyond the edges (bosses stay)."""
         return self.spec.leaves_screen
 
     @property
     def is_boss(self) -> bool:
+        """Whether it's a boss."""
         return self.spec.boss
 
     @property
@@ -142,6 +162,7 @@ class Enemy(Body):
 
     @property
     def faces_travel(self) -> bool:
+        """Whether its model turns the way it travels."""
         return self.facing == "travel"
 
     @property
@@ -152,6 +173,7 @@ class Enemy(Body):
 
     @property
     def vulnerable(self) -> bool:
+        """Whether shots hurt it in its current state."""
         return self.state.vulnerable
 
     @property
@@ -162,6 +184,7 @@ class Enemy(Body):
         return left / full
 
     def update(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
+        """Advance it by `dt` seconds; return the bullets and enemies it created."""
         self.age += dt
         self.flash_time = max(0.0, self.flash_time - dt)
         created = self.behave(dt, target, scroll_speed)
@@ -173,6 +196,7 @@ class Enemy(Body):
         return created
 
     def behave(self, dt: float, target: Entity, scroll_speed: float) -> list[Entity]:
+        """Run its state: count down, take an exit, do the motions and fire the guns; return what it created."""
         created: list[Entity] = []
         if not self.started:
             self.started = True
@@ -213,6 +237,7 @@ class Enemy(Body):
         self._enter(self.spec.state_index(state))
 
     def hit(self, damage: float) -> None:
+        """Take `damage` (unless it's invulnerable in its state); it dies at no health."""
         if not self.vulnerable:
             return
         self.health -= damage
@@ -263,9 +288,8 @@ class Enemy(Body):
         return "flash" if hit else "normal"
 
     def _carry_parts(self) -> None:
-        for part in self.parts:
-            if part.mount is not None:
-                part.x, part.y = self.x + part.mount.x, self.y + part.mount.y
+        for mount, part in zip(self.spec.parts, self.parts, strict=True):
+            part.x, part.y = self.x + mount.x, self.y + mount.y
 
     def _tick(self, dt: float) -> None:
         if self.state.timer is not None:
@@ -316,7 +340,7 @@ class Enemy(Body):
         return created
 
     def shooter(self, target: Entity, piece: Body | None = None) -> Shooter:
-        """What its guns need to know, firing from `piece` (itself, or one of its parts) at `target`."""
+        """Return what its guns need to know, firing from `piece` (itself, or one of its parts) at `target`."""
         piece = self if piece is None else piece
         return Shooter(piece, target, self.age, self.clock, self.timer, piece.on_screen, self.of_kind, self._stop)
 

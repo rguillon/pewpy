@@ -6,6 +6,7 @@ from pewpewdev.tools.songs.writer import Writer, near
 
 
 def arp(writer: Writer, start: float, bars: int, root: int, shape: tuple[int, ...], velocity: int) -> None:
+    """Write the arpeggio over `bars` bars of a chord."""
     tones = [near(root, 64) + step for step in shape[:3]]
     tones.append(tones[0] + 12)
     pattern = ARPS[writer.plan.arp]

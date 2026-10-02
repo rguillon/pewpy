@@ -1,5 +1,6 @@
-"""The mesh every prop is built into (see __init__.py), and its shapes: boxes, cylinders, discs, ellipsoids, gabled
-roofs, shapes turned on a lathe.
+"""The mesh every prop is built into (see __init__.py), and its shapes.
+
+Boxes, cylinders, discs, ellipsoids, gabled roofs, shapes turned on a lathe.
 
 Built in bulk with numpy as plain arrays (the ground's shader/ turns them into Panda3D geometry). Every vertex has
 14 floats: position (3), normal (3), color (red, green, blue, material) and texture data (4: along the wall,
@@ -31,6 +32,8 @@ SUNK = 0.01  # walls go this far below their base, so no gap shows on slopes
 
 
 class PropMesh:
+    """The props' vertices and triangles, as they're built."""
+
     def __init__(self) -> None:
         self.vertices: list[FloatArray] = []
         self.indices: list[IndexArray] = []
@@ -50,6 +53,7 @@ class PropMesh:
         material: int,
         wall: list[tuple[float, float]] | None = None,
     ) -> None:
+        """Add a flat quad (two triangles) with its normal, color and material (and wall coordinates for windows)."""
         vertices = np.zeros((4, 14), dtype=np.float32)
         vertices[:, 0:3] = corners
         vertices[:, 3:6] = normal
@@ -123,6 +127,7 @@ class PropMesh:
     def disc(
         self, x: float, y: float, radius: float, z: float, color: Color, material: int, segments: int = 14
     ) -> None:
+        """Add a flat disc facing up."""
         angles = np.linspace(0, 2 * np.pi, segments, endpoint=False)
         vertices = np.zeros((segments + 1, 14), dtype=np.float32)
         vertices[0, 0:3] = (x, y, z)
@@ -148,7 +153,7 @@ class PropMesh:
         segments: int = 10,
         rings: int = 6,
     ) -> None:
-        """A smooth-shaded ellipsoid (from `lower`, -1 for the whole, 0 for a dome, to its top)."""
+        """Add a smooth-shaded ellipsoid (from `lower`, -1 for the whole, 0 for a dome, to its top)."""
         heights = np.linspace(math.asin(lower), math.pi / 2, rings + 1)
         angles = np.linspace(0, 2 * np.pi, segments + 1)
         elevation, around = np.meshgrid(heights, angles, indexing="ij")
@@ -179,7 +184,7 @@ class PropMesh:
         roof: Color,
         material: int,
     ) -> None:
-        """A house or barn: walls up to the eaves, a pitched roof with its ridge along the longer side."""
+        """Add a house or barn: walls up to the eaves, a pitched roof with its ridge along the longer side."""
         self.box(x0, x1, y0, y1, z0, eaves, walls, material, top=walls)
         along_x = (x1 - x0) >= (y1 - y0)
         if along_x:
@@ -230,7 +235,7 @@ class PropMesh:
         self._add(vertices, np.array([0, 1, 2], dtype=np.uint32))
 
     def face(self, corners: list[tuple[float, float, float]], color: Color, material: int) -> None:
-        """A flat face of 3 or 4 corners (a roof's slope), its normal facing up."""
+        """Add a flat face of 3 or 4 corners (a roof's slope), its normal facing up."""
         a, b, c = (np.array(corner) for corner in corners[:3])
         normal = np.cross(b - a, c - a)
         normal /= np.linalg.norm(normal) or 1.0
@@ -248,8 +253,10 @@ class PropMesh:
         roof: Color,
         material: int = PLAIN,
     ) -> None:
-        """A roof along the footprint's longer side, from its cross-section: (share of the way across, height
-        above the eaves) from one edge to the other; the two ends closed with the walls' color.
+        """Add a roof along the footprint's longer side, from its cross-section.
+
+        The cross-section is (share of the way across, height above the eaves) from one edge to the other; the two ends
+        are closed with the walls' color.
         """
         x0, x1, y0, y1 = footprint
         along_x = (x1 - x0) >= (y1 - y0)
@@ -280,8 +287,9 @@ class PropMesh:
         segments: int = 14,
         cap: Color | None = None,
     ) -> None:
-        """A shape turned around the upright axis at (x, y): `profile` is (z, radius) from the bottom up, smooth
-        shaded; `cap` closes its top with a disc of that color.
+        """Add a shape turned around the upright axis at (x, y): `profile` is (z, radius) from the bottom up.
+
+        It's smooth shaded; `cap` closes its top with a disc of that color.
         """
         angles = np.linspace(0, 2 * np.pi, segments + 1)
         cos, sin = np.cos(angles), np.sin(angles)
@@ -315,9 +323,10 @@ class PropMesh:
         if cap is not None:
             top_z, top_r = profile[-1]
             if top_r > 0:
-                self.disc(x, y, top_r, top_z, cap, PLAIN if material in (LIGHT,) else material, segments)
+                self.disc(x, y, top_r, top_z, cap, PLAIN if material == LIGHT else material, segments)
 
     def arrays(self) -> tuple[FloatArray, IndexArray]:
+        """Return the vertices and the triangles' indices, as arrays."""
         if not self.vertices:
             return np.zeros((0, 14), dtype=np.float32), np.zeros(0, dtype=np.uint32)
         return np.concatenate(self.vertices), np.concatenate(self.indices)
@@ -329,14 +338,15 @@ def footprint(prop: Prop) -> tuple[float, float, float, float]:
 
 
 def radius(prop: Prop) -> float:
-    """The biggest round thing that fits its footprint."""
+    """Return the radius of the biggest round thing that fits its footprint."""
     return min(prop.width, prop.length) / 2
 
 
 def shade(color: Color, factor: float) -> Color:
+    """Return a color made lighter or darker by `factor` (each channel at most 1)."""
     return (min(color[0] * factor, 1.0), min(color[1] * factor, 1.0), min(color[2] * factor, 1.0))
 
 
 def varied(rng: random.Random, color: Color, amount: float = 0.08) -> Color:
-    """The color a little lighter or darker: no two props quite the same."""
+    """Return the color a little lighter or darker: no two props quite the same."""
     return shade(color, 1.0 + rng.uniform(-amount, amount))

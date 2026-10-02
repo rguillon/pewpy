@@ -28,6 +28,8 @@ HEALTH_LEFT = 30.0
 
 @dataclass(frozen=True)
 class Outcome:
+    """How a run went."""
+
     cleared: bool
     time: float  # seconds played, every life included
     progress: float  # how far into the level (its last life), from 0 to 1 (the final boss's arrival), then to 2 (the
@@ -40,6 +42,7 @@ class Outcome:
 
     @property
     def fitness(self) -> float:
+        """Score the run: the time it advanced, its points and the damage to bosses, more if it cleared the level."""
         bonus = CLEARED + HEALTH_LEFT * self.health_left if self.cleared else 0.0
         return PER_SECOND * self.advanced + PER_POINT * self.score + BOSS_DAMAGE * self.bosses + bonus
 

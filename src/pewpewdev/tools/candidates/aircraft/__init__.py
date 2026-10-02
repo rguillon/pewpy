@@ -7,12 +7,14 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 class Parts(Canvas):
-    """What each cell of an aircraft's drawing is, for building it in 3D (see `aircraft_layers`): "F" fuselage,
-    "W" wing or tailplane, "V" upright fin, "P" engine pod, "G" gun.
+    """What each cell of an aircraft's drawing is, for building it in 3D (see `aircraft_layers`).
+
+    "F" fuselage, "W" wing or tailplane, "V" upright fin, "P" engine pod, "G" gun.
     """
 
 
 def aircraft(rng: Rng) -> tuple[Canvas, bool, Parts]:
+    """Draw an aircraft: its plan, whether it's symmetric, and its parts."""
     small = rng.random() < 0.25
     width = rng.randrange(9, 16, 2) if small else rng.randrange(15, 32, 2)
     height = rng.randint(9, 15) if small else rng.randint(14, 30)
@@ -52,9 +54,11 @@ AIRCRAFT_FIN = 2  # an upright fin stands this many cubes above the fuselage at 
 
 
 def aircraft_layers(cv: Canvas, parts: Parts) -> dict[tuple[int, int, int], str]:
-    """The aircraft in 3D: (column, row, layer) -> its drawing's character; layers from the middle plane, negative
-    ones up towards the camera. A round fuselage (its width on the drawing gives its depth), a canopy on top of it,
-    thin wings and tailplanes rising a little towards their tips, upright fins, pods and guns slung underneath.
+    """Build the aircraft in 3D: (column, row, layer) -> its drawing's character.
+
+    Layers are counted from the middle plane, negative ones up towards the camera. A round fuselage (its width on the
+    drawing gives its depth), a canopy on top of it, thin wings and tailplanes rising a little towards their tips,
+    upright fins, pods and guns slung underneath.
     """
     middle = (cv.w - 1) / 2
     cells: dict[tuple[int, int, int], str] = {}
@@ -81,7 +85,7 @@ def aircraft_layers(cv: Canvas, parts: Parts) -> dict[tuple[int, int, int], str]
 
 
 def fuselage(rng: Rng, cv: Canvas, body: float) -> None:
-    """A thin tail at the back, full width in the middle, an ogive nose."""
+    """Draw the fuselage: a thin tail at the back, full width in the middle, an ogive nose."""
     middle = cv.w // 2
     nose = max(2, round(cv.h * rng.uniform(0.2, 0.35)))
     for y in range(cv.h):
@@ -96,7 +100,7 @@ def fuselage(rng: Rng, cv: Canvas, body: float) -> None:
 
 
 def tail(rng: Rng, cv: Canvas, root_x: float, front: float, wing_back: float) -> None:
-    """A small swept tailplane at the back, or canards near the nose."""
+    """Draw a small swept tailplane at the back, or canards near the nose."""
     span = (root_x + 0.5) * rng.uniform(0.3, 0.5)
     if rng.random() < 0.7 and wing_back > 4:
         y = rng.uniform(3, min(wing_back - 1, 6))

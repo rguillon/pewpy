@@ -4,7 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def barge(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """A long hull with rows of cargo containers and a small bridge tower at the back."""
+    """Draw a long hull with rows of cargo containers and a small bridge tower at the back."""
     cv.rect(mx - half, mx + half, top + 3, bottom - 2, "h")
     cv.polygon([(mx - half, bottom - 2), (mx + half, bottom - 2), (mx, bottom)], "h")
     size = rng.randint(3, 5)

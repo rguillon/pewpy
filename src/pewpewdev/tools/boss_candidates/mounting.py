@@ -8,12 +8,12 @@ PARTS_BY_SIZE = {"medium": (0, 4), "large": (2, 7), "huge": (3, 10)}
 
 
 def part(rng: Rng, kind: str, boss_width: int) -> Canvas:
-    """A part, sized to its boss."""
+    """Draw a part, sized to its boss."""
     scale = boss_width / 60
     size = max(9, round(rng.uniform(11, 23) * scale)) | 1  # odd
     cv = Canvas(size, max(9, round(size * rng.uniform(0.8, 1.4))))
     PARTS[kind](rng, cv)
-    trim(cv, True)
+    trim(cv, symmetric=True)
     return cv
 
 
@@ -38,7 +38,7 @@ def mount(rng: Rng, cv: Canvas, symmetric: bool, size: str) -> list[tuple[str, i
 
 
 def socket(cv: Canvas, x: int, y: int, part_cv: Canvas, mirrored: bool) -> None:
-    """A thin plate on the core under the part (so the part stands out over it, rather than clashing)."""
+    """Draw a thin plate on the core under the part (so the part stands out over it, rather than clashing)."""
     half_w, half_h = part_cv.w // 2 - 1, part_cv.h // 2 - 1
     for sx in [x] + ([cv.w - 1 - x] if mirrored else []):
         for cy in range(y - half_h, y + half_h + 1):

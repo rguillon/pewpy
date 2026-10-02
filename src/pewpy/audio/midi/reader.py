@@ -50,7 +50,7 @@ class _Parsed:
 
 
 def _meta(reader: _Reader, beat: float, parsed: _Parsed) -> bool:
-    """A meta event (after its 0xFF); False at the end of the track."""
+    """Read a meta event (after its 0xFF); return False at the end of the track."""
     kind = reader.byte()
     data = reader.take(reader.variable())
     if kind == 0x51:
@@ -96,6 +96,7 @@ def _read_track(reader: _Reader, per_beat: int, parsed: _Parsed) -> None:
 
 
 def read(data: bytes) -> Song:
+    """Read a standard MIDI file (timed in ticks per beat) as a Song: its tracks merged."""
     reader = _Reader(data)
     if reader.take(4) != b"MThd":
         raise MidiError.not_midi()

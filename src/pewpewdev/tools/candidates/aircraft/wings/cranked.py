@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Point, Rng
 
 
 def cranked(rng: Rng, height: int, root_x: float, front: float) -> list[Point]:
+    """Plan a cranked wing: swept steeply near the root, less beyond the crank."""
     chord = height * rng.uniform(0.35, 0.5)
     crank_x = root_x - (root_x + 0.5) * rng.uniform(0.35, 0.5)
     crank_y = front - chord * 0.55

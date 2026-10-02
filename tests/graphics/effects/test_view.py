@@ -14,7 +14,7 @@ def lens() -> PerspectiveLens:
     return result
 
 
-def test_glowing_particles_are_soft_circles_and_debris_stay_cubes():
+def test_glowing_particles_are_soft_circles_and_debris_stay_cubes() -> None:
     effects = ParticleSystem(seed=0)
     effects.particles += [
         Particle(0, 0, 0, 0, 0, 0, size=0.02, color=RED, life=1.0, glow=True),
@@ -27,7 +27,7 @@ def test_glowing_particles_are_soft_circles_and_debris_stay_cubes():
     assert view.node.getInstanceCount() == 1
 
 
-def test_the_laser_draws_its_streaks_a_halo_and_glows_at_the_nose_and_where_it_burns():
+def test_the_laser_draws_its_streaks_a_halo_and_glows_at_the_nose_and_where_it_burns() -> None:
     effects = ParticleSystem(seed=0)
     effects.set_lasers([LaserGlow(x=0.0, bottom=-0.5, top=0.1, width=0.03, hits=(0.1,))], 1 / 60)
     view = EffectsView(effects, NodePath("render"), lens())
@@ -40,7 +40,7 @@ def test_the_laser_draws_its_streaks_a_halo_and_glows_at_the_nose_and_where_it_b
     assert view.glows.node.isHidden()
 
 
-def test_an_enemy_beam_glows_red_from_its_muzzle_and_a_long_beam_keeps_its_halo_short():
+def test_an_enemy_beam_glows_red_from_its_muzzle_and_a_long_beam_keeps_its_halo_short() -> None:
     effects = ParticleSystem(seed=0)
     beam = LaserGlow(x=0.3, bottom=-1.1, top=0.5, width=0.01, hostile=True, key=7)
     effects.set_lasers([beam], 1 / 60)

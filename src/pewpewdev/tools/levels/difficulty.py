@@ -14,10 +14,11 @@ def difficulty(world: int, level: int) -> int:
 
 
 def between(low_high: tuple[float, float], d: int) -> float:
+    """Return the value for difficulty `d`, from `low` at 1 to `high` at MAX_DIFFICULTY."""
     low, high = low_high
     return low + (high - low) * (d - 1) / (MAX_DIFFICULTY - 1)
 
 
 def budget(d: int) -> float:
-    """A half level's threat at difficulty `d` (beyond MAX_DIFFICULTY it keeps growing)."""
+    """Return a half level's threat at difficulty `d` (beyond MAX_DIFFICULTY it keeps growing)."""
     return THREAT[0] + (THREAT[1] - THREAT[0]) * ((d - 1) / (MAX_DIFFICULTY - 1)) ** THREAT_CURVE

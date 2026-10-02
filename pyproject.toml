@@ -67,47 +67,46 @@ line-length = 120
 fix = true
 
 [tool.ruff.lint]
-select = [
-    # flake8-2020
-    "YTT",
-    # flake8-bandit
-    "S",
-    # flake8-bugbear
-    "B",
-    # flake8-builtins
-    "A",
-    # flake8-comprehensions
-    "C4",
-    # flake8-debugger
-    "T10",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
-    # mccabe
-    "C90",
-    # pycodestyle
-    "E", "W",
-    # pyflakes
-    "F",
-    # pygrep-hooks
-    "PGH",
-    # pyupgrade
-    "UP",
-    # ruff
-    "RUF",
-    # tryceratops
-    "TRY",
-]
-ignore = [
-    # LineTooLong
-    "E501",
-    # DoNotAssignLambda
-    "E731",
-]
+fixable = ["ALL"]
+select = ["ALL", "RUF022"]
+ignore = [  "COM812",   # cause incompatibility with the formatter
+            "ISC001",   # cause incompatibility with the formatter
+            "D203",     # conflict with another rule
+            "D213",     # conflict with another rule
+            "D107",     # ok to not document the constructors
+            "TRY400",   # ok to not log exceptions
+            "CPY001",   # No copyright
+            "DOC201",   # Ok to not document returns
+            "DOC501",   # Ok to not document exceptions
+            "PLR2004",  # Magic values
+            "PLR0913",  # Too many arguments: builders and generators take many parameters
+            "PLR0917",  # Too many positional arguments: same
+            "FBT001",   # Boolean-typed positional argument
+            "FBT002",   # Boolean default positional argument
+            "S311",     # We want pseudo-random, non cryptographic is ok
+            ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]
+# Every motion, exit, action and landscape implements the same method; not all of them use every argument.
+"src/pewpy/game/enemies/motions/*" = ["ARG002"]
+"src/pewpy/game/enemies/exits/*" = ["ARG002"]
+"src/pewpy/game/enemies/actions/*" = ["ARG002"]
+"src/pewpy/scenery/ground/kinds/*" = ["ARG002"]
+# The dev tools' command lines talk to the user with print.
+"src/pewpewdev/**/__main__.py" = ["T201"]
+"tests/*" = [ "S101",     # Allow assert in tests
+              "D100",     # No docstring in tests
+              "D101",     # No docstring in tests
+              "D102",     # No docstring in tests
+              "D103",     # No docstring in tests
+              "D105",     # No docstring in tests
+              "D107",     # No docstring in tests
+              "FBT001",   # Boolean-typed positional argument in function
+              "PLR2004",  # Magic values ok in tests
+              "SLF001",   # Accessing private members is ok in tests.
+              "PLR0913",  # Too many arguments to function: needed for the MQTT lib
+              "PLR0917",   # PLR0917 Too many positional arguments, good enough in test
+              ]
 
 [tool.ruff.format]
 preview = true

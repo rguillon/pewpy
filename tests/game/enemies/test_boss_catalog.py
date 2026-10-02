@@ -3,12 +3,13 @@ import pytest
 from pewpy.game.enemies.exits import Parts
 from pewpy.game.enemies.kinds import BOSSES, FINAL_BOSSES, MINI_BOSSES
 from pewpy.game.enemies.screen import HALF_WIDTH
+from pewpy.game.enemies.spec import EnemySpec, State
 from pewpy.game.level import load_levels
 from pewpy.graphics import models
 
 
 @pytest.mark.parametrize("kind", BOSSES)
-def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind):
+def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind: str) -> None:
     spec = BOSSES[kind]
     assert spec.half_span < HALF_WIDTH
     assert spec.boss
@@ -22,7 +23,7 @@ def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind):
 
 
 @pytest.mark.parametrize("kind", BOSSES)
-def test_every_hitbox_has_the_size_of_its_drawing(kind):
+def test_every_hitbox_has_the_size_of_its_drawing(kind: str) -> None:
     """Models are built with cubes of config.MODEL_VOXEL (or finer): each drawing is about as big as its hitbox."""
     spec = BOSSES[kind]
     for drawing, width, height in [(spec.drawing, spec.width, spec.height)] + [
@@ -33,7 +34,7 @@ def test_every_hitbox_has_the_size_of_its_drawing(kind):
         assert voxels.height * voxels.size == pytest.approx(height, rel=0.12), drawing
 
 
-def test_every_level_has_its_own_mini_boss_halfway_and_final_boss_at_the_end():
+def test_every_level_has_its_own_mini_boss_halfway_and_final_boss_at_the_end() -> None:
     levels = load_levels()
     bosses_by_level = [[wave for wave in level.waves if wave.enemy in BOSSES] for level in levels]
     assert all(len(waves) == 2 for waves in bosses_by_level)
@@ -45,11 +46,11 @@ def test_every_level_has_its_own_mini_boss_halfway_and_final_boss_at_the_end():
         assert sum(mini.time < wave.time < final.time for wave in level.waves) > 5
 
 
-def test_a_final_boss_is_bigger_and_tougher_than_its_levels_mini_boss():
+def test_a_final_boss_is_bigger_and_tougher_than_its_levels_mini_boss() -> None:
     for level in load_levels():
         mini, final = (BOSSES[wave.enemy] for wave in level.waves if wave.enemy in BOSSES)
 
-        def toughness(spec):
+        def toughness(spec: EnemySpec) -> float:
             return spec.health + sum(part.spec.health for part in spec.parts)
 
         assert final.width * final.height > mini.width * mini.height
@@ -57,12 +58,12 @@ def test_a_final_boss_is_bigger_and_tougher_than_its_levels_mini_boss():
         assert len(phases(final)) >= len(phases(mini))
 
 
-def phases(spec):
+def phases(spec: EnemySpec) -> list[State]:
     return [state for state in spec.states if state.guns]
 
 
 @pytest.mark.parametrize("kind", BOSSES)
-def test_every_phase_but_the_last_can_end(kind):
+def test_every_phase_but_the_last_can_end(kind: str) -> None:
     fighting = phases(BOSSES[kind])
     assert all(phase.exits for phase in fighting[:-1])
     assert len(fighting) >= 2  # several shooting patterns

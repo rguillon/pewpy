@@ -62,14 +62,16 @@ class EntityModels(Window):
                     self._boss_model(drawing)
 
     def _make_block(self, entity: Entity) -> NodePath:
-        """The entity's model in the scene (bullets are sprites, see _sync_nodes)."""
+        """Make the entity's model in the scene (bullets are sprites, see _sync_nodes)."""
         node = self._make_model(entity)
         node.reparentTo(self.render)
         return node
 
     def _make_model(self, entity: Entity) -> NodePath:
-        """A copy of the entity's model: models are in world units, all with the same cubes, their size from their
-        drawing (about their hitbox). Copied, not instanced, so each Turret can aim its own barrel.
+        """Make a copy of the entity's model.
+
+        Models are in world units, all with the same cubes, their size from their drawing (about their hitbox). Copied,
+        not instanced, so each Turret can aim its own barrel.
         """
         node = NodePath("entity")
         if isinstance(entity, Enemy) and (entity.is_boss or entity.part_name):
@@ -95,8 +97,10 @@ class EntityModels(Window):
 
 
 def fitted_model(model: NodePath, size: float) -> NodePath:
-    """A copy of a world-sized model, `size` across, fitted in a 1 x 1 x 1 box (for the ship select, and the dev
-    tools' Models screen)."""
+    """Make a copy of a world-sized model, `size` across, fitted in a 1 x 1 x 1 box.
+
+    For the ship select, and the dev tools' Models screen.
+    """
     box = NodePath("fitted")
     inner = box.attachNewNode("scaled")
     inner.setScale(1 / size)
@@ -110,5 +114,5 @@ def shielded(enemy: Enemy) -> bool:
 
 
 def drawing_of(entity: Entity) -> str:
-    """The drawing of an enemy or a missile: its model."""
+    """Return the drawing of an enemy or a missile: its model."""
     return entity.drawing if isinstance(entity, Enemy | Missile) else ""

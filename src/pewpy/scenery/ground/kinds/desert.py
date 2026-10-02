@@ -12,10 +12,13 @@ from pewpy.scenery.params import Knobs
 
 
 class Desert(Landscape):
+    """A desert: dunes, mesas and oases."""
+
     knobs = ("dune_spacing", "mesa_size", "pool_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """Long dune ridges, flat-topped rock mesas, a few oasis pools ringed with grass (and palms, see `Palms`).
+        """Shape long dune ridges, flat-topped rock mesas, a few oasis pools ringed with grass (and palms, see `Palms`).
+
         Marks: 0 sand, 0.5 the grass around the pools, 1 rock.
         """
         crests = max(1, round(rows * step / knobs["dune_spacing"]))  # dune ridges per loop: whole, so they loop too
@@ -37,6 +40,8 @@ class Desert(Landscape):
 
 
 class Palms(Flora):
+    """Palms around the desert's oases."""
+
     knobs = ("chance", "size", "height")
 
     def props(self, rng: random.Random, shape: Shape, step_x: float, step_y: float, knobs: Knobs) -> list[Prop]:

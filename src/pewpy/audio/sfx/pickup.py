@@ -7,7 +7,7 @@ from pewpy.audio.synth import RATE, FloatArray, lowpass, oscillator
 
 
 def pickup() -> FloatArray:
-    """A weapon upgrade: a major arpeggio up."""
+    """Make the sound of a weapon upgrade: a major arpeggio up."""
     parts = []
     for semitones in (0, 4, 7, 12):
         hertz = np.full(int(0.06 * RATE), 1046.5 * 2 ** (semitones / 12))

@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a storage tank: a sphere on legs, or a cylinder with a domed or floating roof."""
     r, top = radius(prop), prop.base + prop.height
     metal = varied(rng, rng.choice(c.refinery_metals))
     roll = rng.random()

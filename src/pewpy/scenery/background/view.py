@@ -17,12 +17,12 @@ def _opaque(color: Color3) -> models.Color:
 
 
 def space_color() -> models.Color:
-    """What the camera clears to around the game area and behind the menus: space's sky."""
+    """Return what the camera clears to around the game area and behind the menus: space's sky."""
     return _opaque(params.resolve("space").sky)
 
 
 def sky_color(scenery: SceneryParams, time_of_day: str = "day") -> models.Color:
-    """What shows where a background draws nothing (between clouds...): its sky, tinted by the time of day."""
+    """Return what shows where a background draws nothing (between clouds...): its sky, tinted by the time of day."""
     air = scenery.times_of_day[time_of_day].air
     red, green, blue = scenery.sky
     return (red * air[0], green * air[1], blue * air[2], 1.0)
@@ -37,6 +37,7 @@ class CameraView:
         self.render = render
 
     def area(self, depth: float) -> Area:
+        """Return the part of the plane `depth` behind the play plane that the camera sees."""
         xs, zs = [], []
         for corner in ((-1, -1), (1, -1), (1, 1), (-1, 1)):
             near, far = Point3(), Point3()
@@ -50,6 +51,7 @@ class CameraView:
         return Area(min(xs) - margin, max(xs) + margin, min(zs) - margin, max(zs) + margin)
 
     def parallax(self, depth: float) -> float:
+        """Return how fast things at `depth` move on the screen, compared with the play plane's."""
         return self._screen_speed(depth) / self._screen_speed(0.0)
 
     def _screen_speed(self, depth: float) -> float:
@@ -90,6 +92,7 @@ class BackgroundView:
         self.sync()
 
     def sync(self) -> None:
+        """Place the nodes where the scenery's layers are now."""
         if self.scenery.starfield:
             for layer, node in zip(self.scenery.starfield.layers, self.star_nodes, strict=True):
                 node.setPos(0, self.star_depth, -layer.offset)
@@ -103,6 +106,7 @@ class BackgroundView:
                 node.setPos(terrain.left, terrain.depth, terrain.chunk_top(chunk))
 
     def destroy(self) -> None:
+        """Remove the scenery's nodes."""
         self.root.removeNode()
 
     def _star_layer(self, layer: background.StarLayer) -> NodePath:
@@ -148,8 +152,9 @@ class BackgroundView:
         return self._relief(terrain)
 
     def _relief(self, terrain: Terrain) -> list[NodePath]:
-        """A smooth ground: a mesh per strip painted by the ground shader, and the props standing on it
-        (shader.py).
+        """Build a smooth ground: a mesh per strip painted by the ground shader, and the props standing on it.
+
+        See shader.py.
         """
         relief = terrain.relief
         ground = self.root.attachNewNode("relief")

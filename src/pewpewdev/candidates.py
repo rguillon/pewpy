@@ -1,6 +1,7 @@
-"""The model candidates, drawings for possible new enemies and bosses made by the tools (tools/candidates/,
-tools/boss_candidates/), kept with the game's models but not in the game: the Enemy candidates and Boss candidates
-screens show them.
+"""The model candidates: drawings for possible new enemies and bosses made by the tools.
+
+Made by tools/candidates/ and tools/boss_candidates/, kept with the game's models but not in the game: the Enemy
+candidates and Boss candidates screens show them.
 """
 
 import json
@@ -15,7 +16,7 @@ BOSS_CANDIDATES_FOLDER = "boss_candidates"
 
 
 def candidate_names() -> list[str]:
-    """The model candidates' drawings, like "candidates/001", in order."""
+    """Return the model candidates' drawings, like "candidates/001", in order."""
     folder = data_folder() / DRAWINGS_FOLDER / CANDIDATES_FOLDER
     if not folder.is_dir():
         return []
@@ -24,7 +25,7 @@ def candidate_names() -> list[str]:
 
 
 def boss_candidate_names() -> list[str]:
-    """The boss candidates' cores, like "boss_candidates/001", in order."""
+    """Return the boss candidates' cores, like "boss_candidates/001", in order."""
     folder = data_folder() / DRAWINGS_FOLDER / BOSS_CANDIDATES_FOLDER
     if not folder.is_dir():
         return []
@@ -33,7 +34,7 @@ def boss_candidate_names() -> list[str]:
 
 
 def boss_candidate_parts(name: str) -> list[tuple[str, float, float]]:
-    """A boss candidate's parts: (drawing, x, y), in cubes from the core's middle (x right, y up the screen)."""
+    """Return a boss candidate's parts: (drawing, x, y), in cubes from the core's middle (x right, y up the screen)."""
     path = data_folder() / DRAWINGS_FOLDER / f"{name}.parts.json"
     if not path.is_file():
         return []

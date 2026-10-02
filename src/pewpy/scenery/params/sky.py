@@ -7,18 +7,24 @@ from pewpy.scenery.params.types import Color3
 
 @dataclass(frozen=True)
 class TimeOfDay:
+    """A time of day: how it tints the ground and the air."""
+
     ground: Color3  # tint of the ground (and what stands on it)
     air: Color3  # tint of the haze and the sky
 
 
 @dataclass(frozen=True)
 class Light:
+    """The light: the sun's and the sky's."""
+
     sun: Color3
     sky: Color3  # light from the sky, in the open
 
 
 @dataclass(frozen=True)
 class Haze:
+    """The haze: the air between the camera and what's far away."""
+
     color: Color3  # the air far away
     amount: float  # how much of it, at the farthest
     near: float  # from this distance to the camera (world units)...
@@ -27,6 +33,8 @@ class Haze:
 
 @dataclass(frozen=True)
 class MistLayer:
+    """A layer of mist drifting over the ground."""
+
     depth: float  # the deepest it goes (world units behind the play plane); over high ground it comes closer...
     above_ground: float  # ...staying at most this share of the way from the ships down to the highest ground
     speed: float  # how fast it moves on screen, as a share of the level's scroll speed

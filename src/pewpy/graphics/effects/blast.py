@@ -18,6 +18,7 @@ class Blast(Effect):
     radius: float
 
     def particles(self, rng: random.Random) -> list[Particle]:
+        """Throw out a fireball and a ring of sparks."""
         result = fireball(rng, self.x, self.y, self.radius, BLAST_COLORS)
         for i in range(12):
             angle = 2 * math.pi * i / 12 + rng.uniform(-0.2, 0.2)

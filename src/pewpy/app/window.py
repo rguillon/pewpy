@@ -1,5 +1,6 @@
-"""The window, the camera and the lights: the game keeps its shape in any window, the camera sees the whole play
-area.
+"""The window, the camera and the lights.
+
+The game keeps its shape in any window, the camera sees the whole play area.
 """
 
 import math
@@ -21,9 +22,10 @@ GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps 
 class Window(ShowBase):
     """The window: the game's shape whatever its size (black bars around it), the camera and the lights."""
 
-    def finalizeExit(self) -> None:
-        """Under WSL, the GPU goes through Mesa's d3d12 driver (see `make run`), which can hang while the window is
-        torn down: leave at once instead (nothing is left to save).
+    def finalizeExit(self) -> None:  # noqa: N802 - overrides ShowBase
+        """Leave at once under WSL, where the window can hang while it's torn down.
+
+        There the GPU goes through Mesa's d3d12 driver (see `make run`); nothing is left to save.
         """
         if os.environ.get("GALLIUM_DRIVER") == "d3d12":
             sys.stdout.flush()
@@ -54,12 +56,14 @@ class Window(ShowBase):
 
     # ShowBase calls these two on window changes. (The types-panda3d stubs say GraphicsEngine for `win`; it's
     # really the window, but we don't use it.)
-    def windowEvent(self, win: GraphicsEngine) -> None:
+    def windowEvent(self, win: GraphicsEngine) -> None:  # noqa: N802 - overrides ShowBase
+        """Fit the letterbox to the window's new size."""
         super().windowEvent(win)
         self._fit_letterbox()
 
-    def getAspectRatio(self, win: GraphicsEngine | None = None) -> float:
+    def getAspectRatio(self, win: GraphicsEngine | None = None) -> float:  # noqa: ARG002, N802 - overrides ShowBase
         # ShowBase sizes the lens and the HUD (aspect2d) from this: always the game's shape, see _setup_letterbox.
+        """Return the game's shape, whatever the window's: ShowBase sizes the lens and the HUD (aspect2d) from it."""
         return GAME_ASPECT
 
     def _setup_camera(self) -> None:
@@ -98,8 +102,9 @@ class Window(ShowBase):
 
 
 def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT) -> tuple[float, float, float, float]:
-    """(left, right, bottom, top) of the biggest centered region of shape `aspect` (width / height) in the window,
-    as fractions of the window.
+    """Return the biggest centered region of shape `aspect` (width / height) in the window.
+
+    As (left, right, bottom, top), fractions of the window.
     """
     window_aspect = window_width / max(window_height, 1)
     if window_aspect > aspect:  # too wide: bars on the left and right

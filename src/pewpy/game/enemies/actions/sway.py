@@ -16,5 +16,6 @@ class Sway(Action):
     speed: float = 0.0
 
     def do(self, body: Body, target: Entity) -> list[Entity]:
+        """Move sideways at `speed`, keeping the way it was going (right if it wasn't)."""
         body.vx = math.copysign(self.speed * config.WIDTH_SCALE, body.vx or 1.0)
         return []

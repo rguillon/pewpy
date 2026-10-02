@@ -8,8 +8,9 @@ from pewpy.audio.synth.signal import RATE, FloatArray
 
 
 def filters_of(signal: FloatArray, *responses: Callable[[FloatArray], FloatArray]) -> list[FloatArray]:
-    """`signal` (mono, or stereo in columns) through each filter, given by its gain at every frequency: in the
-    frequency domain, transformed once for them all (padded to a power of two: much faster, and nothing wraps
+    """Pass `signal` (mono, or stereo in columns) through each filter, given by its gain at every frequency.
+
+    In the frequency domain, transformed once for them all (padded to a power of two: much faster, and nothing wraps
     around from the end to the start).
     """
     size = 1 << (len(signal) - 1).bit_length()
@@ -25,15 +26,17 @@ def _filter(signal: FloatArray, response: Callable[[FloatArray], FloatArray]) ->
 
 
 def lowpass_gain(cutoff: float, order: int = 2) -> Callable[[FloatArray], FloatArray]:
+    """Return a Butterworth-shaped low-pass's gain at every frequency."""
     return lambda hertz: 1.0 / np.sqrt(1.0 + (hertz / max(cutoff, 1.0)) ** (2 * order))
 
 
 def lowpass(signal: FloatArray, cutoff: float, order: int = 2) -> FloatArray:
-    """A Butterworth-shaped low-pass (12 dB per octave at order 2)."""
+    """Low-pass `signal`, Butterworth-shaped (12 dB per octave at order 2)."""
     if cutoff >= RATE / 2:
         return signal
     return _filter(signal, lowpass_gain(cutoff, order))
 
 
 def highpass(signal: FloatArray, cutoff: float, order: int = 2) -> FloatArray:
+    """High-pass `signal`, Butterworth-shaped."""
     return _filter(signal, lambda hertz: 1.0 / np.sqrt(1.0 + (cutoff / np.maximum(hertz, 1e-3)) ** (2 * order)))

@@ -21,27 +21,33 @@ class VoxError(ValueError):
 
     @classmethod
     def not_vox(cls) -> "VoxError":
+        """Make the error for a file that isn't a .vox file."""
         return cls("not a MagicaVoxel .vox file")
 
     @classmethod
     def no_main(cls) -> "VoxError":
+        """Make the error for a file without its MAIN chunk."""
         return cls("no MAIN chunk")
 
     @classmethod
     def no_model(cls) -> "VoxError":
+        """Make the error for a file without a model."""
         return cls("no model (SIZE and XYZI chunks)")
 
 
 @dataclass
 class VoxModel:
+    """A MagicaVoxel model: its size, its voxels and its palette."""
+
     size: tuple[int, int, int]  # x, y, z
     voxels: list[Voxel]
     palette: list[RGBA]  # 256 entries: color index i is palette[i - 1]
 
 
 def _gray_palette() -> list[RGBA]:
-    """Used when a file has no palette of its own (MagicaVoxel then means its default one, which isn't known
-    here): shades of grey, so the shape still shows.
+    """Make the palette for a file without one: shades of grey, so the shape still shows.
+
+    MagicaVoxel then means its default palette, which isn't known here.
     """
     return [(i, i, i, 255) for i in range(256)]
 
@@ -65,6 +71,7 @@ def _four(data: bytes, at: int) -> tuple[int, int, int, int]:
 
 
 def read(data: bytes) -> VoxModel:
+    """Read a .vox file (its first model)."""
     if len(data) < 8 or data[:4] != b"VOX ":
         raise VoxError.not_vox()
     main = _chunks(data, 8, len(data))
@@ -88,6 +95,8 @@ def read(data: bytes) -> VoxModel:
 
 
 def write(model: VoxModel) -> bytes:
+    """Write a .vox file: one model and its palette."""
+
     def chunk(chunk_id: bytes, content: bytes, children: bytes = b"") -> bytes:
         return chunk_id + struct.pack("<ii", len(content), len(children)) + content + children
 

@@ -1,5 +1,6 @@
-"""Sci-fi domes: a habitat on a ring wall with a glowing band, a light on top, sometimes an airlock tube out to
-one side; or a glass dome full of plants.
+"""Sci-fi domes: a habitat on a ring wall with a glowing band, a light on top; or a glass dome full of plants.
+
+A habitat sometimes has an airlock tube out to one side.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a dome."""
     r, z0, height = radius(prop) * 0.85, prop.base, prop.height
     x, y = prop.x, prop.y
     hull = varied(rng, rng.choice(c.hull), 0.05)

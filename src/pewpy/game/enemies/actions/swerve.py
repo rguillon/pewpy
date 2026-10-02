@@ -15,5 +15,6 @@ class Swerve(Action):
     limit: float = 0.0
 
     def do(self, body: Body, target: Entity) -> list[Entity]:
+        """Move sideways towards the target, faster the farther it is (up to `limit`)."""
         body.vx = max(-self.limit, min(self.limit, (target.x - body.x) * self.gain))
         return []

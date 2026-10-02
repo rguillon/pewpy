@@ -6,7 +6,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def spider(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """A round body with legs reaching out, each ending in a claw."""
+    """Draw a round body with legs reaching out, each ending in a claw."""
     my = (top + bottom) / 2
     body = min(half, (bottom - top) / 2) * rng.uniform(0.3, 0.45)
     legs = rng.randint(2, 4)

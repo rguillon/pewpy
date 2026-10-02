@@ -1,5 +1,6 @@
-"""Hangars: a long vaulted hall (a rounded roof straight from the ground, or on low walls), a big dark door at one
-end with a light over it; sometimes two halls side by side.
+"""Hangars: a long vaulted hall (a rounded roof straight from the ground, or on low walls).
+
+A big dark door at one end with a light over it; sometimes two halls side by side.
 """
 
 import math
@@ -13,6 +14,7 @@ ARCH = (0.0, 0.08, 0.2, 0.35, 0.5, 0.65, 0.8, 0.92, 1.0)  # shares across the ro
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a hangar."""
     x0, x1, y0, y1 = footprint(prop)
     walls = varied(rng, rng.choice(c.hangar_walls))
     along_x = (x1 - x0) >= (y1 - y0)

@@ -11,8 +11,9 @@ BURN_SPARKS = 40.0  # per second while the laser touches an enemy
 
 @dataclass(frozen=True)
 class Burn(Effect):
-    """One frame (`dt` seconds) of the laser burning what it touches at (x, y): BURN_SPARKS sparks per second on
-    average, thrown back down and to the sides.
+    """One frame (`dt` seconds) of the laser burning what it touches at (x, y).
+
+    BURN_SPARKS sparks per second on average, thrown back down and to the sides.
     """
 
     x: float
@@ -20,6 +21,7 @@ class Burn(Effect):
     dt: float
 
     def particles(self, rng: random.Random) -> list[Particle]:
+        """Throw out this frame's sparks."""
         result = []
         count = BURN_SPARKS * self.dt
         for _ in range(int(count) + (rng.random() < count % 1)):

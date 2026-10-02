@@ -1,5 +1,7 @@
-"""Drawing what's in play each frame: models placed, turned and shaded, bullets as sprites, laser beams, the
-lightning bolt, and the effects of what happened.
+"""Drawing what's in play each frame.
+
+Models placed, turned and shaded, bullets as sprites, laser beams, the lightning bolt, and the effects of what
+happened.
 """
 
 import itertools
@@ -68,7 +70,7 @@ class Drawing(Hud):
         self.enemy_laser_model = models.laser_beam_model(ENEMY_LASER_CORE)
         self.beam_nodes: dict[Bullet, NodePath] = {}  # the enemies' laser beams
         self.bolt_node = self.render.attachNewNode("bolt")
-        self.bolt_rng = random.Random()  # noqa: S311 - looks only
+        self.bolt_rng = random.Random()
 
     def _show_events(self, events: list[Event], dt: float) -> None:
         for event in events:
@@ -135,7 +137,7 @@ class Drawing(Hud):
             ship.find("secondary_turret/**/barrel").setR(models.facing_roll(secondary.aim_x, secondary.aim_y))
 
     def _show_bolt(self) -> None:
-        """The lightning gun's last strike, while it shows: a zigzag line, redrawn every frame so it crackles."""
+        """Show the lightning gun's last strike, while it shows: a zigzag line, redrawn every frame so it crackles."""
         self.bolt_node.getChildren().detach()
         points = self.world.bolt if self.world else []
         if len(points) < 2:
@@ -167,7 +169,7 @@ class Drawing(Hud):
 
     @staticmethod
     def _laser_glows(world: World) -> list[LaserGlow]:
-        """The laser beams this frame, for their light: the player's laser, and the enemies' beams."""
+        """Return the laser beams this frame, for their light: the player's laser, and the enemies' beams."""
         glows = [
             LaserGlow(
                 shot.x, shot.y - shot.height / 2, shot.y + shot.height / 2, shot.width, hostile=True, key=id(shot)
@@ -182,7 +184,7 @@ class Drawing(Hud):
         return glows
 
     def _show_beams(self, beams: list[Bullet]) -> None:
-        """The enemies' laser beams' cores, flickering like the player's laser (their light is an effect)."""
+        """Show the enemies' laser beams' cores, flickering like the player's laser (their light is an effect)."""
         for gone in [beam for beam in self.beam_nodes if beam not in beams]:
             self.beam_nodes.pop(gone).removeNode()
         flicker = 1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * 53.0)
@@ -234,8 +236,9 @@ class Drawing(Hud):
 
 
 def flame_scale(time: float, phase: float, thrust: float = 0.0) -> float:
-    """An engine flame's length right now, compared with its steady length: wavering, longer with `thrust` (-1 to
-    1). `phase` keeps flames from wavering together.
+    """Return an engine flame's length right now, compared with its steady length.
+
+    It wavers, longer with `thrust` (-1 to 1). `phase` keeps flames from wavering together.
     """
     slow, fast = FLAME_FLICKER
     waver = slow * math.sin(time * 23 + phase) + fast * math.sin(time * 61 + phase * 2.3)

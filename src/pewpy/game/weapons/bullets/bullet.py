@@ -7,6 +7,8 @@ from pewpy.game.entities import Entity
 
 @dataclass(eq=False)
 class Bullet(Entity):
+    """A shot: how much it hurts, whose it is, how it's drawn, how long it lasts."""
+
     damage: float = 1.0
     hostile: bool = False  # True for enemy bullets
     style: str = "normal"  # how to draw it, e.g. "sniper" for the Sniper's shots
@@ -15,6 +17,7 @@ class Bullet(Entity):
     harmless: bool = False  # True: only shows something coming (a laser's warning beam), never hits
 
     def move(self, dt: float) -> None:
+        """Move, and count down its life if it has one."""
         super().move(dt)
         if self.life is not None:
             self.life -= dt

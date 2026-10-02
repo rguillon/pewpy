@@ -1,5 +1,6 @@
-"""Industrial ships: a core hull (cores/) with attachments (attachments/), symmetric or lopsided, sculpted from
-their plan.
+"""Industrial ships: a core hull (cores/) with attachments (attachments/), symmetric or lopsided.
+
+They are sculpted from their plan.
 """
 
 from pewpewdev.tools.candidates.canvas import Canvas, Rng
@@ -9,6 +10,7 @@ from pewpewdev.tools.candidates.shaping import Shaping
 
 
 def industrial(rng: Rng, lopsided: bool) -> tuple[Canvas, bool]:
+    """Draw an industrial ship's plan; return it and whether it's symmetric."""
     kind = rng.random()
     if kind < 0.2:  # small drones and fighters
         width, height = rng.randrange(7, 14, 2), rng.randint(7, 13)

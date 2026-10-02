@@ -9,8 +9,10 @@ from pewpy.graphics.models.mesh.builder import MeshBuilder
 
 
 def tank_model() -> NodePath:
-    """Hull plus a separate child node named "barrel" (the turret: dome and gun) that the game turns toward the
-    player, around the dome's middle. The hull's treads run along the top and bottom: it drives sideways.
+    """Make a tank: a hull plus a separate child node named "barrel" (the turret: dome and gun).
+
+    The game turns the barrel toward the player, around the dome's middle. The hull's treads run along the top and
+    bottom: it drives sideways.
     """
     size = config.MODEL_VOXEL
     hull_rows, hull_palette = load_drawing("tank")

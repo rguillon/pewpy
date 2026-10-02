@@ -1,5 +1,6 @@
-"""Remodel the game's ships in real 3D voxels (data/models/<name>.json), from recipes (recipes/: one
-module per ship) written with sculpt.py.
+"""Remodel the game's ships in real 3D voxels (data/models/<name>.json), from recipes.
+
+The recipes (recipes/: one module per ship) are written with sculpt.py.
 
     make models                       # every model that has a recipe
     make models ARGS="player drone"   # just these

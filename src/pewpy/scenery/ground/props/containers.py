@@ -11,6 +11,7 @@ GAP = 0.002
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build stacks of shipping containers in rows."""
     x0, x1, y0, y1 = footprint(prop)
     along_x = (x1 - x0) >= (y1 - y0)
     length, across = ((x1 - x0), (y1 - y0)) if along_x else ((y1 - y0), (x1 - x0))

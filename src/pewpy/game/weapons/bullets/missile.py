@@ -11,8 +11,10 @@ from pewpy.game.weapons.bullets.bullet import Bullet
 
 @dataclass(eq=False)
 class Missile(Bullet):
-    """The player's missile: maybe homing (turning towards the nearest target, at most `turn_rate` radians per
-    second), maybe blowing up enemies within `splash_radius` too (`splash_damage` each).
+    """The player's missile: maybe homing, maybe blowing up enemies around where it hits.
+
+    Homing: turning towards the nearest target, at most `turn_rate` radians per second. Blowing up enemies within
+    `splash_radius` too (`splash_damage` each).
     """
 
     drawing: ClassVar[str] = "missile"  # its model: models/missile.json

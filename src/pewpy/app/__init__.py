@@ -7,6 +7,7 @@ sound.py. This module puts them together and runs the frames.
 """
 
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from direct.task.Task import Task
 from panda3d.core import NodePath, loadPrcFileData
@@ -17,7 +18,6 @@ from pewpy.app.sound import Sound
 from pewpy.app.window import GAME_ASPECT, letterbox
 from pewpy.audio.cues import event_sounds
 from pewpy.game.controls import Controls
-from pewpy.game.entities import Entity
 from pewpy.game.level import load_worlds
 from pewpy.game.player import DEFAULT_SHIP
 from pewpy.game.states import TRANSITIONS, State, StateMachine, Transitions
@@ -28,15 +28,21 @@ from pewpy.scenery.background import Scenery
 from pewpy.scenery.background.view import BackgroundView, CameraView
 from pewpy.ui.level_preview import LevelPreview
 from pewpy.ui.menu_view import MenuView
-from pewpy.ui.ship_select_view import ShipSelectView
+
+if TYPE_CHECKING:
+    from pewpy.game.entities import Entity
+    from pewpy.ui.ship_select_view import ShipSelectView
 
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
 EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
 
 
 class PewPewApp(Sound):
-    """The game. The dev tools (pewpewdev.app) add screens of their own through `state_transitions`, `effects_run_in`,
-    `_main_menu_items`, `_setup_screens` and the methods they override."""
+    """The game.
+
+    The dev tools (pewpewdev.app) add screens of their own through `state_transitions`, `effects_run_in`,
+    `_main_menu_items`, `_setup_screens` and the methods they override.
+    """
 
     state_transitions: Transitions = TRANSITIONS
     effects_run_in: frozenset[Enum] = EFFECTS_RUN_IN
@@ -98,7 +104,7 @@ class PewPewApp(Sound):
         """Seconds since the last frame (at most 0.1: no huge steps after a stall)."""
         return min(self.clock.getDt(), 0.1)
 
-    def _update(self, task: Task) -> int:
+    def _update(self, task: Task) -> int:  # noqa: ARG002 - a Panda3D task
         dt = self._frame_time()
         world = self.world
         if world is not None and self.states.state is State.PLAYING:
@@ -128,6 +134,7 @@ class PewPewApp(Sound):
 
 
 def main() -> None:
+    """Run the game."""
     PewPewApp().run()
 
 

@@ -19,7 +19,7 @@ def make_song() -> Song:
     )
 
 
-def test_a_song_written_then_read_is_the_same():
+def test_a_song_written_then_read_is_the_same() -> None:
     song = make_song()
     back = midi.read(midi.write(song, "a song"))
     assert back.tempo == pytest.approx(100.0, rel=1e-4)
@@ -29,12 +29,12 @@ def test_a_song_written_then_read_is_the_same():
     assert back.length == 8.0  # the loop marker
 
 
-def test_a_note_ending_where_the_same_one_starts_stays_two_notes():
+def test_a_note_ending_where_the_same_one_starts_stays_two_notes() -> None:
     song = Song(tempo=120.0, notes=[Note(0.0, 1.0, 60), Note(1.0, 1.0, 60)])
     assert midi.read(midi.write(song)).notes == song.notes
 
 
-def test_tempo_changes_move_later_beats():
+def test_tempo_changes_move_later_beats() -> None:
     song = Song(tempo=120.0, notes=[Note(0.0, 8.0, 60)], tempo_changes=[(4.0, 60.0)])
     assert song.seconds(4.0) == pytest.approx(2.0)  # 4 beats at 120 bpm
     assert song.seconds(6.0) == pytest.approx(4.0)  # then 2 at 60
@@ -43,7 +43,7 @@ def test_tempo_changes_move_later_beats():
     assert back.duration == pytest.approx(6.0)
 
 
-def test_running_status_and_note_on_with_no_velocity_are_read():
+def test_running_status_and_note_on_with_no_velocity_are_read() -> None:
     # One track: note on 60, then (running status) note on 60 at velocity 0 = off, a beat later.
     events = bytes([0x00, 0x90, 60, 100, 0x83, 0x60, 60, 0, 0x00, 0xFF, 0x2F, 0x00])
     data = b"MThd" + (6).to_bytes(4, "big") + bytes([0, 0, 0, 1, 0x01, 0xE0])
@@ -54,7 +54,7 @@ def test_running_status_and_note_on_with_no_velocity_are_read():
 
 
 @pytest.mark.parametrize("data", [b"RIFF0000", b"MThd\x00\x00\x00\x06\x00\x01\x00\x02"])
-def test_what_isnt_midi_is_refused(data):
+def test_what_isnt_midi_is_refused(data: bytes) -> None:
     with pytest.raises(MidiError):
         midi.read(data)
 
@@ -67,7 +67,7 @@ def midi_file(*tracks: tuple[bytes, bytes], per_beat: int = 480) -> bytes:
     return data
 
 
-def test_what_the_game_doesnt_use_is_skipped():
+def test_what_the_game_doesnt_use_is_skipped() -> None:
     events = bytes([
         0x00,
         0xD0,
@@ -93,9 +93,10 @@ def test_what_the_game_doesnt_use_is_skipped():
     ])  # and no end of track: the track's end is enough
     song = midi.read(midi_file((b"XTRA", b"\x01\x02\x03"), (b"MTrk", events)))
     assert song.notes == [Note(0.0, 1.0, 60, 100, 0)]
-    assert song.programs == {} and song.volumes == {}
+    assert song.programs == {}
+    assert song.volumes == {}
 
 
-def test_smpte_timing_is_refused():
+def test_smpte_timing_is_refused() -> None:
     with pytest.raises(MidiError, match="SMPTE"):
         midi.read(midi_file(per_beat=0xE728))

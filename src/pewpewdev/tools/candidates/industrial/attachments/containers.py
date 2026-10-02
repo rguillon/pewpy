@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def containers(rng: Rng, cv: Canvas, edge: int, side: str) -> None:
+    """Draw a column of cargo containers along the flank."""
     width = rng.randint(2, 3)
     x, y = max(0, edge - width), rng.uniform(0.05, 0.3) * cv.h
     while y < cv.h * 0.8:

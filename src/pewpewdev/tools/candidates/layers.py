@@ -4,8 +4,9 @@ from pewpewdev.tools.candidates.canvas import Canvas
 
 
 def layered_drawing(cells: dict[tuple[int, int, int], str], cv: Canvas, colors: dict) -> dict:
-    """A 3D drawing: its layers from the top (nearest the camera) down, symmetric around the middle plane (the
-    game puts the middle one on it), and each character's color.
+    """Make a 3D drawing: its layers from the top (nearest the camera) down, and each character's color.
+
+    The layers are symmetric around the middle plane (the game puts the middle one on it).
     """
     extent = max(abs(layer) for _, _, layer in cells)
     layers = [

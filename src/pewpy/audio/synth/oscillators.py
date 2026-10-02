@@ -6,7 +6,7 @@ from pewpy.audio.synth.signal import RATE, FloatArray
 
 
 def _poly_blep(phase: FloatArray, step: FloatArray) -> FloatArray:
-    """The correction that removes most of the aliasing from a saw's jump (where phase wraps)."""
+    """Return the correction that removes most of the aliasing from a saw's jump (where phase wraps)."""
     out = np.zeros_like(phase)
     step = np.maximum(step, 1e-9)
     low = phase < step
@@ -34,4 +34,5 @@ def oscillator(wave: str, hertz: FloatArray, phase: float = 0.0) -> FloatArray:
 
 
 def noise(count: int, seed: int = 0) -> FloatArray:
+    """Make `count` samples of white noise, the same for the same seed."""
     return np.random.default_rng(seed).uniform(-1.0, 1.0, count)

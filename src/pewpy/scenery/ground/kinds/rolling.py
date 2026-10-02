@@ -6,11 +6,14 @@ from pewpy.scenery.params import Knobs
 
 
 class Rolling(Landscape):
+    """Gently rolling ground, for farmland."""
+
     knobs = ("height", "swell_size", "detail_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """Gently rolling ground for farmland: wide low swells, `height` high (`max_height` is for what stands on it,
-        not used).
+        """Shape gently rolling ground for farmland: wide low swells, `height` high.
+
+        `max_height` is for what stands on it, not used.
         """
         swells = noise(rng, rows, columns, knobs["swell_size"], step)
         detail = noise(rng, rows, columns, knobs["detail_size"], step)

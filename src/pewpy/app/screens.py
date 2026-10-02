@@ -1,5 +1,6 @@
-"""The screens and their menus: main menu, ship, world and level select, pause, game over, level complete; starting
-levels and going from one to the next.
+"""The screens and their menus: main menu, ship, world and level select, pause, game over, level complete.
+
+Also starting levels and going from one to the next.
 """
 
 from collections.abc import Callable
@@ -42,28 +43,28 @@ class Screens(Drawing):
         return lambda: self.states.transition(target)
 
     def _main_menu_items(self) -> list[MenuItem]:
-        """The main menu's items, but "Quit" (the last one)."""
+        """Return the main menu's items, but "Quit" (the last one)."""
         return [MenuItem("Start", self._go(State.SHIP_SELECT))]
 
     def _menu(self, state: Enum) -> Menu | None:
-        """The menu shown in each state (None while playing)."""
+        """Return the menu shown in each state (None while playing)."""
         go = self._go
         main_menu = MenuItem("Main menu", go(State.MAIN_MENU))
-        if state is State.MAIN_MENU:
-            return Menu("PEWPEW", [*self._main_menu_items(), MenuItem("Quit", self.userExit)])
-        if state is State.SHIP_SELECT:
-            return self._ship_menu()
-        if state is State.WORLD_SELECT:
-            return self._world_menu()
-        if state is State.LEVEL_SELECT:
-            return self._level_menu()
-        if state is State.PAUSED:
-            return Menu("PAUSED", [MenuItem("Resume", go(State.PLAYING)), main_menu], back=go(State.PLAYING))
-        if state is State.GAME_OVER:
-            return Menu("GAME OVER", [MenuItem("Continue", self._continue), main_menu], back=go(State.MAIN_MENU))
-        if state is State.LEVEL_COMPLETE:
-            return self._level_complete_menu(main_menu)
-        return None
+        menus: dict[Enum, Callable[[], Menu]] = {
+            State.MAIN_MENU: lambda: Menu("PEWPEW", [*self._main_menu_items(), MenuItem("Quit", self.userExit)]),
+            State.SHIP_SELECT: self._ship_menu,
+            State.WORLD_SELECT: self._world_menu,
+            State.LEVEL_SELECT: self._level_menu,
+            State.PAUSED: lambda: Menu(
+                "PAUSED", [MenuItem("Resume", go(State.PLAYING)), main_menu], back=go(State.PLAYING)
+            ),
+            State.GAME_OVER: lambda: Menu(
+                "GAME OVER", [MenuItem("Continue", self._continue), main_menu], back=go(State.MAIN_MENU)
+            ),
+            State.LEVEL_COMPLETE: lambda: self._level_complete_menu(main_menu),
+        }
+        make = menus.get(state)
+        return make() if make is not None else None
 
     def _level_complete_menu(self, main_menu: MenuItem) -> Menu:
         if self._is_last_level():
@@ -133,7 +134,7 @@ class Screens(Drawing):
         self.level_preview.show(index, self.levels[index])
 
     def _label(self, index: int) -> str:
-        """A level's place, like "2-5" (world 2, level 5)."""
+        """Return a level's place, like "2-5" (world 2, level 5)."""
         world, number = self.places[index]
         return f"{world + 1}-{number}"
 
@@ -158,7 +159,7 @@ class Screens(Drawing):
         self.states.transition(State.PLAYING)
 
     def _show_background(self, level: Level | None = None) -> None:
-        """A level's scenery (none: space, behind the menus)."""
+        """Show a level's scenery (none: space, behind the menus)."""
         self.background.destroy()
         if level is None:
             scenery = Scenery("space", self.camera_view)
@@ -189,7 +190,7 @@ class Screens(Drawing):
     def _is_last_level(self) -> bool:
         return self.level_index >= len(self.levels) - 1
 
-    def _on_state_change(self, previous: Enum, current: Enum) -> None:
+    def _on_state_change(self, previous: Enum, current: Enum) -> None:  # noqa: ARG002 - the dev app uses it
         menu = self._menu(current)
         self.menu_view.show(menu)
         if self.ship_select is not None:

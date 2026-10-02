@@ -7,7 +7,7 @@ BEAM_BOTTOM = -config.PLAY_HEIGHT / 2 - 0.1  # beams go down past the bottom of 
 
 
 def beam(x: float, top: float, width: float, duration: float) -> Bullet:
-    """A laser beam from `top` straight down past the bottom of the screen (like the Lancer's)."""
+    """Make a laser beam from `top` straight down past the bottom of the screen (like the Lancer's)."""
     return Bullet(
         x=x,
         y=(top + BEAM_BOTTOM) / 2,

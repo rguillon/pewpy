@@ -17,6 +17,7 @@ class Impact(Effect):
     color: Color | None = None  # None: spark colors
 
     def particles(self, rng: random.Random) -> list[Particle]:
+        """Throw out a few sparks, back the way the shot came."""
         result = []
         for _ in range(rng.randint(4, 6)):
             angle = math.radians(90 * self.towards + rng.uniform(-60, 60))

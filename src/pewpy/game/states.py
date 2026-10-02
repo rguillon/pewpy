@@ -5,6 +5,8 @@ from enum import Enum, auto
 
 
 class State(Enum):
+    """The game's screens."""
+
     MAIN_MENU = auto()
     SHIP_SELECT = auto()  # picking the player's ship, before the world
     WORLD_SELECT = auto()
@@ -30,11 +32,15 @@ TRANSITIONS: Transitions = {
 
 
 class InvalidTransitionError(Exception):
+    """The game can't go from one screen to the other."""
+
     def __init__(self, current: Enum, target: Enum) -> None:
         super().__init__(f"cannot go from {current.name} to {target.name}")
 
 
 class StateMachine:
+    """Which screen the game is on, and where it can go from there."""
+
     def __init__(
         self,
         initial: Enum = State.MAIN_MENU,
@@ -46,9 +52,11 @@ class StateMachine:
         self.transitions = transitions
 
     def can_transition(self, target: Enum) -> bool:
+        """Tell whether the game can go to `target` from here."""
         return target in self.transitions[self.state]
 
     def transition(self, target: Enum) -> None:
+        """Go to `target` (InvalidTransitionError if it can't), telling `on_change`."""
         if not self.can_transition(target):
             raise InvalidTransitionError(self.state, target)
         previous, self.state = self.state, target

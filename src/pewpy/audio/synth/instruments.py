@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Instrument:
+    """How a synthesized instrument sounds: its waves, envelope and filter."""
+
     wave: str = "saw"
     voices: int = 1  # detuned copies (a "supersaw" with more)
     detune: float = 0.0  # cents between the outermost voices
@@ -40,7 +42,7 @@ BRASS = Instrument(wave="saw", voices=3, detune=10, attack=0.04, decay=0.5, sust
 
 
 def instrument(program: int) -> Instrument:
-    """The instrument for a General MIDI program: its family decides."""
+    """Return the instrument for a General MIDI program: its family decides."""
     if 32 <= program <= 39:  # basses
         return BASS
     if 88 <= program <= 95 or 48 <= program <= 55:  # pads, strings and choirs

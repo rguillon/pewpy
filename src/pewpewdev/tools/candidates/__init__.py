@@ -5,7 +5,8 @@
     uv run python -m pewpewdev.tools.candidates --seed 1234           # the same batch again
     uv run python -m pewpewdev.tools.candidates --append --count 20   # add to the batch instead of replacing it
 
-(or `make candidates ARGS="--kind aircraft --count 50"`). Then open Main menu > Enemy candidates in `make dev` (or "Reload models" there).
+(or `make candidates ARGS="--kind aircraft --count 50"`). Then open Main menu > Enemy candidates in `make dev` (or
+"Reload models" there).
 
 Enemies point down the screen: nose on the last row, engines at the back (flames "towards": "top"). Kinds:
 - aircraft: a slender fuselage with an ogive nose, thin wings tapering to their tips (swept, delta, cranked,

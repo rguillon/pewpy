@@ -9,7 +9,7 @@ from pewpy.graphics.models.mesh.builder import MeshBuilder
 
 
 def turret_model() -> NodePath:
-    """Base plus a separate child node named "barrel" that the game turns toward the player."""
+    """Make a turret: a base plus a separate child node named "barrel" that the game turns toward the player."""
     rows, palette = load_drawing("turret")
     barrel_rows, barrel_palette = load_drawing("turret_barrel")
     size = config.MODEL_VOXEL

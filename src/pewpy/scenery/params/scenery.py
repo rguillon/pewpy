@@ -11,6 +11,8 @@ from pewpy.scenery.params.types import Color3
 
 @dataclass(frozen=True)
 class SceneryParams:
+    """A level's scenery: its sky, light and air, and every layer behind the play area."""
+
     name: str  # the preset's
     sky: Color3  # what shows where nothing is drawn (between clouds, around space)
     light: Light

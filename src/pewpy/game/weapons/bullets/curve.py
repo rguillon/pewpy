@@ -10,14 +10,16 @@ CURVE_TIME = 1.5  # "curve" shots bend this long, then fly straight
 
 @dataclass(eq=False)
 class CurveBullet(Bullet):
-    """A shot whose path bends by `turn_rate` degrees per second (positive: counterclockwise) for `bend_time`
-    seconds, then goes straight on (it would fly in circles).
+    """A shot whose path bends by `turn_rate` degrees per second (positive: counterclockwise) for `bend_time` seconds.
+
+    Then it goes straight on (it would fly in circles).
     """
 
     turn_rate: float = 0.0
     bend_time: float = CURVE_TIME
 
     def move(self, dt: float) -> None:
+        """Bend the path while it still bends, then move."""
         bending = min(dt, max(self.bend_time, 0.0))
         self.bend_time -= dt
         angle = math.radians(self.turn_rate * bending)

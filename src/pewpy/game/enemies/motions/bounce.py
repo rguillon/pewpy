@@ -16,6 +16,7 @@ class Bounce(Motion):
     clamp: bool = False
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Turn back at the sides of the screen."""
         if self.clamp:
             limit = HALF_WIDTH - body.half_span
             if abs(body.x) >= limit and body.x * body.vx > 0:

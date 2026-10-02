@@ -1,7 +1,7 @@
-"""Lasers' light: streaks of light shooting along the beams, away from what fires them: up from the player's ship
-to whatever it hits, down from an enemy to past the bottom of the screen.
+"""Lasers' light: streaks of light shooting along the beams, away from what fires them.
 
-Unlike the other effects it lasts: it follows each beam as long as it's on.
+Up from the player's ship to whatever it hits, down from an enemy to past the bottom of the screen. Unlike the other
+effects it lasts: it follows each beam as long as it's on.
 """
 
 import math
@@ -24,9 +24,10 @@ ENEMY_BURN_COLORS: tuple[Color, ...] = ((1.0, 0.45, 0.35, 1), (1.0, 0.95, 0.9, 1
 
 @dataclass(frozen=True)
 class LaserGlow:
-    """A laser beam this frame, as the effects see it: from `bottom` to `top` at `x`; `hits`: heights where it burns
-    something. The player's (not `hostile`) goes up from its bottom; an enemy's goes down from its top, red. `key`
-    tells the beams apart, from one frame to the next.
+    """A laser beam this frame, as the effects see it: from `bottom` to `top` at `x`.
+
+    `hits`: heights where it burns something. The player's (not `hostile`) goes up from its bottom; an enemy's goes down
+    from its top, red. `key` tells the beams apart, from one frame to the next.
     """
 
     x: float
@@ -44,10 +45,12 @@ class LaserGlow:
 
     @property
     def direction(self) -> int:
+        """Which way the light shoots: 1 up (the player's), -1 down (an enemy's)."""
         return -1 if self.hostile else 1
 
     @property
     def colors(self) -> tuple[Color, ...]:
+        """The light's colors: red for an enemy's laser."""
         return ENEMY_BURN_COLORS if self.hostile else BURN_COLORS
 
 
@@ -69,12 +72,17 @@ class Photon:
 
 
 class LaserLight:
+    """The lasers' light: the streaks shooting along every laser that's on."""
+
     def __init__(self) -> None:
         self.photons: list[Photon] = []
         self.lasers: dict[int, LaserGlow] = {}
 
     def set(self, lasers: Sequence[LaserGlow], dt: float, rng: random.Random) -> None:
-        """The lasers this frame. While one is on, streaks of light keep shooting along it from where it starts."""
+        """Set the lasers this frame.
+
+        While one is on, streaks of light keep shooting along it from where it starts.
+        """
         self.lasers = {laser.key: laser for laser in lasers}
         for laser in lasers:
             count = PHOTON_RATE * math.sqrt(laser.width / THIN_BEAM) * dt
@@ -116,5 +124,6 @@ class LaserLight:
         return photon.y < laser.top if photon.direction > 0 else photon.y > laser.bottom
 
     def clear(self) -> None:
+        """Remove all the light."""
         self.photons = []
         self.lasers = {}

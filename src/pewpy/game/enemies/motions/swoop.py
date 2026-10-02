@@ -16,4 +16,5 @@ class Swoop(Motion):
     rate: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Swing up and down."""
         body.vy = self.amplitude * math.cos(body.age * self.rate)

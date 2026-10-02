@@ -5,6 +5,7 @@ from pewpewdev.tools.songs.writer import Writer, near
 
 
 def bass(writer: Writer, start: float, bars: int, root: int) -> None:
+    """Write the bass line over `bars` bars of a chord."""
     low = near(root, 38)
     style = writer.plan.bass
     for bar in range(bars):

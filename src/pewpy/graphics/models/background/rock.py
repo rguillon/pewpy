@@ -10,8 +10,8 @@ from pewpy.graphics.models.types import Color
 
 
 def rock_model(shape: int, colors: tuple[Color, ...]) -> NodePath:
-    """A lumpy voxel asteroid of `colors`, the same for the same `shape`; fits the unit box."""
-    rng = random.Random(shape)  # noqa: S311 - visual randomness, not cryptography
+    """Make a lumpy voxel asteroid of `colors`, the same for the same `shape`; it fits the unit box."""
+    rng = random.Random(shape)
     radius = 3
     stretch = Vec3(rng.uniform(0.75, 1.0), rng.uniform(0.75, 1.0), rng.uniform(0.75, 1.0))
     cells = {}

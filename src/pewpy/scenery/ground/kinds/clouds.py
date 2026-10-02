@@ -8,10 +8,12 @@ from pewpy.scenery.params import Knobs
 
 
 class Clouds(Landscape):
+    """A deck of low clouds over the dark ground far below."""
+
     knobs = ("cover", "size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """A deck of low clouds (`cover`: the share it covers); through the gaps (below 0), the dark ground far below."""
+        """Shape a deck of low clouds (`cover`: the share it covers); gaps (below 0) show the ground far below."""
         value = 0.7 * noise(rng, rows, columns, knobs["size"], step) + 0.3 * noise(rng, rows, columns, 0.28, step)
         cover = level_for_share(value, knobs["cover"])
         peak = float(np.max(value))

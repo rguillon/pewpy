@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a silo (sometimes a pair, thinner)."""
     color = varied(rng, c.silo, 0.1)
     if rng.random() < 0.25 and prop.width > prop.length * 0.9:  # a pair, thinner
         r = radius(prop) * 0.55

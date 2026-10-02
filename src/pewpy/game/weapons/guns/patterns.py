@@ -36,8 +36,7 @@ def fire(gun: Gun, shooter: Shooter, state: GunState | None = None, angle: float
         else:
             angles = pattern_angles(gun, muzzle, target, turned, shooter.age, shooter.forward)
         extra = gun.volley_angles[index % len(gun.volley_angles)] if gun.volley_angles else 0.0
-        for number, direction in enumerate(angles):
-            direction += extra
+        for number, direction in enumerate([a + extra for a in angles]):
             speed = gun.speeds[number % len(gun.speeds)] if gun.speeds else gun.speed
             if gun.spawn or gun.projectile:
                 created.append(launch(gun, muzzle, direction, ox, shooter))
@@ -51,7 +50,7 @@ def fire(gun: Gun, shooter: Shooter, state: GunState | None = None, angle: float
 def pattern_angles(
     gun: Gun, source: Entity, target: Entity, turned: float, age: float, forward: int = -1
 ) -> list[float]:
-    """The directions of one shot's bullets, in degrees from straight ahead (`forward`: -1 down, 1 up)."""
+    """Return the directions of one shot's bullets, in degrees from straight ahead (`forward`: -1 down, 1 up)."""
     if gun.pattern == "aimed":
         middle = math.degrees(math.atan2(target.x - source.x, forward * (target.y - source.y)))
     else:

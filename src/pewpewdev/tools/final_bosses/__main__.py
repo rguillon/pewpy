@@ -14,6 +14,7 @@ OUT = DATA / "bosses" / "final_bosses.json"
 
 
 def main() -> None:
+    """Make the final bosses from their plans and write them."""
     parser = argparse.ArgumentParser(
         description=final_bosses.__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

@@ -17,13 +17,13 @@ class FakeSound:
         self.volume = 1.0
         self.playing = False
 
-    def setLoop(self, loop: bool) -> None:
+    def setLoop(self, loop: bool) -> None:  # noqa: N802 - like Panda3D's
         self.loop = loop
 
-    def setVolume(self, volume: float) -> None:
+    def setVolume(self, volume: float) -> None:  # noqa: N802 - like Panda3D's
         self.volume = volume
 
-    def getVolume(self) -> float:
+    def getVolume(self) -> float:  # noqa: N802 - like Panda3D's
         return self.volume
 
     def play(self) -> None:
@@ -38,20 +38,20 @@ class FakeLoader:
         self.loaded: list[Filename] = []
         self.loads = loads  # False: every song fails to load
 
-    def loadMusic(self, path: Filename) -> FakeSound | None:
+    def loadMusic(self, path: Filename) -> FakeSound | None:  # noqa: N802 - like Panda3D's
         self.loaded.append(Filename(path))
         return FakeSound(path) if self.loads else None
 
-    def loadSfx(self, path: Filename) -> FakeSound:
+    def loadSfx(self, path: Filename) -> FakeSound:  # noqa: N802 - like Panda3D's
         return FakeSound(path)
 
 
 class FakeManager:
-    def isValid(self) -> bool:
+    def isValid(self) -> bool:  # noqa: N802 - like Panda3D's
         return True
 
 
-def play_until(audio: Audio, song: str, loader: FakeLoader) -> None:
+def play_until(audio: Audio, song: str) -> None:
     audio.set_music(Music(song))
     assert audio.library.wait()
     for _ in range(round(2 * FADE_OUT * 30) + 2):
@@ -70,17 +70,18 @@ def songs(tmp_path: Path) -> Path:
 
 
 @pytest.mark.parametrize("with_cache", [True, False])
-def test_a_songs_file_is_made_once_and_never_deleted(songs, tmp_path, with_cache):
+def test_a_songs_file_is_made_once_and_never_deleted(songs: Path, tmp_path: Path, with_cache: bool) -> None:
     """OpenAL keeps finished songs' streams open: deleting or replacing their file crashed the game."""
     loader = FakeLoader()
     library = Library(songs, tmp_path / "cache" if with_cache else None)
     audio = Audio(cast("Any", loader), None, cast("Any", FakeManager()), library)  # fakes for Panda3D's
     for song in ("one", "two", "one", "two", "one"):
-        play_until(audio, song, loader)
+        play_until(audio, song)
     first, second = loader.loaded[0], loader.loaded[1]
     assert loader.loaded == [first, second, first, second, first]  # the same file each time
     vfs = VirtualFileSystem.getGlobalPtr()
-    assert vfs.exists(first) and vfs.exists(second)  # still there after their fades
+    assert vfs.exists(first)
+    assert vfs.exists(second)
     if with_cache:
         assert str(tmp_path / "cache") in first.toOsSpecific()  # played from the cache, not a copy
 
@@ -90,7 +91,7 @@ def fake(sound: object) -> FakeSound:
     return cast("FakeSound", sound)
 
 
-def test_effects_play_in_turns_and_not_too_often(songs):
+def test_effects_play_in_turns_and_not_too_often(songs: Path) -> None:
     audio = Audio(cast("Any", FakeLoader()), cast("Any", FakeManager()), None, Library(songs, None))
     assert audio.enabled
     first, second = (fake(sound) for sound in audio.effects["menu_move"][:2])
@@ -103,20 +104,21 @@ def test_effects_play_in_turns_and_not_too_often(songs):
     assert second.playing
 
 
-def test_the_laser_hums_while_it_fires(songs):
+def test_the_laser_hums_while_it_fires(songs: Path) -> None:
     audio = Audio(cast("Any", FakeLoader()), cast("Any", FakeManager()), None, Library(songs, None))
     hum = fake(audio.effects["laser"][0])
     audio.set_laser(True)
-    assert hum.playing and hum.loop
+    assert hum.playing
+    assert hum.loop
     audio.set_laser(True)  # already on
     audio.set_laser(False)
     assert not hum.playing
 
 
-def test_music_off_mutes_the_song_and_stop_stops_everything(songs):
+def test_music_off_mutes_the_song_and_stop_stops_everything(songs: Path) -> None:
     loader = FakeLoader()
     audio = Audio(cast("Any", loader), None, cast("Any", FakeManager()), Library(songs, None))
-    play_until(audio, "one", loader)
+    play_until(audio, "one")
     assert audio.song is not None
     song = fake(audio.song)
     audio.toggle_music()
@@ -124,16 +126,19 @@ def test_music_off_mutes_the_song_and_stop_stops_everything(songs):
     audio.toggle_music()
     audio.set_music(Music("two"))
     audio.update(1 / 30)  # "one" fading out, "two" not rendered yet
-    assert audio.fading and audio.song is None
+    assert audio.fading
+    assert audio.song is None
     audio.stop()
-    assert not song.playing and audio.fading == [] and audio.playing is None
+    assert not song.playing
+    assert audio.fading == []
+    assert audio.playing is None
     assert audio.library.wait()
-    play_until(audio, "two", loader)
+    play_until(audio, "two")
     audio.stop()
     assert audio.song is None
 
 
-def test_without_music_or_a_song_that_wont_load_nothing_plays(songs):
+def test_without_music_or_a_song_that_wont_load_nothing_plays(songs: Path) -> None:
     silent = Audio(cast("Any", FakeLoader()), None, None, Library(songs, None))
     silent.set_music(Music("one"))
     silent.update(1 / 30)
@@ -143,5 +148,6 @@ def test_without_music_or_a_song_that_wont_load_nothing_plays(songs):
     broken.set_music(Music("one"))
     assert broken.library.wait()
     broken.update(1 / 30)
-    assert broken.playing == Music("one") and broken.song is None  # not tried again
+    assert broken.playing == Music("one")
+    assert broken.song is None
     assert len(loader.loaded) == 1

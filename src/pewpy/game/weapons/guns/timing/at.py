@@ -8,6 +8,7 @@ from pewpy.game.weapons.guns.state import GunState
 
 
 def step(gun: Gun, state: GunState, shooter: Shooter) -> list[Entity]:
+    """Fire once, when the state has `at` seconds left."""
     if state.fired or shooter.remaining > (gun.at or 0.0):
         return []
     state.fired = True

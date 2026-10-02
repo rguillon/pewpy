@@ -8,11 +8,14 @@ from pewpy.scenery.params import Knobs
 
 
 class Hills(Landscape):
+    """A dusty planet: low hills pocked with craters."""
+
     knobs = ("size", "crater_spacing", "crater_radius")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """A dusty planet: low eroded hills pocked with craters (one per `crater_spacing` of the loop). Marks: the
-        craters' rims and the dust thrown out.
+        """Shape a dusty planet: low eroded hills pocked with craters (one per `crater_spacing` of the loop).
+
+        Marks: the craters' rims and the dust thrown out.
         """
         value = normalized(eroded_noise(rng, rows, columns, knobs["size"] / step, octaves=6))
         rims = np.zeros_like(value)

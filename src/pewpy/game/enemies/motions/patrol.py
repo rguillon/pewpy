@@ -14,5 +14,6 @@ class Patrol(Motion):
     speed: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Start moving sideways towards the middle if it isn't moving sideways."""
         if body.vx == 0:
             body.vx = self.speed if body.x <= 0 else -self.speed

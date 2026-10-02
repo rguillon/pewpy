@@ -1,6 +1,7 @@
-"""How enemies move (02-enemies.md), each motion in its own module: each motion of an enemy's state sets its speed
-(or its place) every frame (Motion.apply, see motion.py); the enemy then moves with its speed. Independent from
-rendering.
+"""How enemies move (02-enemies.md), each motion in its own module.
+
+Each motion of an enemy's state sets its speed (or its place) every frame (Motion.apply, see motion.py); the enemy
+then moves with its speed. Independent from rendering.
 
 The enemies' descriptions name them (`type`, with the motion's fields next to it); MOTIONS gives each name its class
 and `parse_motion` reads one.
@@ -57,9 +58,9 @@ MOTIONS: dict[str, type[Motion]] = {
 
 
 def parse_motion(data: dict[str, Any]) -> Motion:
-    """A motion: its `type` and its fields."""
+    """Read a motion: its `type` and its fields."""
     fields = dict(data)
     kind = fields.pop("type")
     if kind not in MOTIONS:
-        raise UnknownNameError("motion", kind)
+        raise UnknownNameError("motion", kind)  # noqa: EM101 - the error builds its message
     return MOTIONS[kind](**fields)

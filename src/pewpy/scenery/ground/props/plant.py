@@ -1,5 +1,6 @@
-"""Process plants: furnace halls with glowing windows, roofs flat or sawtooth, chimneys or fans on top, sometimes
-a lower annex.
+"""Process plants: furnace halls with glowing windows, roofs flat or sawtooth, chimneys or fans on top.
+
+Sometimes with a lower annex.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a process plant."""
     x0, x1, y0, y1 = footprint(prop)
     top = prop.base + prop.height
     walls, roof = varied(rng, c.plant_walls), varied(rng, c.plant_roof)
@@ -41,7 +43,7 @@ def _sawtooth(
     roof: tuple[float, float, float],
     c: PropColors,
 ) -> None:
-    """A row of sloped roof lights across the hall."""
+    """Add a row of sloped roof lights across the hall."""
     x0, x1, y0, y1 = footprint_
     teeth = max(2, int((y1 - y0) / 0.025))
     step = (y1 - y0) / teeth

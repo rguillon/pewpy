@@ -1,5 +1,6 @@
-"""The player's weapons from 01-gameplay.md: bullets, laser and missiles, with their levels, in
-`data/weapons/player.json` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
+"""The player's weapons from 01-gameplay.md: bullets, laser and missiles, with their levels.
+
+They are in `data/weapons/player.json` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
 """
 
 import json
@@ -32,8 +33,9 @@ class Beam:
 
 @dataclass
 class Arsenal:
-    """The weapons the ship carries, their levels, which one is selected, and the secondary weapon if it has one
-    (see secondary.py). They share one wait between shots (`cooldown`).
+    """The weapons the ship carries, their levels, which one is selected, and the secondary weapon if it has one.
+
+    See secondary.py. They share one wait between shots (`cooldown`).
     """
 
     levels: dict[str, int] = field(default_factory=lambda: dict.fromkeys(WEAPONS, 1))
@@ -44,6 +46,7 @@ class Arsenal:
 
     @property
     def level(self) -> int:
+        """The selected weapon's level."""
         return self.levels[self.selected]
 
     @property
@@ -52,6 +55,7 @@ class Arsenal:
         return LEVELS[self.selected][self.level - 1]
 
     def switch(self) -> None:
+        """Select the next weapon."""
         self.selected = WEAPONS[(WEAPONS.index(self.selected) + 1) % len(WEAPONS)]
 
     def upgrade(self, weapon: str) -> bool:
@@ -62,7 +66,7 @@ class Arsenal:
         return True
 
     def laser(self, firing: bool) -> Gun | None:
-        """The laser ("ray") while it is selected and firing, else None."""
+        """Return the laser ("ray") while it is selected and firing, else None."""
         return self.gun if firing and self.gun.pattern == "ray" else None
 
     def fire(self, dt: float, firing: bool, ship: Entity) -> list[Bullet]:

@@ -30,6 +30,7 @@ BRIDGE = ((0.08, 0.2, 0.28), 15)
 
 
 def palette(greys: dict, tint: tuple[float, float, float], accent: str, livery: tuple) -> dict:
+    """Make a boss's palette: the greys tinted, the bridge, the accent and the livery colors."""
     marking, sensor = ACCENTS[accent]
     entries: dict[str, tuple[tuple[float, ...], int]] = {
         char: (tuple(round(min(1.0, c * t), 3) for c, t in zip(color, tint, strict=True)), height)

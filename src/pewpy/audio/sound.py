@@ -34,6 +34,8 @@ def _mounted() -> VirtualFileSystem:
 
 
 class Audio:
+    """The game's sounds: the effects and the music."""
+
     def __init__(
         self, loader: Loader, sfx_manager: AudioManager | None, music_manager: AudioManager | None, library: Library
     ) -> None:
@@ -49,7 +51,7 @@ class Audio:
         if self.enabled:
             for name, make in EFFECTS.items():
                 path = Filename(f"{MOUNT}/sfx-{name}.wav")
-                self.vfs.writeFile(path, synth.wav_bytes(make()), False)
+                self.vfs.writeFile(path, synth.wav_bytes(make()), auto_wrap=False)
                 copies = 1 if name == "laser" else COPIES
                 loaded = [loader.loadSfx(path) for _ in range(copies)]
                 self.effects[name] = [sound for sound in loaded if sound is not None]
@@ -67,6 +69,7 @@ class Audio:
         self.song_files: dict[tuple[str, bool], Filename] = {}  # each song's file, once it's made: kept
 
     def play(self, name: str) -> None:
+        """Play a sound effect (a copy of it, so the same sound can overlap), unless it played too recently."""
         copies = self.effects.get(name)
         if not copies or not self.throttle.allow(name):
             return
@@ -75,10 +78,12 @@ class Audio:
         copies[turn].play()
 
     def play_all(self, names: list[str]) -> None:
+        """Play these sound effects."""
         for name in names:
             self.play(name)
 
     def set_laser(self, on: bool) -> None:
+        """Start or stop the laser's hum."""
         if on == self.laser_on or not self.effects.get("laser"):
             return
         self.laser_on = on
@@ -89,7 +94,7 @@ class Audio:
             hum.stop()
 
     def set_music(self, music: Music, quiet: bool = False) -> None:
-        """The song to play (from its start when it changes); `quiet` lowers it (paused)."""
+        """Set the song to play (from its start when it changes); `quiet` lowers it (paused)."""
         self.quiet = quiet
         if music != self.wanted:
             self.wanted = music
@@ -97,6 +102,7 @@ class Audio:
         self._apply_volume()
 
     def toggle_music(self) -> None:
+        """Turn the music on or off."""
         self.music_on = not self.music_on
         self._apply_volume()
 
@@ -110,13 +116,14 @@ class Audio:
             self.song.setVolume(self._volume())
 
     def update(self, dt: float) -> None:
+        """Move the sounds on: songs fading out, the wanted song starting when it's ready."""
         self.throttle.update(dt)
         if self.wanted != self.playing:
             self._fade_out()
             self._start_wanted()
         still = []
-        for sound, volume in self.fading:
-            volume -= dt / FADE_OUT * config.MUSIC_VOLUME
+        for sound, old_volume in self.fading:
+            volume = old_volume - dt / FADE_OUT * config.MUSIC_VOLUME
             if volume <= 0:
                 sound.stop()
             else:
@@ -131,7 +138,7 @@ class Audio:
         self.playing = None
 
     def _song_file(self, music: Music) -> Filename | None:
-        """The song's WAV file (None while it's still rendering, or if there's no such song)."""
+        """Return the song's WAV file (None while it's still rendering, or if there's no such song)."""
         key = (music.song, music.loop)
         if key in self.song_files:
             return self.song_files[key]
@@ -143,7 +150,7 @@ class Audio:
             path = Filename.fromOsSpecific(str(Path(cached).resolve()))
         else:  # no cache folder: a copy in memory, for as long as the game runs
             path = Filename(f"{MOUNT}/music-{music.song}-{'loop' if music.loop else 'once'}.wav")
-            self.vfs.writeFile(path, wav, False)
+            self.vfs.writeFile(path, wav, auto_wrap=False)
         self.library.forget(music.song, music.loop)
         self.song_files[key] = path
         return path
@@ -165,6 +172,7 @@ class Audio:
         self.song, self.playing = song, music
 
     def stop(self) -> None:
+        """Stop every sound."""
         self.set_laser(False)
         for sound, _ in self.fading:
             sound.stop()

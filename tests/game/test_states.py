@@ -3,11 +3,11 @@ import pytest
 from pewpy.game.states import InvalidTransitionError, State, StateMachine
 
 
-def test_starts_in_main_menu():
+def test_starts_in_main_menu() -> None:
     assert StateMachine().state is State.MAIN_MENU
 
 
-def test_full_game_flow():
+def test_full_game_flow() -> None:
     changes = []
     machine = StateMachine(on_change=lambda previous, current: changes.append((previous, current)))
     for state in [
@@ -50,14 +50,14 @@ def test_full_game_flow():
         (State.LEVEL_COMPLETE, State.PAUSED),
     ],
 )
-def test_invalid_transition_is_refused(start, target):
+def test_invalid_transition_is_refused(start: State, target: State) -> None:
     machine = StateMachine(initial=start)
     with pytest.raises(InvalidTransitionError):
         machine.transition(target)
     assert machine.state is start
 
 
-def test_the_ship_select_goes_back_to_the_main_menu_and_the_world_select_back_to_it():
+def test_the_ship_select_goes_back_to_the_main_menu_and_the_world_select_back_to_it() -> None:
     machine = StateMachine()
     machine.transition(State.SHIP_SELECT)
     machine.transition(State.MAIN_MENU)

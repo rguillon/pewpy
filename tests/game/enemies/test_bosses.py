@@ -41,7 +41,7 @@ def destroy(*parts: Enemy) -> None:
         part.hit(part.health)
 
 
-def test_a_boss_starts_above_the_screen_and_comes_down_to_hold():
+def test_a_boss_starts_above_the_screen_and_comes_down_to_hold() -> None:
     boss = make_boss("harvester", 0.0, top=1.6)
     assert all(part.y - part.height / 2 > 1.6 for part in boss.parts)
     arrive(boss)
@@ -51,7 +51,7 @@ def test_a_boss_starts_above_the_screen_and_comes_down_to_hold():
     assert boss.vy == 0
 
 
-def test_parts_join_the_world_and_follow_the_core():
+def test_parts_join_the_world_and_follow_the_core() -> None:
     boss = make_boss("harvester", 0.0)
     created = boss.update(DT, BELOW, 0.2)
     assert [entity for entity in created if isinstance(entity, Enemy)] == boss.parts
@@ -62,7 +62,7 @@ def test_parts_join_the_world_and_follow_the_core():
         assert part.y == pytest.approx(boss.y + part.mount.y)
 
 
-def test_a_living_part_covers_the_columns_under_it():
+def test_a_living_part_covers_the_columns_under_it() -> None:
     boss = make_boss("reaper", 0.0)
     boss.update(DT, BELOW, 0.2)
     cutter = next(part for part in boss.parts if part.part_name == "cutter")
@@ -72,14 +72,14 @@ def test_a_living_part_covers_the_columns_under_it():
     assert not boss.covered(cutter.x)
 
 
-def test_no_shots_while_coming_down_or_during_a_phase_pause():
+def test_no_shots_while_coming_down_or_during_a_phase_pause() -> None:
     boss = make_boss("warden", 0.0)
     assert not [entity for entity in arrive(boss) if not isinstance(entity, Enemy)]
     assert fight(boss, PHASE_PAUSE - 0.1) == []
     assert fight(boss, 2.0)
 
 
-def test_the_boss_sways_but_stays_on_screen():
+def test_the_boss_sways_but_stays_on_screen() -> None:
     boss = make_boss("colossus", 0.0)
     arrive(boss)
     xs = []
@@ -91,7 +91,7 @@ def test_the_boss_sways_but_stays_on_screen():
     assert min(xs) == pytest.approx(-limit, abs=0.01)
 
 
-def test_an_armored_core_ignores_shots_until_its_parts_are_destroyed():
+def test_an_armored_core_ignores_shots_until_its_parts_are_destroyed() -> None:
     boss = make_boss("harvester", 0.0)
     arrive(boss)
     assert boss.appearance() != "armored"  # flashing: the phase starts
@@ -109,7 +109,7 @@ def test_an_armored_core_ignores_shots_until_its_parts_are_destroyed():
     assert boss.health == BOSSES["harvester"].health - 10
 
 
-def test_a_new_phase_changes_the_guns():
+def test_a_new_phase_changes_the_guns() -> None:
     boss = make_boss("harvester", 0.0)
     arrive(boss)
     first = fight(boss, 4.0)
@@ -123,7 +123,7 @@ def test_a_new_phase_changes_the_guns():
     assert len(second) > len(first)  # rings of 14
 
 
-def test_phases_can_end_on_the_core_health():
+def test_phases_can_end_on_the_core_health() -> None:
     boss = make_boss("warden", 0.0)
     arrive(boss)
     fight(boss, PHASE_PAUSE)
@@ -136,7 +136,7 @@ def test_phases_can_end_on_the_core_health():
     assert boss.warmup > 0  # a short break, flashing, before the new pattern
 
 
-def test_destroyed_parts_stop_firing():
+def test_destroyed_parts_stop_firing() -> None:
     boss = make_boss("colossus", 0.0)
     arrive(boss)
     left_outer = boss.parts[0]
@@ -146,21 +146,21 @@ def test_destroyed_parts_stop_firing():
     assert not [shot for shot in shots if shot.x == pytest.approx(left_outer.x)]
 
 
-def test_health_bar_counts_the_core_and_its_parts():
+def test_health_bar_counts_the_core_and_its_parts() -> None:
     boss = make_boss("harvester", 0.0)
     assert boss.health_fraction == 1.0
     destroy(boss.parts[0])
     assert boss.health_fraction == pytest.approx(1 - 40 / 180)
 
 
-def test_volleys_fire_several_times_in_a_row():
+def test_volleys_fire_several_times_in_a_row() -> None:
     boss = make_boss("harvester", 0.0)
     arrive(boss)
     shots = fight(boss, PHASE_PAUSE + 0.5)  # the left cannon's first volley of 3, the others wait
     assert len(shots) == 3
 
 
-def laser_boss(**gun) -> Enemy:
+def laser_boss(**gun: object) -> Enemy:
     sentinel = BOSSES["sentinel"]
     laser = {"pattern": "laser", "reload": "carry", "off_screen": "fire", **gun}
     phase = {"name": "phase 1", "motions": [{"type": "bounce", "clamp": True}], "guns": [laser], "warmup": PHASE_PAUSE}
@@ -171,7 +171,7 @@ def laser_boss(**gun) -> Enemy:
     return boss
 
 
-def test_a_laser_shows_a_thin_harmless_beam_a_second_before_it_fires():
+def test_a_laser_shows_a_thin_harmless_beam_a_second_before_it_fires() -> None:
     boss = laser_boss(interval=5.0, speed=0.0, width=0.07, duration=1.0, offsets=(-0.05, 0.05))
     warnings = [shot for shot in fight(boss, 0.1) if isinstance(shot, Bullet)]
     assert len(warnings) == 2
@@ -186,7 +186,7 @@ def test_a_laser_shows_a_thin_harmless_beam_a_second_before_it_fires():
     assert {round(beam.x - boss.x, 3) for beam in beams} == {-0.05, 0.05}
 
 
-def test_a_beam_follows_its_gun_and_goes_with_it():
+def test_a_beam_follows_its_gun_and_goes_with_it() -> None:
     boss = laser_boss(interval=5.0, speed=0.0)
     beam = next(shot for shot in fight(boss, 0.1) if isinstance(shot, BossBeam))
     boss.x += 0.2
@@ -198,7 +198,7 @@ def test_a_beam_follows_its_gun_and_goes_with_it():
     assert not beam.alive
 
 
-def test_a_boss_lights_up_when_hit_and_its_parts_too():
+def test_a_boss_lights_up_when_hit_and_its_parts_too() -> None:
     boss = make_boss("rockbreaker", 0.0, 1.0)
     boss.warmup = 0.0
     boss.flash_time = 0.1

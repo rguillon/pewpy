@@ -1,5 +1,6 @@
-"""Radar stations: a dish looking up on a pedestal, with a feed spike and a red light; or a white radome ball on a
-short tower.
+"""Radar stations: a dish looking up on a pedestal, with a feed spike and a red light.
+
+Or a white radome ball on a short tower.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a radar station."""
     r, z0, height = radius(prop), prop.base, prop.height
     hull = varied(rng, rng.choice(c.hull), 0.05)
     x, y = prop.x, prop.y

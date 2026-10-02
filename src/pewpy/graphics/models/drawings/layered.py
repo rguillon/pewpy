@@ -10,7 +10,8 @@ from pewpy.graphics.models.types import Color
 LAYERED_KEYS = {"layers", "palette"}  # a 3D drawing: slices, the top one (nearest the camera) first
 
 
-def parse_layers(data: Any, source: str) -> Voxels:
+def parse_layers(data: dict[str, Any], source: str) -> Voxels:
+    """Read a 3D drawing: its layers, the middle one on the model's middle plane."""
     layers = data["layers"]
     if not isinstance(layers, list) or not layers or not all(isinstance(layer, list) and layer for layer in layers):
         raise VoxelDrawingError.malformed(source, "'layers' must be a list of layers, each a list of rows")
@@ -30,8 +31,8 @@ def parse_layers(data: Any, source: str) -> Voxels:
     return Voxels(cells, width, height)
 
 
-def _layer_colors(palette: Any, source: str) -> dict[str, Color]:
-    """A 3D drawing's palette: each character's "color" (no height: the layers give the shape)."""
+def _layer_colors(palette: object, source: str) -> dict[str, Color]:
+    """Read a 3D drawing's palette: each character's "color" (no height: the layers give the shape)."""
     if not isinstance(palette, dict):
         raise VoxelDrawingError.malformed(source, "'palette' must map characters to a color")
     colors = {}

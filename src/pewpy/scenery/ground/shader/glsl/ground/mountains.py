@@ -1,4 +1,7 @@
-"""The mountains' painter (natural grounds without a style of their own): rock with strata, scree, snow, meadows, pines."""
+"""The mountains' painter (natural grounds without a style of their own).
+
+Rock with strata, scree, snow, meadows, pines.
+"""
 
 GLSL = """
 vec3 mountains(vec2 p, float height, float cavity, float flat_ground, float large, float medium, float fine,

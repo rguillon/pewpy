@@ -36,10 +36,12 @@ class Area:
 
     @property
     def width(self) -> float:
+        """The area's width."""
         return self.right - self.left
 
     @property
     def height(self) -> float:
+        """The area's height."""
         return self.top - self.bottom
 
 
@@ -53,8 +55,9 @@ class Terrain:
     def __init__(self, area: Area, speed_factor: float, scenery: SceneryParams, seed: int | None = None) -> None:
         ground = scenery.ground
         if ground is None:
-            raise ValueError(f"{scenery.name}: no ground")  # noqa: TRY003
-        self.rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
+            msg = f"{scenery.name}: no ground"
+            raise ValueError(msg)
+        self.rng = random.Random(seed)
         self.area = area
         self.speed_factor = speed_factor
         self.scenery = scenery
@@ -82,7 +85,7 @@ class Terrain:
             flora = FLORAS[scenery.flora.kind]
             props += flora.props(self.rng, shape, RELIEF_STEP, RELIEF_STEP, scenery.flora.knobs)
         if scenery.outposts is not None:  # levels the ground under them, makes room among the rest
-            rng = random.Random(self.rng.randrange(2**32))  # noqa: S311 - visual randomness
+            rng = random.Random(self.rng.randrange(2**32))
             shape, compounds, sites = outposts.build(rng, shape, RELIEF_STEP, scenery.outposts, fluid)
             props = [*outposts.outside(props, sites), *compounds]
             if self.layout is not None and scenery.settlement is not None:
@@ -96,10 +99,11 @@ class Terrain:
         self.relief: Relief = relief.make_relief(shape, RELIEF_STEP, RELIEF_STEP, occluders, fluid=fluid)
 
     def update(self, dt: float, scroll_speed: float) -> None:
+        """Scroll the ground down (it loops)."""
         self.offset = (self.offset + scroll_speed * self.speed_factor * dt) % self.loop_length
 
     def chunk_props(self, chunk: int) -> list[Prop]:
-        """The props standing in a chunk (by the middle of their footprint)."""
+        """Return the props standing in a chunk (by the middle of their footprint)."""
         start = chunk * self.chunk_height
         return [prop for prop in self.props if start <= prop.y < start + self.chunk_height]
 

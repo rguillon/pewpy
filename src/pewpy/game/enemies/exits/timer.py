@@ -12,4 +12,5 @@ class Timer(Condition):
     """The state's timer has run out."""
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the state's timer ran out."""
         return body.timer <= 0

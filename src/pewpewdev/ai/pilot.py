@@ -1,5 +1,6 @@
-"""Flying the ship with a brain: what it sees, what it decides, every THINK_EVERY updates (it holds the stick in
-between, like a player's reaction time).
+"""Flying the ship with a brain: what it sees, what it decides, every THINK_EVERY updates.
+
+It holds the stick in between, like a player's reaction time.
 """
 
 import numpy as np
@@ -14,13 +15,15 @@ THINK_EVERY = 2  # updates (at 60 per second: it decides 30 times a second)
 
 
 class Pilot:
+    """A brain at the controls of the player's ship."""
+
     def __init__(self, brain: Brain) -> None:
         self.brain = brain
         self.controls = Controls()
         self.wait = 0
 
     def fly(self, world: World) -> Controls:
-        """The controls for this update; switches the weapon when the brain wants another one."""
+        """Return the controls for this update; switch the weapon when the brain wants another one."""
         if self.wait > 0:
             self.wait -= 1
             return self.controls

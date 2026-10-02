@@ -1,5 +1,6 @@
-"""What the industrial ships carry on the left of their core (`edge`: its outer column), or on both sides, each in
-its own module.
+"""What the industrial ships carry, each in its own module.
+
+On the left of their core (`edge`: its outer column), or on both sides.
 """
 
 from pewpewdev.tools.candidates.industrial.attachments.antenna import antenna

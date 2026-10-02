@@ -44,8 +44,9 @@ def features(rows: list[str], symmetric: bool) -> list[float]:
 
 
 def ship(rng: Rng, group: str) -> tuple[list[float], Callable[[], dict]] | None:
-    """One ship of a group ("aircraft", "symmetric" or "lopsided"): its features, and what makes its drawing (only
-    the ships kept are built in 3D).
+    """Make one ship of a group ("aircraft", "symmetric" or "lopsided").
+
+    Return its features, and what makes its drawing (only the ships kept are built in 3D).
     """
     parts: Parts | None = None
     if group == "aircraft":
@@ -80,7 +81,8 @@ def most_different(pool: list[tuple[list[float], T]], count: int) -> list[T]:
 
 
 def generate(count: int, kind: str, seed: int, pool_factor: int) -> list[dict]:
-    rng = random.Random(seed)  # noqa: S311 - drawings, not cryptography
+    """Generate `count` drawings of `kind`, keeping the most different of `pool_factor` times as many."""
+    rng = random.Random(seed)
     drawings = []
     shares = MIXES[kind]
     for index, (group, share) in enumerate(shares.items()):

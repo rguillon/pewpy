@@ -44,6 +44,8 @@ class Phase:
 
 @dataclass(frozen=True)
 class BossSpec:
+    """A boss described shortly: its body, its parts and its phases."""
+
     name: str  # shown over its health bar
     drawing: str
     width: float
@@ -76,7 +78,7 @@ def final_boss(
     attacks: tuple[str, ...],
     parts: tuple[PartPlan, ...],
 ) -> BossSpec:
-    """A final boss of a level of `difficulty`: its health, points and phases from it and its four attacks.
+    """Make a final boss of a level of `difficulty`: its health, points and phases from it and its four attacks.
 
     attacks: the front parts', the back parts', the core's, and the one it adds in its rage (the last phase). The
     front parts are the drawings nearest the bottom of the screen (half of the kinds of parts), the back ones the

@@ -7,8 +7,10 @@ from pewpy.graphics.models.mesh.builder import MeshBuilder
 
 
 def gun_turret_model() -> NodePath:
-    """The player's machine-gun turret, sitting on the ship: a dome plus a child node named "barrel" pointing down
-    the screen (-Z), which the game turns toward what the turret shoots at.
+    """Make the player's machine-gun turret, sitting on the ship.
+
+    A dome plus a child node named "barrel" pointing down the screen (-Z), which the game turns toward what the turret
+    shoots at.
     """
     size = config.MODEL_VOXEL
     dome = MeshBuilder()

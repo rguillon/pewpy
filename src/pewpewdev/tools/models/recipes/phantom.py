@@ -14,7 +14,7 @@ def phantom() -> tuple[Model, list[dict] | None]:
     )
     m.loft((3.0, 8.0), lambda t: (0.9 * (1 - abs(2 * t - 1) ** 4), 2.5 - abs(2 * t - 1) ** 2, 1.0, 0.5), "glass")
     m.paint(lambda x, y, z: abs(x - 7.5) < 0.5 and 4 <= y < 5 and z > 2.0, "glint")
-    m.loft((8, 13), lambda t: (0.5, 2.0, 1.0, 0.0), "hull_light")
+    m.loft((8, 13), lambda _t: (0.5, 2.0, 1.0, 0.0), "hull_light")
     # The delta: thin, swept, lighter leading edge, paint panels near the tips.
     m.plate([(6.0, 6.0), (6.0, 13.0), (0.0, 13.0), (0.0, 11.5)], (0, 0), "hull")
     m.plate([(6.0, 6.0), (6.0, 7.0), (0.0, 12.5), (0.0, 11.5)], (0, 0), "hull_light")

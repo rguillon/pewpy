@@ -30,16 +30,16 @@ from pewpy.game.states import State
         (Event("boss", 0, 0, source="warden"), "alarm"),
     ],
 )
-def test_each_event_has_its_sound(event, sound):
+def test_each_event_has_its_sound(event: Event, sound: str) -> None:
     assert event_sound(event) == sound
 
 
-def test_a_sound_is_played_once_for_many_events():
+def test_a_sound_is_played_once_for_many_events() -> None:
     events = [Event("impact", 0, 0, source="enemy")] * 5 + [Event("shot", 0, 0, source="bullets")]
     assert event_sounds(events) == ["hit", "shot"]
 
 
-def test_a_sound_doesnt_start_again_too_soon():
+def test_a_sound_doesnt_start_again_too_soon() -> None:
     throttle = Throttle()
     assert throttle.allow("shot")
     assert not throttle.allow("shot")
@@ -62,5 +62,5 @@ def test_a_sound_doesnt_start_again_too_soon():
         (State.GAME_OVER, 0, False, Music("game_over", loop=False)),
     ],
 )
-def test_each_screen_has_its_song(state, world, boss, expected):
+def test_each_screen_has_its_song(state: State, world: int, boss: bool, expected: Music) -> None:
     assert music(state, world, boss) == expected

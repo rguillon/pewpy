@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a hedge along the prop's longer side."""
     x0, x1, y0, y1 = footprint(prop)
     along_x = (x1 - x0) >= (y1 - y0)
     length = (x1 - x0) if along_x else (y1 - y0)

@@ -1,6 +1,7 @@
-"""The ground shader's fragment program (after the common part), in pieces: its inputs, a painter per kind of ground
-(each in its own module, see STYLES), what's below height 0, and its main. Its colors come from `palette`
-(`%(palette)s`: its size).
+"""The ground shader's fragment program (after the common part), in pieces.
+
+Its inputs, a painter per kind of ground (each in its own module, see STYLES), what's below height 0, and its main.
+Its colors come from `palette` (`%(palette)s`: its size).
 """
 
 from pewpy.scenery.ground.shader.glsl.ground import (

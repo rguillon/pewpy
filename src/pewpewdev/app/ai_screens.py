@@ -69,8 +69,10 @@ class AIScreens(ModelScreens):
         self.stopped_ai = []
 
     def _watch_ai(self) -> None:
-        """A level played on screen by the brain (as it is so far), with a ship and on a level drawn at random;
-        another one when it ends."""
+        """Show a level played on screen by the brain (as it is so far), with a ship and on a level drawn at random.
+
+        Another one starts when it ends.
+        """
         session = self.ai_session
         if not isinstance(session, LearningSession):
             return
@@ -86,7 +88,7 @@ class AIScreens(ModelScreens):
         self._show_background(level)
         self._prepare_bosses(level)
         self.effects.clear()
-        self._show_hud(True)
+        self._show_hud(visible=True)
 
     def _update_ai(self, dt: float) -> None:
         session = self.ai_session

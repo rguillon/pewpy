@@ -6,6 +6,7 @@ from pewpy.audio.midi import DRUMS
 
 
 def hats(writer: Writer, at: float, busy: bool, until: float) -> None:
+    """Write a bar's hi-hats, until `until` beats (busier when `busy`)."""
     style = writer.plan.drums
     count = 16 if busy and style != "half" else 8
     for step in range(count):
@@ -17,6 +18,7 @@ def hats(writer: Writer, at: float, busy: bool, until: float) -> None:
 
 
 def drums(writer: Writer, start: float, bars: int, busy: bool, fill: bool, crash: bool) -> None:
+    """Write the drums over `bars` bars: kicks, snares, hats, a fill at the end and a crash at the start if asked."""
     style = writer.plan.drums
     kicks = {"half": (0, 2.5), "standard": (0, 1.5, 2), "four": (0, 1, 2, 3)}[style]
     snares = (2,) if style == "half" else (1, 3)

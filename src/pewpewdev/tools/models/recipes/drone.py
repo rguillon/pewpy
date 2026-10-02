@@ -6,15 +6,15 @@ from pewpewdev.tools.models.sculpt import Model
 
 
 def drone() -> tuple[Model, list[dict] | None]:
-    """A small attack drone: an armored octagonal body, a red sensor eye, four weapon pods, one engine."""
+    """Build a small attack drone: an armored octagonal body, a red sensor eye, four weapon pods, one engine."""
     m = Model(15, 15, SCALE)
     m.materials["paint"] = (0.8, 0.16, 0.12)
     m.materials["eye"] = (1.0, 0.2, 0.1)
     octagon = [(4.5, 1.0), (10.5, 1.0), (14.0, 4.5), (14.0, 10.5), (10.5, 14.0), (4.5, 14.0), (1.0, 10.5), (1.0, 4.5)]
     m.plate(octagon, (-1, 0), "hull", mirror=False)
     # The raised core, chamfered, with the eye at its front.
-    m.loft((3.5, 12.5), lambda t: (3.0, 2.0, 0.5, 1.2), "hull_light")
-    m.loft((5.5, 10.5), lambda t: (1.6, 2.6, 1.0, 0.8), "hull")
+    m.loft((3.5, 12.5), lambda _t: (3.0, 2.0, 0.5, 1.2), "hull_light")
+    m.loft((5.5, 10.5), lambda _t: (1.6, 2.6, 1.0, 0.8), "hull")
     m.fill(lambda x, y, z: abs(x - 7.5) < 1.2 and 10.0 <= y < 11.5 and 1.0 <= z < 2.5, (6, 9, 10, 12, 0, 3), "eye")
     # A red band around the core.
     m.paint(lambda x, y, z: z > 0.6 and (4.0 <= y < 4.6 or 11.4 <= y < 12.0) and abs(x - 7.5) < 3, "paint")

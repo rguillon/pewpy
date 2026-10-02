@@ -26,17 +26,19 @@ MAX_BULLETS = 512
 
 
 def is_round_bullet(entity: Entity) -> bool:
+    """Tell whether an entity is drawn as a round bullet sprite (not a missile or a beam)."""
     return isinstance(entity, Bullet) and not isinstance(entity, Missile) and not is_beam(entity)
 
 
 def is_beam(bullet: Entity) -> bool:
-    """An enemy's laser beam (not its harmless warning): drawn like the player's laser."""
+    """Tell whether a bullet is an enemy's laser beam (not its harmless warning): drawn like the player's laser."""
     return isinstance(bullet, Bullet) and bullet.hostile and bullet.style == "beam"
 
 
 def bullet_sprite(bullet: Entity) -> Sprite:
-    """A bullet as a soft circle (an oval for the player's long bullets), a bit bigger than its hitbox: the edge
-    fades out, the solid middle is about the hitbox.
+    """Make a bullet's sprite: a soft circle (an oval for the player's long bullets), a bit bigger than its hitbox.
+
+    The edge fades out, the solid middle is about the hitbox.
     """
     if isinstance(bullet, Bullet) and bullet.hostile:
         color = BULLET_COLORS.get(bullet.style, ENEMY_BULLET_COLOR)

@@ -46,7 +46,7 @@ class Keys(Screens):
         if self.mouseWatcher is None:  # no window, e.g. offscreen
             return
         for path in self.mouseWatcher.findAllMatches("**/+ButtonThrower"):
-            cast(ButtonThrower, path.node()).setModifierButtons(ModifierButtons())
+            cast("ButtonThrower", path.node()).setModifierButtons(ModifierButtons())
         self.mouseWatcherNode.setModifierButtons(ModifierButtons())
 
     def _switch_weapon(self) -> None:

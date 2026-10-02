@@ -47,6 +47,7 @@ HULL = "hHNSkt"  # what counts as hull (for engines)
 
 
 def palette(rng: Rng, used: set[str]) -> dict:
+    """Make a palette for the characters `used`: tinted greys for the hull, an accent color."""
     tint = HULL_TINTS[rng.choice(list(HULL_TINTS))]
     marking, sensor = ACCENTS[rng.choice(list(ACCENTS))]
     entries: dict[str, tuple[tuple[float, ...], int]] = {

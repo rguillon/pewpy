@@ -15,4 +15,5 @@ class Forward(Motion):
     speed: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Fly the way it's heading at `speed`."""
         body.vx, body.vy = math.cos(body.heading) * self.speed, math.sin(body.heading) * self.speed

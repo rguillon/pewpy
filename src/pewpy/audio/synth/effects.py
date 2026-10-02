@@ -9,7 +9,7 @@ from pewpy.audio.synth.signal import RATE, FloatArray
 
 
 def impulse(seconds: float, decay: float, seed: int, gated: bool = False) -> FloatArray:
-    """A stereo reverb's impulse response: decaying noise, darker as it fades (or flat then cut, gated)."""
+    """Make a stereo reverb's impulse response: decaying noise, darker as it fades (or flat then cut, gated)."""
     count = int(seconds * RATE)
     t = np.arange(count) / RATE
     shape = np.where(t < seconds * 0.85, 1.0, np.exp(-(t - seconds * 0.85) / 0.01)) if gated else np.exp(-t / decay)
@@ -20,6 +20,7 @@ def impulse(seconds: float, decay: float, seed: int, gated: bool = False) -> Flo
 
 
 def convolve(signal: FloatArray, response: FloatArray) -> FloatArray:
+    """Convolve a stereo signal with a stereo response (through FFTs), keeping the signal's length."""
     size = len(signal) + len(response)
     fft_size = 1 << (size - 1).bit_length()
     out = np.empty_like(signal)
@@ -30,7 +31,7 @@ def convolve(signal: FloatArray, response: FloatArray) -> FloatArray:
 
 
 def echo(signal: FloatArray, seconds: float, feedback: float = 0.45, repeats: int = 5) -> FloatArray:
-    """A ping-pong delay: each repeat on the other side, quieter."""
+    """Add a ping-pong delay: each repeat on the other side, quieter."""
     out = np.zeros_like(signal)
     step = int(seconds * RATE)
     mono = lowpass(signal.mean(axis=1), 3500)
@@ -42,7 +43,7 @@ def echo(signal: FloatArray, seconds: float, feedback: float = 0.45, repeats: in
 
 
 def ducking(song: Song, count: int) -> FloatArray:
-    """The volume of whatever ducks under the kick: down at each kick, back up quickly."""
+    """Return the volume of whatever ducks under the kick: down at each kick, back up quickly."""
     gain = np.ones(count)
     release = int(0.25 * RATE)
     curve = 1.0 - 0.6 * np.exp(-np.arange(release) / (0.07 * RATE))

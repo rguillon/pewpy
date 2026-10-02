@@ -5,8 +5,10 @@ from pewpewdev.tools.candidates.shaping import Shaping
 
 
 def core_shaping(cv: Canvas) -> Shaping:
-    """How a core's plan becomes 3D: lower decks (T), the superstructure on them (S) with the bridge (c), its sensor
-    (R) on top; thicker on bigger bosses.
+    """Tell how a core's plan becomes 3D.
+
+    Lower decks (T), the superstructure on them (S) with the bridge (c), its sensor (R) on top; thicker on bigger
+    bosses.
     """
     top = max(3, min(7, round(cv.w * 0.06)))
     return Shaping(
@@ -34,8 +36,9 @@ def core_shaping(cv: Canvas) -> Shaping:
 
 
 def part_shaping(cv: Canvas) -> Shaping:
-    """How a part's plan becomes 3D: flat underneath (it stands on the core), its dome or glowing core raised, its
-    barrels at half its height.
+    """Tell how a part's plan becomes 3D.
+
+    Flat underneath (it stands on the core), its dome or glowing core raised, its barrels at half its height.
     """
     top = max(2, min(5, round(min(cv.w, cv.h) * 0.2)))
     return Shaping(

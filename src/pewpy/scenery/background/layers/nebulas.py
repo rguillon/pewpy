@@ -8,6 +8,7 @@ from pewpy.scenery.params import Nebulas
 
 
 def nebula_layer(rng: random.Random, nebulas: Nebulas, area: Area) -> DriftLayer:
+    """Make the nebulas' layer: soft glowing clouds spread down the area."""
     count = nebulas.count
     clouds = [
         Drifter(

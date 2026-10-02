@@ -7,6 +7,8 @@ from pewpy.scenery.params import Knobs
 
 
 class Farmland(Settlement):
+    """Farmland: patchwork fields between dirt roads, farms and orchards."""
+
     knobs = (
         "block",
         "road",
@@ -20,9 +22,10 @@ class Farmland(Settlement):
     )
 
     def layout(self, rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
-        """Patchwork fields (`fields`: one is picked per lot) between dirt roads (`block` apart, `road` wide), some with
-        hedges around (`hedge_share`), orchards (`orchard_share`), farms with a house, a barn and a silo (`farm_share`),
-        rows of greenhouses (`greenhouse_share`), trees along the roads.
+        """Lay out patchwork fields (`fields`: one is picked per lot) between dirt roads (`block` apart, `road` wide).
+
+        Some have hedges around (`hedge_share`); orchards (`orchard_share`), farms with a house, a barn and a silo
+        (`farm_share`), rows of greenhouses (`greenhouse_share`), trees along the roads.
         """
         canvas = Canvas(rng, width, loop, Surface.DIRT_ROAD, knobs["tree_size"])
         road = knobs["road"]

@@ -1,5 +1,6 @@
-"""Antenna masts: a tall square lattice tower narrowing to the top, a few dishes or crossbars on it, and a red
-light at the tip.
+"""Antenna masts: a tall square lattice tower narrowing to the top, a few dishes or crossbars on it.
+
+And a red light at the tip.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build an antenna mast."""
     x, y, z0 = prop.x, prop.y, prop.base
     top = z0 + prop.height
     foot = min(prop.width, prop.length, 0.03) / 2

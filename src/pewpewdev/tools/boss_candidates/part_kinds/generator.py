@@ -6,6 +6,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def part_generator(rng: Rng, cv: Canvas) -> None:
+    """Draw a generator: a round core with fins around it."""
     mx, my = cv.w // 2, cv.h / 2
     r = min(cv.w, cv.h) / 2 - 1
     for angle in range(0, 360, 90 if rng.random() < 0.5 else 60):  # fins

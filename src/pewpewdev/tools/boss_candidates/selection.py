@@ -18,8 +18,9 @@ from pewpewdev.tools.candidates.shaping import engines_at_height, lifted, sculpt
 
 
 def boss(rng: Rng, lopsided: bool) -> tuple[list[float], Callable[[], dict]] | None:
-    """A boss: its features (for telling bosses apart), and what makes its drawings {"core": ..., "parts": [(drawing,
-    x, y)]} (only the bosses kept are built in 3D).
+    """Make a boss: its features (for telling bosses apart), and what makes its drawings.
+
+    The drawings are {"core": ..., "parts": [(drawing, x, y)]} (only the bosses kept are built in 3D).
     """
     cv, family, size = core(rng, lopsided)
     trim(cv, not lopsided)
@@ -82,7 +83,8 @@ def _features(cv: Canvas, family: str, scheme: str, parts: list, symmetric: bool
 
 
 def generate(count: int, seed: int, pool_factor: int) -> list[dict]:
-    rng = random.Random(seed)  # noqa: S311 - drawings, not cryptography
+    """Generate `count` bosses, keeping the most different of `pool_factor` times as many; a share lopsided."""
+    rng = random.Random(seed)
     lopsided = round(count * LOPSIDED_SHARE)
     kept = []
     for group, wanted in ((False, count - lopsided), (True, lopsided)):

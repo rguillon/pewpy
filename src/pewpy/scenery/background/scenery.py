@@ -1,11 +1,10 @@
 """A level's scenery: the layers behind the play area, built from its parameters."""
 
 import random
-from typing import Protocol
+from typing import TYPE_CHECKING, Protocol
 
 from pewpy import config
 from pewpy.scenery import params
-from pewpy.scenery.background.drift import DriftLayer
 from pewpy.scenery.background.layers.distant_planet import planet_layer
 from pewpy.scenery.background.layers.mist import mist_layer
 from pewpy.scenery.background.layers.nebulas import nebula_layer
@@ -14,11 +13,15 @@ from pewpy.scenery.background.stars import Starfield
 from pewpy.scenery.ground.terrain import GROUND_SPEED, Area, Terrain
 from pewpy.scenery.params import SceneryParams
 
+if TYPE_CHECKING:
+    from pewpy.scenery.background.drift import DriftLayer
+
 
 def mist_depths(scenery: SceneryParams) -> list[float]:
-    """The cloud layers' depths over a ground: as deep as their `depth`, but always well above its highest point
-    (the peaks of the mountains, the tops of the tallest towers), which is its depth less its highest height: so
-    nothing pokes up through them.
+    """Return the cloud layers' depths over a ground: as deep as their `depth`, but always well above its highest point.
+
+    The highest point is the peaks of the mountains, the tops of the tallest towers: the ground's depth less its highest
+    height. So nothing pokes up through them.
     """
     ground = scenery.ground
     if ground is None:
@@ -28,9 +31,15 @@ def mist_depths(scenery: SceneryParams) -> list[float]:
 
 
 class View(Protocol):
-    def area(self, depth: float) -> Area: ...
+    """What the scenery needs to know of the camera."""
 
-    def parallax(self, depth: float) -> float: ...
+    def area(self, depth: float) -> Area:
+        """Return the part of the plane `depth` behind the play plane that the camera sees."""
+        ...
+
+    def parallax(self, depth: float) -> float:
+        """Return how fast things at `depth` move on the screen, compared with the play plane's."""
+        ...
 
 
 class Scenery:
@@ -43,13 +52,15 @@ class Scenery:
         seed: int | None = None,
         clouds: float = 0.0,
     ) -> None:
-        """`scenery`: its parameters, or a preset's name. `clouds`: how much see-through cloud drifts between the
-        ground and the ships, from 0 (none) to 1.
+        """Build the layers.
+
+        `scenery`: its parameters, or a preset's name. `clouds`: how much see-through cloud drifts between the ground
+        and the ships, from 0 (none) to 1.
         """
         self.params = params.resolve(scenery) if isinstance(scenery, str) else scenery
         scenery = self.params
         self.kind = scenery.name
-        self.rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
+        self.rng = random.Random(seed)
         self.variant = self.rng.randrange(1000)  # picks colors in space (nebulas, planet), see view.py
         self.starfield: Starfield | None = None
         self.layers: list[DriftLayer] = []
@@ -79,6 +90,7 @@ class Scenery:
                     self.layers.append(mist_layer(self.rng, view.area(depth), speed_factor, mist, depth, clouds, wind))
 
     def update(self, dt: float, scroll_speed: float) -> None:
+        """Scroll every layer by `dt` seconds at the level's `scroll_speed`."""
         if self.starfield:
             self.starfield.update(dt, scroll_speed)
         for layer in self.layers:

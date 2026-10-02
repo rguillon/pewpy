@@ -39,7 +39,7 @@ class FakeView:
         return 1 / (1 + 0.2 * depth)
 
 
-def test_star_layers_scroll_down_with_parallax():
+def test_star_layers_scroll_down_with_parallax() -> None:
     starfield = Starfield(STARS, seed=0, area=AREA)
     starfield.update(0.1, scroll_speed=0.2)
     for layer in starfield.layers:
@@ -47,14 +47,14 @@ def test_star_layers_scroll_down_with_parallax():
     assert len({layer.speed_factor for layer in starfield.layers}) > 1
 
 
-def test_star_layers_wrap_after_one_area_height():
+def test_star_layers_wrap_after_one_area_height() -> None:
     starfield = Starfield(STARS, seed=0, area=AREA)
     layer = starfield.layers[-1]
     starfield.update(AREA.height / layer.speed_factor + 0.5, scroll_speed=1.0)
     assert layer.offset == pytest.approx(0.5 * layer.speed_factor)
 
 
-def test_stars_fill_the_area_and_stay_still_without_scrolling():
+def test_stars_fill_the_area_and_stay_still_without_scrolling() -> None:
     starfield = Starfield(STARS, seed=0, area=AREA)
     stars = [star for layer in starfield.layers for star in layer.stars]
     assert all(AREA.left <= x <= AREA.right and AREA.bottom <= y <= AREA.top for x, y in stars)
@@ -62,7 +62,7 @@ def test_stars_fill_the_area_and_stay_still_without_scrolling():
     assert all(layer.offset == 0 for layer in starfield.layers)
 
 
-def test_drifters_move_spin_and_come_back_above_the_top():
+def test_drifters_move_spin_and_come_back_above_the_top() -> None:
     rock = Drifter(0.0, AREA.bottom - 0.09, size=0.1, speed_factor=0.5, spin=(10.0, 0.0, -20.0))
     layer = DriftLayer("rock", 1.0, AREA, [rock])
     layer.update(0.5, scroll_speed=0.2)
@@ -71,7 +71,7 @@ def test_drifters_move_spin_and_come_back_above_the_top():
     assert AREA.left <= rock.x <= AREA.right
 
 
-def test_ground_chunks_follow_each_other_down_and_loop():
+def test_ground_chunks_follow_each_other_down_and_loop() -> None:
     terrain = planet()
     tops = [terrain.chunk_top(chunk) for chunk in range(CHUNKS)]
     for upper, lower in pairwise(tops):
@@ -82,7 +82,7 @@ def test_ground_chunks_follow_each_other_down_and_loop():
     assert terrain.chunk_top(0) == pytest.approx(tops[0])
 
 
-def test_ground_always_covers_the_screen():
+def test_ground_always_covers_the_screen() -> None:
     terrain = planet()
     for _ in range(50):
         terrain.update(0.37, scroll_speed=0.5)
@@ -94,7 +94,7 @@ def test_ground_always_covers_the_screen():
         assert covered_to >= AREA.top
 
 
-def test_the_city_sits_deeper_than_the_hills():
+def test_the_city_sits_deeper_than_the_hills() -> None:
     scenery = Scenery("city", FakeView(), seed=0)
     assert scenery.terrain is not None
     assert scenery.terrain.depth == ground_depth("city") > ground_depth("planet")
@@ -110,7 +110,7 @@ def test_the_city_sits_deeper_than_the_hills():
         ("debris", True, ["rock", "rock"], False),
     ],
 )
-def test_each_kind_of_background_has_its_own_scenery(kind, stars, layers, ground):
+def test_each_kind_of_background_has_its_own_scenery(kind: str, stars: bool, layers: list[str], ground: bool) -> None:
     scenery = Scenery(kind, FakeView(), seed=0)
     assert (scenery.starfield is not None) == stars
     assert [layer.kind for layer in scenery.layers] == layers
@@ -118,7 +118,7 @@ def test_each_kind_of_background_has_its_own_scenery(kind, stars, layers, ground
     scenery.update(0.1, scroll_speed=0.2)  # doesn't fail
 
 
-def test_ground_seems_to_move_at_ground_speed_on_screen():
+def test_ground_seems_to_move_at_ground_speed_on_screen() -> None:
     view = FakeView()
     terrain = Scenery("planet", view, seed=0).terrain
     assert terrain is not None
@@ -126,21 +126,21 @@ def test_ground_seems_to_move_at_ground_speed_on_screen():
     assert on_screen == pytest.approx(GROUND_SPEED)
 
 
-def test_ground_speed_is_away_from_every_enemy_speed_of_level_2():
+def test_ground_speed_is_away_from_every_enemy_speed_of_level_2() -> None:
     # Enemy speeds down the screen as fractions of level 2's scroll speed (0.25): parked Sniper, Gunship,
     # Turret, Drone, Weaver.
     for enemy in (0.0, 0.6, 1.0, 1.2, 1.4):
         assert abs(GROUND_SPEED - enemy) >= 0.25
 
 
-def test_stars_fill_bigger_areas_with_more_stars():
+def test_stars_fill_bigger_areas_with_more_stars() -> None:
     scenery = Scenery("space", FakeView(), seed=0)
     assert scenery.starfield is not None
     count = sum(len(layer.stars) for layer in scenery.starfield.layers)
     assert count > STARS.count  # the layer is bigger than the play area
 
 
-def test_unknown_background_is_rejected():
+def test_unknown_background_is_rejected() -> None:
     with pytest.raises(SceneryError, match="unknown background"):
         Scenery("jungle", FakeView())
 
@@ -149,7 +149,7 @@ def mist_layers(scenery: Scenery) -> list[DriftLayer]:
     return [layer for layer in scenery.layers if layer.kind == "mist"]
 
 
-def test_see_through_clouds_come_with_the_amount_asked():
+def test_see_through_clouds_come_with_the_amount_asked() -> None:
     assert mist_layers(Scenery("forest", FakeView(), seed=0)) == []  # none by default
     assert mist_layers(Scenery("space", FakeView(), seed=0, clouds=1.0)) == []  # only over grounds
     light = mist_layers(Scenery("forest", FakeView(), seed=0, clouds=0.2))
@@ -158,21 +158,21 @@ def test_see_through_clouds_come_with_the_amount_asked():
     assert sum(len(layer.drifters) for layer in heavy) > sum(len(layer.drifters) for layer in light) > 0
 
 
-def test_clouds_float_between_the_ground_and_the_ships():
+def test_clouds_float_between_the_ground_and_the_ships() -> None:
     scenery = Scenery("mountains", FakeView(), seed=0, clouds=1.0)
     assert scenery.terrain is not None
     for layer in mist_layers(scenery):
         assert 0 < layer.depth < scenery.terrain.depth
 
 
-def test_wind_blows_clouds_around_the_sides():
+def test_wind_blows_clouds_around_the_sides() -> None:
     cloud = Drifter(AREA.right + 0.05, 0.0, size=0.1, speed_factor=0.0, wind=0.1)
     layer = DriftLayer("mist", 0.1, AREA, [cloud])
     layer.update(1.0, scroll_speed=0.0)
     assert AREA.left - cloud.size <= cloud.x < AREA.left + 0.1  # gone off the right, back on the left
 
 
-def test_clouds_always_float_above_the_highest_ground():
+def test_clouds_always_float_above_the_highest_ground() -> None:
     for name in params.backgrounds():
         scenery = params.resolve(name)
         if scenery.ground is None:
@@ -186,7 +186,7 @@ def test_clouds_always_float_above_the_highest_ground():
         assert all(depth > 0 for depth in depths)  # still behind the ships
 
 
-def test_a_drifter_blown_off_the_left_comes_back_on_the_right():
+def test_a_drifter_blown_off_the_left_comes_back_on_the_right() -> None:
     cloud = Drifter(AREA.left - 0.05, 0.0, size=0.1, speed_factor=0.0, wind=-0.1)
     DriftLayer("mist", 0.1, AREA, [cloud]).update(1.0, scroll_speed=0.0)
     assert AREA.right - 0.1 < cloud.x <= AREA.right + cloud.size

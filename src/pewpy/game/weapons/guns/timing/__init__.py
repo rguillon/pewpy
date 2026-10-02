@@ -1,6 +1,8 @@
-"""When a gun fires, each way in its own module: every `interval`, volleys included (volley.py), charging first
-(charge.py), once at a time of its state (at.py), its volleys starting on the next frame (wait_volley.py) or during
-a window of each interval (window.py). `step` runs a gun for a frame.
+"""When a gun fires, each way in its own module.
+
+Every `interval`, volleys included (volley.py), charging first (charge.py), once at a time of its state (at.py), its
+volleys starting on the next frame (wait_volley.py) or during a window of each interval (window.py). `step` runs a
+gun for a frame.
 """
 
 from pewpy.game.entities import Entity

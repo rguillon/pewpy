@@ -5,8 +5,8 @@ import math
 from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
-def part_shield_node(rng: Rng, cv: Canvas) -> None:
-    """A hexagonal shield projector, glowing in the middle."""
+def part_shield_node(_rng: Rng, cv: Canvas) -> None:
+    """Draw a hexagonal shield projector, glowing in the middle."""
     mx, my, r = cv.w / 2 - 0.5, cv.h / 2 - 0.5, min(cv.w, cv.h) / 2 - 0.5
     hexagon = [
         (mx + r * math.cos(math.radians(30 + 60 * i)), my + r * math.sin(math.radians(30 + 60 * i))) for i in range(6)

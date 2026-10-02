@@ -14,5 +14,6 @@ class TowardMiddle(Action):
     speed: float = 0.0
 
     def do(self, body: Body, target: Entity) -> list[Entity]:
+        """Move sideways towards the middle of the screen at `speed`."""
         body.vx = self.speed if body.x <= 0 else -self.speed
         return []

@@ -1,7 +1,6 @@
 """Where a model's engine flames come out."""
 
 from dataclasses import dataclass
-from typing import Any
 
 from pewpy.graphics.models.drawings.errors import VoxelDrawingError
 from pewpy.graphics.models.drawings.flat import palette_entry
@@ -33,8 +32,8 @@ class Engine:
     z: float = 0.0
 
 
-def parse_engines(data: Any, source: str = "drawing") -> list[Engine]:
-    """A drawing's "engines": a list of {"x", "y", "width", "length", "towards", and maybe "color"} (see Engine)."""
+def parse_engines(data: object, source: str = "drawing") -> list[Engine]:
+    """Read a drawing's "engines": a list of {"x", "y", "width", "length", "towards", maybe "color"} (see Engine)."""
     entries = data.get("engines", []) if isinstance(data, dict) else []
     if not isinstance(entries, list):
         raise VoxelDrawingError.malformed(source, "'engines' must be a list")

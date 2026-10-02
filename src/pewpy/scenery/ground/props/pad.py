@@ -1,5 +1,6 @@
-"""Landing pads: an eight-sided platform with a painted ring and cross, lights around it, and sometimes a small
-craft parked on it.
+"""Landing pads: an eight-sided platform with a painted ring and cross, lights around it.
+
+Sometimes a small craft is parked on it.
 """
 
 import math
@@ -11,6 +12,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a landing pad."""
     r, x, y = radius(prop) * 0.95, prop.x, prop.y
     deck = prop.base + max(prop.height, 0.003)
     mesh.cylinder(x, y, r, prop.base, deck, varied(rng, c.apron, 0.04), PLAIN, segments=8)

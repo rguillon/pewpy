@@ -21,7 +21,7 @@ def guns_of(spec: EnemySpec) -> list[Gun]:
 
 
 @pytest.mark.parametrize("spec", [*ENEMIES.values(), *BOSSES.values()], ids=lambda spec: spec.kind)
-def test_every_enemy_launched_or_released_exists(spec):
+def test_every_enemy_launched_or_released_exists(spec: EnemySpec) -> None:
     for gun in guns_of(spec):
         assert not gun.spawn or gun.spawn in ENEMIES
         assert not gun.projectile or PROJECTILES[gun.projectile][0] in ENEMIES
@@ -29,7 +29,7 @@ def test_every_enemy_launched_or_released_exists(spec):
 
 
 @pytest.mark.parametrize("spec", load_enemy_specs("enemies/fleet.json").values(), ids=lambda spec: spec.kind)
-def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec):
+def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec: EnemySpec) -> None:
     drawing = json.loads((data_folder() / "models" / f"{spec.drawing}.json").read_text())
     rows = drawing["rows"]
     assert spec.width == pytest.approx(len(rows[0]) * config.MODEL_VOXEL)
@@ -37,5 +37,5 @@ def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec):
     assert drawing["engines"]
 
 
-def test_the_levels_place_enemies_not_what_they_launch():
+def test_the_levels_place_enemies_not_what_they_launch() -> None:
     assert set(ENEMIES) - set(ENEMY_TYPES) == {"rocket", "homing_missile", "cluster_bomb", "mine"}

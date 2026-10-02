@@ -1,14 +1,14 @@
-"""Built-up grounds on a smooth relief (relief.py): what every settlement is; each one is in grounds/ (the city, the
-refinery, the farmland).
+"""Built-up grounds on a smooth relief (relief.py): what every settlement is.
 
-A layout is what the ground is covered with, as a surface map painted by the ground shader (streets, pavements,
-yards, fields...), plus the props standing on it: buildings, tanks, stacks, pipe racks, houses, barns, silos, trees,
-hedges, greenhouses, cooling towers. props/ builds the props, shader/ draws both.
+Each one is in grounds/ (the city, the refinery, the farmland). A layout is what the ground is covered with, as a
+surface map painted by the ground shader (streets, pavements, yards, fields...), plus the props standing on it:
+buildings, tanks, stacks, pipe racks, houses, barns, silos, trees, hedges, greenhouses, cooling towers. props/ builds
+the props, shader/ draws both.
 
 Each settlement's numbers (block sizes, shares, building heights...) come from the level's scenery (`layout`, see
-pewpy.scenery.params). Positions are in world units: x from the ground's left edge, y down the loop (like the relief's rows); the
-layout loops along y like the rest of the ground (the grids of blocks divide the loop exactly and nothing crosses its
-end). The canvas and the helpers below are shared by the settlements. Independent from Panda3D.
+pewpy.scenery.params). Positions are in world units: x from the ground's left edge, y down the loop (like the
+relief's rows); the layout loops along y like the rest of the ground (the grids of blocks divide the loop exactly and
+nothing crosses its end). The canvas and the helpers below are shared by the settlements. Independent from Panda3D.
 """
 
 import random
@@ -45,10 +45,11 @@ class Surface(IntEnum):
 
 @dataclass(frozen=True)
 class Prop:
-    """Something standing on the ground. `kind`: "building", "house", "barn", "silo", "greenhouse", "tank",
-    "plant", "stack", "pipes", "cooling_tower", "tree", "hedge", "palm", "dead_tree", or in the outposts "apron",
-    "hangar", "warehouse", "containers", "radar", "dome", "antenna", "pad", "pylon"; `seed` picks its variant,
-    colors and details (see props/).
+    """Something standing on the ground.
+
+    `kind`: "building", "house", "barn", "silo", "greenhouse", "tank", "plant", "stack", "pipes", "cooling_tower",
+    "tree", "hedge", "palm", "dead_tree", or in the outposts "apron", "hangar", "warehouse", "containers", "radar",
+    "dome", "antenna", "pad", "pylon"; `seed` picks its variant, colors and details (see props/).
     """
 
     kind: str
@@ -63,6 +64,8 @@ class Prop:
 
 @dataclass
 class Layout:
+    """What a built-up ground is covered with: its surface map and the props standing on it."""
+
     surface: NDArray[np.uint8]  # (rows, columns): a Surface every SURFACE_STEP
     variant: NDArray[np.uint8]  # (rows, columns): a number per lot or field (its shade, its rows' direction)
     props: list[Prop]
@@ -80,7 +83,7 @@ class Settlement(ABC):
 
     @abstractmethod
     def layout(self, rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
-        """The layout of a ground `width` wide whose loop is `loop` long (world units)."""
+        """Lay out a ground `width` wide whose loop is `loop` long (world units)."""
 
 
 class Canvas:
@@ -99,21 +102,25 @@ class Canvas:
         self.props: list[Prop] = []
 
     def fill(self, rect: Rect, surface: Surface, variant: int = 0) -> None:
+        """Paint a rectangle of the surface map."""
         top, bottom, left, right = (round(edge / SURFACE_STEP) for edge in rect)
         self.surface[top:bottom, max(left, 0) : right] = surface
         self.variant[top:bottom, max(left, 0) : right] = variant
 
     def add(self, kind: str, rect: Rect, height: float) -> None:
+        """Add a prop of `kind` filling a rectangle, `height` high, with a seed of its own."""
         top, bottom, left, right = rect
         middle = ((left + right) / 2, (top + bottom) / 2)
         self.props.append(Prop(kind, *middle, right - left, bottom - top, height, self.rng.randrange(1 << 30)))
 
     def tree(self, x: float, y: float, size: float | None = None) -> None:
+        """Add a tree at (x, y), `size` across (default: one of the canvas's tree sizes)."""
         size = size or self.rng.uniform(*self.tree_size)
         rect = (y - size / 2, y + size / 2, x - size / 2, x + size / 2)
         self.add("tree", rect, size * self.rng.uniform(0.8, 1.1))
 
     def layout(self) -> Layout:
+        """Return the layout drawn so far."""
         return Layout(self.surface, self.variant, self.props, self.width, self.loop)
 
 
@@ -137,18 +144,21 @@ def split(rng: random.Random, start: float, end: float, smallest: float) -> list
 
 
 def lots(rng: random.Random, rect: Rect, smallest: float) -> list[Rect]:
+    """Cut a rectangle into lots, `smallest` wide at least."""
     top, bottom, left, right = rect
     return [(a, b, c, d) for a, b in split(rng, top, bottom, smallest) for c, d in split(rng, left, right, smallest)]
 
 
 def shrink(rect: Rect, margin: float) -> Rect:
+    """Return a rectangle shrunk by `margin` on every side."""
     top, bottom, left, right = rect
     return (top + margin, bottom - margin, left + margin, right - margin)
 
 
 def place(props: list[Prop], heights: NDArray[np.float64], step_x: float, step_y: float) -> list[Prop]:
-    """The props standing on the relief: each one's base is the lowest ground under its footprint (it's sunk a
-    little into slopes rather than floating).
+    """Stand the props on the relief: each one's base is the lowest ground under its footprint.
+
+    So it's sunk a little into slopes rather than floating.
     """
     rows, columns = heights.shape
     placed = []
@@ -161,7 +171,7 @@ def place(props: list[Prop], heights: NDArray[np.float64], step_x: float, step_y
 
 
 def occluders(props: list[Prop], heights: NDArray[np.float64], step_x: float, step_y: float) -> NDArray[np.float64]:
-    """The ground's heights with the props standing on it: what casts shadows and makes hollows (relief.py)."""
+    """Return the ground's heights with the props standing on it: what casts shadows and makes hollows (relief.py)."""
     result = heights.copy()
     rows, columns = heights.shape
     for prop in props:

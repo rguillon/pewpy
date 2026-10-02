@@ -16,6 +16,7 @@ class Relocate(Action):
     dy: float = 0.0
 
     def do(self, body: Body, target: Entity) -> list[Entity]:
+        """Jump `step` of the way across the screen (wrapping around), and `dy` down."""
         span = HALF_WIDTH - body.width
         body.x = ((body.x / span + 1) / 2 + self.step) % 1.0 * 2 * span - span
         body.y += self.dy

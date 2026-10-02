@@ -24,25 +24,29 @@ def load_drawing(name: str) -> tuple[list[str], Palette]:
 
 
 def load_voxels(name: str) -> Voxels:
-    """A model's cubes, from `models/<name>.json`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model (read
-    again every time, so edited files show up with "Reload models").
+    """Load a model's cubes from `models/<name>.json`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model.
+
+    Read again every time, so edited files show up with "Reload models".
     """
     data, source = read_drawing(name)
     return parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
 
 
 def load_engines(name: str) -> list[Engine]:
+    """Load a model's engines."""
     data, source = read_drawing(name)
     return parse_engines(data, source)
 
 
 def read_drawing(name: str) -> tuple[Any, str]:
+    """Read a model's file; return its data and its file name."""
     source = f"{name}.json"
     return json.loads((data_folder() / DRAWINGS_FOLDER / source).read_text()), source
 
 
-def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:
-    """A model file in any of its forms (`folder`: where a .vox file it names is, within models/):
+def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:  # noqa: ANN401 - decoded JSON
+    """Read a model file in any of its forms (`folder`: where a .vox file it names is, within models/).
+
     - a flat drawing: see `parse_drawing`;
     - a 3D drawing: "layers", a list of slices from the top (nearest the camera) down, each written like a flat
       drawing's rows, and "palette" (for each character, its "color");

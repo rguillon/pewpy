@@ -33,12 +33,12 @@ def run(world: World, seconds: float) -> None:
         world.update(DT, Controls())
 
 
-def test_the_secondary_weapons_are_read():
+def test_the_secondary_weapons_are_read() -> None:
     assert SECONDARY_WEAPONS == ("turret", "lightning")
     assert set(SECONDARY_LETTERS) == set(SECONDARY_WEAPONS)
 
 
-def test_turret_shoots_the_nearest_enemy_on_its_own():
+def test_turret_shoots_the_nearest_enemy_on_its_own() -> None:
     turret = SecondaryWeapon("turret")
     ship = Player()
     near, far = still_drone(ship.x + 0.3, ship.y + 0.4), still_drone(ship.x, ship.y + 1.2)
@@ -52,7 +52,7 @@ def test_turret_shoots_the_nearest_enemy_on_its_own():
     assert (turret.aim_x, turret.aim_y) == pytest.approx((0.6, 0.8))
 
 
-def test_turret_fire_rate_and_no_target_no_shot():
+def test_turret_fire_rate_and_no_target_no_shot() -> None:
     turret = SecondaryWeapon("turret")
     ship = Player()
     assert turret.fire(DT, ship, []) == ([], [])
@@ -61,7 +61,7 @@ def test_turret_fire_rate_and_no_target_no_shot():
     assert abs(shots - 2 * (1 / TURRET.interval)) <= 1
 
 
-def test_turret_kills_enemies_in_the_world():
+def test_turret_kills_enemies_in_the_world() -> None:
     world = armed_world("turret")
     drone = still_drone(world.player.x - 0.4, world.player.y + 0.6, health=1.0)
     world.enemies.append(drone)
@@ -70,7 +70,7 @@ def test_turret_kills_enemies_in_the_world():
     assert world.score == drone.points
 
 
-def test_lightning_chains_from_enemy_to_enemy():
+def test_lightning_chains_from_enemy_to_enemy() -> None:
     lightning = SecondaryWeapon("lightning")
     ship = Player(x=0.0, y=0.0)
     step = LIGHTNING.chain_jump * 0.9
@@ -83,14 +83,14 @@ def test_lightning_chains_from_enemy_to_enemy():
     assert lightning.fire(DT, ship, line) == ([], [])  # recharging
 
 
-def test_lightning_needs_an_enemy_in_range():
+def test_lightning_needs_an_enemy_in_range() -> None:
     lightning = SecondaryWeapon("lightning")
     ship = Player(x=0.0, y=0.0)
     assert lightning.fire(DT, ship, [still_drone(LIGHTNING.chain_range * 1.1, 0.0)]) == ([], [])
     assert lightning.state.cooldown == 0.0
 
 
-def test_lightning_damages_enemies_and_shows_a_bolt():
+def test_lightning_damages_enemies_and_shows_a_bolt() -> None:
     world = armed_world("lightning")
     drone = still_drone(world.player.x, world.player.y + 0.4)
     world.enemies.append(drone)
@@ -102,7 +102,7 @@ def test_lightning_damages_enemies_and_shows_a_bolt():
     assert world.bolt == []
 
 
-def test_picking_up_a_secondary_weapon_replaces_the_one_carried():
+def test_picking_up_a_secondary_weapon_replaces_the_one_carried() -> None:
     world = armed_world("turret")
     world.pickups.append(Pickup(x=world.player.x, y=world.player.y, kind="lightning"))
     world.update(DT, Controls())
@@ -112,7 +112,7 @@ def test_picking_up_a_secondary_weapon_replaces_the_one_carried():
 
 
 @pytest.mark.parametrize("kind", ["turret", "lightning"])
-def test_a_shot_takes_the_secondary_weapon_instead_of_health(kind):
+def test_a_shot_takes_the_secondary_weapon_instead_of_health(kind: str) -> None:
     world = armed_world(kind)
     player = world.player
     world.enemy_bullets.append(Bullet(x=player.x, y=player.y, vy=0.0, damage=1.0, hostile=True))
@@ -130,7 +130,7 @@ def test_a_shot_takes_the_secondary_weapon_instead_of_health(kind):
     assert player.health == world.ship.health - 1.0  # nothing left to lose: now it hurts
 
 
-def test_ramming_takes_the_secondary_weapon_instead_of_health():
+def test_ramming_takes_the_secondary_weapon_instead_of_health() -> None:
     world = armed_world("turret")
     world.enemies.append(still_drone(world.player.x, world.player.y, health=1000.0))
     world.update(DT, Controls())
@@ -138,7 +138,7 @@ def test_ramming_takes_the_secondary_weapon_instead_of_health():
     assert world.arsenal.secondary is None
 
 
-def test_losing_a_life_loses_the_secondary_weapon():
+def test_losing_a_life_loses_the_secondary_weapon() -> None:
     world = armed_world("lightning")
     world.player.health = 0.0
     world.update(DT, Controls())
@@ -146,7 +146,7 @@ def test_losing_a_life_loses_the_secondary_weapon():
     assert world.arsenal.secondary is None
 
 
-def test_the_secondary_weapon_goes_on_to_the_next_level():
+def test_the_secondary_weapon_goes_on_to_the_next_level() -> None:
     world = armed_world("turret")
     next_level = World(QUIET_LEVEL, seed=0, arsenal=world.arsenal)
     assert next_level.arsenal.secondary is not None

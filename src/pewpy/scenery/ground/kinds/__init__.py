@@ -1,9 +1,10 @@
-"""Every kind of ground, each in its own module: the landscapes (landscapes.py Landscape), the floras standing on some
-of them (landscapes.py Flora), the settlements built on others (settlement.py Settlement), and the outposts any of
-them can have (outposts.py).
+"""Every kind of ground, each in its own module.
 
-The level's scenery names them (`ground.landscape`, `flora.kind`, `settlement.kind`, see pewpy.scenery.params); these registries
-give each name its generator. Independent from Panda3D.
+The landscapes (landscapes.py Landscape), the floras standing on some of them (landscapes.py Flora), the settlements
+built on others (settlement.py Settlement), and the outposts any of them can have (outposts.py).
+
+The level's scenery names them (`ground.landscape`, `flora.kind`, `settlement.kind`, see pewpy.scenery.params); these
+registries give each name its generator. Independent from Panda3D.
 """
 
 from pewpy.scenery.ground.kinds import (

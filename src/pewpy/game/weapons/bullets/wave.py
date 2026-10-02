@@ -17,6 +17,7 @@ class WaveBullet(Bullet):
     line_y: float = 0.0
 
     def move(self, dt: float) -> None:
+        """Move along its line of flight, snaking across it."""
         if self.line_x is None:
             self.line_x, self.line_y = self.x, self.y
         self.age += dt

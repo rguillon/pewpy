@@ -26,6 +26,8 @@ REGION_SORT = 5  # after the game's 3D view (0), before the menus (render2d, 10)
 
 
 class LevelPreview:
+    """The level select's preview: the highlighted level's scenery, drawn in a window over the menu."""
+
     def __init__(self, window: GraphicsOutput, main_camera: NodePath, render: NodePath, aspect2d: NodePath) -> None:
         self.root = NodePath("preview")
         lighting.light(self.root)
@@ -77,6 +79,7 @@ class LevelPreview:
         self.frame.show()
 
     def hide(self) -> None:
+        """Hide the preview."""
         self.region.setActive(False)
         self.frame.hide()
         if self.shown is not None:
@@ -111,7 +114,7 @@ class LevelPreview:
         )
 
     def _frame(self, aspect2d: NodePath) -> NodePath:
-        """A thin border around the window, on the menus' layer."""
+        """Make a thin border around the window, on the menus' layer."""
         frame = aspect2d.attachNewNode("preview_frame")
         left, right, bottom, top = FRAME
         w = FRAME_WIDTH

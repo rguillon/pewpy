@@ -7,6 +7,8 @@ from pewpy.scenery.params import Knobs
 
 
 class City(Settlement):
+    """A city: blocks of buildings between streets."""
+
     knobs = (
         "block",
         "street",
@@ -24,9 +26,11 @@ class City(Settlement):
     )
 
     def layout(self, rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
-        """Blocks of buildings between streets (`block` apart, `street` wide): mostly low buildings, some mid-rises,
-        a few towers (`tower_share`, `midrise_share`; their heights between `tower`, `midrise`, `lowrise`), the odd park
-        (`park_share`). Lots are `lot` wide at least, a `sidewalk` around them.
+        """Lay out blocks of buildings between streets (`block` apart, `street` wide).
+
+        Mostly low buildings, some mid-rises, a few towers (`tower_share`, `midrise_share`; their heights between
+        `tower`, `midrise`, `lowrise`), the odd park (`park_share`). Lots are `lot` wide at least, a `sidewalk` around
+        them.
         """
         canvas = Canvas(rng, width, loop, Surface.STREET, knobs["tree_size"])
         street = knobs["street"]
@@ -48,8 +52,9 @@ class City(Settlement):
 
 
 def _alleys(canvas: Canvas, block: Rect, width: float, share: float) -> list[Rect]:
-    """Some blocks (`share` of them) are cut in two by a narrow alley, one way or the other: the two halves (or the
-    whole block).
+    """Cut some blocks (`share` of them) in two by a narrow alley, one way or the other.
+
+    Return the two halves (or the whole block).
     """
     rng = canvas.rng
     if rng.random() >= share:

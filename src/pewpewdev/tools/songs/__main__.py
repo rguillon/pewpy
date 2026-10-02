@@ -14,6 +14,7 @@ PREVIEWS = BUILD / "music"
 
 
 def write(plan: Plan, out: Path, seed: int | None = None, wav: Path | None = None) -> Path:
+    """Compose a song and write it as MIDI (and as WAV in `wav`, if given); return the MIDI file."""
     song = compose(plan, seed)
     path = out / f"{plan.name}.mid"
     path.write_bytes(midi.write(song, plan.title))
@@ -25,6 +26,7 @@ def write(plan: Plan, out: Path, seed: int | None = None, wav: Path | None = Non
 
 
 def main() -> None:
+    """Compose the songs the command line asks for and write them."""
     parser = argparse.ArgumentParser(description=songs.__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--seed", type=int, help="new tunes from this seed (default: each song's own)")
     parser.add_argument("--only", nargs="+", choices=[plan.name for plan in PLANS], help="just these songs")

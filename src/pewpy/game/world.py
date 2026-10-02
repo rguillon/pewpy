@@ -39,7 +39,7 @@ class World:
         view_side: float = config.PLAY_WIDTH / 2,
     ) -> None:
         self.ship = ship or SHIPS[DEFAULT_SHIP]  # the player's ship, for every life
-        self.rng = random.Random(seed)  # noqa: S311 - gameplay randomness, not cryptography
+        self.rng = random.Random(seed)
         # Top and sides of the screen on the play plane. The tilted camera shows more than the play area at the
         # top (higher and wider), so the app passes where the screen really ends: the laser goes up to there,
         # shots fly until they are off screen, and enemies appear off screen.
@@ -72,6 +72,7 @@ class World:
 
     @property
     def game_over(self) -> bool:
+        """Whether the player has no lives left."""
         return self.lives <= 0
 
     @property
@@ -86,9 +87,11 @@ class World:
         return next((enemy for enemy in self.enemies if enemy.is_boss and enemy.alive), None)
 
     def entities(self) -> list[Entity]:
+        """Every entity in play."""
         return [self.player, *self.player_bullets, *self.enemies, *self.enemy_bullets, *self.pickups]
 
     def update(self, dt: float, controls: Controls) -> None:
+        """Advance the game by `dt` seconds with the player's `controls`."""
         self.events = []
         if self.game_over or self.completed:
             return
@@ -140,8 +143,10 @@ class World:
                 self._explode(enemy)
 
     def scroll_speed(self, enemy: Enemy) -> float:
-        """How fast the scenery under `enemy` scrolls down the play plane: the ground scrolls slower on screen than
-        the level (it's far below, see GROUND_SPEED), so units on the ground go with it, not with the level.
+        """Return how fast the scenery under `enemy` scrolls down the play plane.
+
+        The ground scrolls slower on screen than the level (it's far below, see GROUND_SPEED), so units on the ground go
+        with it, not with the level.
         """
         return self.level.scroll_speed * (GROUND_SPEED if enemy.ground else 1.0)
 
@@ -150,11 +155,12 @@ class World:
             if isinstance(entity, Enemy):
                 self.enemies.append(entity)
             else:  # what enemies make is enemies or their shots
-                self.enemy_bullets.append(cast(Bullet, entity))
+                self.enemy_bullets.append(cast("Bullet", entity))
 
     def in_sight(self, enemy: Enemy) -> bool:
-        """Whether `enemy`'s middle is on the screen (which shows more than the play area: higher and wider), so the
-        homing missiles and the turret can aim at it.
+        """Tell whether `enemy`'s middle is on the screen (which shows more than the play area: higher and wider).
+
+        The homing missiles and the turret can aim at it then.
         """
         return enemy.y < self.view_top and abs(enemy.x) < self.view_side
 
@@ -241,8 +247,10 @@ class World:
                 self.boss_beaten_time = config.BOSS_BEATEN_TIME
 
     def _clear_field(self) -> None:
-        """Once the boss is beaten: every enemy left (missiles, mines...) blows up, without points, and enemy
-        bullets vanish, so the player can safely pick up what the boss dropped.
+        """Clear the field once the boss is beaten.
+
+        Every enemy left (missiles, mines...) blows up, without points, and enemy bullets vanish, so the player can
+        safely pick up what the boss dropped.
         """
         for enemy in self.enemies:
             if enemy.alive:
@@ -296,7 +304,7 @@ class World:
                 return
 
     def _hurt(self, damage: float) -> None:
-        """The player is hit: the secondary weapon goes instead of health, if the ship has one."""
+        """Hurt the player: the secondary weapon goes instead of health, if the ship has one."""
         player = self.player
         secondary = self.arsenal.secondary
         if secondary is None:
@@ -362,5 +370,5 @@ class World:
 
 
 def _behind_a_part(enemy: Enemy, x: float) -> bool:
-    """A boss's core under one of its living parts at `x`: shots and the laser go over it, up to the part."""
+    """Tell whether a boss's core is under one of its living parts at `x`: shots and the laser stop at the part."""
     return enemy.covered(x)

@@ -1,9 +1,9 @@
-"""Drawing the particles of the effects (system.py): debris are small lit cubes, glowing particles soft
-circles (sprites.py).
+"""Drawing the particles of the effects (system.py).
 
-Moving hundreds of nodes each frame is slow, so there is a single cube mesh drawn once per debris particle
-(instancing). Each frame, their positions, colors and rotations are packed into a small float texture (one
-column per particle) that the shader reads. The glowing ones go the same way through a SpriteBatch.
+Debris are small lit cubes, glowing particles soft circles (sprites.py). Moving hundreds of nodes each frame is slow,
+so there is a single cube mesh drawn once per debris particle (instancing). Each frame, their positions, colors and
+rotations are packed into a small float texture (one column per particle) that the shader reads. The glowing ones go
+the same way through a SpriteBatch.
 """
 
 import math
@@ -107,6 +107,7 @@ class EffectsView:
         self.sync()
 
     def sync(self) -> None:
+        """Draw the particles and the lasers' light as they are now."""
         particles = [particle for particle in self.effects.particles if not particle.glow][:MAX_PARTICLES]
         self.glows.show([
             *(
@@ -134,8 +135,10 @@ class EffectsView:
             self.node.hide()
 
     def _laser_sprites(self) -> list[Sprite]:
-        """Streaks of light shooting along the lasers, a soft halo around each, a pulsing glow where it starts (the
-        ship's nose, an enemy's muzzle) and a flickering one where the player's burns something.
+        """Make the lasers' light: streaks of light shooting along the lasers, a soft halo around each.
+
+        Also a pulsing glow where it starts (the ship's nose, an enemy's muzzle) and a flickering one where the player's
+        burns something.
         """
         sprites = []
         for photon in self.effects.light.photons:

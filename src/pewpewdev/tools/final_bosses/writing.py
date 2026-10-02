@@ -17,7 +17,7 @@ from pewpy.game.weapons.guns import Gun
 
 
 def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
-    """The boss written like any enemy: its body, its parts, and states: coming down, then its phases."""
+    """Write the boss like any enemy: its body, its parts, and states: coming down, then its phases."""
     parts = [
         {
             "name": part.name, "x": part.x, "y": part.y, "drawing": part.drawing, "size": [part.width, part.height],
@@ -69,7 +69,7 @@ def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
 
 
 def gun_json(gun: Gun) -> dict[str, Any]:
-    """The gun's fields that aren't the defaults (its pattern, interval and speed always)."""
+    """Write the gun's fields that aren't the defaults (its pattern, interval and speed always)."""
     written: dict[str, Any] = {}
     for f in dataclasses.fields(gun):
         value = getattr(gun, f.name)
@@ -78,7 +78,7 @@ def gun_json(gun: Gun) -> dict[str, Any]:
     return written
 
 
-def _plain(value: Any) -> Any:
+def _plain(value: object) -> object:
     """Tuples as lists, guns as dicts: as JSON writes them."""
     if isinstance(value, Gun):
         return gun_json(value)

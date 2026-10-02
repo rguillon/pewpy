@@ -28,13 +28,16 @@ def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int],
 
 
 def thickest(palette: Palette) -> int:
+    """Return how many voxels thick the thickest character of a palette is."""
     return max(height for _, height in palette.values())
 
 
 @dataclass(frozen=True)
 class Voxels:
-    """A model's cubes, whatever it was drawn as: (column, row, layer) -> color, `width` columns and `height` rows
-    (row 0 at the top of the screen), layers counted from its middle plane (negative: towards the camera).
+    """A model's cubes, whatever it was drawn as: (column, row, layer) -> color.
+
+    `width` columns and `height` rows (row 0 at the top of the screen), layers counted from its middle plane (negative:
+    towards the camera).
     """
 
     cells: dict[Cell, Color]

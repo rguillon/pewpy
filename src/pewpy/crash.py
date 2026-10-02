@@ -1,4 +1,4 @@
-"""Crash reports, to debug a crash after the fact.
+r"""Crash reports, to debug a crash after the fact.
 
 `run(main)` runs the game so that if it crashes:
 - on an uncaught Python exception (in the game loop, an event handler, or a background thread): the full stack trace
@@ -8,7 +8,7 @@
 - on a native crash (a segmentation fault in Panda3D or the graphics driver): Python's faulthandler prints every
   thread's stack on stderr.
 
-The packaged game has no console: its stderr goes to %LOCALAPPDATA%\\pewpy\\output.log (packaging/setup.py).
+The packaged game has no console: its stderr goes to %LOCALAPPDATA%\pewpy\output.log (packaging/setup.py).
 """
 
 import contextlib
@@ -42,20 +42,19 @@ def log_folder() -> Path | None:
 
 
 def crash_log() -> Path | None:
+    """Return where the crash log goes (None if there is no folder for it)."""
     folder = log_folder()
     return folder / LOG_NAME if folder else None
 
 
 def stack_trace(error: BaseException) -> str:
-    """The full stack trace, as Python prints it: every frame, and the exceptions this one was raised from."""
+    """Return the full stack trace, as Python prints it: every frame, and the exceptions this one was raised from."""
     return "".join(traceback.format_exception(type(error), error, error.__traceback__))
 
 
 def report(error: BaseException, thread: str = "") -> str:
-    """The crash log's text: when and where, the versions, then the stack trace with every frame's local
-    variables.
-    """
-    from panda3d.core import PandaSystem
+    """Write the crash log's text: when and where, the versions, then the stack trace with every frame's locals."""
+    from panda3d.core import PandaSystem  # noqa: PLC0415 - Panda3D may be what failed to load
 
     panda = PandaSystem.getVersionString()
     header = [
@@ -74,9 +73,8 @@ def _short_locals(line: str) -> str:
     """Cut long values of local variables (a frame's "name = value" lines), so the report stays readable."""
     parts = []
     for part in line.splitlines(keepends=True):
-        if len(part) > MAX_LOCAL and " = " in part:
-            part = part[:MAX_LOCAL] + "...\n"
-        parts.append(part)
+        long = len(part) > MAX_LOCAL and " = " in part
+        parts.append(part[:MAX_LOCAL] + "...\n" if long else part)
     return "".join(parts)
 
 
@@ -88,7 +86,7 @@ def write_report(error: BaseException, thread: str = "") -> Path | None:
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(report(error, thread), encoding="utf-8")
-    except Exception:
+    except Exception:  # noqa: BLE001 - no crash log, but the crash itself is still reported
         return None
     return path
 
@@ -97,9 +95,10 @@ _reported: list[BaseException] = []  # the last error reported, so it isn't prin
 
 
 def handle(error: BaseException, thread: str = "") -> None:
-    """Print the stack trace on stderr and write the crash log. Panda3D prints a task's exception (through the
-    exception hook) before passing it on: the second time, only the log is written again, with the frames it went
-    through since.
+    """Print the stack trace on stderr and write the crash log.
+
+    Panda3D prints a task's exception (through the exception hook) before passing it on: the second time, only the log
+    is written again, with the frames it went through since.
     """
     if _reported and _reported[0] is error:
         write_report(error, thread)
@@ -136,14 +135,16 @@ def install() -> None:
 
 
 def run(main: Callable[[], None]) -> None:
-    """Run the game, reporting a crash. A crash leaves at once with exit code 1: under WSL the graphics driver can
-    hang while the window is torn down (see pewpy.app.window, finalizeExit).
+    """Run the game, reporting a crash.
+
+    A crash leaves at once with exit code 1: under WSL the graphics driver can hang while the window is torn down (see
+    pewpy.app.window, finalizeExit).
     """
     install()
     try:
         main()
     except (SystemExit, KeyboardInterrupt):
         raise
-    except BaseException as error:
+    except BaseException as error:  # noqa: BLE001 - the crash handler: every error is reported
         handle(error)
         os._exit(1)

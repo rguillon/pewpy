@@ -9,11 +9,13 @@ from pewpy.game.entities import Entity
 Maker = Callable[[str, float, float, float | None, float | None], Entity]
 
 
-def _no_maker(kind: str, x: float, y: float, heading: float | None, timer: float | None) -> Entity:
+def _no_maker(kind: str, _x: float, _y: float, _heading: float | None, _timer: float | None) -> Entity:
     raise NoMakerError(kind)
 
 
 class NoMakerError(Exception):
+    """A gun tried to launch an enemy with nothing to make it."""
+
     def __init__(self, kind: str) -> None:
         super().__init__(f"this gun can't launch a {kind!r}: nothing to make it")
 

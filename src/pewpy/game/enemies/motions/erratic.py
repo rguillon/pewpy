@@ -18,6 +18,7 @@ class Erratic(Motion):
     b: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Change the sideways speed every `every` seconds, unpredictably."""
         body.turn_timer -= dt
         if body.turn_timer <= 0:
             body.turn_timer = self.every

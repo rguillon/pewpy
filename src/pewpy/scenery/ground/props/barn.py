@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a barn."""
     x0, x1, y0, y1 = footprint(prop)
     eaves, ridge = prop.base + prop.height * 0.55, prop.base + prop.height
     walls, roof = varied(rng, c.barn_walls), varied(rng, c.barn_roof)

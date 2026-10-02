@@ -1,6 +1,8 @@
-"""What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through, each with its
-motions (motions/), its guns, its look and its ways out (exits/). Loaded from the JSON files in `data/enemies/` and
-`data/bosses/` (a boss is an enemy with parts and phases, see kinds.py). Independent from rendering.
+"""What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through.
+
+Each state has its motions (motions/), its guns, its look and its ways out (exits/). Loaded from the JSON files in
+`data/enemies/` and `data/bosses/` (a boss is an enemy with parts and phases, see kinds.py). Independent from
+rendering.
 
 In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
 the enemy's size or model cubes (see guns.distance).
@@ -23,6 +25,8 @@ from pewpy.game.weapons.guns import Distance, Gun, parse_gun
 
 @dataclass(frozen=True)
 class State:
+    """One of an enemy's states: its timer, motions, guns, look and ways out."""
+
     name: str
     timer: float | None = None  # counts down from this when the state starts (see the exits' Timer)
     motions: tuple[Motion, ...] = ()
@@ -56,6 +60,8 @@ class Part:
 
 @dataclass(frozen=True)
 class EnemySpec:
+    """A kind of enemy: its body, its states, its parts."""
+
     kind: str
     name: str = ""  # shown over a boss's health bar
     drawing: str = ""  # its model: models/<drawing>.json ("": built in code, see graphics/models/)
@@ -93,16 +99,18 @@ class EnemySpec:
         return max([self.height / 2] + [part.y + part.spec.height / 2 for part in self.parts])
 
     def state_index(self, name: str) -> int:
+        """Return the index of the state called `name`."""
         return next(index for index, state in enumerate(self.states) if state.name == name)
 
 
 def load_enemy_specs(name: str) -> dict[str, EnemySpec]:
-    """The enemies of the JSON file `name` (like "enemies/catalog.json"), by kind, in the file's order."""
+    """Load the enemies of the JSON file `name` (like "enemies/catalog.json"), by kind, in the file's order."""
     data = json.loads((data_folder() / name).read_text())
     return {kind: parse_enemy(kind, body, f"{name}: {kind}") for kind, body in data.items()}
 
 
 def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
+    """Read an enemy's description (EnemySpecError, naming `source`, if it's wrong)."""
     data = dict(data)
     data.pop("note", None)
     try:
@@ -130,8 +138,9 @@ def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
 
 
 def parse_part(data: dict[str, Any], source: str) -> Part:
-    """A part: its name, where it is from the middle (x, y), and its body, like an enemy's (its kind is its
-    drawing).
+    """Read a part: its name, where it is from the middle (x, y), and its body, like an enemy's.
+
+    Its kind is its drawing.
     """
     body = dict(data)
     name, x, y = body.pop("name"), body.pop("x"), body.pop("y")
@@ -139,6 +148,7 @@ def parse_part(data: dict[str, Any], source: str) -> Part:
 
 
 def parse_state(data: dict[str, Any]) -> State:
+    """Read a state: its motions, guns and exits."""
     data = dict(data)
     data["motions"] = tuple(parse_motion(motion) for motion in data.get("motions", []))
     data["guns"] = tuple((gun.get("from", ""), parse_gun(gun)) for gun in data.get("guns", []))

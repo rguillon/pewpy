@@ -8,6 +8,8 @@ from pewpy.scenery.params import Knobs
 
 
 class PackIce(Landscape):
+    """Pack ice: floes split by leads of open water, and icebergs."""
+
     knobs = ("open_water", "berg_share", "floe_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:

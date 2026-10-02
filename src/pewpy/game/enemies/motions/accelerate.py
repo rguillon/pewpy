@@ -16,6 +16,7 @@ class Accelerate(Motion):
     top: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Speed up along the way it's going, up to `top`."""
         speed = math.hypot(body.vx, body.vy)
         if 0 < speed < self.top:
             faster = min(self.top, speed + self.rate * dt) / speed

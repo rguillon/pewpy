@@ -18,6 +18,7 @@ class Zigzag(Motion):
     every: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Move sideways, turning at the edges and every `every` seconds."""
         body.turn_timer -= dt
         if body.vx == 0:
             body.vx = self.speed if target.x > body.x else -self.speed

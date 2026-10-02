@@ -9,10 +9,11 @@ from pewpy.game.entities import Entity
 
 @dataclass(frozen=True)
 class Volleys(Condition):
-    """This many volleys fired in the state (checked after the guns)."""
+    """A number of volleys fired in the state (checked after the guns)."""
 
     after_guns = True
     count: int
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the enemy's guns fired `count` volleys in the state."""
         return sum(gun.volleys for gun in body.guns) >= self.count

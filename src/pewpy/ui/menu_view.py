@@ -17,6 +17,8 @@ TOP = 0.3  # height of the title on screen (aspect2d units)
 
 
 class MenuView:
+    """The menu on screen (or none)."""
+
     def __init__(self, parent: NodePath) -> None:
         self.root = parent.attachNewNode("menu")
         self.menu: Menu | None = None

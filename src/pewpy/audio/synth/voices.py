@@ -11,7 +11,7 @@ from pewpy.audio.synth.signal import RATE, FloatArray, frequency
 
 
 def envelope(count: int, held: int, attack: float, decay: float, sustain: float, release: float) -> FloatArray:
-    """An ADSR envelope over `count` samples, the key held for the first `held` (times in seconds)."""
+    """Make an ADSR envelope over `count` samples, the key held for the first `held` (times in seconds)."""
     t = np.arange(count) / RATE
     rise = np.minimum(t / max(attack, 1e-4), 1.0)
     after = np.maximum(t - attack, 0.0)
@@ -49,4 +49,5 @@ def voice(spec: Instrument, pitch: int, count: int, held: int) -> FloatArray:
 
 @lru_cache(maxsize=512)
 def play_note(program: int, pitch: int, count: int, held: int) -> FloatArray:
+    """Play a note on a General MIDI program's instrument: `count` samples, the key held for `held`."""
     return voice(instrument(program), pitch, count, held)

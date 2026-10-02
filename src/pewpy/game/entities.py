@@ -18,10 +18,12 @@ class Entity:
     alive: bool = True
 
     def move(self, dt: float) -> None:
+        """Move it with its speed for `dt` seconds."""
         self.x += self.vx * dt
         self.y += self.vy * dt
 
     def overlaps(self, other: "Entity") -> bool:
+        """Tell whether its hitbox overlaps `other`'s."""
         return (
             abs(self.x - other.x) < (self.width + other.width) / 2
             and abs(self.y - other.y) < (self.height + other.height) / 2
@@ -36,8 +38,9 @@ class Entity:
 
 @dataclass(eq=False)
 class Pickup(Entity):
-    """Dropped by enemies: an upgrade capsule for a weapon ("bullets", "laser", "missiles"), a "repair", an extra
-    "life" or a secondary weapon ("turret", "lightning").
+    """Dropped by enemies: an upgrade capsule for a weapon, a repair, an extra life or a secondary weapon.
+
+    The weapons: "bullets", "laser", "missiles"; then "repair", "life"; the secondary weapons: "turret", "lightning".
     """
 
     kind: str = "repair"

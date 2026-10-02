@@ -6,15 +6,15 @@ from pewpewdev.tools.models.sculpt import Model
 
 
 def gunship() -> tuple[Model, list[dict] | None]:
-    """A heavy gunship: a broad armored hull, a bridge, engine pods on outriggers, a big cannon at the front."""
+    """Build a heavy gunship: a broad armored hull, a bridge, engine pods on outriggers, a big cannon at the front."""
     m = Model(29, 21, SCALE)
     m.materials["paint"] = (0.62, 0.13, 0.1)
     # The hull: wide, its front corners cut.
     m.loft((2, 16), lambda t: (ramp(t, 9.5, 9.5), 2.0, -2.0, 1.5), "hull")
     m.plate([(5.0, 14.0), (14.5, 14.0), (14.5, 16.5), (8.0, 16.5)], (-1, 1), "hull")
     # A raised deck and the bridge.
-    m.loft((3, 13), lambda t: (5.5, 3.0, 1.0, 1.0), "hull_light")
-    m.loft((6.5, 10.5), lambda t: (2.4, 4.0, 2.0, 0.8), "hull")
+    m.loft((3, 13), lambda _t: (5.5, 3.0, 1.0, 1.0), "hull_light")
+    m.loft((6.5, 10.5), lambda _t: (2.4, 4.0, 2.0, 0.8), "hull")
     m.box((13, 15), (9.5, 9.5), (3.5, 3.5), "glass", mirror=False)
     m.paint(lambda x, y, z: abs(x - 14.5) < 0.5 and 9.5 <= y < 10.5 and z > 3.2, "glint")
     # Armor plates on the deck's sides, vents between them, red markings.

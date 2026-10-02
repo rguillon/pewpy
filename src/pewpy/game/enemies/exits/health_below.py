@@ -14,4 +14,5 @@ class HealthBelow(Condition):
     share: float
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the enemy's health is below `share` of its full health."""
         return body.health < self.share * body.full_health

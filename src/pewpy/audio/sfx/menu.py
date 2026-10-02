@@ -7,16 +7,19 @@ from pewpy.audio.synth import RATE, FloatArray, lowpass, oscillator
 
 
 def menu_move() -> FloatArray:
+    """Make the sound of moving through a menu: a short blip."""
     return fade(lowpass(oscillator("square", np.full(int(0.045 * RATE), 880.0)), 4000), 0.02, 0.001) * 0.2
 
 
 def menu_choose() -> FloatArray:
+    """Make the sound of choosing a menu item: two blips going up."""
     low = fade(oscillator("square", np.full(int(0.06 * RATE), 660.0)), 0.05, 0.001)
     high = fade(oscillator("square", np.full(int(0.12 * RATE), 1320.0)), 0.07, 0.001)
     return lowpass(np.concatenate([low, high]), 5000) * 0.25
 
 
 def menu_back() -> FloatArray:
+    """Make the sound of going back in the menus: two blips going down."""
     high = fade(oscillator("square", np.full(int(0.06 * RATE), 880.0)), 0.05, 0.001)
     low = fade(oscillator("square", np.full(int(0.1 * RATE), 440.0)), 0.06, 0.001)
     return lowpass(np.concatenate([high, low]), 4000) * 0.25

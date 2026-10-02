@@ -4,7 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def blade(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """A very long narrow wedge with fins along its sides."""
+    """Draw a very long narrow wedge with fins along its sides."""
     width = half * rng.uniform(0.3, 0.45)
     cv.polygon([(mx - width, top), (mx + width, top), (mx, bottom)], "h")
     for i in range(rng.randint(2, 4)):

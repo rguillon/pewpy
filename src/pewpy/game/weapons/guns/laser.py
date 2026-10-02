@@ -10,7 +10,7 @@ WARNING_WIDTH = 0.008
 
 
 def laser_beams(gun: Gun, source: Entity, warning: bool) -> list[Bullet]:
-    """A laser gun's beams from `source`, or their thin harmless warnings."""
+    """Make a laser gun's beams from `source`, or their thin harmless warnings."""
     beams: list[Bullet] = []
     for offset in gun.offsets:
         laser = BossBeam(

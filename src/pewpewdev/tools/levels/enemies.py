@@ -1,5 +1,6 @@
-"""The enemies the levels send: the easy ones first, the ones on the ground, the difficulty each one comes at, and
-the formations each one flies in.
+"""The enemies the levels send.
+
+The easy ones first, the ones on the ground, the difficulty each one comes at, and the formations each one flies in.
 """
 
 from typing import Any

@@ -9,6 +9,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a palm: a leaning trunk and a crown of fronds."""
     x, y, z0, height, reach = prop.x, prop.y, prop.base, prop.height, prop.width / 2
     lean = rng.uniform(0, 2 * math.pi)
     tilt = rng.uniform(0.0, 0.25) * height

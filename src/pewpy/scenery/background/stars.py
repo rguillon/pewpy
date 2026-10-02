@@ -9,8 +9,10 @@ from pewpy.scenery.params import Stars
 
 @dataclass(eq=False)
 class StarLayer:
-    """Stars that scroll together. The layer is drawn twice, one copy above the other, and slides down by
-    `offset` (wrapping every `area.height`), so it loops seamlessly without moving each star.
+    """Stars that scroll together.
+
+    The layer is drawn twice, one copy above the other, and slides down by `offset` (wrapping every `area.height`), so
+    it loops seamlessly without moving each star.
     """
 
     area: Area
@@ -21,13 +23,16 @@ class StarLayer:
     offset: float = 0.0
 
     def update(self, dt: float, scroll_speed: float) -> None:
+        """Slide the layer down."""
         self.offset = (self.offset + scroll_speed * self.speed_factor * dt) % self.area.height
 
 
 class Starfield:
+    """The stars: layers of them, from far and slow to near and fast."""
+
     def __init__(self, stars: Stars, area: Area, count: int | None = None, seed: int | None = None) -> None:
         """Stars over `area`; `count`: in all (default: the stars' count)."""
-        rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
+        rng = random.Random(seed)
         count = stars.count if count is None else count
         self.layers = [
             StarLayer(
@@ -44,5 +49,6 @@ class Starfield:
         ]
 
     def update(self, dt: float, scroll_speed: float) -> None:
+        """Slide every layer down."""
         for layer in self.layers:
             layer.update(dt, scroll_speed)

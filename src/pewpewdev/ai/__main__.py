@@ -1,4 +1,4 @@
-"""The AI from the command line (`make learn`, `make rate`):
+"""The AI from the command line (`make learn`, `make rate`).
 
 python -m pewpewdev.ai learn [--generations 100] [--ships vanguard ...] [--workers 7] [--folder ...]
 python -m pewpewdev.ai rate [--runs 10] [--ships ...]
@@ -9,12 +9,13 @@ import time
 from pathlib import Path
 
 from pewpewdev.ai import files
-from pewpewdev.ai.learning import learn
+from pewpewdev.ai.learning import Report, learn
 from pewpewdev.ai.rating import RUNS, Rating, rate
 from pewpy.game.player import SHIPS
 
 
 def main() -> None:
+    """Learn or rate, as the command line says, printing the progress."""
     parser = argparse.ArgumentParser(prog="python -m pewpewdev.ai", description=__doc__.splitlines()[0])
     parser.add_argument("mode", choices=["learn", "rate"])
     parser.add_argument("--ships", nargs="+", choices=list(SHIPS), default=list(SHIPS))
@@ -26,14 +27,13 @@ def main() -> None:
     start = time.monotonic()
     if args.mode == "learn":
 
-        def report(step) -> None:
+        def report(step: Report) -> None:
             print(f"generation {step.generation:4}  best {step.best:7.1f}  mean {step.mean:7.1f}")
             if step.checks is not None:
                 worlds = f"{step.worlds} world{'s' if step.worlds > 1 else ''}"
                 for ship, (cleared, progress) in step.checks.items():
-                    print(
-                        f"  {ship:10} clears {100 * cleared:3.0f}% of the levels, gets {100 * progress:3.0f}% of the way"
-                    )
+                    clears = f"clears {100 * cleared:3.0f}% of the levels"
+                    print(f"  {ship:10} {clears}, gets {100 * progress:3.0f}% of the way")
                 print(f"  (trains on {worlds})")
 
         learn(args.ships, args.generations, args.folder, args.workers, report)

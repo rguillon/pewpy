@@ -11,6 +11,8 @@ from pewpy.scenery.params import Knobs
 
 
 class Swamp(Landscape):
+    """A swamp: murky water full of muddy islets."""
+
     knobs = ("water_share", "size", "detail_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
@@ -24,10 +26,12 @@ class Swamp(Landscape):
 
 
 class DeadTrees(Flora):
+    """Dead trees on the swamp's islets."""
+
     knobs = ("chance", "size", "height")
 
     def props(self, rng: random.Random, shape: Shape, step_x: float, step_y: float, knobs: Knobs) -> list[Prop]:
-        """A few dead trees on the swamp's islets (on a share `chance` of their points)."""
+        """Place a few dead trees on the swamp's islets (on a share `chance` of their points)."""
         rows = shape.heights.shape[0]
         size = knobs["size"]
         return [

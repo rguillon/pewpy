@@ -15,6 +15,7 @@ class Scroll(Motion):
     stop_x: bool = False
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Go down with the scenery under it (plus `plus`), stopping sideways if `stop_x`."""
         if self.stop_x:
             body.vx = 0.0
         body.vy = -scroll_speed + self.plus

@@ -7,7 +7,7 @@ from pewpy.audio.synth import RATE, FloatArray, oscillator
 
 
 def laser() -> FloatArray:
-    """The laser's hum, looping (1 s: every frequency a whole number of hertz)."""
+    """Make the laser's hum, looping (1 s: every frequency a whole number of hertz)."""
     t = span(1.0)
     hum = oscillator("saw", np.full(len(t), 110.0)) + 0.7 * oscillator("saw", np.full(len(t), 221.0))
     shimmer = 0.25 * oscillator("square", np.full(len(t), 662.0))

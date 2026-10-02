@@ -4,7 +4,7 @@ from pewpewdev.tools.candidates.canvas import Point, Rng
 
 
 def ogival(rng: Rng, height: int, root_x: float, front: float) -> list[Point]:
-    """A delta whose leading edge curves out from the nose to the tip."""
+    """Plan a delta whose leading edge curves out from the nose to the tip."""
     back = front - height * rng.uniform(0.5, 0.7)
     points = [(root_x, front + 1)]
     for i in range(1, 8):

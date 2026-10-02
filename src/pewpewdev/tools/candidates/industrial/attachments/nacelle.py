@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def nacelle(rng: Rng, cv: Canvas, edge: int, side: str) -> None:
+    """Draw an engine nacelle on a pylon beside the hull."""
     x = rng.randint(0, max(0, edge - 3))
     top, length = rng.uniform(0, 0.3) * cv.h, rng.uniform(0.35, 0.8) * cv.h
     width = rng.randint(1, 3)

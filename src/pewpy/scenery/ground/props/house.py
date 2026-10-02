@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a house, its roof gabled or hipped."""
     x0, x1, y0, y1 = footprint(prop)
     eaves, ridge = prop.base + prop.height * rng.uniform(0.55, 0.65), prop.base + prop.height
     walls, roof = varied(rng, c.house_walls), varied(rng, rng.choice(c.house_roofs))
@@ -29,7 +30,7 @@ def hipped(
     ridge: float,
     roof: tuple[float, float, float],
 ) -> None:
-    """A roof sloping down on all four sides from a short ridge along the longer side."""
+    """Build a roof sloping down on all four sides from a short ridge along the longer side."""
     x0, x1, y0, y1 = footprint_
     if (x1 - x0) >= (y1 - y0):
         half, middle = (y1 - y0) / 2, (y0 + y1) / 2

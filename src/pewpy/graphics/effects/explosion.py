@@ -20,6 +20,7 @@ class Explosion(Effect):
     colors: tuple[Color, ...]
 
     def particles(self, rng: random.Random) -> list[Particle]:
+        """Throw out a fireball, debris and sparks, more for a bigger enemy."""
         x, y, size = self.x, self.y, self.size
         scale = size / 0.1  # sizes and speeds are tuned for a 0.1-wide enemy
         result = fireball(rng, x, y, size * 0.7, FIRE_COLORS)

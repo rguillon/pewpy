@@ -1,5 +1,6 @@
-"""Building the parameters from the JSON data: merging a level's values over its preset's, checking and converting
-them to the dataclasses.
+"""Building the parameters from the JSON data.
+
+Merging a level's values over its preset's, checking and converting them to the dataclasses.
 """
 
 import types
@@ -13,7 +14,7 @@ from pewpy.scenery.params.types import SceneryError
 DEPENDS_ON = {"landscape": ("shape",), "style": ("colors",), "kind": ("layout", "knobs", "colors")}
 
 
-def merge(base: Any, over: Any) -> Any:
+def merge(base: Any, over: Any) -> Any:  # noqa: ANN401 - decoded JSON
     """`over` on top of `base`: objects merged key by key, anything else replaced."""
     if isinstance(base, dict) and isinstance(over, dict):
         merged = dict(base)
@@ -28,13 +29,13 @@ def merge(base: Any, over: Any) -> Any:
     return over
 
 
-def _number(value: Any, where: str) -> float:
+def _number(value: object, where: str) -> float:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise SceneryError(where, f"expected a number, not {value!r}")
     return float(value)
 
 
-def _convert(kind: Any, value: Any, where: str) -> Any:  # noqa: C901 - one case per kind of type
+def _convert(kind: Any, value: Any, where: str) -> Any:  # noqa: ANN401, C901, PLR0911, PLR0912 - one case per type
     """`value` (decoded JSON) as `kind`, a type of the dataclasses above."""
     origin, args = get_origin(kind), get_args(kind)
     if origin in (Union, types.UnionType):  # X | None
@@ -72,8 +73,8 @@ def _convert(kind: Any, value: Any, where: str) -> Any:  # noqa: C901 - one case
     raise SceneryError(where, f"can't read a {kind}")
 
 
-def build(cls: Any, data: Any, where: str = "", given: dict[str, Any] | None = None) -> Any:
-    """A dataclass from decoded JSON: every field there, nothing else (but the fields `given`)."""
+def build(cls: Any, data: Any, where: str = "", given: dict[str, Any] | None = None) -> Any:  # noqa: ANN401
+    """Build a dataclass from decoded JSON: every field there, nothing else (but the fields `given`)."""
     if not isinstance(data, dict):
         raise SceneryError(where, f"expected an object, not {data!r}")
     given = given or {}

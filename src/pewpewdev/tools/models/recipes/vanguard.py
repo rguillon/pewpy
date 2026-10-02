@@ -23,15 +23,15 @@ def vanguard() -> tuple[Model, list[dict] | None]:
     # Canopy: a bubble of dark glass, its glint, a frame behind it.
     m.loft((4.0, 9.5), lambda t: (1.4 * (1 - abs(2 * t - 1) ** 4), 3.2 - abs(2 * t - 1) ** 2 * 1.2, 1.0, 0.7), "glass")
     m.paint(lambda x, y, z: abs(x - 8.5) < 0.5 and 5.0 <= y < 6.0 and z > 2.5, "glint")
-    m.loft((9.5, 10.0), lambda t: (1.3, 2.7, 1.0, 0.5), "frame")
+    m.loft((9.5, 10.0), lambda _t: (1.3, 2.7, 1.0, 0.5), "frame")
     # Spine along the back, a dorsal sensor behind it.
     m.loft((10, 15.5), lambda t: (0.5, 2.6 - t * 0.6, 1.5, 0.0), "hull_light")
     # Side intakes, dark, along the cockpit.
     m.box((6, 6), (8, 10), (0, 1), "vent")
     # Swept wings: thin, the tips rising a little, a lighter leading edge, a paint stripe, lights at the tips.
     wing = [(6.5, 7.0), (6.5, 15.0), (0.5, 14.0), (0.5, 11.5)]
-    m.plate(wing, lambda x, y: (0, 0 if x > 3 else 0.5), "hull")
-    m.plate([(6.5, 7.0), (6.5, 8.0), (0.5, 12.5), (0.5, 11.5)], lambda x, y: (0, 0 if x > 3 else 0.5), "hull_light")
+    m.plate(wing, lambda x, _y: (0, 0 if x > 3 else 0.5), "hull")
+    m.plate([(6.5, 7.0), (6.5, 8.0), (0.5, 12.5), (0.5, 11.5)], lambda x, _y: (0, 0 if x > 3 else 0.5), "hull_light")
     m.plate([(5.5, 11.0), (5.5, 12.0), (1.5, 13.0), (1.5, 12.0)], (0.5, 0.5), "paint")
     m.fill(lambda x, y, z: x < 0.5 and 12.0 <= y < 13.0 and 0 <= z < 1, (0, 1, 11, 14, 0, 1), "light")
     # Engine nacelles under the wing roots: ribbed, with dark nozzles.

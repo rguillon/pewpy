@@ -10,7 +10,7 @@ from pewpy.graphics.models.types import Color
 
 
 def pickup_model(letter: str, color: Color) -> NodePath:
-    """A blocky colored capsule with a letter that always faces the camera.
+    """Make a blocky colored capsule with a letter that always faces the camera.
 
     The capsule's drawing is in shades of grey, multiplied by the pickup's color.
     """
@@ -36,8 +36,10 @@ def pickup_model(letter: str, color: Color) -> NodePath:
 
 
 def repair_model() -> NodePath:
+    """Make the repair pickup's model."""
     return drawing_model("repair")
 
 
 def extra_life_model() -> NodePath:
+    """Make the extra life's model."""
     return drawing_model("extra_life")

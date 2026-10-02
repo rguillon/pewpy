@@ -1,5 +1,6 @@
-"""Make the final bosses (data/bosses/final_bosses.json) from their plans (plans.json, in this
-package), 02-enemies-bosses.md:
+"""Make the final bosses (data/bosses/final_bosses.json) from their plans (plans.json, in this package).
+
+See 02-enemies-bosses.md:
 
     make final-bosses
 

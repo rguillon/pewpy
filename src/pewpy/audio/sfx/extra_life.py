@@ -7,7 +7,7 @@ from pewpy.audio.synth import RATE, FloatArray, lowpass, oscillator
 
 
 def extra_life() -> FloatArray:
-    """An extra life: a bright fanfare climbing two octaves, its last note held."""
+    """Make the sound of an extra life: a bright fanfare climbing two octaves, its last note held."""
     parts = []
     for index, semitones in enumerate((0, 4, 7, 12, 16, 19, 24)):
         last = index == 6

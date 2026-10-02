@@ -8,11 +8,15 @@ from pewpy.scenery.params import Knobs
 
 
 class Canyon(Landscape):
+    """A plateau cut by a winding canyon."""
+
     knobs = ("bend_spacing", "river", "floor", "wall", "steps")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """A plateau cut by a winding canyon: stepped cliffs, sandbanks, a river at the bottom. Marks: 0.5 sand. The
-        river, the canyon's floor and its walls reach `river`, `floor` and `floor + wall` from its middle.
+        """Shape a plateau cut by a winding canyon: stepped cliffs, sandbanks, a river at the bottom.
+
+        Marks: 0.5 sand. The river, the canyon's floor and its walls reach `river`, `floor` and `floor + wall` from its
+        middle.
         """
         plateau = max_height * (0.85 + 0.15 * noise(rng, rows, columns, 0.7, step))
         distance = meander(rng, rows, columns, knobs["bend_spacing"], 0.22, step)

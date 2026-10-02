@@ -9,9 +9,10 @@ from pewpy.game.entities import Entity
 
 @dataclass(frozen=True)
 class Clock(Condition):
-    """This many seconds in the state."""
+    """A number of seconds in the state."""
 
     seconds: float
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the enemy has been `seconds` in its state."""
         return body.clock >= self.seconds

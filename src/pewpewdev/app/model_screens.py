@@ -1,5 +1,6 @@
-"""The Models, Bosses, Enemy candidates and Boss candidates screens: models on show in a turning circle, page by
-page, to work on them ("Reload models" reads their files again).
+"""The Models, Bosses, Enemy candidates and Boss candidates screens: models on show in a turning circle.
+
+Page by page, to work on them ("Reload models" reads their files again).
 """
 
 import importlib
@@ -66,8 +67,9 @@ class ModelScreens(PewPewApp):
     showcase_page: int  # the page shown on the Models or Bosses screen
 
     def _models_menu(self, note: str = "") -> Menu:
-        """The Models, Bosses and Candidates screens' menu: the page's title, and "Next page" when there are several
-        ("Previous page" too when there are more than two).
+        """Make the Models, Bosses and Candidates screens' menu: the page's title, "Next page" when there are several.
+
+        "Previous page" too when there are more than two.
         """
         titles = self._showcase_titles()
         reload_item = MenuItem("Reload models", self._reload_models)
@@ -97,8 +99,10 @@ class ModelScreens(PewPewApp):
         self.showcase = ModelShowcase(entries, self.cam, size, radius, SHOWCASE_STRETCH)
 
     def _showcase_titles(self) -> list[str]:
-        """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's two per
-        world (its mini bosses, then its final bosses).
+        """Return the pages of the screen being shown.
+
+        The Models screen's (see MODEL_PAGES), the Bosses screen's two per world (its mini bosses, then its final
+        bosses).
         """
         if self.states.state in (DevState.CANDIDATES, DevState.BOSS_CANDIDATES):
             bosses = self.states.state is DevState.BOSS_CANDIDATES
@@ -119,8 +123,9 @@ class ModelScreens(PewPewApp):
         ]
 
     def _showcase_page(self, index: int) -> tuple[list[tuple[str, NodePath]], float, float]:
-        """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
-        models are built (boss models are big).
+        """Return a page's (name, model) pairs, how big the models are drawn and the circle's radius.
+
+        Only this page's models are built (boss models are big).
         """
         if self.states.state is DevState.CANDIDATES:
             names = candidates.candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
@@ -143,13 +148,16 @@ class ModelScreens(PewPewApp):
         return entries, SHOWCASE_BOSS_SIZE, SHOWCASE_BOSS_RADIUS
 
     def _showcase_entries(self, page: str) -> list[tuple[str, NodePath]]:
-        """(name, model) of the ships, enemies, projectiles and pickups on a page of the Models screen: each fitted in
-        a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes).
+        """Return (name, model) of the ships, enemies, projectiles and pickups on a page of the Models screen.
+
+        Each is fitted in a 1 x 1 x 1 box by its hitbox (the models are in world units, all with the same cubes).
         """
         entries = []
         if page == PICKUPS_PAGE:
-            for spec in SHIPS.values():
-                entries.append((spec.name.title(), fitted_model(self.player_models[spec.drawing], spec.size)))
+            entries.extend(
+                (spec.name.title(), fitted_model(self.player_models[spec.drawing], spec.size))
+                for spec in SHIPS.values()
+            )
             missile = Missile()
             entries.append(("Missile", fitted_model(self._make_model(missile), missile.height)))
         for kind in ENEMIES:
@@ -166,17 +174,19 @@ class ModelScreens(PewPewApp):
         return entries
 
     def _candidate(self, name: str) -> tuple[str, NodePath]:
-        """A model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes, all drawn at
-        the same scale so small and big ones compare (read again every time: edited drawings show when the page is
-        shown again).
+        """Return a model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes.
+
+        All are drawn at the same scale so small and big ones compare (read again every time: edited drawings show when
+        the page is shown again).
         """
         voxels = models.load_voxels(name)
         label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height}"
         return label, fitted_model(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _boss_candidate(self, name: str) -> tuple[str, NodePath]:
-        """A boss candidate with its parts in place, numbered like its file, all drawn to the same scale (read again
-        every time, like the enemy candidates).
+        """Return a boss candidate with its parts in place, numbered like its file, all drawn to the same scale.
+
+        Read again every time, like the enemy candidates.
         """
         voxels = models.load_voxels(name)
         whole = NodePath(name)
@@ -190,7 +200,7 @@ class ModelScreens(PewPewApp):
         return label, fitted_model(whole, BOSS_CANDIDATE_SCALE * config.MODEL_VOXEL)
 
     def _whole_boss(self, spec: EnemySpec) -> NodePath:
-        """A boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
+        """Return a boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
         whole = NodePath(spec.drawing)
         pieces = [(spec.drawing, 0.0, 0.0, spec.width, spec.height)]
         pieces += [(part.spec.drawing, part.x, part.y, part.spec.width, part.spec.height) for part in spec.parts]
@@ -207,11 +217,14 @@ class ModelScreens(PewPewApp):
         return box
 
     def _reload_models(self) -> None:
-        """Read the models' code (pewpy.graphics.models) again and rebuild every model; on a mistake, keep the old ones and say what's wrong."""
+        """Read the models' code (pewpy.graphics.models) again and rebuild every model.
+
+        On a mistake, keep the old ones and say what's wrong.
+        """
         try:
             importlib.reload(models)
             self._build_models()
-        except Exception as error:
+        except Exception as error:  # noqa: BLE001 - any mistake in the edited code is shown, not raised
             message = f"{type(error).__name__}: {error}"
             self.menu_view.show(self._models_menu(f"reload failed:\n{message[:60]}"))
             return

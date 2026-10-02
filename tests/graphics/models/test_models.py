@@ -1,5 +1,8 @@
 import math
+from collections.abc import Callable
 from functools import partial
+from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pytest
@@ -13,6 +16,7 @@ from pewpy.game.player import Player
 from pewpy.game.weapons.bullets import Missile
 from pewpy.graphics import models
 from pewpy.graphics.models.drawings import files, vox
+from pewpy.graphics.models.types import Palette
 
 SHIP_MODELS = [
     partial(models.model, "player"),
@@ -69,7 +73,7 @@ RED = [1.0, 0.0, 0.0]
 BLUE = [0.0, 0.0, 1.0]
 
 
-def test_cube_faces_outward():
+def test_cube_faces_outward() -> None:
     cube = models.make_cube()
     triangles = triangles_of(cube)
     assert len(triangles) == 12
@@ -80,7 +84,7 @@ def test_cube_faces_outward():
         assert normal.dot(center) > 0  # and pointing away from the cube's center
 
 
-def test_ellipsoid_faces_away_from_its_center():
+def test_ellipsoid_faces_away_from_its_center() -> None:
     mesh = models.MeshBuilder()
     center = Vec3(0.1, 0.2, 0.3)
     mesh.ellipsoid(center, Vec3(0.1, 0.2, 0.3), (1, 1, 1, 1))
@@ -91,7 +95,7 @@ def test_ellipsoid_faces_away_from_its_center():
 WHITE = (1.0, 1.0, 1.0, 1.0)
 
 
-def test_touching_voxels_hide_their_shared_faces():
+def test_touching_voxels_hide_their_shared_faces() -> None:
     mesh = models.MeshBuilder()
     mesh.voxels(["xx"], {"x": (WHITE, 1)}, 1.0)
     triangles = triangles_of(mesh.build("pair"))
@@ -102,13 +106,13 @@ def test_touching_voxels_hide_their_shared_faces():
         assert normal.dot((corners[0] + corners[1] + corners[2]) / 3) > 0  # outward from the pair's center
 
 
-def test_lone_voxel_is_not_darkened():
+def test_lone_voxel_is_not_darkened() -> None:
     mesh = models.MeshBuilder()
     mesh.voxels(["x"], {"x": (WHITE, 1)}, 1.0)
     assert {color for triangle in mesh.triangles for _, color, _ in triangle} == {WHITE}
 
 
-def test_voxel_corners_next_to_other_voxels_are_darkened():
+def test_voxel_corners_next_to_other_voxels_are_darkened() -> None:
     # The top face of the bottom-right voxel touches the voxel above-left of it along one edge.
     mesh = models.MeshBuilder()
     mesh.voxels(["x.", "xx"], {"x": (WHITE, 1)}, 1.0)
@@ -126,12 +130,14 @@ def test_voxel_corners_next_to_other_voxels_are_darkened():
         (True, True, False, models.OCCLUSION_BRIGHTNESS[3]),  # both sides: fully tucked in
     ],
 )
-def test_occlusion_counts_the_voxels_in_front_of_a_corner(side_a, side_b, corner, expected):
+def test_occlusion_counts_the_voxels_in_front_of_a_corner(
+    side_a: bool, side_b: bool, corner: bool, expected: float
+) -> None:
     level = models.occlusion_level(np.array([side_a]), np.array([side_b]), np.array([corner]))
     assert models.OCCLUSION_BRIGHTNESS[level[0]] == expected
 
 
-def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes():
+def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes() -> None:
     mesh = models.MeshBuilder()
     mesh.voxels(["xxx", "xxx"], {"x": (WHITE, 1)}, 1.0)  # a 3 x 2 plate, one cube thick
     assert len(mesh.triangles) == 2 * 6  # still a box: one rectangle per side
@@ -139,7 +145,7 @@ def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes():
     assert (3.0, 2.0) in uvs  # the front: 3 cubes across, 2 up, so the shader bevels each cube
 
 
-def test_merged_faces_cover_exactly_the_faces_of_the_cubes():
+def test_merged_faces_cover_exactly_the_faces_of_the_cubes() -> None:
     """Merging changes the triangles, not the surface: per direction, the area is the number of visible cube faces."""
     for drawing in ("player", "gunship", "drone"):
         node = models.model(drawing).node()
@@ -157,7 +163,7 @@ def test_merged_faces_cover_exactly_the_faces_of_the_cubes():
             assert area.get(direction, 0.0) == pytest.approx(visible * voxel * voxel, rel=1e-4)
 
 
-def test_faces_only_merge_where_their_shading_stays_the_same():
+def test_faces_only_merge_where_their_shading_stays_the_same() -> None:
     """Along a ledge, the faces below it are darker near it: they merge along the ledge, not away from it."""
     mesh = models.MeshBuilder()
     mesh.voxels(["xxx", "xxx", "yyy"], {"x": (WHITE, 1), "y": (WHITE, 3)}, 1.0)  # "y" sticks out in front
@@ -171,7 +177,7 @@ def test_faces_only_merge_where_their_shading_stays_the_same():
     assert len(front) == 2 * 4
 
 
-def test_only_voxel_faces_get_bevel_coordinates():
+def test_only_voxel_faces_get_bevel_coordinates() -> None:
     voxels = models.MeshBuilder()
     voxels.voxels(["x"], {"x": (WHITE, 1)}, 1.0)
     assert {uv for triangle in voxels.triangles for _, _, uv in triangle} == set(models.QUAD_UVS)  # one cube
@@ -181,7 +187,7 @@ def test_only_voxel_faces_get_bevel_coordinates():
     assert models.make_cube().getGeom(0).getVertexData().hasColumn("texcoord")
 
 
-def test_glowing_voxel_faces_are_marked_for_the_shader():
+def test_glowing_voxel_faces_are_marked_for_the_shader() -> None:
     mesh = models.MeshBuilder()
     mesh.cells({(0, 0, 0): WHITE, (1, 0, 0): WHITE}, 1.0, Vec3(0, 0, 0), glowing=frozenset({(1, 0, 0)}))
     uvs = {uv for triangle in mesh.triangles for _, _, uv in triangle}
@@ -195,19 +201,19 @@ ROCKS = ((0.16, 0.15, 0.15, 1.0), (0.2, 0.18, 0.16, 1.0))
     "build",
     [partial(models.distant_planet_model, ROCKS), *(partial(models.rock_model, shape, ROCKS) for shape in range(3))],
 )
-def test_background_models_fit_the_unit_box(build):
+def test_background_models_fit_the_unit_box(build: Callable[[], NodePath]) -> None:
     points = all_points(build())
     for axis in range(3):
         assert min(point[axis] for point in points) >= -0.5 - 1e-6
         assert max(point[axis] for point in points) <= 0.5 + 1e-6
 
 
-def test_rocks_differ_by_shape_and_repeat_for_the_same_shape():
+def test_rocks_differ_by_shape_and_repeat_for_the_same_shape() -> None:
     assert all_points(models.rock_model(1, ROCKS)) == all_points(models.rock_model(1, ROCKS))
     assert all_points(models.rock_model(1, ROCKS)) != all_points(models.rock_model(2, ROCKS))
 
 
-def test_voxel_thickness_is_centered_on_the_depth():
+def test_voxel_thickness_is_centered_on_the_depth() -> None:
     cells = models.voxel_cells(["a", "b"], {"a": (WHITE, 1), "b": (WHITE, 5)})
     assert sorted(layer for column, row, layer in cells if row == 1) == [-2, -1, 0, 1, 2]
     assert [layer for column, row, layer in cells if row == 0] == [0]
@@ -216,20 +222,21 @@ def test_voxel_thickness_is_centered_on_the_depth():
 @pytest.mark.parametrize(
     ("rows", "palette"), [(["ab", "a"], {"a": (WHITE, 1), "b": (WHITE, 1)}), (["a"], {"a": (WHITE, 2)})]
 )
-def test_bad_voxel_drawings_are_rejected(rows, palette):
+def test_bad_voxel_drawings_are_rejected(rows: list[str], palette: Palette) -> None:
     with pytest.raises(ValueError, match="must"):
         models.voxel_cells(rows, palette)
 
 
 @pytest.mark.parametrize("build", SHIP_MODELS, ids=lambda build: getattr(build, "args", ("pickup",))[0])
-def test_ship_models_are_more_than_a_cube(build):
+def test_ship_models_are_more_than_a_cube(build: Callable[[], NodePath]) -> None:
     assert len(all_points(build())) > 3 * 12
 
 
 @pytest.mark.parametrize("kind", ["Player", "Missile", *ENEMIES])
-def test_ship_models_are_about_the_size_of_their_hitbox(kind):
-    """Every cube is config.MODEL_VOXEL (the Swarmer's): a model's drawing gives its size, which must fit its
-    hitbox.
+def test_ship_models_are_about_the_size_of_their_hitbox(kind: str) -> None:
+    """Every cube is config.MODEL_VOXEL (the Swarmer's).
+
+    A model's drawing gives its size, which must fit its hitbox.
     """
     entity = {"Player": Player, "Missile": Missile}.get(kind, partial(Enemy.of_kind, kind))()
     drawing = entity.ship.drawing if isinstance(entity, Player) else entity.drawing
@@ -241,7 +248,7 @@ def test_ship_models_are_about_the_size_of_their_hitbox(kind):
     assert max(width, height) == pytest.approx(max(entity.width, entity.height), rel=0.2)
 
 
-def test_every_drawing_has_the_same_cubes():
+def test_every_drawing_has_the_same_cubes() -> None:
     """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL, whatever its size."""
     for drawing in ("swarmer", "player", "gunship"):
         points = all_points(models.model(drawing))
@@ -249,12 +256,12 @@ def test_every_drawing_has_the_same_cubes():
         assert all(abs(x - round(x * 2) / 2) < 1e-3 for x in xs)  # corners on the half-voxel grid
 
 
-def test_turret_has_a_barrel_to_aim():
+def test_turret_has_a_barrel_to_aim() -> None:
     assert not models.turret_model().find("**/barrel").isEmpty()
 
 
 @pytest.mark.parametrize(("dx", "dz"), [(0, -1), (1, 0), (-1, 0), (0, 1), (1, -1), (-0.3, 0.7)])
-def test_facing_roll_points_the_model_along_the_direction(dx, dz):
+def test_facing_roll_points_the_model_along_the_direction(dx: float, dz: float) -> None:
     root = NodePath("root")
     model = root.attachNewNode("model")
     model.setR(models.facing_roll(dx, dz))
@@ -264,7 +271,7 @@ def test_facing_roll_points_the_model_along_the_direction(dx, dz):
     assert front.z == pytest.approx(dz / length, abs=1e-5)
 
 
-def test_main_colors_are_what_most_of_a_model_is_made_of():
+def test_main_colors_are_what_most_of_a_model_is_made_of() -> None:
     red, blue = (1.0, 0.0, 0.0, 1.0), (0.0, 0.0, 1.0, 1.0)
     model = models.voxel_model("test", ["rrr", "rbr", "rrr"], {"r": (red, 1), "b": (blue, 1)})
     colors = models.main_colors(model)
@@ -272,7 +279,7 @@ def test_main_colors_are_what_most_of_a_model_is_made_of():
     assert colors[0] == red  # 8 red voxels, 1 blue
 
 
-def test_every_drawing_file_loads():
+def test_every_drawing_file_loads() -> None:
     folder = data_folder() / models.DRAWINGS_FOLDER
     names = sorted(file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json"))
     assert "player" in names
@@ -280,28 +287,29 @@ def test_every_drawing_file_loads():
         assert models.load_voxels(name).cells
 
 
-def test_a_finer_model_is_the_same_size_in_the_world():
+def test_a_finer_model_is_the_same_size_in_the_world() -> None:
     flat = {"rows": ["aa", "aa"], "palette": {"a": {"color": [1, 1, 1], "height": 1}}}
     fine = {"layers": [["aaaa"] * 4, ["aaaa"] * 4, ["aaaa"] * 4], "palette": {"a": {"color": [1, 1, 1]}}, "scale": 2}
     coarse_voxels, fine_voxels = models.parse_voxels(flat), models.parse_voxels(fine)
-    assert fine_voxels.scale == 2 and fine_voxels.size == config.MODEL_VOXEL / 2
+    assert fine_voxels.scale == 2
+    assert fine_voxels.size == config.MODEL_VOXEL / 2
     assert fine_voxels.width * fine_voxels.size == coarse_voxels.width * coarse_voxels.size
 
 
 @pytest.mark.parametrize("scale", [0, 1.5, "2"])
-def test_a_scale_must_be_a_whole_number(scale):
+def test_a_scale_must_be_a_whole_number(scale: object) -> None:
     data = {"layers": [["a"]], "palette": {"a": {"color": [1, 1, 1]}}, "scale": scale}
     with pytest.raises(models.VoxelDrawingError, match="'scale' must be a whole number"):
         models.parse_voxels(data)
 
 
-def test_only_3d_drawings_have_a_scale():
+def test_only_3d_drawings_have_a_scale() -> None:
     data = {"rows": ["a"], "palette": {"a": {"color": [1, 1, 1], "height": 1}}, "scale": 2}
     with pytest.raises(models.VoxelDrawingError, match="only 3D drawings"):
         models.parse_voxels(data)
 
 
-def test_a_drawing_gives_rows_and_a_palette_of_colors_and_heights():
+def test_a_drawing_gives_rows_and_a_palette_of_colors_and_heights() -> None:
     rows, palette = models.parse_drawing({"rows": ["a.", "ab"], "palette": DRAWING_PALETTE})
     assert rows == ["a.", "ab"]
     assert palette == {"a": ((1.0, 0.5, 0.0, 1.0), 3), "b": ((0.0, 0.0, 1.0, 1.0), 1)}
@@ -324,12 +332,12 @@ DRAWING_PALETTE = {"a": {"color": [1, 0.5, 0], "height": 3}, "b": {"color": [0, 
         ({"rows": ["a"], "palette": {"ab": {"color": [1, 1, 1], "height": 1}}}, "one character"),
     ],
 )
-def test_malformed_drawings_say_what_is_wrong(data, problem):
+def test_malformed_drawings_say_what_is_wrong(data: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
         models.parse_drawing(data, "broken.json")
 
 
-def test_pickup_capsules_take_the_pickup_color():
+def test_pickup_capsules_take_the_pickup_color() -> None:
     capsule = models.pickup_model("B", (1.0, 0.5, 0.0, 1))
     assert (1.0, 0.5, 0.0, 1.0) in models.main_colors(capsule)
 
@@ -337,7 +345,7 @@ def test_pickup_capsules_take_the_pickup_color():
 ENGINE = {"x": 1, "y": 1, "width": 1, "length": 4, "towards": "bottom"}
 
 
-def test_a_drawing_can_have_engines():
+def test_a_drawing_can_have_engines() -> None:
     data = {"rows": ["a.", "ab"], "palette": DRAWING_PALETTE, "engines": [ENGINE, {**ENGINE, "color": [1, 0.5, 0]}]}
     models.parse_drawing(data)  # the engines are an allowed key
     engines = models.parse_engines(data)
@@ -356,12 +364,12 @@ def test_a_drawing_can_have_engines():
         ({**ENGINE, "color": [2, 0, 0]}, "3 numbers from 0 to 1"),
     ],
 )
-def test_malformed_engines_say_what_is_wrong(engine, problem):
+def test_malformed_engines_say_what_is_wrong(engine: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
         models.parse_engines({"rows": ["a"], "palette": DRAWING_PALETTE, "engines": [engine]}, "broken.json")
 
 
-def test_a_flame_leaves_the_nozzle_voxel_towards_its_side():
+def test_a_flame_leaves_the_nozzle_voxel_towards_its_side() -> None:
     rows = ["...", ".a.", "..."]  # 3 x 3: voxels of 1/3, the middle one at the origin
     size = 1 / 3
     model = NodePath("ship")
@@ -375,13 +383,13 @@ def test_a_flame_leaves_the_nozzle_voxel_towards_its_side():
     assert model.getRelativePoint(up, Vec3(0, 0, -1)).z == pytest.approx(size * 2.5)
 
 
-def test_ships_with_engines_have_flames():
+def test_ships_with_engines_have_flames() -> None:
     assert len(models.model("player").findAllMatches("**/flame")) == 2
     assert len(models.model("missile").findAllMatches("**/flame")) == 1
     assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground
 
 
-def test_a_layered_drawing_is_real_3d_with_its_middle_layer_on_the_middle_plane():
+def test_a_layered_drawing_is_real_3d_with_its_middle_layer_on_the_middle_plane() -> None:
     data = {
         "layers": [["a.", ".."], ["aa", "bb"], ["..", ".b"]],  # top (nearest the camera), middle, bottom
         "palette": {"a": {"color": RED}, "b": {"color": BLUE}},
@@ -403,12 +411,12 @@ def test_a_layered_drawing_is_real_3d_with_its_middle_layer_on_the_middle_plane(
         ({"layers": [["a"]], "palette": {"a": {"color": RED, "height": 3}}}, "exactly the key 'color'"),
     ],
 )
-def test_bad_layered_drawings_are_rejected(data, problem):
+def test_bad_layered_drawings_are_rejected(data: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
         models.parse_voxels(data, "ship.json")
 
 
-def test_flat_drawings_still_read_as_before():
+def test_flat_drawings_still_read_as_before() -> None:
     data = {"rows": [".a.", "aba"], "palette": {"a": {"color": RED, "height": 3}, "b": {"color": BLUE, "height": 1}}}
     voxels = models.parse_voxels(data)
     rows, palette = models.parse_drawing(data)
@@ -416,7 +424,7 @@ def test_flat_drawings_still_read_as_before():
     assert (voxels.width, voxels.height, voxels.scale) == (3, 2, 1)
 
 
-def test_a_vox_model_lies_on_the_ground_seen_from_above():
+def test_a_vox_model_lies_on_the_ground_seen_from_above() -> None:
     # MagicaVoxel's y goes up the screen, its z up towards the camera.
     model = vox.VoxModel((2, 2, 3), [(0, 1, 2, 1), (1, 0, 0, 1)], [(255, 0, 0, 255)])
     voxels = models.voxels_from_vox(model)
@@ -425,14 +433,14 @@ def test_a_vox_model_lies_on_the_ground_seen_from_above():
     assert models.voxels_from_vox(models.voxels_to_vox(voxels)).cells == voxels.cells
 
 
-def test_every_model_converts_to_vox_and_back_unchanged():
+def test_every_model_converts_to_vox_and_back_unchanged() -> None:
     for name in ("drone", "player", "warhawk"):
         original = models.load_voxels(name)
         back = models.voxels_from_vox(vox.read(vox.write(models.voxels_to_vox(original))))
         assert set(back.cells) == set(original.cells)
 
 
-def test_an_engine_can_sit_above_the_middle_plane():
+def test_an_engine_can_sit_above_the_middle_plane() -> None:
     engine = models.parse_engines(
         {"rows": ["a"], "engines": [{"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": 2}]}, "ship.json"
     )[0]
@@ -441,7 +449,7 @@ def test_an_engine_can_sit_above_the_middle_plane():
     assert flame.getY() == pytest.approx(-1.0)  # towards the camera (-Y)
 
 
-def test_a_quad_splits_along_its_brighter_diagonal():
+def test_a_quad_splits_along_its_brighter_diagonal() -> None:
     corners = (Vec3(0, 0, 0), Vec3(1, 0, 0), Vec3(1, 0, 1), Vec3(0, 0, 1))
     for brightness, diagonal in (((0.5, 1, 0.5, 1), (1, 3)), ((1, 0.5, 1, 0.5), (0, 2))):
         mesh = models.MeshBuilder()
@@ -451,13 +459,13 @@ def test_a_quad_splits_along_its_brighter_diagonal():
         assert shared == {tuple(corners[index]) for index in diagonal}
 
 
-def test_an_empty_mesh_builds_an_empty_node():
+def test_an_empty_mesh_builds_an_empty_node() -> None:
     mesh = models.MeshBuilder()
     mesh.cells({}, 1.0, Vec3(0, 0, 0))
     assert mesh.build("nothing").getGeom(0).getVertexData().getNumRows() == 0
 
 
-def test_main_colors_skip_see_through_parts_and_look_under_empty_nodes():
+def test_main_colors_skip_see_through_parts_and_look_under_empty_nodes() -> None:
     holder = NodePath("holder")
     models.shield_bubble_model().reparentTo(holder)  # all see-through
     assert models.main_colors(holder) == ((1.0, 1.0, 1.0, 1.0),)  # nothing solid: white
@@ -465,12 +473,13 @@ def test_main_colors_skip_see_through_parts_and_look_under_empty_nodes():
     assert models.main_colors(holder) == models.main_colors(models.model("drone"))
 
 
-def test_a_drawings_engines_are_read_from_its_file():
+def test_a_drawings_engines_are_read_from_its_file() -> None:
     engines = models.load_engines("drone")
-    assert engines and all(isinstance(engine, models.Engine) for engine in engines)
+    assert engines
+    assert all(isinstance(engine, models.Engine) for engine in engines)
 
 
-def test_a_model_can_be_a_magicavoxel_file(monkeypatch, tmp_path):
+def test_a_model_can_be_a_magicavoxel_file(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     folder = tmp_path / models.DRAWINGS_FOLDER / "ships"
     folder.mkdir(parents=True)
     (folder / "box.vox").write_bytes(vox.write(vox.VoxModel((1, 1, 1), [(0, 0, 0, 1)], [(255, 0, 0, 255)])))
@@ -479,7 +488,8 @@ def test_a_model_can_be_a_magicavoxel_file(monkeypatch, tmp_path):
     (folder / "odd.json").write_text('{"vox": 3}')
     monkeypatch.setattr(files, "data_folder", lambda: tmp_path)
     voxels = models.load_voxels("ships/box")
-    assert voxels.cells == {(0, 0, 0): (1.0, 0.0, 0.0, 1.0)} and voxels.scale == 2
+    assert voxels.cells == {(0, 0, 0): (1.0, 0.0, 0.0, 1.0)}
+    assert voxels.scale == 2
     with pytest.raises(models.VoxelDrawingError, match=r"nowhere\.vox"):
         models.load_voxels("ships/lost")
     with pytest.raises(models.VoxelDrawingError, match="file name"):
@@ -494,19 +504,24 @@ def test_a_model_can_be_a_magicavoxel_file(monkeypatch, tmp_path):
         ({"rows": ["a"], "palette": {"a": {"color": RED, "height": 1}}, "engines": {}}, "must be a list"),
     ],
 )
-def test_palettes_and_engines_of_the_wrong_kind_are_refused(data, problem):
+def test_palettes_and_engines_of_the_wrong_kind_are_refused(data: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
-        models.parse_voxels(data, "ship.json")
-        models.parse_engines(data, "ship.json")
+        read_model(data)
 
 
-def test_an_engine_height_must_be_a_number():
+def read_model(data: dict[str, Any]) -> None:
+    """Read a model file: its cubes, then its engines."""
+    models.parse_voxels(data, "ship.json")
+    models.parse_engines(data, "ship.json")
+
+
+def test_an_engine_height_must_be_a_number() -> None:
     engine = {"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": "up"}
     with pytest.raises(models.VoxelDrawingError, match="'z' must be a number"):
         models.parse_engines({"rows": ["a"], "engines": [engine]}, "ship.json")
 
 
-def test_magicavoxel_takes_at_most_255_colors():
+def test_magicavoxel_takes_at_most_255_colors() -> None:
     cells = {(index, 0, 0): (index % 256 / 255, float(index // 256), 0.0, 1.0) for index in range(300)}
     with pytest.raises(models.VoxelDrawingError, match="255 colors"):
         models.voxels_to_vox(models.Voxels(cells, 300, 1))

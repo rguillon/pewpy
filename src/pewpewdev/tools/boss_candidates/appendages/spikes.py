@@ -3,7 +3,8 @@
 from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
-def spikes(rng: Rng, cv: Canvas, mx: float, half: float, side: str) -> None:
+def spikes(rng: Rng, cv: Canvas, _mx: float, _half: float, side: str) -> None:
+    """Draw armor spikes along the core's flanks."""
     for y in range(round(cv.h * 0.2), round(cv.h * 0.9), rng.randint(5, 8)):
         edge = next((x for x in range(cv.w) if cv.get(x, y) in "hHNT"), None)
         if edge is not None and edge > 3:

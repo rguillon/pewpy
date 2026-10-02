@@ -10,24 +10,24 @@ WIDTH, LOOP = 2.4, 4.2
 
 
 def knobs(name: str) -> params.Knobs:
-    """The settlement's numbers in the preset of the same name."""
+    """Return the settlement's numbers in the preset of the same name."""
     found = params.resolve(name).settlement
     assert found is not None
     return found.layout
 
 
 def seeded(seed: int) -> random.Random:
-    return random.Random(seed)  # noqa: S311 - layouts, not cryptography
+    return random.Random(seed)
 
 
-def test_farmland_has_fields_farms_and_trees():
+def test_farmland_has_fields_farms_and_trees() -> None:
     layout = SETTLEMENTS["farmland"].layout(seeded(3), WIDTH, LOOP, knobs("farmland"))
     assert {Surface.WHEAT, Surface.DIRT_ROAD} <= set(np.unique(layout.surface).tolist())
     kinds = {prop.kind for prop in layout.props}
     assert {"house", "barn", "silo", "tree"} <= kinds
 
 
-def test_the_farms_have_greenhouses():
+def test_the_farms_have_greenhouses() -> None:
     farmland = {
         prop.kind
         for seed in range(3)

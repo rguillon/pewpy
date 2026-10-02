@@ -17,6 +17,7 @@ class Circle(Motion):
     descent: float = 0.0
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Fly around a circle while coming down."""
         angle = body.age * self.turn
         spin = self.radius * self.turn
         body.vx, body.vy = -spin * math.sin(angle), -self.descent + spin * math.cos(angle)

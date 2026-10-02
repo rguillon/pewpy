@@ -34,7 +34,8 @@ def sections(plan: Plan) -> Iterator[tuple[str, int, int]]:
 
 
 def compose(plan: Plan, seed: int | None = None) -> Song:
-    rng = random.Random(plan.seed if seed is None else seed * 100 + plan.seed)  # noqa: S311 - tunes, not cryptography
+    """Compose a song from its plan (with `seed`, new tunes)."""
+    rng = random.Random(plan.seed if seed is None else seed * 100 + plan.seed)
     writer = Writer(plan, rng, NOTES[plan.key])
     writer.last_tune = near(writer.tonic, 76)
     if plan.jingle:
@@ -69,6 +70,7 @@ def compose(plan: Plan, seed: int | None = None) -> Song:
 
 
 def jingle(writer: Writer) -> Song:
+    """Compose a jingle: the chords played once, a short tune over them, ending on a long chord."""
     plan = writer.plan
     progression = [writer.chord(name) for name in plan.progression]
     win = plan.jingle == "win"
@@ -101,6 +103,7 @@ def jingle(writer: Writer) -> Song:
 
 
 def song_of(plan: Plan, writer: Writer, beats: float) -> Song:
+    """Gather the notes written as a song, with its tempo, instruments and volumes."""
     channels = {note.channel for note in writer.notes}
     return Song(
         tempo=plan.tempo,

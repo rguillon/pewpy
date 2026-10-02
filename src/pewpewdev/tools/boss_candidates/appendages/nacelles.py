@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def nacelles(rng: Rng, cv: Canvas, mx: float, half: float, side: str) -> None:
+    """Draw engine nacelles at the back, joined to the core by pylons."""
     x = rng.uniform(2, max(2.5, mx - half - 3))
     length = rng.uniform(0.3, 0.5) * cv.h
     cv.rect(x - 2, x + 2, 0, length, "h", side)

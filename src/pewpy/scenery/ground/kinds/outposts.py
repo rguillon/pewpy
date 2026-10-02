@@ -1,5 +1,7 @@
-"""Outposts: small compounds (airfields, radar stations, factories, depots, sci-fi colonies) set on any ground where
-it is flattest (and dry, over a fluid); some on a concrete apron, the others straight on the ground.
+"""Outposts: small compounds (airfields, radar stations, factories, depots, sci-fi colonies) on any ground.
+
+They are set where the ground is flattest (and dry, over a fluid); some on a concrete apron, the others straight on
+the ground.
 
 The ground under a compound is levelled, blending back into the land around it: a clearing in a forest, a terrace on
 a mountainside, land won from the water. On a settlement, a compound takes the place of what stood there (see
@@ -42,8 +44,10 @@ SURFACES = {"city": Surface.PAVEMENT, "refinery": Surface.YARD, "farmland": Surf
 def build(
     rng: random.Random, shape: Shape, step: float, knobs: Outposts, fluid: bool
 ) -> tuple[Shape, list[Prop], list[Rect]]:
-    """The ground levelled under the compounds, their props, and where they are (their lots: top, bottom, left,
-    right). The shape's rows (`step` apart) loop; nothing crosses the loop's end.
+    """Build the compounds: the ground levelled under them, their props, and where they are.
+
+    Where they are: their lots (top, bottom, left, right). The shape's rows (`step` apart) loop; nothing crosses the
+    loop's end.
     """
     rows, columns = shape.heights.shape
     loop, width = rows * step, (columns - 1) * step
@@ -66,9 +70,7 @@ def build(
 
 
 def clear(layout: Layout, sites: list[Rect], surface: Surface) -> Layout:
-    """A settlement with room made for the compounds: the ground under them repainted with `surface`, what stood
-    there gone.
-    """
+    """Make room for the compounds on a settlement: the ground under them repainted, what stood there gone."""
     painted = layout.surface.copy()
     for site in sites:
         top, bottom, left, right = (round(edge / SURFACE_STEP) for edge in shrink(site, -0.01))
@@ -77,7 +79,7 @@ def clear(layout: Layout, sites: list[Rect], surface: Surface) -> Layout:
 
 
 def outside(props: list[Prop], sites: list[Rect]) -> list[Prop]:
-    """The props not standing on any compound (nor right by it)."""
+    """Return the props not standing on any compound (nor right by it)."""
     return [prop for prop in props if not any(_overlaps(prop, site) for site in sites)]
 
 
@@ -94,8 +96,9 @@ def _overlaps(prop: Prop, site: Rect, margin: float = 0.01) -> bool:
 def _site(
     rng: random.Random, shape: Shape, step: float, knobs: Outposts, fluid: bool, taken: list[Rect]
 ) -> Rect | None:
-    """The flattest (and driest, most open) of a few places for a new compound, away from the others; None if none
-    is free.
+    """Pick the flattest (and driest, most open) of a few places for a new compound, away from the others.
+
+    None if none is free.
     """
     rows, columns = shape.heights.shape
     loop, width = rows * step, (columns - 1) * step
@@ -151,8 +154,9 @@ def _weight(site: Rect, rows: int, columns: int, step: float) -> np.ndarray:
 
 
 def _compound(rng: random.Random, site: Rect, kind: str) -> list[Prop]:
-    """A building in each lot: the main ones first (in the biggest lots), then the others. Some compounds stand on
-    an apron, packed; the others stand on the bare ground, looser, some lots left empty.
+    """Build a compound: a building in each lot, the main ones first (in the biggest lots), then the others.
+
+    Some compounds stand on an apron, packed; the others stand on the bare ground, looser, some lots left empty.
     """
     paved = rng.random() < PAVED_SHARE
     props = [_prop(rng, "apron", site, APRON_HEIGHT)] if paved else []
@@ -213,7 +217,7 @@ def _standing(rng: random.Random, kind: str, side: float) -> tuple[float, float]
 
 
 def _pylons(rng: random.Random, cell: Rect) -> list[Prop]:
-    """A pair of pylons, along the lot."""
+    """Place a pair of pylons, along the lot."""
     top, bottom, left, right = cell
     y, x = (top + bottom) / 2, (left + right) / 2
     if right - left > bottom - top:

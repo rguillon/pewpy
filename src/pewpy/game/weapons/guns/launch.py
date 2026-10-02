@@ -11,8 +11,9 @@ PROJECTILES = {"rocket": ("rocket", 0.25), "missile": ("homing_missile", 0.0), "
 
 
 def launch(gun: Gun, muzzle: Entity, direction: float, ox: float, shooter: Shooter) -> Entity:
-    """The enemy `gun` launches from `muzzle` (`ox` across from the middle of what carries it), `direction`
-    degrees from straight ahead.
+    """Make the enemy `gun` launches from `muzzle`, `direction` degrees from straight ahead.
+
+    `ox` is how far across from the middle of what carries it the muzzle is.
     """
     kind, speed = PROJECTILES[gun.projectile] if gun.projectile else (gun.spawn, gun.spawn_speed)
     heading = math.radians(gun.spawn_heading) if gun.spawn_heading is not None else None

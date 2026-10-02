@@ -1,6 +1,7 @@
-"""Where the AI keeps what it learned: one brain for every ship (`brain.npz`, with its training's progress) and the
-levels' ratings (`ratings.json`), in the user's data folder (~/.local/share/pewpy/ai, %LOCALAPPDATA%\\pewpy\\ai on
-Windows).
+r"""Where the AI keeps what it learned.
+
+One brain for every ship (`brain.npz`, with its training's progress) and the levels' ratings (`ratings.json`), in the
+user's data folder (~/.local/share/pewpy/ai, %LOCALAPPDATA%\pewpy\ai on Windows).
 """
 
 import json
@@ -17,6 +18,7 @@ from pewpewdev.ai.brain import Brain
 
 
 def ai_folder() -> Path:
+    """Return the folder the AI keeps its files in, in the user's data folder."""
     if sys.platform == "win32":
         base = os.environ.get("LOCALAPPDATA") or str(Path.home() / "AppData" / "Local")
         return Path(base) / "pewpy" / "ai"
@@ -26,8 +28,11 @@ def ai_folder() -> Path:
 
 @dataclass
 class Training:
-    """The brain and how its training went: every CHECK_EVERY generations, the best try's fitness, the share of
-    levels it cleared and how far it got with each ship; and how many worlds it trains on so far (learning.py)."""
+    """The brain and how its training went.
+
+    Every CHECK_EVERY generations: the best try's fitness, the share of levels it cleared and how far it got with each
+    ship; and how many worlds it trains on so far (learning.py).
+    """
 
     brain: Brain
     generation: int = 0
@@ -36,10 +41,12 @@ class Training:
 
 
 def brain_path(folder: Path) -> Path:
+    """Return where the brain is kept in `folder`."""
     return folder / "brain.npz"
 
 
 def save_training(folder: Path, training: Training) -> None:
+    """Save the brain and its training's progress (through a temporary file, so a crash leaves the old one)."""
     folder.mkdir(parents=True, exist_ok=True)
     path = brain_path(folder)
     temporary = path.with_suffix(".tmp.npz")
@@ -56,7 +63,7 @@ def save_training(folder: Path, training: Training) -> None:
 
 
 def load_training(folder: Path) -> Training | None:
-    """The brain, or None if there is none yet (or one made for other sensors)."""
+    """Load the brain, or None if there is none yet (or one made for other sensors)."""
     path = brain_path(folder)
     if not path.exists():
         return None
@@ -69,6 +76,7 @@ def load_training(folder: Path) -> Training | None:
 
 
 def save_ratings(folder: Path, ratings: dict[str, Any]) -> Path:
+    """Write the levels' ratings; return where they went."""
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / "ratings.json"
     path.write_text(json.dumps(ratings, indent=2) + "\n")
@@ -76,5 +84,6 @@ def save_ratings(folder: Path, ratings: dict[str, Any]) -> Path:
 
 
 def load_ratings(folder: Path) -> dict[str, Any] | None:
+    """Read the levels' ratings, or None if there are none yet."""
     path = folder / "ratings.json"
     return json.loads(path.read_text()) if path.exists() else None

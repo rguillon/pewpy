@@ -9,9 +9,9 @@ from pewpy.graphics.models.types import Color
 
 
 def cloud_model(color: Color, seed: int = 0) -> NodePath:
-    """A soft, lumpy glow on a 1 x 1 card, added to what's behind it (unlit, see-through)."""
+    """Make a soft, lumpy glow on a 1 x 1 card, added to what's behind it (unlit, see-through)."""
     size = 64
-    rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
+    rng = random.Random(seed)
     blobs = [(rng.uniform(0.3, 0.7), rng.uniform(0.3, 0.7), rng.uniform(0.12, 0.25)) for _ in range(5)]
     image = PNMImage(size, size)
     for y in range(size):

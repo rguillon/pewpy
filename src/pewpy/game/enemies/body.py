@@ -1,4 +1,5 @@
 """What an enemy's motions, actions and exits act on (see motions/, actions/, exits/): its body, as they see it.
+
 Enemy (enemy.py) is the one Body of the game; the behaviours only know this, so they don't depend on it. Independent
 from rendering.
 """
@@ -14,6 +15,8 @@ from pewpy.game.weapons.guns import GunState, Shooter
 
 @dataclass(eq=False)
 class Body(Entity, ABC):
+    """An enemy's body: where it is, how it's doing, its state's clocks and guns."""
+
     health: float = 3.0
     age: float = 0.0
     heading: float = -math.pi / 2  # radians, the way a steering enemy flies
@@ -26,6 +29,7 @@ class Body(Entity, ABC):
 
     @property
     def on_screen(self) -> bool:
+        """Whether it's on the screen (below its top, within its sides)."""
         return self.y < TOP and abs(self.x) < HALF_WIDTH
 
     @property
@@ -49,4 +53,4 @@ class Body(Entity, ABC):
 
     @abstractmethod
     def shooter(self, target: Entity) -> Shooter:
-        """What a gun needs to know about it, firing at `target`."""
+        """Return what a gun needs to know about it, firing at `target`."""

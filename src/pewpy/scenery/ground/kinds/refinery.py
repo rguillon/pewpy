@@ -7,11 +7,15 @@ from pewpy.scenery.params import Knobs
 
 
 class Refinery(Settlement):
+    """A refinery: units between roads."""
+
     knobs = ("block", "road", "lot", "units")
 
     def layout(self, rng: random.Random, width: float, loop: float, knobs: Knobs) -> Layout:
-        """Units between roads (`block` apart, `road` wide), on lots `lot` wide at least: tank farms, process plants with
-        furnaces, tall flaring stacks, pipe racks, cooling towers (`units`: one is picked per lot).
+        """Lay out units between roads (`block` apart, `road` wide), on lots `lot` wide at least.
+
+        Tank farms, process plants with furnaces, tall flaring stacks, pipe racks, cooling towers (`units`: one is
+        picked per lot).
         """
         canvas = Canvas(rng, width, loop, Surface.STREET, (0.0, 0.0))
         road = knobs["road"]

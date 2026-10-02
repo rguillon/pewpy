@@ -1,5 +1,6 @@
-"""Trees: round broadleaf crowns, pointed conifers, or a bushy cluster of small crowns. Seen from above, the crown
-is all that shows: few sides, there can be hundreds on screen.
+"""Trees: round broadleaf crowns, pointed conifers, or a bushy cluster of small crowns.
+
+Seen from above, the crown is all that shows: few sides, there can be hundreds on screen.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a tree."""
     green = varied(rng, rng.choice(c.trees), 0.12)
     roll = rng.random()
     if roll < 0.25:  # a conifer: a dark cone

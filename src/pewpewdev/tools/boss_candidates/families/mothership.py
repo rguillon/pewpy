@@ -3,8 +3,8 @@
 from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
-def mothership(rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
-    """A great disc with rings, a hangar mouth open at the front."""
+def mothership(_rng: Rng, cv: Canvas, mx: float, top: float, bottom: float, half: float) -> None:
+    """Draw a great disc with rings, a hangar mouth open at the front."""
     my = (top + bottom) / 2
     rx, ry = half, (bottom - top) / 2
     cv.ellipse(mx, my, rx, ry, "h")

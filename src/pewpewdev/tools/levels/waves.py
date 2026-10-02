@@ -22,7 +22,7 @@ SIDE_SPAN = 1.0  # ...and a line coming in from a side at most this tall
 
 
 def make_wave(rng: random.Random, enemy: str, d: int) -> dict[str, Any]:
-    """A group of `enemy` (without its time), its shape drawn from the enemy's, its size grown to difficulty `d`."""
+    """Make a group of `enemy` (no time yet), its shape drawn from the enemy's, its size grown to difficulty `d`."""
     shape = dict(rng.choice(SHAPES[enemy]))
     count = max(1, round(shape.pop("count") * GROWTH ** (d - 1)))
     if shape.get("formation") == "line" and count > 1:
@@ -35,14 +35,15 @@ def make_wave(rng: random.Random, enemy: str, d: int) -> dict[str, Any]:
 
 
 def threat(wave: dict[str, Any]) -> int:
-    """What a wave is worth: the points of its enemies (the tougher an enemy, the more points)."""
+    """Return what a wave is worth: the points of its enemies (the tougher an enemy, the more points)."""
     return wave.get("count", 1) * ENEMY_TYPES[wave["enemy"]].points
 
 
 def make_half(rng: random.Random, pool: list[str], d: int, start: float, harder: int = 0) -> list[dict[str, Any]]:
-    """A half level's waves from `start`, of the enemies of `pool`, for a level of difficulty `d`, its groups' size
-    and threat those of a level `harder` steps harder: a warm-up wave, the main waves, then a finale of its signature
-    enemies (the newest first) close together; the last at `start` + HALF_TIME.
+    """Make a half level's waves from `start`, of the enemies of `pool`, for a level of difficulty `d`.
+
+    Its groups' size and threat are those of a level `harder` steps harder: a warm-up wave, the main waves, then a
+    finale of its signature enemies (the newest first) close together; the last at `start` + HALF_TIME.
     """
     newest = [enemy for enemy in pool if UNLOCK[enemy] == d]
     older = [enemy for enemy in pool if enemy not in newest]

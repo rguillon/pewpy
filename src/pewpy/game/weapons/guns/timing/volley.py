@@ -30,7 +30,7 @@ def reloaded(gun: Gun, state: GunState, shooter: Shooter, dt: float) -> bool:
 
 
 def start_volley(gun: Gun, state: GunState) -> Gun:
-    """The next volley (of the next gun of the sequence, if it has one): its pattern."""
+    """Start the next volley (of the next gun of the sequence, if it has one); return its pattern."""
     item = gun.sequence[state.shots % len(gun.sequence)] if gun.sequence else gun
     state.item = item
     state.shots += 1
@@ -39,7 +39,7 @@ def start_volley(gun: Gun, state: GunState) -> Gun:
 
 
 def volley(state: GunState, shooter: Shooter, dt: float) -> list[Entity]:
-    """The volley under way: its next shot, when it's time."""
+    """Fire the volley under way: its next shot, when it's time."""
     item = state.item
     if item is None or state.volley_left == 0:
         return []
@@ -52,7 +52,7 @@ def volley(state: GunState, shooter: Shooter, dt: float) -> list[Entity]:
 
 
 def shoot(item: Gun, state: GunState, shooter: Shooter) -> list[Entity]:
-    """The next shot of the volley under way."""
+    """Fire the next shot of the volley under way."""
     if state.volley_left == 0:
         state.volleys += 1
     if item.pattern == "laser":

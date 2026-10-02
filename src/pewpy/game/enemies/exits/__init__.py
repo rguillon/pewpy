@@ -1,5 +1,7 @@
-"""The ways out of an enemy's states (02-enemies.md): an Exit (exit.py) is taken once all its conditions hold, each
-condition in its own module (see Condition.holds in condition.py). Independent from rendering.
+"""The ways out of an enemy's states (02-enemies.md), each condition in its own module.
+
+An Exit (exit.py) is taken once all its conditions hold (see Condition.holds in condition.py). Independent from
+rendering.
 
 The enemies' descriptions write an exit as its state (`to`), what's done on the way (`then`, actions), `go_on` and
 `recheck`, and its conditions, each by its name: CONDITIONS reads each one, and `parse_exit` a whole exit.
@@ -44,9 +46,9 @@ __all__ = [
 
 
 def flag(name: str, condition: Condition) -> Callable[[Any], Condition]:
-    """Reads a condition written `name: true`."""
+    """Make the reader of a condition written `name: true`."""
 
-    def read(value: Any) -> Condition:
+    def read(value: object) -> Condition:
         if value is not True:
             raise FlagError(name)
         return condition
@@ -70,6 +72,7 @@ CONDITIONS: dict[str, Callable[[Any], Condition]] = {
 
 
 def parse_exit(data: dict[str, Any]) -> Exit:
+    """Read an exit: its state, its actions on the way and its conditions."""
     fields = dict(data)
     to = fields.pop("to")
     then = tuple(parse_action(action) for action in fields.pop("then", []))

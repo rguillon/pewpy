@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a pylon: a tapering metal mast topped with a glowing crystal."""
     x, y, z0 = prop.x, prop.y, prop.base
     foot = min(prop.width, prop.length, 0.03) / 2
     hull = varied(rng, shade(rng.choice(c.hull), 0.7), 0.05)

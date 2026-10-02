@@ -24,7 +24,7 @@ class ShipSpec:
 
 
 def load_ships() -> dict[str, ShipSpec]:
-    """The ships of `ships.json`, by name, in the file's order (a ship's "note" is for the people editing it)."""
+    """Load the ships of `ships.json`, by name, in the file's order (a ship's "note" is for the people editing it)."""
     data = json.loads((data_folder() / "ships.json").read_text())
     return {key: ShipSpec(**{k: v for k, v in ship.items() if k != "note"}) for key, ship in data.items()}
 
@@ -44,6 +44,7 @@ class Player(Entity):
     since_fired: float = 0.0  # seconds since the ship last fired (self-repairing ships wait for it)
 
     def __post_init__(self) -> None:
+        """Give the ship its size and health."""
         self.width = self.height = self.ship.size
         self.health = self.ship.health
 
@@ -76,9 +77,11 @@ class Player(Entity):
 
     @property
     def invulnerable(self) -> bool:
+        """Whether it was hit just now and can't be hit again yet."""
         return self.invulnerable_time > 0
 
     def take_hit(self, damage: float) -> None:
+        """Take `damage`, then be invulnerable for a moment."""
         self.health -= damage
         self.invulnerable_time = config.PLAYER_INVULNERABILITY_TIME
 

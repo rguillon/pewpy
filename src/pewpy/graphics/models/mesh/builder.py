@@ -72,7 +72,7 @@ class MeshBuilder:
         brightness: tuple[float, float, float] = (1, 1, 1),
         uvs: tuple[UV, UV, UV] = (NO_BEVEL, NO_BEVEL, NO_BEVEL),
     ) -> None:
-        """A flat triangle; `brightness` darkens each corner's color (the GPU blends it across the triangle)."""
+        """Add a flat triangle; `brightness` darkens each corner's color (the GPU blends it across the triangle)."""
         normal = (b - a).cross(c - a)
         if normal.length() < 1e-9:
             return
@@ -94,6 +94,7 @@ class MeshBuilder:
         brightness: tuple[float, float, float, float] = (1, 1, 1, 1),
         uvs: tuple[UV, UV, UV, UV] = (NO_BEVEL, NO_BEVEL, NO_BEVEL, NO_BEVEL),
     ) -> None:
+        """Add a quad as two triangles, split along its brighter diagonal."""
         ba, bb, bc, bd = brightness
         ua, ub, uc, ud = uvs
         if ba + bc < bb + bd:
@@ -105,7 +106,7 @@ class MeshBuilder:
             self.triangle(a, c, d, color, inside, (ba, bc, bd), (ua, uc, ud))
 
     def prism(self, outline: Outline, y_front: float, y_back: float, color: Color) -> None:
-        """A flat convex outline in the X/Z plane, extruded along Y (depth) from `y_front` to `y_back`."""
+        """Add a flat convex outline in the X/Z plane, extruded along Y (depth) from `y_front` to `y_back`."""
         front = [Vec3(x, y_front, z) for x, z in outline]
         back = [Vec3(x, y_back, z) for x, z in outline]
         inside = sum(front + back, Vec3()) / (2 * len(outline))
@@ -117,13 +118,14 @@ class MeshBuilder:
             self.quad(front[i], front[j], back[j], back[i], color, inside)
 
     def box(self, center: Vec3, size: Vec3, color: Color) -> None:
+        """Add a box."""
         half_x, half_z = size.x / 2, size.z / 2
         outline = [(-half_x, -half_z), (half_x, -half_z), (half_x, half_z), (-half_x, half_z)]
         moved = [(center.x + x, center.z + z) for x, z in outline]
         self.prism(moved, center.y - size.y / 2, center.y + size.y / 2, color)
 
     def ellipsoid(self, center: Vec3, radii: Vec3, color: Color, rings: int = 4, segments: int = 8) -> None:
-        """A low-poly sphere stretched by `radii` along X, Y and Z."""
+        """Add a low-poly sphere stretched by `radii` along X, Y and Z."""
 
         def point(ring: int, segment: int) -> Vec3:
             latitude = math.pi * ring / rings - math.pi / 2
@@ -252,7 +254,7 @@ class MeshBuilder:
         size: float,
         origin: FloatArray,
     ) -> None:
-        """A face per cube, not merged nor shaded (glowing and burning faces: the shader draws each as a pane)."""
+        """Add a face per cube, not merged nor shaded (glowing and burning faces: the shader draws each as a pane)."""
         normal, u, w = FACE_AXES[direction]
         face = origin + positions * size + normal * (size / 2)
         corners = np.stack([face + (u * su + w * sw) * (size / 2) for su, sw in FACE_CORNERS], axis=1)
@@ -263,8 +265,10 @@ class MeshBuilder:
     def _faces(
         self, corners: FloatArray, colors: FloatArray, brightness: FloatArray, uvs: FloatArray, normal: IntArray
     ) -> None:
-        """Faces from their 4 corners (winding counter-clockwise seen from outside), each split in two triangles
-        along the brighter diagonal, or the shading would show a crease across the face (like `quad`).
+        """Add faces from their 4 corners (winding counter-clockwise seen from outside).
+
+        Each is split in two triangles along the brighter diagonal, or the shading would show a crease across the face
+        (like `quad`).
         """
         crease = brightness[:, 0] + brightness[:, 2] < brightness[:, 1] + brightness[:, 3]
         # Which corners make each face's two triangles: (a, b, d) and (b, c, d), or (a, b, c) and (a, c, d).
@@ -282,6 +286,7 @@ class MeshBuilder:
         ))
 
     def build(self, name: str) -> GeomNode:
+        """Build the mesh as a node."""
         positions, normals, colors, uvs = self._arrays()
         count = len(positions) * 3
         vertices = np.empty(count, dtype=VERTEX_DTYPE)

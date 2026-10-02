@@ -1,5 +1,6 @@
-"""The cores' families, each in its own module: a family draws a core's outline on the canvas, around `mx`, from
-`top` to `bottom`, `half` wide on each side.
+"""The cores' families, each in its own module.
+
+A family draws a core's outline on the canvas, around `mx`, from `top` to `bottom`, `half` wide on each side.
 """
 
 from collections.abc import Callable

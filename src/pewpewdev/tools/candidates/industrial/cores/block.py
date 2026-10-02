@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def core_block(rng: Rng, cv: Canvas, mx: int, half: int) -> None:
+    """Draw a block with cut corners."""
     cut, bottom = rng.randint(1, 3), cv.h - 1
     cv.polygon(
         [(mx - half, cut), (mx - half + cut, 0), (mx + half - cut, 0), (mx + half, cut), (mx + half, bottom - cut),

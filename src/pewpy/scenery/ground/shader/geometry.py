@@ -26,7 +26,7 @@ def _vertex_format() -> GeomVertexFormat:
 
 
 def _geometry(name: str, vertices: np.ndarray, triangles: np.ndarray) -> NodePath:
-    """A mesh from vertices of 14 floats (position, normal, color, texture data) and triangle corner indices."""
+    """Make a mesh from vertices of 14 floats (position, normal, color, texture data) and triangle corner indices."""
     data = GeomVertexData(name, _vertex_format(), Geom.UH_static)
     data.uncleanSetNumRows(len(vertices))
     data.modifyArrayHandle(0).copyDataFrom(
@@ -45,9 +45,10 @@ def _geometry(name: str, vertices: np.ndarray, triangles: np.ndarray) -> NodePat
 
 
 def relief_chunk_model(relief: Relief, first_row: int, rows: int, max_height: float) -> NodePath:
-    """Rows `first_row` to `first_row + rows` of a relief (one more, from the next strip, to close the gap), as a
-    mesh. The node's origin is the top-left corner, on the base layer: x right, z up the
-    screen, heights towards the camera (-y).
+    """Make rows `first_row` to `first_row + rows` of a relief into a mesh.
+
+    One more row, from the next strip, closes the gap. The node's origin is the top-left corner, on the base layer: x
+    right, z up the screen, heights towards the camera (-y).
     """
     picked = np.arange(first_row, first_row + rows + 1) % relief.rows
     heights = relief.heights[picked]
@@ -75,7 +76,7 @@ def relief_chunk_model(relief: Relief, first_row: int, rows: int, max_height: fl
 
 
 def props_model(vertices: np.ndarray, triangles: np.ndarray) -> NodePath:
-    """A strip's props (props.strip_arrays)."""
+    """Make a strip's props into a mesh (see props.strip_arrays)."""
     path = _geometry("props", vertices, triangles)
     path.setShader(shader("props"), 20)
     path.setTwoSided(True)

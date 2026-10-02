@@ -14,4 +14,5 @@ class Parts(Condition):
     names: tuple[str, ...]
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the parts named are all destroyed."""
         return all(body.destroyed(name) for name in self.names)

@@ -8,7 +8,7 @@ from pewpewdev.tools.candidates.canvas import Point, Rng
 def tapered(
     sweep_range: tuple[float, float], chord_range: tuple[float, float]
 ) -> Callable[[Rng, int, float, float], list[Point]]:
-    """A wing tapering to its tip, swept back (positive) or forward (negative)."""
+    """Plan a wing tapering to its tip, swept back (positive) or forward (negative)."""
 
     def plan(rng: Rng, height: int, root_x: float, front: float) -> list[Point]:
         chord = height * rng.uniform(*chord_range)

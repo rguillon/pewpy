@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a cooling tower: a hyperboloid, narrowing to its waist."""
     r, z0, height = radius(prop), prop.base, prop.height
     waist = rng.uniform(0.6, 0.72)  # how narrow it gets, as a share of its base
     profile = [

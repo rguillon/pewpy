@@ -11,15 +11,16 @@ T = TypeVar("T", bound=Entity)
 
 
 def nearest(origin: Entity, targets: Sequence[T], reach: float = math.inf) -> T | None:
-    """The target nearest to `origin`, within `reach`."""
+    """Return the target nearest to `origin`, within `reach`."""
     distances = {id(target): math.hypot(target.x - origin.x, target.y - origin.y) for target in targets}
     near = [target for target in targets if distances[id(target)] <= reach]
     return min(near, key=lambda target: distances[id(target)], default=None)
 
 
 def chain(gun: Gun, origin: Entity, targets: Sequence[T]) -> list[T]:
-    """What a "chain" gun strikes: the nearest target in range of `origin`, then each time the nearest one not
-    struck yet within a jump of the last.
+    """Return what a "chain" gun strikes.
+
+    The nearest target in range of `origin`, then each time the nearest one not struck yet within a jump of the last.
     """
     struck: list[T] = []
     here, reach = origin, gun.chain_range

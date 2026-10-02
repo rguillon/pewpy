@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def part_turret(rng: Rng, cv: Canvas) -> None:
+    """Draw a round turret with one to three barrels."""
     mx, my = cv.w // 2, cv.h * 0.45
     r = min(cv.w, cv.h) * 0.35
     cv.ellipse(mx, my, r + 1, r + 1, "N")

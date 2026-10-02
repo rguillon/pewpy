@@ -14,7 +14,7 @@ def lens() -> PerspectiveLens:
     return result
 
 
-def test_sprites_are_packed_as_positions_then_colors_in_texture_order():
+def test_sprites_are_packed_as_positions_then_colors_in_texture_order() -> None:
     data = array("f")
     data.frombytes(pack([Sprite(0.1, 0.2, 0.03, 0.05, RED, depth=0.3)], capacity=2))
     assert len(data) == 2 * 2 * 4  # two rows of two texels of four floats
@@ -24,7 +24,7 @@ def test_sprites_are_packed_as_positions_then_colors_in_texture_order():
     assert list(data[4:8]) == [0.0] * 4  # the unused slot
 
 
-def test_a_batch_draws_one_square_per_sprite_and_hides_when_empty():
+def test_a_batch_draws_one_square_per_sprite_and_hides_when_empty() -> None:
     batch = SpriteBatch(NodePath("render"), lens(), capacity=3, glow=False, core=0.4, hot=0.3)
     assert batch.node.isHidden()
     batch.show([Sprite(0, 0, 0.1, 0.1, RED)] * 5)

@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def mandible(rng: Rng, cv: Canvas, edge: int, side: str) -> None:
+    """Draw a mandible reaching forward from the flank."""
     x = max(0, edge - rng.randint(0, 2))
     start = rng.uniform(0.4, 0.65) * cv.h
     cv.polygon(

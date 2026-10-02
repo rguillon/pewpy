@@ -36,6 +36,7 @@ def cache_folder() -> Path | None:
 
 
 def render_wav(data: bytes, loop: bool) -> bytes:
+    """Render a MIDI file as a WAV file."""
     return synth.wav_bytes(synth.render(midi.read(data), loop=loop))
 
 
@@ -53,11 +54,13 @@ class Library:
         self._thread: threading.Thread | None = None
 
     def names(self) -> list[str]:
+        """Return the songs' names."""
         if not self.folder.is_dir():
             return []
         return sorted(entry.name[:-4] for entry in self.folder.iterdir() if entry.name.endswith(".mid"))
 
     def has(self, name: str) -> bool:
+        """Tell whether there is a song called `name`."""
         return self.folder.joinpath(f"{name}.mid").is_file()
 
     def _cache_path(self, data: bytes, name: str, loop: bool) -> Path | None:
@@ -67,7 +70,7 @@ class Library:
         return self.cache / f"{name}-{digest}.wav"
 
     def wav(self, name: str, loop: bool = True) -> bytes:
-        """The song as a WAV file, from the cache or rendered now (and cached)."""
+        """Return the song as a WAV file, from the cache or rendered now (and cached)."""
         data = self.folder.joinpath(f"{name}.mid").read_bytes()
         path = self._cache_path(data, name, loop)
         if path is not None and path.is_file():
@@ -84,8 +87,9 @@ class Library:
         return wav
 
     def cached(self, name: str, loop: bool = True) -> Path | None:
-        """The song's WAV file in the cache, if it's there (each version of a song has its own file: a file is never
-        rewritten while something may be reading it).
+        """Return the song's WAV file in the cache, if it's there.
+
+        Each version of a song has its own file: a file is never rewritten while something may be reading it.
         """
         try:
             data = self.folder.joinpath(f"{name}.mid").read_bytes()
@@ -110,7 +114,7 @@ class Library:
         self._wake.set()
 
     def take(self, name: str, loop: bool = True) -> bytes | None:
-        """The rendered song if it's ready (else None, and it's requested)."""
+        """Return the rendered song if it's ready (else None, and it's requested)."""
         with self._lock:
             wav = self.ready.get((name, loop))
         if wav is None:

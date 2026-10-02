@@ -6,7 +6,7 @@ from pewpy.graphics.models.types import Cell, Color
 
 
 def main_colors(model: NodePath, count: int = 3) -> tuple[Color, ...]:
-    """The colors most of a model's vertices have (roughly: shades from ambient occlusion count as one)."""
+    """Return the colors most of a model's vertices have (roughly: shades from ambient occlusion count as one)."""
     tally: dict[Color, int] = {}
     for path in [model, *model.findAllMatches("**/+GeomNode")]:
         node = path.node()
@@ -25,11 +25,12 @@ def main_colors(model: NodePath, count: int = 3) -> tuple[Color, ...]:
 
 
 def shade(color: Color, factor: float) -> Color:
+    """Return a color made lighter or darker by `factor` (each channel at most 1)."""
     return (min(color[0] * factor, 1.0), min(color[1] * factor, 1.0), min(color[2] * factor, 1.0), color[3])
 
 
 def tint(color: Color, by: Color) -> Color:
-    """A color multiplied by another one, channel by channel (the alpha is `by`'s)."""
+    """Return a color multiplied by another one, channel by channel (the alpha is `by`'s)."""
     return (color[0] * by[0], color[1] * by[1], color[2] * by[2], by[3])
 
 

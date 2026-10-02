@@ -21,7 +21,7 @@ from pewpewdev.tools.levels.worlds import WORLDS
 
 
 def make_level(rng: random.Random, world: WorldPlan, plan: LevelPlan, d: int) -> dict[str, Any]:
-    """The first half at the level's difficulty, its mini boss, the second half harder, its final boss."""
+    """Make a level: the first half at its difficulty, its mini boss, the second half harder, its final boss."""
     pool = sorted(
         enemy for enemy, unlock in UNLOCK.items() if unlock <= d and (world.ground_units or enemy not in GROUND)
     )
@@ -51,7 +51,7 @@ def make_level(rng: random.Random, world: WorldPlan, plan: LevelPlan, d: int) ->
 
 def generate(seed: int) -> dict[tuple[int, int], dict[str, Any]]:
     """Every level, by (world, level) from 1."""
-    rng = random.Random(seed)  # noqa: S311 - level layouts, not cryptography
+    rng = random.Random(seed)
     return {
         (w, n): make_level(rng, world, plan, difficulty(w, n))
         for w, world in enumerate(WORLDS, start=1)

@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def wing_swept(rng: Rng, cv: Canvas, edge: int, side: str) -> None:
+    """Draw a wing swept back or forward, narrower at its tip."""
     root = rng.uniform(0.35, 0.65) * cv.h
     sweep = rng.uniform(-0.35, 0.35) * cv.h  # back (up) or forward (down)
     chord = rng.randint(2, 4)

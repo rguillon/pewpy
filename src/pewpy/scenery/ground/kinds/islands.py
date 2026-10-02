@@ -8,6 +8,8 @@ from pewpy.scenery.params import Knobs
 
 
 class Islands(Landscape):
+    """Islands in a sea."""
+
     knobs = ("land_share", "size", "detail_size", "fine_size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:

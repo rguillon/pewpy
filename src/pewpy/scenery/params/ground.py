@@ -7,6 +7,8 @@ from pewpy.scenery.params.types import Color3, Knobs
 
 @dataclass(frozen=True)
 class Ground:
+    """A ground: its shape, how it's painted, how deep it lies and how high it rises."""
+
     landscape: str  # its shape (grounds/ LANDSCAPES)...
     shape: Knobs  # ...and that landscape's numbers
     style: str  # how the ground shader paints it (pewpy.scenery.ground.shader STYLES)...

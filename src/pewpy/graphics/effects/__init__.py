@@ -1,6 +1,7 @@
-"""Particle effects (placeholder until 05-visuals.md is decided): what every effect is; each one is in its own module
-here. An effect throws out particles where something happened; system.py moves them, view.py draws
-them. The helpers below are shared by the effects. Independent from Panda3D, but for view.py.
+"""Particle effects (placeholder until 05-visuals.md is decided): what every effect is.
+
+Each effect is in its own module here. An effect throws out particles where something happened; system.py moves them,
+view.py draws them. The helpers below are shared by the effects. Independent from Panda3D, but for view.py.
 
 Positions are in world units: x right, y up the screen (like the game), z depth (away from the camera).
 Particles are tiny cubes: "debris" is lit like the ships, "glow" (sparks, flashes) shines on its own.
@@ -19,6 +20,8 @@ BURN_COLORS: tuple[Color, ...] = ((0.6, 0.95, 1.0, 1), (1.0, 1.0, 1.0, 1), (0.3,
 
 @dataclass(eq=False)
 class Particle:
+    """A particle: where it is, how it moves, how it looks and how long it lasts."""
+
     x: float
     y: float
     z: float
@@ -37,6 +40,7 @@ class Particle:
 
     @property
     def current_size(self) -> float:
+        """Its size now: growing then shrinking (`grow`), or only shrinking as it ages."""
         t = min(self.age / self.life, 1.0)
         if self.grow:
             return self.size * (min(t / 0.25, 1.0) if t < 0.25 else 1.0 - (t - 0.25) / 0.75)
@@ -48,11 +52,11 @@ class Effect(ABC):
 
     @abstractmethod
     def particles(self, rng: random.Random) -> list[Particle]:
-        """The particles it starts with (`rng` for their random spread)."""
+        """Return the particles it starts with (`rng` for their random spread)."""
 
 
 def fireball(rng: random.Random, x: float, y: float, radius: float, colors: tuple[Color, ...]) -> list[Particle]:
-    """A few glowing cubes that swell and shrink around (x, y): the brightest (`colors[0]`) in the middle."""
+    """Make a few glowing cubes that swell and shrink around (x, y): the brightest (`colors[0]`) in the middle."""
     result = []
     for i in range(6):
         distance = 0.0 if i == 0 else rng.uniform(0.3, 0.7) * radius
@@ -100,6 +104,7 @@ def burst(
 
 
 def unit(vector: tuple[float, float, float]) -> tuple[float, float, float]:
+    """Return `vector` scaled to length 1 (as it is if it's 0)."""
     length = math.sqrt(sum(value * value for value in vector)) or 1.0
     x, y, z = vector
     return x / length, y / length, z / length

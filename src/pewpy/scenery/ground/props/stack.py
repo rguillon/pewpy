@@ -8,6 +8,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a stack: a banded chimney (sometimes a pair) or a flaring stack."""
     r, top = radius(prop), prop.base + prop.height
     if rng.random() < 0.35:  # a pair of banded chimneys
         for dx in (-r * 0.45, r * 0.45):
@@ -22,7 +23,7 @@ def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None
 
 
 def _banded(mesh: PropMesh, x: float, y: float, r: float, z0: float, top: float, c: PropColors) -> None:
-    """A chimney tapering a little, with bands of the beacon's red near the top, and a light at its rim."""
+    """Add a chimney tapering a little, with bands of the beacon's red near the top, and a light at its rim."""
     mesh.lathe(x, y, [(z0, r * 1.15), (top, r * 0.85)], c.stack, PLAIN, segments=12, cap=c.vent)
     for band in range(2):
         z = top - (band + 1) * (top - z0) * 0.12

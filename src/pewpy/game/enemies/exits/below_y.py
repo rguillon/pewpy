@@ -14,4 +14,5 @@ class BelowY(Condition):
     y: float
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the enemy is at or below `y`."""
         return body.y <= self.y

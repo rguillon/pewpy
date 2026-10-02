@@ -1,6 +1,8 @@
-"""The AI's neural network: a small multilayer perceptron in numpy, all its weights in one flat vector, with a
-direct path from its inputs to its outputs besides the hidden layer (so a simple rule, like following the radar's
-safest way, is only a few weights away, the hidden layer learning the rest).
+"""The AI's neural network: a small multilayer perceptron in numpy.
+
+All its weights are in one flat vector, with a direct path from its inputs to its outputs besides the hidden layer
+(so a simple rule, like following the radar's safest way, is only a few weights away, the hidden layer learning the
+rest).
 
 From what the AI sees (sensors.py) to what it does: OUTPUTS numbers, the stick (x, y, from -1 to 1), the fire button
 (fires above 0) and how much it wants each weapon (the highest one is the weapon it picks).
@@ -28,16 +30,20 @@ def shapes(inputs: int = sensors.SIZE, hidden: tuple[int, ...] = HIDDEN) -> list
 
 
 def parameter_count(inputs: int = sensors.SIZE, hidden: tuple[int, ...] = HIDDEN) -> int:
+    """Count the weights (biases included) of a brain with these inputs and hidden layers."""
     return sum(rows * columns for rows, columns in shapes(inputs, hidden))
 
 
 @dataclass
 class Brain:
+    """A brain: its weights, flat, and the shape of its layers."""
+
     weights: np.ndarray  # flat: every layer's weights and biases one after the other
     hidden: tuple[int, ...] = HIDDEN
     inputs: int = sensors.SIZE
 
     def __post_init__(self) -> None:
+        """Check the weights fit the shape and cut them into the layers' matrices."""
         if self.weights.shape != (parameter_count(self.inputs, self.hidden),):
             msg = f"a brain of this shape has {parameter_count(self.inputs, self.hidden)} weights"
             raise ValueError(msg)
@@ -49,9 +55,12 @@ class Brain:
 
     @classmethod
     def random(cls, rng: np.random.Generator, hidden: tuple[int, ...] = HIDDEN) -> "Brain":
-        """A new brain: small random weights (scaled for each layer's inputs; smaller to the stick, STICK_NOISE), no
-        biases but FIRE_BIAS and WEAPON_BIAS, the direct path closed but from the radar's move to aim to the stick
-        (RADAR_GAIN): it dodges and aims before it learns anything."""
+        """Make a new brain that dodges and aims before it learns anything.
+
+        Its weights are small and random (scaled for each layer's inputs; smaller to the stick, STICK_NOISE), with no
+        biases but FIRE_BIAS and WEAPON_BIAS, and the direct path closed but from the radar's move to aim to the stick
+        (RADAR_GAIN).
+        """
         parts = []
         layers = shapes(sensors.SIZE, hidden)
         for rows, columns in layers[:-1]:
@@ -68,7 +77,7 @@ class Brain:
         return cls(np.concatenate(parts), hidden)
 
     def think(self, view: np.ndarray) -> np.ndarray:
-        """The OUTPUTS numbers for what the AI sees."""
+        """Return the OUTPUTS numbers for what the AI sees."""
         *layers, direct = self.layers
         signal = view
         for index, layer in enumerate(layers):

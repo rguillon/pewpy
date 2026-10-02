@@ -6,6 +6,8 @@ from pewpy.scenery.params import Knobs
 
 
 class LevelGround(Landscape):
+    """Nearly flat ground, for the city and the refinery."""
+
     knobs = ("height", "size")
 
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:

@@ -13,5 +13,6 @@ class ToBottom(Action):
     """Just below the bottom of the screen."""
 
     def do(self, body: Body, target: Entity) -> list[Entity]:
+        """Jump to the bottom of the screen."""
         body.y = BOTTOM - body.height
         return []

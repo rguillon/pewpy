@@ -1,8 +1,8 @@
-"""Secondary weapons from 01-gameplay.md: a machine-gun turret or a lightning gun, picked up from enemy drops, in
-`data/weapons/secondary.json` (each is a gun, see pewpy.game.weapons.guns).
+"""Secondary weapons from 01-gameplay.md: a machine-gun turret or a lightning gun, picked up from enemy drops.
 
-They fire on their own, next to the selected weapon, at the nearest enemy. The ship carries one at most, and a hit
-takes it away instead of health. Independent from rendering.
+They are in `data/weapons/secondary.json` (each is a gun, see pewpy.game.weapons.guns). They fire on their own,
+next to the selected weapon, at the nearest enemy. The ship carries one at most, and a hit takes it away instead of
+health. Independent from rendering.
 """
 
 import json
@@ -35,11 +35,13 @@ class SecondaryWeapon:
 
     @property
     def gun(self) -> Gun:
+        """The weapon's gun."""
         return SECONDARY_GUNS[self.kind]
 
     def fire(self, dt: float, ship: Entity, targets: Sequence[T]) -> tuple[list[Bullet], list[T]]:
-        """(bullets, enemies struck by a "chain" gun) this frame. It only fires when it has a target, at once when
-        one comes after a wait.
+        """Fire this frame; return (bullets, enemies struck by a "chain" gun).
+
+        It only fires when it has a target, at once when one comes after a wait.
         """
         gun = self.gun
         if gun.pattern == "chain":

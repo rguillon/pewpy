@@ -44,8 +44,9 @@ SURFACE_SLOTS = (
 
 
 def maps(relief: Relief, layout: Layout | None) -> dict[str, Texture]:
-    """The textures both shaders read over the whole loop: the shadow heights and, for built-up grounds, the
-    surface map.
+    """Make the textures both shaders read over the whole loop.
+
+    The shadow heights and, for built-up grounds, the surface map.
     """
     shadow = Texture("shadow_heights")
     heights = np.ascontiguousarray(relief.shadow_heights, dtype=np.float32)
@@ -72,7 +73,7 @@ def maps(relief: Relief, layout: Layout | None) -> dict[str, Texture]:
 
 
 def palette(params: SceneryParams) -> list[tuple[float, float, float]]:
-    """The ground painter's colors, in the slots it reads them from."""
+    """Return the ground painter's colors, in the slots it reads them from."""
     colors = [(0.0, 0.0, 0.0)] * PALETTE_SIZE
     ground = params.ground
     if ground is None:
@@ -86,7 +87,7 @@ def palette(params: SceneryParams) -> list[tuple[float, float, float]]:
     return colors
 
 
-def _colors(name: str, colors: list[tuple[float, float, float]]) -> PTA_LVecBase3f:
+def _colors(colors: list[tuple[float, float, float]]) -> PTA_LVecBase3f:
     array = PTA_LVecBase3f.emptyArray(len(colors))
     for index, color in enumerate(colors):
         array[index] = LVecBase3f(*color)
@@ -96,7 +97,7 @@ def _colors(name: str, colors: list[tuple[float, float, float]]) -> PTA_LVecBase
 def ground_inputs(
     path: NodePath, params: SceneryParams, textures: dict[str, Texture], loop: float, width: float
 ) -> None:
-    """What both shaders need, set on the node above the ground's strips."""
+    """Set what both shaders need on the node above the ground's strips."""
     along_x, along_y = SUN_ALONG
     # Ground directions (x right, y down the screen, z towards the camera) -> model space (x, -z, -y).
     path.setShaderInput("sun", (along_x, -SUN_RISE, -along_y))
@@ -108,16 +109,16 @@ def ground_inputs(
     path.setShaderInput("ground_width", width)
     style = params.ground.style if params.ground else ""
     path.setShaderInput("style", STYLES.get(style, 0.0))
-    path.setShaderInput("palette", _colors("palette", palette(params)))
+    path.setShaderInput("palette", _colors(palette(params)))
     fluid = params.fluid
     path.setShaderInput("fluid", FLUIDS[fluid.kind] if fluid else 0.0)
     fluid_colors = [(0.0, 0.0, 0.0)] * 3
     if fluid is not None:
         for slot, name in enumerate(FLUID_COLORS[fluid.kind]):
             fluid_colors[slot] = fluid.colors[name]
-    path.setShaderInput("fluid_colors", _colors("fluid_colors", fluid_colors))
+    path.setShaderInput("fluid_colors", _colors(fluid_colors))
     props = params.props
-    path.setShaderInput("window_lights", _colors("window_lights", list(props.window_lights)))
+    path.setShaderInput("window_lights", _colors(list(props.window_lights)))
     path.setShaderInput("glass_color", props.glass)
     path.setShaderInput("furnace_color", props.furnace)
     path.setShaderInput("shadow_map", textures["shadow_map"])

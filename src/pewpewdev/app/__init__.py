@@ -1,14 +1,14 @@
-"""The game with the dev tools' screens (`make dev`): the main menu also opens the Models, Bosses, Enemy candidates
-and Boss candidates screens (models on show, to work on them, model_screens.py) and the AI learning and AI rating
-screens (ai_screens.py).
+"""The game with the dev tools' screens (`make dev`).
+
+The main menu also opens the Models, Bosses, Enemy candidates and Boss candidates screens (models on show, to work on
+them, model_screens.py) and the AI learning and AI rating screens (ai_screens.py).
 """
 
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from direct.task.Task import Task
 
-from pewpewdev.ai.pilot import Pilot
-from pewpewdev.ai.sessions import Session
 from pewpewdev.app.ai_screens import AI_STATES, AIScreens
 from pewpewdev.app.model_screens import SHOWCASE_STATES
 from pewpewdev.states import DEV_TRANSITIONS, DevState
@@ -16,10 +16,16 @@ from pewpewdev.ui.ai_panel import AIPanel
 from pewpy.app import EFFECTS_RUN_IN
 from pewpy.game.states import State
 from pewpy.ui.menu import Menu, MenuItem
-from pewpy.ui.showcase import ModelShowcase
+
+if TYPE_CHECKING:
+    from pewpewdev.ai.pilot import Pilot
+    from pewpewdev.ai.sessions import Session
+    from pewpy.ui.showcase import ModelShowcase
 
 
 class DevApp(AIScreens):
+    """The game with the dev tools' screens."""
+
     state_transitions = DEV_TRANSITIONS
     effects_run_in = EFFECTS_RUN_IN | {DevState.AI_LEARNING}
 
@@ -77,11 +83,13 @@ class DevApp(AIScreens):
             return
         super()._on_back()
 
-    def finalizeExit(self) -> None:
+    def finalizeExit(self) -> None:  # noqa: N802 - overrides ShowBase
+        """Stop the AI (its brains are saved as it stops) before the window goes."""
         self._stop_ai()
         self._finish_stopped_ai(wait=30.0)  # the brains are saved as it stops
         super().finalizeExit()
 
 
 def main() -> None:
+    """Run the game with the dev tools' screens."""
     DevApp().run()

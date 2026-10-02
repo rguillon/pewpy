@@ -7,7 +7,8 @@
 (or `uv run python -m pewpewdev.tools.voxels ...`). NAME is a model's file name without ".json", like "drone", or
 "candidates/007". In MagicaVoxel the ship lies on the ground seen from above like in the game: its nose where it
 points on screen, z up towards the camera. Engines stay in the .json file ("x" and "y" on the drawing, "z" cubes
-above its middle plane), and so does a finer model's "scale"; "use" and "layers" keep them. `git checkout` a model's .json to go back.
+above its middle plane), and so does a finer model's "scale"; "use" and "layers" keep them. `git checkout` a model's
+.json to go back.
 """
 
 import argparse
@@ -22,19 +23,21 @@ MODELS = DATA / "models"
 
 
 class NotExportedError(SystemExit):
+    """A model has no .vox file to use."""
+
     def __init__(self, name: str) -> None:
         super().__init__(f"no {name}.vox: export it first")
 
 
 def export(name: str) -> Path:
-    """The model as a .vox file next to its .json (it stays as it is)."""
+    """Export the model as a .vox file next to its .json (it stays as it is)."""
     path = MODELS / f"{name}.vox"
     path.write_bytes(vox.write(models.voxels_to_vox(models.load_voxels(name))))
     return path
 
 
 def use(name: str) -> Path:
-    """The model's .json now names its .vox file (exported before, then edited), keeping its engines."""
+    """Make the model's .json name its .vox file (exported before, then edited), keeping its engines."""
     path = MODELS / f"{name}.json"
     if not (MODELS / f"{name}.vox").is_file():
         raise NotExportedError(name)
@@ -46,7 +49,7 @@ def use(name: str) -> Path:
 
 
 def layers(name: str) -> Path:
-    """The model's .json as a 3D drawing: slices from the top (nearest the camera) down, keeping its engines."""
+    """Rewrite the model's .json as a 3D drawing: slices from the top (nearest the camera) down, keeping its engines."""
     path = MODELS / f"{name}.json"
     data = json.loads(path.read_text())
     voxels = models.load_voxels(name)
@@ -76,19 +79,20 @@ def layers(name: str) -> Path:
 
 
 def _kept(data: dict, scale: bool = True) -> dict:
-    """What a model file keeps whatever its form: its engines, and its scale (finer models)."""
+    """Return what a model file keeps whatever its form: its engines, and its scale (finer models)."""
     keys = ("scale", "engines") if scale else ("engines",)
     return {key: data[key] for key in keys if key in data}
 
 
 def main() -> None:
+    """Run the command on every model named."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=("export", "use", "layers"))
     parser.add_argument("names", nargs="+", help="models, like drone or candidates/007")
     args = parser.parse_args()
     action = {"export": export, "use": use, "layers": layers}[args.command]
     for name in args.names:
-        print(f"{args.command} {name}: {action(name).relative_to(MODELS.parent.parent.parent)}")
+        print(f"{args.command} {name}: {action(name).relative_to(MODELS.parent.parent.parent)}")  # noqa: T201 - a command line
 
 
 if __name__ == "__main__":

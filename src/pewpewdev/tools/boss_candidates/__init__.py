@@ -20,12 +20,12 @@ halo ring, engine nacelles, radiator panels, masts); medium (41 to 61 cubes wide
 banks, lights, and a paint scheme (plain, two-tone or glowing seams). Parts (11 kinds: turrets, cannons, generators,
 missile launchers, drills, missile pods, beam emitters, shield nodes, radar dishes, flak guns, claws), sized to the
 boss, up to 10 on the biggest, each on a socket. Everything is a real 3D model ("layers"), sculpted from its plan
-(pewpewdev/tools/candidates/shaping.py): a chamfered hull, higher on top than underneath, raised decks stacked on it with the bridge on
-top, recessed panel lines and hangar bays, thin wings and sponsons; each part stands on the core's surface where it
-is mounted, its barrels at half its height. As for the enemies (pewpewdev.tools.candidates), many more are
-made than kept, and the ones kept are the most different from each other (outline, size, family, parts).
+(pewpewdev/tools/candidates/shaping.py): a chamfered hull, higher on top than underneath, raised decks stacked on it
+with the bridge on top, recessed panel lines and hangar bays, thin wings and sponsons; each part stands on the core's
+surface where it is mounted, its barrels at half its height. As for the enemies (pewpewdev.tools.candidates), many
+more are made than kept, and the ones kept are the most different from each other (outline, size, family, parts).
 
 Each part in its own module: families/ (one module per family), appendages/ (one per appendage), core.py (the core's
-outline and details), part_kinds/ (one module per kind of part) and mounting.py (placing them), palette.py, shaping.py,
-selection.py and __main__.py.
+outline and details), part_kinds/ (one module per kind of part) and mounting.py (placing them), palette.py,
+shaping.py, selection.py and __main__.py.
 """

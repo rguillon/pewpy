@@ -3,8 +3,8 @@
 The plan says what each cell is (by its character); `Shaping` says what each character is in 3D (its role) and how
 big things get. Heights are in cubes, z up towards the camera (0 on the model's middle plane):
 - hull: a body whose height grows with the distance to its outline (`slope` cubes a cube inwards), so its edges are
-  chamfered and its middle is the thickest; the top rises higher than the underside goes down (ships are flat underneath), whose lowest cubes
-  are darker;
+  chamfered and its middle is the thickest; the top rises higher than the underside goes down (ships are flat
+  underneath), whose lowest cubes are darker;
 - raised (with a tier, 1 and up): stacked on the hull, each tier on the one below, chamfered the same way (spines,
   decks, bridges, cockpits, sensors);
 - seam: hull, but its top cube is missing (panel lines, hangar bays: recessed);
@@ -16,16 +16,16 @@ A raised cell's color is only on its top; below it, the hull's (`fill`).
 
 from collections import deque
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from pewpewdev.tools.candidates.canvas import Canvas  # it uses this module
+from pewpewdev.tools.candidates.canvas import Canvas
 
 Cells = dict[tuple[int, int, int], str]  # (column, row, layer) -> character; layers negative up (the game's)
 
 
 @dataclass(frozen=True)
 class Shaping:
+    """What each character of a plan is in 3D (its role), and how big things get."""
+
     roles: dict[str, str]  # character -> "hull", "seam", "wing", "pod", "gun" or "raised"
     tiers: dict[str, int] = field(default_factory=dict)  # a raised character's tier
     top: int = 2  # the hull's highest point above the middle plane...
@@ -42,7 +42,7 @@ class Shaping:
     plating: str = "hHN"  # which hull characters get the darker underside
 
 
-def distances(cv: Canvas, region: set[tuple[int, int]]) -> dict[tuple[int, int], int]:
+def distances(region: set[tuple[int, int]]) -> dict[tuple[int, int], int]:
     """How far each cell of `region` is from its outline: 1 next to a cell outside it, then 2..."""
     result: dict[tuple[int, int], int] = {}
     queue: deque[tuple[int, int]] = deque()
@@ -79,14 +79,14 @@ def _reach(region: set[tuple[int, int]], sources: set[tuple[int, int]]) -> dict[
 
 
 def sculpt(cv: Canvas, shaping: Shaping) -> tuple[Cells, dict[tuple[int, int], tuple[int, int]]]:
-    """The model's cubes, and each column's (bottom, top) heights (z up) for placing things on it."""
+    """Return the model's cubes, and each column's (bottom, top) heights (z up) for placing things on it."""
     role = {(x, y): shaping.roles.get(cv.get(x, y), "hull") for x, y in cv.cells_of(cv.rows_chars())}
     body = {cell for cell, kind in role.items() if kind in ("hull", "seam", "raised")}
     heights = _body_heights(cv, shaping, role, body)
     cells = _body_cells(cv, shaping, role, heights)
     _add_wings(cv, shaping, role, body, cells, heights)
     pods = {cell for cell, kind in role.items() if kind == "pod"}
-    for (x, y), d in distances(cv, pods).items():
+    for (x, y), d in distances(pods).items():
         half = min(shaping.pod, d)
         for z in range(-half, half + 1):
             cells[x, y, -z] = cv.get(x, y)
@@ -103,11 +103,11 @@ def _body_heights(
 ) -> dict[tuple[int, int], tuple[int, int]]:
     """Each body column's (bottom, top): the chamfered hull, with the raised tiers stacked on it."""
     heights: dict[tuple[int, int], tuple[int, int]] = {}
-    for cell, d in distances(cv, body).items():
+    for cell, d in distances(body).items():
         heights[cell] = (-min(shaping.bottom, (d + 1) // 2), min(shaping.top, shaping.edge + shaping.slope * (d - 1)))
     for tier in range(1, max(shaping.tiers.values(), default=0) + 1):
         region = {cell for cell in body if role[cell] == "raised" and shaping.tiers.get(cv.get(*cell), 1) >= tier}
-        for cell, d in distances(cv, region).items():
+        for cell, d in distances(region).items():
             bottom, top = heights[cell]
             heights[cell] = (bottom, top + min(shaping.tier_height, d))
     return heights
@@ -116,12 +116,13 @@ def _body_heights(
 def _body_cells(
     cv: Canvas, shaping: Shaping, role: dict[tuple[int, int], str], heights: dict[tuple[int, int], tuple[int, int]]
 ) -> Cells:
-    """The body's cubes (seams lose their top cube, in `heights` too)."""
+    """Return the body's cubes (seams lose their top cube, in `heights` too)."""
     cells: Cells = {}
-    for (x, y), (bottom, top) in heights.items():
+    for (x, y), (bottom, full_top) in heights.items():
         char = cv.get(x, y)
+        top = full_top
         if role[x, y] == "seam":
-            top = max(bottom, top - 1)
+            top = max(bottom, full_top - 1)
             heights[x, y] = (bottom, top)
         for z in range(bottom, top + 1):
             if role[x, y] == "raised" and z < top:
@@ -154,7 +155,7 @@ def _add_wings(
 
 
 def lifted(cells: Cells, by: int) -> Cells:
-    """The same cubes `by` cubes higher (towards the camera)."""
+    """Return the same cubes `by` cubes higher (towards the camera)."""
     return {(x, y, layer - by): char for (x, y, layer), char in cells.items()}
 
 

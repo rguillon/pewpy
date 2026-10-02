@@ -1,5 +1,6 @@
-"""The dev tools' screens, on top of the game's states (pewpy.game.states): each opens from the main menu and goes
-back to it.
+"""The dev tools' screens, on top of the game's states (pewpy.game.states).
+
+Each opens from the main menu and goes back to it.
 """
 
 from enum import Enum, auto
@@ -8,6 +9,8 @@ from pewpy.game.states import TRANSITIONS, State, Transitions
 
 
 class DevState(Enum):
+    """The dev tools' screens."""
+
     MODELS = auto()  # every ship and pickup on show, for working on the models
     BOSSES = auto()  # every boss on show, a world per page
     CANDIDATES = auto()  # numbered model candidates for new enemies (models/candidates), to pick from

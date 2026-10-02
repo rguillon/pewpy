@@ -6,7 +6,7 @@ from pewpewdev.tools.songs.writer import Writer, near
 
 
 def tune_pitch(writer: Writer, chord_tones: set[int], on_beat: bool) -> int:
-    """The next note of the tune: a chord note near the last one on the beat, else a step along the scale."""
+    """Pick the next note of the tune: a chord note near the last one on the beat, else a step along the scale."""
     previous = writer.last_tune
     scale = writer.scale()
     candidates = [pitch for pitch in scale if 67 <= pitch <= 86]
@@ -28,7 +28,7 @@ def make_motif(writer: Writer) -> list[tuple[float, float]]:
 
 
 def tune(writer: Writer, start: float, chords: list[tuple[int, tuple[int, ...]]], bars_per_chord: int) -> None:
-    """The lead's tune over the chorus: a motif four times, the third varied, the last ending on the tonic."""
+    """Write the lead's tune over the chorus: a motif four times, the third varied, the last ending on the tonic."""
     motif = make_motif(writer)
     variation = list(writer.rng.choice(RHYTHMS)) + [(4 + at, length) for at, length in motif if at >= 4]
     total_bars = len(chords) * bars_per_chord

@@ -1,3 +1,5 @@
+"""Run the game (`make run`), reporting a crash."""
+
 from pewpy import crash
 from pewpy.app import main
 

@@ -6,7 +6,7 @@ from pewpy.audio.midi.song import TICKS_PER_BEAT, Song
 
 
 def _variable(value: int) -> bytes:
-    """A MIDI variable-length number: 7 bits per byte, the high bit set on all but the last."""
+    """Write a MIDI variable-length number: 7 bits per byte, the high bit set on all but the last."""
     out = [value & 0x7F]
     value >>= 7
     while value:
@@ -20,7 +20,7 @@ def _ticks(beats: float) -> int:
 
 
 def _track(events: list[tuple[int, int, bytes]]) -> bytes:
-    """A track chunk from (tick, order, message) events; at the same tick, lower `order` first."""
+    """Write a track chunk from (tick, order, message) events; at the same tick, lower `order` first."""
     data = bytearray()
     now = 0
     for tick, _, message in sorted(events, key=lambda event: (event[0], event[1])):

@@ -9,6 +9,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a greenhouse: a glass house or a polytunnel."""
     x0, x1, y0, y1 = footprint(prop)
     wall = prop.base + prop.height * 0.35
     glass = varied(rng, c.glasshouse, 0.05)

@@ -6,6 +6,7 @@ from pewpewdev.tools.final_bosses.boss import BossSpec, final_boss
 
 
 def plan_boss(plan: dict[str, Any]) -> BossSpec:
+    """Make the boss a plan describes."""
     attacks = plan["attacks"]
     return final_boss(
         plan["name"],

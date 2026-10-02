@@ -10,9 +10,9 @@ from pewpy.graphics.models.types import Color
 
 
 def distant_planet_model(colors: tuple[Color, ...], seed: int = 7) -> NodePath:
-    """A big voxel planet with muted bands of `colors`; fits the unit box."""
+    """Make a big voxel planet with muted bands of `colors`; it fits the unit box."""
     radius = 9
-    rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
+    rng = random.Random(seed)
     band_colors = [rng.choice(colors) for _ in range(2 * radius + 1)]
     cells = {}
     for column in range(-radius, radius + 1):

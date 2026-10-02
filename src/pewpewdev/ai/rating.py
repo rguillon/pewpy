@@ -1,6 +1,7 @@
-"""Rating every level for every ship: how often the trained brain flying that ship clears it, by the game's rules (all its
-lives, the weapons at level 1), over RUNS runs that differ by their randomness. The rating is that clear rate: the
-lower, the harder the level.
+"""Rating every level for every ship: how often the trained brain flying that ship clears it.
+
+By the game's rules (all its lives, the weapons at level 1), over RUNS runs that differ by their randomness. The
+rating is that clear rate: the lower, the harder the level.
 """
 
 from collections.abc import Callable, Iterable
@@ -35,6 +36,8 @@ def places() -> tuple[tuple[str, Level], ...]:
 
 @dataclass(frozen=True)
 class Rating:
+    """How a level went for a ship over its runs."""
+
     place: str
     name: str
     clear_rate: float  # from 0 to 100: the share of runs that cleared the level, in %
@@ -49,6 +52,7 @@ def rate_run(task: tuple[np.ndarray, tuple[int, ...], str, int, int]) -> Outcome
 
 
 def summarize(place: str, level: Level, outcomes: list[Outcome]) -> Rating:
+    """Sum up a level's runs as its rating."""
     return Rating(
         place=place,
         name=level.name,
@@ -63,7 +67,7 @@ def rate(
     folder: Path,
     runs: int = RUNS,
     workers: int | None = None,
-    report: Callable[[str, Rating], None] = lambda ship, rating: None,
+    report: Callable[[str, Rating], None] = lambda _ship, _rating: None,
     stop: Callable[[], bool] = lambda: False,
     executor: Executor | None = None,
 ) -> dict[str, Any]:

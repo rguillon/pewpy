@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def big_wings(rng: Rng, cv: Canvas, mx: float, half: float, side: str) -> None:
+    """Draw big wings, swept back or forward."""
     root, sweep = rng.uniform(0.3, 0.6) * cv.h, rng.uniform(-0.2, 0.3) * cv.h
     chord = rng.uniform(0.15, 0.3) * cv.h
     tip = max(2.0, chord * rng.uniform(0.2, 0.5))

@@ -15,14 +15,14 @@ from pewpy.graphics.models.types import Palette
 
 
 def voxel_model(name: str, rows: list[str], palette: Palette) -> NodePath:
-    """A drawing's model, in world units: every cube is config.MODEL_VOXEL, the middle of the drawing at the origin."""
+    """Build a drawing's model in world units: every cube is config.MODEL_VOXEL, the drawing's middle at the origin."""
     mesh = MeshBuilder()
     mesh.voxels(rows, palette, config.MODEL_VOXEL)
     return NodePath(mesh.build(name))
 
 
 def drawing_model(name: str) -> NodePath:
-    """The drawing's voxel model, with a flame (a child node named "flame") for each of its engines."""
+    """Build the drawing's voxel model, with a flame (a child node named "flame") for each of its engines."""
     data, source = read_drawing(name)
     voxels = parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
     mesh = MeshBuilder()
@@ -34,8 +34,10 @@ def drawing_model(name: str) -> NodePath:
 
 
 def model(drawing: str) -> NodePath:
-    """The model of a drawing (models/<drawing>.json); the turret's and the tank's are built with a barrel the game
-    turns (see BUILT_MODELS). Models point down the screen (-Z), so the game can turn them with `facing_roll`.
+    """Return the model of a drawing (models/<drawing>.json).
+
+    The turret's and the tank's are built with a barrel the game turns (see BUILT_MODELS). Models point down the screen
+    (-Z), so the game can turn them with `facing_roll`.
     """
     built = BUILT_MODELS.get(drawing)
     return built() if built else drawing_model(drawing)

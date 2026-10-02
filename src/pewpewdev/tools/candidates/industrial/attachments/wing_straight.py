@@ -4,6 +4,7 @@ from pewpewdev.tools.candidates.canvas import Canvas, Rng
 
 
 def wing_straight(rng: Rng, cv: Canvas, edge: int, side: str) -> None:
+    """Draw a straight wing, narrower at its tip."""
     y, chord = rng.uniform(0.3, 0.7) * cv.h, rng.randint(2, 4)
     tip = max(1.0, chord * rng.uniform(0.3, 0.6))
     shift = (chord - tip) * 0.7

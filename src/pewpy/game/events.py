@@ -5,8 +5,9 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Event:
-    """Something the effects show (see graphics/effects/) or the sounds play (see audio/cues.py), collected during one
-    update.
+    """Something the effects show (see graphics/effects/) or the sounds play (see audio/cues.py).
+
+    Collected during one update.
 
     kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy
     kind like "drone", a drawing like "dart" or "warden", or "Player"), "blast" (a missile exploded, `size` = its splash

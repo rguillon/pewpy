@@ -15,7 +15,7 @@ ACCEL_TOP = 1.8  # ...up to this many times their speed
 
 
 def styled_bullet(gun: Gun, source: Entity, vx: float, vy: float, hostile: bool = True) -> Bullet:
-    """A bullet of the gun's style (or kind) from `source`, flying at (vx, vy) (an "accel" one starts slower)."""
+    """Make a bullet of the gun's style (or kind) from `source`, flying at (vx, vy) (an "accel" one starts slower)."""
     if gun.bullet == "missile":
         bullet: Bullet = Missile(
             homing=gun.homing > 0,

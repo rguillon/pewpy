@@ -19,6 +19,8 @@ SIDES = frozenset({"left", "right"})
 
 
 class LevelError(Exception):
+    """A level's file is wrong."""
+
     def __init__(self, source: str, problem: str) -> None:
         super().__init__(f"{source}: {problem}")
 
@@ -50,6 +52,8 @@ class Wave:
 
 @dataclass(frozen=True)
 class Spawn:
+    """An enemy to place: when, which, where, and from which side it comes in."""
+
     time: float
     enemy: str
     x: float
@@ -59,6 +63,8 @@ class Spawn:
 
 @dataclass(frozen=True)
 class Level:
+    """A level: its waves, how fast it scrolls and its scenery."""
+
     name: str
     scroll_speed: float
     waves: tuple[Wave, ...]
@@ -69,7 +75,7 @@ class Level:
     clouds: float = 0.0  # see-through clouds over the ground, from 0 (none) to 1 (the most)
 
     def scenery_params(self) -> SceneryParams:
-        """The background's preset with the level's changes."""
+        """Return the background's preset with the level's changes."""
         return params.resolve(self.background, self.scenery)
 
     def spawns(self) -> list[Spawn]:
@@ -179,7 +185,7 @@ def load_levels() -> list[Level]:
 
 
 def _number(name: str) -> int:
-    """The number in `world_3` or `level_12.json`."""
+    """Return the number in `world_3` or `level_12.json`."""
     return int(name.split("_", 1)[1].removesuffix(".json"))
 
 

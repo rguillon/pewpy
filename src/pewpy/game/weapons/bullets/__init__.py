@@ -1,6 +1,7 @@
-"""Every kind of shot (01-gameplay.md, 02-enemies.md "Enemy weapons"), each in its own module: the plain bullet,
-the player's missiles, snaking, accelerating and curving shots, and laser beams. The guns fire them (see
-pewpy.game.weapons.guns). Independent from rendering.
+"""Every kind of shot (01-gameplay.md, 02-enemies.md "Enemy weapons"), each in its own module.
+
+The plain bullet, the player's missiles, snaking, accelerating and curving shots, and laser beams. The guns fire
+them (see pewpy.game.weapons.guns). Independent from rendering.
 """
 
 from pewpy.game.weapons.bullets.accel import AccelBullet

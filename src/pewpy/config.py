@@ -1,7 +1,7 @@
-"""Tunable game constants: the window, the play area, the camera, the looks; and, read from `data/rules.json`,
-the game's rules.
+"""Tunable game constants: the window, the play area, the camera, the looks; and the game's rules.
 
-Values marked "placeholder" are not decided in the specs yet; they are marked *(placeholder)* in docs/specs/.
+The rules are read from `data/rules.json`. Values marked "placeholder" are not decided in the specs yet; they are
+marked *(placeholder)* in docs/specs/.
 """
 
 import json

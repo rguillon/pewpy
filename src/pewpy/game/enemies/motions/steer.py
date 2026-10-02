@@ -12,8 +12,9 @@ from pewpy.game.entities import Entity
 
 @dataclass(frozen=True)
 class Steer(Forward):
-    """Turn towards the player (`goal` "target") or straight down ("down"), at most `rate` radians per second
-    (narrowed with the screen if `widen`), flying at `speed`; `inside`: only once inside the screen.
+    """Turn towards the player (`goal` "target") or straight down ("down"), flying at `speed`.
+
+    At most `rate` radians per second (narrowed with the screen if `widen`); `inside`: only once inside the screen.
     """
 
     rate: float = 0.0
@@ -22,6 +23,7 @@ class Steer(Forward):
     inside: bool = False
 
     def apply(self, body: Body, dt: float, target: Entity, scroll_speed: float) -> None:
+        """Turn towards the goal, then fly the way it's heading."""
         rate = self.rate / config.WIDTH_SCALE if self.widen else self.rate
         if not self.inside or abs(body.x) <= HALF_WIDTH + body.width / 2:
             if self.goal == "down":

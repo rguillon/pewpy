@@ -1,7 +1,7 @@
-"""The AI screens' text (07-ai.md): the brain's learning progress with each ship over the AI playing, and the
-ratings table.
+"""The AI screens' text (07-ai.md).
 
-The texts are made by plain functions (`learning_text`, `rating_columns`); AIPanel only draws them.
+The brain's learning progress with each ship over the AI playing, and the ratings table. The texts are made by plain
+functions (`learning_text`, `rating_columns`); AIPanel only draws them.
 """
 
 from typing import Literal
@@ -27,6 +27,7 @@ NAME_WIDTH = 0.5
 
 
 def learning_text(report: Report | None, checks: Check, watching: str, error: str | None) -> str:
+    """Write the AI learning screen's text: the generation, then how far the brain gets with each ship."""
     lines = ["AI LEARNING  (Esc: stop, it goes on from here next time)", ""]
     if report is None:
         lines.append("One brain for every ship: starting")
@@ -47,6 +48,7 @@ def learning_text(report: Report | None, checks: Check, watching: str, error: st
 
 
 def rating_title(ships: list[str], runs: int, rating: str, saved_to: str, error: str | None) -> str:
+    """Write the AI rating screen's title and status."""
     if not ships:
         return "AI RATING\n\nNo ship has learned yet: start AI learning first.  (Esc: back)"
     head = f"AI RATING  clear rate in % over {runs} runs, the lower the harder  (Esc: stop)"
@@ -55,7 +57,7 @@ def rating_title(ships: list[str], runs: int, rating: str, saved_to: str, error:
 
 
 def rating_columns(places: list[tuple[str, str]], ships: list[str], table: dict[str, list[Rating]]) -> list[list[str]]:
-    """The table as columns of lines: for each half, the levels' places and names, then each ship's clear rates."""
+    """Return the table as columns of lines: for each half, the levels' places and names, then each ship's rates."""
     columns = []
     for start in range(0, len(places), ROWS_PER_COLUMN):
         half = places[start : start + ROWS_PER_COLUMN]
@@ -71,20 +73,25 @@ def rating_columns(places: list[tuple[str, str]], ships: list[str], table: dict[
 
 
 class AIPanel:
+    """The AI screens' text, drawn over the game."""
+
     def __init__(self, parent: NodePath) -> None:
         self.root = parent.attachNewNode("ai_panel")
         self.texts: list[OnscreenText] = []
         self.shown: list[str] = []
 
     def clear(self) -> None:
+        """Remove the texts."""
         for text in self.texts:
             text.destroy()
         self.texts, self.shown = [], []
 
     def show_learning(self, text: str) -> None:
+        """Show the AI learning screen's text."""
         self._show([(text, -1.2, 0.9, TextNode.ALeft, SCALE, TEXT_COLOR)])
 
     def show_rating(self, title: str, columns: list[list[str]], ships: int) -> None:
+        """Show the AI rating screen's title and table."""
         texts: list[tuple[str, float, float, TextAlign, float, Color]] = [
             (title, -1.2, 0.9, TextNode.ALeft, SCALE, TITLE_COLOR)
         ]

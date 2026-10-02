@@ -12,6 +12,7 @@ DEFAULT_OUT = DATA / "models" / "boss_candidates"
 
 
 def write(out: Path, number: int, candidate: dict) -> None:
+    """Write a candidate: its core's drawing, its parts' drawings (each once) and where the parts go."""
     name = f"{number:03d}"
     (out / f"{name}.json").write_text(json.dumps(candidate["core"], indent=2) + "\n")
     drawings: dict[str, str] = {}  # the same part drawing placed twice is written once
@@ -26,6 +27,7 @@ def write(out: Path, number: int, candidate: dict) -> None:
 
 
 def main() -> None:
+    """Generate the bosses the command line asks for and write them."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--count", type=int, default=200, help="how many bosses to write (default 40)")
     parser.add_argument("--seed", type=int, help="the same seed makes the same batch (default: a new one)")

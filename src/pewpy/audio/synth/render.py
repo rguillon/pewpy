@@ -1,5 +1,8 @@
 """Rendering a whole song, and writing it as a WAV file."""
 
+import io
+import wave
+
 import numpy as np
 
 from pewpy.audio.midi import DRUMS, Song
@@ -11,14 +14,16 @@ from pewpy.audio.synth.voices import play_note
 
 
 def place(target: FloatArray, sound: FloatArray, start: int) -> None:
+    """Add `sound` into `target` from sample `start` (what goes past its end is dropped)."""
     end = min(len(target), start + len(sound))
     if start < end:
         target[start:end] += sound[: end - start]
 
 
 def render(song: Song, loop: bool = True) -> FloatArray:
-    """`song` as stereo samples (count x 2, -1 to 1) at RATE. Looping, what rings past the end is wrapped onto the
-    start, so it loops without a seam.
+    """Render `song` as stereo samples (count x 2, -1 to 1) at RATE.
+
+    Looping, what rings past the end is wrapped onto the start, so it loops without a seam.
     """
     length = int(song.duration * RATE)
     count = length + int(TAIL * RATE)
@@ -55,10 +60,7 @@ def render(song: Song, loop: bool = True) -> FloatArray:
 
 
 def wav_bytes(samples: FloatArray, rate: int = RATE) -> bytes:
-    """Samples (-1 to 1; one column for mono, two for stereo) as a 16-bit WAV file."""
-    import io
-    import wave
-
+    """Write samples (-1 to 1; one column for mono, two for stereo) as a 16-bit WAV file."""
     channels = 1 if samples.ndim == 1 else samples.shape[1]
     pcm = (np.clip(samples, -1.0, 1.0) * 32767).astype("<i2")
     buffer = io.BytesIO()

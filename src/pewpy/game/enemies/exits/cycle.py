@@ -16,4 +16,5 @@ class Cycle(Condition):
     end: float
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the enemy's age is between `start` and `end` in its `period`."""
         return self.start <= body.age % self.period < self.end

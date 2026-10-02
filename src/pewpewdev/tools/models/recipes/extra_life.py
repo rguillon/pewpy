@@ -6,7 +6,7 @@ from pewpewdev.tools.models.sculpt import Model
 
 
 def extra_life() -> tuple[Model, list[dict] | None]:
-    """The extra life: a green gem with a little white ship standing on it."""
+    """Build the extra life: a green gem with a little white ship standing on it."""
     m = Model(12, 12, SCALE)
     m.materials["paint"] = (0.2, 0.8, 0.35)
     m.materials["paint_light"] = (0.45, 0.95, 0.55)

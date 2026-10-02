@@ -14,4 +14,5 @@ class Aligned(Condition):
     within: float
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the target is within `within` of the enemy, sideways."""
         return abs(target.x - body.x) <= self.within

@@ -1,5 +1,6 @@
-"""Running the particle effects (this package): plays them, moves their particles and the lasers' light; view.py
-draws them. Independent from Panda3D.
+"""Running the particle effects (this package): plays them, moves their particles and the lasers' light.
+
+view.py draws them. Independent from Panda3D.
 """
 
 import math
@@ -14,22 +15,26 @@ DRAG = 2.5  # how fast particles slow down, per second
 
 
 class ParticleSystem:
+    """The particles in play and the lasers' light."""
+
     def __init__(self, seed: int | None = None) -> None:
-        self.rng = random.Random(seed)  # noqa: S311 - visual randomness, not cryptography
+        self.rng = random.Random(seed)
         self.particles: list[Particle] = []
         self.light = LaserLight()
         self.time = 0.0
 
     def play(self, effect: Effect) -> None:
+        """Play an effect: add its particles (the oldest go beyond MAX_PARTICLES)."""
         self.particles += effect.particles(self.rng)
         if len(self.particles) > MAX_PARTICLES:
             del self.particles[: len(self.particles) - MAX_PARTICLES]
 
     def set_lasers(self, lasers: Sequence[LaserGlow], dt: float) -> None:
-        """The laser beams this frame (the player's, the enemies'), for their light."""
+        """Set the laser beams this frame (the player's, the enemies'), for their light."""
         self.light.set(lasers, dt, self.rng)
 
     def update(self, dt: float) -> None:
+        """Move the particles and the light on by `dt` seconds; the dead particles go."""
         self.time += dt
         self.light.update(dt, self.time)
         slow = math.exp(-DRAG * dt)
@@ -45,5 +50,6 @@ class ParticleSystem:
         self.particles = [particle for particle in self.particles if particle.age < particle.life]
 
     def clear(self) -> None:
+        """Remove every particle and the light."""
         self.particles = []
         self.light.clear()

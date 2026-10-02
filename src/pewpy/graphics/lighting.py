@@ -134,9 +134,9 @@ vec3 waves(vec3 n) {
 }
 
 void main() {
-    // The texture coordinates say what kind of face this is (see pewpy.graphics.models): 0 and up on voxel faces, counting
-    // cubes (mode 0), -2 to -1 for glowing faces like lit windows (GLOW_UVS, mode 1), -3.5 for water (WATER_UV,
-    // mode 2), -6 to -5 for burning faces like lava (BURN_UVS, mode 3).
+    // The texture coordinates say what kind of face this is (see pewpy.graphics.models): 0 and up on voxel faces,
+    // counting cubes (mode 0), -2 to -1 for glowing faces like lit windows (GLOW_UVS, mode 1), -3.5 for water
+    // (WATER_UV, mode 2), -6 to -5 for burning faces like lava (BURN_UVS, mode 3).
     float mode = v_uv.x >= 0.0 ? 0.0 : ceil(-v_uv.x / 2.0);
     float glow = float(mode == 1.0);
     float water = float(mode == 2.0);
@@ -191,8 +191,9 @@ def setup(base: ShowBase) -> None:
 
 
 def light(root: NodePath) -> None:
-    """A scene's lights (a soft ambient light and a sun) and the shiny shader, for everything under `root`: the
-    game's scene, or another one drawn the same way (the level select's preview).
+    """Light a scene: a soft ambient light and a sun, and the shiny shader, for everything under `root`.
+
+    `root` is the game's scene, or another one drawn the same way (the level select's preview).
     """
     ambient = AmbientLight("ambient")
     ambient.setColor((0.35, 0.35, 0.4, 1))

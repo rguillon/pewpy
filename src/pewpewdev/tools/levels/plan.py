@@ -6,6 +6,8 @@ from typing import Any
 
 @dataclass(frozen=True)
 class LevelPlan:
+    """What a level is to be: its name, its bosses and its sky."""
+
     name: str
     mini_boss: str  # halfway
     final_boss: str  # at the end
@@ -17,6 +19,8 @@ class LevelPlan:
 
 @dataclass(frozen=True)
 class WorldPlan:
+    """What a world is to be: its name, its ground and its levels."""
+
     name: str
     background: str  # its ground: a preset of levels/sceneries.json
     levels: tuple[LevelPlan, ...]

@@ -1,9 +1,9 @@
 """The smooth grounds' landscapes (relief.py): what every landscape and flora is; each one is in grounds/.
 
 A landscape makes the shape of a kind of ground, as heights and marks, looping along the rows. Its knobs are its own
-numbers, from the level's scenery (see pewpy.scenery.params); sizes are in world units (divided by the step to count grid
-points). Grounds with water, lava or the gaps of a cloud deck have them below height 0 (see relief.py); the marks are
-for the ground shader (shader/), their meaning depends on the landscape. A few landscapes also have sparse
+numbers, from the level's scenery (see pewpy.scenery.params); sizes are in world units (divided by the step to count
+grid points). Grounds with water, lava or the gaps of a cloud deck have them below height 0 (see relief.py); the
+marks are for the ground shader (shader/), their meaning depends on the landscape. A few landscapes also have sparse
 props, placed from their shape: a flora. The helpers below are shared by the landscapes.
 
 Numpy only, independent from Panda3D.
@@ -31,7 +31,7 @@ class Landscape(ABC):
 
     @abstractmethod
     def shape(self, rng: Generator, rows: int, columns: int, max_height: float, step: float, knobs: Knobs) -> Shape:
-        """The ground's shape, `rows` x `columns` points `step` apart, at most `max_height` high (world units)."""
+        """Shape the ground: `rows` x `columns` points `step` apart, at most `max_height` high (world units)."""
 
 
 class Flora(ABC):
@@ -41,7 +41,7 @@ class Flora(ABC):
 
     @abstractmethod
     def props(self, rng: random.Random, shape: Shape, step_x: float, step_y: float, knobs: Knobs) -> list[Prop]:
-        """The props, placed on `shape` (grid points `step_x` across and `step_y` down apart)."""
+        """Place the props on `shape` (grid points `step_x` across and `step_y` down apart)."""
 
 
 def noise(rng: Generator, rows: int, columns: int, size: float, step: float) -> FloatGrid:
@@ -56,13 +56,14 @@ def normalized(values: FloatGrid, low: float = 1.0, high: float = 99.5) -> Float
 
 
 def level_for_share(values: FloatGrid, share: float) -> float:
-    """The value above which `share` of the points lie."""
+    """Return the value above which `share` of the points lie."""
     return float(np.percentile(values, 100 * (1 - share)))
 
 
 def meander(rng: Generator, rows: int, columns: int, spacing: float, swing: float, step: float) -> FloatGrid:
-    """How far each point is from a river winding down the loop (world units): it swings from side to side, a
-    whole number of bends per loop.
+    """Return how far each point is from a river winding down the loop (world units).
+
+    The river swings from side to side, a whole number of bends per loop.
     """
     bends = max(1, round(rows * step / spacing))
     phase = rng.uniform(0, 2 * math.pi)

@@ -1,5 +1,6 @@
-"""Pipe racks: three to six pipes of different sizes (some in another metal) on supports, sometimes a loop rising
-over the rack.
+"""Pipe racks: three to six pipes of different sizes (some in another metal) on supports.
+
+Sometimes a loop rises over the rack.
 """
 
 import random
@@ -10,6 +11,7 @@ from pewpy.scenery.params import PropColors
 
 
 def build(mesh: PropMesh, rng: random.Random, prop: Prop, c: PropColors) -> None:
+    """Build a pipe rack."""
     x0, x1, y0, y1 = footprint(prop)
     z0, height = prop.base, prop.height
     along_y = (y1 - y0) > (x1 - x0)
@@ -66,7 +68,7 @@ def _pipe(
     radius: float,
     color: tuple[float, float, float],
 ) -> None:
-    """A pipe lying along the rack: a cylinder built upright, then turned over by swapping axes."""
+    """Add a pipe lying along the rack: a cylinder built upright, then turned over by swapping axes."""
     first = len(mesh.vertices)
     mesh.cylinder(0.0, 0.0, radius, 0.0, length, color, METAL, segments=8)
     x0, y0 = start

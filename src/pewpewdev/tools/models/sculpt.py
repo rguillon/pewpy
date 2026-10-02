@@ -42,6 +42,8 @@ PLATING = frozenset({"hull", "hull_light", "hull_dark"})
 
 @dataclass
 class Model:
+    """A model being sculpted: its footprint, its scale, its materials and its cubes."""
+
     width: int  # the footprint, in units
     height: int
     scale: int = 1  # cubes per unit
@@ -58,8 +60,9 @@ class Model:
         mirror: bool = True,
         only: Callable[[str | None], bool] | None = None,
     ) -> None:
-        """Every cube whose middle is `inside`, within `bounds` (x0, x1, y0, y1, z0, z1 in units), and its mirror
-        image. `only`: which cubes it may replace (by their material, None where empty).
+        """Fill every cube whose middle is `inside`, within `bounds` (x0, x1, y0, y1, z0, z1 in units), and mirror it.
+
+        `only`: which cubes it may replace (by their material, None where empty).
         """
         if material not in self.materials:
             raise KeyError(material)
@@ -84,7 +87,7 @@ class Model:
         material: str,
         mirror: bool = True,
     ) -> None:
-        """Unit cubes x[0] to x[1], y[0] to y[1], z[0] to z[1] (inclusive)."""
+        """Fill unit cubes x[0] to x[1], y[0] to y[1], z[0] to z[1] (inclusive)."""
         bounds = (x[0], x[1] + 1, y[0], y[1] + 1, z[0] - 0.5, z[1] + 0.5)
 
         def inside(px: float, py: float, pz: float) -> bool:
@@ -100,9 +103,10 @@ class Model:
         center: float | None = None,
         mirror: bool = True,
     ) -> None:
-        """A hull along y (from y[0] to y[1], in units), around x = `center` (default: the middle): at each point,
-        `section(t)` (t from 0 to 1 along it) gives (half width, top, bottom, chamfer), an octagon-like cross-section
-        with its corners cut by `chamfer`.
+        """Build a hull along y (from y[0] to y[1], in units), around x = `center` (default: the middle).
+
+        At each point, `section(t)` (t from 0 to 1 along it) gives (half width, top, bottom, chamfer), an octagon-like
+        cross-section with its corners cut by `chamfer`.
         """
         middle = self.width / 2 if center is None else center
         y0, y1 = y
@@ -125,7 +129,7 @@ class Model:
     def nacelle(
         self, x: float, y: tuple[float, float], z: float, radius: float, material: str, mirror: bool = True
     ) -> None:
-        """A pod along y, octagonal, around x and height z (units)."""
+        """Build a pod along y, octagonal, around x and height z (units)."""
 
         def inside(px: float, py: float, pz: float) -> bool:
             dx, dz = abs(px - x), abs(pz - z)
@@ -140,8 +144,9 @@ class Model:
         material: str,
         mirror: bool = True,
     ) -> None:
-        """A flat shape (a wing): inside the polygon `outline` ((x, y) corners, units), from z[0] to z[1]; `z` can
-        also depend on the place, (x, y) -> (bottom, top), for wings that rise or taper.
+        """Build a flat shape (a wing): inside the polygon `outline` ((x, y) corners, units), from z[0] to z[1].
+
+        `z` can also depend on the place, (x, y) -> (bottom, top), for wings that rise or taper.
         """
         xs, ys = [p[0] for p in outline], [p[1] for p in outline]
         if isinstance(z, tuple):
@@ -167,7 +172,7 @@ class Model:
     def fin(
         self, x: float, outline: list[tuple[float, float]], material: str, thickness: float = 0.5, mirror: bool = True
     ) -> None:
-        """An upright plate at x: `outline` is its side view ((y, z) corners, units)."""
+        """Build an upright plate at x: `outline` is its side view ((y, z) corners, units)."""
         ys, zs = [p[0] for p in outline], [p[1] for p in outline]
 
         def inside(px: float, py: float, pz: float) -> bool:
@@ -185,6 +190,7 @@ class Model:
                 self.cells[i, j, k] = material
 
     def carve(self, where: Inside) -> None:
+        """Remove the cubes whose middle is in `where`."""
         s = self.scale
         for i, j, k in list(self.cells):
             if where((i + 0.5) / s, (j + 0.5) / s, k / s + 1e-6):
@@ -193,7 +199,7 @@ class Model:
     # -- details
 
     def tops(self) -> dict[tuple[int, int], int]:
-        """The highest cube of each column."""
+        """Return the highest cube of each column."""
         result: dict[tuple[int, int], int] = {}
         for i, j, k in self.cells:
             if k > result.get((i, j), -(10**6)):
@@ -201,9 +207,11 @@ class Model:
         return result
 
     def finish(self, seams: Iterable[float] = (), keep: frozenset[str] = frozenset()) -> None:
-        """Panel seams across the hull at rows `seams` (units: the top cube of each plated column there is recessed a
-        cube, darker), lighter top edges where the hull drops away, darker undersides. Materials in `keep` (glass,
-        lights, paint...) are left alone.
+        """Add panel seams, lighter top edges and darker undersides.
+
+        Panel seams go across the hull at rows `seams` (units: the top cube of each plated column there is recessed a
+        cube, darker); lighter top edges where the hull drops away. Materials in `keep` (glass, lights, paint...) are
+        left alone.
         """
         s = self.scale
         tops = self.tops()
@@ -230,8 +238,9 @@ class Model:
     # -- writing out
 
     def drawing(self, engines: list[dict] | None = None) -> dict:
-        """The game's 3D drawing: layers from the top (nearest the camera) down, the middle one on z = 0. Engines
-        are given in units and written in the drawing's cubes.
+        """Return the game's 3D drawing: layers from the top (nearest the camera) down, the middle one on z = 0.
+
+        Engines are given in units and written in the drawing's cubes.
         """
         s = self.scale
         used = sorted(set(self.cells.values()))
@@ -254,12 +263,14 @@ class Model:
         return result
 
     def save(self, path: Path, engines: list[dict] | None = None) -> None:
+        """Write the model's drawing to `path`."""
         path.write_text(_dump(self.drawing(engines)) + "\n")
 
 
 def _scaled_engine(engine: dict, scale: int) -> dict:
-    """An engine in units -> in the drawing's cubes (a cube's middle: unit column 5 is cubes 10 and 11 at scale 2,
-    so its middle is 10.5).
+    """Return an engine in units in the drawing's cubes.
+
+    A cube's middle: unit column 5 is cubes 10 and 11 at scale 2, so its middle is 10.5.
     """
     result = dict(engine)
     for key in ("x", "y"):

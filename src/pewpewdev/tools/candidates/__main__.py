@@ -12,6 +12,7 @@ DEFAULT_OUT = DATA / "models" / "candidates"
 
 
 def main() -> None:
+    """Generate the candidates the command line asks for and write them."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--count", type=int, default=500, help="how many to write (default 200)")
     parser.add_argument("--kind", choices=MIXES, default="all", help="aircraft, industrial or all (default)")

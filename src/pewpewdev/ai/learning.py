@@ -1,5 +1,6 @@
-"""Teaching the brain to play every level with every ship, by evolution strategies (evolution.py): one brain flies
-all the ships, seeing which one it flies (sensors.py).
+"""Teaching the brain to play every level with every ship, by evolution strategies (evolution.py).
+
+One brain flies all the ships, seeing which one it flies (sensors.py).
 
 Each generation, every try of the population plays the same runs, one per ship, each on a level drawn among the
 worlds open to it, with one life; its fitness is the mean of its runs' (episode.py). The tries play in worker
@@ -67,6 +68,7 @@ def check_level(task: tuple[np.ndarray, tuple[int, ...], str, int, int]) -> tupl
 
 
 def default_workers() -> int:
+    """Return how many worker processes to use: the cores but one."""
     return max(1, (os.cpu_count() or 2) - 1)
 
 
@@ -75,6 +77,8 @@ Check = dict[str, tuple[float, float]]  # for each ship: the share of levels the
 
 @dataclass(frozen=True)
 class Report:
+    """How a generation went."""
+
     generation: int
     best: float  # the best try's fitness
     mean: float
@@ -92,7 +96,7 @@ class Learner:
         saved = files.load_training(folder)
         self.training = saved or files.Training(Brain.random(np.random.default_rng(seed), HIDDEN))
         # Levels to play, not cryptography; a resumed training draws new ones, not the start's again.
-        self.rng = random.Random(seed * 1_000_003 + self.training.generation)  # noqa: S311
+        self.rng = random.Random(seed * 1_000_003 + self.training.generation)
         self.evolution = Evolution(
             self.training.brain.weights.copy(), np.random.default_rng(seed + self.training.generation)
         )
@@ -100,9 +104,11 @@ class Learner:
 
     @property
     def brain(self) -> Brain:
+        """Return the brain being trained."""
         return self.training.brain
 
     def step(self) -> Report:
+        """Play a generation: every try plays the runs, the evolution steps; check the brain every CHECK_EVERY."""
         levels = open_levels(self.training.worlds)
         runs = tuple((ship, self.rng.randrange(levels), self.rng.randrange(1_000_000)) for ship in self.ships)
         nudges, tries = self.evolution.ask()
@@ -130,8 +136,10 @@ class Learner:
         return Report(self.training.generation, record["best"], record["mean"], checks, self.training.worlds)
 
     def check(self) -> Check:
-        """For each ship, the share of levels the brain clears (one life each) and how far into them it gets on
-        average; opens the next world when it gets far enough into the open ones."""
+        """Check the brain: for each ship, the share of levels it clears (one life each) and how far into them it gets.
+
+        Opens the next world when the brain gets far enough into the open ones.
+        """
         weights, hidden = self.brain.weights, self.brain.hidden
         count = len(_levels())
         tasks = [(weights, hidden, ship, index, index) for ship in self.ships for index in range(count)]
@@ -147,6 +155,7 @@ class Learner:
         }
 
     def save(self) -> None:
+        """Save the brain and its training's progress."""
         files.save_training(self.folder, self.training)
 
 
@@ -158,10 +167,12 @@ def learn(
     report: Callable[[Report], None] = print,
     stop: Callable[[], bool] = lambda: False,
     executor: Executor | None = None,
-    on_brain: Callable[[Brain], None] = lambda brain: None,
+    on_brain: Callable[[Brain], None] = lambda _brain: None,
 ) -> None:
-    """Train the brain with `ships` for `generations` more generations (0: until stopped); `on_brain` gets the
-    brain after each generation."""
+    """Train the brain with `ships` for `generations` more generations (0: until stopped).
+
+    `on_brain` gets the brain after each generation.
+    """
     with executor or ProcessPoolExecutor(max_workers=workers or default_workers()) as pool:
         learner = Learner(ships, folder, pool)
         done = 0

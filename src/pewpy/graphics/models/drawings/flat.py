@@ -1,7 +1,5 @@
 """A flat drawing: rows of characters, each color given a thickness."""
 
-from typing import Any
-
 from pewpy.graphics.models.drawings.errors import VoxelDrawingError
 from pewpy.graphics.models.drawings.voxels import EMPTY, OPTIONAL_DRAWING_KEYS
 from pewpy.graphics.models.types import Color, Palette
@@ -10,10 +8,12 @@ DRAWING_KEYS = {"rows", "palette"}  # a flat drawing, each color given a thickne
 PALETTE_KEYS = {"color", "height"}
 
 
-def parse_drawing(data: Any, source: str = "drawing") -> tuple[list[str], Palette]:
-    """A drawing file: "rows" (the drawing, one string per row, "." or " " for no voxel) and "palette" (for each
-    character, its "color" as red, green, blue from 0 to 1 and its "height": how many voxels thick it is, odd).
-    It can also have "engines" (see `parse_engines`).
+def parse_drawing(data: object, source: str = "drawing") -> tuple[list[str], Palette]:
+    """Read a drawing file: "rows" and "palette".
+
+    "rows": the drawing, one string per row, "." or " " for no voxel. "palette": for each character, its "color" as red,
+    green, blue from 0 to 1 and its "height": how many voxels thick it is, odd. It can also have "engines" (see
+    `parse_engines`).
     """
     if not isinstance(data, dict) or not DRAWING_KEYS <= set(data) <= DRAWING_KEYS | OPTIONAL_DRAWING_KEYS:
         keys = f"{sorted(DRAWING_KEYS)} and maybe {sorted(OPTIONAL_DRAWING_KEYS)}"
@@ -32,7 +32,8 @@ def parse_drawing(data: Any, source: str = "drawing") -> tuple[list[str], Palett
     return rows, palette
 
 
-def palette_entry(char: str, entry: Any, source: str) -> tuple[Color, int]:
+def palette_entry(char: str, entry: object, source: str) -> tuple[Color, int]:
+    """Read a palette entry: the character's color and height."""
     where = f"palette {char!r}"
     if len(char) != 1 or char in EMPTY:
         raise VoxelDrawingError.malformed(source, f"{where}: must be one character, not '.' or ' '")

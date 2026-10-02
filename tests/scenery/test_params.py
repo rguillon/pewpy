@@ -1,28 +1,37 @@
 import re
+from typing import Any
 
 import pytest
 
 from pewpy.scenery import params
+from pewpy.scenery.ground import kinds, shader
 from pewpy.scenery.params import SceneryError, merge, reader, resolve
 
 GROUNDS = [name for name in params.backgrounds() if params.resolve(name).ground is not None]
 
 
-def test_every_preset_is_complete_and_checked():
+def test_every_preset_is_complete_and_checked() -> None:
     for name in params.backgrounds():
         scenery = resolve(name)
         assert scenery.name == name
     assert "default" not in params.backgrounds()
 
 
-def test_presets_draw_what_they_have():
+def test_presets_draw_what_they_have() -> None:
     space, debris, city = resolve("space"), resolve("debris"), resolve("city")
-    assert space.stars and space.nebulas and space.planet and not space.ground
-    assert debris.stars and debris.rocks and not debris.nebulas
-    assert city.ground and city.settlement and not city.stars
+    assert space.stars
+    assert space.nebulas
+    assert space.planet
+    assert not space.ground
+    assert debris.stars
+    assert debris.rocks
+    assert not debris.nebulas
+    assert city.ground
+    assert city.settlement
+    assert not city.stars
 
 
-def test_a_level_changes_merge_over_its_preset_key_by_key():
+def test_a_level_changes_merge_over_its_preset_key_by_key() -> None:
     base = {"ground": {"depth": 0.5, "colors": {"a": [1, 1, 1], "b": [0, 0, 0]}}, "flora": None}
     over = {"ground": {"colors": {"a": [0, 0, 1]}}, "flora": {"kind": "palms"}}
     assert merge(base, over) == {
@@ -31,14 +40,15 @@ def test_a_level_changes_merge_over_its_preset_key_by_key():
     }
 
 
-def test_a_change_reaches_the_scenery():
+def test_a_change_reaches_the_scenery() -> None:
     scenery = resolve("desert", {"haze": {"amount": 0.1}, "ground": {"shape": {"dune_spacing": 0.8}}})
     assert scenery.haze.amount == 0.1
     assert scenery.haze.color == resolve("desert").haze.color  # the rest stays
-    assert scenery.ground is not None and scenery.ground.shape["dune_spacing"] == 0.8
+    assert scenery.ground is not None
+    assert scenery.ground.shape["dune_spacing"] == 0.8
 
 
-def test_naming_another_landscape_takes_its_own_numbers_not_the_old_ones():
+def test_naming_another_landscape_takes_its_own_numbers_not_the_old_ones() -> None:
     scenery = resolve("ocean", {"ground": {"landscape": "clouds", "shape": {"cover": 0.5, "size": 0.9}}})
     assert scenery.ground is not None
     assert scenery.ground.shape == {"cover": 0.5, "size": 0.9}
@@ -47,11 +57,12 @@ def test_naming_another_landscape_takes_its_own_numbers_not_the_old_ones():
     assert scenery.ground.colors == ocean.colors  # the painter is the same: its colors stay
 
 
-def test_a_ground_can_be_given_to_a_preset_without_one():
+def test_a_ground_can_be_given_to_a_preset_without_one() -> None:
     city = resolve("city")
     assert city.ground is not None
     scenery = resolve("space", {"ground": {**params.presets()["planet"]["ground"]}})
-    assert scenery.ground is not None and scenery.ground.landscape == "hills"
+    assert scenery.ground is not None
+    assert scenery.ground.landscape == "hills"
 
 
 @pytest.mark.parametrize(
@@ -77,19 +88,17 @@ def test_a_ground_can_be_given_to_a_preset_without_one():
         ("city", {"settlement": {"kind": 3}}, "city.settlement.kind: expected a name"),
     ],
 )
-def test_mistakes_are_reported_with_where_they_are(background, changes, message):
+def test_mistakes_are_reported_with_where_they_are(background: str, changes: dict[str, Any], message: str) -> None:
     with pytest.raises(SceneryError, match=re.escape(message)):
         resolve(background, changes)
 
 
-def test_a_type_the_reader_does_not_know_is_reported():
+def test_a_type_the_reader_does_not_know_is_reported() -> None:
     with pytest.raises(SceneryError, match=re.escape("can't read a <class 'bytes'>")):
         reader._convert(bytes, "x", "ground.depth")
 
 
-def test_every_style_and_settlement_lists_its_colors():
-    from pewpy.scenery.ground import kinds, shader
-
+def test_every_style_and_settlement_lists_its_colors() -> None:
     assert set(params.STYLE_COLORS) >= set(shader.STYLES)
     assert set(params.SURFACE_COLORS) == set(kinds.SETTLEMENTS)
     for names in params.SURFACE_COLORS.values():
@@ -98,7 +107,7 @@ def test_every_style_and_settlement_lists_its_colors():
 
 
 @pytest.mark.parametrize("name", GROUNDS)
-def test_every_ground_stays_behind_the_ships(name):
+def test_every_ground_stays_behind_the_ships(name: str) -> None:
     ground = params.resolve(name).ground
     assert ground is not None
     assert ground.depth - ground.max_height > 0.1  # the ships fly at depth 0 and are about 0.1 deep

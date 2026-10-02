@@ -1,5 +1,6 @@
-"""Learning and rating in the background while the game shows them (the AI learning and AI rating screens): each
-runs in a thread of its own, its worker processes doing the playing; the game reads where it is at every frame.
+"""Learning and rating in the background while the game shows them (the AI learning and AI rating screens).
+
+Each runs in a thread of its own, its worker processes doing the playing; the game reads where it is at every frame.
 """
 
 import threading
@@ -24,9 +25,11 @@ class Session:
         self.thread = threading.Thread(target=self._run, name=type(self).__name__, daemon=True)
 
     def start(self) -> None:
+        """Start the work in its thread."""
         self.thread.start()
 
     def stop(self, wait: float = 0.0) -> None:
+        """Ask the work to stop; wait up to `wait` seconds for it."""
         self.stopping.set()
         if wait and self.thread.is_alive():
             self.thread.join(wait)
@@ -34,12 +37,13 @@ class Session:
     def _run(self) -> None:
         try:
             self.work()
-        except Exception as error:
+        except Exception as error:  # noqa: BLE001 - shown on the AI screen instead of killing the thread
             self.error = f"{type(error).__name__}: {error}"
         finally:
             self.done = True
 
     def work(self) -> None:
+        """Do the work, in the session's thread, until it's done or asked to stop."""
         raise NotImplementedError
 
 
@@ -62,6 +66,7 @@ class LearningSession(Session):
                 self.checks = {ship: (r["cleared"], r["progress"]) for ship, r in checks[-1]["ships"].items()}
 
     def work(self) -> None:
+        """Train the brain until stopped."""
         learn(
             self.ships,
             0,
@@ -84,6 +89,7 @@ class LearningSession(Session):
             self.current = brain
 
     def brain(self) -> Brain | None:
+        """Return the brain as it is so far (None before the first generation)."""
         with self.lock:
             return self.current
 
@@ -98,7 +104,7 @@ class RatingSession(Session):
         runs: int,
         workers: int | None = None,
         executor: Executor | None = None,
-        on_rating: Callable[[str, Rating], None] = lambda ship, rating: None,
+        on_rating: Callable[[str, Rating], None] = lambda _ship, _rating: None,
     ) -> None:
         super().__init__()
         self.folder, self.runs, self.workers, self.executor, self.on_rating = folder, runs, workers, executor, on_rating
@@ -107,6 +113,7 @@ class RatingSession(Session):
         self.saved = False
 
     def work(self) -> None:
+        """Rate every level for every ship."""
         if not self.ships:
             return
         rate(
@@ -126,5 +133,6 @@ class RatingSession(Session):
         self.on_rating(ship, rating)
 
     def table(self) -> dict[str, list[Rating]]:
+        """Return the ratings so far, for each ship."""
         with self.lock:
             return {ship: list(ratings) for ship, ratings in self.ratings.items()}

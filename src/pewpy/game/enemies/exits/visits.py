@@ -14,4 +14,5 @@ class Visits(Condition):
     count: int
 
     def holds(self, body: Body, target: Entity) -> bool:
+        """Tell whether the enemy entered its state at least `count` times."""
         return body.visits >= self.count

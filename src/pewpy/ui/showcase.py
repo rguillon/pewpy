@@ -18,6 +18,8 @@ TURN_SPEED = 6.0  # degrees per second, the whole circle
 
 
 class ModelShowcase:
+    """Models on show in a turning circle, each with its name."""
+
     def __init__(
         self,
         entries: list[tuple[str, NodePath]],
@@ -26,12 +28,14 @@ class ModelShowcase:
         radius: float = RADIUS,
         stretch: float = 1.0,
     ) -> None:
-        """`entries`: (name, model) pairs; the models are copied, so they can be shared with the game. `size`: how
-        big a 1 x 1 x 1 model is drawn; `radius`: the circle's, up and down; `stretch`: how much wider it is across
-        (on a wide screen, an ellipse uses the room on the sides).
+        """Place the models around the circle.
 
-        The circle hangs in front of the camera, facing it, so it's round and centered on the screen (the game's
-        camera is tilted: on the play plane it would look squashed). The models go round it slowly, staying upright.
+        `entries`: (name, model) pairs; the models are copied, so they can be shared with the game. `size`: how big a 1
+        x 1 x 1 model is drawn; `radius`: the circle's, up and down; `stretch`: how much wider it is across (on a wide
+        screen, an ellipse uses the room on the sides).
+
+        The circle hangs in front of the camera, facing it, so it's round and centered on the screen (the game's camera
+        is tilted: on the play plane it would look squashed). The models go round it slowly, staying upright.
         """
         self.root = camera.attachNewNode("showcase")
         self.root.setY(DISTANCE)
@@ -61,6 +65,7 @@ class ModelShowcase:
         self.update(0.0)
 
     def update(self, dt: float) -> None:
+        """Turn the circle and spin the models."""
         self.time += dt
         turn = -math.radians(self.time * TURN_SPEED)  # clockwise
         for angle, slot, spinner in zip(self.angles, self.slots, self.spinners, strict=True):
@@ -69,6 +74,7 @@ class ModelShowcase:
             spinner.setH(self.time * SPIN_SPEED)
 
     def destroy(self) -> None:
+        """Remove the showcase's nodes."""
         self.root.removeNode()
 
     def _label(self, name: str) -> TextNode:
