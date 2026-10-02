@@ -59,6 +59,10 @@ models: ## Remodel ships in real 3D from their recipes in src/pewpewdev/tools/mo
 voxels: ## Move a model between flat, 3D (layered) and MagicaVoxel forms (ARGS="export drone", "use drone", "layers drone")
 	@uv run python -m pewpewdev.tools.voxels $(ARGS)
 
+.PHONY: screenshots
+screenshots: ## Save a screenshot of every world in docs/screenshots/ (how each is shot: SHOTS in src/pewpewdev/tools/screenshots/), without a window
+	@uv run python -m pewpewdev.tools.screenshots $(ARGS)
+
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"
