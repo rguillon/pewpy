@@ -2,7 +2,7 @@
   "name": "Reedwater",
   "scroll_speed": 0.229,
   "background": "swamp",
-  "background_seed": 1086,
+  "background_seed": 2725,
   "clouds": 0.15,
   "scenery": {
     "ground": {
@@ -14,85 +14,6 @@
   "waves": [
     {
       "time": 2.0,
-      "enemy": "mite",
-      "count": 3,
-      "formation": "line",
-      "spacing": 0.75,
-      "x": 0.0
-    },
-    {
-      "time": 3.0,
-      "enemy": "kestrel",
-      "count": 2,
-      "formation": "column",
-      "interval": 1.2,
-      "side": "right",
-      "y": 0.55
-    },
-    {
-      "time": 5.9,
-      "enemy": "splitter",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.33
-    },
-    {
-      "time": 7.4,
-      "enemy": "mine_layer",
-      "count": 1,
-      "formation": "column",
-      "side": "left",
-      "y": 0.7
-    },
-    {
-      "time": 8.8,
-      "enemy": "dart",
-      "count": 6,
-      "formation": "column",
-      "interval": 0.4,
-      "x": -0.5
-    },
-    {
-      "time": 8.8,
-      "enemy": "stalker",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.33,
-      "x": 0.0
-    },
-    {
-      "time": 8.8,
-      "enemy": "sniper",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.67
-    },
-    {
-      "time": 10.1,
-      "enemy": "rapier",
-      "count": 1,
-      "formation": "column",
-      "interval": 0.8,
-      "x": 0.5
-    },
-    {
-      "time": 10.1,
-      "enemy": "mine_layer",
-      "count": 1,
-      "formation": "column",
-      "side": "right",
-      "y": 0.7
-    },
-    {
-      "time": 11.5,
-      "enemy": "rocketeer",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.17,
-      "x": 0.0
-    },
-    {
-      "time": 13.2,
       "enemy": "dart",
       "count": 5,
       "formation": "column",
@@ -100,7 +21,52 @@
       "x": 0.58
     },
     {
-      "time": 15.1,
+      "time": 3.6,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.15
+    },
+    {
+      "time": 3.6,
+      "enemy": "buckshot",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 4.9,
+      "enemy": "serpent",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.7
+    },
+    {
+      "time": 4.9,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 6.4,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 8.1,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 9.3,
       "enemy": "dart",
       "count": 5,
       "formation": "column",
@@ -108,7 +74,7 @@
       "x": -0.5
     },
     {
-      "time": 16.6,
+      "time": 11.1,
       "enemy": "outrider",
       "count": 2,
       "formation": "line",
@@ -116,62 +82,69 @@
       "x": 0.0
     },
     {
-      "time": 16.6,
-      "enemy": "sniper",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.67
-    },
-    {
-      "time": 18.2,
-      "enemy": "rapier",
+      "time": 13.1,
+      "enemy": "hunter",
       "count": 1,
       "formation": "column",
-      "interval": 0.8,
-      "x": 0.5
+      "x": -0.45
     },
     {
-      "time": 19.3,
-      "enemy": "kestrel",
+      "time": 13.1,
+      "enemy": "dart",
+      "count": 6,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.5
+    },
+    {
+      "time": 15.0,
+      "enemy": "outrider",
       "count": 2,
-      "formation": "column",
-      "interval": 1.2,
-      "side": "right",
-      "y": 0.55
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
     },
     {
-      "time": 19.3,
+      "time": 17.2,
       "enemy": "mine_layer",
       "count": 1,
       "formation": "column",
       "side": "left",
-      "y": 0.7
+      "y": 0.3
     },
     {
-      "time": 20.4,
-      "enemy": "rapier",
+      "time": 18.4,
+      "enemy": "serpent",
       "count": 2,
       "formation": "column",
-      "interval": 1.0,
-      "x": 0.5
+      "interval": 0.8,
+      "x": -0.75
     },
     {
-      "time": 22.2,
-      "enemy": "rocketeer",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.17,
-      "x": 0.0
-    },
-    {
-      "time": 23.9,
-      "enemy": "sniper",
+      "time": 20.1,
+      "enemy": "mine_layer",
       "count": 1,
-      "formation": "line",
-      "spacing": 1.67
+      "formation": "column",
+      "side": "left",
+      "y": 0.5
     },
     {
-      "time": 25.1,
+      "time": 20.1,
+      "enemy": "hunter",
+      "count": 1,
+      "formation": "column",
+      "x": -0.45
+    },
+    {
+      "time": 20.1,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.5
+    },
+    {
+      "time": 21.5,
       "enemy": "rapier",
       "count": 3,
       "formation": "column",
@@ -179,39 +152,71 @@
       "x": -0.5
     },
     {
-      "time": 28.2,
-      "enemy": "rocketeer",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.17,
-      "x": 0.0
-    },
-    {
-      "time": 29.9,
-      "enemy": "rocketeer",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.17,
-      "x": 0.0
-    },
-    {
-      "time": 31.8,
+      "time": 25.3,
       "enemy": "mine_layer",
       "count": 1,
       "formation": "column",
-      "side": "right",
-      "y": 0.4
+      "side": "left",
+      "y": 0.5
     },
     {
-      "time": 32.8,
-      "enemy": "outrider",
-      "count": 2,
+      "time": 27.0,
+      "enemy": "buckshot",
+      "count": 1,
       "formation": "line",
       "spacing": 1.33,
       "x": 0.0
     },
     {
-      "time": 34.5,
+      "time": 28.2,
+      "enemy": "serpent",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.0
+    },
+    {
+      "time": 30.0,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.6
+    },
+    {
+      "time": 31.2,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.4
+    },
+    {
+      "time": 32.6,
+      "enemy": "dart",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 34.7,
+      "enemy": "buckshot",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 36.0,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 36.0,
       "enemy": "outrider",
       "count": 2,
       "formation": "line",
@@ -221,29 +226,26 @@
     {
       "time": 36.0,
       "enemy": "rapier",
-      "count": 3,
+      "count": 1,
       "formation": "column",
       "interval": 0.8,
-      "x": -0.5
+      "x": 0.5
     },
     {
-      "time": 39.7,
-      "enemy": "stalker",
-      "count": 2,
-      "formation": "line",
-      "spacing": 0.83,
-      "x": 0.0
-    },
-    {
-      "time": 41.1,
-      "enemy": "rapier",
-      "count": 3,
+      "time": 36.0,
+      "enemy": "mine_layer",
+      "count": 1,
       "formation": "column",
-      "interval": 0.8,
-      "x": -0.5
+      "side": "right",
+      "y": 0.4
     },
     {
-      "time": 43.0,
+      "time": 37.3,
+      "enemy": "albatross",
+      "x": 0.33
+    },
+    {
+      "time": 38.7,
       "enemy": "rapier",
       "count": 1,
       "formation": "column",
@@ -251,7 +253,22 @@
       "x": 0.5
     },
     {
-      "time": 44.0,
+      "time": 40.0,
+      "enemy": "dart",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 41.6,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 43.1,
       "enemy": "outrider",
       "count": 2,
       "formation": "line",
@@ -259,7 +276,7 @@
       "x": 0.0
     },
     {
-      "time": 45.1,
+      "time": 44.3,
       "enemy": "outrider",
       "count": 2,
       "formation": "line",
@@ -267,7 +284,23 @@
       "x": 0.0
     },
     {
-      "time": 46.2,
+      "time": 45.6,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 46.8,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 48.0,
       "enemy": "rapier",
       "count": 3,
       "formation": "column",
@@ -276,6 +309,71 @@
     },
     {
       "time": 48.0,
+      "enemy": "rapier",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.5
+    },
+    {
+      "time": 54.0,
+      "enemy": "clamp_barge"
+    },
+    {
+      "time": 57.0,
+      "enemy": "dart",
+      "count": 6,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 59.2,
+      "enemy": "albatross",
+      "x": -0.33
+    },
+    {
+      "time": 59.2,
+      "enemy": "splitter",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 60.8,
+      "enemy": "albatross",
+      "x": -0.33
+    },
+    {
+      "time": 62.0,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 63.9,
+      "enemy": "albatross",
+      "x": 0.33
+    },
+    {
+      "time": 65.1,
+      "enemy": "splitter",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 65.1,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 67.9,
       "enemy": "outrider",
       "count": 2,
       "formation": "line",
@@ -283,8 +381,205 @@
       "x": 0.0
     },
     {
-      "time": 54.0,
-      "enemy": "clamp_barge"
+      "time": 69.6,
+      "enemy": "hornet",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.9,
+      "x": 0.0
+    },
+    {
+      "time": 71.6,
+      "enemy": "albatross",
+      "x": 0.33
+    },
+    {
+      "time": 72.7,
+      "enemy": "kestrel",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.55
+    },
+    {
+      "time": 72.7,
+      "enemy": "splitter",
+      "count": 4,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.0
+    },
+    {
+      "time": 76.3,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.5
+    },
+    {
+      "time": 78.5,
+      "enemy": "albatross",
+      "x": 0.33
+    },
+    {
+      "time": 79.6,
+      "enemy": "kestrel",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.55
+    },
+    {
+      "time": 79.6,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 82.1,
+      "enemy": "kestrel",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.55
+    },
+    {
+      "time": 84.7,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 86.8,
+      "enemy": "hornet",
+      "count": 3,
+      "formation": "column",
+      "interval": 0.9,
+      "x": 0.0
+    },
+    {
+      "time": 88.5,
+      "enemy": "tick",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 89.6,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 89.6,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 89.6,
+      "enemy": "hornet",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.9,
+      "x": -0.33
+    },
+    {
+      "time": 92.4,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
+    },
+    {
+      "time": 95.2,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.5
+    },
+    {
+      "time": 97.1,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 97.1,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 98.4,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 99.6,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 100.8,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 101.9,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 103.0,
+      "enemy": "outrider",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 103.0,
+      "enemy": "rapier",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.0,
+      "x": 0.5
+    },
+    {
+      "time": 109.0,
+      "enemy": "mirelord"
     }
   ]
 }

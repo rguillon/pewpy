@@ -185,6 +185,259 @@
     {
       "time": 54.0,
       "enemy": "sentinel"
+    },
+    {
+      "time": 57.0,
+      "enemy": "drone",
+      "count": 5,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 57.0,
+      "enemy": "dart",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 58.8,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 61.1,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 62.5,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 63.9,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 66.2,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 66.2,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 69.0,
+      "enemy": "diver",
+      "count": 4,
+      "formation": "line",
+      "spacing": 0.5
+    },
+    {
+      "time": 71.8,
+      "enemy": "dart",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 73.3,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 74.9,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 76.0,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 77.3,
+      "enemy": "mite",
+      "count": 2,
+      "formation": "line",
+      "spacing": 0.67,
+      "x": 0.0
+    },
+    {
+      "time": 78.4,
+      "enemy": "dart",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.5
+    },
+    {
+      "time": 80.5,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.67
+    },
+    {
+      "time": 83.6,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83
+    },
+    {
+      "time": 85.9,
+      "enemy": "dart",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 87.2,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 87.2,
+      "enemy": "mite",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.75,
+      "x": 0.0
+    },
+    {
+      "time": 88.7,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 90.4,
+      "enemy": "weaver",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 90.4,
+      "enemy": "weaver",
+      "count": 6,
+      "formation": "column",
+      "interval": 0.38,
+      "x": 0.67
+    },
+    {
+      "time": 92.4,
+      "enemy": "drone",
+      "count": 4,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 94.9,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "line",
+      "spacing": 1.33
+    },
+    {
+      "time": 96.3,
+      "enemy": "gunship",
+      "count": 1,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 97.7,
+      "enemy": "weaver",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.67
+    },
+    {
+      "time": 99.1,
+      "enemy": "weaver",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 99.1,
+      "enemy": "dart",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.5
+    },
+    {
+      "time": 100.3,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 101.7,
+      "enemy": "dart",
+      "count": 5,
+      "formation": "column",
+      "interval": 0.4,
+      "x": -0.5
+    },
+    {
+      "time": 103.0,
+      "enemy": "diver",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.58
+    },
+    {
+      "time": 103.0,
+      "enemy": "drone",
+      "count": 6,
+      "formation": "column",
+      "x": -0.67
+    },
+    {
+      "time": 109.0,
+      "enemy": "avalanche"
     }
   ]
 }

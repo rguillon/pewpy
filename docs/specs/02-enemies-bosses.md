@@ -6,8 +6,10 @@
 
 ## Bosses
 
-> Placeholders chosen by Claude: the rules in `src/pewpy/game/bosses.py`, every boss in
-> `src/pewpy/game/boss_catalog.py`. Every level ends with its own boss (see `03-levels.md`), harder through each world.
+> Placeholders chosen by Claude: the rules in `src/pewpy/game/bosses.py`, the mini bosses in
+> `src/pewpy/game/boss_catalog.py`, the final bosses in `src/pewpy/game/final_bosses.py`. Every level has two bosses
+> of its own (see `03-levels.md`): a mini boss halfway (the "Boss: ..." sections below) and a bigger, harder final
+> boss at the end (see "Final bosses"), harder through each world.
 
 General rules for every boss:
 
@@ -34,7 +36,15 @@ General rules for every boss:
 - Guns: each belongs to the core or to a part and stops when its part is destroyed. Patterns: aimed (at the
   player), fan (around straight down, sometimes swinging left and right) and ring (all around; fired fast while
   turning, it makes a spiral), sometimes several shots in a row. Pink bullets, and big orange "heavy" ones
-  (0.05 across).
+  (0.05 across); also blue "sniper" shots, small pellets (0.022), violet shots snaking across their line of flight
+  (like the Serpent's), cyan "accel" shots (starting at 35% of their speed, speeding up by 90% of it per second, up
+  to 1.8 times it) and yellow "curve" shots (their path bending by 35° per second for 1.5 s, then straight on).
+- Projectiles: a gun can launch rockets, homing missiles or cluster bombs (see `02-enemies.md`) in its pattern's
+  directions instead of shots.
+- Lasers: a laser gun fires red beams straight down from under its core or part, past the bottom of the screen, 0.07
+  wide, for 1 to 1.4 s; the beams follow the boss as it sways. Each beam is announced 1 s before by a thin harmless
+  red beam (0.008 wide, see-through) where it will be, so the player knows it's time to move *(the user's idea)*.
+  A beam vanishes when its core or part is destroyed.
 - Ramming a boss or one of its parts: the player takes 2 damage, the boss isn't hurt.
 - Hits make it brighter for a moment instead of white (it's shot at all the time).
 
@@ -915,3 +925,96 @@ General rules for every boss:
 - Weak points: both generators and both cannons
 - Time limit? No
 - Points: 10000
+
+## Final bosses
+
+> Placeholders chosen by Claude, not playtested: `src/pewpy/game/final_bosses.py`.
+
+Each level ends with a final boss, after its mini boss (see `03-levels.md`): bigger (0.5 to 0.77 wide, about half
+the screen for the last ones) and harder, with more parts and four phases. Same general rules as every boss (see
+"Bosses" above).
+
+- Looks: boss candidates (`make boss-candidates`, see `04-ui-audio.md`) in real 3D, among the biggest, the bigger
+  for the later levels: their core in `src/pewpy/models/<name>.json`, their parts' drawings in
+  `<name>_a.json`, `<name>_b.json`... Each hitbox is its drawing's size.
+- Health, for a level of difficulty d (1 to 20): the core 110 + 14 (d - 1), each part 16 + 1.6 (d - 1) (rounded).
+  Points: the core 4000 + 400 d, each part 300 + 30 d.
+- Four attacks each (see the table): the front parts', the back parts', the core's and its rage's. Each attack gets
+  faster and denser with the difficulty (at d 1 → at d 20):
+    - aimed: 3 → 5 heavy shots in a row at the player every 1.6 → 1.1 s, speed 0.6 → 0.75
+    - sniper: 2 → 4 blue shots in a row at the player every 1.5 → 1.1 s, speed 0.85 → 0.95
+    - fan: 5 → 9 shots 12° apart, swinging 25° left and right, every 1.8 → 1.3 s, speed 0.45 → 0.55
+    - ring: 12 → 20 all around, turning, every 2 → 1.4 s, speed 0.38 → 0.46
+    - spiral: a 2 → 4-arm spiral (every 0.16 → 0.12 s), speed 0.42 → 0.48
+    - wave: 3 → 5 snaking shots 20° apart every 1.6 → 1.2 s, speed 0.45 → 0.55
+    - accel: 5 accelerating shots 8° apart at the player every 1.8 → 1.3 s, speed 0.55 → 0.7
+    - curve: a ring of 8 → 12 curving shots every 1.8 → 1.3 s, speed 0.35 → 0.4
+    - pellets: 7 → 11 pellets 6° apart at the player every 1.6 → 1.2 s, speed 0.6 → 0.7
+    - laser: a beam (two, a quarter of the core's width either side of its middle, from the core) every 4.5 → 3 s,
+      for 1 → 1.4 s, after its 1 s warning
+    - missiles: 2 homing missiles 40° apart every 3.5 → 2.5 s
+    - rockets: 3 rockets 25° apart every 2.6 → 1.8 s
+    - cluster: 2 → 3 cluster bombs 30° apart every 3 → 2.2 s
+- Parts: the front ones are the kinds of parts nearest the bottom of the screen (half of the kinds, rounded up), the
+  back ones the others. A group of parts fires its attack in turn, part after part, about as often in all as two
+  parts would (the more parts, the slower each).
+- Phases (sway 0.08 + 0.004 d):
+    1. Until the front parts are destroyed, the core is armored: they fire the front attack (and from d 8 the core
+       fires "aimed" too)
+    2. Until the back parts are destroyed, the core is armored: they fire the back attack, the core its attack
+       (skipped when all the parts are front ones)
+    3. Down to 50% of the core's health, sways 0.03 faster: the core fires its attack and the rage attack
+    4. Until the end, sways 0.06 faster: the core fires the rage attack, the front attack and a spiral (a ring
+       below d 6)
+- Weak points: every part. Time limit? No.
+
+| Level | Final boss | Level name | After the mini boss | Candidate | Size | Parts x health | Core health | Attacks (front, back, core, rage) | Points |
+|-------|------------|------------|---------------------|-----------|------|----------------|-------------|-----------------------------------|--------|
+| 1-1 | Avalanche | High Peaks | Sentinel | #167 | 0.5 x 0.287 | 6 x 16 | 110 | fan, aimed, laser, ring | 4400 |
+| 1-2 | Frostjaw | Pine Ridge | Thresher | #187 | 0.513 x 0.287 | 8 x 18 | 124 | pellets, fan, wave, ring | 4800 |
+| 1-3 | Iron Summit | Glacier Pass | Prowler | #070 | 0.547 x 0.313 | 4 x 19 | 138 | aimed, rockets, laser, fan | 5200 |
+| 1-4 | Stormpeak | Stormcrest | Pulsar | #179 | 0.54 x 0.327 | 9 x 21 | 152 | wave, ring, curve, spiral | 5600 |
+| 1-5 | Ridgebreaker | Dusk Peaks | Rockbreaker | #064 | 0.5 x 0.353 | 6 x 22 | 166 | rockets, pellets, laser, fan | 6000 |
+| 1-6 | Highlord | Summit | Warden | #068 | 0.567 x 0.327 | 7 x 24 | 180 | aimed, cluster, laser, curve | 6400 |
+| 2-1 | Ironbark | Greenwood | Patrol Drone | #063 | 0.5 x 0.373 | 11 x 19 | 138 | fan, accel, ring, pellets | 5200 |
+| 2-2 | Thornback | Riverbend | Cyclone | #163 | 0.5 x 0.393 | 5 x 21 | 152 | pellets, curve, laser, wave | 5600 |
+| 2-3 | Rootmaw | Deep Canopy | Siege Pod | #040 | 0.68 x 0.293 | 7 x 22 | 166 | rockets, wave, accel, spiral | 6000 |
+| 2-4 | Wildfire | Autumn Wood | Delta Raider | #034 | 0.54 x 0.373 | 6 x 24 | 180 | accel, fan, laser, curve | 6400 |
+| 2-5 | Grovekeeper | Twilight Grove | Breacher | #002 | 0.553 x 0.367 | 11 x 26 | 194 | curve, missiles, ring, laser | 6800 |
+| 2-6 | Old Growth | Moonlit Woods | Harvester | #131 | 0.553 x 0.367 | 6 x 27 | 208 | wave, rockets, laser, accel | 7200 |
+| 3-1 | Bogmaw | Mire | Turbine | #099 | 0.527 x 0.387 | 6 x 22 | 166 | wave, pellets, curve, ring | 6000 |
+| 3-2 | Mirelord | Reedwater | Clamp Barge | #085 | 0.52 x 0.4 | 7 x 24 | 180 | missiles, fan, laser, wave | 6400 |
+| 3-3 | Fenwraith | Mistmarsh | Spire | #165 | 0.513 x 0.413 | 5 x 26 | 194 | curve, accel, wave, spiral | 6800 |
+| 3-4 | Hydra | Sunken Bog | Twin Fang | #138 | 0.58 x 0.373 | 5 x 27 | 208 | wave, cluster, laser, curve | 7200 |
+| 3-5 | Marsh Titan | Witchlight | Frigate | #028 | 0.607 x 0.373 | 9 x 29 | 222 | pellets, missiles, accel, laser | 7600 |
+| 3-6 | Drowned King | Fogbound Fen | Tidebreaker | #109 | 0.567 x 0.427 | 9 x 30 | 236 | curve, wave, laser, missiles | 8000 |
+| 4-1 | Scarecrow | Harvest Dusk | Picket | #042 | 0.64 x 0.4 | 8 x 26 | 194 | pellets, rockets, fan, laser | 6800 |
+| 4-2 | Combine | Golden Fields | Bulwark | #074 | 0.673 x 0.387 | 11 x 27 | 208 | fan, accel, laser, cluster | 7200 |
+| 4-3 | Locust | Lavender Rows | Borer | #083 | 0.7 x 0.387 | 10 x 29 | 222 | missiles, pellets, curve, spiral | 7600 |
+| 4-4 | Granary | Orchard Country | Silo Hauler | #066 | 0.607 x 0.447 | 10 x 30 | 236 | cluster, aimed, laser, wave | 8000 |
+| 4-5 | Harrowmaster | Hay Moon | Bastion | #010 | 0.647 x 0.427 | 9 x 32 | 250 | accel, rockets, laser, curve | 8400 |
+| 4-6 | Black Harvest | Last Harvest | Reaper | #103 | 0.74 x 0.373 | 10 x 34 | 264 | curve, missiles, laser, accel | 8800 |
+| 5-1 | Maelstrom | Archipelago | Enforcer | #024 | 0.66 x 0.427 | 10 x 29 | 222 | wave, curve, ring, laser | 7600 |
+| 5-2 | Man O' War | Coral Shoals | Hive Carrier | #039 | 0.633 x 0.447 | 8 x 30 | 236 | missiles, wave, laser, pellets | 8000 |
+| 5-3 | Typhoon | Sunset Isles | Hover Tank | #003 | 0.687 x 0.413 | 8 x 32 | 250 | curve, accel, wave, laser | 8400 |
+| 5-4 | Tsunami | Open Sea | Cryo Fortress | #096 | 0.527 x 0.553 | 8 x 34 | 264 | wave, cluster, laser, spiral | 8800 |
+| 5-5 | Abyssal | Squall Line | Sentry Grid | #058 | 0.607 x 0.493 | 7 x 35 | 278 | sniper, missiles, curve, laser | 9200 |
+| 5-6 | Kraken | Dark Tide | Leviathan | #102 | 0.5 x 0.6 | 4 x 37 | 292 | wave, rockets, laser, curve | 9600 |
+| 6-1 | Mesa | Red Canyon | Relay Array | #152 | 0.713 x 0.433 | 10 x 32 | 250 | rockets, sniper, laser, fan | 8400 |
+| 6-2 | Dust Devil | Sandstone Gorge | Scavenger | #191 | 0.72 x 0.44 | 12 x 34 | 264 | curve, pellets, spiral, accel | 8800 |
+| 6-3 | Landslide | Dry Riverbed | Mine Carrier | #183 | 0.74 x 0.467 | 10 x 35 | 278 | cluster, rockets, laser, wave | 9200 |
+| 6-4 | Basilisk | Canyon Dusk | Foundry | #048 | 0.573 x 0.607 | 6 x 37 | 292 | accel, sniper, laser, curve | 9600 |
+| 6-5 | Sandworm | Switchbacks | Gunship Prime | #094 | 0.607 x 0.573 | 9 x 38 | 306 | missiles, wave, curve, laser | 10000 |
+| 6-6 | Monolith | The Narrows | Colossus | #031 | 0.553 x 0.633 | 8 x 40 | 320 | sniper, cluster, laser, accel | 10400 |
+| 7-1 | Furnace | Refinery | Grappler | #158 | 0.733 x 0.48 | 10 x 35 | 278 | fan, rockets, laser, pellets | 9200 |
+| 7-2 | Smokestack | Tank Farm | Tugmaster | #156 | 0.66 x 0.533 | 8 x 37 | 292 | cluster, accel, curve, laser | 9600 |
+| 7-3 | Slag King | Smelter | Magma Rig | #047 | 0.593 x 0.6 | 10 x 38 | 306 | pellets, missiles, laser, wave | 10000 |
+| 7-4 | Forgemaster | Pipe Maze | Dreadnought | #084 | 0.673 x 0.54 | 10 x 40 | 320 | rockets, sniper, laser, curve | 10400 |
+| 7-5 | Inferno | Flare Stacks | Flare Rig | #043 | 0.607 x 0.613 | 8 x 42 | 334 | curve, cluster, laser, accel | 10800 |
+| 7-6 | Reactor | Meltdown | Crucible | #049 | 0.647 x 0.593 | 10 x 43 | 348 | accel, missiles, laser, wave | 11200 |
+| 8-1 | Neon Tyrant | Neon City | Executor | #110 | 0.687 x 0.6 | 4 x 38 | 306 | sniper, accel, laser, curve | 10000 |
+| 8-2 | Gridlock | Downtown | Interdictor | #186 | 0.673 x 0.613 | 11 x 40 | 320 | missiles, pellets, laser, wave | 10400 |
+| 8-3 | Blackout | Skyline | Nightwatch | #081 | 0.707 x 0.587 | 8 x 42 | 334 | curve, rockets, laser, accel | 10800 |
+| 8-4 | Skybreaker | Neon Rain | Arc Tower | #072 | 0.767 x 0.553 | 11 x 43 | 348 | wave, sniper, laser, cluster | 11200 |
+| 8-5 | Sovereign | Night Grid | Apex | #121 | 0.74 x 0.607 | 8 x 45 | 362 | accel, missiles, laser, curve | 11600 |
+| 8-6 | Singularity | The Core | Overmind | #155 | 0.767 x 0.6 | 7 x 46 | 376 | curve, cluster, laser, spiral | 12000 |

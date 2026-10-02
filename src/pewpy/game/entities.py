@@ -41,6 +41,7 @@ class Bullet(Entity):
     style: str = "normal"  # how to draw it, e.g. "sniper" for the Sniper's shots
     life: float | None = None  # seconds before it vanishes by itself (a laser beam); None: until it leaves the screen
     pierces: bool = False  # True: goes on after hitting (a laser beam)
+    harmless: bool = False  # True: only shows something coming (a laser's warning beam), never hits
 
     def move(self, dt: float) -> None:
         super().move(dt)

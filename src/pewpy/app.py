@@ -72,6 +72,7 @@ from pewpy.game.enemies import (
     Weaver,
 )
 from pewpy.game.entities import Bullet, Entity, Pickup
+from pewpy.game.final_bosses import FINAL_BOSSES
 from pewpy.game.fleet import FLEET
 from pewpy.game.level import Level, load_worlds
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
@@ -200,11 +201,17 @@ HEAVY_BULLET_COLOR: Color = (1.0, 0.55, 0.15, 1)  # big shots: bosses, Rocket Tr
 LASER_FLICKER = 0.12  # the player's laser beam's width flickers by this share
 BEAM_COLOR: Color = (1.0, 0.35, 0.25, 1)  # the Lancer's laser beam
 WAVE_BULLET_COLOR: Color = (0.75, 0.45, 1.0, 1)  # the Serpent's snaking shots
+ACCEL_BULLET_COLOR: Color = (0.3, 0.95, 1.0, 1)  # bosses' shots speeding up
+CURVE_BULLET_COLOR: Color = (1.0, 0.9, 0.3, 1)  # bosses' shots on bending paths
+WARNING_BEAM_COLOR: Color = (1.0, 0.35, 0.25, 0.6)  # a boss's laser about to fire: thin, harmless
 BULLET_COLORS: dict[str, Color] = {
     "sniper": SNIPER_BULLET_COLOR,
     "heavy": HEAVY_BULLET_COLOR,
     "beam": BEAM_COLOR,
+    "warning": WARNING_BEAM_COLOR,
     "wave": WAVE_BULLET_COLOR,
+    "accel": ACCEL_BULLET_COLOR,
+    "curve": CURVE_BULLET_COLOR,
 }  # by Bullet.style; enemy shots of any other style (the Buckshot's pellets too) are pink
 ARMORED_SHADE: Color = (0.55, 0.55, 0.62, 1)  # a boss's core, darker while shots bounce off it
 HIT_SHADE: Color = (1.6, 1.6, 1.6, 1)  # bosses light up when hit (white would hide them: they're shot all the time)
@@ -561,8 +568,8 @@ class PewPewApp(ShowBase):
                     self._boss_model(drawing)
 
     def _showcase_titles(self) -> list[str]:
-        """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's one per
-        world.
+        """The pages of the screen being shown: the Models screen's (see MODEL_PAGES), the Bosses screen's two per
+        world (its mini bosses, then its final bosses).
         """
         if self.states.state in (State.CANDIDATES, State.BOSS_CANDIDATES):
             bosses = self.states.state is State.BOSS_CANDIDATES
@@ -575,8 +582,12 @@ class PewPewApp(ShowBase):
             ]
         if self.states.state is not State.BOSSES:
             return list(MODEL_PAGES)
-        count = len(self.worlds)
-        return [f"{world.name} ({index + 1}/{count})" for index, world in enumerate(self.worlds)]
+        count = 2 * len(self.worlds)
+        return [
+            f"{world.name}: {kind} ({2 * index + offset + 1}/{count})"
+            for index, world in enumerate(self.worlds)
+            for offset, kind in enumerate(("mini bosses", "final bosses"))
+        ]
 
     def _showcase_page(self, index: int) -> tuple[list[tuple[str, NodePath]], float, float]:
         """A page's (name, model) pairs, how big the models are drawn and the circle's radius. Only this page's
@@ -591,8 +602,14 @@ class PewPewApp(ShowBase):
             return [self._boss_candidate(name) for name in names], SHOWCASE_BOSS_CANDIDATE_SIZE, SHOWCASE_BOSS_RADIUS
         if self.states.state is not State.BOSSES:
             return self._showcase_entries(list(MODEL_PAGES)[index]), showcase.MODEL_SIZE, showcase.RADIUS
-        world = self.worlds[index]
-        specs = [BOSSES[wave.enemy] for level in world.levels for wave in level.waves if wave.enemy in BOSSES]
+        world = self.worlds[index // 2]
+        final = index % 2 == 1
+        specs = [
+            BOSSES[wave.enemy]
+            for level in world.levels
+            for wave in level.waves
+            if wave.enemy in BOSSES and (wave.enemy in FINAL_BOSSES) == final
+        ]
         entries = [(spec.name.title(), self._whole_boss(spec)) for spec in specs]
         return entries, SHOWCASE_BOSS_SIZE, SHOWCASE_BOSS_RADIUS
 
@@ -1274,7 +1291,7 @@ def _bullet_sprite(bullet: Entity) -> Sprite:
     """
     if isinstance(bullet, Bullet) and bullet.hostile:
         color = BULLET_COLORS.get(bullet.style, ENEMY_BULLET_COLOR)
-        if bullet.style == "beam":  # as long as the beam itself: only its sides fade out
+        if bullet.style in ("beam", "warning"):  # as long as the beam itself: only its sides fade out
             return Sprite(bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height, color)
     else:
         color = PLAYER_BULLET_COLOR

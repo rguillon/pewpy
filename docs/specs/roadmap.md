@@ -42,4 +42,7 @@
 
 - [x] AI player: learns to play by itself and rates every level for every ship (`07-ai.md`)
 - [x] Secondary weapons from enemy drops: a turret and a lightning gun, lost instead of health when hit (`01-gameplay.md`)
+- [x] Longer levels in two halves, the second harder: the old bosses as mini bosses halfway, a bigger final boss per
+  level; bosses' new shots (accel, curve, pellets, snaking, projectiles) and lasers announced by a warning beam
+  (`03-levels.md`, `02-enemies-bosses.md`)
 - TBD

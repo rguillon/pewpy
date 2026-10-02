@@ -8,10 +8,14 @@
 Each world keeps one ground (one background preset) on all its levels; its levels only change that ground's
 numbers: time of day, clouds, haze, layout seed, the preset's shape and layout knobs, a few colors. Each level has
 a difficulty: level L of world W is 2 (W - 1) + L, so a world's first level is as hard as the level 3 of the world
-before. The difficulty sets the scroll speed, the size of the groups, the level's threat (its enemies' points, spread
-over about 48 s: the harder, the denser) and which enemies come (each enemy has the difficulty it unlocks at).
-A level: a warm-up wave, the main waves, then a finale of its signature enemies close together, and its boss 6 s
-after the last wave.
+before. The difficulty sets the scroll speed, the size of the groups, the threat of each half of the level (its
+enemies' points, spread over about 46 s: the harder, the denser) and which enemies come (each enemy has the difficulty
+it unlocks at).
+
+A level has two halves, each a warm-up wave, the main waves, then a finale of its signature enemies close together,
+and a boss 6 s after its last wave: the level's mini boss after the first half, its final boss after the second. The
+second half is harder: its groups and its threat are those of a level SECOND_HALF_HARDER steps harder. The waves'
+clock stops while a boss is fought (see World.wave_time), so the second half waits for the mini boss.
 """
 
 import argparse
@@ -29,16 +33,19 @@ DEFAULT_SEED = 2024
 # Difficulty: 1 (the first level) to 20 (the last one).
 MAX_DIFFICULTY = 20
 SCROLL_SPEED = (0.2, 0.31)  # at the easiest and the hardest level
-THREAT = (8600, 22500)  # a level's enemies, in points, at the easiest and the hardest level...
+THREAT = (8600, 22500)  # a half level's enemies, in points, at the easiest and the hardest level...
 THREAT_CURVE = 0.6  # ...rising fast at first, then slower
 GROWTH = 1.073  # groups are this much bigger for each step of difficulty
 KINDS = (6, 17)  # how many kinds of enemies a level sends
-LEVEL_TIME = 48.0  # seconds of waves (the boss comes after)
+FIRST_WAVE = 2.0  # seconds into the level
+HALF_TIME = 46.0  # seconds from a half's first wave to its last (then comes its boss)
+SECOND_HALF_HARDER = 2  # the second half is as hard as a level this much harder (bigger groups, more of them)
+AFTER_MINI_BOSS = 3.0  # seconds from the mini boss's arrival on the waves' clock (it stops while a boss is fought)
 TWIN_WAVES = (0.15, 0.35)  # the share of waves sent together with the one before
 MIN_GAP = 0.8  # seconds between waves, at least
 FINALE_SHARE = 0.2  # the last part of the threat: the signature enemies...
 FINALE_PACE = 0.6  # ...closer together
-BOSS_DELAY = 6.0
+BOSS_DELAY = 6.0  # seconds after a half's last wave
 LINE_SPAN = 2.1  # a line of enemies across the screen is at most this wide (the play area is 2.5)
 SIDE_SPAN = 1.0  # ...and a line coming in from a side at most this tall
 WARM_UP = ("drone", "weaver", "dart", "mite")  # easy first waves
@@ -380,7 +387,8 @@ SHAPES: dict[str, tuple[dict[str, Any], ...]] = {
 @dataclass(frozen=True)
 class LevelPlan:
     name: str
-    boss: str
+    mini_boss: str  # halfway
+    final_boss: str  # at the end
     time_of_day: str = "day"
     clouds: float = 0.0
     seed: int = 0  # the background's layout (0: one of its own)
@@ -400,23 +408,39 @@ WORLDS = (
         "Highlands",
         "mountains",
         (
-            LevelPlan("High Peaks", "sentinel", clouds=0.6, seed=2828),
+            LevelPlan("High Peaks", "sentinel", "avalanche", clouds=0.6, seed=2828),
             LevelPlan(
                 "Pine Ridge",
                 "thresher",
+                "frostjaw",
                 clouds=0.15,
                 scenery={"ground": {"shape": {"range_size": 1.4, "crest_size": 0.5}}},
             ),
             LevelPlan(
                 "Glacier Pass",
                 "prowler",
+                "iron_summit",
                 clouds=0.4,
                 scenery={"haze": {"amount": 0.55}, "ground": {"colors": {"snow": [0.46, 0.48, 0.53]}}},
             ),
-            LevelPlan("Stormcrest", "pulsar", clouds=0.85, scenery={"ground": {"shape": {"crest_size": 0.75}}}),
-            LevelPlan("Dusk Peaks", "rockbreaker", "dusk", 0.3, scenery={"ground": {"shape": {"range_size": 0.9}}}),
             LevelPlan(
-                "Summit", "warden", "night", 0.5, scenery={"ground": {"shape": {"range_size": 1.2, "crest_size": 0.7}}}
+                "Stormcrest", "pulsar", "stormpeak", clouds=0.85, scenery={"ground": {"shape": {"crest_size": 0.75}}}
+            ),
+            LevelPlan(
+                "Dusk Peaks",
+                "rockbreaker",
+                "ridgebreaker",
+                "dusk",
+                0.3,
+                scenery={"ground": {"shape": {"range_size": 0.9}}},
+            ),
+            LevelPlan(
+                "Summit",
+                "warden",
+                "highlord",
+                "night",
+                0.5,
+                scenery={"ground": {"shape": {"range_size": 1.2, "crest_size": 0.7}}},
             ),
         ),
     ),
@@ -424,22 +448,25 @@ WORLDS = (
         "Wildwood",
         "forest",
         (
-            LevelPlan("Greenwood", "patrol_drone", clouds=0.5, seed=1111),
+            LevelPlan("Greenwood", "patrol_drone", "ironbark", clouds=0.5, seed=1111),
             LevelPlan(
                 "Riverbend",
                 "cyclone",
+                "thornback",
                 clouds=0.2,
                 scenery={"ground": {"shape": {"river_spacing": 1.8, "river_width": 0.16}}},
             ),
             LevelPlan(
                 "Deep Canopy",
                 "siege_pod",
+                "rootmaw",
                 clouds=0.35,
                 scenery={"ground": {"shape": {"canopy_size": 1.1, "river_spacing": 4.0}}},
             ),
             LevelPlan(
                 "Autumn Wood",
                 "delta_raider",
+                "wildfire",
                 clouds=0.3,
                 scenery={
                     "ground": {
@@ -451,28 +478,47 @@ WORLDS = (
                     }
                 },
             ),
-            LevelPlan("Twilight Grove", "breacher", "dusk", 0.8, scenery={"ground": {"shape": {"canopy_size": 0.7}}}),
-            LevelPlan("Moonlit Woods", "harvester", "night", 0.25),
+            LevelPlan(
+                "Twilight Grove",
+                "breacher",
+                "grovekeeper",
+                "dusk",
+                0.8,
+                scenery={"ground": {"shape": {"canopy_size": 0.7}}},
+            ),
+            LevelPlan("Moonlit Woods", "harvester", "old_growth", "night", 0.25),
         ),
     ),
     WorldPlan(
         "Fenlands",
         "swamp",
         (
-            LevelPlan("Mire", "turbine", clouds=0.6, seed=1212),
-            LevelPlan("Reedwater", "clamp_barge", clouds=0.15, scenery={"ground": {"shape": {"water_share": 0.55}}}),
-            LevelPlan("Mistmarsh", "spire", clouds=0.8, scenery={"haze": {"amount": 0.6}}),
+            LevelPlan("Mire", "turbine", "bogmaw", clouds=0.6, seed=1212),
+            LevelPlan(
+                "Reedwater",
+                "clamp_barge",
+                "mirelord",
+                clouds=0.15,
+                scenery={"ground": {"shape": {"water_share": 0.55}}},
+            ),
+            LevelPlan("Mistmarsh", "spire", "fenwraith", clouds=0.8, scenery={"haze": {"amount": 0.6}}),
             LevelPlan(
                 "Sunken Bog",
                 "twin_fang",
+                "hydra",
                 "dusk",
                 0.4,
                 scenery={"ground": {"shape": {"water_share": 0.35, "size": 0.55}}},
             ),
             LevelPlan(
-                "Witchlight", "frigate", "night", 0.5, scenery={"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}}
+                "Witchlight",
+                "frigate",
+                "marsh_titan",
+                "night",
+                0.5,
+                scenery={"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}},
             ),
-            LevelPlan("Fogbound Fen", "tidebreaker", "night", 0.85),
+            LevelPlan("Fogbound Fen", "tidebreaker", "drowned_king", "night", 0.85),
         ),
         ground_units=False,
     ),
@@ -480,16 +526,18 @@ WORLDS = (
         "Heartland",
         "farmland",
         (
-            LevelPlan("Harvest Dusk", "picket", "dusk", 0.1, seed=1313),
+            LevelPlan("Harvest Dusk", "picket", "scarecrow", "dusk", 0.1, seed=1313),
             LevelPlan(
                 "Golden Fields",
                 "bulwark",
+                "combine",
                 clouds=0.15,
                 scenery={"settlement": {"layout": {"fields": ["wheat", "wheat", "wheat", "crop", "plowed", "wheat"]}}},
             ),
             LevelPlan(
                 "Lavender Rows",
                 "borer",
+                "locust",
                 clouds=0.25,
                 scenery={
                     "settlement": {
@@ -500,13 +548,22 @@ WORLDS = (
             LevelPlan(
                 "Orchard Country",
                 "silo_hauler",
+                "granary",
                 clouds=0.3,
                 scenery={"settlement": {"layout": {"orchard_share": 0.3, "hedge_share": 0.6}}},
             ),
-            LevelPlan("Hay Moon", "bastion", "night", 0.85, scenery={"settlement": {"layout": {"farm_share": 0.2}}}),
+            LevelPlan(
+                "Hay Moon",
+                "bastion",
+                "harrowmaster",
+                "night",
+                0.85,
+                scenery={"settlement": {"layout": {"farm_share": 0.2}}},
+            ),
             LevelPlan(
                 "Last Harvest",
                 "reaper",
+                "black_harvest",
                 "dusk",
                 0.4,
                 scenery={"settlement": {"layout": {"greenhouse_share": 0.15, "block": 0.4}}},
@@ -517,14 +574,31 @@ WORLDS = (
         "Archipelago",
         "ocean",
         (
-            LevelPlan("Archipelago", "enforcer", clouds=0.5, seed=1717),
-            LevelPlan("Coral Shoals", "hive_carrier", clouds=0.15, scenery={"ground": {"shape": {"land_share": 0.15}}}),
-            LevelPlan("Sunset Isles", "hover_tank", "dusk", 0.35),
+            LevelPlan("Archipelago", "enforcer", "maelstrom", clouds=0.5, seed=1717),
             LevelPlan(
-                "Open Sea", "cryo_fortress", clouds=0.6, scenery={"ground": {"shape": {"land_share": 0.1, "size": 0.9}}}
+                "Coral Shoals",
+                "hive_carrier",
+                "man_o_war",
+                clouds=0.15,
+                scenery={"ground": {"shape": {"land_share": 0.15}}},
             ),
-            LevelPlan("Squall Line", "sentry_grid", "dusk", 0.85, scenery={"ground": {"shape": {"land_share": 0.3}}}),
-            LevelPlan("Dark Tide", "leviathan", "night", 0.4),
+            LevelPlan("Sunset Isles", "hover_tank", "typhoon", "dusk", 0.35),
+            LevelPlan(
+                "Open Sea",
+                "cryo_fortress",
+                "tsunami",
+                clouds=0.6,
+                scenery={"ground": {"shape": {"land_share": 0.1, "size": 0.9}}},
+            ),
+            LevelPlan(
+                "Squall Line",
+                "sentry_grid",
+                "abyssal",
+                "dusk",
+                0.85,
+                scenery={"ground": {"shape": {"land_share": 0.3}}},
+            ),
+            LevelPlan("Dark Tide", "leviathan", "kraken", "night", 0.4),
         ),
         ground_units=False,
     ),
@@ -532,19 +606,37 @@ WORLDS = (
         "Canyonlands",
         "canyon",
         (
-            LevelPlan("Red Canyon", "relay_array", clouds=0.15, seed=2626),
+            LevelPlan("Red Canyon", "relay_array", "mesa", clouds=0.15, seed=2626),
             LevelPlan(
-                "Sandstone Gorge", "scavenger", clouds=0.1, scenery={"ground": {"shape": {"wall": 0.55, "steps": 5}}}
+                "Sandstone Gorge",
+                "scavenger",
+                "dust_devil",
+                clouds=0.1,
+                scenery={"ground": {"shape": {"wall": 0.55, "steps": 5}}},
             ),
             LevelPlan(
-                "Dry Riverbed", "mine_carrier", clouds=0.3, scenery={"ground": {"shape": {"river": 0.06, "floor": 0.3}}}
+                "Dry Riverbed",
+                "mine_carrier",
+                "landslide",
+                clouds=0.3,
+                scenery={"ground": {"shape": {"river": 0.06, "floor": 0.3}}},
             ),
-            LevelPlan("Canyon Dusk", "foundry", "dusk", 0.25),
+            LevelPlan("Canyon Dusk", "foundry", "basilisk", "dusk", 0.25),
             LevelPlan(
-                "Switchbacks", "gunship_prime", "dusk", 0.8, scenery={"ground": {"shape": {"bend_spacing": 2.0}}}
+                "Switchbacks",
+                "gunship_prime",
+                "sandworm",
+                "dusk",
+                0.8,
+                scenery={"ground": {"shape": {"bend_spacing": 2.0}}},
             ),
             LevelPlan(
-                "The Narrows", "colossus", "night", 0.2, scenery={"ground": {"shape": {"floor": 0.15, "wall": 0.35}}}
+                "The Narrows",
+                "colossus",
+                "monolith",
+                "night",
+                0.2,
+                scenery={"ground": {"shape": {"floor": 0.15, "wall": 0.35}}},
             ),
         ),
     ),
@@ -552,17 +644,19 @@ WORLDS = (
         "Ironworks",
         "refinery",
         (
-            LevelPlan("Refinery", "grappler", clouds=0.4, seed=3434),
+            LevelPlan("Refinery", "grappler", "furnace", clouds=0.4, seed=3434),
             LevelPlan(
                 "Tank Farm",
                 "tugmaster",
+                "smokestack",
                 clouds=0.2,
                 scenery={"settlement": {"layout": {"units": ["tanks", "tanks", "tanks", "pipes", "stack", "tanks"]}}},
             ),
-            LevelPlan("Smelter", "magma_rig", "dusk", 0.5),
+            LevelPlan("Smelter", "magma_rig", "slag_king", "dusk", 0.5),
             LevelPlan(
                 "Pipe Maze",
                 "dreadnought",
+                "forgemaster",
                 "dusk",
                 0.3,
                 scenery={"settlement": {"layout": {"units": ["pipes", "pipes", "plant", "stack", "tanks", "pipes"]}}},
@@ -570,6 +664,7 @@ WORLDS = (
             LevelPlan(
                 "Flare Stacks",
                 "flare_rig",
+                "inferno",
                 "night",
                 0.6,
                 scenery={"settlement": {"layout": {"units": ["stack", "stack", "plant", "tanks", "cooling", "stack"]}}},
@@ -577,6 +672,7 @@ WORLDS = (
             LevelPlan(
                 "Meltdown",
                 "crucible",
+                "reactor",
                 "night",
                 0.8,
                 scenery={
@@ -589,24 +685,39 @@ WORLDS = (
         "Metropolis",
         "city",
         (
-            LevelPlan("Neon City", "executor", clouds=0.2, seed=3333),
-            LevelPlan("Downtown", "interdictor", clouds=0.1, scenery={"settlement": {"layout": {"tower_share": 0.15}}}),
+            LevelPlan("Neon City", "executor", "neon_tyrant", clouds=0.2, seed=3333),
+            LevelPlan(
+                "Downtown",
+                "interdictor",
+                "gridlock",
+                clouds=0.1,
+                scenery={"settlement": {"layout": {"tower_share": 0.15}}},
+            ),
             LevelPlan(
                 "Skyline",
                 "nightwatch",
+                "blackout",
                 "dusk",
                 0.3,
                 scenery={"settlement": {"layout": {"tower_share": 0.2, "midrise_share": 0.35}}},
             ),
-            LevelPlan("Neon Rain", "arc_tower", "night", 0.7),
+            LevelPlan("Neon Rain", "arc_tower", "skybreaker", "night", 0.7),
             LevelPlan(
                 "Night Grid",
                 "apex",
+                "sovereign",
                 "night",
                 0.4,
                 scenery={"settlement": {"layout": {"block": 0.3, "park_share": 0.03}}},
             ),
-            LevelPlan("The Core", "overmind", "night", 0.9, scenery={"settlement": {"layout": {"tower_share": 0.25}}}),
+            LevelPlan(
+                "The Core",
+                "overmind",
+                "singularity",
+                "night",
+                0.9,
+                scenery={"settlement": {"layout": {"tower_share": 0.25}}},
+            ),
         ),
     ),
 )
@@ -640,10 +751,16 @@ def threat(wave: dict[str, Any]) -> int:
     return wave.get("count", 1) * ENEMY_TYPES[wave["enemy"]].points
 
 
-def make_level(rng: random.Random, world: WorldPlan, plan: LevelPlan, d: int) -> dict[str, Any]:
-    pool = sorted(
-        enemy for enemy, unlock in UNLOCK.items() if unlock <= d and (world.ground_units or enemy not in GROUND)
-    )
+def budget(d: int) -> float:
+    """A half level's threat at difficulty `d` (beyond MAX_DIFFICULTY it keeps growing)."""
+    return THREAT[0] + (THREAT[1] - THREAT[0]) * ((d - 1) / (MAX_DIFFICULTY - 1)) ** THREAT_CURVE
+
+
+def make_half(rng: random.Random, pool: list[str], d: int, start: float, harder: int = 0) -> list[dict[str, Any]]:
+    """A half level's waves from `start`, of the enemies of `pool`, for a level of difficulty `d`, its groups' size
+    and threat those of a level `harder` steps harder: a warm-up wave, the main waves, then a finale of its signature
+    enemies (the newest first) close together; the last at `start` + HALF_TIME.
+    """
     newest = [enemy for enemy in pool if UNLOCK[enemy] == d]
     older = [enemy for enemy in pool if enemy not in newest]
     signature = (newest + rng.sample(older, len(older)))[: rng.randint(2, 3)]
@@ -653,28 +770,45 @@ def make_level(rng: random.Random, world: WorldPlan, plan: LevelPlan, d: int) ->
         enemy = rng.choices(pool, weights)[0]
         if enemy not in main:
             main.append(enemy)
-    # The waves, until their threat reaches the level's; the last ones (the finale) of the signature enemies.
-    budget = THREAT[0] + (THREAT[1] - THREAT[0]) * ((d - 1) / (MAX_DIFFICULTY - 1)) ** THREAT_CURVE
-    groups = [make_wave(rng, rng.choice([e for e in WARM_UP if e in pool]), d)]
-    while sum(map(threat, groups)) < budget:
-        finale = sum(map(threat, groups)) > budget * (1 - FINALE_SHARE)
-        groups.append(make_wave(rng, rng.choice(signature if finale else main), d))
-    # Spread over the level: each wave gets time in proportion to its threat; sometimes two come together.
+    # The waves, until their threat reaches the half's; the last ones (the finale) of the signature enemies.
+    size = d + harder
+    goal = budget(size)
+    groups = [make_wave(rng, rng.choice([e for e in WARM_UP if e in pool]), size)]
+    while sum(map(threat, groups)) < goal:
+        finale = sum(map(threat, groups)) > goal * (1 - FINALE_SHARE)
+        groups.append(make_wave(rng, rng.choice(signature if finale else main), size))
+    # Spread over the half: each wave gets time in proportion to its threat; sometimes two come together.
     total = sum(map(threat, groups))
     finale_from = next(
         i for i, _ in enumerate(groups) if sum(map(threat, groups[: i + 1])) > total * (1 - FINALE_SHARE)
     )
-    twins = _between(TWIN_WAVES, d)
-    time, waves = 2.0, []
+    twins = _between(TWIN_WAVES, min(size, MAX_DIFFICULTY))
+    time, waves = 0.0, []
     for i, group in enumerate(groups):
         if i > 0 and not (rng.random() < twins and waves[-1]["time"] == time):
-            share = LEVEL_TIME * threat(groups[i - 1]) / total
+            share = HALF_TIME * threat(groups[i - 1]) / total
             time += max(MIN_GAP, share * (FINALE_PACE if i > finale_from else rng.uniform(0.8, 1.2)))
         waves.append({"time": time, **group})
-    stretch = (LEVEL_TIME - 2.0) / max(time - 2.0, 1.0)  # the last wave at LEVEL_TIME
+    stretch = HALF_TIME / max(time, 1.0)  # the last wave at HALF_TIME
     for wave in waves:
-        wave["time"] = round(2.0 + (wave["time"] - 2.0) * stretch, 1)
-    waves.append({"time": round(LEVEL_TIME + BOSS_DELAY, 1), "enemy": plan.boss})
+        wave["time"] = round(start + wave["time"] * stretch, 1)
+    return waves
+
+
+def make_level(rng: random.Random, world: WorldPlan, plan: LevelPlan, d: int) -> dict[str, Any]:
+    """The first half at the level's difficulty, its mini boss, the second half harder, its final boss."""
+    pool = sorted(
+        enemy for enemy, unlock in UNLOCK.items() if unlock <= d and (world.ground_units or enemy not in GROUND)
+    )
+    first = make_half(rng, pool, d, FIRST_WAVE)
+    mini_boss = first[-1]["time"] + BOSS_DELAY
+    second = make_half(rng, pool, d, mini_boss + AFTER_MINI_BOSS, SECOND_HALF_HARDER)
+    waves = [
+        *first,
+        {"time": round(mini_boss, 1), "enemy": plan.mini_boss},
+        *second,
+        {"time": round(second[-1]["time"] + BOSS_DELAY, 1), "enemy": plan.final_boss},
+    ]
     level: dict[str, Any] = {
         "name": plan.name,
         "scroll_speed": round(_between(SCROLL_SPEED, d), 3),

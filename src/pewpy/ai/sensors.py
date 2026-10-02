@@ -100,7 +100,8 @@ def _towards(dx: float, dy: float) -> tuple[float, float]:
 def sense(world: World) -> np.ndarray:
     """The AI's view of `world`, SIZE numbers."""
     player = world.player
-    shots, enemies = _rows(world.enemy_bullets), _rows(world.enemies)
+    shots = _rows([shot for shot in world.enemy_bullets if not shot.harmless])
+    enemies = _rows(world.enemies)
     arsenal = world.arsenal
     ship = player.ship
     nearest = sorted(

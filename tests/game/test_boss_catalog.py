@@ -1,8 +1,9 @@
 import pytest
 
 from pewpy.game import bosses
-from pewpy.game.boss_catalog import BOSSES
+from pewpy.game.boss_catalog import BOSSES, MINI_BOSSES
 from pewpy.game.enemies import HALF_WIDTH
+from pewpy.game.final_bosses import FINAL_BOSSES
 from pewpy.game.level import load_levels
 from pewpy.graphics import models
 
@@ -31,13 +32,28 @@ def test_every_hitbox_has_the_size_of_its_drawing(kind):
         assert voxels.height * voxels.size == pytest.approx(height, rel=0.12), drawing
 
 
-def test_every_level_ends_with_its_own_boss():
+def test_every_level_has_its_own_mini_boss_halfway_and_final_boss_at_the_end():
     levels = load_levels()
-    last_waves = [max(level.waves, key=lambda wave: wave.time) for level in levels]
-    assert all(wave.enemy in BOSSES for wave in last_waves)
-    assert sorted(wave.enemy for wave in last_waves) == sorted(BOSSES)  # each boss once
-    for level in levels:
-        assert sum(wave.enemy in BOSSES for wave in level.waves) == 1
+    bosses_by_level = [[wave for wave in level.waves if wave.enemy in BOSSES] for level in levels]
+    assert all(len(waves) == 2 for waves in bosses_by_level)
+    assert sorted(waves[0].enemy for waves in bosses_by_level) == sorted(MINI_BOSSES)  # each boss once
+    assert sorted(waves[1].enemy for waves in bosses_by_level) == sorted(FINAL_BOSSES)
+    for level, (mini, final) in zip(levels, bosses_by_level, strict=True):
+        assert final == max(level.waves, key=lambda wave: wave.time)
+        assert sum(wave.time < mini.time for wave in level.waves) > 5  # halfway: waves before and after it
+        assert sum(mini.time < wave.time < final.time for wave in level.waves) > 5
+
+
+def test_a_final_boss_is_bigger_and_tougher_than_its_levels_mini_boss():
+    for level in load_levels():
+        mini, final = (BOSSES[wave.enemy] for wave in level.waves if wave.enemy in BOSSES)
+
+        def toughness(spec):
+            return spec.health + sum(part.health for part in spec.parts)
+
+        assert final.width * final.height > mini.width * mini.height
+        assert toughness(final) > toughness(mini)
+        assert len(final.phases) >= len(mini.phases)
 
 
 @pytest.mark.parametrize("kind", BOSSES)

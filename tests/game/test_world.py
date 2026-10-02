@@ -615,3 +615,72 @@ def test_the_laser_goes_over_a_boss_core_up_to_the_part_above_it():
     run(world, 0.5, Controls(fire=True))
     assert cutter.health < BOSSES["reaper"].parts[2].health
     assert boss.health == BOSSES["reaper"].health
+
+
+TWO_BOSS_LEVEL = Level(
+    name="two bosses",
+    scroll_speed=0.2,
+    waves=(
+        Wave(time=0.0, enemy="sentinel"),
+        Wave(time=2.0, enemy="drone"),
+        Wave(time=4.0, enemy="avalanche"),
+    ),
+)
+
+
+def test_the_waves_wait_while_a_boss_is_fought():
+    world = World(TWO_BOSS_LEVEL, seed=0)
+    run(world, 5.0)
+    assert world.wave_time < 0.1
+    assert [type(enemy).__name__ for enemy in world.enemies] == ["Boss"]
+    boss = world.boss
+    assert boss is not None
+    world._damage(boss, boss.health)
+    run(world, 2.1)
+    assert any(type(enemy).__name__ == "Drone" for enemy in world.enemies)
+
+
+def test_beating_a_mini_boss_clears_its_shots_but_the_level_goes_on_to_the_final_boss():
+    world = World(TWO_BOSS_LEVEL, seed=0)
+    run(world, 0.1)
+    mini = world.boss
+    assert mini is not None
+    world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5, hostile=True))
+    world._damage(mini, mini.health)
+    assert not world.boss_beaten
+    run(world, DT)
+    assert world.enemy_bullets == []
+    run(world, config.BOSS_BEATEN_TIME + 5.0)
+    assert not world.completed
+    final = world.boss
+    assert final is not None and final.spec is BOSSES["avalanche"]
+    for part in final.parts:
+        part.alive = False
+    final.phase_index = len(final.spec.phases) - 1
+    final._start_phase()
+    world.enemies = [final]
+    world._damage(final, final.health)
+    assert world.boss_beaten
+    run(world, config.BOSS_BEATEN_TIME + DT)
+    assert world.completed
+
+
+def test_a_lasers_warning_beam_never_hurts():
+    world = make_world()
+    world.enemy_bullets.append(
+        bosses.BossBeam(x=world.player.x, y=0.0, width=0.01, height=3.0, hostile=True, harmless=True, life=1.0)
+    )
+    run(world, 0.5)
+    assert world.player.health == world.ship.health
+
+
+def test_homing_missiles_and_the_turret_aim_at_enemies_above_the_play_area_still_on_screen():
+    world = World(QUIET_LEVEL, seed=0, view_top=1.6, view_side=1.8)
+    high = still_enemy(x=1.5, y=1.4)  # above and beside the play area, but on screen
+    gone = still_enemy(x=0.0, y=1.7)  # above the screen
+    world.enemies += [high, gone]
+    assert world.in_sight(high)
+    assert not world.in_sight(gone)
+    world.player_bullets.append(Missile(x=0.0, y=0.0, vy=1.6, homing=True))
+    world._move_shots(DT)
+    assert world.player_bullets[0].vx > 0  # turning towards the high enemy

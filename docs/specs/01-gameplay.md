@@ -118,8 +118,8 @@ enemy they hit.
 | 4 | 2 missiles per shot, homing | 3.5 | 3.5 | 2.0 | Splash 2.0 |
 | 5 | 2 missiles per shot, homing | 4.0 | 4.0 | 2.2 | Splash 2.5 |
 
-Missiles are 0.03 x 0.07, fired 0.05 in from each side of the ship. Homing missiles only aim at enemies inside
-the play area. Every missile explodes in an orange fireball where it hits.
+Missiles are 0.03 x 0.07, fired 0.05 in from each side of the ship. Homing missiles only aim at enemies on screen
+(their middle anywhere the screen shows, above the play area too). Every missile explodes in an orange fireball where it hits.
 
 ### Weapon rules
 
@@ -147,7 +147,8 @@ held or not, on top of the selected weapon. *(Everything below the first two rul
 | Turret | T, green | A little machine-gun turret on the ship: 5 shots a second at the nearest enemy on screen, turning to aim at it; 0.6 damage per shot, speed 2.5, shots 0.025 across. It doesn't fire without a target. |
 | Lightning gun | Z, violet | Every 0.6 s, a bolt strikes the nearest enemy within 0.7 of the ship, then jumps to the nearest enemy not struck yet within 0.35 of the last one, up to 4 enemies; 2 damage to each. It waits for an enemy in range. The bolt shows for 0.12 s. |
 
-Both only aim at enemies inside the play area, and not at a boss's core while its parts cover it. Like the main
+Both only aim at enemies on screen (their middle anywhere the screen shows, above the play area too), and not at a
+boss's core while its parts cover it. Like the main
 weapons, they score and make enemies drop pickups.
 
 - open: should they need Fire held? Should picking up the one already carried give points?
@@ -184,11 +185,11 @@ weapons, they score and make enemies drop pickups.
 - Difficulty ramp across levels: each level has a difficulty from 1 (1-1) to 20 (8-6): 2 (world - 1) + level, so
   the levels of a world get harder one by one and a world starts as hard as the third level of the world before
   (see `03-levels.md`). With the difficulty, the generated levels (`tools/make_levels.py`) scroll faster (0.2 to
-  0.31), send bigger groups (about +7% per step), and send more: each level's enemies add up to a threat (their
-  points) from 8600 to 22500, rising fast at first and slower later, spread over about 48 s, so harder levels
-  are denser. New enemies come in along the way: each enemy unlocks at a difficulty (see "First appears in level"
-  in `02-enemies-catalog.md` and `02-enemies-fleet.md`); a level's signature enemies, in its finale, are the ones
-  it unlocks first. Not playtested yet *(placeholder)*
+  0.31), send bigger groups (about +7% per step), and send more: each half of a level has enemies adding up to a threat
+  (their points) from 8600 to 22500, rising fast at first and slower later, spread over about 46 s, so harder
+  levels are denser; the second half is as hard as a level 2 steps harder (see `03-levels.md`). New enemies come in
+  along the way: each enemy unlocks at a difficulty (see "First appears in level" in `02-enemies-catalog.md` and
+  `02-enemies-fleet.md`); a half's signature enemies, in its finale, are the ones the level unlocks first. Not playtested yet *(placeholder)*
 - Continues: yes
 
 ## Game over and victory

@@ -30,6 +30,9 @@ Besides plain shots (pink, 0.03), enemies use:
   (0.022, Buckshot), violet shots that snake from side to side across their line of flight (0.06 either way, a
   wave every 0.7 s: Serpent), and a red laser beam (Lancer: 0.035 wide, from the Lancer down past the bottom of
   the screen, for 0.5 s; it goes on through the player, who is briefly invulnerable after a hit anyway).
+- Bosses' shots also come cyan, starting slow and speeding up ("accel"), and yellow, their path bending for 1.5 s
+  then going straight ("curve"); bosses fire laser beams too, each announced 1 s before by a thin harmless red beam
+  where it will be (see `02-enemies-bosses.md`).
 - Projectiles that are small enemies of their own, launched by other enemies rather than placed by the waves: they
   can be shot down (a few points, no drops), and hitting the player they do 2 damage and are destroyed, like
   ramming. Enemy missiles are among the targets of the player's homing missiles.
@@ -45,4 +48,4 @@ The catalog is split by section so each can be read on its own:
 
 - `02-enemies-catalog.md` — Enemy catalog: Drone, Weaver, Diver, Gunship, Turret, Flak Cannon, Tank, Rocket Truck, Swarmer, Sniper, Mine Layer, Shield Carrier, Splitter, Rocketeer, Hunter, Missile Silo, Bomber, Lancer, Serpent, Buckshot
 - `02-enemies-fleet.md` — The second fleet: Albatross, Dart, Brawler, Manta, Hornet, Mite, Outrider, Condor, Needle, Kestrel, Javelin, Tick, Warhawk, Catamaran, Harrier, Behemoth, Wisp, Rampart, Imp, Howitzer, Stalker, Spark, Broadside, Rapier, Freighter, Scrapper, Brood, Stormcrow, Pincer
-- `02-enemies-bosses.md` — Bosses (general rules, then one per level): Sentinel, Prowler, Rockbreaker, Siege Pod, Twin Fang, Relay Array, Mine Carrier, Warden, Thresher, Picket, Bulwark, Turbine, Silo Hauler, Hive Carrier, Tugmaster, Harvester, Clamp Barge, Pulsar, Frigate, Delta Raider, Cryo Fortress, Grappler, Dreadnought, Tidebreaker, Breacher, Cyclone, Borer, Bastion, Foundry, Scavenger, Magma Rig, Colossus, Patrol Drone, Enforcer, Hover Tank, Spire, Sentry Grid, Gunship Prime, Executor, Overmind
+- `02-enemies-bosses.md` — Bosses (general rules, the mini bosses one by one, then the final bosses): Sentinel, Prowler, Rockbreaker, Siege Pod, Twin Fang, Relay Array, Mine Carrier, Warden, Thresher, Picket, Bulwark, Turbine, Silo Hauler, Hive Carrier, Tugmaster, Harvester, Clamp Barge, Pulsar, Frigate, Delta Raider, Cryo Fortress, Grappler, Dreadnought, Tidebreaker, Breacher, Cyclone, Borer, Bastion, Foundry, Scavenger, Magma Rig, Colossus, Patrol Drone, Enforcer, Hover Tank, Spire, Sentry Grid, Gunship Prime, Executor, Overmind

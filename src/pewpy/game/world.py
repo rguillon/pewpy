@@ -81,6 +81,7 @@ class World:
         """(Re)start the level from the beginning with full health and the score it started with."""
         self.score = self.level_start_score
         self.time = 0.0
+        self.wave_time = 0.0  # the waves' clock: stopped while a boss is fought, so the next waves wait for it
         self.pending_spawns = self.level.spawns()
         self.player = Player(ship=self.ship)
         self.player_bullets: list[Bullet] = []
@@ -90,8 +91,8 @@ class World:
         self.laser: Beam | None = None
         self.bolt: list[tuple[float, float]] = []  # the last lightning strike, from the ship, while it shows
         self.bolt_time = 0.0
-        self.boss_beaten_time = 0.0  # counts down once the boss is destroyed: the level ends at 0
-        self.boss_beaten = False
+        self.boss_beaten_time = 0.0  # counts down once the final boss is destroyed: the level ends at 0
+        self.boss_beaten = False  # the final boss (the level's last); a mini boss halfway doesn't end the level
         self._created: list[Entity] = []  # enemies created while iterating, added after collisions
 
     @property
@@ -117,6 +118,8 @@ class World:
         if self.game_over or self.completed:
             return
         self.time += dt
+        if self.boss is None:
+            self.wave_time += dt
         self.player.update(dt, controls.move_x, controls.move_y, controls.fire)
         shots = self.arsenal.fire(dt, controls.fire, self.player)
         if shots:
@@ -145,7 +148,7 @@ class World:
                 self.start_life()
 
     def _spawn_enemies(self) -> None:
-        while self.pending_spawns and self.pending_spawns[0].time <= self.time:
+        while self.pending_spawns and self.pending_spawns[0].time <= self.wave_time:
             spawn = self.pending_spawns.pop(0)
             if spawn.enemy in BOSSES:
                 self.enemies.append(make_boss(BOSSES[spawn.enemy], spawn.x, self.view_top))
@@ -173,8 +176,14 @@ class World:
             elif isinstance(entity, Bullet):
                 self.enemy_bullets.append(entity)
 
+    def in_sight(self, enemy: Enemy) -> bool:
+        """Whether `enemy`'s middle is on the screen (which shows more than the play area: higher and wider), so the
+        homing missiles and the turret can aim at it.
+        """
+        return enemy.y < self.view_top and abs(enemy.x) < self.view_side
+
     def _move_shots(self, dt: float) -> None:
-        targets = [enemy for enemy in self.enemies if enemy.alive and enemy.on_screen]
+        targets = [enemy for enemy in self.enemies if enemy.alive and self.in_sight(enemy)]
         for bullet in self.player_bullets:
             if isinstance(bullet, Missile):
                 bullet.steer(dt, targets)
@@ -218,7 +227,9 @@ class World:
             return
         player = self.player
         targets = [
-            enemy for enemy in self.enemies if enemy.alive and enemy.on_screen and not _behind_a_part(enemy, enemy.x)
+            enemy
+            for enemy in self.enemies
+            if enemy.alive and self.in_sight(enemy) and not _behind_a_part(enemy, enemy.x)
         ]
         shots, struck = secondary.fire(dt, player, targets)
         if shots:
@@ -247,8 +258,11 @@ class World:
             piece.alive = False
             self._explode(piece)
         if isinstance(enemy, Boss):
-            self.boss_beaten = True
-            self.boss_beaten_time = config.BOSS_BEATEN_TIME
+            if any(spawn.enemy in BOSSES for spawn in self.pending_spawns):
+                self._clear_shots()  # a mini boss: the level goes on
+            else:
+                self.boss_beaten = True
+                self.boss_beaten_time = config.BOSS_BEATEN_TIME
 
     def _clear_field(self) -> None:
         """Once the boss is beaten: every enemy left (missiles, mines...) blows up, without points, and enemy
@@ -258,6 +272,10 @@ class World:
             if enemy.alive:
                 enemy.alive = False
                 self._explode(enemy)
+        self._clear_shots()
+
+    def _clear_shots(self) -> None:
+        """Every enemy bullet vanishes."""
         for bullet in self.enemy_bullets:
             bullet.alive = False
             self.events.append(Event("impact", bullet.x, bullet.y, source="player"))
@@ -288,7 +306,7 @@ class World:
         if player.invulnerable:
             return
         for bullet in self.enemy_bullets:
-            if bullet.overlaps(player):
+            if not bullet.harmless and bullet.overlaps(player):
                 bullet.alive = bullet.pierces  # a beam goes on (the player is briefly invulnerable after a hit)
                 self.events.append(Event("impact", player.x, player.y if bullet.pierces else bullet.y, source="player"))
                 self._hurt(bullet.damage)

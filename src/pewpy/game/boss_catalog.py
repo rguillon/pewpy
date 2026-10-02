@@ -1,12 +1,14 @@
-"""Every boss: one at the end of each level (02-enemies-bosses.md). Placeholders.
+"""Every boss (02-enemies-bosses.md): the mini bosses, one halfway through each level, here, and the final bosses,
+one at the end of each level, in final_bosses.py. Placeholders.
 
 Sizes are hitboxes, and have the shape of the boss's drawing in `models/` (the model is drawn at that size with
 square voxels). Parts are at (x, y) from the core's middle.
 """
 
 from pewpy.game.bosses import CORE, BossSpec, Gun, PartSpec, Phase
+from pewpy.game.final_bosses import FINAL_BOSSES
 
-BOSSES: dict[str, BossSpec] = {
+MINI_BOSSES: dict[str, BossSpec] = {
     # 1-1: a patrol platform, no parts.
     "sentinel": BossSpec(
         name="SENTINEL",
@@ -1700,3 +1702,5 @@ BOSSES: dict[str, BossSpec] = {
         ),
     ),
 }
+
+BOSSES: dict[str, BossSpec] = {**MINI_BOSSES, **FINAL_BOSSES}

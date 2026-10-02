@@ -2,7 +2,7 @@
   "name": "Open Sea",
   "scroll_speed": 0.264,
   "background": "ocean",
-  "background_seed": 153,
+  "background_seed": 9184,
   "clouds": 0.6,
   "scenery": {
     "ground": {
@@ -16,295 +16,538 @@
     {
       "time": 2.0,
       "enemy": "dart",
-      "count": 9,
+      "count": 8,
       "formation": "column",
       "interval": 0.4,
-      "x": -0.5
+      "x": 0.58
     },
     {
-      "time": 4.2,
-      "enemy": "harrier",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.5,
-      "x": 0.0
-    },
-    {
-      "time": 5.4,
-      "enemy": "freighter",
-      "x": -0.5
-    },
-    {
-      "time": 6.3,
-      "enemy": "brawler",
-      "x": 0.5
-    },
-    {
-      "time": 6.3,
-      "enemy": "needle",
-      "x": 0.33
-    },
-    {
-      "time": 7.2,
-      "enemy": "albatross",
-      "count": 2,
-      "x": 0.33
-    },
-    {
-      "time": 9.2,
-      "enemy": "brawler",
-      "x": 0.5
-    },
-    {
-      "time": 10.5,
-      "enemy": "harrier",
-      "x": 0.0
-    },
-    {
-      "time": 11.4,
-      "enemy": "needle",
-      "x": 0.0
-    },
-    {
-      "time": 12.4,
-      "enemy": "freighter",
-      "x": -0.5
-    },
-    {
-      "time": 13.3,
+      "time": 4.0,
       "enemy": "albatross",
       "count": 2,
       "x": -0.33
     },
     {
-      "time": 15.4,
-      "enemy": "mine_layer",
-      "count": 1,
+      "time": 5.9,
+      "enemy": "javelin",
+      "count": 2,
       "formation": "column",
-      "side": "left",
-      "y": 0.5
+      "interval": 1.5,
+      "x": 0.5
     },
     {
-      "time": 16.3,
-      "enemy": "rocketeer",
+      "time": 7.7,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "line",
+      "spacing": 0.33
+    },
+    {
+      "time": 10.0,
+      "enemy": "buckshot",
       "count": 2,
       "formation": "line",
-      "spacing": 1.17,
+      "spacing": 1.33,
       "x": 0.0
     },
     {
-      "time": 17.6,
-      "enemy": "scrapper",
-      "count": 3,
+      "time": 11.8,
+      "enemy": "drone",
+      "count": 5,
       "formation": "line",
-      "spacing": 0.83,
+      "spacing": 0.5
+    },
+    {
+      "time": 13.2,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
       "x": 0.0
     },
     {
-      "time": 17.6,
-      "enemy": "needle",
+      "time": 13.2,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 13.2,
+      "enemy": "albatross",
+      "count": 2,
       "x": 0.33
     },
     {
-      "time": 18.6,
-      "enemy": "rocketeer",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.17,
-      "x": 0.0
-    },
-    {
-      "time": 20.2,
-      "enemy": "needle",
-      "x": 0.0
-    },
-    {
-      "time": 20.2,
-      "enemy": "mine_layer",
+      "time": 15.2,
+      "enemy": "broadside",
       "count": 1,
       "formation": "column",
-      "side": "left",
-      "y": 0.6
-    },
-    {
-      "time": 21.2,
-      "enemy": "mine_layer",
-      "count": 1,
-      "formation": "column",
+      "interval": 1.2,
       "side": "right",
-      "y": 0.6
+      "y": 0.45
     },
     {
-      "time": 22.1,
-      "enemy": "harrier",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.5,
-      "x": 0.0
-    },
-    {
-      "time": 23.2,
-      "enemy": "stalker",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.33,
-      "x": 0.0
-    },
-    {
-      "time": 24.4,
-      "enemy": "howitzer",
-      "x": -0.5
-    },
-    {
-      "time": 25.5,
-      "enemy": "stalker",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.33,
-      "x": 0.0
-    },
-    {
-      "time": 25.5,
-      "enemy": "scrapper",
-      "count": 3,
-      "formation": "line",
-      "spacing": 0.83,
-      "x": 0.0
-    },
-    {
-      "time": 27.5,
-      "enemy": "harrier",
-      "count": 1,
-      "formation": "line",
-      "spacing": 1.5,
-      "x": 0.0
-    },
-    {
-      "time": 28.6,
-      "enemy": "needle",
-      "x": 0.33
-    },
-    {
-      "time": 28.6,
-      "enemy": "rocketeer",
-      "count": 2,
-      "formation": "line",
-      "spacing": 1.17,
-      "x": 0.0
-    },
-    {
-      "time": 29.9,
-      "enemy": "albatross",
-      "count": 2,
-      "x": -0.33
-    },
-    {
-      "time": 31.8,
-      "enemy": "lancer",
+      "time": 16.7,
+      "enemy": "broadside",
       "count": 1,
       "formation": "column",
-      "x": 0.07
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
     },
     {
-      "time": 32.9,
-      "enemy": "scrapper",
-      "count": 3,
-      "formation": "line",
-      "spacing": 0.83,
-      "x": 0.0
-    },
-    {
-      "time": 34.8,
-      "enemy": "howitzer",
-      "x": -0.5
-    },
-    {
-      "time": 36.0,
-      "enemy": "howitzer",
-      "x": -0.5
-    },
-    {
-      "time": 37.5,
-      "enemy": "stalker",
-      "count": 2,
-      "formation": "line",
-      "spacing": 0.83,
-      "x": 0.0
-    },
-    {
-      "time": 38.9,
+      "time": 16.7,
       "enemy": "lancer",
       "count": 1,
       "formation": "column",
       "x": 0.08
     },
     {
-      "time": 40.0,
+      "time": 17.9,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 19.3,
+      "enemy": "albatross",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 21.1,
+      "enemy": "dart",
+      "count": 8,
+      "formation": "column",
+      "interval": 0.4,
+      "x": 0.58
+    },
+    {
+      "time": 22.8,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 23.9,
+      "enemy": "dart",
+      "count": 8,
+      "formation": "column",
+      "interval": 0.35,
+      "x": -0.5
+    },
+    {
+      "time": 26.2,
+      "enemy": "shield_carrier",
+      "count": 2,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 29.6,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 31.1,
+      "enemy": "drone",
+      "count": 7,
+      "formation": "column",
+      "interval": 0.45,
+      "x": 0.67
+    },
+    {
+      "time": 33.2,
       "enemy": "albatross",
       "count": 2,
       "x": 0.33
     },
     {
+      "time": 35.1,
+      "enemy": "albatross",
+      "count": 2,
+      "x": 0.33
+    },
+    {
+      "time": 35.1,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 37.0,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 38.9,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 40.3,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "right",
+      "y": 0.45
+    },
+    {
+      "time": 40.3,
+      "enemy": "scrapper",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
       "time": 41.5,
-      "enemy": "rocketeer",
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 42.6,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 43.7,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 44.8,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 45.8,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 45.8,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 46.9,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 48.0,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 48.0,
+      "enemy": "buckshot",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.33,
+      "x": 0.0
+    },
+    {
+      "time": 54.0,
+      "enemy": "cryo_fortress"
+    },
+    {
+      "time": 57.0,
+      "enemy": "drone",
+      "count": 8,
+      "formation": "column",
+      "x": 0.0
+    },
+    {
+      "time": 57.0,
+      "enemy": "freighter",
+      "x": 0.5
+    },
+    {
+      "time": 58.2,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": 0.5
+    },
+    {
+      "time": 58.2,
+      "enemy": "brawler",
+      "x": -0.33
+    },
+    {
+      "time": 60.1,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": 0.07
+    },
+    {
+      "time": 61.5,
+      "enemy": "albatross",
+      "count": 2,
+      "x": -0.33
+    },
+    {
+      "time": 61.5,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 62.9,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 64.9,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.7
+    },
+    {
+      "time": 66.1,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 67.8,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.63
+    },
+    {
+      "time": 69.3,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 70.8,
+      "enemy": "freighter",
+      "x": 0.5
+    },
+    {
+      "time": 70.8,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.7
+    },
+    {
+      "time": 70.8,
+      "enemy": "brood",
+      "x": 0.5
+    },
+    {
+      "time": 72.7,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.15
+    },
+    {
+      "time": 74.0,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 74.0,
+      "enemy": "freighter",
+      "count": 2,
+      "x": -0.5
+    },
+    {
+      "time": 74.0,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 75.7,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "right",
+      "y": 0.7
+    },
+    {
+      "time": 75.7,
+      "enemy": "broadside",
+      "count": 1,
+      "formation": "column",
+      "interval": 1.2,
+      "side": "left",
+      "y": 0.45
+    },
+    {
+      "time": 75.7,
+      "enemy": "serpent",
+      "count": 7,
+      "formation": "column",
+      "interval": 0.8,
+      "x": 0.12
+    },
+    {
+      "time": 81.0,
+      "enemy": "serpent",
+      "count": 4,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.75
+    },
+    {
+      "time": 84.3,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 86.4,
+      "enemy": "freighter",
+      "x": 0.5
+    },
+    {
+      "time": 87.7,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 87.7,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 89.3,
+      "enemy": "javelin",
+      "count": 2,
+      "formation": "column",
+      "interval": 1.5,
+      "x": -0.5
+    },
+    {
+      "time": 91.0,
+      "enemy": "serpent",
+      "count": 2,
+      "formation": "column",
+      "interval": 0.8,
+      "x": -0.6
+    },
+    {
+      "time": 92.4,
+      "enemy": "mine_layer",
+      "count": 1,
+      "formation": "column",
+      "side": "left",
+      "y": 0.3
+    },
+    {
+      "time": 93.6,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 95.4,
+      "enemy": "lancer",
+      "count": 1,
+      "formation": "column",
+      "x": -0.15
+    },
+    {
+      "time": 95.4,
+      "enemy": "wisp",
+      "count": 3,
+      "formation": "line",
+      "spacing": 0.83,
+      "x": 0.0
+    },
+    {
+      "time": 97.2,
+      "enemy": "brood",
+      "x": 0.33
+    },
+    {
+      "time": 97.2,
+      "enemy": "howitzer",
+      "x": 0.5
+    },
+    {
+      "time": 98.4,
+      "enemy": "catamaran",
       "count": 2,
       "formation": "line",
       "spacing": 1.17,
       "x": 0.0
     },
     {
-      "time": 42.4,
+      "time": 100.0,
+      "enemy": "howitzer",
+      "x": -0.5
+    },
+    {
+      "time": 100.0,
       "enemy": "howitzer",
       "x": 0.5
     },
     {
-      "time": 42.4,
-      "enemy": "freighter",
-      "x": -0.5
+      "time": 100.0,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
-      "time": 43.4,
-      "enemy": "freighter",
-      "x": 0.5
+      "time": 101.5,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
-      "time": 44.3,
-      "enemy": "howitzer",
-      "x": -0.5
+      "time": 103.0,
+      "enemy": "catamaran",
+      "count": 2,
+      "formation": "line",
+      "spacing": 1.17,
+      "x": 0.0
     },
     {
-      "time": 44.3,
-      "enemy": "howitzer",
-      "x": -0.5
-    },
-    {
-      "time": 45.2,
-      "enemy": "freighter",
-      "x": -0.5
-    },
-    {
-      "time": 46.1,
-      "enemy": "freighter",
-      "x": 0.5
-    },
-    {
-      "time": 47.1,
-      "enemy": "freighter",
-      "x": 0.5
-    },
-    {
-      "time": 48.0,
-      "enemy": "howitzer",
-      "x": -0.5
-    },
-    {
-      "time": 48.0,
-      "enemy": "howitzer",
-      "x": -0.5
-    },
-    {
-      "time": 54.0,
-      "enemy": "cryo_fortress"
+      "time": 109.0,
+      "enemy": "tsunami"
     }
   ]
 }
