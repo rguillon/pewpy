@@ -14,6 +14,7 @@ from pewpy.scenery.ground.kinds import (
     desert,
     farmland,
     forest,
+    geysers,
     hills,
     islands,
     level_ground,
@@ -43,8 +44,9 @@ LANDSCAPES: dict[str, Landscape] = {
     "volcano": volcano.Volcano(),
     "swamp": swamp.Swamp(),
     "clouds": clouds.Clouds(),
+    "geysers": geysers.Geysers(),
 }
-FLORAS: dict[str, Flora] = {"palms": desert.Palms(), "dead_trees": swamp.DeadTrees()}
+FLORAS: dict[str, Flora] = {"palms": desert.Palms(), "dead_trees": swamp.DeadTrees(), "snags": geysers.Snags()}
 SETTLEMENTS: dict[str, Settlement] = {
     "city": city.City(),
     "refinery": refinery.Refinery(),

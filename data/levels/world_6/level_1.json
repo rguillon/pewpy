@@ -1,7 +1,7 @@
 {
-  "name": "Red Canyon",
+  "name": "Geyser Basin",
   "scroll_speed": 0.258,
-  "background": "canyon",
+  "background": "geysers",
   "background_seed": 2626,
   "clouds": 0.15,
   "waves": [

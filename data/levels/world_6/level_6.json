@@ -1,15 +1,14 @@
 {
-  "name": "The Narrows",
+  "name": "The Caldera",
   "scroll_speed": 0.287,
-  "background": "canyon",
+  "background": "geysers",
   "background_seed": 3241,
   "time_of_day": "night",
   "clouds": 0.2,
   "scenery": {
     "ground": {
       "shape": {
-        "floor": 0.15,
-        "wall": 0.35
+        "ridge_share": 0.35
       }
     }
   },

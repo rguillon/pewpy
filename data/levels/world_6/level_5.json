@@ -1,14 +1,18 @@
 {
-  "name": "Switchbacks",
+  "name": "Fumarole Field",
   "scroll_speed": 0.281,
-  "background": "canyon",
+  "background": "geysers",
   "background_seed": 5850,
   "time_of_day": "dusk",
   "clouds": 0.8,
   "scenery": {
     "ground": {
       "shape": {
-        "bend_spacing": 2.0
+        "spring_spacing": 0.3,
+        "spring_radius": [
+          0.04,
+          0.09
+        ]
       }
     }
   },

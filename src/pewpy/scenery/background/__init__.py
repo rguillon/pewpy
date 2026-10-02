@@ -8,7 +8,7 @@ values it can change (`scenery`, see pewpy.scenery.params):
 - debris: stars and slowly tumbling asteroids at two depths.
 - city: flying over a city: a grid of streets and buildings, lit windows.
 - ocean: flying over a sea with islands; the water is a flat animated surface.
-- desert, forest, canyon, farmland, pack_ice, volcano, swamp, clouds, refinery, mountains: more grounds, see
+- desert, forest, canyon, geysers, farmland, pack_ice, volcano, swamp, clouds, refinery, mountains: more grounds, see
   pewpy.scenery.ground.
 
 What a scenery has decides what's drawn: stars, nebulas, a distant planet, asteroids, a ground (pewpy.scenery.ground).

@@ -16,6 +16,7 @@ STYLE_COLORS: dict[str, tuple[str, ...]] = {
     "volcano": ("rock", "ash", "glow"),
     "swamp": ("mud", "reeds_low", "reeds_high"),
     "clouds": ("shade", "lit"),
+    "geysers": ("crust_low", "crust_high", "mat_inner", "mat_middle", "mat_outer", "forest", "rock", "ledges"),
 }
 # The colors of what covers a settlement's ground (settlement.py Surface); "natural" is the ground between (park
 # grass, scrub, grass), "lamp" the street lights at night.

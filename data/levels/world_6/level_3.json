@@ -1,14 +1,17 @@
 {
-  "name": "Dry Riverbed",
+  "name": "Prismatic Springs",
   "scroll_speed": 0.269,
-  "background": "canyon",
+  "background": "geysers",
   "background_seed": 1955,
   "clouds": 0.3,
   "scenery": {
     "ground": {
       "shape": {
-        "river": 0.06,
-        "floor": 0.3
+        "spring_radius": [
+          0.06,
+          0.2
+        ],
+        "mat_width": 2.0
       }
     }
   },

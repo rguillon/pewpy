@@ -381,6 +381,58 @@
       "size": [0.26, 0.4]
     }
   },
+  "geysers": {
+    "haze": {
+      "color": [0.33, 0.35, 0.36],
+      "amount": 0.45
+    },
+    "ground": {
+      "landscape": "geysers",
+      "shape": {
+        "spring_spacing": 0.55,
+        "spring_radius": [0.04, 0.14],
+        "mat_width": 1.1,
+        "mound_spacing": 1.2,
+        "mound_radius": [0.2, 0.32],
+        "steps": 4,
+        "ridge_share": 0.2
+      },
+      "style": "geysers",
+      "colors": {
+        "crust_low": [0.29, 0.28, 0.25],
+        "crust_high": [0.36, 0.35, 0.31],
+        "mat_inner": [0.3, 0.29, 0.16],
+        "mat_middle": [0.31, 0.18, 0.09],
+        "mat_outer": [0.21, 0.14, 0.09],
+        "forest": [0.06, 0.1, 0.07],
+        "rock": [0.16, 0.15, 0.14],
+        "ledges": [0.3, 0.23, 0.14]
+      },
+      "depth": 0.5,
+      "max_height": 0.3
+    },
+    "fluid": {
+      "kind": "water",
+      "colors": {
+        "deep": [0.02, 0.1, 0.18],
+        "shallow": [0.1, 0.3, 0.3],
+        "foam": [0.36, 0.38, 0.36]
+      }
+    },
+    "flora": {
+      "kind": "snags",
+      "knobs": {
+        "chance": 0.04,
+        "size": 0.03,
+        "height": [0.03, 0.05]
+      }
+    },
+    "outposts": {
+      "kinds": ["factory", "depot", "radar_station", "colony"],
+      "spacing": 1.6,
+      "size": [0.26, 0.4]
+    }
+  },
   "farmland": {
     "haze": {
       "color": [0.34, 0.38, 0.42],

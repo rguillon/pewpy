@@ -44,6 +44,7 @@ class Enemy(Body):
     timer_override: float | None = None  # replaces its first state's timer (a shell timed to burst on the player)
     parts: list[Enemy] = field(default_factory=list)
     mount: Part | None = None  # a boss's part: its name, and where it is from the core's middle
+    core: Enemy | None = field(default=None, repr=False)  # a boss's part: the boss it belongs to
     parts_released: bool = False
 
     @classmethod
@@ -64,6 +65,7 @@ class Enemy(Body):
         for part in spec.parts:
             piece = cls.from_spec(part.spec, x + part.x, y + part.y)
             piece.mount = part
+            piece.core = enemy
             enemy.parts.append(piece)
         return enemy
 
@@ -173,8 +175,13 @@ class Enemy(Body):
 
     @property
     def vulnerable(self) -> bool:
-        """Whether shots hurt it in its current state."""
-        return self.state.vulnerable
+        """Whether shots hurt it in its current state (a boss and its parts: not until it has come to its place)."""
+        return self.state.vulnerable and not (self.core or self).arriving
+
+    @property
+    def arriving(self) -> bool:
+        """A boss: whether it's still coming down to its place (its first state)."""
+        return self.is_boss and self.state_index == 0
 
     @property
     def health_fraction(self) -> float:

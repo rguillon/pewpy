@@ -1,13 +1,13 @@
 {
-  "name": "Sandstone Gorge",
+  "name": "Sinter Terraces",
   "scroll_speed": 0.264,
-  "background": "canyon",
+  "background": "geysers",
   "background_seed": 8139,
   "clouds": 0.1,
   "scenery": {
     "ground": {
       "shape": {
-        "wall": 0.55,
+        "mound_spacing": 1.0,
         "steps": 5
       }
     }

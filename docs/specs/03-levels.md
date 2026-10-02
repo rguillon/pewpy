@@ -57,8 +57,8 @@ fields, islands, dunes, outposts...), depths, stars, nebulas, asteroids, clouds,
 any of them for that level, e.g. `"scenery": {"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}}` for greener
 water (see `pewpy.scenery.params`).
 
-The worlds use `mountains`, `forest`, `swamp`, `farmland`, `ocean`, `canyon`, `refinery` and `city`. The other
-presets (`space`, `debris`, `planet`, `pack_ice`, `clouds`, `desert`, `volcano`) and their generators are kept for
+The worlds use `mountains`, `forest`, `swamp`, `farmland`, `ocean`, `geysers`, `refinery` and `city`. The other
+presets (`space`, `debris`, `planet`, `pack_ice`, `clouds`, `desert`, `volcano`, `canyon`) and their generators are kept for
 later worlds *(open: which ones, and where)*.
 
 | Background | Look |
@@ -74,6 +74,7 @@ later worlds *(open: which ones, and where)*.
 | `clouds` | Flat moonlit clouds, with town lights far below in the gaps |
 | `desert` | Dune ridges, rock mesas, oasis pools with palms |
 | `canyon` | Layered cliffs stepping down to a river |
+| `geysers` | A geyser basin: a flat pale crust of sinter; hot pools (blue in the middle, turquoise at the edges) in a few hot patches, ringed with bacterial mats (pale yellow at the water, then orange, then rust) that run off in fingers one way; terraced mounds stepping up in white rims round ochre ledges under clear shallow water, a spring on top, an orange apron of runoff round the foot; low ridges of dark pines with bare rock where steep; bleached dead trees at the edge of the mats |
 | `volcano` | Black volcanic hills with glowing lava rivers |
 | `mountains` | Snowy ridges, glaciers, pine forests |
 | `city` | A sci-fi city at night: blocks of towers with lit windows, street lights, red beacons |
@@ -113,7 +114,7 @@ five per ground loop) and their size (`size`, 0.26 to 0.4 across) *(placeholder)
 | `swamp` | A colony, a radar station, a depot |
 | `farmland` | An airfield, a depot, a factory |
 | `ocean` | An airfield, a colony, a radar station |
-| `canyon` | A factory, a depot, a radar station, a colony |
+| `geysers` | A factory, a depot, a radar station, a colony |
 | `refinery` | A factory, a depot, an airfield |
 | `city` | A colony, an airfield, a radar station |
 
@@ -191,16 +192,16 @@ No ground enemies (tanks, turrets...): the ground is mostly water.
 | 5-5 | Squall Line | 13 | dusk | 0.85 | `ground.shape.land_share` 0.3 | Sentry Grid | Abyssal |
 | 5-6 | Dark Tide | 14 | night | 0.4 |  | Leviathan | Kraken |
 
-### World 6: Canyonlands (`canyon`: red canyons)
+### World 6: Steamvale (`geysers`: a geyser basin)
 
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 6-1 | Red Canyon | 11 | day | 0.15 |  | Relay Array | Mesa |
-| 6-2 | Sandstone Gorge | 12 | day | 0.1 | `ground.shape.wall` 0.55, `ground.shape.steps` 5 | Scavenger | Dust Devil |
-| 6-3 | Dry Riverbed | 13 | day | 0.3 | `ground.shape.river` 0.06, `ground.shape.floor` 0.3 | Mine Carrier | Landslide |
-| 6-4 | Canyon Dusk | 14 | dusk | 0.25 |  | Foundry | Basilisk |
-| 6-5 | Switchbacks | 15 | dusk | 0.8 | `ground.shape.bend_spacing` 2.0 | Gunship Prime | Sandworm |
-| 6-6 | The Narrows | 16 | night | 0.2 | `ground.shape.floor` 0.15, `ground.shape.wall` 0.35 | Colossus | Monolith |
+| 6-1 | Geyser Basin | 11 | day | 0.15 |  | Relay Array | Mesa |
+| 6-2 | Sinter Terraces | 12 | day | 0.1 | `ground.shape.mound_spacing` 1.0, `ground.shape.steps` 5 | Scavenger | Dust Devil |
+| 6-3 | Prismatic Springs | 13 | day | 0.3 | `ground.shape.spring_radius` [0.06 0.2], `ground.shape.mat_width` 2.0 | Mine Carrier | Landslide |
+| 6-4 | Sulfur Dusk | 14 | dusk | 0.25 |  | Foundry | Basilisk |
+| 6-5 | Fumarole Field | 15 | dusk | 0.8 | `ground.shape.spring_spacing` 0.3, `ground.shape.spring_radius` [0.04 0.09] | Gunship Prime | Sandworm |
+| 6-6 | The Caldera | 16 | night | 0.2 | `ground.shape.ridge_share` 0.35 | Colossus | Monolith |
 
 ### World 7: Ironworks (`refinery`: industrial plants)
 

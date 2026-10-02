@@ -11,6 +11,7 @@ from pewpy.scenery.ground.shader.glsl.ground import (
     desert,
     fluid,
     forest,
+    geysers,
     island,
     main,
     mountains,
@@ -36,6 +37,7 @@ PIECES = (
     volcano,
     swamp,
     cloud_deck,
+    geysers,
     fluid,
     main,
 )

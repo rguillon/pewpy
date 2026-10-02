@@ -1,7 +1,7 @@
 {
-  "name": "Canyon Dusk",
+  "name": "Sulfur Dusk",
   "scroll_speed": 0.275,
-  "background": "canyon",
+  "background": "geysers",
   "background_seed": 368,
   "time_of_day": "dusk",
   "clouds": 0.25,

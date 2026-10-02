@@ -157,7 +157,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.4 s, in turn: a spiral of 12 shots (0.1 s apart, speed 0.45), or 3 heavy shots at the player 10° apart, speed 0.5
 - Points: 1000
 - Drops: 50%
-- First appears in level: 6-5 (Switchbacks)
+- First appears in level: 6-5 (Fumarole Field)
 - Notes: a heavy: comes alone
 
 ### Enemy: Catamaran

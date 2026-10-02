@@ -21,6 +21,7 @@ STYLES = {
     "volcano": 10.0,
     "swamp": 11.0,
     "clouds": 12.0,
+    "geysers": 13.0,
 }
 FLUIDS = {"water": 1.0, "lava": 2.0, "gap": 3.0}
 PALETTE_SIZE = 16

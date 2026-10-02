@@ -39,6 +39,8 @@ void main() {
     } else if (style == 12.0) {
         ground = cloud_deck(height, flat_ground, medium);
         smooth_surface = 1.0;
+    } else if (style == 13.0) {
+        ground = geysers(p, height, mark, flat_ground, medium, fine, smooth_surface);
     } else {
         ground = mountains(p, height, cavity, flat_ground, large, medium, fine, smooth_surface);
     }

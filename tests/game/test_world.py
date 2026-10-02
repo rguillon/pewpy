@@ -598,6 +598,7 @@ def test_every_part_of_every_boss_can_be_shot_from_below(kind: str) -> None:
         boss.parts_released = True
         world.enemies += [boss, *boss.parts]
         world.update(DT, Controls())  # the parts take their places
+        boss.go_to(boss.spec.states[1].name)  # arrived: it can be hurt
         part = next(part for part in boss.parts if part.part_name == target.name)
         for other in boss.parts:
             other.alive = other is part
@@ -648,6 +649,8 @@ def test_beating_a_mini_boss_clears_its_shots_but_the_level_goes_on_to_the_final
     run(world, 0.1)
     mini = world.boss
     assert mini is not None
+    while mini.arriving:
+        run(world, DT)
     world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5, hostile=True))
     world._damage(mini, mini.health)
     assert not world.boss_beaten

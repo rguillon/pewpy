@@ -25,7 +25,8 @@ General rules for every boss:
   about as big as its hitbox. The newest bosses (Reaper, Leviathan, Flare Rig, Crucible, Interdictor, Nightwatch,
   Arc Tower, Apex) are boss candidates (`make boss-candidates`) in real 3D, their parts standing on the hull.
 - Entry: comes down from above the screen at 0.25 and stops at y = 0.55, then sways left and right between the
-  screen edges. It doesn't leave the screen and doesn't shoot before it stops.
+  screen edges. It doesn't leave the screen and doesn't shoot before it stops; until then, it and its parts can't be
+  hurt (shots and the laser stop at them, harmlessly).
 - Health bar: at the top of the screen, with its name, for the core and parts together (see `04-ui-audio.md`).
 - Phases: each phase has its own guns and sway speed. A phase ends when some parts are destroyed, or when the
   core's health falls below a fraction of its full health. At the start of each phase (and on arrival) the core
@@ -568,7 +569,7 @@ General rules for every boss:
 
 ### Boss: Relay Array
 
-- Level: 6-1 (Red Canyon)
+- Level: 6-1 (Geyser Basin)
 - Look and size: a cross-shaped relay ship with a tall tower and a blue reactor, 0.3 x 0.24; two dishes (0.14 x 0.14, 35
   health, 600 points each)
 - Health: 110 (core)
@@ -584,7 +585,7 @@ General rules for every boss:
 
 ### Boss: Scavenger
 
-- Level: 6-2 (Sandstone Gorge)
+- Level: 6-2 (Sinter Terraces)
 - Look and size: a delta-winged salvager with a command tower and ochre markings, 0.2 x 0.27; two batterys (0.2 x 0.13,
   35 health, 600 points each)
 - Health: 110 (core)
@@ -603,7 +604,7 @@ General rules for every boss:
 
 ### Boss: Mine Carrier
 
-- Level: 6-3 (Dry Riverbed)
+- Level: 6-3 (Prismatic Springs)
 - Look and size: a heavy carrier with four engines and a purple reactor, 0.34 x 0.28; two launchers (0.12 x 0.12, 35
   health, 600 points each)
 - Health: 130 (core)
@@ -622,7 +623,7 @@ General rules for every boss:
 
 ### Boss: Foundry
 
-- Level: 6-4 (Canyon Dusk)
+- Level: 6-4 (Sulfur Dusk)
 - Look and size: a heavy foundry block around a big molten reactor, 0.28 x 0.3; two presses (0.12 x 0.14, 35 health, 600
   points each)
 - Health: 140 (core)
@@ -641,7 +642,7 @@ General rules for every boss:
 
 ### Boss: Gunship Prime
 
-- Level: 6-5 (Switchbacks)
+- Level: 6-5 (Fumarole Field)
 - Look and size: a long heavy gunship with a tower, prow guns and an amber reactor, 0.24 x 0.33; two cannons (0.1 x
   0.18, 30 health, 500 points each) and two engines (0.12 x 0.12, 30 health, 500 points each)
 - Health: 140 (core)
@@ -662,7 +663,7 @@ General rules for every boss:
 
 ### Boss: Colossus
 
-- Level: 6-6 (The Narrows)
+- Level: 6-6 (The Caldera)
 - Look and size: a huge armored fortress block with four engines, a tower, prow guns and a glowing furnace, 0.34 x 0.3;
   two outers (0.12 x 0.12, 30 health, 600 points each) and two inners (0.12 x 0.12, 30 health, 600 points each)
 - Health: 150 (core)
@@ -1002,12 +1003,12 @@ the screen for the last ones) and harder, with more parts and four phases. Same 
 | 5-4 | Tsunami | Open Sea | Cryo Fortress | #096 | 0.527 x 0.553 | 8 x 34 | 264 | wave, cluster, laser, spiral | 8800 |
 | 5-5 | Abyssal | Squall Line | Sentry Grid | #058 | 0.607 x 0.493 | 7 x 35 | 278 | sniper, missiles, curve, laser | 9200 |
 | 5-6 | Kraken | Dark Tide | Leviathan | #102 | 0.5 x 0.6 | 4 x 37 | 292 | wave, rockets, laser, curve | 9600 |
-| 6-1 | Mesa | Red Canyon | Relay Array | #152 | 0.713 x 0.433 | 10 x 32 | 250 | rockets, sniper, laser, fan | 8400 |
-| 6-2 | Dust Devil | Sandstone Gorge | Scavenger | #191 | 0.72 x 0.44 | 12 x 34 | 264 | curve, pellets, spiral, accel | 8800 |
-| 6-3 | Landslide | Dry Riverbed | Mine Carrier | #183 | 0.74 x 0.467 | 10 x 35 | 278 | cluster, rockets, laser, wave | 9200 |
-| 6-4 | Basilisk | Canyon Dusk | Foundry | #048 | 0.573 x 0.607 | 6 x 37 | 292 | accel, sniper, laser, curve | 9600 |
-| 6-5 | Sandworm | Switchbacks | Gunship Prime | #094 | 0.607 x 0.573 | 9 x 38 | 306 | missiles, wave, curve, laser | 10000 |
-| 6-6 | Monolith | The Narrows | Colossus | #031 | 0.553 x 0.633 | 8 x 40 | 320 | sniper, cluster, laser, accel | 10400 |
+| 6-1 | Mesa | Geyser Basin | Relay Array | #152 | 0.713 x 0.433 | 10 x 32 | 250 | rockets, sniper, laser, fan | 8400 |
+| 6-2 | Dust Devil | Sinter Terraces | Scavenger | #191 | 0.72 x 0.44 | 12 x 34 | 264 | curve, pellets, spiral, accel | 8800 |
+| 6-3 | Landslide | Prismatic Springs | Mine Carrier | #183 | 0.74 x 0.467 | 10 x 35 | 278 | cluster, rockets, laser, wave | 9200 |
+| 6-4 | Basilisk | Sulfur Dusk | Foundry | #048 | 0.573 x 0.607 | 6 x 37 | 292 | accel, sniper, laser, curve | 9600 |
+| 6-5 | Sandworm | Fumarole Field | Gunship Prime | #094 | 0.607 x 0.573 | 9 x 38 | 306 | missiles, wave, curve, laser | 10000 |
+| 6-6 | Monolith | The Caldera | Colossus | #031 | 0.553 x 0.633 | 8 x 40 | 320 | sniper, cluster, laser, accel | 10400 |
 | 7-1 | Furnace | Refinery | Grappler | #158 | 0.733 x 0.48 | 10 x 35 | 278 | fan, rockets, laser, pellets | 9200 |
 | 7-2 | Smokestack | Tank Farm | Tugmaster | #156 | 0.66 x 0.533 | 8 x 37 | 292 | cluster, accel, curve, laser | 9600 |
 | 7-3 | Slag King | Smelter | Magma Rig | #047 | 0.593 x 0.6 | 10 x 38 | 306 | pellets, missiles, laser, wave | 10000 |

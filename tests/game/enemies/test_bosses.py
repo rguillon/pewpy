@@ -72,6 +72,18 @@ def test_a_living_part_covers_the_columns_under_it() -> None:
     assert not boss.covered(cutter.x)
 
 
+def test_a_boss_and_its_parts_cannot_be_hurt_until_they_come_to_their_place() -> None:
+    boss = make_boss("harvester", 0.0)
+    boss.update(DT, BELOW, 0.2)
+    destroy(boss, *boss.parts)
+    assert boss.alive
+    assert all(part.alive for part in boss.parts)
+    assert boss.health_fraction == 1.0
+    arrive(boss)
+    destroy(*boss.parts)
+    assert not any(part.alive for part in boss.parts)
+
+
 def test_no_shots_while_coming_down_or_during_a_phase_pause() -> None:
     boss = make_boss("warden", 0.0)
     assert not [entity for entity in arrive(boss) if not isinstance(entity, Enemy)]
@@ -149,6 +161,7 @@ def test_destroyed_parts_stop_firing() -> None:
 def test_health_bar_counts_the_core_and_its_parts() -> None:
     boss = make_boss("harvester", 0.0)
     assert boss.health_fraction == 1.0
+    arrive(boss)
     destroy(boss.parts[0])
     assert boss.health_fraction == pytest.approx(1 - 40 / 180)
 

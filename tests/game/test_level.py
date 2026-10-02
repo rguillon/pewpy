@@ -17,7 +17,7 @@ def test_bundled_levels_load_as_eight_worlds_of_six() -> None:
         "Fenlands",
         "Heartland",
         "Archipelago",
-        "Canyonlands",
+        "Steamvale",
         "Ironworks",
         "Metropolis",
     ]
@@ -80,7 +80,7 @@ def test_parse_level_background() -> None:
 
 
 def test_each_world_keeps_to_its_ground() -> None:
-    grounds = ["mountains", "forest", "swamp", "farmland", "ocean", "canyon", "refinery", "city"]
+    grounds = ["mountains", "forest", "swamp", "farmland", "ocean", "geysers", "refinery", "city"]
     for world, ground in zip(load_worlds(), grounds, strict=True):
         assert {level.background for level in world.levels} == {ground}
 
