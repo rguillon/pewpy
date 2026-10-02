@@ -150,7 +150,9 @@ class Screens(Drawing):
             arsenal=arsenal,
             view_top=screen.top,
             view_side=screen.right,
+            view_bottom=screen.bottom,
             ship=SHIPS[self.ship_key],
+            cutscenes=True,
         )
         level = self.levels[index]
         self._show_background(level)

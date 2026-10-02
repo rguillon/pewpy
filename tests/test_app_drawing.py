@@ -244,10 +244,12 @@ def test_the_hud_shows_the_secondary_weapon(app: PewPewApp) -> None:
     world = play(app)
     world.arsenal.secondary = SecondaryWeapon("lightning")
     app._update_hud()
-    assert app.secondary_text.getText() == "+Z"
+    assert app.secondary_text.getText() == "Z"
+    assert not app.secondary_tile.isHidden()
     world.arsenal.secondary = None
     app._update_hud()
     assert app.secondary_text.getText() == ""
+    assert app.secondary_tile.isHidden()
 
 
 def test_the_frames_per_second_can_be_hidden(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:

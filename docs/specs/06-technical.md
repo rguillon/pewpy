@@ -42,7 +42,7 @@
   - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered, MagicaVoxel), `built/` and `background/` models
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
   - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` and `music/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
+  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/`, `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (one package per tool, each run with
   `python -m`: `levels/` (`worlds/`: one module per world), `final_bosses/`, `models/` (`recipes/`: one module per
   model), `candidates/` and `boss_candidates/` (one module per family, core, attachment, appendage, wing plan, kind

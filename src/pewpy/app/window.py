@@ -8,15 +8,18 @@ import os
 import sys
 
 from direct.showbase.ShowBase import ShowBase
-from panda3d.core import GraphicsEngine, PerspectiveLens, Point2, Point3, Vec3
+from panda3d.core import Filename, GraphicsEngine, PerspectiveLens, Point2, Point3, TextNode, Vec3
 
 from pewpy import config
+from pewpy.data import data_folder
 from pewpy.graphics import lighting
 from pewpy.scenery.background.view import space_color
 
 Color = tuple[float, float, float, float]
 BACKGROUND_COLOR: Color = space_color()
 GAME_ASPECT = config.WINDOW_WIDTH / config.WINDOW_HEIGHT  # the game area keeps this shape (width / height)
+FONT = "orbitron.ttf"  # every text's font, in data/fonts/ (with its license)
+FONT_PIXELS_PER_UNIT = 64  # how finely its letters are rendered: higher, sharper big text
 
 
 class Window(ShowBase):
@@ -99,6 +102,12 @@ class Window(ShowBase):
 
     def _setup_lights(self) -> None:
         lighting.setup(self)
+
+    def _setup_font(self) -> None:
+        """Make the game's font the default one, for every text made from now on."""
+        path = Filename.fromOsSpecific(str(data_folder() / "fonts" / FONT)).getFullpath()
+        font = self.loader.loadFont(path, pixelsPerUnit=FONT_PIXELS_PER_UNIT)
+        TextNode.setDefaultFont(font)
 
 
 def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT) -> tuple[float, float, float, float]:

@@ -696,3 +696,40 @@ def test_an_enemy_already_destroyed_takes_no_more_damage() -> None:
     world.enemies = [drone]
     world._damage(drone, 10.0)
     assert world.score == 0
+
+
+def test_with_cutscenes_the_ship_flies_in_from_the_bottom_before_the_waves() -> None:
+    level = Level(name="one", scroll_speed=0.2, waves=(Wave(time=0.0),))
+    world = World(level, seed=0, cutscenes=True, view_bottom=-1.1)
+    assert world.player.y < -1.1
+    run(world, config.ARRIVAL_TIME / 2, Controls(move_x=1.0, fire=True))
+    assert world.arriving
+    assert world.player.x == 0.0  # not steered
+    assert not world.player_bullets
+    assert not world.enemies  # the waves wait for it
+    assert -1.1 < world.player.y < config.PLAYER_START_Y
+    run(world, config.ARRIVAL_TIME / 2 + 0.1)
+    assert not world.arriving
+    assert world.player.y == pytest.approx(config.PLAYER_START_Y)
+    assert world.enemies
+
+
+def test_with_cutscenes_the_ship_flies_away_through_the_top_once_the_level_is_over() -> None:
+    world = World(BOSS_LEVEL, seed=0, cutscenes=True, view_top=1.6)
+    world.arrival_time = 0.0
+    run(world, 0.1)
+    boss = world.boss
+    assert boss is not None
+    boss.parts[1].alive = False
+    boss.go_to("phase 2")
+    world._damage(boss, boss.health)
+    run(world, config.BOSS_BEATEN_TIME + DT)
+    assert world.leaving
+    x = world.player.x
+    run(world, 0.5, Controls(move_x=1.0, fire=True))
+    assert world.player.x == pytest.approx(x, abs=0.05)  # not steered
+    assert world.player.y > config.PLAYER_START_Y
+    assert not world.completed
+    run(world, 3.0)
+    assert world.player.y > 1.6
+    assert world.completed

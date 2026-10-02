@@ -13,7 +13,8 @@
   What it changes: see `01-gameplay.md` ("Difficulty").
 - Scroll speed: constant within a level, set per level (from 0.2 at difficulty 1 to 0.31 at difficulty 20).
 - Level length: time based, about 100 s of waves, in two halves of about 46 s of
-  waves each. The level ends when every wave has entered and no enemy is left.
+  waves each, after the ship has flown in from the bottom. The level ends when every wave has entered and no enemy
+  is left.
 - Bosses: every level has two of its own (see the worlds' tables and `02-enemies-bosses.md`), each a wave like any
   other (`"enemy": "sentinel"`) about 6 s after the last wave of its half:
     - the **mini boss** halfway, after the first half;
@@ -21,7 +22,8 @@
   While a boss is fought the waves' clock stops, so the second half starts 3 s (on that clock) after the mini boss
   came, whenever it is destroyed *(placeholder)*. Destroying the mini boss makes the enemy shots vanish and the
   level goes on. The level ends 3 s after the final boss is destroyed: every enemy left blows up (no points), enemy
-  shots vanish, and the player plays on to pick up what it dropped *(placeholder)*. Each world's bosses get harder
+  shots vanish, and the player plays on to pick up what it dropped *(placeholder)*; then the ship flies away through
+  the top of the screen (see `01-gameplay.md`, "Player ship"). Each world's bosses get harder
   level by level, up to the world's big bosses at x-6.
 - Second half: harder than the first, as hard as a level 2 steps harder (`SECOND_HALF_HARDER`): bigger groups and
   more of them in the same time, with its own signature enemies *(placeholder)*.

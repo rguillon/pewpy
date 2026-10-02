@@ -49,6 +49,11 @@ The states are:
   enemy 2. At 0 health the ship explodes, a life is lost and the level restarts (see "Game over and victory")
 - Invulnerability time after being hit: 1 second (the ship blinks)
 - Cant leave the screen edges
+- Each life starts with the ship flying in from below the screen to its starting place, slowing down, in
+  `ARRIVAL_TIME` (1.5 s): the player can't steer or fire yet, nothing can hit it, and the waves wait for it. Once
+  the level is over (see `03-levels.md`), the ship flies away through the top of the screen, faster and faster
+  (`DEPARTURE_ACCELERATION`, 3 units/s²), on its own; the level is complete when it is gone (both in `config.py`)
+  *(placeholder)*
 - The ship rolls up to 25° when moving sideways, for looks only (`PLAYER_BANK_ANGLE` in `app/drawing.py`) *(placeholder)*
 
 ### Ships

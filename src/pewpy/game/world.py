@@ -37,7 +37,12 @@ class World:
         view_top: float = config.PLAY_HEIGHT / 2,
         ship: ShipSpec | None = None,
         view_side: float = config.PLAY_WIDTH / 2,
+        view_bottom: float = -config.PLAY_HEIGHT / 2,
+        cutscenes: bool = False,
     ) -> None:
+        # With `cutscenes` (the game, not the tests or the AI), the ship flies in from the bottom at the start of
+        # each life, and away through the top once the level is over, before it counts as completed.
+        self.cutscenes = cutscenes
         self.ship = ship or SHIPS[DEFAULT_SHIP]  # the player's ship, for every life
         self.rng = random.Random(seed)
         # Top and sides of the screen on the play plane. The tilted camera shows more than the play area at the
@@ -45,6 +50,7 @@ class World:
         # shots fly until they are off screen, and enemies appear off screen.
         self.view_top = view_top
         self.view_side = view_side
+        self.view_bottom = view_bottom
         self.level = level
         self.level_start_score = score
         self.lives = lives
@@ -59,6 +65,9 @@ class World:
         self.wave_time = 0.0  # the waves' clock: stopped while a boss is fought, so the next waves wait for it
         self.pending_spawns = self.level.spawns()
         self.player = Player(ship=self.ship)
+        self.arrival_time = config.ARRIVAL_TIME if self.cutscenes else 0.0  # counts down while the ship flies in
+        if self.cutscenes:
+            self.player.y = self._arrival_start
         self.player_bullets: list[Bullet] = []
         self.enemies: list[Enemy] = []
         self.enemy_bullets: list[Bullet] = []
@@ -77,9 +86,32 @@ class World:
 
     @property
     def completed(self) -> bool:
+        """Every wave has entered, no enemy is left, and the ship has flown away (with cutscenes)."""
+        return not self.game_over and self._cleared and (not self.cutscenes or self._player_gone)
+
+    @property
+    def arriving(self) -> bool:
+        """Whether the ship is flying in from the bottom, at the start of a life: the player can't steer it yet."""
+        return self.arrival_time > 0
+
+    @property
+    def leaving(self) -> bool:
+        """Whether the ship is flying away through the top, the level over: the player can't steer it anymore."""
+        return self.cutscenes and not self.game_over and not self.arriving and self._cleared
+
+    @property
+    def _cleared(self) -> bool:
         """Every wave has entered and no enemy is left."""
         waiting = self.boss_beaten and self.boss_beaten_time > 0  # still picking up what the boss dropped
-        return not self.game_over and not self.pending_spawns and not self.enemies and not waiting
+        return not self.pending_spawns and not self.enemies and not waiting
+
+    @property
+    def _player_gone(self) -> bool:
+        return self.player.y - self.player.height / 2 > self.view_top
+
+    @property
+    def _arrival_start(self) -> float:
+        return self.view_bottom - self.player.height
 
     @property
     def boss(self) -> Enemy | None:
@@ -96,6 +128,12 @@ class World:
         if self.game_over or self.completed:
             return
         self.time += dt
+        if self.arriving:
+            self._arrive(dt)
+            return
+        if self.leaving:
+            self._leave(dt)
+            return
         if self.boss is None:
             self.wave_time += dt
         self.player.update(dt, controls.move_x, controls.move_y, controls.fire)
@@ -124,6 +162,30 @@ class World:
             self.arsenal.secondary = None  # it blew up with the ship
             if not self.game_over:
                 self.start_life()
+
+    def _arrive(self, dt: float) -> None:
+        """Fly the ship in from below the screen to its starting place, slowing down (the waves wait for it)."""
+        self.arrival_time = max(self.arrival_time - dt, 0.0)
+        player = self.player
+        player.invulnerable_time = max(0.0, player.invulnerable_time - dt)
+        start, end = self._arrival_start, config.PLAYER_START_Y
+        left = self.arrival_time / config.ARRIVAL_TIME  # from 1 to 0
+        player.y = end + (start - end) * left**3  # eases out
+        player.vx = 0.0
+        player.vy = 3 * (end - start) * left**2 / config.ARRIVAL_TIME  # for the engine flames
+
+    def _leave(self, dt: float) -> None:
+        """Fly the ship away through the top of the screen, faster and faster; what's left in play goes on."""
+        self.laser = None
+        self.bolt = []
+        player = self.player
+        player.invulnerable_time = max(0.0, player.invulnerable_time - dt)
+        player.vx *= math.exp(-config.PLAYER_RESPONSIVENESS * dt)
+        player.vy = max(player.vy, 0.0) + config.DEPARTURE_ACCELERATION * dt
+        player.move(dt)
+        self._move_shots(dt)
+        self._collect_pickups(dt)
+        self._remove_dead()
 
     def _spawn_enemies(self) -> None:
         while self.pending_spawns and self.pending_spawns[0].time <= self.wave_time:

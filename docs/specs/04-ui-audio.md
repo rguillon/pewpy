@@ -90,15 +90,18 @@ Pause -> Main menu
 
 | Element | Position | Notes |
 |---------|----------|-------|
-| Score | Bottom-left corner, close to the edges *(placeholder)* | TBD |
-| Lives | Bottom-right corner, close to the edges *(placeholder)* | TBD |
-| Health | Bottom center, at the edge: a thin bar, green over dark red *(placeholder)* | One bar per life |
+| Score | Bottom-left panel *(placeholder)* | "SCORE" over an amber 7-digit readout |
+| Lives | Bottom-right panel *(placeholder)* | "LIVES" over an amber digit and a green lamp per life, up to the most the ship can have |
+| Health | Bottom-center panel, under the weapons *(placeholder)* | "HULL": a gauge of 20 segments, green, amber under half, red under a quarter; one gauge per life |
 | Bombs | TBD | TBD |
-| Weapon level | Bottom center, just over the health bar *(placeholder)* | The three weapons with their level, e.g. "B2 L1 M3"; the selected one is highlighted; then the secondary weapon if the ship carries one, "+T" or "+Z" in its color *(placeholder)* |
+| Weapon level | Bottom-center panel *(placeholder)* | A tile per weapon (B, L, M) with its letter and 5 pips for its level; the selected one lit in its color. A fourth tile, "AUX", shows the secondary weapon's letter (T or Z) lit in its color while the ship carries one *(placeholder)* |
 | Frames per second | Top-right corner, small and dim, on every screen (menus too) *(the user's choice)* | Averaged over a second, refreshed twice a second; `SHOW_FPS` in `config.py` turns it off |
-| Boss health bar | Top center, at the edge: a wide orange bar over dark red, the boss's name under it *(placeholder)* | Only while the boss is on screen; counts the core and its parts together |
+| Boss health bar | Top center, at the edge: a wide orange bar in a recessed display, the boss's name under it *(placeholder)* | Only while the boss is on screen; counts the core and its parts together |
 
-- Font: TBD
+- Look: the bottom of the HUD is three cockpit instrument panels *(the user's choice)*: gunmetal plates with a
+  bevelled rim and a screw in each corner, their readouts in recessed dark displays (`ui/panel.py`).
+- Font: Orbitron, a geometric sci-fi font (SIL Open Font License, in `data/fonts/` with its license), for every
+  text: menus, HUD, ship select, pickup letters (`FONT` in `app/window.py`) *(the user's choice: something sci-fi)*
 
 ## Audio
 

@@ -43,10 +43,20 @@ def choose(app: PewPewApp, label: str) -> None:
 def start_level(app: PewPewApp, index: int = 0) -> None:
     choose(app, "Start")
     choose(app, SHIPS[app.ship_key].name.title())
-    world, number = app.places[index]
-    choose(app, f"{world + 1}. {app.worlds[world].name}")
+    world_index, number = app.places[index]
+    choose(app, f"{world_index + 1}. {app.worlds[world_index].name}")
     menu(app).selected = number - 1
     press(app, keys.MENU_CHOOSE_KEY)
+    world(app).arrival_time = 0.0  # skip the ship flying in
+
+
+def test_a_level_starts_with_the_ship_flying_in_from_the_bottom(app: PewPewApp) -> None:
+    choose(app, "Start")
+    choose(app, SHIPS[app.ship_key].name.title())
+    choose(app, f"1. {app.worlds[0].name}")
+    press(app, keys.MENU_CHOOSE_KEY)
+    assert world(app).arriving
+    assert world(app).player.y < world(app).view_bottom
 
 
 def test_the_main_menu_starts_or_quits(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -155,6 +165,9 @@ def test_game_over_and_continue(app: PewPewApp) -> None:
 def complete(app: PewPewApp) -> None:
     world(app).pending_spawns = []
     world(app).enemies = []
+    frames(app)
+    assert app.states.state is State.PLAYING  # the ship flies away first
+    world(app).player.y = world(app).view_top + 1.0
     frames(app)
 
 

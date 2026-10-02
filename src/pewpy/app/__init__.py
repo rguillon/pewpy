@@ -64,6 +64,7 @@ class PewPewApp(Sound):
         self.adjustWindowAspectRatio(self.getAspectRatio())
         self._setup_camera()
         self._setup_lights()
+        self._setup_font()
         self._setup_drawing()
         self._build_models()
         self.ship_key = DEFAULT_SHIP  # the player's ship (picked on the ship selection screen)
