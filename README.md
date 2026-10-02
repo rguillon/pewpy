@@ -7,6 +7,10 @@
 
 A vertical-scrolling shoot 'em up written in Python with [Panda3D](https://www.panda3d.org/).
 
+This project is just me trying vibe coding, do not expect quality.
+
+Nothing is done manually (so far), the levels, ships and even the music are all generated with Claude Code.
+
 You fly a ship over scrolling landscapes and shoot down waves of enemy aircraft, ground turrets and bosses. The
 ships and enemies are voxel models built in code, and the ground is painted live by shaders; a tilted 3D camera
 gives the flat, arcade-style gameplay some depth.
