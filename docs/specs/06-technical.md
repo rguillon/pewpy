@@ -6,6 +6,8 @@
 - Panda3D version: TBD (1.10.x is currently installed)
 - Extra libraries allowed (e.g. panda3d-gltf, numpy): `types-panda3d` (dev only, so `ty` can type-check
   Panda3D); `numpy` (building the voxel meshes, the AI's neural networks: no machine learning library, see `07-ai.md`);
+  `pyyaml` (the data files, all YAML: the game reads them with `pewpy/data.py`, the dev tools write them with
+  `pewpewdev/yamlfiles.py`, short lists and mappings of plain values on one line), `types-pyyaml` (dev only);
   others: TBD
 
 ## Performance
@@ -33,7 +35,7 @@
   (a registry, or the names it re-exports).
   - `pewpy/`: `app/` (the window, input, drawing: `PewPewApp` built in layers, one module each: `window.py`,
     `entity_models.py`, `hud.py`, `drawing.py` (and `bullets.py`), `screens.py`, `keys.py`, `sound.py`);
-    `config.py` (the technical constants, and the game's rules read from `rules.json`); `data.py`.
+    `config.py` (the technical constants, and the game's rules read from `rules.yaml`); `data.py`.
   - `game/` (the rules, no Panda3D): entities, controls, events, player, world, states, levels; `weapons/`
     (`guns/`: the guns everyone fires (`gun.py`, `state.py`, `patterns.py`, `styles.py`, `launch.py`, `laser.py`,
     `chain.py`, `timing/`: one module per way of timing shots); `bullets/`: one module per kind of shot; `player/`:
@@ -46,7 +48,7 @@
   - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered, MagicaVoxel), `built/` and `background/` models
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
   - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/`, `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
+  The data, apart from the code, in `data/` at the top of the project: `rules.yaml`, `ships.yaml`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/`, `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (one package per tool, each run with
   `python -m`: `levels/` (`worlds/`: one module per world), `final_bosses/`, `models/` (`recipes/`: one module per
   model), `candidates/` and `boss_candidates/` (one module per family, core, attachment, appendage, wing plan, kind
@@ -57,7 +59,7 @@
   shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),
   a look, whether it can be hurt, and exits to other states (`game/enemies/exits/`: a timer, a height, lined up with the player, a cycle of
   its age, visits, parts destroyed, health lost, volleys fired...), each doing actions on the way (`game/enemies/actions/`: set a speed, aim,
-  relocate, fire, die). The enemies are in `data/enemies/*.json`, the bosses in `data/bosses/*.json`, written the same way
+  relocate, fire, die). The enemies are in `data/enemies/*.yaml`, the bosses in `data/bosses/*.yaml`, written the same way
   (`game/enemies/spec.py` reads them): a boss is only an enemy with parts, `"boss": true`, a state coming down and
   a state per phase (each starting with a `warmup`); only its configuration differs. The final bosses are made by a
   dev tool from short plans (`make final-bosses`, `pewpewdev/tools/final_bosses/`). A new
@@ -67,8 +69,8 @@
 - Weapons as data *(the user's choice)*: the player's weapons and the enemies' are the same guns
   (`game/weapons/guns/`): a pattern (aimed, fan, ring, beams, the player's laser "ray", the lightning "chain"),
   timing (interval or rate, volleys, charging, reloading), and what they fire (bullets of a style and size, missiles,
-  enemies). The player's are in `data/weapons/` (`player.json`: one gun per level of each weapon;
-  `secondary.json`), the enemies' in their own descriptions. Only how they look is in code (`app/`, `graphics/`).
+  enemies). The player's are in `data/weapons/` (`player.yaml`: one gun per level of each weapon;
+  `secondary.yaml`), the enemies' in their own descriptions. Only how they look is in code (`app/`, `graphics/`).
 - Game loop timing (variable dt / fixed timestep): TBD
 - Collision detection (Panda3D CollisionTraverser / custom simple circles-boxes): TBD
 - Configuration (constants in code / TOML file for tunable values): TBD
@@ -82,7 +84,7 @@
   screens) have none, only the linters and the type checker.
 - Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
   fails below it. Code that can't happen is removed rather than tested. Content (levels, bosses, model drawings) is
-  data in JSON files loaded by the game, not declarations in Python, so it needs no tests of its own *(the user's
+  data in YAML files loaded by the game, not declarations in Python, so it needs no tests of its own *(the user's
   choice)*: the tests cover the code loading and building it.
 - The app itself (screens, drawing, HUD) is tested too, without a display: one app for the whole test session,
   drawing into an offscreen buffer through EGL (`load-display p3headlessgl`), silent, its songs not rendered

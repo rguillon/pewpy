@@ -1,7 +1,6 @@
 """Writing the levels (see the package)."""
 
 import argparse
-import json
 from pathlib import Path
 from typing import Any
 
@@ -9,23 +8,24 @@ from pewpewdev.paths import DATA
 from pewpewdev.tools import levels
 from pewpewdev.tools.levels.generate import generate
 from pewpewdev.tools.levels.worlds import WORLDS
+from pewpewdev.yamlfiles import dump_yaml
 
 LEVELS = DATA / "levels"
 DEFAULT_SEED = 2024
 
 
 def write(folder: Path, levels: dict[tuple[int, int], dict[str, Any]]) -> None:
-    """Replace every world folder with the generated ones (the background presets, sceneries.json, stay)."""
+    """Replace every world folder with the generated ones (the background presets, sceneries.yaml, stay)."""
     for old in folder.glob("world_*"):
-        for path in old.glob("*.json"):
+        for path in old.glob("*.yaml"):
             path.unlink()
         old.rmdir()
     for w, world in enumerate(WORLDS, start=1):
         world_folder = folder / f"world_{w}"
         world_folder.mkdir()
-        (world_folder / "world.json").write_text(json.dumps({"name": world.name}, indent=2) + "\n")
+        (world_folder / "world.yaml").write_text(dump_yaml({"name": world.name}))
     for (w, n), level in levels.items():
-        (folder / f"world_{w}" / f"level_{n}.json").write_text(json.dumps(level, indent=2) + "\n")
+        (folder / f"world_{w}" / f"level_{n}.yaml").write_text(dump_yaml(level))
 
 
 def main() -> None:

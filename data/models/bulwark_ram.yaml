@@ -1,0 +1,32 @@
+rows:
+- hhhhhhHhhhhhh
+- hhhhhhHhhhhhh
+- hhhhhhHhhhhhh
+- .hhhhhHhhhhh.
+- .hhhhhHhhhhh.
+- .hhhhhHhhhhh.
+- .hhhhhHhhhhh.
+- ..hhhhHhhhh..
+- ..hhhhHhhhh..
+- ..hhhhHhhhh..
+- ..hhhhHhhhh..
+- '...hhhHhhh...'
+- '...hhhHhhh...'
+- '...hhhHhhh...'
+- '...hhhHhhh...'
+- '....hhHhh....'
+- '....hhHhh....'
+- '....hhHhh....'
+- '....hhHhh....'
+- '.....hHh.....'
+- '.....hbh.....'
+palette:
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 7
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 7
+  b:
+    color: [0.22, 0.23, 0.25]
+    height: 3

@@ -1,0 +1,216 @@
+name: Coral Shoals
+scroll_speed: 0.252
+background: ocean
+background_seed: 5846
+clouds: 0.15
+scenery:
+  ground:
+    shape: {land_share: 0.15}
+waves:
+- {time: 2.0, enemy: dart, count: 7, formation: column, interval: 0.4, x: 0.58}
+- {time: 4.7, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 6.1, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 7.6
+  enemy: hornet
+  count: 5
+  formation: column
+  interval: 0.9
+  x: -0.33
+- {time: 7.6, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 9.0, enemy: harrier, x: 0.0}
+- {time: 9.0, enemy: harrier, x: 0.0}
+- time: 10.6
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 10.6
+  enemy: splitter
+  count: 4
+  formation: column
+  interval: 1.5
+  x: 0.0
+- {time: 14.4, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 15.8, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 17.2, enemy: splitter, count: 3, formation: line, spacing: 0.83}
+- time: 19.7
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- {time: 21.3, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 22.6, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 24.0, enemy: harrier, x: -0.33}
+- {time: 25.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 25.6, enemy: rapier, count: 3, formation: column, interval: 1.0, x: 0.5}
+- {time: 25.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 27.9, enemy: hornet, count: 5, formation: column, interval: 0.9, x: 0.5}
+- {time: 31.7, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 33.1
+  enemy: splitter
+  count: 4
+  formation: column
+  interval: 1.5
+  x: 0.0
+- {time: 33.1, enemy: rapier, count: 3, formation: column, interval: 1.0, x: 0.5}
+- {time: 33.1, enemy: hunter, count: 1, formation: column, x: -0.4}
+- {time: 34.4, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 35.8, enemy: hornet, count: 4, formation: column, interval: 0.9, x: 0.0}
+- time: 38.7
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 41.0, enemy: hunter, count: 1, formation: column, x: 0.15}
+- {time: 42.6, enemy: harrier, x: 0.0}
+- {time: 44.0, enemy: harrier, x: 0.0}
+- time: 45.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 45.3, enemy: harrier, x: -0.33}
+- time: 46.7
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 46.7, enemy: harrier, x: 0.0}
+- time: 48.0
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 48.0, enemy: harrier, x: 0.0}
+- {time: 48.0, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 48.0, enemy: harrier, x: -0.33}
+- {time: 54.0, enemy: hive_carrier}
+- {time: 57.0, enemy: drone, count: 5, formation: line, spacing: 0.5}
+- {time: 58.8, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 58.8, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 59.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 61.0
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- {time: 62.1, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 63.8, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 65.5, enemy: imp, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 67.2, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 68.2, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 69.3, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 69.3, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 70.5, enemy: rapier, count: 2, formation: column, interval: 0.8, x: 0.5}
+- {time: 70.5, enemy: rapier, count: 2, formation: column, interval: 0.8, x: 0.5}
+- {time: 71.9, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 73.0
+  enemy: rapier
+  count: 4
+  formation: column
+  interval: 0.8
+  x: -0.5
+- time: 75.5
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- {time: 76.8, enemy: harrier, x: -0.33}
+- {time: 76.8, enemy: harrier, x: -0.33}
+- {time: 76.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 78.5, enemy: hunter, count: 1, formation: column, x: -0.4}
+- {time: 78.5, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 79.6, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 80.9, enemy: freighter, x: 0.5}
+- {time: 82.0, enemy: freighter, x: -0.5}
+- {time: 83.1, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 84.4, enemy: freighter, x: 0.5}
+- {time: 84.4, enemy: freighter, x: 0.5}
+- time: 85.4
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 86.5, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 87.5, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 88.8, enemy: hunter, count: 2, formation: column, x: -0.45}
+- {time: 91.3, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 92.7, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- time: 92.7
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- {time: 92.7, enemy: harrier, x: -0.33}
+- {time: 93.7, enemy: freighter, x: 0.5}
+- time: 94.7
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- time: 95.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- time: 96.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 97.8, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 98.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- time: 99.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 100.9, enemy: harrier, x: -0.33}
+- {time: 102.0, enemy: harrier, x: 0.0}
+- time: 102.0
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 103.0, enemy: harrier, x: -0.33}
+- {time: 109.0, enemy: man_o_war}

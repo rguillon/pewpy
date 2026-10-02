@@ -22,6 +22,6 @@ class WorldPlan:
     """What a world is to be: its name, its ground and its levels."""
 
     name: str
-    background: str  # its ground: a preset of levels/sceneries.json
+    background: str  # its ground: a preset of levels/sceneries.yaml
     levels: tuple[LevelPlan, ...]
     ground_units: bool = True  # False over water: no tanks or turrets

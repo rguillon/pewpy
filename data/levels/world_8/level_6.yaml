@@ -1,0 +1,119 @@
+name: The Core
+scroll_speed: 0.31
+background: city
+background_seed: 409
+time_of_day: night
+clouds: 0.9
+scenery:
+  settlement:
+    layout: {tower_share: 0.25}
+waves:
+- {time: 2.0, enemy: dart, count: 14, formation: column, interval: 0.4, x: 0.58}
+- {time: 5.1, enemy: shield_carrier, count: 3, formation: column, x: 0.0}
+- time: 9.2
+  enemy: mine_layer
+  count: 2
+  formation: column
+  side: right
+  y: 0.4
+- {time: 10.7, enemy: rapier, count: 4, formation: column, interval: 0.8, x: 0.5}
+- {time: 13.1, enemy: warhawk, x: 0.33}
+- {time: 16.0, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- {time: 19.0, enemy: warhawk, x: 0.0}
+- time: 19.0
+  enemy: serpent
+  count: 5
+  formation: column
+  interval: 0.8
+  x: -0.25
+- {time: 19.0, enemy: hunter, count: 2, formation: column, x: 0.02}
+- {time: 20.8, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- {time: 24.0, enemy: hunter, count: 3, formation: column, x: -0.45}
+- {time: 26.8, enemy: lancer, count: 2, formation: column, x: 0.08}
+- {time: 26.8, enemy: harrier, count: 2, x: 0.0}
+- {time: 29.0, enemy: rampart, x: 0.5}
+- {time: 30.6, enemy: warhawk, x: 0.33}
+- {time: 30.6, enemy: lancer, count: 2, formation: column, x: -0.63}
+- {time: 32.4, enemy: rapier, count: 4, formation: column, interval: 0.8, x: 0.5}
+- {time: 35.6, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- {time: 37.9, enemy: howitzer, count: 2, x: 0.5}
+- {time: 40.3, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- time: 42.0
+  enemy: javelin
+  count: 4
+  formation: column
+  interval: 1.5
+  x: 0.5
+- time: 43.7
+  enemy: javelin
+  count: 4
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 45.4, enemy: brood, count: 2, x: 0.33}
+- {time: 46.9, enemy: brood, x: 0.5}
+- {time: 48.0, enemy: brood, x: 0.5}
+- {time: 48.0, enemy: brood, x: 0.5}
+- {time: 54.0, enemy: overmind}
+- {time: 57.0, enemy: drone, count: 7, formation: line, spacing: 0.33}
+- time: 58.7
+  enemy: javelin
+  count: 4
+  formation: column
+  interval: 1.5
+  x: 0.5
+- time: 61.8
+  enemy: kestrel
+  count: 6
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 67.9, enemy: drone, count: 5, formation: line, spacing: 0.5}
+- {time: 69.5, enemy: tank, count: 3, formation: column, interval: 3.0, x: 0.75}
+- {time: 71.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 73.7, enemy: tank, count: 2, formation: column, interval: 3.0, x: -0.75}
+- time: 75.8
+  enemy: rocket_truck
+  count: 4
+  formation: column
+  interval: 1.2
+  x: 0.0
+- {time: 78.4, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 78.4, enemy: brood, count: 2, x: 0.33}
+- {time: 78.4, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 79.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 79.8
+  enemy: javelin
+  count: 4
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 82.2, enemy: tank, count: 2, formation: column, interval: 3.0, x: -0.75}
+- {time: 82.2, enemy: condor, count: 2, x: 0.0}
+- {time: 88.2, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- {time: 89.5, enemy: pincer, x: 0.0}
+- {time: 89.5, enemy: turret, count: 2, formation: line, spacing: 1.67}
+- {time: 90.9, enemy: turret, count: 2, formation: line, spacing: 1.67}
+- {time: 90.9, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- {time: 93.9, enemy: sniper, count: 3, formation: column, x: 0.0}
+- {time: 93.9, enemy: sniper, count: 2, formation: line, spacing: 1.67}
+- time: 95.7
+  enemy: broadside
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 97.9, enemy: splitter, count: 3, formation: line, spacing: 0.83}
+- {time: 97.9, enemy: sniper, count: 3, formation: column, x: 0.0}
+- {time: 99.8, enemy: sniper, count: 3, formation: column, x: 0.0}
+- {time: 99.8, enemy: sniper, count: 2, formation: line, spacing: 1.67}
+- {time: 101.1, enemy: sniper, count: 3, formation: column, x: 0.0}
+- time: 103.0
+  enemy: splitter
+  count: 10
+  formation: column
+  interval: 1.5
+  x: 0.0
+- {time: 109.0, enemy: singularity}

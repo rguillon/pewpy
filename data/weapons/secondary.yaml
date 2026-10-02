@@ -1,0 +1,25 @@
+turret:
+  letter: T
+  note: A little machine gun on the ship, shooting at the nearest enemy on screen.
+  gun:
+    pattern: aimed
+    rate: 5.0
+    reload: clamp
+    needs_target: true
+    speed: 2.5
+    damage: 0.6
+    size: [0.025, 0.025]
+lightning:
+  letter: Z
+  note: Strikes the nearest enemy in range, then jumps from enemy to enemy.
+  gun:
+    pattern: chain
+    interval: 0.6
+    reload: clamp
+    needs_target: true
+    speed: 0.0
+    damage: 2.0
+    chain_range: 0.7
+    chain_jump: 0.35
+    chain_count: 4
+    flash: 0.12

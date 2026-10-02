@@ -36,7 +36,7 @@ levels: ## Generate the game's levels from the worlds' plans in src/pewpewdev/to
 	@uv run python -m pewpewdev.tools.levels $(ARGS)
 
 .PHONY: final-bosses
-final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from their plans in src/pewpewdev/tools/final_bosses/plans.json
+final-bosses: ## Make the final bosses (data/bosses/final_bosses.yaml) from their plans in src/pewpewdev/tools/final_bosses/plans.yaml
 	@uv run python -m pewpewdev.tools.final_bosses $(ARGS)
 
 .PHONY: learn

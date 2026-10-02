@@ -1,0 +1,38 @@
+rows:
+- phhpphhppphhpphhp
+- pphhpphhphhpphhpp
+- hphhhhhhhhhhhhhph
+- hhhNNlNNkNNlNNhhh
+- phhNrrrrkrrrrNhhp
+- pphNNNNNkNNNNNhpp
+- hphNNNNNkNNNNNhph
+- hhhNrrrrkrrrrNhhh
+- phhNNNNNkNNNNNhhp
+- pphNNNNNkNNNNNhpp
+- hphNrrrrkrrrrNhph
+- hhhNNNNNkNNNNNhhh
+- phhNNNNNkNNNNNhhp
+- pphNrrrrkrrrrNhpp
+- hphNNNNNkNNNNNhph
+- hhhhhhhhhhhhhhhhh
+- phhpphhppphhpphhp
+- pphhpphhphhpphhpp
+palette:
+  p:
+    color: [0.807, 0.637, 0.128]
+    height: 1
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 1
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 3
+  l:
+    color: [1.0, 0.55, 0.15]
+    height: 5
+  k:
+    color: [0.17, 0.18, 0.2]
+    height: 1
+  r:
+    color: [0.13, 0.13, 0.15]
+    height: 1

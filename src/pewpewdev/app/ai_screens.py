@@ -108,6 +108,6 @@ class AIScreens(ModelScreens):
             total = len(places) * len(session.ships)
             now = next((ship for ship in session.ships if len(table[ship]) < len(places)), None)
             doing = f"Rating {SHIPS[now].name}: {rated}/{total} ratings" if now else ""
-            saved = str(session.folder / "ratings.json") if session.saved else ""
+            saved = str(session.folder / "ratings.yaml") if session.saved else ""
             title = rating_title(session.ships, session.runs, doing, saved, session.error)
             self.ai_panel.show_rating(title, rating_columns(places, session.ships, table), len(session.ships))

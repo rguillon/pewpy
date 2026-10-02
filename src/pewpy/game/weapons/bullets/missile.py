@@ -17,7 +17,7 @@ class Missile(Bullet):
     `splash_radius` too (`splash_damage` each).
     """
 
-    drawing: ClassVar[str] = "missile"  # its model: models/missile.json
+    drawing: ClassVar[str] = "missile"  # its model: models/missile.yaml
     width: float = 0.03
     height: float = 0.07
     homing: bool = False

@@ -1,0 +1,6 @@
+parts:
+- {drawing: 138_a, x: -13.0, y: 14.5}
+- {drawing: 138_b, x: -31.0, y: -18.5}
+- {drawing: 138_b, x: 31.0, y: -18.5}
+- {drawing: 138_c, x: -12.0, y: -3.5}
+- {drawing: 138_c, x: 12.0, y: -3.5}

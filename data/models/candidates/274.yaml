@@ -1,0 +1,82 @@
+layers:
+- - '......'
+  - .h....
+  - '......'
+  - .H....
+  - .h....
+  - .h....
+  - '......'
+  - .h.ttt
+  - .h.ttt
+  - .L.ttt
+  - '...ttt'
+  - .L.ttt
+  - .L.ttt
+  - .L.ttt
+  - '...t.t'
+  - '......'
+  - '......'
+  - '......'
+  - '......'
+- - oHHo..
+  - Nhh...
+  - .k....
+  - HHH...
+  - Nhh...
+  - hhN...
+  - .k....
+  - Nhhttt
+  - hhhttt
+  - NLLttt
+  - .k.ttt
+  - NLLttt
+  - NLLttt
+  - NLLttt
+  - '...trt'
+  - .N.Nr.
+  - .N.Nr.
+  - .h.Nr.
+  - .p.Nr.
+- - oDDo..
+  - DDD...
+  - kkk...
+  - DDD...
+  - DDD...
+  - DDD...
+  - kkk...
+  - DDDttt
+  - DDDttt
+  - DLLttt
+  - kkkttt
+  - DLLttt
+  - DLLttt
+  - DLLttt
+  - .k.t.t
+  - .D.D..
+  - .D.D..
+  - .D.D..
+  - .p.D..
+palette:
+  N:
+    color: [0.281, 0.27, 0.261]
+  h:
+    color: [0.4, 0.38, 0.369]
+  H:
+    color: [0.54, 0.51, 0.486]
+  k:
+    color: [0.184, 0.18, 0.18]
+  r:
+    color: [0.14, 0.13, 0.135]
+  o:
+    color: [0.086, 0.08, 0.081]
+  t:
+    color: [0.324, 0.31, 0.297]
+  p:
+    color: [0.5, 0.2, 0.72]
+  L:
+    color: [0.45, 0.2, 0.45]
+  D:
+    color: [0.288, 0.274, 0.266]
+engines:
+- {x: 0, y: 0, width: 2.0, length: 8, towards: top, z: -0.5}
+- {x: 3, y: 0, width: 2.0, length: 8, towards: top, z: -0.5}

@@ -1,10 +1,9 @@
-"""Reading the drawings' files (`data/models/<name>.json`) in any of their forms."""
+"""Reading the drawings' files (`data/models/<name>.yaml`) in any of their forms."""
 
-import json
 from dataclasses import replace
 from typing import Any
 
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.graphics.models.drawings import vox
 from pewpy.graphics.models.drawings.engines import Engine, parse_engines
 from pewpy.graphics.models.drawings.errors import VoxelDrawingError
@@ -14,17 +13,17 @@ from pewpy.graphics.models.drawings.magica import VOX_KEYS, voxels_from_vox
 from pewpy.graphics.models.drawings.voxels import OPTIONAL_DRAWING_KEYS, Voxels, voxel_cells
 from pewpy.graphics.models.types import Palette
 
-DRAWINGS_FOLDER = "models"  # data/models/<name>.json, one voxel drawing each
+DRAWINGS_FOLDER = "models"  # data/models/<name>.yaml, one voxel drawing each
 
 
 def load_drawing(name: str) -> tuple[list[str], Palette]:
-    """Read `models/<name>.json` (read again every time, so edited files show up with "Reload models")."""
+    """Read `models/<name>.yaml` (read again every time, so edited files show up with "Reload models")."""
     data, source = read_drawing(name)
     return parse_drawing(data, source)
 
 
 def load_voxels(name: str) -> Voxels:
-    """Load a model's cubes from `models/<name>.json`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model.
+    """Load a model's cubes from `models/<name>.yaml`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model.
 
     Read again every time, so edited files show up with "Reload models".
     """
@@ -40,11 +39,11 @@ def load_engines(name: str) -> list[Engine]:
 
 def read_drawing(name: str) -> tuple[Any, str]:
     """Read a model's file; return its data and its file name."""
-    source = f"{name}.json"
-    return json.loads((data_folder() / DRAWINGS_FOLDER / source).read_text()), source
+    source = f"{name}.yaml"
+    return read_yaml(data_folder() / DRAWINGS_FOLDER / source), source
 
 
-def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:  # noqa: ANN401 - decoded JSON
+def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:  # noqa: ANN401 - decoded YAML
     """Read a model file in any of its forms (`folder`: where a .vox file it names is, within models/).
 
     - a flat drawing: see `parse_drawing`;

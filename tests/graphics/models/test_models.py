@@ -281,7 +281,7 @@ def test_main_colors_are_what_most_of_a_model_is_made_of() -> None:
 
 def test_every_drawing_file_loads() -> None:
     folder = data_folder() / models.DRAWINGS_FOLDER
-    names = sorted(file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json"))
+    names = sorted(file.name.removesuffix(".yaml") for file in folder.iterdir() if file.name.endswith(".yaml"))
     assert "player" in names
     for name in names:
         assert models.load_voxels(name).cells
@@ -334,7 +334,7 @@ DRAWING_PALETTE = {"a": {"color": [1, 0.5, 0], "height": 3}, "b": {"color": [0, 
 )
 def test_malformed_drawings_say_what_is_wrong(data: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
-        models.parse_drawing(data, "broken.json")
+        models.parse_drawing(data, "broken.yaml")
 
 
 def test_pickup_capsules_take_the_pickup_color() -> None:
@@ -366,7 +366,7 @@ def test_a_drawing_can_have_engines() -> None:
 )
 def test_malformed_engines_say_what_is_wrong(engine: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
-        models.parse_engines({"rows": ["a"], "palette": DRAWING_PALETTE, "engines": [engine]}, "broken.json")
+        models.parse_engines({"rows": ["a"], "palette": DRAWING_PALETTE, "engines": [engine]}, "broken.yaml")
 
 
 def test_a_flame_leaves_the_nozzle_voxel_towards_its_side() -> None:
@@ -394,7 +394,7 @@ def test_a_layered_drawing_is_real_3d_with_its_middle_layer_on_the_middle_plane(
         "layers": [["a.", ".."], ["aa", "bb"], ["..", ".b"]],  # top (nearest the camera), middle, bottom
         "palette": {"a": {"color": RED}, "b": {"color": BLUE}},
     }
-    voxels = models.parse_voxels(data, "ship.json")
+    voxels = models.parse_voxels(data, "ship.yaml")
     assert (voxels.width, voxels.height) == (2, 2)
     assert voxels.cells[0, 0, -1] == (1.0, 0.0, 0.0, 1.0)  # the top layer: towards the camera
     assert voxels.cells[1, 1, 1] == (0.0, 0.0, 1.0, 1.0)  # the bottom one
@@ -413,7 +413,7 @@ def test_a_layered_drawing_is_real_3d_with_its_middle_layer_on_the_middle_plane(
 )
 def test_bad_layered_drawings_are_rejected(data: dict[str, Any], problem: str) -> None:
     with pytest.raises(models.VoxelDrawingError, match=problem):
-        models.parse_voxels(data, "ship.json")
+        models.parse_voxels(data, "ship.yaml")
 
 
 def test_flat_drawings_still_read_as_before() -> None:
@@ -442,7 +442,7 @@ def test_every_model_converts_to_vox_and_back_unchanged() -> None:
 
 def test_an_engine_can_sit_above_the_middle_plane() -> None:
     engine = models.parse_engines(
-        {"rows": ["a"], "engines": [{"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": 2}]}, "ship.json"
+        {"rows": ["a"], "engines": [{"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": 2}]}, "ship.yaml"
     )[0]
     assert engine.z == 2.0
     flame = models.add_flame(NodePath("ship"), engine, (1, 1), 0.5)
@@ -483,9 +483,9 @@ def test_a_model_can_be_a_magicavoxel_file(monkeypatch: pytest.MonkeyPatch, tmp_
     folder = tmp_path / models.DRAWINGS_FOLDER / "ships"
     folder.mkdir(parents=True)
     (folder / "box.vox").write_bytes(vox.write(vox.VoxModel((1, 1, 1), [(0, 0, 0, 1)], [(255, 0, 0, 255)])))
-    (folder / "box.json").write_text('{"vox": "box.vox", "scale": 2}')
-    (folder / "lost.json").write_text('{"vox": "nowhere.vox"}')
-    (folder / "odd.json").write_text('{"vox": 3}')
+    (folder / "box.yaml").write_text('{"vox": "box.vox", "scale": 2}')
+    (folder / "lost.yaml").write_text('{"vox": "nowhere.vox"}')
+    (folder / "odd.yaml").write_text('{"vox": 3}')
     monkeypatch.setattr(files, "data_folder", lambda: tmp_path)
     voxels = models.load_voxels("ships/box")
     assert voxels.cells == {(0, 0, 0): (1.0, 0.0, 0.0, 1.0)}
@@ -511,14 +511,14 @@ def test_palettes_and_engines_of_the_wrong_kind_are_refused(data: dict[str, Any]
 
 def read_model(data: dict[str, Any]) -> None:
     """Read a model file: its cubes, then its engines."""
-    models.parse_voxels(data, "ship.json")
-    models.parse_engines(data, "ship.json")
+    models.parse_voxels(data, "ship.yaml")
+    models.parse_engines(data, "ship.yaml")
 
 
 def test_an_engine_height_must_be_a_number() -> None:
     engine = {"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": "up"}
     with pytest.raises(models.VoxelDrawingError, match="'z' must be a number"):
-        models.parse_engines({"rows": ["a"], "engines": [engine]}, "ship.json")
+        models.parse_engines({"rows": ["a"], "engines": [engine]}, "ship.yaml")
 
 
 def test_magicavoxel_takes_at_most_255_colors() -> None:

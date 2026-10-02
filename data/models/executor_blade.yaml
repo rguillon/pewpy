@@ -1,0 +1,44 @@
+rows:
+- NNNNNNNNNNNNNNN
+- NNNNNNNNNNNNNNN
+- NNNNNNNNNNNNNNN
+- WWWWWWWHWWWWWWW
+- WWWWWWWHWWWWWWW
+- WWWWWWWHWWWWWWW
+- .WWWWWWHWWWWWW.
+- .WWWWWWHWWWWWW.
+- .WWWWWWHWWWWWW.
+- .WWWWWWHWWWWWW.
+- ..WWWWWHWWWWW..
+- ..WWWWWHWWWWW..
+- ..WWWWWHWWWWW..
+- ..WWWWWHWWWWW..
+- '...WWWWHWWWW...'
+- '...WWWWHWWWW...'
+- '...WWWWHWWWW...'
+- '...WWWWHWWWW...'
+- '...WWWWHWWWW...'
+- '....WWWHWWW....'
+- '....WWWHWWW....'
+- '....WWWHWWW....'
+- '....WWWHWWW....'
+- '.....WWHWW.....'
+- '.....WWHWW.....'
+- '.....WWHWW.....'
+- '.....WWHWW.....'
+- '......WHW......'
+- '......WHW......'
+- '......WHW......'
+- '......WHW......'
+- '.......H.......'
+- '.......H.......'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 9
+  W:
+    color: [0.42, 0.43, 0.46]
+    height: 3
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 7

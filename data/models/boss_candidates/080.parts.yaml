@@ -1,0 +1,5 @@
+parts:
+- {drawing: 080_a, x: -5.0, y: 2.5}
+- {drawing: 080_a, x: 5.0, y: 2.5}
+- {drawing: 080_b, x: -21.0, y: 3.5}
+- {drawing: 080_b, x: 21.0, y: 3.5}

@@ -18,7 +18,7 @@ class PartSpec:
     """A destructible part, at (x, y) from the core's middle."""
 
     name: str
-    drawing: str  # its model: models/<drawing>.json
+    drawing: str  # its model: models/<drawing>.yaml
     x: float
     y: float
     width: float

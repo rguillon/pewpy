@@ -14,7 +14,7 @@ def main() -> None:
     args = parser.parse_args()
     for name in args.names or RECIPES:
         model, engines = RECIPES[name]()
-        model.save(MODELS / f"{name}.json", engines)
+        model.save(MODELS / f"{name}.yaml", engines)
         print(f"{name}: {len(model.cells)} cubes")
 
 

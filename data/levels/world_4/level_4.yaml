@@ -1,0 +1,270 @@
+name: Orchard Country
+scroll_speed: 0.252
+background: farmland
+background_seed: 1669
+clouds: 0.3
+scenery:
+  settlement:
+    layout: {orchard_share: 0.3, hedge_share: 0.6}
+waves:
+- {time: 2.0, enemy: dart, count: 7, formation: column, interval: 0.4, x: 0.58}
+- {time: 4.3, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 6.8, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 8.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 8.8, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 10.9, enemy: bomber, count: 1, formation: column, side: left, y: 0.65}
+- {time: 12.2, enemy: freighter, x: 0.5}
+- {time: 13.4, enemy: splitter, count: 3, formation: line, spacing: 0.83}
+- {time: 13.4, enemy: gunship, count: 2, formation: line, spacing: 1.33}
+- {time: 15.3, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 18.0, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 20.1
+  enemy: weaver
+  count: 7
+  formation: column
+  interval: 0.4
+  x: 0.67
+- time: 22.0
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- time: 22.0
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 24.0, enemy: gunship, count: 2, formation: line, spacing: 1.33}
+- {time: 24.0, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 26.0, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 27.5
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 27.5
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 29.0
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 30.3
+  enemy: weaver
+  count: 8
+  formation: column
+  interval: 0.4
+  x: 0.58
+- time: 32.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 34.3
+  enemy: weaver
+  count: 10
+  formation: column
+  interval: 0.4
+  x: 0.0
+- time: 34.3
+  enemy: weaver
+  count: 7
+  formation: column
+  interval: 0.4
+  x: 0.67
+- {time: 34.3, enemy: gunship, count: 2, formation: column, x: 0.0}
+- {time: 36.5, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 36.5
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- time: 38.7
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 39.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 39.9, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 41.0
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 42.2, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 43.4, enemy: harrier, x: -0.33}
+- time: 44.5
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 45.7, enemy: harrier, x: -0.33}
+- {time: 46.8, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 48.0, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 54.0, enemy: silo_hauler}
+- time: 57.0
+  enemy: weaver
+  count: 11
+  formation: column
+  interval: 0.38
+  x: 0.67
+- {time: 60.3, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 61.5
+  enemy: swarmer
+  count: 12
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.3
+- time: 61.5
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 64.4
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 65.8, enemy: harrier, x: 0.0}
+- {time: 67.1, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 69.6, enemy: bomber, count: 1, formation: column, side: left, y: 0.65}
+- time: 69.6
+  enemy: flak_cannon
+  count: 2
+  formation: line
+  spacing: 1.15
+  x: 0.0
+- time: 71.2
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 73.9
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- {time: 77.0, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 79.4
+  enemy: swarmer
+  count: 11
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.6
+- time: 81.6
+  enemy: swarmer
+  count: 11
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.5
+- {time: 81.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 81.6
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 81.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 83.7, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 85.0
+  enemy: flak_cannon
+  count: 2
+  formation: line
+  spacing: 1.33
+  x: 0.0
+- {time: 85.0, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 86.3, enemy: harrier, x: 0.0}
+- {time: 87.7, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 87.7
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.25
+  x: 0.0
+- {time: 87.7, enemy: hunter, count: 1, formation: column, x: 0.02}
+- time: 89.1
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 92.0, enemy: shield_carrier, count: 2, formation: column, x: 0.0}
+- time: 95.7
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 95.7, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 95.7
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 95.7, enemy: harrier, x: 0.0}
+- time: 96.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 98.2, enemy: harrier, x: -0.33}
+- {time: 99.4, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 99.4, enemy: harrier, x: 0.0}
+- time: 100.6
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 101.8, enemy: harrier, x: -0.33}
+- time: 101.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 103.0, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 109.0, enemy: granary}

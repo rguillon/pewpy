@@ -1,7 +1,7 @@
-"""What a level's scenery looks like and how it's laid out: the parameters, read from `levels/sceneries.json`.
+"""What a level's scenery looks like and how it's laid out: the parameters, read from `levels/sceneries.yaml`.
 
 That file has a "default" entry, what every scenery shares, and one preset per kind of background ("space", "city",
-"ocean"...). A level names its preset (`background`) and can change any of its values (`scenery` in its JSON file):
+"ocean"...). A level names its preset (`background`) and can change any of its values (`scenery` in its YAML file):
 the level's values are merged over the preset's, the preset's over the default's (objects key by key, anything else
 replaced; but naming another landscape, painter or generator takes the new one's numbers and colors as given, see
 DEPENDS_ON). The result must be complete: the code has no values of its own.

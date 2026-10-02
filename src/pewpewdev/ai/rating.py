@@ -71,7 +71,7 @@ def rate(
     stop: Callable[[], bool] = lambda: False,
     executor: Executor | None = None,
 ) -> dict[str, Any]:
-    """Rate every level for each ship with the brain, if there is one; saved to ratings.json and returned."""
+    """Rate every level for each ship with the brain, if there is one; saved to ratings.yaml and returned."""
     ratings: dict[str, Any] = {"date": datetime.now(UTC).isoformat(timespec="seconds"), "runs": runs}
     training = files.load_training(folder)
     if training is None:

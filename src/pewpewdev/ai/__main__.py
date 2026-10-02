@@ -43,7 +43,7 @@ def main() -> None:
             print(f"{ship:10} {rating.place:4} {rating.name:18} clear rate {rating.clear_rate:5.1f}%")
 
         rate(args.ships, args.folder, args.runs, args.workers, show)
-        print(f"ratings written to {args.folder / 'ratings.json'}")
+        print(f"ratings written to {args.folder / 'ratings.yaml'}")
     print(f"{time.monotonic() - start:.0f} s")
 
 

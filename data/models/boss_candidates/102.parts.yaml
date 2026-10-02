@@ -1,0 +1,5 @@
+parts:
+- {drawing: 102_a, x: -31.0, y: -41.5}
+- {drawing: 102_b, x: -15.0, y: -35.5}
+- {drawing: 102_c, x: -28.0, y: 4.5}
+- {drawing: 102_d, x: 0.0, y: 9.5}

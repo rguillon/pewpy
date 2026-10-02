@@ -1,12 +1,10 @@
 """Tunable game constants: the window, the play area, the camera, the looks; and the game's rules.
 
-The rules are read from `data/rules.json`. Values marked "placeholder" are not decided in the specs yet; they are
+The rules are read from `data/rules.yaml`. Values marked "placeholder" are not decided in the specs yet; they are
 marked *(placeholder)* in docs/specs/.
 """
 
-import json
-
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 
 # Window (the user's choice: 1280 x 1024, a 5:4 landscape window)
 WINDOW_TITLE = "pewpy"
@@ -33,8 +31,8 @@ PLAY_WIDTH = 2.5
 PLAY_HEIGHT = 2.0
 WIDTH_SCALE = PLAY_WIDTH / 1.5
 
-# The game's rules (01-gameplay.md, 02-enemies.md): in `data/rules.json`
-_RULES = json.loads((data_folder() / "rules.json").read_text())
+# The game's rules (01-gameplay.md, 02-enemies.md): in `data/rules.yaml`
+_RULES = read_yaml(data_folder() / "rules.yaml")
 _PLAYER, _PICKUPS, _ENEMIES = _RULES["player"], _RULES["pickups"], _RULES["enemies"]
 
 PLAYER_RESPONSIVENESS: float = _PLAYER[

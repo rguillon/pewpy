@@ -1,0 +1,166 @@
+bullets:
+  letter: B
+  note: 'Shots from the nose: more of them, wider and faster with the levels.'
+  levels:
+  - pattern: fan
+    rate: 10.0
+    reload: carry
+    speed: 2.5
+    angles: [0]
+    damage: 1.0
+    size: [0.02, 0.05]
+    origins:
+    - [0, 0.5h]
+  - pattern: fan
+    rate: 10.0
+    reload: carry
+    speed: 2.5
+    angles: [-12, 0, 12]
+    damage: 0.8
+    size: [0.02, 0.05]
+    origins:
+    - [0, 0.5h]
+  - pattern: fan
+    rate: 10.0
+    reload: carry
+    speed: 2.5
+    angles: [-24, -12, 0, 12, 24]
+    damage: 0.8
+    size: [0.02, 0.05]
+    origins:
+    - [0, 0.5h]
+  - pattern: fan
+    rate: 12.0
+    reload: carry
+    speed: 2.5
+    angles: [-24, -12, 0, 12, 24]
+    damage: 1.0
+    size: [0.02, 0.05]
+    origins:
+    - [0, 0.5h]
+  - pattern: fan
+    rate: 12.0
+    reload: carry
+    speed: 2.5
+    angles: [-30, -20, -10, 0, 10, 20, 30]
+    damage: 1.0
+    size: [0.02, 0.05]
+    origins:
+    - [0, 0.5h]
+laser:
+  letter: L
+  note: 'A beam straight up while fire is held: `damage` per second; from level 3 it goes through enemies.'
+  levels:
+  - pattern: ray
+    interval: 0.0
+    speed: 0.0
+    width: 0.03
+    damage: 8.0
+    pierces: false
+  - pattern: ray
+    interval: 0.0
+    speed: 0.0
+    width: 0.05
+    damage: 12.0
+    pierces: false
+  - pattern: ray
+    interval: 0.0
+    speed: 0.0
+    width: 0.08
+    damage: 18.0
+    pierces: true
+  - pattern: ray
+    interval: 0.0
+    speed: 0.0
+    width: 0.11
+    damage: 24.0
+    pierces: true
+  - pattern: ray
+    interval: 0.0
+    speed: 0.0
+    width: 0.14
+    damage: 32.0
+    pierces: true
+missiles:
+  letter: M
+  note: 'From the wings: one side then the other, then both; homing from level 2, splashing from level 3.'
+  levels:
+  - pattern: fan
+    rate: 3.0
+    reload: carry
+    speed: 1.6
+    sequence:
+    - pattern: fan
+      speed: 1.6
+      bullet: missile
+      damage: 2.5
+      size: [0.03, 0.07]
+      origins:
+      - [0.5w-0.05, 0]
+    - pattern: fan
+      speed: 1.6
+      bullet: missile
+      damage: 2.5
+      size: [0.03, 0.07]
+      origins:
+      - [-0.5w+0.05, 0]
+  - pattern: fan
+    rate: 3.0
+    reload: carry
+    speed: 1.6
+    sequence:
+    - pattern: fan
+      speed: 1.6
+      bullet: missile
+      damage: 2.5
+      size: [0.03, 0.07]
+      homing: 180.0
+      origins:
+      - [0.5w-0.05, 0]
+    - pattern: fan
+      speed: 1.6
+      bullet: missile
+      damage: 2.5
+      size: [0.03, 0.07]
+      homing: 180.0
+      origins:
+      - [-0.5w+0.05, 0]
+  - pattern: fan
+    rate: 3.0
+    reload: carry
+    speed: 1.8
+    bullet: missile
+    damage: 3.0
+    size: [0.03, 0.07]
+    homing: 180.0
+    splash: 1.5
+    splash_radius: 0.1
+    origins:
+    - [0.5w-0.05, 0]
+    - [-0.5w+0.05, 0]
+  - pattern: fan
+    rate: 3.5
+    reload: carry
+    speed: 2.0
+    bullet: missile
+    damage: 3.5
+    size: [0.03, 0.07]
+    homing: 180.0
+    splash: 2.0
+    splash_radius: 0.1
+    origins:
+    - [0.5w-0.05, 0]
+    - [-0.5w+0.05, 0]
+  - pattern: fan
+    rate: 4.0
+    reload: carry
+    speed: 2.2
+    bullet: missile
+    damage: 4.0
+    size: [0.03, 0.07]
+    homing: 180.0
+    splash: 2.5
+    splash_radius: 0.1
+    origins:
+    - [0.5w-0.05, 0]
+    - [-0.5w+0.05, 0]

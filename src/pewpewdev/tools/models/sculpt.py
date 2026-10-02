@@ -13,12 +13,13 @@ details: panel seams recessed into the top surfaces, lighter top edges, darker u
 Colors are named materials (see MATERIALS); a recipe can add its own (a paint color).
 """
 
-import json
 import math
 import string
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
+
+from pewpewdev.yamlfiles import write_yaml
 
 Color = tuple[float, float, float]
 Cell = tuple[int, int, int]
@@ -255,16 +256,15 @@ class Model:
             for k in range(extent, -extent - 1, -1)
         ]
         palette = {char[m]: {"color": [round(c, 3) for c in self.materials[m]]} for m in used}
-        result: dict = {"layers": layers, "palette": palette}
-        if s != 1:
-            result["scale"] = s
+        result: dict = {"scale": s} if s != 1 else {}
+        result |= {"layers": layers, "palette": palette}
         if engines:
             result["engines"] = [_scaled_engine(engine, s) for engine in engines]
         return result
 
     def save(self, path: Path, engines: list[dict] | None = None) -> None:
         """Write the model's drawing to `path`."""
-        path.write_text(_dump(self.drawing(engines)) + "\n")
+        write_yaml(path, self.drawing(engines))
 
 
 def _scaled_engine(engine: dict, scale: int) -> dict:
@@ -288,22 +288,3 @@ def _inside(x: float, y: float, polygon: list[tuple[float, float]]) -> bool:
         if (y1 > y) != (y2 > y) and x < x1 + (y - y1) * (x2 - x1) / (y2 - y1):
             inside = not inside
     return inside
-
-
-def _dump(drawing: dict) -> str:
-    """JSON with each row of a layer on its own line (readable as pictures)."""
-    head = {key: value for key, value in drawing.items() if key not in ("layers", "palette", "engines")}
-    lines = ["{"]
-    lines += [f'  "{key}": {json.dumps(value)},' for key, value in head.items()]
-    lines.append('  "layers": [')
-    for index, layer in enumerate(drawing["layers"]):
-        rows = ",\n".join(f'      "{row}"' for row in layer)
-        lines.append("    [\n" + rows + "\n    ]" + ("," if index < len(drawing["layers"]) - 1 else ""))
-    lines.append("  ],")
-    palette = ",\n".join(f'    "{key}": {json.dumps(value)}' for key, value in drawing["palette"].items())
-    lines.append('  "palette": {\n' + palette + "\n  }" + ("," if "engines" in drawing else ""))
-    if "engines" in drawing:
-        engines = ",\n".join(f"    {json.dumps(engine)}" for engine in drawing["engines"])
-        lines.append('  "engines": [\n' + engines + "\n  ]")
-    lines.append("}")
-    return "\n".join(lines)

@@ -1,0 +1,174 @@
+name: Moonlit Woods
+scroll_speed: 0.241
+background: forest
+background_seed: 6244
+time_of_day: night
+clouds: 0.25
+waves:
+- {time: 2.0, enemy: dart, count: 6, formation: column, interval: 0.35, x: -0.5}
+- {time: 3.7, enemy: missile_silo, count: 1, formation: column, x: 0.6}
+- {time: 5.1, enemy: bomber, count: 1, formation: column, side: right, y: 0.74}
+- {time: 5.1, enemy: drone, count: 5, formation: line, spacing: 0.5}
+- {time: 7.2, enemy: rocketeer, count: 2, formation: line, spacing: 1.17, x: 0.0}
+- time: 8.9
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.18
+  x: 0.0
+- {time: 8.9, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 8.9, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 8.9, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 10.0, enemy: bomber, count: 1, formation: column, side: right, y: 0.66}
+- {time: 10.0, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 10.0, enemy: hornet, count: 3, formation: column, interval: 0.9, x: 0.0}
+- {time: 12.2, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 12.2, enemy: bomber, count: 1, formation: column, side: right, y: 0.59}
+- {time: 13.8, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 15.1, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 17.8, enemy: hornet, count: 4, formation: column, interval: 0.9, x: 0.5}
+- {time: 20.1, enemy: hornet, count: 4, formation: column, interval: 0.9, x: 0.5}
+- time: 23.3
+  enemy: hornet
+  count: 4
+  formation: column
+  interval: 0.9
+  x: -0.33
+- {time: 26.3, enemy: freighter, x: -0.5}
+- {time: 27.5, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 27.5
+  enemy: hornet
+  count: 4
+  formation: column
+  interval: 0.9
+  x: -0.33
+- {time: 29.9, enemy: freighter, x: 0.5}
+- {time: 31.0, enemy: freighter, x: 0.5}
+- {time: 32.1, enemy: missile_silo, count: 1, formation: column, x: -0.6}
+- time: 32.1
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 33.7, enemy: mite, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- time: 34.8
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 37.1, enemy: missile_silo, count: 1, formation: column, x: 0.12}
+- {time: 38.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 40.6
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.22
+  x: 0.0
+- time: 41.7
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.33
+  x: 0.0
+- time: 41.7
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 42.9
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.08
+  x: 0.0
+- time: 44.0
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 45.2, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 46.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 48.0, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 54.0, enemy: harvester}
+- {time: 57.0, enemy: dart, count: 7, formation: column, interval: 0.35, x: -0.5}
+- {time: 59.1, enemy: rapier, count: 3, formation: column, interval: 1.0, x: 0.5}
+- {time: 61.6, enemy: hornet, count: 5, formation: column, interval: 0.9, x: 0.5}
+- {time: 64.8, enemy: spark, count: 4, formation: column, interval: 0.3, x: 0.0}
+- {time: 65.8, enemy: hornet, count: 5, formation: column, interval: 0.9, x: 0.5}
+- {time: 68.6, enemy: needle, x: 0.33}
+- {time: 68.6, enemy: turret, count: 2, formation: line, spacing: 1.67}
+- time: 70.3
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 72.5, enemy: spark, count: 4, formation: column, interval: 0.3, x: 0.0}
+- {time: 72.5, enemy: outrider, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 73.6, enemy: mite, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- time: 73.6
+  enemy: rapier
+  count: 3
+  formation: column
+  interval: 0.8
+  x: -0.5
+- {time: 76.4, enemy: spark, count: 9, formation: column, interval: 0.3, x: 0.67}
+- time: 76.4
+  enemy: spark
+  count: 8
+  formation: column
+  interval: 0.3
+  x: -0.67
+- time: 77.4
+  enemy: rapier
+  count: 3
+  formation: column
+  interval: 0.8
+  x: -0.5
+- time: 79.7
+  enemy: rapier
+  count: 3
+  formation: column
+  interval: 0.8
+  x: -0.5
+- {time: 81.6, enemy: mite, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 82.6, enemy: outrider, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 83.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 85.3, enemy: turret, count: 2, formation: line, spacing: 1.67}
+- {time: 85.3, enemy: mite, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 86.2, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 87.2, enemy: spark, count: 9, formation: column, interval: 0.3, x: 0.67}
+- time: 88.2
+  enemy: rapier
+  count: 3
+  formation: column
+  interval: 0.8
+  x: -0.5
+- {time: 90.7, enemy: rapier, count: 2, formation: column, interval: 0.8, x: 0.5}
+- {time: 92.4, enemy: outrider, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 92.4, enemy: rapier, count: 2, formation: column, interval: 0.8, x: 0.5}
+- {time: 94.2, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 95.9, enemy: outrider, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 96.9, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 98.0, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 98.0, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 99.0, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 99.9, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 100.9
+  enemy: scrapper
+  count: 3
+  formation: line
+  spacing: 0.83
+  x: 0.0
+- {time: 102.0, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 103.0
+  enemy: scrapper
+  count: 3
+  formation: line
+  spacing: 0.83
+  x: 0.0
+- {time: 109.0, enemy: old_growth}

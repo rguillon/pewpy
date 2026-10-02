@@ -1,0 +1,195 @@
+name: Dark Tide
+scroll_speed: 0.275
+background: ocean
+background_seed: 1449
+time_of_day: night
+clouds: 0.4
+waves:
+- {time: 2.0, enemy: dart, count: 9, formation: column, interval: 0.35, x: -0.5}
+- {time: 4.8, enemy: howitzer, x: -0.5}
+- {time: 6.4, enemy: condor, x: 0.0}
+- {time: 6.4, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 8.2, enemy: rapier, count: 2, formation: column, interval: 0.8, x: 0.5}
+- {time: 8.2, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 10.2, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 12.5, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 14.3, enemy: condor, x: 0.0}
+- {time: 17.0, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 19.0
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: right
+  y: 0.5
+- time: 19.0
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: left
+  y: 0.3
+- {time: 20.3, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 20.3, enemy: shield_carrier, count: 2, formation: column, x: 0.0}
+- time: 20.3
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: right
+  y: 0.7
+- {time: 21.6, enemy: rampart, x: 0.5}
+- {time: 23.3, enemy: shield_carrier, count: 2, formation: column, x: 0.0}
+- time: 26.3
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- time: 26.3
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: left
+  y: 0.5
+- {time: 27.5, enemy: howitzer, x: -0.5}
+- time: 27.5
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 30.6, enemy: rampart, x: 0.5}
+- {time: 32.5, enemy: needle, x: 0.33}
+- {time: 33.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 33.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 35.9, enemy: shield_carrier, count: 2, formation: column, x: 0.0}
+- {time: 39.6, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 41.5, enemy: howitzer, x: 0.5}
+- {time: 42.9, enemy: condor, x: 0.0}
+- {time: 44.8, enemy: condor, x: 0.0}
+- time: 44.8
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: left
+  y: 0.7
+- {time: 44.8, enemy: howitzer, x: -0.5}
+- {time: 46.1, enemy: condor, x: 0.0}
+- {time: 48.0, enemy: condor, x: 0.0}
+- {time: 54.0, enemy: leviathan}
+- {time: 57.0, enemy: drone, count: 14, formation: column, x: -0.67}
+- time: 61.4
+  enemy: splitter
+  count: 7
+  formation: column
+  interval: 1.5
+  x: 0.0
+- time: 61.4
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 62.8
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 62.8, enemy: freighter, count: 2, x: -0.5}
+- {time: 64.9, enemy: needle, count: 2, x: 0.0}
+- time: 66.4
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 66.4
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 66.4, enemy: howitzer, x: -0.5}
+- {time: 67.9, enemy: condor, x: 0.0}
+- {time: 71.3, enemy: condor, x: 0.0}
+- {time: 74.3, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- {time: 75.8, enemy: bomber, count: 1, formation: column, side: right, y: 0.59}
+- {time: 77.4, enemy: brood, x: 0.5}
+- {time: 78.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 81.5, enemy: rapier, count: 4, formation: column, interval: 1.0, x: 0.5}
+- {time: 81.5, enemy: needle, count: 2, x: 0.0}
+- {time: 83.5, enemy: howitzer, x: 0.5}
+- {time: 83.5, enemy: tick, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 85.1, enemy: bomber, count: 1, formation: column, side: left, y: 0.6}
+- time: 86.5
+  enemy: rapier
+  count: 5
+  formation: column
+  interval: 0.8
+  x: -0.5
+- {time: 86.5, enemy: freighter, count: 2, x: 0.5}
+- {time: 88.4, enemy: bomber, count: 1, formation: column, side: right, y: 0.59}
+- {time: 89.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 92.5, enemy: needle, count: 2, x: 0.0}
+- time: 94.1
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 94.1, enemy: condor, x: 0.0}
+- time: 96.1
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- time: 97.5
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 98.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 100.3, enemy: condor, x: 0.0}
+- time: 100.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 101.6
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 101.6
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 103.0
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 109.0, enemy: kraken}

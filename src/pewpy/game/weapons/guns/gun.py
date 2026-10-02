@@ -1,4 +1,4 @@
-"""What a gun is: data, read from the JSON files.
+"""What a gun is: data, read from the YAML files.
 
 The player's weapons are in `data/weapons/`, the enemies' with them (see pewpy.game.enemies.spec).
 """
@@ -112,7 +112,7 @@ class Gun:
 
 
 def parse_gun(data: dict[str, Any]) -> Gun:
-    """Read a gun as written in the JSON files.
+    """Read a gun as written in the YAML files.
 
     Like Gun, with lists for tuples, `rate` (shots per second) instead of `interval`, and `from` (what fires it: see
     pewpy.game.enemies.spec) left out.

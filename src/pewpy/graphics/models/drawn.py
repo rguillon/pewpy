@@ -34,7 +34,7 @@ def drawing_model(name: str) -> NodePath:
 
 
 def model(drawing: str) -> NodePath:
-    """Return the model of a drawing (models/<drawing>.json).
+    """Return the model of a drawing (models/<drawing>.yaml).
 
     The turret's and the tank's are built with a barrel the game turns (see BUILT_MODELS). Models point down the screen
     (-Z), so the game can turn them with `facing_roll`.

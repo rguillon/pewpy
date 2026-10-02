@@ -1,12 +1,12 @@
 """Writing a batch of boss candidates (see the package)."""
 
 import argparse
-import json
 import time
 from pathlib import Path
 
 from pewpewdev.paths import DATA
 from pewpewdev.tools.boss_candidates.selection import generate
+from pewpewdev.yamlfiles import dump_yaml
 
 DEFAULT_OUT = DATA / "models" / "boss_candidates"
 
@@ -14,16 +14,16 @@ DEFAULT_OUT = DATA / "models" / "boss_candidates"
 def write(out: Path, number: int, candidate: dict) -> None:
     """Write a candidate: its core's drawing, its parts' drawings (each once) and where the parts go."""
     name = f"{number:03d}"
-    (out / f"{name}.json").write_text(json.dumps(candidate["core"], indent=2) + "\n")
+    (out / f"{name}.yaml").write_text(dump_yaml(candidate["core"]))
     drawings: dict[str, str] = {}  # the same part drawing placed twice is written once
     layout = []
     for part_drawing, x, y in candidate["parts"]:
-        text = json.dumps(part_drawing, indent=2) + "\n"
+        text = dump_yaml(part_drawing)
         if text not in drawings:
             drawings[text] = f"{name}_{chr(ord('a') + len(drawings))}"
-            (out / f"{drawings[text]}.json").write_text(text)
+            (out / f"{drawings[text]}.yaml").write_text(text)
         layout.append({"drawing": drawings[text], "x": round(x, 2), "y": round(y, 2)})
-    (out / f"{name}.parts.json").write_text(json.dumps({"parts": layout}, indent=2) + "\n")
+    (out / f"{name}.parts.yaml").write_text(dump_yaml({"parts": layout}))
 
 
 def main() -> None:
@@ -37,7 +37,7 @@ def main() -> None:
     args = parser.parse_args()
     seed = args.seed if args.seed is not None else int(time.time() * 1000) % 1_000_000
     args.out.mkdir(parents=True, exist_ok=True)
-    existing = sorted(args.out.glob("*.json"))
+    existing = sorted(args.out.glob("*.yaml"))
     first = 1
     if args.append:
         first = max((int(path.name.split(".")[0].split("_")[0]) for path in existing), default=0) + 1

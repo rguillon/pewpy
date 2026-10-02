@@ -4,14 +4,12 @@ Made by tools/candidates/ and tools/boss_candidates/, kept with the game's model
 candidates and Boss candidates screens show them.
 """
 
-import json
-
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.graphics.models import DRAWINGS_FOLDER
 
-CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.json: drawings for possible new enemies
-# models/boss_candidates/<number>.json: possible new bosses' cores, with <number>_a.json... their parts' drawings and
-# <number>.parts.json where the parts go (see tools/boss_candidates/).
+CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.yaml: drawings for possible new enemies
+# models/boss_candidates/<number>.yaml: possible new bosses' cores, with <number>_a.yaml... their parts' drawings and
+# <number>.parts.yaml where the parts go (see tools/boss_candidates/).
 BOSS_CANDIDATES_FOLDER = "boss_candidates"
 
 
@@ -20,8 +18,8 @@ def candidate_names() -> list[str]:
     folder = data_folder() / DRAWINGS_FOLDER / CANDIDATES_FOLDER
     if not folder.is_dir():
         return []
-    files = sorted(entry.name for entry in folder.iterdir() if entry.name.endswith(".json"))
-    return [f"{CANDIDATES_FOLDER}/{name.removesuffix('.json')}" for name in files]
+    files = sorted(entry.name for entry in folder.iterdir() if entry.name.endswith(".yaml"))
+    return [f"{CANDIDATES_FOLDER}/{name.removesuffix('.yaml')}" for name in files]
 
 
 def boss_candidate_names() -> list[str]:
@@ -29,15 +27,15 @@ def boss_candidate_names() -> list[str]:
     folder = data_folder() / DRAWINGS_FOLDER / BOSS_CANDIDATES_FOLDER
     if not folder.is_dir():
         return []
-    numbers = sorted(entry.name.removesuffix(".json") for entry in folder.iterdir() if entry.name.endswith(".json"))
+    numbers = sorted(entry.name.removesuffix(".yaml") for entry in folder.iterdir() if entry.name.endswith(".yaml"))
     return [f"{BOSS_CANDIDATES_FOLDER}/{number}" for number in numbers if number.isdigit()]
 
 
 def boss_candidate_parts(name: str) -> list[tuple[str, float, float]]:
     """Return a boss candidate's parts: (drawing, x, y), in cubes from the core's middle (x right, y up the screen)."""
-    path = data_folder() / DRAWINGS_FOLDER / f"{name}.parts.json"
+    path = data_folder() / DRAWINGS_FOLDER / f"{name}.parts.yaml"
     if not path.is_file():
         return []
     folder = name.rsplit("/", 1)[0]
-    layout = json.loads(path.read_text())
+    layout = read_yaml(path)
     return [(f"{folder}/{entry['drawing']}", float(entry["x"]), float(entry["y"])) for entry in layout["parts"]]

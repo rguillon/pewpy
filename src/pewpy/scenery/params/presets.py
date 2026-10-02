@@ -1,10 +1,9 @@
-"""The presets of `levels/sceneries.json`, and resolving a level's scenery from its preset."""
+"""The presets of `levels/sceneries.yaml`, and resolving a level's scenery from its preset."""
 
-import json
 from functools import cache
 from typing import Any
 
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.scenery.params.checks import check_generators
 from pewpy.scenery.params.reader import build, merge
 from pewpy.scenery.params.scenery import SceneryParams
@@ -13,8 +12,8 @@ from pewpy.scenery.params.types import SceneryError
 
 @cache
 def presets() -> dict[str, Any]:
-    """Read `levels/sceneries.json`: "default" and the presets."""
-    return json.loads(data_folder().joinpath("levels").joinpath("sceneries.json").read_text())
+    """Read `levels/sceneries.yaml`: "default" and the presets."""
+    return read_yaml(data_folder().joinpath("levels").joinpath("sceneries.yaml"))
 
 
 def backgrounds() -> tuple[str, ...]:

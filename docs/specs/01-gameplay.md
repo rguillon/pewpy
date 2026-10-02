@@ -42,7 +42,7 @@ The states are:
 - Movement speed: 1.0 (the Vanguard's; see "Ships" below), in world units per second: 2 s to cross the play
   area from bottom to top *(placeholder unit; open: or express it in screen heights per second?)*
 - Player movement have a little inertia: the speed eases towards the target in about 0.2 s, with a short drift
-  on release (`responsiveness` in `data/rules.json`) *(placeholder)*
+  on release (`responsiveness` in `data/rules.yaml`) *(placeholder)*
 - full ship  Hitbox
 - Starting lives: 5
 - Health bar: 5 health per life (the Vanguard's; see "Ships" below). An enemy bullet does 1 damage, ramming an
@@ -66,7 +66,7 @@ The player picks a ship before the world (see 04-ui-audio.md). It is kept for ev
 | Juggernaut | 8      | 0.8   | 0.14          | Heavy armor, a bit slower (and a bigger target)                        |
 | Phantom    | 3      | 1.3   | 0.10          | Repairs 0.5 health a second once it hasn't fired for 1.5 s, up to full |
 
-*(numbers are a placeholder; in `data/ships.json`, the first one the default)* Weapons, lives and repairs work the same for
+*(numbers are a placeholder; in `data/ships.yaml`, the first one the default)* Weapons, lives and repairs work the same for
 every ship; repairs fill up to the ship's own health.
 
 ## Weapons
@@ -77,7 +77,7 @@ every ship; repairs fill up to the ship's own health.
 The ship carries three weapons from the start: **bullets**, **laser** and **missiles**. Only the selected one
 fires; Shift switches to the next one, instantly. Each weapon has 5 upgrade levels and starts at level 1 *(the user's choice: it was 3)*.
 The HUD shows the three weapons with their levels, the selected one highlighted. Every number below is data:
-`data/weapons/player.json` (each level is a gun, like the enemies', see `06-technical.md`).
+`data/weapons/player.yaml` (each level is a gun, like the enemies', see `06-technical.md`).
 
 Shots fly until they are off the screen (the tilted camera shows more than the play area: up to about y 1.65).
 Only enemies destroyed by the player's weapons score points and can drop pickups.
@@ -140,7 +140,7 @@ Missiles are 0.03 x 0.07, fired 0.05 in from each side of the ship. Homing missi
 
 Some enemy drops give the ship a **secondary weapon** *(the user's idea)*. It fires on its own, whether Fire is
 held or not, on top of the selected weapon. *(Everything below the first two rules is a placeholder;
-`data/weapons/secondary.json`)*
+`data/weapons/secondary.yaml`)*
 
 - **A hit takes the secondary weapon instead of health** *(the user's choice)*: a shot or a ram while carrying one
   destroys the secondary weapon (a small explosion on the ship), the health stays, and the ship blinks,

@@ -1,0 +1,239 @@
+name: Mire
+scroll_speed: 0.223
+background: swamp
+background_seed: 1212
+clouds: 0.6
+waves:
+- time: 2.0
+  enemy: weaver
+  count: 5
+  formation: column
+  interval: 0.4
+  x: -0.67
+- {time: 3.6, enemy: hunter, count: 1, formation: column, x: 0.02}
+- {time: 5.3, enemy: hunter, count: 1, formation: column, x: -0.58}
+- {time: 6.9, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- time: 8.0
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- time: 10.5
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- time: 13.6
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 16.4
+  enemy: serpent
+  count: 2
+  formation: column
+  interval: 0.8
+  x: -0.75
+- {time: 18.0, enemy: hunter, count: 1, formation: column, x: -0.18}
+- {time: 19.8, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 21.9
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 24.4, enemy: hunter, count: 1, formation: column, x: -0.4}
+- {time: 24.4, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 26.2, enemy: hunter, count: 1, formation: column, x: 0.15}
+- {time: 27.9, enemy: hunter, count: 1, formation: column, x: -0.07}
+- {time: 27.9, enemy: shield_carrier, count: 1, formation: line, spacing: 1.33}
+- time: 29.7
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- time: 31.9
+  enemy: serpent
+  count: 1
+  formation: column
+  interval: 0.8
+  x: 0.67
+- {time: 31.9, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 33.0, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 34.3, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 34.3
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 37.4, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 38.6, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 39.7, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- time: 40.9
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- {time: 40.9, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- time: 42.0
+  enemy: serpent
+  count: 1
+  formation: column
+  interval: 0.8
+  x: 0.48
+- {time: 43.1, enemy: hunter, count: 1, formation: column, x: -0.07}
+- {time: 44.2, enemy: hunter, count: 1, formation: column, x: -0.15}
+- {time: 45.3, enemy: hunter, count: 1, formation: column, x: -0.58}
+- time: 45.3
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- time: 45.3
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 46.9, enemy: hunter, count: 1, formation: column, x: 0.28}
+- time: 48.0
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- {time: 54.0, enemy: turbine}
+- {time: 57.0, enemy: drone, count: 8, formation: column, x: -0.67}
+- time: 59.9
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: right
+  y: 0.6
+- {time: 61.2, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 63.0, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- time: 65.0
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 67.7, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- time: 69.2
+  enemy: hornet
+  count: 4
+  formation: column
+  interval: 0.9
+  x: -0.33
+- {time: 72.7, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 72.7, enemy: splitter, count: 2, formation: line, spacing: 0.83}
+- {time: 74.2, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 75.8
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- time: 75.8
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: right
+  y: 0.5
+- {time: 75.8, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- time: 77.4
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- time: 79.6
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: right
+  y: 0.5
+- time: 79.6
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: left
+  y: 0.6
+- {time: 81.2, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 83.0
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: left
+  y: 0.6
+- {time: 84.2, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- time: 85.7
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- {time: 88.4, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 88.4, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- time: 90.3
+  enemy: hornet
+  count: 4
+  formation: column
+  interval: 0.9
+  x: -0.33
+- time: 90.3
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 92.9, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 92.9, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 94.3, enemy: hunter, count: 1, formation: column, x: -0.58}
+- {time: 95.7, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 97.4, enemy: hunter, count: 1, formation: column, x: 0.28}
+- {time: 97.4, enemy: hunter, count: 1, formation: column, x: 0.15}
+- time: 98.6
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- time: 100.2
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- time: 100.2
+  enemy: kestrel
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 101.8, enemy: hunter, count: 1, formation: column, x: 0.3}
+- {time: 103.0, enemy: hunter, count: 1, formation: column, x: -0.15}
+- {time: 109.0, enemy: bogmaw}

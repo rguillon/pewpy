@@ -1,0 +1,243 @@
+name: Hay Moon
+scroll_speed: 0.258
+background: farmland
+background_seed: 3498
+time_of_day: night
+clouds: 0.85
+scenery:
+  settlement:
+    layout: {farm_share: 0.2}
+waves:
+- {time: 2.0, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 3.2, enemy: brawler, x: 0.5}
+- {time: 5.0, enemy: brood, x: 0.33}
+- time: 6.6
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 8.7, enemy: harrier, x: 0.0}
+- {time: 8.7, enemy: javelin, count: 2, formation: column, interval: 1.5, x: 0.5}
+- {time: 10.5, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 10.5, enemy: brawler, x: -0.33}
+- time: 10.5
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- {time: 11.8, enemy: harrier, x: -0.33}
+- {time: 13.0, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- time: 14.7
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 16.0
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- {time: 16.0, enemy: brawler, x: -0.33}
+- time: 17.6
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 18.9, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 20.1
+  enemy: swarmer
+  count: 11
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.3
+- {time: 20.1, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 21.6, enemy: stalker, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 23.3
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 23.3, enemy: bomber, count: 1, formation: column, side: left, y: 0.67}
+- {time: 24.5, enemy: bomber, count: 1, formation: column, side: right, y: 0.74}
+- {time: 25.8, enemy: harrier, x: -0.33}
+- time: 25.8
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 25.8, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 25.8
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- time: 25.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 27.0, enemy: brood, x: 0.33}
+- {time: 28.9, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 30.2, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 31.4
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 33.2, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 34.7, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 36.3, enemy: harrier, x: 0.0}
+- time: 37.6
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 39.5
+  enemy: swarmer
+  count: 10
+  formation: column
+  interval: 0.2
+  side: left
+  y: 0.5
+- time: 40.7
+  enemy: swarmer
+  count: 11
+  formation: column
+  interval: 0.2
+  side: left
+  y: 0.3
+- {time: 41.9, enemy: brood, x: 0.5}
+- {time: 43.2, enemy: brawler, x: -0.33}
+- time: 44.4
+  enemy: swarmer
+  count: 10
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.4
+- {time: 45.6, enemy: brood, x: 0.5}
+- {time: 46.8, enemy: brood, x: 0.33}
+- {time: 48.0, enemy: brawler, x: 0.5}
+- {time: 54.0, enemy: bastion}
+- time: 57.0
+  enemy: drone
+  count: 8
+  formation: column
+  interval: 0.45
+  x: 0.67
+- {time: 57.0, enemy: lancer, count: 1, formation: column, x: 0.08}
+- {time: 58.2, enemy: imp, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 60.3, enemy: harrier, x: -0.33}
+- {time: 60.3, enemy: harrier, x: 0.0}
+- time: 61.7
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- time: 61.7
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 63.5, enemy: lancer, count: 1, formation: column, x: -0.47}
+- {time: 63.5, enemy: brawler, x: -0.33}
+- time: 63.5
+  enemy: weaver
+  count: 19
+  formation: column
+  interval: 0.35
+  x: 0.0
+- time: 69.5
+  enemy: rocket_truck
+  count: 2
+  formation: column
+  interval: 1.2
+  x: 0.58
+- {time: 71.6, enemy: brawler, x: -0.33}
+- {time: 73.0, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 73.0, enemy: lancer, count: 1, formation: column, x: 0.08}
+- time: 74.2
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- {time: 77.5, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 78.7
+  enemy: rocket_truck
+  count: 2
+  formation: column
+  interval: 1.2
+  x: 0.0
+- {time: 80.8, enemy: lancer, count: 1, formation: column, x: -0.15}
+- {time: 82.1, enemy: imp, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- time: 82.1
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 83.3, enemy: freighter, count: 2, x: -0.5}
+- {time: 85.7, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 87.0, enemy: harrier, x: 0.0}
+- {time: 88.4, enemy: harrier, x: -0.33}
+- time: 89.7
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.6
+- time: 93.0
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 95.2, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 95.2
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 96.8, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 98.1
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 98.1, enemy: brawler, x: -0.33}
+- {time: 98.1, enemy: lancer, count: 1, formation: column, x: 0.58}
+- {time: 98.1, enemy: brood, x: 0.5}
+- {time: 99.3, enemy: brawler, x: -0.33}
+- {time: 100.5, enemy: brood, x: 0.5}
+- {time: 100.5, enemy: brood, x: 0.33}
+- {time: 101.8, enemy: lancer, count: 1, formation: column, x: 0.07}
+- {time: 103.0, enemy: brood, x: 0.33}
+- {time: 103.0, enemy: brawler, x: 0.5}
+- {time: 103.0, enemy: brood, x: 0.33}
+- {time: 109.0, enemy: harrowmaster}

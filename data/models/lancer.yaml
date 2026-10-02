@@ -1,0 +1,52 @@
+rows:
+- '......NoN......'
+- ..HHHHNNNHHHH..
+- ..khhhNNNhhhk..
+- ..khhhNNNhhhk..
+- .WWhhhhhhhhhWW.
+- .WWhhhccchhhWW.
+- .WWhhhccchhhWW.
+- .WWhhhccchhhWW.
+- .WWhhhhhhhhhWW.
+- .WWWhhhhhhhWWW.
+- '....khhhhhk....'
+- '....pphhhpp....'
+- '....pphhhpp....'
+- '.....khhhk.....'
+- '.....khhhk.....'
+- '.....kNNNk.....'
+- '......NNN......'
+- '......NNN......'
+- '......NgN......'
+- '......NgN......'
+- '......NgN......'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 7
+  o:
+    color: [0.08, 0.08, 0.09]
+    height: 5
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 5
+  k:
+    color: [0.17, 0.18, 0.2]
+    height: 3
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 5
+  W:
+    color: [0.42, 0.43, 0.46]
+    height: 1
+  c:
+    color: [0.08, 0.2, 0.28]
+    height: 9
+  p:
+    color: [0.85, 0.255, 0.17]
+    height: 5
+  g:
+    color: [1, 0.63, 0.57]
+    height: 9
+engines:
+- {x: 7, y: 0, width: 3, length: 7, towards: top}

@@ -1,0 +1,124 @@
+name: Night Grid
+scroll_speed: 0.304
+background: city
+background_seed: 346
+time_of_day: night
+clouds: 0.4
+scenery:
+  settlement:
+    layout: {block: 0.3, park_share: 0.03}
+waves:
+- {time: 2.0, enemy: mite, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 2.0, enemy: howitzer, x: -0.5}
+- {time: 3.3, enemy: brood, x: 0.5}
+- {time: 3.3, enemy: spark, count: 17, formation: column, interval: 0.3, x: 0.67}
+- {time: 4.6, enemy: javelin, count: 3, formation: column, interval: 1.5, x: 0.5}
+- {time: 4.6, enemy: spark, count: 17, formation: column, interval: 0.3, x: 0.67}
+- {time: 5.9, enemy: javelin, count: 3, formation: column, interval: 1.5, x: 0.5}
+- {time: 7.9, enemy: stalker, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 9.8, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 11.0, enemy: shield_carrier, count: 3, formation: column, x: 0.0}
+- {time: 15.2, enemy: stormcrow, x: 0.33}
+- {time: 17.9, enemy: stormcrow, x: 0.33}
+- {time: 20.2, enemy: brood, x: 0.5}
+- {time: 20.2, enemy: tick, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 21.4, enemy: needle, count: 2, x: 0.0}
+- {time: 22.9, enemy: shield_carrier, count: 3, formation: column, x: 0.0}
+- {time: 22.9, enemy: howitzer, x: -0.5}
+- {time: 22.9, enemy: harrier, count: 2, x: -0.33}
+- {time: 24.9, enemy: stormcrow, x: -0.33}
+- {time: 24.9, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 24.9, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 26.0, enemy: shield_carrier, count: 3, formation: column, x: 0.0}
+- time: 30.4
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 32.9, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 34.5
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 36.7, enemy: brawler, count: 2, x: -0.33}
+- time: 38.3
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- time: 39.7
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 41.0, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 42.1
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 43.5, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 44.6, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 45.7, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 46.9, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 48.0, enemy: imp, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 54.0, enemy: apex}
+- time: 57.0
+  enemy: weaver
+  count: 16
+  formation: column
+  interval: 0.4
+  x: 0.67
+- {time: 57.0, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- {time: 58.6, enemy: howitzer, count: 2, x: 0.5}
+- {time: 61.0, enemy: brawler, count: 2, x: 0.5}
+- {time: 61.0, enemy: rapier, count: 4, formation: column, interval: 0.8, x: 0.5}
+- {time: 61.0, enemy: gunship, count: 3, formation: column, x: 0.0}
+- {time: 64.7, enemy: warhawk, x: 0.33}
+- time: 64.7
+  enemy: manta
+  count: 2
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- {time: 67.8, enemy: behemoth, x: 0.33}
+- time: 73.3
+  enemy: splitter
+  count: 10
+  formation: column
+  interval: 1.5
+  x: 0.0
+- {time: 79.4, enemy: gunship, count: 2, formation: line, spacing: 1.33}
+- time: 81.9
+  enemy: flak_cannon
+  count: 3
+  formation: line
+  spacing: 1.05
+  x: 0.0
+- {time: 81.9, enemy: gunship, count: 2, formation: line, spacing: 1.33}
+- {time: 83.9, enemy: brawler, count: 2, x: 0.5}
+- {time: 87.7, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 87.7, enemy: warhawk, x: 0.33}
+- {time: 91.7, enemy: brawler, count: 2, x: -0.33}
+- {time: 91.7, enemy: behemoth, x: 0.0}
+- {time: 91.7, enemy: tick, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 93.5, enemy: rampart, count: 2, x: 0.0}
+- {time: 96.2, enemy: howitzer, count: 2, x: -0.5}
+- time: 96.2
+  enemy: flak_cannon
+  count: 2
+  formation: line
+  spacing: 1.37
+  x: 0.0
+- {time: 97.7, enemy: howitzer, count: 2, x: -0.5}
+- {time: 99.4, enemy: howitzer, count: 2, x: 0.5}
+- {time: 101.2, enemy: howitzer, count: 2, x: 0.5}
+- {time: 103.0, enemy: howitzer, count: 2, x: -0.5}
+- {time: 109.0, enemy: sovereign}

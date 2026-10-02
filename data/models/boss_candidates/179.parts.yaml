@@ -1,0 +1,10 @@
+parts:
+- {drawing: 179_a, x: -6.0, y: 0.0}
+- {drawing: 179_a, x: 6.0, y: 0.0}
+- {drawing: 179_b, x: -8.0, y: -11.0}
+- {drawing: 179_b, x: 8.0, y: -11.0}
+- {drawing: 179_c, x: -12.0, y: 12.0}
+- {drawing: 179_c, x: 12.0, y: 12.0}
+- {drawing: 179_d, x: -24.0, y: -8.0}
+- {drawing: 179_d, x: 24.0, y: -8.0}
+- {drawing: 179_e, x: 0.0, y: -6.0}

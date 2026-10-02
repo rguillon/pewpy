@@ -1,0 +1,64 @@
+rows:
+- ..NNN...................NNN..
+- ..NrN...................NrN..
+- .hNNNhhhhhhhhhhhhhhhhhhhNNNh.
+- .hHHHHHHHHHHHHSHHHHHHHHHHHHh.
+- .hHkkkkkkkkkkkkkkkkkkkkkkkHh.
+- .hHkhHHHHHHHHHSHHHHHHHHHhkHh.
+- whHkhHpppppppppppppppppHhkHhw
+- whHkhHpNNNNNNNNNNNNNNNpHhkHhw
+- lwhkhHpNkpppppppppppkNpHhkhwl
+- wwhkhHpNkpTTTTTTTTTpkNpHhkhww
+- wwhkhHpNkpTTTTTTTTTpkNpHhkhww
+- lwhkhHpNkpppppppppppkNpHhkhwl
+- whHkhHpNNNNNNNNNNNNNNNpHhkHhw
+- whHkhHpppppppppppppppppHhkHhw
+- .hHkhHHHHHHHHHSHHHHHHHHHhkHh.
+- whHkhHpppppppppppppppppHhkHhw
+- whHkhHpNNNNNNNNNNNNNNNpHhkHhw
+- lwhkhHpNkpppppppppppkNpHhkhwl
+- wwhkhHpNkpTTTTTTTTTpkNpHhkhww
+- wwhkhHpNkpTTTTTTTTTpkNpHhkhww
+- lwhkhHpNkpppppppppppkNpHhkhwl
+- whHkhHpNNNNNNNNNNNNNNNpHhkHhw
+- whHkhHpppppppppppppppppHhkHhw
+- .hHkhHHHHHHHHHSHHHHHHHHHhkHh.
+- .hHkkkkkkkkkkkkkkkkkkkkkkkHh.
+- .hHHHHHHHHHHHHSHHHHHHHHHHHHh.
+- .hNNNhhhhhhhhhhhhhhhhhhhNNNh.
+- ..kkk...................kkk..
+- '...k.....................k...'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 7
+  r:
+    color: [0.13, 0.13, 0.15]
+    height: 3
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 3
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 3
+  S:
+    color: [0.6, 0.61, 0.63]
+    height: 5
+  k:
+    color: [0.17, 0.18, 0.2]
+    height: 1
+  w:
+    color: [0.32, 0.33, 0.36]
+    height: 1
+  p:
+    color: [0.1, 0.5, 0.52]
+    height: 5
+  l:
+    color: [1.0, 0.55, 0.15]
+    height: 1
+  T:
+    color: [0.45, 1.0, 0.95]
+    height: 7
+engines:
+- {x: 3, y: 0, width: 3.4, length: 7, towards: top}
+- {x: 25, y: 0, width: 3.4, length: 7, towards: top}

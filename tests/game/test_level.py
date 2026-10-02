@@ -130,7 +130,7 @@ def test_parse_level_time_of_day_and_background_seed() -> None:
 )
 def test_parse_level_reports_mistakes(data: dict[str, Any], message: str) -> None:
     with pytest.raises(LevelError, match=message.replace("[", r"\[").replace("]", r"\]")):
-        parse_level(data, "level_9.json")
+        parse_level(data, "level_9.yaml")
 
 
 def test_a_level_can_change_its_scenery() -> None:

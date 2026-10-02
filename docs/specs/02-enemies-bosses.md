@@ -7,8 +7,8 @@
 ## Bosses
 
 > Placeholders chosen by Claude: a boss is an enemy like any other, only described differently (see
-> `06-technical.md`): the mini bosses in `data/bosses/mini_bosses.json`, the final bosses in
-> `data/bosses/final_bosses.json` (made from plans by `make final-bosses`, see below). Every level has two bosses
+> `06-technical.md`): the mini bosses in `data/bosses/mini_bosses.yaml`, the final bosses in
+> `data/bosses/final_bosses.yaml` (made from plans by `make final-bosses`, see below). Every level has two bosses
 > of its own (see `03-levels.md`): a mini boss halfway (the "Boss: ..." sections below) and a bigger, harder final
 > boss at the end (see "Final bosses"), harder through each world.
 
@@ -930,7 +930,7 @@ General rules for every boss:
 
 ## Final bosses
 
-> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `src/pewpewdev/tools/final_bosses/plans.json` by
+> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.yaml`, made from the plans in `src/pewpewdev/tools/final_bosses/plans.yaml` by
 > `src/pewpewdev/tools/final_bosses/` (`make final-bosses`).
 
 Each level ends with a final boss, after its mini boss (see `03-levels.md`): bigger (0.5 to 0.77 wide, about half
@@ -938,8 +938,8 @@ the screen for the last ones) and harder, with more parts and four phases. Same 
 "Bosses" above).
 
 - Looks: boss candidates (`make boss-candidates`, see `04-ui-audio.md`) in real 3D, among the biggest, the bigger
-  for the later levels: their core in `data/models/<name>.json`, their parts' drawings in
-  `<name>_a.json`, `<name>_b.json`... Each hitbox is its drawing's size.
+  for the later levels: their core in `data/models/<name>.yaml`, their parts' drawings in
+  `<name>_a.yaml`, `<name>_b.yaml`... Each hitbox is its drawing's size.
 - Health, for a level of difficulty d (1 to 20): the core 110 + 14 (d - 1), each part 16 + 1.6 (d - 1) (rounded).
   Points: the core 4000 + 400 d, each part 300 + 30 d.
 - Four attacks each (see the table): the front parts', the back parts', the core's and its rage's. Each attack gets

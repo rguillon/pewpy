@@ -1,6 +1,6 @@
 r"""Where the AI keeps what it learned.
 
-One brain for every ship (`brain.npz`, with its training's progress) and the levels' ratings (`ratings.json`), in the
+One brain for every ship (`brain.npz`, with its training's progress) and the levels' ratings (`ratings.yaml`), in the
 user's data folder (~/.local/share/pewpy/ai, %LOCALAPPDATA%\pewpy\ai on Windows).
 """
 
@@ -15,6 +15,8 @@ import numpy as np
 
 from pewpewdev.ai import sensors
 from pewpewdev.ai.brain import Brain
+from pewpewdev.yamlfiles import dump_yaml
+from pewpy.data import read_yaml
 
 
 def ai_folder() -> Path:
@@ -78,12 +80,12 @@ def load_training(folder: Path) -> Training | None:
 def save_ratings(folder: Path, ratings: dict[str, Any]) -> Path:
     """Write the levels' ratings; return where they went."""
     folder.mkdir(parents=True, exist_ok=True)
-    path = folder / "ratings.json"
-    path.write_text(json.dumps(ratings, indent=2) + "\n")
+    path = folder / "ratings.yaml"
+    path.write_text(dump_yaml(ratings))
     return path
 
 
 def load_ratings(folder: Path) -> dict[str, Any] | None:
     """Read the levels' ratings, or None if there are none yet."""
-    path = folder / "ratings.json"
-    return json.loads(path.read_text()) if path.exists() else None
+    path = folder / "ratings.yaml"
+    return read_yaml(path) if path.exists() else None

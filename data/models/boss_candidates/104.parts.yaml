@@ -1,0 +1,3 @@
+parts:
+- {drawing: 104_a, x: -17.0, y: 2.0}
+- {drawing: 104_a, x: 17.0, y: 2.0}

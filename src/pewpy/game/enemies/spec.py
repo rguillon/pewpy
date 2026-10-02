@@ -1,21 +1,20 @@
 """What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through.
 
-Each state has its motions (motions/), its guns, its look and its ways out (exits/). Loaded from the JSON files in
+Each state has its motions (motions/), its guns, its look and its ways out (exits/). Loaded from the YAML files in
 `data/enemies/` and `data/bosses/` (a boss is an enemy with parts and phases, see kinds.py). Independent from
 rendering.
 
-In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
+In the YAML files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
 the enemy's size or model cubes (see guns.distance).
 """
 
 from __future__ import annotations  # a boss's parts are enemies too: EnemySpec and Part refer to each other
 
-import json
 from dataclasses import dataclass
 from typing import Any
 
 from pewpy import config
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.game.enemies.actions import Action, parse_action
 from pewpy.game.enemies.errors import EnemySpecError
 from pewpy.game.enemies.exits import Exit, parse_exit
@@ -64,7 +63,7 @@ class EnemySpec:
 
     kind: str
     name: str = ""  # shown over a boss's health bar
-    drawing: str = ""  # its model: models/<drawing>.json ("": built in code, see graphics/models/)
+    drawing: str = ""  # its model: models/<drawing>.yaml ("": built in code, see graphics/models/)
     width: float = 0.1
     height: float = 0.1
     health: float = 3.0
@@ -104,8 +103,8 @@ class EnemySpec:
 
 
 def load_enemy_specs(name: str) -> dict[str, EnemySpec]:
-    """Load the enemies of the JSON file `name` (like "enemies/catalog.json"), by kind, in the file's order."""
-    data = json.loads((data_folder() / name).read_text())
+    """Load the enemies of the YAML file `name` (like "enemies/catalog.yaml"), by kind, in the file's order."""
+    data = read_yaml(data_folder() / name)
     return {kind: parse_enemy(kind, body, f"{name}: {kind}") for kind, body in data.items()}
 
 

@@ -1,21 +1,22 @@
 """Move a model between the game's forms: a flat drawing, a 3D (layered) drawing, a MagicaVoxel model.
 
     make voxels ARGS="export drone"     # models/drone.vox: open it in MagicaVoxel (the game doesn't use it yet)
-    make voxels ARGS="use drone"        # the game now draws models/drone.vox (drone.json keeps its engines)
-    make voxels ARGS="layers drone"     # drone.json becomes a 3D drawing: its layers, to edit as text
+    make voxels ARGS="use drone"        # the game now draws models/drone.vox (drone.yaml keeps its engines)
+    make voxels ARGS="layers drone"     # drone.yaml becomes a 3D drawing: its layers, to edit as text
 
-(or `uv run python -m pewpewdev.tools.voxels ...`). NAME is a model's file name without ".json", like "drone", or
+(or `uv run python -m pewpewdev.tools.voxels ...`). NAME is a model's file name without ".yaml", like "drone", or
 "candidates/007". In MagicaVoxel the ship lies on the ground seen from above like in the game: its nose where it
-points on screen, z up towards the camera. Engines stay in the .json file ("x" and "y" on the drawing, "z" cubes
+points on screen, z up towards the camera. Engines stay in the .yaml file ("x" and "y" on the drawing, "z" cubes
 above its middle plane), and so does a finer model's "scale"; "use" and "layers" keep them. `git checkout` a model's
-.json to go back.
+.yaml to go back.
 """
 
 import argparse
-import json
 from pathlib import Path
 
 from pewpewdev.paths import DATA
+from pewpewdev.yamlfiles import dump_yaml
+from pewpy.data import read_yaml
 from pewpy.graphics import models
 from pewpy.graphics.models.drawings import vox
 
@@ -30,28 +31,28 @@ class NotExportedError(SystemExit):
 
 
 def export(name: str) -> Path:
-    """Export the model as a .vox file next to its .json (it stays as it is)."""
+    """Export the model as a .vox file next to its .yaml (it stays as it is)."""
     path = MODELS / f"{name}.vox"
     path.write_bytes(vox.write(models.voxels_to_vox(models.load_voxels(name))))
     return path
 
 
 def use(name: str) -> Path:
-    """Make the model's .json name its .vox file (exported before, then edited), keeping its engines."""
-    path = MODELS / f"{name}.json"
+    """Make the model's .yaml name its .vox file (exported before, then edited), keeping its engines."""
+    path = MODELS / f"{name}.yaml"
     if not (MODELS / f"{name}.vox").is_file():
         raise NotExportedError(name)
-    data = json.loads(path.read_text())
+    data = read_yaml(path)
     data = {"vox": f"{Path(name).name}.vox", **_kept(data)}
-    path.write_text(json.dumps(data, indent=2) + "\n")
+    path.write_text(dump_yaml(data))
     models.load_voxels(name)  # it reads
     return path
 
 
 def layers(name: str) -> Path:
-    """Rewrite the model's .json as a 3D drawing: slices from the top (nearest the camera) down, keeping its engines."""
-    path = MODELS / f"{name}.json"
-    data = json.loads(path.read_text())
+    """Rewrite the model's .yaml as a 3D drawing: slices from the top (nearest the camera) down, keeping its engines."""
+    path = MODELS / f"{name}.yaml"
+    data = read_yaml(path)
     voxels = models.load_voxels(name)
     chars: dict[tuple[float, ...], str] = {}
     letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%&*+=?!"
@@ -74,7 +75,7 @@ def layers(name: str) -> Path:
     palette = {char: {"color": [round(value, 3) for value in color[:3]]} for color, char in chars.items()}
     scale = {"scale": voxels.scale} if voxels.scale != 1 else {}
     result = {**scale, "layers": slices, "palette": palette, **_kept(data, scale=False)}
-    path.write_text(json.dumps(result, indent=2) + "\n")
+    path.write_text(dump_yaml(result))
     return path
 
 

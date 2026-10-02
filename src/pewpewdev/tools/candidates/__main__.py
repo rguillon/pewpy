@@ -1,12 +1,12 @@
 """Writing a batch of candidates (see the package)."""
 
 import argparse
-import json
 import time
 from pathlib import Path
 
 from pewpewdev.paths import DATA
 from pewpewdev.tools.candidates.selection import MIXES, generate
+from pewpewdev.yamlfiles import dump_yaml
 
 DEFAULT_OUT = DATA / "models" / "candidates"
 
@@ -23,7 +23,7 @@ def main() -> None:
     args = parser.parse_args()
     seed = args.seed if args.seed is not None else int(time.time() * 1000) % 1_000_000
     args.out.mkdir(parents=True, exist_ok=True)
-    existing = sorted(args.out.glob("*.json"))
+    existing = sorted(args.out.glob("*.yaml"))
     first = 1
     if args.append:
         first = max((int(path.stem) for path in existing if path.stem.isdigit()), default=0) + 1
@@ -31,7 +31,7 @@ def main() -> None:
         for path in existing:
             path.unlink()
     for number, drawing in enumerate(generate(args.count, args.kind, seed, args.pool), start=first):
-        (args.out / f"{number:03d}.json").write_text(json.dumps(drawing, indent=2) + "\n")
+        (args.out / f"{number:03d}.yaml").write_text(dump_yaml(drawing))
     print(f"wrote {args.count} {args.kind} candidates ({first:03d} to {first + args.count - 1:03d}) to {args.out}")
     print(f"seed {seed}: --seed {seed} makes the same batch again")
 

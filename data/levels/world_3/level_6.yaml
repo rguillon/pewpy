@@ -1,0 +1,257 @@
+name: Fogbound Fen
+scroll_speed: 0.252
+background: swamp
+background_seed: 7369
+time_of_day: night
+clouds: 0.85
+waves:
+- {time: 2.0, enemy: drone, count: 9, formation: column, x: -0.67}
+- {time: 2.0, enemy: needle, x: 0.33}
+- {time: 3.0, enemy: lancer, count: 1, formation: column, x: 0.07}
+- {time: 4.0, enemy: mine_layer, count: 1, formation: column, side: left, y: 0.4}
+- time: 4.0
+  enemy: swarmer
+  count: 10
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.3
+- time: 5.7
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 6.9, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- time: 8.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 8.3, enemy: harrier, x: 0.0}
+- {time: 8.3, enemy: lancer, count: 1, formation: column, x: -0.15}
+- time: 9.5
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 10.7, enemy: albatross, count: 2, x: -0.33}
+- {time: 12.8, enemy: needle, x: 0.0}
+- time: 13.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 14.9, enemy: needle, x: 0.0}
+- {time: 15.9, enemy: sniper, count: 2, formation: line, spacing: 1.67}
+- {time: 18.5, enemy: lancer, count: 1, formation: column, x: -0.7}
+- {time: 19.5, enemy: harrier, x: -0.33}
+- {time: 19.5, enemy: albatross, count: 2, x: -0.33}
+- {time: 21.5, enemy: needle, x: 0.33}
+- time: 22.5
+  enemy: swarmer
+  count: 10
+  formation: column
+  interval: 0.2
+  side: left
+  y: 0.3
+- time: 24.3
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: right
+  y: 0.5
+- {time: 25.3, enemy: lancer, count: 1, formation: column, x: -0.15}
+- {time: 26.6, enemy: sniper, count: 1, formation: column, x: 0.0}
+- time: 27.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 29.0, enemy: freighter, x: 0.5}
+- {time: 30.1, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 31.4
+  enemy: swarmer
+  count: 10
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.3
+- {time: 32.9, enemy: needle, x: 0.0}
+- {time: 33.9, enemy: needle, x: 0.0}
+- {time: 33.9, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 35.0, enemy: sniper, count: 2, formation: line, spacing: 1.67}
+- {time: 37.2, enemy: needle, x: 0.33}
+- {time: 38.2, enemy: albatross, x: 0.33}
+- time: 38.2
+  enemy: swarmer
+  count: 10
+  formation: column
+  interval: 0.2
+  side: right
+  y: 0.6
+- {time: 40.1, enemy: albatross, x: 0.33}
+- {time: 41.1, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 42.1, enemy: harrier, x: -0.33}
+- time: 43.0
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 44.0, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 44.0, enemy: harrier, x: -0.33}
+- {time: 44.0, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- {time: 45.0, enemy: harrier, x: 0.0}
+- {time: 46.0, enemy: harrier, x: -0.33}
+- time: 47.0
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 48.0, enemy: harrier, x: -0.33}
+- {time: 54.0, enemy: tidebreaker}
+- time: 57.0
+  enemy: weaver
+  count: 8
+  formation: column
+  interval: 0.4
+  x: 0.67
+- {time: 58.8, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 60.6, enemy: harrier, count: 1, formation: line, spacing: 1.5, x: 0.0}
+- time: 61.7
+  enemy: kestrel
+  count: 3
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.55
+- time: 64.7
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- time: 66.1
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 67.4, enemy: albatross, count: 2, x: -0.33}
+- time: 69.5
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 71.2, enemy: albatross, count: 2, x: -0.33}
+- {time: 73.7, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 75.3, enemy: tick, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- time: 77.0
+  enemy: mine_layer
+  count: 1
+  formation: column
+  side: left
+  y: 0.3
+- {time: 78.1, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 78.1, enemy: outrider, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 78.1, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 79.3, enemy: albatross, count: 2, x: 0.33}
+- {time: 81.0, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 81.0, enemy: albatross, count: 2, x: 0.33}
+- {time: 81.0, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 82.1, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 83.3
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- {time: 84.8, enemy: tick, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 86.3, enemy: harrier, x: 0.0}
+- {time: 87.5, enemy: albatross, count: 2, x: 0.33}
+- time: 89.2
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 90.6
+  enemy: splitter
+  count: 5
+  formation: column
+  interval: 1.5
+  x: 0.0
+- time: 90.6
+  enemy: splitter
+  count: 5
+  formation: column
+  interval: 1.5
+  x: 0.0
+- {time: 94.4, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 96.1, enemy: albatross, count: 2, x: 0.33}
+- time: 96.1
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 96.1
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: 0.5
+- time: 96.1
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 97.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- time: 98.4
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 99.6
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 100.7, enemy: harrier, x: -0.33}
+- {time: 101.9, enemy: harrier, x: -0.33}
+- time: 103.0
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 109.0, enemy: drowned_king}

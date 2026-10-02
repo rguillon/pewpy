@@ -1,0 +1,83 @@
+rows:
+- '..............NoooN.....NoooN..............'
+- '..............NrrrN.....NrrrN..............'
+- '..............NNNNN.....NNNNN..............'
+- '..............NrrrNHHHHHNrrrN..............'
+- '.............HNNNNNhhhhhNNNNNH.............'
+- '............HhNrrrNDDDDDNrrrNhH............'
+- '..........HHhhkDDDDDDDDDDDDDkhhHH..........'
+- '.........HhhhhkDDDDDDDDDDDDDkhhhhH.........'
+- '.......HHhhhhhkDDDDDDDDDDDDDkhhhhhHH.......'
+- '.....kkkkkkkkkkDDDDDDDDDDDDDkkkkkkkkkk.....'
+- '....HhhhhhhhhhkDDDDDDDDDDDDDkhhhhhhhhhH....'
+- ..HHhhhNNNNNhhkDDDDDDDDDDDDDkhhNNNNNhhhHH..
+- .HhhhhhrrrrrhkkDDDDDDDDDDDDDkkhrrrrrhhhhhH.
+- lhhhhhhNNNNNh.................hNNNNNhhhhhhl
+- ppppppprrrrrp.................prrrrrppppppp
+- kkkkkkkNNNNNk.................kNNNNNkkkkkkk
+- khhhhhhrrrrrh..qqqqqqqqqqqqq..hrrrrrhhhhhhk
+- khhhhhhhhhhhh..qqqqqqqqqqqqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- kkkkkkkkkkkkk..qqgggggggggqq..kkkkkkkkkkkkk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh..qqgggggggggqq..hhhhhhhhhhhhk
+- kkkkkkkkkkkkk..qqqqqqqqqqqqq..kkkkkkkkkkkkk
+- khhhhhhhhhhhh..qqqqqqqqqqqqq..hhhhhhhhhhhhk
+- khhhhhhhhhhhh.................hhhhhhhhhhhhk
+- ppppppppppppp.................ppppppppppppp
+- ppppppppppppp.................ppppppppppppp
+- .khhhhhhhhhhhHkDDDDDDDDDDDDDkHhhhhhhhhhhhk.
+- ..kkkkkkkkkkkkkDDDDDDDDDDDDDkkkkkkkkkkkkk..
+- '....khhhhhhhhhkDDDDDDDDDDDDDkhhhhhhhhhk....'
+- '.....kkhhhhhhhkDDDDDDDDDDDDDkhhhhhhhkk.....'
+- '.......kkhhhhhkDDDDDDDDDDDDDkhhhhhkk.......'
+- '.........khhhhkDDDDDDDDDDDDDkhhhhk.........'
+- '..........kkhhkDDDDDDDDDDDDDkhhkk..........'
+- '............kkkDDDDDDDDDDDDDkkk............'
+- '.............kkhhhhhhhhhhhhhkk.............'
+- '..............kkkkkkkRkkkkkkk..............'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 11
+  o:
+    color: [0.08, 0.08, 0.09]
+    height: 9
+  r:
+    color: [0.13, 0.13, 0.15]
+    height: 9
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 9
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 9
+  D:
+    color: [0.5, 0.51, 0.54]
+    height: 13
+  k:
+    color: [0.17, 0.18, 0.2]
+    height: 7
+  l:
+    color: [1.0, 0.55, 0.15]
+    height: 11
+  p:
+    color: [0.807, 0.637, 0.34]
+    height: 9
+  q:
+    color: [0.67, 0.55, 0.34]
+    height: 13
+  g:
+    color: [1, 0.9, 0.69]
+    height: 13
+  R:
+    color: [1.0, 0.2, 0.1]
+    height: 11
+engines:
+- {x: 16, y: 0, width: 4, length: 13, towards: top}
+- {x: 26, y: 0, width: 4, length: 13, towards: top}

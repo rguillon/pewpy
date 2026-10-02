@@ -1,0 +1,168 @@
+name: Twilight Grove
+scroll_speed: 0.235
+background: forest
+background_seed: 338
+time_of_day: dusk
+clouds: 0.8
+scenery:
+  ground:
+    shape: {canopy_size: 0.7}
+waves:
+- {time: 2.0, enemy: dart, count: 6, formation: column, interval: 0.4, x: -0.5}
+- {time: 4.1, enemy: freighter, x: -0.5}
+- {time: 4.1, enemy: hunter, count: 1, formation: column, x: 0.3}
+- {time: 5.5, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 8.6, enemy: rocketeer, count: 2, formation: line, spacing: 1.17, x: 0.0}
+- {time: 10.8, enemy: freighter, x: 0.5}
+- {time: 12.3, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 12.3
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 14.1, enemy: freighter, x: -0.5}
+- {time: 14.1, enemy: hunter, count: 1, formation: column, x: -0.18}
+- time: 15.5
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.18
+  x: 0.0
+- time: 15.5
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 18.8, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- {time: 20.1, enemy: gunship, count: 1, formation: column, x: 0.0}
+- {time: 20.1, enemy: needle, x: 0.33}
+- time: 21.3
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 23.7, enemy: freighter, x: -0.5}
+- {time: 23.7, enemy: freighter, x: 0.5}
+- {time: 25.2, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 25.2, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 28.2, enemy: needle, x: 0.33}
+- {time: 29.4, enemy: freighter, x: -0.5}
+- {time: 30.6, enemy: hunter, count: 1, formation: column, x: -0.07}
+- {time: 30.6, enemy: freighter, x: 0.5}
+- time: 30.6
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 33.1
+  enemy: flak_cannon
+  count: 1
+  formation: line
+  spacing: 1.33
+  x: 0.0
+- time: 33.1
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 35.3, enemy: hunter, count: 1, formation: column, x: 0.33}
+- time: 35.3
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 38.4, enemy: gunship, count: 1, formation: column, x: 0.0}
+- {time: 39.5, enemy: needle, x: 0.0}
+- time: 39.5
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 40.8, enemy: freighter, x: 0.5}
+- {time: 40.8, enemy: bomber, count: 1, formation: column, side: left, y: 0.59}
+- {time: 42.0, enemy: freighter, x: -0.5}
+- {time: 43.2, enemy: bomber, count: 1, formation: column, side: left, y: 0.58}
+- {time: 43.2, enemy: bomber, count: 1, formation: column, side: right, y: 0.74}
+- {time: 44.4, enemy: freighter, x: -0.5}
+- {time: 45.6, enemy: freighter, x: -0.5}
+- {time: 46.8, enemy: freighter, x: 0.5}
+- {time: 48.0, enemy: freighter, x: 0.5}
+- {time: 54.0, enemy: breacher}
+- time: 57.0
+  enemy: drone
+  count: 6
+  formation: column
+  interval: 0.45
+  x: 0.67
+- {time: 59.0, enemy: splitter, count: 3, formation: line, spacing: 0.83}
+- {time: 61.2, enemy: needle, x: 0.0}
+- {time: 62.2, enemy: freighter, x: -0.5}
+- {time: 63.2, enemy: freighter, x: -0.5}
+- {time: 64.2, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- {time: 65.5, enemy: wisp, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 66.5, enemy: bomber, count: 1, formation: column, side: left, y: 0.71}
+- {time: 66.5, enemy: bomber, count: 1, formation: column, side: left, y: 0.59}
+- {time: 66.5, enemy: needle, x: 0.33}
+- {time: 67.5, enemy: freighter, x: -0.5}
+- {time: 67.5, enemy: wisp, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 68.5, enemy: freighter, x: 0.5}
+- time: 68.5
+  enemy: splitter
+  count: 4
+  formation: column
+  interval: 1.5
+  x: 0.0
+- {time: 71.0, enemy: bomber, count: 1, formation: column, side: left, y: 0.69}
+- {time: 72.6, enemy: freighter, x: 0.5}
+- {time: 73.7, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 75.3, enemy: stalker, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 75.3, enemy: wisp, count: 2, formation: line, spacing: 0.83, x: 0.0}
+- {time: 76.3, enemy: needle, x: 0.33}
+- {time: 77.3, enemy: turret, count: 2, formation: line, spacing: 1.67}
+- {time: 78.7, enemy: bomber, count: 1, formation: column, side: left, y: 0.65}
+- time: 79.9
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 81.6, enemy: splitter, count: 2, formation: line, spacing: 1.33}
+- {time: 83.0, enemy: turret, count: 2, formation: line, spacing: 0.83}
+- {time: 83.0, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- time: 84.0
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 85.5, enemy: needle, x: 0.33}
+- {time: 86.5, enemy: needle, x: 0.0}
+- {time: 87.5, enemy: needle, x: 0.33}
+- time: 88.4
+  enemy: rocketeer
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 90.3, enemy: turret, count: 2, formation: line, spacing: 1.0}
+- {time: 91.9, enemy: needle, x: 0.33}
+- {time: 92.9, enemy: needle, x: 0.0}
+- {time: 93.9, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 94.9, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 96.1, enemy: bomber, count: 1, formation: column, side: right, y: 0.66}
+- {time: 96.1, enemy: bomber, count: 1, formation: column, side: right, y: 0.59}
+- {time: 97.1, enemy: bomber, count: 1, formation: column, side: left, y: 0.58}
+- {time: 98.1, enemy: bomber, count: 1, formation: column, side: right, y: 0.66}
+- {time: 99.1, enemy: needle, x: 0.33}
+- {time: 100.1, enemy: bomber, count: 1, formation: column, side: left, y: 0.69}
+- {time: 101.0, enemy: needle, x: 0.33}
+- {time: 102.0, enemy: freighter, x: -0.5}
+- {time: 103.0, enemy: bomber, count: 1, formation: column, side: right, y: 0.66}
+- {time: 109.0, enemy: grovekeeper}

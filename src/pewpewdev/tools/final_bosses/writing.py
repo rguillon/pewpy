@@ -16,7 +16,7 @@ from pewpewdev.tools.final_bosses.boss import (
 from pewpy.game.weapons.guns import Gun
 
 
-def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
+def boss_data(spec: BossSpec, note: str = "") -> dict[str, Any]:
     """Write the boss like any enemy: its body, its parts, and states: coming down, then its phases."""
     parts = [
         {
@@ -53,7 +53,7 @@ def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
         guns = [
             {
                 **({} if source == CORE else {"from": source}),
-                **gun_json(replace(gun, reload="carry", off_screen="fire")),
+                **gun_data(replace(gun, reload="carry", off_screen="fire")),
             }
             for source, gun in phase.guns
         ]
@@ -68,7 +68,7 @@ def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
     }  # fmt: skip
 
 
-def gun_json(gun: Gun) -> dict[str, Any]:
+def gun_data(gun: Gun) -> dict[str, Any]:
     """Write the gun's fields that aren't the defaults (its pattern, interval and speed always)."""
     written: dict[str, Any] = {}
     for f in dataclasses.fields(gun):
@@ -79,9 +79,9 @@ def gun_json(gun: Gun) -> dict[str, Any]:
 
 
 def _plain(value: object) -> object:
-    """Tuples as lists, guns as dicts: as JSON writes them."""
+    """Tuples as lists, guns as dicts: as YAML writes them."""
     if isinstance(value, Gun):
-        return gun_json(value)
+        return gun_data(value)
     if isinstance(value, tuple):
         return [_plain(item) for item in value]
     return value

@@ -1,0 +1,57 @@
+rows:
+- oHN...........HHH...........NHo
+- NhN........hhhhhhhhh........NhN
+- kkk......hhkkkkkkkkkhh......kkk
+- NHN.....HHHHHHHHHHHHHHH.....NHN
+- hhN....hhhhhhhhhhhhhhhhh....Nhh
+- ..N....NhhhhhhhhhhhhhhhN....N..
+- ..N...NkkkkkkkkkkkkkkkkkN...N..
+- ..N...hhhhhhhhhhhhhhhhhhh...N..
+- ..N..NhhhhhhhhhhhhhhhhhhhN..N..
+- '...N.NHHHHHHHHHHHHHHHHHHHN.N...'
+- '...N.kkkkkkkkhkkkhkkkkkkkk.N...'
+- '...p.hhhhhhhh.hhh.hhhhhhhh.p...'
+- '...N.HHHHHHH..HHH..HHHHHHH.N...'
+- '...N.NhhhhhN..hRh..NhhhhhN.N...'
+- '...N..kkkkk...kkk...kkkkk..N...'
+- '....N.HHHHH...NHN...HHHHH.N....'
+- '....N.hhhhN.........Nhhhh.N....'
+- '....N..hhhN.........Nhhh..N....'
+- '....Np..Hk...........kH..pN....'
+- '....NN...h...........h...NN....'
+- '....NN...................NN....'
+- '....NN...................NN....'
+- '....NN...................NN....'
+- '....NN...................NN....'
+- '....pN...................Np....'
+- '....NN...................NN....'
+- '....NN...................NN....'
+- '....NNN.................NNN....'
+- '....NNN.................NNN....'
+- '....NNN.................NNN....'
+- '.....NN.................NN.....'
+palette:
+  N:
+    color: [0.177, 0.184, 0.215]
+    height: 5
+  h:
+    color: [0.252, 0.258, 0.303]
+    height: 3
+  H:
+    color: [0.34, 0.347, 0.4]
+    height: 3
+  k:
+    color: [0.116, 0.122, 0.148]
+    height: 1
+  o:
+    color: [0.054, 0.054, 0.067]
+    height: 3
+  p:
+    color: [0.9, 0.45, 0.1]
+    height: 3
+  R:
+    color: [1.0, 0.6, 0.15]
+    height: 5
+engines:
+- {x: 0, y: 0, width: 3.0, length: 7, towards: top}
+- {x: 30, y: 0, width: 3.0, length: 7, towards: top}

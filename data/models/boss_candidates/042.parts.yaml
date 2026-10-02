@@ -1,0 +1,9 @@
+parts:
+- {drawing: 042_a, x: -42.5, y: 9.5}
+- {drawing: 042_b, x: 42.5, y: 9.5}
+- {drawing: 042_c, x: -32.5, y: -6.5}
+- {drawing: 042_d, x: -43.5, y: -29.5}
+- {drawing: 042_e, x: -6.5, y: 12.5}
+- {drawing: 042_f, x: -26.5, y: 9.5}
+- {drawing: 042_g, x: -3.5, y: -12.5}
+- {drawing: 042_g, x: 3.5, y: -12.5}

@@ -1,0 +1,74 @@
+rows:
+- '...............NoooN...........NoooN...............'
+- '...............NrrrN...........NrrrN...............'
+- '.............HHNNNNNHHHHHHHHHHHNNNNNHH.............'
+- '............HhhNrrrNhhhhhhhhhhhNrrrNhhH............'
+- '...........HhhhNNNNNDDDDDDDDDDDNNNNNhhhH...........'
+- '..........HhhhhhkDDDDDDDDDDDDDDDDDkhhhhhH..........'
+- '.........HhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhH.........'
+- '........HNNNNNhhkDDDDDDDDDDDDDDDDDkhhNNNNNH........'
+- '.......kkrrrrrkkkDDDDDDDDDDDDDDDDDkkkrrrrrkk.......'
+- '......pppNNNNNppkDDDDDDDDDDDDDDDDDkppNNNNNppp......'
+- '.....pppprrrrrppkDDDDDqqqqqqqDDDDDkpprrrrrpppp.....'
+- '....HhhhhhhhhhhhkDDDDDqqqqqqqDDDDDkhhhhhhhhhhhH....'
+- '...HhhhhhhhhhhhhkDDDDDqqgggqqDDDDDkhhhhhhhhhhhhH...'
+- ..HhhhhhhhhhhhhhkDDDDDqqgggqqDDDDDkhhhhhhhhhhhhhH..
+- .kkkkkkkkkkkkkkkkDDDDDqqgggqqDDDDDkkkkkkkkkkkkkkkk.
+- lhhhhhhhhhhhhhhhkDDDDDqqqqqqqDDDDDkhhhhhhhhhhhhhhhl
+- .kkhhhhhhhhhhhhhkDDDDDqqqqqqqDDDDDkhhhhhhhhhhhhhkk.
+- '...kkhhhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhhhkk...'
+- '.....kkhhhhhhhhhkDDDDDDDDDDDDDDDDDkhhhhhhhhhkk.....'
+- '.......pppppppppkDDDDDDDDDDDDDDDDDkppppppppp.......'
+- '........kkkkkkkkkDDDDDDDDDDDDDDDDDkkkkkkkkk........'
+- '..........kkhhhhkDDDDDDDDDDDDDDDDDkhhhhkk..........'
+- '............kkhhkDDDDDDDDDDDDDDDDDkhhkk............'
+- '..............khkDDDDDDDDDDDDDDDDDkhk..............'
+- '...............kkDDDDDDDDDDDDDDDDDkk...............'
+- '.................kkhbbhhhhhhhbbhkk.................'
+- '...................kbbkkkRkkkbbk...................'
+- '....................bb.......bb....................'
+- '....................bb.......bb....................'
+- '....................oo.......oo....................'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 11
+  o:
+    color: [0.08, 0.08, 0.09]
+    height: 9
+  r:
+    color: [0.13, 0.13, 0.15]
+    height: 9
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 9
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 9
+  D:
+    color: [0.5, 0.51, 0.54]
+    height: 13
+  k:
+    color: [0.17, 0.18, 0.2]
+    height: 7
+  p:
+    color: [0.722, 0.17, 0.128]
+    height: 9
+  q:
+    color: [0.61, 0.22, 0.19]
+    height: 13
+  g:
+    color: [0.96, 0.57, 0.54]
+    height: 13
+  l:
+    color: [1.0, 0.55, 0.15]
+    height: 11
+  b:
+    color: [0.22, 0.23, 0.25]
+    height: 5
+  R:
+    color: [1.0, 0.2, 0.1]
+    height: 11
+engines:
+- {x: 33, y: 0, width: 4, length: 9, towards: top}
+- {x: 17, y: 0, width: 4, length: 9, towards: top}

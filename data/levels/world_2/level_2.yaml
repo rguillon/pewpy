@@ -1,0 +1,198 @@
+name: Riverbend
+scroll_speed: 0.217
+background: forest
+background_seed: 1552
+clouds: 0.2
+scenery:
+  ground:
+    shape: {river_spacing: 1.8, river_width: 0.16}
+waves:
+- time: 2.0
+  enemy: weaver
+  count: 6
+  formation: column
+  interval: 0.38
+  x: -0.67
+- {time: 3.9, enemy: diver, count: 3, formation: line, spacing: 0.58}
+- {time: 5.8, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 6.8, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 7.9, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 9.0, enemy: albatross, x: -0.33}
+- {time: 10.1, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 10.1, enemy: dart, count: 5, formation: column, interval: 0.4, x: -0.5}
+- time: 10.1
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 11.5, enemy: diver, count: 3, formation: line, spacing: 0.83}
+- {time: 13.2, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- time: 14.8
+  enemy: weaver
+  count: 5
+  formation: column
+  interval: 0.4
+  x: -0.67
+- {time: 16.7, enemy: diver, count: 3, formation: line, spacing: 0.58}
+- {time: 18.9, enemy: dart, count: 4, formation: column, interval: 0.35, x: -0.5}
+- time: 18.9
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 20.2
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 21.4, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 21.4, enemy: dart, count: 5, formation: column, interval: 0.4, x: -0.5}
+- {time: 23.0, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 24.6, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 24.6, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 25.7, enemy: diver, count: 5, formation: line, spacing: 0.5}
+- time: 29.5
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 30.6
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 31.7, enemy: dart, count: 4, formation: column, interval: 0.35, x: -0.5}
+- time: 32.9
+  enemy: weaver
+  count: 5
+  formation: column
+  interval: 0.4
+  x: 0.58
+- {time: 34.8, enemy: dart, count: 4, formation: column, interval: 0.35, x: -0.5}
+- {time: 36.4, enemy: albatross, x: 0.33}
+- time: 37.6
+  enemy: spark
+  count: 5
+  formation: column
+  interval: 0.3
+  x: -0.67
+- {time: 38.6, enemy: diver, count: 3, formation: line, spacing: 0.58}
+- time: 40.3
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 41.5, enemy: albatross, x: 0.33}
+- time: 42.7
+  enemy: spark
+  count: 5
+  formation: column
+  interval: 0.3
+  x: -0.67
+- {time: 43.8, enemy: weaver, count: 6, formation: column, interval: 0.4, x: 0.0}
+- {time: 43.8, enemy: albatross, x: -0.33}
+- {time: 43.8, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 44.8, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 45.9, enemy: dart, count: 5, formation: column, interval: 0.4, x: -0.5}
+- {time: 46.9, enemy: albatross, x: 0.33}
+- {time: 46.9, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 48.0, enemy: dart, count: 5, formation: column, interval: 0.4, x: 0.58}
+- {time: 48.0, enemy: albatross, x: -0.33}
+- {time: 54.0, enemy: cyclone}
+- time: 57.0
+  enemy: weaver
+  count: 6
+  formation: column
+  interval: 0.4
+  x: 0.58
+- {time: 58.6, enemy: hornet, count: 3, formation: column, interval: 0.9, x: 0.5}
+- {time: 60.5, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- time: 60.5
+  enemy: drone
+  count: 5
+  formation: column
+  interval: 0.45
+  x: 0.67
+- {time: 62.1, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 63.5
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 65.7
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 68.6, enemy: hornet, count: 3, formation: column, interval: 0.9, x: 0.0}
+- {time: 71.0, enemy: albatross, x: -0.33}
+- {time: 72.3, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 74.0, enemy: hornet, count: 3, formation: column, interval: 0.9, x: 0.0}
+- {time: 76.3, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 77.4, enemy: hornet, count: 3, formation: column, interval: 0.9, x: 0.0}
+- {time: 79.4, enemy: albatross, x: 0.33}
+- time: 80.6
+  enemy: weaver
+  count: 5
+  formation: column
+  interval: 0.4
+  x: -0.67
+- {time: 82.2, enemy: weaver, count: 7, formation: column, interval: 0.4, x: 0.0}
+- time: 82.2
+  enemy: weaver
+  count: 7
+  formation: column
+  interval: 0.38
+  x: 0.67
+- {time: 84.6, enemy: drone, count: 7, formation: column, x: 0.67}
+- {time: 84.6, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- time: 86.0
+  enemy: weaver
+  count: 7
+  formation: column
+  interval: 0.38
+  x: 0.67
+- {time: 88.4, enemy: drone, count: 7, formation: column, x: -0.67}
+- time: 88.4
+  enemy: weaver
+  count: 6
+  formation: column
+  interval: 0.4
+  x: -0.58
+- {time: 90.1, enemy: albatross, x: -0.33}
+- {time: 91.2, enemy: spark, count: 3, formation: column, interval: 0.3, x: 0.0}
+- time: 92.1
+  enemy: catamaran
+  count: 2
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 94.9, enemy: albatross, x: -0.33}
+- {time: 95.9, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 96.9, enemy: albatross, x: 0.33}
+- {time: 97.8, enemy: albatross, x: -0.33}
+- {time: 98.8, enemy: buckshot, count: 1, formation: line, spacing: 1.33, x: 0.0}
+- {time: 99.8, enemy: albatross, x: 0.33}
+- time: 100.8
+  enemy: weaver
+  count: 7
+  formation: column
+  interval: 0.38
+  x: 0.0
+- time: 102.0
+  enemy: buckshot
+  count: 1
+  formation: line
+  spacing: 1.33
+  x: 0.0
+- {time: 103.0, enemy: albatross, x: -0.33}
+- {time: 103.0, enemy: albatross, x: 0.33}
+- {time: 109.0, enemy: thornback}

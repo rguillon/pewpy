@@ -1,0 +1,6528 @@
+sentinel:
+  note: '1-1: a patrol platform, no parts.'
+  name: SENTINEL
+  drawing: sentinel
+  size: [0.26, 0.2]
+  health: 60.0
+  points: 1500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.6
+      speed: 0.45
+      count: 3
+      spread: 20
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 3.0
+      speed: 0.35
+      count: 8
+      turn: 22
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+thresher:
+  note: '1-2: a heavy hauler with cutters in front, no parts.'
+  name: THRESHER
+  drawing: thresher
+  size: [0.3, 0.22]
+  health: 70.0
+  points: 1800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.4
+      speed: 0.45
+      count: 4
+      spread: 14
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.5
+      speed: 0.55
+      count: 3
+      spread: 10
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 3.0
+      speed: 0.35
+      count: 7
+      spread: 12
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+prowler:
+  note: '1-3: a raider with swept wings, no parts.'
+  name: PROWLER
+  drawing: prowler
+  size: [0.34, 0.2]
+  health: 75.0
+  points: 1800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.14}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.5
+      speed: 0.55
+      count: 3
+      spread: 12
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.8
+      speed: 0.4
+      count: 8
+      turn: 22
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.2
+      speed: 0.6
+      delay: 0.6
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+pulsar:
+  note: '1-4: a ring-shaped pulse ship, no parts: rings.'
+  name: PULSAR
+  drawing: pulsar
+  size: [0.26, 0.3]
+  health: 90.0
+  points: 2200
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.6
+      speed: 0.38
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.42
+      count: 2
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 3.0
+      speed: 0.3
+      count: 16
+      delay: 1.5
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+rockbreaker:
+  note: '1-5: a mining ship with two drills; armored until they''re gone.'
+  name: ROCKBREAKER
+  drawing: rockbreaker
+  size: [0.26, 0.22]
+  health: 60.0
+  points: 2000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left drill
+    x: -0.2
+    y: -0.04
+    drawing: rockbreaker_drill
+    size: [0.1, 0.16]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right drill
+    x: 0.2
+    y: -0.04
+    drawing: rockbreaker_drill
+    size: [0.1, 0.16]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left drill
+      pattern: aimed
+      interval: 1.8
+      speed: 0.55
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right drill
+      pattern: aimed
+      interval: 1.8
+      speed: 0.55
+      volley: 2
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left drill, right drill]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.6
+      speed: 0.45
+      count: 5
+      spread: 16
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+warden:
+  note: '1-6, Highlands'' boss: a battle station, no parts, two phases by health.'
+  name: WARDEN
+  drawing: warden
+  size: [0.46, 0.3]
+  health: 140.0
+  points: 5000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 5
+      spread: 18
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.2
+      speed: 0.7
+      count: 2
+      spread: 8
+      volley: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.55
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.45
+      count: 3
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      delay: 0.5
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+patrol_drone:
+  note: '2-1: a patrol gunship, no parts.'
+  name: PATROL DRONE
+  drawing: patrol_drone
+  size: [0.3, 0.2]
+  health: 80.0
+  points: 2000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.14}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.3
+      speed: 0.6
+      count: 2
+      spread: 10
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 5
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.2
+      speed: 0.65
+      volley: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+cyclone:
+  note: '2-2: a ring ship spinning its guns, no parts: spirals, three phases.'
+  name: CYCLONE
+  drawing: cyclone
+  size: [0.28, 0.28]
+  health: 100.0
+  points: 2500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.42
+      count: 2
+      turn: 12
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.66
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.44
+      count: 3
+      turn: -14
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.33
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.16
+      speed: 0.42
+      count: 4
+      turn: 9
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.2
+      speed: 0.35
+      count: 12
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+siege_pod:
+  note: '2-3: an armored siege ship, no parts, three phases on its health.'
+  name: SIEGE POD
+  drawing: siege_pod
+  size: [0.3, 0.3]
+  health: 110.0
+  points: 2500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.8
+      speed: 0.45
+      count: 5
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.66
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.45
+      count: 2
+      turn: 11
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.33
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.6
+      speed: 0.4
+      count: 12
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.2
+      speed: 0.55
+      delay: 0.8
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+delta_raider:
+  note: '2-4: a delta-winged raider, no parts: sweeping fans, three phases.'
+  name: DELTA RAIDER
+  drawing: delta_raider
+  size: [0.4, 0.23]
+  health: 110.0
+  points: 2600
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.2
+      speed: 0.5
+      count: 5
+      spread: 12
+      sweep: 35
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.66
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 0.5
+      speed: 0.45
+      count: 3
+      spread: 20
+      sweep: 45
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.33
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.1
+      speed: 0.5
+      count: 2
+      turn: 9
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 5
+      spread: 18
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+breacher:
+  note: '2-5: an assault ship with two breaching clamps; armored until they''re gone.'
+  name: BREACHER
+  drawing: breacher
+  size: [0.24, 0.24]
+  health: 70.0
+  points: 2000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left clamp
+    x: -0.17
+    y: -0.12
+    drawing: breacher_clamp
+    size: [0.1, 0.16]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right clamp
+    x: 0.17
+    y: -0.12
+    drawing: breacher_clamp
+    size: [0.1, 0.16]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left clamp
+      pattern: aimed
+      interval: 1.6
+      speed: 0.55
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right clamp
+      pattern: aimed
+      interval: 1.6
+      speed: 0.55
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 3
+      spread: 18
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left clamp, right clamp]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.2
+      speed: 0.6
+      count: 3
+      spread: 12
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.4
+      speed: 0.4
+      count: 8
+      turn: 22
+      delay: 0.6
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+harvester:
+  note: '2-6, Wildwood''s boss: two cannons; the core is armored until both are gone.'
+  name: HARVESTER
+  drawing: harvester
+  size: [0.34, 0.26]
+  health: 100.0
+  points: 6000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left cannon
+    x: -0.26
+    y: 0.02
+    drawing: harvester_cannon
+    size: [0.14, 0.18]
+    health: 40.0
+    points: 800
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.26
+    y: 0.02
+    drawing: harvester_cannon
+    size: [0.14, 0.18]
+    health: 40.0
+    points: 800
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.5
+      speed: 0.4
+      count: 3
+      spread: 25
+      delay: 1.2
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left cannon, right cannon]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 2.2
+      speed: 0.4
+      count: 14
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.4
+      speed: 0.6
+      count: 3
+      spread: 12
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+turbine:
+  note: '3-1: a ship built around a spinning turbine, no parts: spirals, three phases.'
+  name: TURBINE
+  drawing: turbine
+  size: [0.3, 0.3]
+  health: 110.0
+  points: 2600
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.42
+      count: 2
+      turn: 12
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.66
+      go_on: true
+      then:
+      - {type: sway, speed: 0.1}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.2
+      speed: 0.4
+      count: 4
+      turn: -9
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.33
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.4
+      speed: 0.42
+      count: 12
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      delay: 0.7
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+clamp_barge:
+  note: '3-2: a barge with two clamps; armored until they''re gone.'
+  name: CLAMP BARGE
+  drawing: clamp_barge
+  size: [0.26, 0.2]
+  health: 70.0
+  points: 2000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left clamp
+    x: -0.2
+    y: -0.08
+    drawing: clamp_barge_clamp
+    size: [0.12, 0.14]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right clamp
+    x: 0.2
+    y: -0.08
+    drawing: clamp_barge_clamp
+    size: [0.12, 0.14]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left clamp
+      pattern: aimed
+      interval: 1.6
+      speed: 0.55
+      count: 2
+      spread: 10
+      reload: carry
+      off_screen: fire
+    - from: right clamp
+      pattern: aimed
+      interval: 1.6
+      speed: 0.55
+      count: 2
+      spread: 10
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.2
+      speed: 0.4
+      count: 3
+      spread: 20
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left clamp, right clamp]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.8
+      speed: 0.4
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+spire:
+  note: '3-3: a tall command ship, no parts, three phases on its health.'
+  name: SPIRE
+  drawing: spire
+  size: [0.22, 0.36]
+  health: 120.0
+  points: 2800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts: []
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      count: 3
+      spread: 8
+      volley: 2
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.66
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.11
+      speed: 0.46
+      count: 2
+      turn: 11
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 3
+      spread: 25
+      delay: 1.2
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.33
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.5
+      speed: 0.4
+      count: 16
+      turn: 11
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 0.16
+      speed: 0.42
+      count: 3
+      turn: -12
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+twin_fang:
+  note: '3-4: two side guns that can be left alive: the core isn''t armored.'
+  name: TWIN FANG
+  drawing: twin_fang
+  size: [0.24, 0.26]
+  health: 90.0
+  points: 2600
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left gun
+    x: -0.19
+    y: -0.02
+    drawing: twin_fang_cannon
+    size: [0.1, 0.2]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right gun
+    x: 0.19
+    y: -0.02
+    drawing: twin_fang_cannon
+    size: [0.1, 0.2]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left gun
+      pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right gun
+      pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 3
+      spread: 25
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.15
+      speed: 0.42
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - from: left gun
+      pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 3
+      reload: carry
+      off_screen: fire
+    - from: right gun
+      pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 3
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+frigate:
+  note: '3-5: a frigate with two deck guns; armored until they''re gone.'
+  name: FRIGATE
+  drawing: frigate
+  size: [0.22, 0.36]
+  health: 90.0
+  points: 2400
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left gun
+    x: -0.17
+    y: 0.02
+    drawing: frigate_turret
+    size: [0.1, 0.1]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right gun
+    x: 0.17
+    y: 0.02
+    drawing: frigate_turret
+    size: [0.1, 0.1]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left gun
+      pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right gun
+      pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 3
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.45
+      count: 5
+      spread: 12
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left gun, right gun]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.8
+      speed: 0.45
+      count: 3
+      spread: 30
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.3
+      speed: 0.6
+      count: 3
+      spread: 10
+      delay: 0.6
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+tidebreaker:
+  note: '3-6, Fenlands'' boss: two missile batteries, then two phases of the core alone.'
+  name: TIDEBREAKER
+  drawing: tidebreaker
+  size: [0.3, 0.36]
+  health: 120.0
+  points: 7000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left battery
+    x: -0.24
+    y: 0.04
+    drawing: tidebreaker_launcher
+    size: [0.16, 0.22]
+    health: 45.0
+    points: 900
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right battery
+    x: 0.24
+    y: 0.04
+    drawing: tidebreaker_launcher
+    size: [0.16, 0.22]
+    health: 45.0
+    points: 900
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left battery
+      pattern: fan
+      interval: 1.1
+      speed: 0.5
+      count: 4
+      spread: 12
+      sweep: 30
+      reload: carry
+      off_screen: fire
+    - from: right battery
+      pattern: fan
+      interval: 1.1
+      speed: 0.5
+      count: 4
+      spread: 12
+      sweep: 30
+      delay: 0.55
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.4
+      speed: 0.55
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left battery, right battery]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.1
+      speed: 0.5
+      count: 2
+      turn: 9
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.2
+      speed: 0.65
+      delay: 0.6
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.45
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.6
+      speed: 0.42
+      count: 16
+      turn: 11
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.7
+      volley: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+picket:
+  note: '4-1: a picket ship with two gun pods; armored until they''re gone.'
+  name: PICKET
+  drawing: picket
+  size: [0.2, 0.26]
+  health: 80.0
+  points: 2200
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left gun pod
+    x: -0.19
+    y: 0.04
+    drawing: picket_cannon
+    size: [0.16, 0.09]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right gun pod
+    x: 0.19
+    y: 0.04
+    drawing: picket_cannon
+    size: [0.16, 0.09]
+    health: 25.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left gun pod
+      pattern: fan
+      interval: 1.7
+      speed: 0.45
+      count: 3
+      spread: 18
+      reload: carry
+      off_screen: fire
+    - from: right gun pod
+      pattern: fan
+      interval: 1.7
+      speed: 0.45
+      count: 3
+      spread: 18
+      delay: 0.85
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left gun pod, right gun pod]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 12
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 3
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+bulwark:
+  note: '4-2: an armored ship with two rams in front; armored until they''re gone.'
+  name: BULWARK
+  drawing: bulwark
+  size: [0.28, 0.3]
+  health: 90.0
+  points: 2400
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left ram
+    x: -0.07
+    y: -0.2
+    drawing: bulwark_ram
+    size: [0.08, 0.14]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right ram
+    x: 0.07
+    y: -0.2
+    drawing: bulwark_ram
+    size: [0.08, 0.14]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left ram
+      pattern: aimed
+      interval: 1.5
+      speed: 0.6
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right ram
+      pattern: aimed
+      interval: 1.5
+      speed: 0.6
+      volley: 2
+      delay: 0.75
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 5
+      spread: 18
+      delay: 1.2
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left ram, right ram]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.45
+      count: 2
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      delay: 0.8
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+borer:
+  note: '4-3: a boring ship with two generators; armored until they''re gone.'
+  name: BORER
+  drawing: borer
+  size: [0.24, 0.24]
+  health: 90.0
+  points: 2400
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left generator
+    x: -0.2
+    y: 0.08
+    drawing: borer_generator
+    size: [0.14, 0.14]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right generator
+    x: 0.2
+    y: 0.08
+    drawing: borer_generator
+    size: [0.14, 0.14]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left generator
+      pattern: ring
+      interval: 2.0
+      speed: 0.38
+      count: 8
+      turn: 20
+      reload: carry
+      off_screen: fire
+    - from: right generator
+      pattern: ring
+      interval: 2.0
+      speed: 0.38
+      count: 8
+      turn: -20
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 3
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left generator, right generator]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.8
+      speed: 0.45
+      count: 7
+      spread: 12
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.55
+      delay: 0.8
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+silo_hauler:
+  note: '4-4: a hauler with two fuel tanks; armored until they''re gone.'
+  name: SILO HAULER
+  drawing: silo_hauler
+  size: [0.26, 0.24]
+  health: 100.0
+  points: 2800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left tank
+    x: -0.21
+    y: 0.04
+    drawing: silo_hauler_tank
+    size: [0.12, 0.19]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right tank
+    x: 0.21
+    y: 0.04
+    drawing: silo_hauler_tank
+    size: [0.12, 0.19]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left tank
+      pattern: ring
+      interval: 1.8
+      speed: 0.4
+      count: 6
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - from: right tank
+      pattern: ring
+      interval: 1.8
+      speed: 0.4
+      count: 6
+      turn: -15
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 2
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left tank, right tank]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.3
+      speed: 0.5
+      count: 5
+      sweep: 25
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.5
+      speed: 0.38
+      count: 10
+      delay: 1.2
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+bastion:
+  note: '4-5: a fortress ship with two turrets; armored until they''re gone.'
+  name: BASTION
+  drawing: bastion
+  size: [0.32, 0.23]
+  health: 110.0
+  points: 2800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left turret
+    x: -0.25
+    y: -0.06
+    drawing: bastion_turret
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right turret
+    x: 0.25
+    y: -0.06
+    drawing: bastion_turret
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left turret
+      pattern: aimed
+      interval: 1.5
+      speed: 0.6
+      count: 2
+      spread: 10
+      reload: carry
+      off_screen: fire
+    - from: right turret
+      pattern: aimed
+      interval: 1.5
+      speed: 0.6
+      count: 2
+      spread: 10
+      delay: 0.75
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 3
+      spread: 25
+      delay: 1.2
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left turret, right turret]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.8
+      speed: 0.4
+      count: 14
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 1.4
+      speed: 0.5
+      count: 5
+      sweep: 30
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+reaper:
+  note: '4-6, Heartland''s boss: a giant harvester: augers and a cutter in front, then two drills at the back.'
+  name: REAPER
+  drawing: reaper
+  size: [0.407, 0.327]
+  health: 120.0
+  points: 7500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left auger
+    x: -0.067
+    y: -0.033
+    drawing: reaper_auger
+    size: [0.047, 0.093]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right auger
+    x: 0.067
+    y: -0.033
+    drawing: reaper_auger
+    size: [0.047, 0.093]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: cutter
+    x: 0.0
+    y: -0.027
+    drawing: reaper_cutter
+    size: [0.113, 0.147]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left drill
+    x: -0.113
+    y: 0.153
+    drawing: reaper_drill
+    size: [0.1, 0.16]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right drill
+    x: 0.113
+    y: 0.153
+    drawing: reaper_drill
+    size: [0.1, 0.16]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left auger
+      pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right auger
+      pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - from: cutter
+      pattern: fan
+      interval: 2.0
+      speed: 0.45
+      count: 5
+      spread: 14
+      sweep: 25
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left auger, right auger, cutter]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left drill
+      pattern: ring
+      interval: 2.2
+      speed: 0.38
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right drill
+      pattern: ring
+      interval: 2.2
+      speed: 0.38
+      count: 10
+      turn: -18
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      volley: 2
+      delay: 0.6
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left drill, right drill]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.15
+      speed: 0.44
+      count: 3
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 1.7
+      speed: 0.5
+      count: 5
+      sweep: 30
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+enforcer:
+  note: '5-1: an enforcer behind two armor shields (they don''t shoot); armored until they''re gone.'
+  name: ENFORCER
+  drawing: enforcer
+  size: [0.22, 0.26]
+  health: 90.0
+  points: 2400
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left shield
+    x: -0.18
+    y: -0.06
+    drawing: enforcer_shield
+    size: [0.12, 0.19]
+    health: 35.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right shield
+    x: 0.18
+    y: -0.06
+    drawing: enforcer_shield
+    size: [0.12, 0.19]
+    health: 35.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 3
+      spread: 25
+      delay: 1.2
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left shield, right shield]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.8
+      speed: 0.42
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.4
+      speed: 0.65
+      count: 3
+      spread: 10
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+hive_carrier:
+  note: '5-2: a carrier with two hangars; armored, then two phases on its health.'
+  name: HIVE CARRIER
+  drawing: hive_carrier
+  size: [0.22, 0.3]
+  health: 110.0
+  points: 3000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left hangar
+    x: -0.19
+    y: 0.06
+    drawing: hive_carrier_launcher
+    size: [0.16, 0.18]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right hangar
+    x: 0.19
+    y: 0.06
+    drawing: hive_carrier_launcher
+    size: [0.16, 0.18]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.14}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left hangar
+      pattern: fan
+      interval: 1.2
+      speed: 0.5
+      count: 3
+      spread: 12
+      sweep: 25
+      reload: carry
+      off_screen: fire
+    - from: right hangar
+      pattern: fan
+      interval: 1.2
+      speed: 0.5
+      count: 3
+      spread: 12
+      sweep: 25
+      delay: 0.6
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left hangar, right hangar]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.4
+      speed: 0.65
+      count: 5
+      spread: 8
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 14
+      turn: 13
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+hover_tank:
+  note: '5-3: a heavy gunboat with two turrets; armored until they''re gone.'
+  name: HOVER TANK
+  drawing: hover_tank
+  size: [0.3, 0.3]
+  health: 110.0
+  points: 2800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left turret
+    x: -0.22
+    y: -0.02
+    drawing: hover_tank_turret
+    size: [0.12, 0.15]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right turret
+    x: 0.22
+    y: -0.02
+    drawing: hover_tank_turret
+    size: [0.12, 0.15]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left turret
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right turret
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.4
+      speed: 0.38
+      count: 8
+      turn: 22
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left turret, right turret]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: fan
+      interval: 1.1
+      speed: 0.5
+      count: 5
+      spread: 14
+      sweep: 30
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.8
+      speed: 0.55
+      delay: 0.9
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+cryo_fortress:
+  note: '5-4: a fortress ship with two cryo cannons; armored until they''re gone.'
+  name: CRYO FORTRESS
+  drawing: cryo_fortress
+  size: [0.3, 0.26]
+  health: 110.0
+  points: 2800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left cannon
+    x: -0.23
+    y: 0.02
+    drawing: cryo_fortress_cannon
+    size: [0.12, 0.15]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.23
+    y: 0.02
+    drawing: cryo_fortress_cannon
+    size: [0.12, 0.15]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: ring
+      interval: 1.6
+      speed: 0.42
+      count: 6
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: ring
+      interval: 1.6
+      speed: 0.42
+      count: 6
+      turn: -10
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.2
+      speed: 0.5
+      delay: 1.1
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left cannon, right cannon]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 5
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+sentry_grid:
+  note: '5-5: a sentry ship with four nodes: the outer pair, then the inner pair, then the core.'
+  name: SENTRY GRID
+  drawing: sentry_grid
+  size: [0.24, 0.24]
+  health: 110.0
+  points: 3000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left outer node
+    x: -0.3
+    y: 0.06
+    drawing: sentry_grid_generator
+    size: [0.1, 0.1]
+    health: 22.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right outer node
+    x: 0.3
+    y: 0.06
+    drawing: sentry_grid_generator
+    size: [0.1, 0.1]
+    health: 22.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left inner node
+    x: -0.18
+    y: -0.13
+    drawing: sentry_grid_generator
+    size: [0.1, 0.1]
+    health: 22.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right inner node
+    x: 0.18
+    y: -0.13
+    drawing: sentry_grid_generator
+    size: [0.1, 0.1]
+    health: 22.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left outer node
+      pattern: aimed
+      interval: 1.4
+      speed: 0.65
+      reload: carry
+      off_screen: fire
+    - from: right outer node
+      pattern: aimed
+      interval: 1.4
+      speed: 0.65
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    - from: left inner node
+      pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 6
+      turn: 20
+      delay: 0.3
+      reload: carry
+      off_screen: fire
+    - from: right inner node
+      pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 6
+      turn: -20
+      delay: 1.3
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left outer node, right outer node]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left inner node
+      pattern: aimed
+      interval: 1.4
+      speed: 0.65
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right inner node
+      pattern: aimed
+      interval: 1.4
+      speed: 0.65
+      volley: 2
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.0
+      speed: 0.45
+      count: 5
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left inner node, right inner node]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.13
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      count: 3
+      spread: 10
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+leviathan:
+  note: '5-6, Archipelago''s boss: a battleship: turrets and flank nodes, then the reactors at the stern, then the core.'
+  name: LEVIATHAN
+  drawing: leviathan
+  size: [0.447, 0.593]
+  health: 130.0
+  points: 8500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left turret
+    x: -0.12
+    y: -0.08
+    drawing: leviathan_turret
+    size: [0.127, 0.153]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right turret
+    x: 0.12
+    y: -0.08
+    drawing: leviathan_turret
+    size: [0.127, 0.153]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left node
+    x: -0.213
+    y: -0.033
+    drawing: leviathan_node
+    size: [0.073, 0.08]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right node
+    x: 0.213
+    y: -0.033
+    drawing: leviathan_node
+    size: [0.073, 0.08]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left reactor
+    x: -0.047
+    y: 0.2
+    drawing: leviathan_reactor
+    size: [0.1, 0.12]
+    health: 20.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right reactor
+    x: 0.047
+    y: 0.2
+    drawing: leviathan_reactor
+    size: [0.1, 0.12]
+    health: 20.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.07}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left turret
+      pattern: aimed
+      interval: 1.7
+      speed: 0.65
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right turret
+      pattern: aimed
+      interval: 1.7
+      speed: 0.65
+      volley: 3
+      delay: 0.85
+      reload: carry
+      off_screen: fire
+    - from: left node
+      pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 3
+      spread: 18
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    - from: right node
+      pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 3
+      spread: 18
+      delay: 1.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left turret, right turret, left node, right node]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.1}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left reactor
+      pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 12
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - from: right reactor
+      pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 12
+      turn: -15
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 2
+      delay: 0.5
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left reactor, right reactor]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.13}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.13
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 1.6
+      speed: 0.52
+      count: 7
+      spread: 12
+      sweep: 30
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+relay_array:
+  note: '6-1: a relay station with two dishes; armored until they''re gone.'
+  name: RELAY ARRAY
+  drawing: relay_array
+  size: [0.3, 0.24]
+  health: 110.0
+  points: 3000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left dish
+    x: -0.26
+    y: 0.06
+    drawing: relay_array_dish
+    size: [0.14, 0.14]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right dish
+    x: 0.26
+    y: 0.06
+    drawing: relay_array_dish
+    size: [0.14, 0.14]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left dish
+      pattern: ring
+      interval: 2.2
+      speed: 0.38
+      count: 8
+      turn: 20
+      reload: carry
+      off_screen: fire
+    - from: right dish
+      pattern: ring
+      interval: 2.2
+      speed: 0.38
+      count: 8
+      turn: -20
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left dish, right dish]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.1
+      speed: 0.48
+      count: 2
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 3
+      spread: 25
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+scavenger:
+  note: '6-2: a salvager with two wing batteries; armored, then two phases.'
+  name: SCAVENGER
+  drawing: scavenger
+  size: [0.2, 0.27]
+  health: 110.0
+  points: 3000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left battery
+    x: -0.21
+    y: 0.05
+    drawing: scavenger_launcher
+    size: [0.2, 0.13]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right battery
+    x: 0.21
+    y: 0.05
+    drawing: scavenger_launcher
+    size: [0.2, 0.13]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left battery
+      pattern: fan
+      interval: 1.3
+      speed: 0.5
+      count: 4
+      spread: 12
+      sweep: 25
+      reload: carry
+      off_screen: fire
+    - from: right battery
+      pattern: fan
+      interval: 1.3
+      speed: 0.5
+      count: 4
+      spread: 12
+      sweep: 25
+      delay: 0.65
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left battery, right battery]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: aimed
+      interval: 1.4
+      speed: 0.6
+      count: 5
+      spread: 10
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.2
+      speed: 0.4
+      count: 10
+      turn: 18
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.09
+      speed: 0.5
+      count: 2
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      volley: 2
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+mine_carrier:
+  note: '6-3: a mine carrier with two launchers; armored, then two phases on its health.'
+  name: MINE CARRIER
+  drawing: mine_carrier
+  size: [0.34, 0.28]
+  health: 130.0
+  points: 3500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left launcher
+    x: -0.27
+    y: -0.08
+    drawing: mine_carrier_launcher
+    size: [0.12, 0.12]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right launcher
+    x: 0.27
+    y: -0.08
+    drawing: mine_carrier_launcher
+    size: [0.12, 0.12]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left launcher
+      pattern: fan
+      interval: 1.8
+      speed: 0.5
+      count: 3
+      spread: 20
+      reload: carry
+      off_screen: fire
+    - from: right launcher
+      pattern: fan
+      interval: 1.8
+      speed: 0.5
+      count: 3
+      spread: 20
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.4
+      speed: 0.5
+      delay: 1.2
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left launcher, right launcher]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.6
+      speed: 0.4
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.65
+      volley: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.13
+      speed: 0.45
+      count: 3
+      turn: -12
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 5
+      spread: 18
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+foundry:
+  note: '6-4: a foundry ship with two presses; armored, then two phases on its health.'
+  name: FOUNDRY
+  drawing: foundry
+  size: [0.28, 0.3]
+  health: 140.0
+  points: 3400
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left press
+    x: -0.22
+    y: -0.1
+    drawing: foundry_piston
+    size: [0.12, 0.14]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right press
+    x: 0.22
+    y: -0.1
+    drawing: foundry_piston
+    size: [0.12, 0.14]
+    health: 35.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left press
+      pattern: fan
+      interval: 2.0
+      speed: 0.42
+      count: 3
+      spread: 20
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: right press
+      pattern: fan
+      interval: 2.0
+      speed: 0.42
+      count: 3
+      spread: 20
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left press, right press]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.5
+      speed: 0.4
+      count: 12
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.65
+      volley: 3
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.45
+      count: 3
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 5
+      spread: 18
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+gunship_prime:
+  note: '6-5: a heavy gunship with two cannons and two engines: cannons, then engines, then the core.'
+  name: GUNSHIP PRIME
+  drawing: gunship_prime
+  size: [0.24, 0.33]
+  health: 140.0
+  points: 3600
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left cannon
+    x: -0.18
+    y: -0.08
+    drawing: gunship_prime_cannon
+    size: [0.1, 0.18]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.18
+    y: -0.08
+    drawing: gunship_prime_cannon
+    size: [0.1, 0.18]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left engine
+    x: -0.3
+    y: 0.1
+    drawing: gunship_prime_engine
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right engine
+    x: 0.3
+    y: 0.1
+    drawing: gunship_prime_engine
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - from: left engine
+      pattern: fan
+      interval: 2.0
+      speed: 0.45
+      count: 3
+      spread: 20
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    - from: right engine
+      pattern: fan
+      interval: 2.0
+      speed: 0.45
+      count: 3
+      spread: 20
+      delay: 1.4
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left cannon, right cannon]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left engine
+      pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right engine
+      pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 10
+      turn: -18
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      volley: 2
+      delay: 0.5
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left engine, right engine]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.46
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 5
+      spread: 14
+      sweep: 30
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+colossus:
+  note: '6-6, Steamvale''s boss: four turrets, the outer pair first, then the inner pair, then the core.'
+  name: COLOSSUS
+  drawing: colossus
+  size: [0.34, 0.3]
+  health: 150.0
+  points: 8000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left outer
+    x: -0.3
+    y: -0.02
+    drawing: colossus_turret
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right outer
+    x: 0.3
+    y: -0.02
+    drawing: colossus_turret
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left inner
+    x: -0.1
+    y: -0.2
+    drawing: colossus_turret
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right inner
+    x: 0.1
+    y: -0.2
+    drawing: colossus_turret
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left outer
+      pattern: aimed
+      interval: 2.0
+      speed: 0.7
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right outer
+      pattern: aimed
+      interval: 2.0
+      speed: 0.7
+      volley: 3
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - from: left inner
+      pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 3
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    - from: right inner
+      pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 3
+      delay: 1.3
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left outer, right outer]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left inner
+      pattern: ring
+      interval: 1.3
+      speed: 0.45
+      count: 8
+      turn: 22
+      reload: carry
+      off_screen: fire
+    - from: right inner
+      pattern: ring
+      interval: 1.3
+      speed: 0.45
+      count: 8
+      turn: -22
+      delay: 0.65
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.6
+      speed: 0.4
+      count: 5
+      spread: 20
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left inner, right inner]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.16
+      speed: 0.42
+      count: 4
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      count: 3
+      spread: 10
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+grappler:
+  note: '7-1: a salvage ship with four grapples; armored until they''re all gone, then two phases.'
+  name: GRAPPLER
+  drawing: grappler
+  size: [0.26, 0.26]
+  health: 130.0
+  points: 3200
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left grapple
+    x: -0.2
+    y: -0.13
+    drawing: grappler_clamp
+    size: [0.08, 0.21]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right grapple
+    x: 0.2
+    y: -0.13
+    drawing: grappler_clamp
+    size: [0.08, 0.21]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left inner grapple
+    x: -0.09
+    y: -0.21
+    drawing: grappler_clamp
+    size: [0.08, 0.21]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right inner grapple
+    x: 0.09
+    y: -0.21
+    drawing: grappler_clamp
+    size: [0.08, 0.21]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left grapple
+      pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 3
+      reload: carry
+      off_screen: fire
+    - from: right grapple
+      pattern: fan
+      interval: 1.6
+      speed: 0.5
+      count: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - from: left inner grapple
+      pattern: aimed
+      interval: 1.4
+      speed: 0.6
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    - from: right inner grapple
+      pattern: aimed
+      interval: 1.4
+      speed: 0.6
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left grapple, right grapple, left inner grapple, right inner grapple]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.6
+      speed: 0.4
+      count: 12
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.5
+      speed: 0.6
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.1
+      speed: 0.5
+      count: 2
+      turn: -10
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.6
+      speed: 0.4
+      count: 5
+      spread: 18
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+tugmaster:
+  note: '7-2: a space tug with two thrusters and a ram plate: thrusters, then the plate, then the core.'
+  name: TUGMASTER
+  drawing: tugmaster
+  size: [0.3, 0.28]
+  health: 130.0
+  points: 3500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left thruster
+    x: -0.23
+    y: 0.0
+    drawing: tugmaster_engine
+    size: [0.12, 0.19]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right thruster
+    x: 0.23
+    y: 0.0
+    drawing: tugmaster_engine
+    size: [0.12, 0.19]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: ram plate
+    x: 0.0
+    y: -0.19
+    drawing: tugmaster_plate
+    size: [0.22, 0.08]
+    health: 40.0
+    points: 700
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left thruster
+      pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right thruster
+      pattern: aimed
+      interval: 1.6
+      speed: 0.6
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - from: ram plate
+      pattern: fan
+      interval: 2.0
+      speed: 0.45
+      count: 5
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left thruster, right thruster]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: ram plate
+      pattern: ring
+      interval: 1.6
+      speed: 0.4
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.2
+      speed: 0.4
+      count: 3
+      spread: 30
+      delay: 0.8
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [ram plate]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.1
+      speed: 0.48
+      count: 2
+      turn: 11
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.65
+      volley: 3
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+magma_rig:
+  note: '7-3: a mining rig with two furnaces and two cannons: furnaces, then cannons, then the core.'
+  name: MAGMA RIG
+  drawing: magma_rig
+  size: [0.3, 0.28]
+  health: 150.0
+  points: 4000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left furnace
+    x: -0.24
+    y: 0.1
+    drawing: magma_rig_generator
+    size: [0.12, 0.14]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right furnace
+    x: 0.24
+    y: 0.1
+    drawing: magma_rig_generator
+    size: [0.12, 0.14]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left cannon
+    x: -0.36
+    y: -0.06
+    drawing: magma_rig_cannon
+    size: [0.1, 0.16]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.36
+    y: -0.06
+    drawing: magma_rig_cannon
+    size: [0.1, 0.16]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left furnace
+      pattern: ring
+      interval: 2.0
+      speed: 0.38
+      count: 8
+      turn: 15
+      reload: carry
+      off_screen: fire
+    - from: right furnace
+      pattern: ring
+      interval: 2.0
+      speed: 0.38
+      count: 8
+      turn: -15
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - from: left cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      delay: 1.3
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left furnace, right furnace]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.1}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.65
+      volley: 3
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 2.4
+      speed: 0.4
+      count: 5
+      spread: 18
+      delay: 0.5
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left cannon, right cannon]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.0
+      speed: 0.38
+      count: 14
+      turn: 10
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+dreadnought:
+  note: '7-4: a battleship with four turrets and a bow gun: turrets, then the bow gun, then the core.'
+  name: DREADNOUGHT
+  drawing: dreadnought
+  size: [0.24, 0.37]
+  health: 150.0
+  points: 4000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left front turret
+    x: -0.18
+    y: -0.1
+    drawing: dreadnought_turret
+    size: [0.12, 0.12]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right front turret
+    x: 0.18
+    y: -0.1
+    drawing: dreadnought_turret
+    size: [0.12, 0.12]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left rear turret
+    x: -0.26
+    y: 0.1
+    drawing: dreadnought_turret
+    size: [0.12, 0.12]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right rear turret
+    x: 0.26
+    y: 0.1
+    drawing: dreadnought_turret
+    size: [0.12, 0.12]
+    health: 25.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: bow gun
+    x: 0.0
+    y: -0.24
+    drawing: dreadnought_cannon
+    size: [0.08, 0.11]
+    health: 35.0
+    points: 700
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.08}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left front turret
+      pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right front turret
+      pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 2
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    - from: left rear turret
+      pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 3
+      spread: 20
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    - from: right rear turret
+      pattern: fan
+      interval: 2.2
+      speed: 0.45
+      count: 3
+      spread: 20
+      delay: 1.5
+      reload: carry
+      off_screen: fire
+    - from: bow gun
+      pattern: aimed
+      interval: 2.6
+      speed: 0.5
+      delay: 1.2
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left front turret, right front turret, left rear turret, right rear turret]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.1}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: bow gun
+      pattern: fan
+      interval: 1.0
+      speed: 0.5
+      count: 5
+      spread: 12
+      sweep: 30
+      reload: carry
+      off_screen: fire
+    - pattern: ring
+      interval: 2.0
+      speed: 0.4
+      count: 10
+      turn: 18
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [bow gun]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.12
+      speed: 0.45
+      count: 3
+      turn: 11
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      count: 3
+      spread: 10
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+flare_rig:
+  note: '7-5: a flare rig: two gun pods in front, two missile launchers behind them and two flak towers.'
+  name: FLARE RIG
+  drawing: flare_rig
+  size: [0.38, 0.347]
+  health: 165.0
+  points: 4300
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left gun
+    x: -0.08
+    y: -0.077
+    drawing: flare_rig_gun
+    size: [0.113, 0.107]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right gun
+    x: 0.08
+    y: -0.077
+    drawing: flare_rig_gun
+    size: [0.113, 0.107]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left launcher
+    x: -0.1
+    y: 0.017
+    drawing: flare_rig_launcher
+    size: [0.087, 0.127]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right launcher
+    x: 0.1
+    y: 0.017
+    drawing: flare_rig_launcher
+    size: [0.087, 0.127]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left flak
+    x: -0.16
+    y: 0.07
+    drawing: flare_rig_flak
+    size: [0.113, 0.1]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right flak
+    x: 0.16
+    y: 0.07
+    drawing: flare_rig_flak
+    size: [0.113, 0.1]
+    health: 20.0
+    points: 400
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.09}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left gun
+      pattern: aimed
+      interval: 1.5
+      speed: 0.65
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right gun
+      pattern: aimed
+      interval: 1.5
+      speed: 0.65
+      volley: 2
+      delay: 0.75
+      reload: carry
+      off_screen: fire
+    - from: left flak
+      pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 3
+      spread: 20
+      delay: 0.4
+      reload: carry
+      off_screen: fire
+    - from: right flak
+      pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 3
+      spread: 20
+      delay: 1.4
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left gun, right gun]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.12}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left launcher
+      pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      volley: 2
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: right launcher
+      pattern: aimed
+      interval: 2.0
+      speed: 0.55
+      volley: 2
+      delay: 1.0
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: left flak
+      pattern: ring
+      interval: 2.4
+      speed: 0.4
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right flak
+      pattern: ring
+      interval: 2.4
+      speed: 0.4
+      count: 10
+      turn: -18
+      delay: 1.2
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left launcher, right launcher]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.9
+      speed: 0.6
+      volley: 3
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+crucible:
+  note: '7-6, Ironworks'' boss: a smelting block: two furnaces on deck, two beacons at the bow; armored, then two phases.'
+  name: CRUCIBLE
+  drawing: crucible
+  size: [0.367, 0.453]
+  health: 170.0
+  points: 9000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left beacon
+    x: -0.033
+    y: -0.143
+    drawing: crucible_beacon
+    size: [0.073, 0.073]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right beacon
+    x: 0.033
+    y: -0.143
+    drawing: crucible_beacon
+    size: [0.073, 0.073]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left furnace
+    x: -0.08
+    y: -0.017
+    drawing: crucible_dish
+    size: [0.1, 0.087]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right furnace
+    x: 0.08
+    y: -0.017
+    drawing: crucible_dish
+    size: [0.1, 0.087]
+    health: 30.0
+    points: 600
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.09}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left beacon
+      pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right beacon
+      pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      volley: 2
+      delay: 0.75
+      reload: carry
+      off_screen: fire
+    - from: left furnace
+      pattern: ring
+      interval: 2.3
+      speed: 0.38
+      count: 12
+      turn: 16
+      reload: carry
+      off_screen: fire
+    - from: right furnace
+      pattern: ring
+      interval: 2.3
+      speed: 0.38
+      count: 12
+      turn: -16
+      delay: 1.15
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left furnace, right furnace]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.13}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.15
+      speed: 0.46
+      count: 3
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - from: left beacon
+      pattern: fan
+      interval: 1.8
+      speed: 0.55
+      count: 3
+      spread: 18
+      reload: carry
+      off_screen: fire
+    - from: right beacon
+      pattern: fan
+      interval: 1.8
+      speed: 0.55
+      count: 3
+      spread: 18
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.4
+      speed: 0.4
+      count: 16
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 3
+      gap: 0.2
+      delay: 0.7
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: left beacon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      reload: carry
+      off_screen: fire
+    - from: right beacon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+executor:
+  note: '8-1: a command ship with two generators and two blades; armored, then two phases on its health.'
+  name: EXECUTOR
+  drawing: executor
+  size: [0.28, 0.3]
+  health: 160.0
+  points: 4500
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left generator
+    x: -0.32
+    y: 0.08
+    drawing: executor_generator
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right generator
+    x: 0.32
+    y: 0.08
+    drawing: executor_generator
+    size: [0.12, 0.12]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left blade
+    x: -0.2
+    y: -0.1
+    drawing: executor_blade
+    size: [0.1, 0.22]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right blade
+    x: 0.2
+    y: -0.1
+    drawing: executor_blade
+    size: [0.1, 0.22]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left generator
+      pattern: ring
+      interval: 2.2
+      speed: 0.38
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right generator
+      pattern: ring
+      interval: 2.2
+      speed: 0.38
+      count: 10
+      turn: -18
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    - from: left blade
+      pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      volley: 2
+      delay: 0.5
+      reload: carry
+      off_screen: fire
+    - from: right blade
+      pattern: aimed
+      interval: 1.6
+      speed: 0.65
+      volley: 2
+      delay: 1.3
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left generator, right generator]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.45
+      count: 3
+      turn: 12
+      reload: carry
+      off_screen: fire
+    - from: left blade
+      pattern: fan
+      interval: 1.8
+      speed: 0.5
+      count: 3
+      spread: 18
+      reload: carry
+      off_screen: fire
+    - from: right blade
+      pattern: fan
+      interval: 1.8
+      speed: 0.5
+      count: 3
+      spread: 18
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.5
+      speed: 0.4
+      count: 14
+      turn: 11
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.2
+      speed: 0.55
+      volley: 3
+      delay: 0.7
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: left blade
+      pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      reload: carry
+      off_screen: fire
+    - from: right blade
+      pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      delay: 0.75
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+interdictor:
+  note: '8-2: an interceptor carrier: two bow cannons, two sensor dishes on its wings; armored until the dishes go.'
+  name: INTERDICTOR
+  drawing: interdictor
+  size: [0.287, 0.333]
+  health: 160.0
+  points: 4200
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left cannon
+    x: -0.093
+    y: -0.123
+    drawing: interdictor_cannon
+    size: [0.047, 0.08]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.093
+    y: -0.123
+    drawing: interdictor_cannon
+    size: [0.047, 0.08]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left dish
+    x: -0.133
+    y: 0.057
+    drawing: interdictor_dish
+    size: [0.073, 0.1]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right dish
+    x: 0.133
+    y: 0.057
+    drawing: interdictor_dish
+    size: [0.073, 0.1]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: aimed
+      interval: 1.4
+      speed: 0.7
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.4
+      speed: 0.7
+      volley: 2
+      delay: 0.7
+      reload: carry
+      off_screen: fire
+    - from: left dish
+      pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 5
+      spread: 12
+      sweep: 20
+      reload: carry
+      off_screen: fire
+    - from: right dish
+      pattern: fan
+      interval: 2.0
+      speed: 0.5
+      count: 5
+      spread: 12
+      sweep: 20
+      delay: 1.0
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left dish, right dish]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.16}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.45
+      count: 3
+      turn: -12
+      reload: carry
+      off_screen: fire
+    - from: left cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+nightwatch:
+  note: '8-3: a gunboat: two turrets on deck and two guns on its flanks; turrets, then guns, then the core.'
+  name: NIGHTWATCH
+  drawing: nightwatch
+  size: [0.247, 0.333]
+  health: 165.0
+  points: 4400
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left gun
+    x: -0.113
+    y: -0.07
+    drawing: nightwatch_gun
+    size: [0.06, 0.067]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right gun
+    x: 0.113
+    y: -0.07
+    drawing: nightwatch_gun
+    size: [0.06, 0.067]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left turret
+    x: -0.06
+    y: 0.003
+    drawing: nightwatch_turret
+    size: [0.06, 0.087]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right turret
+    x: 0.06
+    y: 0.003
+    drawing: nightwatch_turret
+    size: [0.06, 0.087]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.12}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left turret
+      pattern: aimed
+      interval: 1.3
+      speed: 0.72
+      volley: 2
+      style: sniper
+      reload: carry
+      off_screen: fire
+    - from: right turret
+      pattern: aimed
+      interval: 1.3
+      speed: 0.72
+      volley: 2
+      delay: 0.65
+      style: sniper
+      reload: carry
+      off_screen: fire
+    - from: left gun
+      pattern: fan
+      interval: 1.8
+      speed: 0.5
+      count: 3
+      spread: 16
+      reload: carry
+      off_screen: fire
+    - from: right gun
+      pattern: fan
+      interval: 1.8
+      speed: 0.5
+      count: 3
+      spread: 16
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left turret, right turret]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left gun
+      pattern: ring
+      interval: 2.2
+      speed: 0.42
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right gun
+      pattern: ring
+      interval: 2.2
+      speed: 0.42
+      count: 10
+      turn: -18
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 2
+      delay: 0.5
+      style: heavy
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      parts: [left gun, right gun]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.13
+      speed: 0.46
+      count: 3
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - pattern: fan
+      interval: 1.5
+      speed: 0.55
+      count: 5
+      spread: 14
+      sweep: 30
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+arc_tower:
+  note: '8-4: a power station: two arc emitters at the bow and two nodes on deck; armored, then two phases.'
+  name: ARC TOWER
+  drawing: arc_tower
+  size: [0.393, 0.293]
+  health: 170.0
+  points: 4600
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left emitter
+    x: -0.14
+    y: -0.117
+    drawing: arc_tower_emitter
+    size: [0.127, 0.113]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right emitter
+    x: 0.14
+    y: -0.117
+    drawing: arc_tower_emitter
+    size: [0.127, 0.113]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left node
+    x: -0.053
+    y: 0.03
+    drawing: arc_tower_node
+    size: [0.113, 0.1]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right node
+    x: 0.053
+    y: 0.03
+    drawing: arc_tower_node
+    size: [0.113, 0.1]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left emitter
+      pattern: fan
+      interval: 1.6
+      speed: 0.55
+      count: 5
+      spread: 12
+      sweep: 25
+      reload: carry
+      off_screen: fire
+    - from: right emitter
+      pattern: fan
+      interval: 1.6
+      speed: 0.55
+      count: 5
+      spread: 12
+      sweep: 25
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    - from: left node
+      pattern: ring
+      interval: 2.4
+      speed: 0.38
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right node
+      pattern: ring
+      interval: 2.4
+      speed: 0.38
+      count: 10
+      turn: -18
+      delay: 1.2
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left node, right node]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.13
+      speed: 0.46
+      count: 3
+      turn: 14
+      reload: carry
+      off_screen: fire
+    - from: left emitter
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right emitter
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      volley: 2
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.18}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.4
+      speed: 0.42
+      count: 16
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.62
+      volley: 3
+      delay: 0.7
+      style: heavy
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+apex:
+  note: '8-5: a flagship: two heavy cannons on its wings and two beam emitters at the stern; armored, then two phases.'
+  name: APEX
+  drawing: apex
+  size: [0.433, 0.287]
+  health: 175.0
+  points: 4800
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left cannon
+    x: -0.16
+    y: -0.127
+    drawing: apex_cannon
+    size: [0.113, 0.18]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.16
+    y: -0.127
+    drawing: apex_cannon
+    size: [0.113, 0.18]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left emitter
+    x: -0.093
+    y: 0.107
+    drawing: apex_emitter
+    size: [0.087, 0.093]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right emitter
+    x: 0.093
+    y: 0.107
+    drawing: apex_emitter
+    size: [0.087, 0.093]
+    health: 30.0
+    points: 500
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 3
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.8
+      speed: 0.6
+      volley: 3
+      delay: 0.9
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: left emitter
+      pattern: ring
+      interval: 2.2
+      speed: 0.4
+      count: 12
+      turn: 16
+      reload: carry
+      off_screen: fire
+    - from: right emitter
+      pattern: ring
+      interval: 2.2
+      speed: 0.4
+      count: 12
+      turn: -16
+      delay: 1.1
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left emitter, right emitter]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.15}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.14
+      speed: 0.46
+      count: 3
+      turn: 13
+      reload: carry
+      off_screen: fire
+    - from: left cannon
+      pattern: fan
+      interval: 1.7
+      speed: 0.55
+      count: 5
+      spread: 12
+      sweep: 25
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: fan
+      interval: 1.7
+      speed: 0.55
+      count: 5
+      spread: 12
+      sweep: 25
+      delay: 0.85
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.19}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.4
+      speed: 0.42
+      count: 16
+      turn: -10
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 1.9
+      speed: 0.65
+      volley: 3
+      gap: 0.2
+      delay: 0.7
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: left cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []
+overmind:
+  note: '8-6, Metropolis'' boss: shield generators armor the core; cannons on the sides keep firing.'
+  name: OVERMIND
+  drawing: overmind
+  size: [0.3, 0.3]
+  health: 160.0
+  points: 10000
+  drop_chance: 1.0
+  velocity: [0.0, -0.25]
+  rammable: false
+  leaves_screen: false
+  placeable: false
+  boss: true
+  hit_look: hit
+  entry_gap: 0.5h
+  explosions:
+  - [0.0, 0.0, 1.3]
+  - [-0.45, 0.25, 0.7]
+  - [0.45, -0.2, 0.7]
+  - [0.2, 0.4, 0.6]
+  - [-0.3, -0.35, 0.6]
+  parts:
+  - name: left generator
+    x: -0.24
+    y: 0.14
+    drawing: overmind_generator
+    size: [0.12, 0.12]
+    health: 35.0
+    points: 700
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right generator
+    x: 0.24
+    y: 0.14
+    drawing: overmind_generator
+    size: [0.12, 0.12]
+    health: 35.0
+    points: 700
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: left cannon
+    x: -0.37
+    y: -0.08
+    drawing: overmind_cannon
+    size: [0.1, 0.16]
+    health: 35.0
+    points: 700
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  - name: right cannon
+    x: 0.37
+    y: -0.08
+    drawing: overmind_cannon
+    size: [0.1, 0.16]
+    health: 35.0
+    points: 700
+    drop_chance: 0.3
+    rammable: false
+    leaves_screen: false
+    placeable: false
+    hit_look: hit
+  states:
+  - name: enter
+    look: armored
+    vulnerable: false
+    exits:
+    - to: phase 1
+      below_y: 0.55
+      go_on: true
+      recheck: true
+      then:
+      - {type: velocity, vy: 0.0}
+      - {type: sway, speed: 0.1}
+  - name: phase 1
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - from: left cannon
+      pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      volley: 2
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.5
+      speed: 0.7
+      volley: 2
+      delay: 0.75
+      reload: carry
+      off_screen: fire
+    - from: left generator
+      pattern: ring
+      interval: 2.4
+      speed: 0.38
+      count: 10
+      turn: 18
+      reload: carry
+      off_screen: fire
+    - from: right generator
+      pattern: ring
+      interval: 2.4
+      speed: 0.38
+      count: 10
+      turn: -18
+      delay: 1.2
+      reload: carry
+      off_screen: fire
+    look: armored
+    vulnerable: false
+    warmup: 1.2
+    exits:
+    - to: phase 2
+      parts: [left generator, right generator]
+      go_on: true
+      then:
+      - {type: sway, speed: 0.14}
+  - name: phase 2
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 0.16
+      speed: 0.45
+      count: 3
+      turn: 14
+      reload: carry
+      off_screen: fire
+    - from: left cannon
+      pattern: fan
+      interval: 1.8
+      speed: 0.55
+      count: 3
+      spread: 20
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: fan
+      interval: 1.8
+      speed: 0.55
+      count: 3
+      spread: 20
+      delay: 0.9
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits:
+    - to: phase 3
+      health_below: 0.5
+      go_on: true
+      then:
+      - {type: sway, speed: 0.2}
+  - name: phase 3
+    motions:
+    - {type: bounce, clamp: true}
+    guns:
+    - pattern: ring
+      interval: 1.4
+      speed: 0.4
+      count: 18
+      turn: 10
+      reload: carry
+      off_screen: fire
+    - pattern: aimed
+      interval: 2.0
+      speed: 0.6
+      volley: 3
+      gap: 0.2
+      delay: 0.7
+      style: heavy
+      reload: carry
+      off_screen: fire
+    - from: left cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      reload: carry
+      off_screen: fire
+    - from: right cannon
+      pattern: aimed
+      interval: 1.6
+      speed: 0.7
+      delay: 0.8
+      reload: carry
+      off_screen: fire
+    warmup: 1.2
+    exits: []

@@ -16,7 +16,7 @@ SCROLL = 0.2
 
 
 def described(data: dict[str, Any], x: float = 0.0, y: float = 0.5) -> Enemy:
-    """Make an enemy described like in the JSON files."""
+    """Make an enemy described like in the YAML files."""
     return Enemy.from_spec(parse_enemy("test", data, "test"), x, y)
 
 

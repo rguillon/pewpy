@@ -1,4 +1,4 @@
-"""A final boss from its plan (plans.json)."""
+"""A final boss from its plan (plans.yaml)."""
 
 from typing import Any
 

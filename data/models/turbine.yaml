@@ -1,0 +1,86 @@
+rows:
+- '................NoooN...NoooN................'
+- '................NrrrN...NrrrN................'
+- '................NNNNN...NNNNN................'
+- '................NrrrN...NrrrN................'
+- '..............kHNNNNNHHHNNNNNHk..............'
+- '..............khNrrrNhhhNrrrNhk..............'
+- '............HHkDNNNNNDDDNNNNNDkHH............'
+- '...........HhhkDDDDDDDDDDDDDDDkhhH...........'
+- '.........HHhhhkDDDDDDDDDDDDDDDkhhhHH.........'
+- '........HhhhhhkDDDDDDDDDDDDDDDkhhhhhH........'
+- '......kkkkkkkkkDDDDDDDDDDDDDDDkkkkkkkkk......'
+- '.....HhhhhhhhhkDDDDDDDDDDDDDDDkhhhhhhhhH.....'
+- '...HHhhhNNNNNhkDDDDDDDDDDDDDDDkhNNNNNhhhHH...'
+- ..HhhhhhrrrrrhkDDDDDDDDDDDDDDDkhrrrrrhhhhhH..
+- lHhhhhhhNNNNNhkDDDDDDDDDDDDDDDkhNNNNNhhhhhhHl
+- khhhhhhhrrrrrh.................hrrrrrhhhhhhhk
+- kkkkkkkkNNNNNk.................kNNNNNkkkkkkkk
+- pppppppprrrrrp.qqqqqqqqqqqqqqq.prrrrrpppppppp
+- khhhhhhhNNNNNh.qqqqqqqqqqqqqqq.hNNNNNhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- kkkkkkkkkkkkkk.qqgggggggggggqq.kkkkkkkkkkkkkk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- kkkkkkkkkkkkkk.qqgggggggggggqq.kkkkkkkkkkkkkk
+- khhhhhhhhhhhhh.qqgggggggggggqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqqqqqqqqqqqqqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.qqqqqqqqqqqqqqq.hhhhhhhhhhhhhk
+- khhhhhhhhhhhhh.................hhhhhhhhhhhhhk
+- pppppppppppppp.................pppppppppppppp
+- kkkkkkkkkkkkkkkDDDDDDDDDDDDDDDkkkkkkkkkkkkkkk
+- ..khhhhhhhhhhhkDDDDDDDDDDDDDDDkhhhhhhhhhhhk..
+- '...kkhhhhhhhhhkDDDDDDDDDDDDDDDkhhhhhhhhhkk...'
+- '.....khhhhhhhhkDDDDDDDDDDDDDDDkhhhhhhhhk.....'
+- '......kkhhhhhhkDDDDDDDDDDDDDDDkhhhhhhkk......'
+- '........khhhhhkDDDDDDDDDDDDDDDkhhhhhk........'
+- '.........kkkkkkDDDDDDDDDDDDDDDkkkkkk.........'
+- '...........khhkDDDDDDDDDDDDDDDkhhk...........'
+- '............kkkDDDDDDDDDDDDDDDkkk............'
+- '..............khhhhhhhhhhhhhhhk..............'
+- '..............kkkkkkkkRkkkkkkkk..............'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 11
+  o:
+    color: [0.08, 0.08, 0.09]
+    height: 9
+  r:
+    color: [0.13, 0.13, 0.15]
+    height: 9
+  k:
+    color: [0.17, 0.18, 0.2]
+    height: 7
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 9
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 9
+  D:
+    color: [0.5, 0.51, 0.54]
+    height: 13
+  l:
+    color: [1.0, 0.55, 0.15]
+    height: 11
+  p:
+    color: [0.807, 0.68, 0.17]
+    height: 9
+  q:
+    color: [0.67, 0.58, 0.22]
+    height: 13
+  g:
+    color: [1, 0.93, 0.57]
+    height: 13
+  R:
+    color: [1.0, 0.2, 0.1]
+    height: 11
+engines:
+- {x: 26, y: 0, width: 4, length: 14, towards: top}
+- {x: 18, y: 0, width: 4, length: 14, towards: top}

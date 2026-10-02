@@ -1,14 +1,13 @@
-"""Level data: loading and validating the JSON files in `data/levels/`.
+"""Level data: loading and validating the YAML files in `data/levels/`.
 
-Levels are grouped in worlds (in the menus): `levels/world_<number>/` holds `world.json` (the world's name) and
-`level_<number>.json` for each of its levels.
+Levels are grouped in worlds (in the menus): `levels/world_<number>/` holds `world.yaml` (the world's name) and
+`level_<number>.yaml` for each of its levels.
 """
 
-import json
 from dataclasses import dataclass, field, fields
 from typing import Any
 
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.scenery import params
@@ -68,7 +67,7 @@ class Level:
     name: str
     scroll_speed: float
     waves: tuple[Wave, ...]
-    background: str = "space"  # a preset of levels/sceneries.json (see pewpy.scenery.params)...
+    background: str = "space"  # a preset of levels/sceneries.yaml (see pewpy.scenery.params)...
     scenery: dict[str, Any] = field(default_factory=dict, hash=False)  # ...and the level's changes to it
     time_of_day: str = "day"  # one of the scenery's times of day: tints the ground, its haze and its sky
     background_seed: int | None = None  # the background's layout (and colors, in space); None: different each time
@@ -98,7 +97,7 @@ class Level:
 
 
 def parse_level(data: dict[str, Any], source: str = "level") -> Level:
-    """Build a Level from decoded JSON, with readable errors for typos and bad values."""
+    """Build a Level from decoded YAML, with readable errors for typos and bad values."""
     _check_keys(
         data,
         {
@@ -168,14 +167,12 @@ def load_worlds() -> list[LevelWorld]:
     )
     loaded = []
     for world in worlds:
-        name = json.loads((world / "world.json").read_text())["name"]
+        name = read_yaml(world / "world.yaml")["name"]
         files = sorted(
             (file for file in world.iterdir() if file.name.startswith("level_")), key=lambda item: _number(item.name)
         )
         source = world.name + "/"
-        loaded.append(
-            LevelWorld(name, tuple(parse_level(json.loads(file.read_text()), source + file.name) for file in files))
-        )
+        loaded.append(LevelWorld(name, tuple(parse_level(read_yaml(file), source + file.name) for file in files)))
     return loaded
 
 
@@ -185,8 +182,8 @@ def load_levels() -> list[Level]:
 
 
 def _number(name: str) -> int:
-    """Return the number in `world_3` or `level_12.json`."""
-    return int(name.split("_", 1)[1].removesuffix(".json"))
+    """Return the number in `world_3` or `level_12.yaml`."""
+    return int(name.split("_", 1)[1].removesuffix(".yaml"))
 
 
 def _check_keys(data: dict[str, Any], allowed: set[str], source: str) -> None:

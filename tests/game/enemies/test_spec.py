@@ -79,7 +79,7 @@ def test_a_size_can_be_given_in_world_units() -> None:
 )
 def test_mistakes_say_where_they_are(data: dict[str, Any], message: str) -> None:
     with pytest.raises(EnemySpecError, match=message):
-        parse_enemy("test", data, "file.json: test")
+        parse_enemy("test", data, "file.yaml: test")
 
 
 def test_a_bosss_span_counts_its_parts() -> None:

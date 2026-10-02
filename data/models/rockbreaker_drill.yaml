@@ -1,0 +1,35 @@
+rows:
+- NNNNNNNNNNNNNNN
+- NNNNNNNNNNNNNNN
+- .HHHHHHHHHHHHH.
+- .HHHHHHHHHHHHH.
+- .hhhhhhhhhhhhh.
+- .hhhhhhhhhhhhh.
+- ..HHHHHHHHHHH..
+- ..HHHHHHHHHHH..
+- ..hhhhhhhhhhh..
+- ..hhhhhhhhhhh..
+- '...HHHHHHHHH...'
+- '...HHHHHHHHH...'
+- '...hhhhhhhhh...'
+- '...hhhhhhhhh...'
+- '....HHHHHHH....'
+- '....HHHHHHH....'
+- '....hhhhhhh....'
+- '....hhhhhhh....'
+- '.....HHHHH.....'
+- '.....HHHHH.....'
+- '.....hhhhh.....'
+- '......hhh......'
+- '......HHH......'
+- '......HHH......'
+palette:
+  N:
+    color: [0.26, 0.27, 0.29]
+    height: 9
+  H:
+    color: [0.5, 0.51, 0.54]
+    height: 7
+  h:
+    color: [0.37, 0.38, 0.41]
+    height: 7

@@ -119,7 +119,7 @@ class Enemy(Body):
 
     @property
     def drawing(self) -> str:
-        """Its model: models/<drawing>.json ("": built in code)."""
+        """Its model: models/<drawing>.yaml ("": built in code)."""
         return self.spec.drawing
 
     @property

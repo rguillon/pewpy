@@ -1,18 +1,17 @@
 """The player's weapons from 01-gameplay.md: bullets, laser and missiles, with their levels.
 
-They are in `data/weapons/player.json` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
+They are in `data/weapons/player.yaml` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
 """
 
-import json
 from dataclasses import dataclass, field
 
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.game.entities import Entity
 from pewpy.game.weapons.bullets import Bullet
 from pewpy.game.weapons.guns import Gun, GunState, Shooter, parse_gun, step
 from pewpy.game.weapons.player.secondary import SecondaryWeapon
 
-_WEAPONS = json.loads((data_folder() / "weapons" / "player.json").read_text())
+_WEAPONS = read_yaml(data_folder() / "weapons" / "player.yaml")
 WEAPONS = tuple(_WEAPONS)  # the order the ship switches through them
 LETTERS: dict[str, str] = {weapon: data["letter"] for weapon, data in _WEAPONS.items()}  # on the upgrade capsules
 LEVELS: dict[str, tuple[Gun, ...]] = {

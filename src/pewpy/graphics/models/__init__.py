@@ -2,7 +2,7 @@
 
 Ships are voxel models, like pixel art extruded into blocks: each one is drawn as rows of characters, and a
 palette gives every character a color and a thickness (in voxels, centered on the ship's depth), so the hull,
-cockpit and wings stand out at different depths. The drawings are JSON files in `data/models/`, in one of
+cockpit and wings stand out at different depths. The drawings are YAML files in `data/models/`, in one of
 several forms (drawings/); mesh/ turns them into meshes, drawn.py into models (flames.py adds their engine flames).
 The shapes that aren't drawings are built in code, each in its own module: built/ (turrets, pickups, shields,
 lasers...) and background/ (asteroids, planets, clouds, mist).

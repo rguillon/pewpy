@@ -1,0 +1,166 @@
+name: Squall Line
+scroll_speed: 0.269
+background: ocean
+background_seed: 8114
+time_of_day: dusk
+clouds: 0.85
+scenery:
+  ground:
+    shape: {land_share: 0.3}
+waves:
+- {time: 2.0, enemy: dart, count: 9, formation: column, interval: 0.4, x: 0.58}
+- {time: 4.8, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 6.5, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 8.3, enemy: freighter, count: 2, x: -0.5}
+- {time: 10.4, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 10.4, enemy: bomber, count: 1, formation: column, side: left, y: 0.59}
+- {time: 11.8, enemy: freighter, x: 0.5}
+- {time: 11.8, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 14.0, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 15.3, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 17.5, enemy: needle, count: 2, x: 0.0}
+- {time: 19.7, enemy: hunter, count: 2, formation: column, x: 0.33}
+- {time: 22.9, enemy: shield_carrier, count: 2, formation: column, x: 0.0}
+- {time: 26.0, enemy: brood, x: 0.5}
+- {time: 26.0, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 27.7, enemy: needle, x: 0.33}
+- {time: 27.7, enemy: albatross, count: 2, x: 0.33}
+- time: 27.7
+  enemy: javelin
+  count: 2
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 29.6, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- {time: 33.6, enemy: albatross, count: 2, x: 0.33}
+- {time: 35.7, enemy: rampart, x: 0.0}
+- {time: 38.1, enemy: brood, x: 0.5}
+- {time: 40.1, enemy: bomber, count: 1, formation: column, side: left, y: 0.58}
+- {time: 40.1, enemy: scrapper, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 42.0, enemy: shield_carrier, count: 2, formation: line, spacing: 1.33}
+- {time: 45.3, enemy: shield_carrier, count: 2, formation: column, x: 0.0}
+- {time: 45.3, enemy: albatross, count: 2, x: 0.33}
+- {time: 45.3, enemy: rampart, x: 0.5}
+- {time: 46.7, enemy: freighter, x: 0.5}
+- {time: 48.0, enemy: rampart, x: 0.5}
+- {time: 48.0, enemy: rampart, x: 0.5}
+- {time: 48.0, enemy: rampart, x: -0.33}
+- {time: 48.0, enemy: rampart, x: -0.33}
+- {time: 48.0, enemy: rampart, x: -0.33}
+- {time: 54.0, enemy: sentry_grid}
+- time: 57.0
+  enemy: weaver
+  count: 21
+  formation: column
+  interval: 0.35
+  x: 0.0
+- {time: 61.4, enemy: hornet, count: 7, formation: column, interval: 0.9, x: 0.5}
+- {time: 64.7, enemy: lancer, count: 1, formation: column, x: -0.63}
+- {time: 66.0, enemy: brawler, x: -0.33}
+- {time: 67.3, enemy: rampart, x: 0.0}
+- time: 68.9
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 70.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- {time: 70.3, enemy: bomber, count: 1, formation: column, side: right, y: 0.59}
+- {time: 71.5, enemy: harrier, x: -0.33}
+- {time: 71.5, enemy: bomber, count: 1, formation: column, side: left, y: 0.69}
+- {time: 72.7, enemy: harrier, x: 0.0}
+- {time: 73.9, enemy: imp, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- {time: 73.9, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 73.9, enemy: rampart, x: -0.33}
+- {time: 76.1, enemy: lancer, count: 2, formation: column, x: -0.15}
+- {time: 78.1, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 78.1
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 80.2, enemy: howitzer, x: 0.5}
+- {time: 81.4, enemy: rampart, x: 0.0}
+- time: 83.2
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- {time: 83.2, enemy: brood, x: 0.33}
+- time: 83.2
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- {time: 83.2, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 84.4, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 86.1, enemy: brood, x: 0.33}
+- {time: 87.2, enemy: imp, count: 4, formation: line, spacing: 0.67, x: 0.0}
+- time: 88.6
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.45
+- time: 89.8
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 90.9, enemy: wisp, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 92.0, enemy: brawler, x: 0.5}
+- {time: 93.4, enemy: brawler, x: 0.5}
+- {time: 95.0, enemy: rampart, x: 0.0}
+- time: 96.2
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- {time: 97.3, enemy: rampart, x: 0.0}
+- {time: 98.5, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 99.6, enemy: wisp, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 99.6
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- time: 100.7
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 101.9
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: left
+  y: 0.5
+- time: 103.0
+  enemy: manta
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- {time: 109.0, enemy: abyssal}

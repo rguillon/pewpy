@@ -1,0 +1,194 @@
+name: Pine Ridge
+scroll_speed: 0.206
+background: mountains
+background_seed: 3309
+clouds: 0.15
+scenery:
+  ground:
+    shape: {range_size: 1.4, crest_size: 0.5}
+waves:
+- {time: 2.0, enemy: dart, count: 4, formation: column, interval: 0.4, x: 0.58}
+- {time: 3.3, enemy: spark, count: 5, formation: column, interval: 0.3, x: -0.67}
+- {time: 3.3, enemy: drone, count: 5, formation: column, x: 0.67}
+- {time: 5.4, enemy: drone, count: 5, formation: line, spacing: 0.33}
+- {time: 8.3, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 9.3, enemy: sniper, count: 1, formation: line, spacing: 1.67}
+- time: 10.8
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 12.2
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 13.7, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- time: 14.6
+  enemy: spark
+  count: 5
+  formation: column
+  interval: 0.3
+  x: -0.67
+- {time: 14.6, enemy: sniper, count: 1, formation: line, spacing: 1.67}
+- {time: 16.4, enemy: drone, count: 5, formation: column, x: -0.67}
+- {time: 19.2, enemy: sniper, count: 1, formation: column, x: 0.0}
+- {time: 21.0, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 22.5, enemy: sniper, count: 1, formation: column, x: 0.0}
+- {time: 24.4, enemy: spark, count: 5, formation: column, interval: 0.3, x: 0.67}
+- {time: 25.3, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- {time: 26.9, enemy: sniper, count: 1, formation: line, spacing: 1.67}
+- {time: 28.4, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 30.0, enemy: spark, count: 5, formation: column, interval: 0.3, x: 0.67}
+- time: 30.9
+  enemy: drone
+  count: 4
+  formation: column
+  interval: 0.45
+  x: -0.67
+- {time: 32.6, enemy: sniper, count: 1, formation: line, spacing: 1.67}
+- {time: 34.3, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- {time: 35.6, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- time: 37.0
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 38.3, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 39.3, enemy: imp, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 39.3, enemy: gunship, count: 1, formation: column, x: 0.0}
+- {time: 40.6, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 42.1, enemy: imp, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 43.0, enemy: sniper, count: 1, formation: column, x: 0.0}
+- {time: 44.0, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 45.1, enemy: sniper, count: 1, formation: column, x: 0.0}
+- {time: 45.1, enemy: imp, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 46.0, enemy: sniper, count: 1, formation: line, spacing: 1.67}
+- time: 47.1
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 48.0, enemy: imp, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 54.0, enemy: thresher}
+- time: 57.0
+  enemy: weaver
+  count: 6
+  formation: column
+  interval: 0.38
+  x: 0.67
+- {time: 59.3, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- time: 60.3
+  enemy: spark
+  count: 5
+  formation: column
+  interval: 0.3
+  x: -0.67
+- {time: 61.3, enemy: diver, count: 3, formation: line, spacing: 0.83}
+- {time: 63.6, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 65.2, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 65.2, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- {time: 65.2, enemy: mite, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 65.2, enemy: mite, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 65.2, enemy: imp, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 65.2, enemy: diver, count: 5, formation: line, spacing: 0.5}
+- {time: 69.1, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- {time: 70.4, enemy: mite, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- time: 71.5
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 72.5, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 73.8, enemy: diver, count: 3, formation: line, spacing: 0.58}
+- {time: 75.8, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- time: 76.9
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 78.0, enemy: mite, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 79.0, enemy: diver, count: 3, formation: line, spacing: 0.83}
+- time: 80.9
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 82.1, enemy: gunship, count: 1, formation: line, spacing: 1.33}
+- {time: 83.3, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 84.3, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 84.3, enemy: spark, count: 6, formation: column, interval: 0.3, x: 0.67}
+- {time: 85.3, enemy: tick, count: 3, formation: line, spacing: 0.83, x: 0.0}
+- time: 86.5
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 87.6, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 87.6, enemy: mite, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- time: 87.6
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 88.6, enemy: mite, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 89.6, enemy: mite, count: 3, formation: line, spacing: 0.75, x: 0.0}
+- {time: 89.6, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- {time: 90.7, enemy: tick, count: 2, formation: line, spacing: 0.67, x: 0.0}
+- time: 91.7
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 92.8, enemy: gunship, count: 1, formation: column, x: 0.0}
+- {time: 92.8, enemy: diver, count: 5, formation: line, spacing: 0.5}
+- time: 94.8
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 95.8
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 96.9
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 97.9, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 98.9, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- {time: 99.9, enemy: imp, count: 3, formation: line, spacing: 0.67, x: 0.0}
+- time: 101.0
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 102.0
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- time: 103.0
+  enemy: rocketeer
+  count: 1
+  formation: line
+  spacing: 1.17
+  x: 0.0
+- {time: 109.0, enemy: frostjaw}

@@ -1,0 +1,5 @@
+parts:
+- {drawing: 180_a, x: -21.0, y: -17.5}
+- {drawing: 180_a, x: 21.0, y: -17.5}
+- {drawing: 180_b, x: -8.0, y: 4.5}
+- {drawing: 180_b, x: 8.0, y: 4.5}

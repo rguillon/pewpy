@@ -1,0 +1,12 @@
+parts:
+- {drawing: 074_a, x: -40.0, y: -12.5}
+- {drawing: 074_a, x: 40.0, y: -12.5}
+- {drawing: 074_b, x: -8.0, y: 23.5}
+- {drawing: 074_b, x: 8.0, y: 23.5}
+- {drawing: 074_c, x: -22.0, y: 5.5}
+- {drawing: 074_c, x: 22.0, y: 5.5}
+- {drawing: 074_d, x: -8.0, y: -17.5}
+- {drawing: 074_d, x: 8.0, y: -17.5}
+- {drawing: 074_e, x: -5.0, y: -4.5}
+- {drawing: 074_e, x: 5.0, y: -4.5}
+- {drawing: 074_f, x: 0.0, y: 0.5}

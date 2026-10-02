@@ -1,4 +1,4 @@
-"""Make the final bosses (data/bosses/final_bosses.json) from their plans (plans.json, in this package).
+"""Make the final bosses (data/bosses/final_bosses.yaml) from their plans (plans.yaml, in this package).
 
 See 02-enemies-bosses.md:
 
@@ -12,6 +12,6 @@ while the core is armored; then the core, then the core in a rage. Everything ge
 
 A boss is written like any enemy (see pewpy.game.enemies.spec): it comes down to HOLD_Y, then goes through its
 phases as states, each starting with PHASE_PAUSE seconds without shooting, blinking; its parts are enemies of their
-own. `boss_json` (writing.py) writes a boss described shortly (BossSpec, boss.py: its parts and phases) that way;
+own. `boss_data` (writing.py) writes a boss described shortly (BossSpec, boss.py: its parts and phases) that way;
 attacks.py has the attacks' guns, plans.py reads the plans.
 """

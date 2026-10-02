@@ -1,0 +1,183 @@
+name: The Caldera
+scroll_speed: 0.287
+background: geysers
+background_seed: 3241
+time_of_day: night
+clouds: 0.2
+scenery:
+  ground:
+    shape: {ridge_share: 0.35}
+waves:
+- time: 2.0
+  enemy: weaver
+  count: 15
+  formation: column
+  interval: 0.38
+  x: -0.67
+- {time: 5.1, enemy: rapier, count: 4, formation: column, interval: 1.0, x: 0.5}
+- {time: 7.5, enemy: harrier, count: 2, x: 0.0}
+- time: 9.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 9.3, enemy: turret, count: 3, formation: line, spacing: 0.83}
+- {time: 11.8, enemy: harrier, count: 2, x: 0.0}
+- {time: 13.5, enemy: freighter, count: 2, x: -0.5}
+- {time: 15.0, enemy: rapier, count: 4, formation: column, interval: 1.0, x: 0.5}
+- time: 17.6
+  enemy: serpent
+  count: 8
+  formation: column
+  interval: 0.8
+  x: -0.43
+- {time: 22.4, enemy: spark, count: 7, formation: column, interval: 0.3, x: 0.0}
+- time: 23.5
+  enemy: serpent
+  count: 3
+  formation: column
+  interval: 0.8
+  x: -0.45
+- {time: 23.5, enemy: condor, x: 0.0}
+- {time: 25.9, enemy: warhawk, x: 0.33}
+- time: 28.3
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- time: 29.4
+  enemy: spark
+  count: 12
+  formation: column
+  interval: 0.3
+  x: -0.67
+- time: 29.4
+  enemy: broadside
+  count: 1
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.45
+- {time: 30.4, enemy: warhawk, x: 0.33}
+- {time: 33.6, enemy: tank, count: 2, formation: column, interval: 3.0, x: 0.75}
+- {time: 35.4, enemy: warhawk, x: 0.0}
+- {time: 38.1, enemy: turret, count: 3, formation: line, spacing: 1.0}
+- {time: 40.1, enemy: warhawk, x: 0.33}
+- {time: 43.1, enemy: freighter, count: 2, x: -0.5}
+- time: 43.1
+  enemy: rocket_truck
+  count: 3
+  formation: column
+  interval: 1.2
+  x: -0.58
+- time: 44.4
+  enemy: rocket_truck
+  count: 3
+  formation: column
+  interval: 1.2
+  x: 0.0
+- {time: 45.7, enemy: tank, count: 2, formation: column, interval: 3.0, x: 0.75}
+- time: 46.7
+  enemy: rocket_truck
+  count: 3
+  formation: column
+  interval: 1.2
+  x: -0.58
+- time: 48.0
+  enemy: rapier
+  count: 5
+  formation: column
+  interval: 0.8
+  x: -0.5
+- {time: 54.0, enemy: colossus}
+- time: 57.0
+  enemy: weaver
+  count: 27
+  formation: column
+  interval: 0.35
+  x: 0.0
+- {time: 57.0, enemy: warhawk, x: 0.33}
+- {time: 61.1, enemy: condor, x: 0.0}
+- {time: 64.3, enemy: condor, x: 0.0}
+- {time: 67.2, enemy: buckshot, count: 2, formation: line, spacing: 1.33, x: 0.0}
+- {time: 67.2, enemy: rampart, x: 0.5}
+- {time: 69.2, enemy: howitzer, count: 2, x: 0.5}
+- {time: 71.7, enemy: missile_silo, count: 1, formation: column, x: 0.6}
+- {time: 73.1, enemy: howitzer, count: 2, x: 0.5}
+- {time: 73.1, enemy: howitzer, count: 2, x: 0.5}
+- time: 76.3
+  enemy: manta
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- time: 76.3
+  enemy: manta
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- time: 78.7
+  enemy: serpent
+  count: 4
+  formation: column
+  interval: 0.8
+  x: -0.45
+- {time: 81.4, enemy: albatross, count: 3, x: 0.33}
+- time: 85.1
+  enemy: javelin
+  count: 3
+  formation: column
+  interval: 1.5
+  x: -0.5
+- time: 87.5
+  enemy: serpent
+  count: 3
+  formation: column
+  interval: 0.8
+  x: 0.67
+- {time: 87.5, enemy: brawler, count: 2, x: -0.33}
+- {time: 91.2, enemy: brood, x: 0.5}
+- {time: 92.8, enemy: gunship, count: 3, formation: column, x: 0.0}
+- {time: 95.7, enemy: gunship, count: 2, formation: line, spacing: 1.33}
+- time: 98.1
+  enemy: manta
+  count: 2
+  formation: column
+  interval: 1.2
+  side: right
+  y: 0.5
+- {time: 98.1, enemy: brawler, count: 2, x: -0.33}
+- time: 100.0
+  enemy: serpent
+  count: 4
+  formation: column
+  interval: 0.8
+  x: -0.25
+- time: 101.6
+  enemy: serpent
+  count: 3
+  formation: column
+  interval: 0.8
+  x: -0.6
+- {time: 101.6, enemy: brawler, count: 2, x: -0.33}
+- time: 101.6
+  enemy: serpent
+  count: 3
+  formation: column
+  interval: 0.8
+  x: 0.57
+- {time: 101.6, enemy: brawler, x: 0.5}
+- time: 103.0
+  enemy: serpent
+  count: 5
+  formation: column
+  interval: 0.8
+  x: 0.7
+- {time: 109.0, enemy: monolith}

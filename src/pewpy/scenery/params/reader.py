@@ -1,4 +1,4 @@
-"""Building the parameters from the JSON data.
+"""Building the parameters from the YAML data.
 
 Merging a level's values over its preset's, checking and converting them to the dataclasses.
 """
@@ -14,7 +14,7 @@ from pewpy.scenery.params.types import SceneryError
 DEPENDS_ON = {"landscape": ("shape",), "style": ("colors",), "kind": ("layout", "knobs", "colors")}
 
 
-def merge(base: Any, over: Any) -> Any:  # noqa: ANN401 - decoded JSON
+def merge(base: Any, over: Any) -> Any:  # noqa: ANN401 - decoded YAML
     """`over` on top of `base`: objects merged key by key, anything else replaced."""
     if isinstance(base, dict) and isinstance(over, dict):
         merged = dict(base)
@@ -36,7 +36,7 @@ def _number(value: object, where: str) -> float:
 
 
 def _convert(kind: Any, value: Any, where: str) -> Any:  # noqa: ANN401, C901, PLR0911, PLR0912 - one case per type
-    """`value` (decoded JSON) as `kind`, a type of the dataclasses above."""
+    """`value` (decoded YAML) as `kind`, a type of the dataclasses above."""
     origin, args = get_origin(kind), get_args(kind)
     if origin in (Union, types.UnionType):  # X | None
         if value is None:
@@ -74,7 +74,7 @@ def _convert(kind: Any, value: Any, where: str) -> Any:  # noqa: ANN401, C901, P
 
 
 def build(cls: Any, data: Any, where: str = "", given: dict[str, Any] | None = None) -> Any:  # noqa: ANN401
-    """Build a dataclass from decoded JSON: every field there, nothing else (but the fields `given`)."""
+    """Build a dataclass from decoded YAML: every field there, nothing else (but the fields `given`)."""
     if not isinstance(data, dict):
         raise SceneryError(where, f"expected an object, not {data!r}")
     given = given or {}

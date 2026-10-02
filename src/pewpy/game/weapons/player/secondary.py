@@ -1,22 +1,21 @@
 """Secondary weapons from 01-gameplay.md: a machine-gun turret or a lightning gun, picked up from enemy drops.
 
-They are in `data/weapons/secondary.json` (each is a gun, see pewpy.game.weapons.guns). They fire on their own,
+They are in `data/weapons/secondary.yaml` (each is a gun, see pewpy.game.weapons.guns). They fire on their own,
 next to the selected weapon, at the nearest enemy. The ship carries one at most, and a hit takes it away instead of
 health. Independent from rendering.
 """
 
-import json
 import math
 from collections.abc import Sequence
 from dataclasses import dataclass, field
 from typing import TypeVar
 
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.game.entities import Entity
 from pewpy.game.weapons.bullets import Bullet
 from pewpy.game.weapons.guns import Gun, GunState, Shooter, chain, nearest, parse_gun, step
 
-_SECONDARY = json.loads((data_folder() / "weapons" / "secondary.json").read_text())
+_SECONDARY = read_yaml(data_folder() / "weapons" / "secondary.yaml")
 SECONDARY_WEAPONS = tuple(_SECONDARY)
 SECONDARY_LETTERS: dict[str, str] = {kind: data["letter"] for kind, data in _SECONDARY.items()}  # on the capsules
 SECONDARY_GUNS: dict[str, Gun] = {kind: parse_gun(data["gun"]) for kind, data in _SECONDARY.items()}

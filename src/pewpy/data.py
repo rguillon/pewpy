@@ -9,10 +9,14 @@ it.
 import sys
 from importlib import resources
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
+
+import yaml
 
 if TYPE_CHECKING:  # only for the type checker
     from importlib.resources.abc import Traversable
+
+_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)  # libyaml's, much faster, when PyYAML has it
 
 SOURCE_DATA = Path(__file__).resolve().parents[2] / "data"  # src/pewpy/data.py: two folders up, then data/
 
@@ -23,3 +27,13 @@ def data_folder() -> "Traversable":
         return Path(sys.executable).parent / "data"
     bundled = resources.files("pewpy") / "data"
     return bundled if bundled.is_dir() else SOURCE_DATA
+
+
+def read_yaml(file: "Traversable") -> Any:  # noqa: ANN401 (whatever the file holds)
+    """Read a YAML file."""
+    return parse_yaml(file.read_text())
+
+
+def parse_yaml(text: str) -> Any:  # noqa: ANN401 (whatever the text holds)
+    """Decode YAML text."""
+    return yaml.load(text, Loader=_LOADER)  # noqa: S506 (a safe loader)

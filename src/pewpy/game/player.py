@@ -1,11 +1,10 @@
-"""Player ship logic, independent from rendering. The ships the player can pick are in `data/ships.json`."""
+"""Player ship logic, independent from rendering. The ships the player can pick are in `data/ships.yaml`."""
 
-import json
 import math
 from dataclasses import dataclass, field
 
 from pewpy import config
-from pewpy.data import data_folder
+from pewpy.data import data_folder, read_yaml
 from pewpy.game.entities import Entity
 
 
@@ -15,7 +14,7 @@ class ShipSpec:
 
     name: str
     description: str  # a few words, shown on the ship selection screen
-    drawing: str  # its model: models/<drawing>.json
+    drawing: str  # its model: models/<drawing>.yaml
     health: float  # a full health bar
     speed: float  # top speed, world units per second
     size: float  # the hitbox, a square; the model is about as big
@@ -24,8 +23,8 @@ class ShipSpec:
 
 
 def load_ships() -> dict[str, ShipSpec]:
-    """Load the ships of `ships.json`, by name, in the file's order (a ship's "note" is for the people editing it)."""
-    data = json.loads((data_folder() / "ships.json").read_text())
+    """Load the ships of `ships.yaml`, by name, in the file's order (a ship's "note" is for the people editing it)."""
+    data = read_yaml(data_folder() / "ships.yaml")
     return {key: ShipSpec(**{k: v for k, v in ship.items() if k != "note"}) for key, ship in data.items()}
 
 

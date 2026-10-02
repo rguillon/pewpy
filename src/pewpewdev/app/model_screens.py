@@ -35,8 +35,8 @@ SHOWCASE_STATES = frozenset({
 })  # screens showing models in a turning circle
 SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
 PICKUPS_PAGE = "Player, pickups and projectiles"
-# The second fleet (data/enemies/fleet.json), on pages of their own.
-FLEET_KINDS: tuple[str, ...] = tuple(load_enemy_specs("enemies/fleet.json"))
+# The second fleet (data/enemies/fleet.yaml), on pages of their own.
+FLEET_KINDS: tuple[str, ...] = tuple(load_enemy_specs("enemies/fleet.yaml"))
 # The Models screen's pages (too many models for one circle): which enemies each shows, by kind; the first also
 # shows the player's ships, its missile and the pickups.
 MODEL_PAGES: dict[str, Callable[[str], bool]] = {

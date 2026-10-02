@@ -1,6 +1,6 @@
 """Per-level scrolling backgrounds (placeholder until 05-visuals.md is decided).
 
-Each level picks one kind of background (`background` in its JSON file), a preset of `levels/sceneries.json` whose
+Each level picks one kind of background (`background` in its YAML file), a preset of `levels/sceneries.yaml` whose
 values it can change (`scenery`, see pewpy.scenery.params):
 
 - space: stars, a few dim nebula clouds far away, a distant planet.
