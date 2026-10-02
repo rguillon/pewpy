@@ -13,6 +13,9 @@ WINDOW_TITLE = "pewpy"
 SHOW_FPS = True  # frames per second in the top-right corner, on every screen
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 1024
+# The 3D scene is drawn at most this many pixels tall, then stretched over the game area (the HUD stays sharp):
+# the ground's shader is painted per pixel, too slow on a 4K screen with a small GPU (placeholder).
+SCENE_MAX_HEIGHT = 1440
 
 # Sound (placeholders until 04-ui-audio.md is decided): see audio/
 SFX_VOLUME = 0.8  # 0 to 1

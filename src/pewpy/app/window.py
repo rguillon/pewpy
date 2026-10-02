@@ -6,9 +6,26 @@ The game keeps its shape in any window, the camera sees the whole play area.
 import math
 import os
 import sys
+from typing import cast
 
 from direct.showbase.ShowBase import ShowBase
-from panda3d.core import Filename, GraphicsEngine, PerspectiveLens, Point2, Point3, TextNode, Vec3
+from panda3d.core import (
+    CardMaker,
+    Filename,
+    FrameBufferProperties,
+    GraphicsBuffer,
+    GraphicsEngine,
+    GraphicsOutput,
+    GraphicsPipe,
+    PerspectiveLens,
+    Point2,
+    Point3,
+    SamplerState,
+    TextNode,
+    Texture,
+    Vec3,
+    WindowProperties,
+)
 
 from pewpy import config
 from pewpy.data import data_folder
@@ -37,25 +54,59 @@ class Window(ShowBase):
         super().finalizeExit()
 
     def _setup_letterbox(self) -> None:
-        # The game keeps its 3:4 shape whatever the window size: the 3D view and the HUD are drawn in a centered
-        # region, with black bars around it. The window clears to black, the region to the space color.
+        # The game keeps its 5:4 shape whatever the window size: it's drawn in a centered region, with black bars
+        # around it. The 3D view is drawn into a buffer of its own (at most SCENE_MAX_HEIGHT pixels tall, see
+        # scene_size), cleared to the space color, then stretched over that region on the 2D layer, under the HUD
+        # and the menus, which are drawn at the window's own resolution. The window clears to black.
         self.win.setClearColor((0, 0, 0, 1))
-        region = self.camNode.getDisplayRegion(0)
+        self.scene_buffer = self._make_scene_buffer()
+        self.win.removeDisplayRegion(self.camNode.getDisplayRegion(0))
+        region = self.scene_buffer.makeDisplayRegion()
+        region.setCamera(self.cam)
         region.setClearColorActive(True)
         region.setClearColor(BACKGROUND_COLOR)
+        region.setClearDepthActive(True)
+        maker = CardMaker("scene")
+        maker.setFrameFullscreenQuad()
+        card = self.render2d.attachNewNode(maker.generate())
+        card.setTexture(self.scene_buffer.getTexture())
+        card.setBin("background", 0)
         self._fit_letterbox()
+
+    def _make_scene_buffer(self) -> GraphicsBuffer:
+        properties = FrameBufferProperties()
+        properties.setRgbColor(True)
+        properties.setRgbaBits(8, 8, 8, 0)
+        properties.setDepthBits(24)
+        flags = GraphicsPipe.BFRefuseWindow | GraphicsPipe.BFResizeable
+        size = WindowProperties()
+        size.setSize(config.WINDOW_WIDTH, config.WINDOW_HEIGHT)
+        output = self.graphicsEngine.makeOutput(
+            self.pipe, "scene", -1, properties, size, flags, self.win.getGsg(), self.win
+        )
+        buffer = cast("GraphicsBuffer", output)  # a buffer, resizable: BFRefuseWindow, BFResizeable
+        texture = Texture("scene")
+        texture.setMinfilter(SamplerState.FT_linear)
+        texture.setMagfilter(SamplerState.FT_linear)
+        texture.setWrapU(SamplerState.WM_clamp)
+        texture.setWrapV(SamplerState.WM_clamp)
+        buffer.addRenderTexture(texture, GraphicsOutput.RTMBindOrCopy)
+        return buffer
 
     def _fit_letterbox(self) -> None:
         if not self.win.hasSize():
             return
         dimensions = letterbox(self.win.getXSize(), self.win.getYSize())
-        for camera in (self.cam, self.cam2d, self.cam2dp):
+        for camera in (self.cam2d, self.cam2dp):
             node = camera.node()
             for index in range(node.getNumDisplayRegions()):
                 node.getDisplayRegion(index).setDimensions(*dimensions)
-        preview = getattr(self, "level_preview", None)  # not made yet when the window first opens
-        if preview is not None:
-            preview.fit(dimensions)
+        left, right, bottom, top = dimensions
+        width, height = scene_size(
+            round(self.win.getXSize() * (right - left)), round(self.win.getYSize() * (top - bottom))
+        )
+        if (width, height) != (self.scene_buffer.getXSize(), self.scene_buffer.getYSize()):
+            self.scene_buffer.setSize(width, height)
 
     # ShowBase calls these two on window changes. (The types-panda3d stubs say GraphicsEngine for `win`; it's
     # really the window, but we don't use it.)
@@ -108,6 +159,12 @@ class Window(ShowBase):
         path = Filename.fromOsSpecific(str(data_folder() / "fonts" / FONT)).getFullpath()
         font = self.loader.loadFont(path, pixelsPerUnit=FONT_PIXELS_PER_UNIT)
         TextNode.setDefaultFont(font)
+
+
+def scene_size(width: int, height: int, max_height: int = config.SCENE_MAX_HEIGHT) -> tuple[int, int]:
+    """Return the 3D view's size in pixels for a game area of `width` x `height`: its own, or less, same shape."""
+    scale = min(1.0, max_height / max(height, 1))
+    return max(round(width * scale), 1), max(round(height * scale), 1)
 
 
 def letterbox(window_width: int, window_height: int, aspect: float = GAME_ASPECT) -> tuple[float, float, float, float]:

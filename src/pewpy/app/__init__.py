@@ -54,6 +54,7 @@ class PewPewApp(Sound):
             window-title {config.WINDOW_TITLE}
             win-size {config.WINDOW_WIDTH} {config.WINDOW_HEIGHT}
             sync-video true
+            textures-power-2 none
             """,
         )
         super().__init__()
@@ -90,8 +91,7 @@ class PewPewApp(Sound):
         self.menu_view = MenuView(self.aspect2d)
         self._setup_hud()
         # The level select's window on the highlighted level.
-        self.level_preview = LevelPreview(self.win, self.cam, self.render, self.aspect2d)
-        self._fit_letterbox()
+        self.level_preview = LevelPreview(self.scene_buffer, self.cam, self.render, self.aspect2d)
         self._setup_screens()
 
         self.states = StateMachine(on_change=self._on_state_change, transitions=self.state_transitions)

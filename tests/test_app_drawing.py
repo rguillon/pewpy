@@ -296,12 +296,23 @@ def test_the_letterbox_follows_the_window(app: PewPewApp, monkeypatch: pytest.Mo
     app._fit_letterbox()  # the window isn't open yet: nothing to fit
     monkeypatch.undo()
     app.windowEvent(cast("Any", None))  # any window event (ShowBase only minds the ones about its own window)
-    region = app.cam.node().getDisplayRegion(0)
+    region = app.cam2d.node().getDisplayRegion(0)
     left, right, bottom, top = (region.getLeft(), region.getRight(), region.getBottom(), region.getTop())
     width, height = app.win.getXSize() * (right - left), app.win.getYSize() * (top - bottom)
     assert width / height == pytest.approx(window.GAME_ASPECT, rel=0.02)
+    # The 3D view is drawn at the game area's size (the test window is small enough for it).
+    assert (app.scene_buffer.getXSize(), app.scene_buffer.getYSize()) == (round(width), round(height))
+    app.scene_buffer.setSize(64, 64)
+    app._fit_letterbox()
+    assert (app.scene_buffer.getXSize(), app.scene_buffer.getYSize()) == (round(width), round(height))
     assert app.getAspectRatio() == window.GAME_ASPECT
     assert math.isfinite(app.camera_view.area(0.0).top)
+
+
+def test_the_3d_view_is_drawn_at_most_so_tall() -> None:
+    assert window.scene_size(1280, 1024, max_height=1440) == (1280, 1024)
+    assert window.scene_size(2700, 2160, max_height=1440) == (1800, 1440)
+    assert window.scene_size(0, 0) == (1, 1)
 
 
 def test_a_debris_field_draws_its_rocks(app: PewPewApp) -> None:

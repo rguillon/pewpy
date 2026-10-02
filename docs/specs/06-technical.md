@@ -17,6 +17,10 @@
   the CPU renderer (llvmpipe) is much slower
 - Window: 1280x1024 (the user's choice); resizable, the game keeps its 5:4 shape with black bars
   around it; fullscreen toggle: TBD
+- The 3D view is drawn into an offscreen buffer at most 1440 pixels tall *(placeholder,
+  `config.SCENE_MAX_HEIGHT`)*, then stretched over the game area; the HUD and menus are drawn at the window's
+  own resolution, so text stays sharp. On a big screen (4K) this keeps the per-pixel ground shader within reach
+  of a small GPU. Open: a graphics option in the menus to pick it?
 
 ## Architecture preferences
 

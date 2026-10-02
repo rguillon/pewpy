@@ -2,8 +2,9 @@
 
 The preview has its own scene (its own lights and shading, like the game's: lighting.py), its own camera placed like
 the game's but seeing only the middle of the ground, and its own display region: a rectangle near the top of the
-game area, drawn over the game's 3D view and under the menus. The highlighted level's ground scrolls in it at the
-level's speed. Previews are built once and kept until `clear` (moving up and down the list doesn't rebuild them).
+game area, drawn over the game's 3D view in its buffer (see app/window.py), so under the menus. The highlighted
+level's ground scrolls in it at the level's speed. Previews are built once and kept until `clear` (moving up and
+down the list doesn't rebuild them).
 """
 
 import math
@@ -22,18 +23,18 @@ FRAME = (0.4, 1.2, -0.62, 0.02)  # left, right, bottom, top
 FRAME_COLOR: Color = (0.55, 0.57, 0.65, 1)  # the menus' dim color
 FRAME_WIDTH = 0.006
 FIELD_OF_VIEW = 26.0  # vertical, degrees: the middle of what the game's camera sees
-REGION_SORT = 5  # after the game's 3D view (0), before the menus (render2d, 10)
+REGION_SORT = 5  # after the game's 3D view (0)
 
 
 class LevelPreview:
     """The level select's preview: the highlighted level's scenery, drawn in a window over the menu."""
 
-    def __init__(self, window: GraphicsOutput, main_camera: NodePath, render: NodePath, aspect2d: NodePath) -> None:
+    def __init__(self, scene: GraphicsOutput, main_camera: NodePath, render: NodePath, aspect2d: NodePath) -> None:
         self.root = NodePath("preview")
         lighting.light(self.root)
         left, right, bottom, top = FRAME
         extent_x, extent_y = aspect2d_extent(aspect2d)
-        # The same rectangle as a share of the game area (letterboxed in the window: see `fit`).
+        # The same rectangle as a share of the game area, which the 3D view's buffer covers.
         self.share = (
             (left / extent_x + 1) / 2,
             (right / extent_x + 1) / 2,
@@ -49,7 +50,7 @@ class LevelPreview:
         self.camera.setPos(main_camera.getPos(render))
         self.camera.setHpr(main_camera.getHpr(render))
         self.view = CameraView(self.camera, lens, self.root)
-        self.region = window.makeDisplayRegion(*self.share)
+        self.region = scene.makeDisplayRegion(*self.share)
         self.region.setSort(REGION_SORT)
         self.region.setCamera(self.camera)
         self.region.setClearColorActive(True)
@@ -100,18 +101,6 @@ class LevelPreview:
         view, level = self.cache[self.shown]
         view.scenery.update(dt, level.scroll_speed)
         view.sync()
-
-    def fit(self, game_area: tuple[float, float, float, float]) -> None:
-        """Follow the game area (the letterboxed part of the window, as shares of it)."""
-        area_left, area_right, area_bottom, area_top = game_area
-        left, right, bottom, top = self.share
-        width, height = area_right - area_left, area_top - area_bottom
-        self.region.setDimensions(
-            area_left + left * width,
-            area_left + right * width,
-            area_bottom + bottom * height,
-            area_bottom + top * height,
-        )
 
     def _frame(self, aspect2d: NodePath) -> NodePath:
         """Make a thin border around the window, on the menus' layer."""
