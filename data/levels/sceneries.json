@@ -498,8 +498,8 @@
       "landscape": "swamp",
       "shape": {
         "water_share": 0.45,
-        "size": 0.42,
-        "detail_size": 0.175
+        "size": 0.7,
+        "detail_size": 0.3
       },
       "style": "swamp",
       "colors": {

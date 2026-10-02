@@ -9,7 +9,7 @@
     "ground": {
       "shape": {
         "water_share": 0.35,
-        "size": 0.55
+        "size": 0.9
       }
     }
   },

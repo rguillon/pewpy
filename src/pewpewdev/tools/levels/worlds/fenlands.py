@@ -21,7 +21,7 @@ FENLANDS = WorldPlan(
             "hydra",
             "dusk",
             0.4,
-            scenery={"ground": {"shape": {"water_share": 0.35, "size": 0.55}}},
+            scenery={"ground": {"shape": {"water_share": 0.35, "size": 0.9}}},
         ),
         LevelPlan(
             "Witchlight",

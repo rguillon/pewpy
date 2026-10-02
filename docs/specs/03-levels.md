@@ -163,7 +163,7 @@ No ground enemies (tanks, turrets...): the ground is mostly water.
 | 3-1 | Mire | 5 | day | 0.6 |  | Turbine | Bogmaw |
 | 3-2 | Reedwater | 6 | day | 0.15 | `ground.shape.water_share` 0.55 | Clamp Barge | Mirelord |
 | 3-3 | Mistmarsh | 7 | day | 0.8 | `haze.amount` 0.6 | Spire | Fenwraith |
-| 3-4 | Sunken Bog | 8 | dusk | 0.4 | `ground.shape.water_share` 0.35, `ground.shape.size` 0.55 | Twin Fang | Hydra |
+| 3-4 | Sunken Bog | 8 | dusk | 0.4 | `ground.shape.water_share` 0.35, `ground.shape.size` 0.9 | Twin Fang | Hydra |
 | 3-5 | Witchlight | 9 | night | 0.5 | `fluid.colors.deep` [0.02 0.08 0.06] | Frigate | Marsh Titan |
 | 3-6 | Fogbound Fen | 10 | night | 0.85 |  | Tidebreaker | Drowned King |
 
