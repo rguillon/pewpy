@@ -1,9 +1,0 @@
-parts:
-- {drawing: 156_a, x: -46.0, y: 31.5}
-- {drawing: 156_a, x: 46.0, y: 31.5}
-- {drawing: 156_b, x: -5.0, y: -33.5}
-- {drawing: 156_b, x: 5.0, y: -33.5}
-- {drawing: 156_c, x: -13.0, y: 14.5}
-- {drawing: 156_c, x: 13.0, y: 14.5}
-- {drawing: 156_d, x: -10.0, y: 29.5}
-- {drawing: 156_d, x: 10.0, y: 29.5}

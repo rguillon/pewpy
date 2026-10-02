@@ -1,6 +1,0 @@
-parts:
-- {drawing: 114_a, x: -6.0, y: 16.0}
-- {drawing: 114_b, x: -29.0, y: 5.0}
-- {drawing: 114_c, x: 29.0, y: 5.0}
-- {drawing: 114_d, x: -15.0, y: 3.0}
-- {drawing: 114_d, x: 15.0, y: 3.0}

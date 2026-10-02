@@ -1,4 +1,0 @@
-parts:
-- {drawing: 200_a, x: -14.0, y: -6.0}
-- {drawing: 200_a, x: 14.0, y: -6.0}
-- {drawing: 200_b, x: -10.0, y: 7.0}

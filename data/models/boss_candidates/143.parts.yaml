@@ -1,5 +1,0 @@
-parts:
-- {drawing: 143_a, x: -7.0, y: 27.0}
-- {drawing: 143_a, x: 7.0, y: 27.0}
-- {drawing: 143_b, x: -6.0, y: -15.0}
-- {drawing: 143_b, x: 6.0, y: -15.0}

@@ -1,8 +1,0 @@
-parts:
-- {drawing: 050_a, x: -6.0, y: -13.5}
-- {drawing: 050_a, x: 6.0, y: -13.5}
-- {drawing: 050_b, x: -22.0, y: 5.5}
-- {drawing: 050_b, x: 22.0, y: 5.5}
-- {drawing: 050_c, x: -7.0, y: 11.5}
-- {drawing: 050_c, x: 7.0, y: 11.5}
-- {drawing: 050_d, x: 0.0, y: -8.5}

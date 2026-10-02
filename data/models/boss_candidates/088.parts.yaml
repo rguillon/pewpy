@@ -1,7 +1,0 @@
-parts:
-- {drawing: 088_a, x: -9.0, y: 22.0}
-- {drawing: 088_a, x: 9.0, y: 22.0}
-- {drawing: 088_b, x: -32.0, y: 7.0}
-- {drawing: 088_b, x: 32.0, y: 7.0}
-- {drawing: 088_c, x: -5.0, y: 6.0}
-- {drawing: 088_c, x: 5.0, y: 6.0}

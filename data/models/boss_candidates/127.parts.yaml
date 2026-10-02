@@ -1,7 +1,0 @@
-parts:
-- {drawing: 127_a, x: -7.0, y: -28.5}
-- {drawing: 127_a, x: 7.0, y: -28.5}
-- {drawing: 127_b, x: -30.0, y: -25.5}
-- {drawing: 127_b, x: 30.0, y: -25.5}
-- {drawing: 127_c, x: -33.0, y: -8.5}
-- {drawing: 127_c, x: 33.0, y: -8.5}

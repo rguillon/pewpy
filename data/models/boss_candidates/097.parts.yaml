@@ -1,9 +1,0 @@
-parts:
-- {drawing: 097_a, x: -12.0, y: 11.5}
-- {drawing: 097_b, x: -5.0, y: -18.5}
-- {drawing: 097_c, x: 5.0, y: -18.5}
-- {drawing: 097_d, x: -18.0, y: -7.5}
-- {drawing: 097_e, x: 18.0, y: -7.5}
-- {drawing: 097_f, x: -14.0, y: 22.5}
-- {drawing: 097_g, x: -8.0, y: 0.5}
-- {drawing: 097_h, x: 0.0, y: 0.5}

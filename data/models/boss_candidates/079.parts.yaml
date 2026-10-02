@@ -1,9 +1,0 @@
-parts:
-- {drawing: 079_a, x: -6.0, y: -17.0}
-- {drawing: 079_a, x: 6.0, y: -17.0}
-- {drawing: 079_b, x: -11.0, y: -8.0}
-- {drawing: 079_b, x: 11.0, y: -8.0}
-- {drawing: 079_c, x: -4.0, y: 2.0}
-- {drawing: 079_c, x: 4.0, y: 2.0}
-- {drawing: 079_d, x: -12.0, y: 21.0}
-- {drawing: 079_d, x: 12.0, y: 21.0}
