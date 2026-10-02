@@ -6,15 +6,16 @@ from dataclasses import dataclass
 from typing import cast
 
 from pewpy import config
-from pewpy.game.bosses.boss import Boss, make_boss
-from pewpy.game.bosses.catalog import BOSSES
 from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Bullet, Entity, Pickup
 from pewpy.game.level import Level
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player, ShipSpec
-from pewpy.game.weapons.player.arsenal import MISSILE_SPLASH_RADIUS, WEAPONS, Arsenal, Beam, LaserStats, Missile
-from pewpy.game.weapons.player.secondary import LIGHTNING_DAMAGE, LIGHTNING_FLASH, SECONDARY_WEAPONS, SecondaryWeapon
+from pewpy.game.weapons.bullets import Missile
+from pewpy.game.weapons.guns import Gun
+from pewpy.game.weapons.player.arsenal import WEAPONS, Arsenal, Beam
+from pewpy.game.weapons.player.secondary import SECONDARY_WEAPONS, SecondaryWeapon
 from pewpy.scenery.terrain import GROUND_SPEED
 
 
@@ -30,8 +31,8 @@ class Event:
     """Something the effects show (see graphics/effects/) or the sounds play (see audio/cues.py), collected during one
     update.
 
-    kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy class
-    name like "Drone", a boss's drawing like "warden", or "Player"), "blast" (a missile exploded, `size` = its splash
+    kind: "impact" (a shot hit `source`: "enemy" or "player"), "explosion" (`source` blew up: an enemy
+    kind like "drone", a drawing like "dart" or "warden", or "Player"), "blast" (a missile exploded, `size` = its splash
     radius), "burn" (the laser is burning an enemy at x, y), "shot" (the player fired `source`: "bullets",
     "missiles" or "turret"), "zap" (the lightning gun struck), "hurt" (the player was hit), "disarmed" (a hit took
     the player's secondary weapon `source` instead of health), "pickup" (the player picked up `source`: "repair",
@@ -107,9 +108,9 @@ class World:
         return not self.game_over and not self.pending_spawns and not self.enemies and not waiting
 
     @property
-    def boss(self) -> Boss | None:
+    def boss(self) -> Enemy | None:
         """The boss being fought, if there is one."""
-        return next((enemy for enemy in self.enemies if isinstance(enemy, Boss) and enemy.alive), None)
+        return next((enemy for enemy in self.enemies if enemy.is_boss and enemy.alive), None)
 
     def entities(self) -> list[Entity]:
         return [self.player, *self.player_bullets, *self.enemies, *self.enemy_bullets, *self.pickups]
@@ -152,7 +153,8 @@ class World:
         while self.pending_spawns and self.pending_spawns[0].time <= self.wave_time:
             spawn = self.pending_spawns.pop(0)
             if spawn.enemy in BOSSES:
-                self.enemies.append(make_boss(BOSSES[spawn.enemy], spawn.x, self.view_top))
+                boss = make_enemy(spawn.enemy, spawn.x, spawn.y, spawn.side, None, self.view_top, self.view_side)
+                self.enemies.append(boss)
                 self.events.append(Event("boss", spawn.x, self.view_top, source=spawn.enemy))
                 continue
             enemy = make_enemy(spawn.enemy, spawn.x, spawn.y, spawn.side, self.rng, self.view_top, self.view_side)
@@ -192,8 +194,8 @@ class World:
         for bullet in self.enemy_bullets:
             bullet.move(dt)
 
-    def _fire_laser(self, dt: float, stats: LaserStats | None) -> None:
-        if stats is None:
+    def _fire_laser(self, dt: float, laser: Gun | None) -> None:
+        if laser is None:
             self.laser = None
             return
         player = self.player
@@ -206,18 +208,18 @@ class World:
                 and not _behind_a_part(enemy, player.x)
                 and enemy.y + enemy.height / 2 > bottom
                 and enemy.y - enemy.height / 2 < self.view_top  # not above the screen
-                and abs(enemy.x - player.x) < (stats.width + enemy.width) / 2
+                and abs(enemy.x - player.x) < (laser.width + enemy.width) / 2
             ),
             key=lambda enemy: enemy.y,
         )
         top = self.view_top
-        if not stats.pierces and in_beam:
+        if not laser.pierces and in_beam:
             in_beam = in_beam[:1]
             top = max(bottom, in_beam[0].y - in_beam[0].height / 2)  # the beam stops at the first enemy
-        self.laser = Beam(x=player.x, bottom=bottom, top=top, width=stats.width)
+        self.laser = Beam(x=player.x, bottom=bottom, top=top, width=laser.width)
         for enemy in in_beam:
             self.events.append(Event("burn", player.x, enemy.y - enemy.height / 2))
-            self._damage(enemy, stats.damage_per_second * dt)
+            self._damage(enemy, (laser.damage or 0.0) * dt)
 
     def _fire_secondary(self, dt: float) -> None:
         self.bolt_time = max(self.bolt_time - dt, 0.0)
@@ -239,10 +241,10 @@ class World:
         if struck:
             self.events.append(Event("zap", player.x, player.y))
             self.bolt = [(player.x, player.y + player.height / 2), *((enemy.x, enemy.y) for enemy in struck)]
-            self.bolt_time = LIGHTNING_FLASH
+            self.bolt_time = secondary.gun.flash
             for enemy in struck:
                 self.events.append(Event("impact", enemy.x, enemy.y, source="enemy"))
-                self._damage(enemy, LIGHTNING_DAMAGE)
+                self._damage(enemy, secondary.gun.damage or 0.0)
 
     def _damage(self, enemy: Enemy, amount: float) -> None:
         """Damage from the player's weapons: scores, splits and drops when the enemy is destroyed."""
@@ -258,7 +260,7 @@ class World:
         for piece in enemy.wreckage():  # a boss's parts go down with it, without points
             piece.alive = False
             self._explode(piece)
-        if isinstance(enemy, Boss):
+        if enemy.is_boss:
             if any(spawn.enemy in BOSSES for spawn in self.pending_spawns):
                 self._clear_shots()  # a mini boss: the level goes on
             else:
@@ -335,7 +337,7 @@ class World:
     def _shot_hits(self, bullet: Bullet, enemy: Enemy) -> None:
         bullet.alive = False  # a shielded enemy absorbs the shot without damage
         if isinstance(bullet, Missile):
-            radius = MISSILE_SPLASH_RADIUS if bullet.splash_damage else MISSILE_BLAST_SIZE
+            radius = bullet.splash_radius if bullet.splash_damage else MISSILE_BLAST_SIZE
             self.events.append(Event("blast", bullet.x, bullet.y, radius))
         else:
             self.events.append(Event("impact", bullet.x, bullet.y + bullet.height / 2, source="enemy"))
@@ -349,7 +351,7 @@ class World:
 
     def _splash(self, missile: Missile, direct_hit: Enemy) -> None:
         for enemy in self.enemies:
-            near = math.hypot(enemy.x - missile.x, enemy.y - missile.y) <= MISSILE_SPLASH_RADIUS
+            near = math.hypot(enemy.x - missile.x, enemy.y - missile.y) <= missile.splash_radius
             if enemy is not direct_hit and near:
                 self._damage(enemy, missile.splash_damage)
 
@@ -388,4 +390,4 @@ class World:
 
 def _behind_a_part(enemy: Enemy, x: float) -> bool:
     """A boss's core under one of its living parts at `x`: shots and the laser go over it, up to the part."""
-    return isinstance(enemy, Boss) and enemy.covered(x)
+    return enemy.covered(x)

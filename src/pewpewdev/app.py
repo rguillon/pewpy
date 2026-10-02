@@ -5,7 +5,6 @@ and Boss candidates screens (models on show, to work on them) and the AI learnin
 import importlib
 import math
 import os
-import re
 from collections.abc import Callable
 from enum import Enum
 from functools import partial
@@ -25,16 +24,13 @@ from pewpewdev.states import DEV_TRANSITIONS, DevState
 from pewpewdev.ui.ai_panel import AIPanel, learning_text, rating_columns, rating_title
 from pewpy import config
 from pewpy.app import EFFECTS_RUN_IN, GAME_ASPECT, PewPewApp, fitted_model
-from pewpy.game.bosses.boss import BossSpec
-from pewpy.game.bosses.catalog import BOSSES, FINAL_BOSSES
-from pewpy.game.enemies.catalog import Mine
-from pewpy.game.enemies.enemy import Enemy
-from pewpy.game.enemies.fleet import FLEET
-from pewpy.game.entities import Entity
-from pewpy.game.player import SHIPS, Player
+from pewpy.game.enemies.enemy import make
+from pewpy.game.enemies.kinds import BOSSES, ENEMIES, FINAL_BOSSES
+from pewpy.game.enemies.spec import EnemySpec
+from pewpy.game.player import SHIPS
 from pewpy.game.states import State
-from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
-from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS, Missile
+from pewpy.game.weapons.bullets import Missile
+from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS
 from pewpy.game.weapons.player.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.world import World
 from pewpy.graphics import models
@@ -53,22 +49,19 @@ AI_WORKERS = max(
     1, (os.cpu_count() or 2) - 2
 )  # processes learning or rating: a core left for the game, one for the rest
 SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
-# Things launched by others rather than placed by the levels: missiles, rockets, bombs, mines.
-PROJECTILES: tuple[type[Entity], ...] = (Missile, Rocket, HomingMissile, ClusterBomb, Mine)
 PICKUPS_PAGE = "Player, pickups and projectiles"
-FLEET_KINDS: tuple[type[Entity], ...] = tuple(
-    FLEET.values()
-)  # the second fleet (pewpy.game.enemies.fleet), on pages of their own
-# The Models screen's pages (too many models for one circle): which ship models each shows (the first also shows
-# the pickups).
-MODEL_PAGES: dict[str, Callable[[type[Entity]], bool]] = {
-    PICKUPS_PAGE: lambda kind: kind is Player or kind in PROJECTILES,
+# The second fleet (src/pewpy/enemies/fleet.json: the enemies with drawings), on pages of their own.
+FLEET_KINDS: tuple[str, ...] = tuple(kind for kind, spec in ENEMIES.items() if spec.drawing)
+# The Models screen's pages (too many models for one circle): which ship models each shows, by kind of enemy (or
+# "Player", "Missile"); the first also shows the pickups and what enemies launch rather than the levels place.
+MODEL_PAGES: dict[str, Callable[[str], bool]] = {
+    PICKUPS_PAGE: lambda kind: kind in ("Player", "Missile") or (kind in ENEMIES and not ENEMIES[kind].placeable),
     "Flying enemies": lambda kind: (
-        issubclass(kind, Enemy) and not kind.ground and kind not in PROJECTILES + FLEET_KINDS
+        kind in ENEMIES and ENEMIES[kind].placeable and not ENEMIES[kind].ground and kind not in FLEET_KINDS
     ),
     "The fleet (1/2)": lambda kind: kind in FLEET_KINDS[: len(FLEET_KINDS) // 2],
     "The fleet (2/2)": lambda kind: kind in FLEET_KINDS[len(FLEET_KINDS) // 2 :],
-    "Ground enemies": lambda kind: issubclass(kind, Enemy) and kind.ground,
+    "Ground enemies": lambda kind: kind in ENEMIES and ENEMIES[kind].ground,
 }
 CANDIDATES_PER_PAGE = 10
 SHOWCASE_CANDIDATE_SIZE = 0.26  # the Candidates screen's models (see showcase.MODEL_SIZE)...
@@ -229,13 +222,13 @@ class DevApp(PewPewApp):
         """
         entries = []
         for kind in self.ship_models:
-            if kind is Player and page == PICKUPS_PAGE:
+            if kind == "Player" and page == PICKUPS_PAGE:
                 for spec in SHIPS.values():
                     entries.append((spec.name.title(), fitted_model(self.player_models[spec.drawing], spec.size)))
                 continue
             if MODEL_PAGES[page](kind):
-                entity = kind()
-                name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", kind.__name__)  # MineLayer: "Mine Layer"
+                entity = Missile() if kind == "Missile" else make(kind)
+                name = kind.replace("_", " ").title()  # mine_layer: "Mine Layer"
                 entries.append((name, fitted_model(self._make_model(entity), max(entity.width, entity.height))))
         if page == PICKUPS_PAGE:
             for kind in [*WEAPONS, "repair", "life", *SECONDARY_WEAPONS]:
@@ -269,11 +262,11 @@ class DevApp(PewPewApp):
         label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height} +{len(parts)}"  # size, and parts
         return label, fitted_model(whole, BOSS_CANDIDATE_SCALE * config.MODEL_VOXEL)
 
-    def _whole_boss(self, spec: BossSpec) -> NodePath:
+    def _whole_boss(self, spec: EnemySpec) -> NodePath:
         """A boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
         whole = NodePath(spec.drawing)
         pieces = [(spec.drawing, 0.0, 0.0, spec.width, spec.height)]
-        pieces += [(part.drawing, part.x, part.y, part.width, part.height) for part in spec.parts]
+        pieces += [(part.spec.drawing, part.x, part.y, part.spec.width, part.spec.height) for part in spec.parts]
         for drawing, x, y, _, _ in pieces:
             piece = whole.attachNewNode(drawing)
             self._boss_model(drawing).copyTo(piece)

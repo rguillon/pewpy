@@ -1,25 +1,16 @@
 import pytest
 
 from pewpy import config
-from pewpy.game.enemies.catalog import Drone
-from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.enemy import Enemy, make
 from pewpy.game.entities import Bullet, Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import Player
 from pewpy.game.weapons.player.arsenal import Arsenal
-from pewpy.game.weapons.player.secondary import (
-    LIGHTNING_CHAIN,
-    LIGHTNING_DAMAGE,
-    LIGHTNING_FLASH,
-    LIGHTNING_INTERVAL,
-    LIGHTNING_JUMP,
-    LIGHTNING_RANGE,
-    TURRET_DAMAGE,
-    TURRET_FIRE_RATE,
-    SecondaryWeapon,
-)
+from pewpy.game.weapons.player.secondary import SECONDARY_GUNS, SECONDARY_LETTERS, SECONDARY_WEAPONS, SecondaryWeapon
 from pewpy.game.world import Controls, World
 
+TURRET = SECONDARY_GUNS["turret"]
+LIGHTNING = SECONDARY_GUNS["lightning"]
 DT = 1 / 60
 QUIET_LEVEL = Level(name="quiet", scroll_speed=0.2, waves=(Wave(time=1000.0),))
 
@@ -30,12 +21,19 @@ def armed_world(kind: str | None) -> World:
 
 
 def still_drone(x: float, y: float, health: float = 100.0) -> Enemy:
-    return Drone(x=x, y=y, vy=0.0, fire_cooldown=1000.0, health=health)
+    drone = make("drone", x, y)
+    drone.vy, drone.fire_cooldown, drone.health = 0.0, 1000.0, health
+    return drone
 
 
 def run(world: World, seconds: float) -> None:
     for _ in range(round(seconds / DT)):
         world.update(DT, Controls())
+
+
+def test_the_secondary_weapons_are_read():
+    assert SECONDARY_WEAPONS == ("turret", "lightning")
+    assert set(SECONDARY_LETTERS) == set(SECONDARY_WEAPONS)
 
 
 def test_turret_shoots_the_nearest_enemy_on_its_own():
@@ -46,7 +44,7 @@ def test_turret_shoots_the_nearest_enemy_on_its_own():
     assert struck == []
     assert len(shots) == 1
     shot = shots[0]
-    assert shot.damage == TURRET_DAMAGE
+    assert shot.damage == TURRET.damage
     assert not shot.hostile
     assert (shot.vx, shot.vy) == pytest.approx((0.6 * 2.5, 0.8 * 2.5))  # toward `near`: (0.3, 0.4) / 0.5
     assert (turret.aim_x, turret.aim_y) == pytest.approx((0.6, 0.8))
@@ -58,7 +56,7 @@ def test_turret_fire_rate_and_no_target_no_shot():
     assert turret.fire(DT, ship, []) == ([], [])
     target = still_drone(0.0, 0.5)
     shots = sum(len(turret.fire(DT, ship, [target])[0]) for _ in range(round(2.0 / DT)))
-    assert abs(shots - 2 * TURRET_FIRE_RATE) <= 1
+    assert abs(shots - 2 * (1 / TURRET.interval)) <= 1
 
 
 def test_turret_kills_enemies_in_the_world():
@@ -73,21 +71,21 @@ def test_turret_kills_enemies_in_the_world():
 def test_lightning_chains_from_enemy_to_enemy():
     lightning = SecondaryWeapon("lightning")
     ship = Player(x=0.0, y=0.0)
-    step = LIGHTNING_JUMP * 0.9
-    line = [still_drone(LIGHTNING_RANGE * 0.9 + i * step, 0.0) for i in range(LIGHTNING_CHAIN + 1)]
-    out_of_reach = still_drone(-LIGHTNING_RANGE * 1.1, 0.0)
+    step = LIGHTNING.chain_jump * 0.9
+    line = [still_drone(LIGHTNING.chain_range * 0.9 + i * step, 0.0) for i in range(LIGHTNING.chain_count + 1)]
+    out_of_reach = still_drone(-LIGHTNING.chain_range * 1.1, 0.0)
     shots, struck = lightning.fire(DT, ship, [*reversed(line), out_of_reach])
     assert shots == []
-    assert struck == line[:LIGHTNING_CHAIN]  # nearest first, then jumping, up to the chain's length
-    assert lightning.cooldown == pytest.approx(LIGHTNING_INTERVAL)
+    assert struck == line[: LIGHTNING.chain_count]  # nearest first, then jumping, up to the chain's length
+    assert lightning.state.cooldown == pytest.approx(LIGHTNING.interval)
     assert lightning.fire(DT, ship, line) == ([], [])  # recharging
 
 
 def test_lightning_needs_an_enemy_in_range():
     lightning = SecondaryWeapon("lightning")
     ship = Player(x=0.0, y=0.0)
-    assert lightning.fire(DT, ship, [still_drone(LIGHTNING_RANGE * 1.1, 0.0)]) == ([], [])
-    assert lightning.cooldown == 0.0
+    assert lightning.fire(DT, ship, [still_drone(LIGHTNING.chain_range * 1.1, 0.0)]) == ([], [])
+    assert lightning.state.cooldown == 0.0
 
 
 def test_lightning_damages_enemies_and_shows_a_bolt():
@@ -95,10 +93,10 @@ def test_lightning_damages_enemies_and_shows_a_bolt():
     drone = still_drone(world.player.x, world.player.y + 0.4)
     world.enemies.append(drone)
     world.update(DT, Controls())
-    assert drone.health == pytest.approx(100.0 - LIGHTNING_DAMAGE)
+    assert drone.health == pytest.approx(100.0 - (LIGHTNING.damage or 0))
     assert "zap" in [event.kind for event in world.events]
     assert world.bolt[-1] == (drone.x, drone.y)
-    run(world, LIGHTNING_FLASH + DT)
+    run(world, LIGHTNING.flash + DT)
     assert world.bolt == []
 
 

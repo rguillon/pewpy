@@ -33,39 +33,14 @@ from pewpy.audio.cues import event_sounds, music
 from pewpy.audio.library import Library, cache_folder
 from pewpy.audio.sound import Audio
 from pewpy.data import data_folder
-from pewpy.game.bosses.boss import Boss, BossPart
-from pewpy.game.bosses.catalog import BOSSES
-from pewpy.game.enemies.catalog import (
-    Bomber,
-    Buckshot,
-    Diver,
-    Drone,
-    FlakCannon,
-    Gunship,
-    Hunter,
-    Lancer,
-    Mine,
-    MineLayer,
-    MissileSilo,
-    Rocketeer,
-    RocketTruck,
-    Serpent,
-    ShieldCarrier,
-    Sniper,
-    Splitter,
-    Swarmer,
-    Tank,
-    Turret,
-    Weaver,
-)
 from pewpy.game.enemies.enemy import Enemy
-from pewpy.game.enemies.fleet import FLEET
+from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.entities import Bullet, Entity, Pickup
 from pewpy.game.level import Level, load_worlds
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
 from pewpy.game.states import TRANSITIONS, State, StateMachine, Transitions
-from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
-from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS, Arsenal, Missile
+from pewpy.game.weapons.bullets import Missile
+from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS, Arsenal
 from pewpy.game.weapons.player.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.game.world import Controls, Event, World
 from pewpy.graphics import lighting, models
@@ -117,35 +92,35 @@ BOLT_ZIGZAG = 0.025  # ...this far to each side, differently every frame
 HUD_DIM_COLOR: Color = (0.5, 0.5, 0.55, 1)
 PICKUP_SPIN_SPEED = 120.0  # degrees per second
 
-# The model of each kind of ship: the name of its function in models.py (looked up by name, so the Models
-# screen can reload models.py).
-SHIP_MODELS: dict[type[Entity], str] = {
-    Player: "player_model",
-    Drone: "drone_model",
-    Weaver: "weaver_model",
-    Diver: "diver_model",
-    Gunship: "gunship_model",
-    Turret: "turret_model",
-    Swarmer: "swarmer_model",
-    Sniper: "sniper_model",
-    MineLayer: "mine_layer_model",
-    Mine: "mine_model",
-    ShieldCarrier: "shield_carrier_model",
-    Splitter: "splitter_model",
-    Missile: "missile_model",
-    FlakCannon: "flak_cannon_model",
-    Tank: "tank_model",
-    RocketTruck: "rocket_truck_model",
-    Rocketeer: "rocketeer_model",
-    Hunter: "hunter_model",
-    MissileSilo: "missile_silo_model",
-    Bomber: "bomber_model",
-    Lancer: "lancer_model",
-    Serpent: "serpent_model",
-    Buckshot: "buckshot_model",
-    Rocket: "rocket_model",
-    HomingMissile: "homing_missile_model",
-    ClusterBomb: "cluster_bomb_model",
+# The models built in code: the name of their function in models.py (looked up by name, so the Models screen can
+# reload models.py), by kind of enemy, or by class for the player's ship and missiles. The others are drawings.
+SHIP_MODELS: dict[str, str] = {
+    "Player": "player_model",
+    "Missile": "missile_model",
+    "drone": "drone_model",
+    "weaver": "weaver_model",
+    "diver": "diver_model",
+    "gunship": "gunship_model",
+    "turret": "turret_model",
+    "swarmer": "swarmer_model",
+    "sniper": "sniper_model",
+    "mine_layer": "mine_layer_model",
+    "mine": "mine_model",
+    "shield_carrier": "shield_carrier_model",
+    "splitter": "splitter_model",
+    "flak_cannon": "flak_cannon_model",
+    "tank": "tank_model",
+    "rocket_truck": "rocket_truck_model",
+    "rocketeer": "rocketeer_model",
+    "hunter": "hunter_model",
+    "missile_silo": "missile_silo_model",
+    "bomber": "bomber_model",
+    "lancer": "lancer_model",
+    "serpent": "serpent_model",
+    "buckshot": "buckshot_model",
+    "rocket": "rocket_model",
+    "homing_missile": "homing_missile_model",
+    "cluster_bomb": "cluster_bomb_model",
 }
 MINE_SPIN_SPEED = 90.0  # degrees per second
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
@@ -440,9 +415,11 @@ class PewPewApp(ShowBase):
     def _build_models(self) -> None:
         """Build every model from models.py (looked up by name, so a reloaded models.py is used)."""
         self.ship_models = {kind: getattr(models, name)() for kind, name in SHIP_MODELS.items()}
-        self.ship_models.update({kind: models.drawing_model(kind.drawing) for kind in FLEET.values()})
-        # Explosions throw debris in the colors of what blew up.
-        self.debris_colors = {kind.__name__: models.main_colors(model) for kind, model in self.ship_models.items()}
+        self.ship_models.update({
+            spec.drawing: models.drawing_model(spec.drawing) for spec in ENEMIES.values() if spec.drawing
+        })
+        # Explosions throw debris in the colors of what blew up (see Enemy.kind_name).
+        self.debris_colors = {kind: models.main_colors(model) for kind, model in self.ship_models.items()}
         self.shield_bubble = models.shield_bubble_model()
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
@@ -466,7 +443,7 @@ class PewPewApp(ShowBase):
         for wave in level.waves:
             spec = BOSSES.get(wave.enemy)
             if spec:
-                for drawing in [spec.drawing, *(part.drawing for part in spec.parts)]:
+                for drawing in [spec.drawing, *(part.spec.drawing for part in spec.parts)]:
                     self._boss_model(drawing)
 
     def _ship_menu(self) -> Menu:
@@ -620,7 +597,7 @@ class PewPewApp(ShowBase):
         drawing (about their hitbox). Copied, not instanced, so each Turret can aim its own barrel.
         """
         node = NodePath("entity")
-        if isinstance(entity, Boss | BossPart):
+        if isinstance(entity, Enemy) and (entity.is_boss or entity.part_name):
             self._boss_model(entity.drawing).copyTo(node)
             return node
         if isinstance(entity, Player):
@@ -633,9 +610,12 @@ class PewPewApp(ShowBase):
                 model.copyTo(mount)
                 mount.hide()
             return node
-        model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self.ship_models[type(entity)]
+        if isinstance(entity, Pickup):
+            model = self.pickup_models[entity.kind]
+        else:
+            model = self.ship_models[entity.kind_name if isinstance(entity, Enemy) else type(entity).__name__]
         model.copyTo(node)
-        if isinstance(entity, ShieldCarrier):
+        if isinstance(entity, Enemy) and shielded(entity):
             bubble = node.attachNewNode("bubble")  # the bubble fits a 1 x 1 x 1 box: stretched around the ship
             bubble.setScale(entity.width)
             self.shield_bubble.copyTo(bubble)
@@ -878,18 +858,17 @@ class PewPewApp(ShowBase):
             node.setColorScale(*shade)
         else:
             node.clearColorScale()
-        if isinstance(enemy, ShieldCarrier):
+        if shielded(enemy):
             bubble = node.find("**/shield")
             bubble.show() if appearance == "shield" else bubble.hide()
 
     def _orient_enemy(self, enemy: Enemy, node: NodePath, player: Player) -> None:
-        if isinstance(enemy, Turret | Tank):
+        facing = enemy.facing
+        if facing == "player":
             node.find("**/barrel").setR(models.facing_roll(player.x - enemy.x, player.y - enemy.y))
-        elif isinstance(enemy, Swarmer | Rocket | HomingMissile) or (
-            (isinstance(enemy, Diver) and enemy.phase == "dive") or (enemy.faces_travel and (enemy.vx or enemy.vy))
-        ):
+        elif facing == "travel" and (enemy.vx or enemy.vy):
             node.setR(models.facing_roll(enemy.vx, enemy.vy))  # point where it's flying
-        elif isinstance(enemy, Mine | ClusterBomb):
+        elif facing == "spin":
             node.setR(enemy.age * MINE_SPIN_SPEED)
 
     def _update_fps(self) -> None:
@@ -997,3 +976,8 @@ def _bullet_sprite(bullet: Entity) -> Sprite:
 
 def main() -> None:
     PewPewApp().run()
+
+
+def shielded(enemy: Enemy) -> bool:
+    """Whether it has a shield (a state looking "shield"): its model has a bubble, shown while it's up."""
+    return any(state.look == "shield" for state in enemy.spec.states)

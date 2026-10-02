@@ -34,7 +34,7 @@
   "Backgrounds"), `time_of_day` (`day`, `dusk` or `night`, default `day`), `background_seed` (the
   background's layout, and in space its colors: the same every time), `clouds` (see-through clouds over the
   ground, from 0 for none to 1 for the most, default 0), and `waves`. Each wave: `time` (seconds from the level
-  start, required), `enemy` (an enemy of `pewpy.game.enemies.roster` or a boss of `pewpy.game.bosses.catalog`: the level's last boss is its final boss, any boss before it a mini boss), `count`,
+  start, required), `enemy` (an enemy of `pewpy.game.enemies.roster` or a boss of `pewpy.game.enemies.kinds`: the level's last boss is its final boss, any boss before it a mini boss), `count`,
   `formation` (`line`: side by side, `spacing` apart, centred on `x`; `column`: one after another at the same
   place, `interval` seconds apart), `x`, and for the enemies entering from a side, `side` (`left` / `right`)
   and `y`. Typos and unknown values are reported with the file and the wave's number *(placeholder; open: TOML

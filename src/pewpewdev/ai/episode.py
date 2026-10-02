@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 from pewpewdev.ai.brain import Brain
 from pewpewdev.ai.pilot import Pilot
-from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.level import Level
 from pewpy.game.player import SHIPS
 from pewpy.game.world import World

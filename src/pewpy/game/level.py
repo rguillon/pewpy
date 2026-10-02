@@ -9,7 +9,7 @@ from dataclasses import dataclass, field, fields
 from typing import Any
 
 from pewpy.data import data_folder
-from pewpy.game.bosses.catalog import BOSSES
+from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.scenery import params
 from pewpy.scenery.params import SceneryError, SceneryParams

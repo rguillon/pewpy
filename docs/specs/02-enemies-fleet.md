@@ -6,7 +6,7 @@
 
 ## The second fleet
 
-Picked by the user from the model candidates (see `04-ui-audio.md`, "Candidates"; `src/pewpy/game/enemies/fleet.py`). Their
+Picked by the user from the model candidates (see `04-ui-audio.md`, "Candidates"; `src/pewpy/enemies/fleet.json`). Their
 models are the chosen drawings, renamed (`src/pewpy/models/<name>.json`); their hitbox is the drawing's size. Each
 level has two waves of them, in its two biggest gaps; the heavies (Behemoth, Warhawk, Pincer, Stormcrow, Condor,
 Rampart) at least 22 s before the boss, so the fights don't overlap. *(placeholder: every number)*

@@ -1,8 +1,7 @@
 import pytest
 
-from pewpy.game.bosses.boss import CORE
-from pewpy.game.bosses.catalog import BOSSES, FINAL_BOSSES, MINI_BOSSES
 from pewpy.game.enemies.enemy import HALF_WIDTH
+from pewpy.game.enemies.kinds import BOSSES, FINAL_BOSSES, MINI_BOSSES
 from pewpy.game.level import load_levels
 from pewpy.graphics import models
 
@@ -11,11 +10,12 @@ from pewpy.graphics import models
 def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind):
     spec = BOSSES[kind]
     assert spec.half_span < HALF_WIDTH
+    assert spec.boss
     names = {part.name for part in spec.parts}
-    for phase in spec.phases:
-        assert {source for source, _ in phase.guns} <= names | {CORE}
-        assert set(phase.until_destroyed) <= names
-    for drawing in {spec.drawing} | {part.drawing for part in spec.parts}:
+    for state in spec.states:
+        assert {source for source, _ in state.guns} <= names | {""}
+        assert all(set(way_out.parts) <= names for way_out in state.exits)
+    for drawing in {spec.drawing} | {part.spec.drawing for part in spec.parts}:
         assert models.load_voxels(drawing).cells
 
 
@@ -24,7 +24,7 @@ def test_every_hitbox_has_the_size_of_its_drawing(kind):
     """Models are built with cubes of config.MODEL_VOXEL (or finer): each drawing is about as big as its hitbox."""
     spec = BOSSES[kind]
     for drawing, width, height in [(spec.drawing, spec.width, spec.height)] + [
-        (part.drawing, part.width, part.height) for part in spec.parts
+        (part.spec.drawing, part.spec.width, part.spec.height) for part in spec.parts
     ]:
         voxels = models.load_voxels(drawing)
         assert voxels.width * voxels.size == pytest.approx(width, rel=0.12), drawing
@@ -48,15 +48,19 @@ def test_a_final_boss_is_bigger_and_tougher_than_its_levels_mini_boss():
         mini, final = (BOSSES[wave.enemy] for wave in level.waves if wave.enemy in BOSSES)
 
         def toughness(spec):
-            return spec.health + sum(part.health for part in spec.parts)
+            return spec.health + sum(part.spec.health for part in spec.parts)
 
         assert final.width * final.height > mini.width * mini.height
         assert toughness(final) > toughness(mini)
-        assert len(final.phases) >= len(mini.phases)
+        assert len(phases(final)) >= len(phases(mini))
+
+
+def phases(spec):
+    return [state for state in spec.states if state.guns]
 
 
 @pytest.mark.parametrize("kind", BOSSES)
 def test_every_phase_but_the_last_can_end(kind):
-    phases = BOSSES[kind].phases
-    assert all(phase.until_destroyed or phase.until_below > 0 for phase in phases[:-1])
-    assert len(phases) >= 2  # several shooting patterns
+    fighting = phases(BOSSES[kind])
+    assert all(phase.exits for phase in fighting[:-1])
+    assert len(fighting) >= 2  # several shooting patterns

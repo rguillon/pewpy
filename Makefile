@@ -35,6 +35,10 @@ boss-candidates: ## Generate boss model candidates for the Boss candidates scree
 levels: ## Generate the game's levels from the worlds' plan in src/pewpewdev/tools/make_levels.py (options: ARGS="--seed 1234", see --help)
 	@uv run python -m pewpewdev.tools.make_levels $(ARGS)
 
+.PHONY: final-bosses
+final-bosses: ## Make the final bosses (src/pewpy/bosses/final_bosses.json) from their plans in src/pewpewdev/tools/final_boss_plans.json
+	@uv run python -m pewpewdev.tools.make_final_bosses $(ARGS)
+
 .PHONY: learn
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
 	@uv run python -u -m pewpewdev.ai learn $(ARGS)

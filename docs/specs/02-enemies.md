@@ -21,6 +21,8 @@
 - Looks: every enemy is a voxel model in its colors, drawn in `src/pewpy/models/<name>.json` and built in code
   (`src/pewpy/graphics/models.py`); the size given is its hitbox.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
+- What each enemy does is data: `src/pewpy/enemies/` (`catalog.json`, `fleet.json`, `projectiles.json`), see
+  `06-technical.md`, "Enemies as data".
 
 ## Enemy weapons
 

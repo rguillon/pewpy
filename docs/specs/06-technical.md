@@ -24,14 +24,30 @@
 
 - Overall structure (states/scenes, entity classes, ECS…): grouped by domain, the game's rules kept apart from
   Panda3D *(placeholder)*: `pewpy/` (`app.py`: the window, input, drawing; `config.py`, `data.py`), `game/` (the
-  rules, no Panda3D: entities, player, world, states, levels; `weapons/` with `player/` (the selected and
-  secondary weapons) and `enemy/` (shots, projectiles, the bosses' guns); `enemies/` (their base, the catalog,
-  the second fleet, the roster); `bosses/` (the rules, building the final bosses, loading every boss)), `scenery/` (backgrounds
+  rules, no Panda3D: entities, player, world, states, levels; `weapons/` (the guns everyone fires, the kinds of
+  bullets, and in `player/` the arsenal and the secondary weapon); `enemies/` (the one Enemy class for enemies and
+  bosses, its descriptions, motions, the kinds and the roster)), `scenery/` (backgrounds
   and grounds), `graphics/` (models, lighting, effects), `ui/` (menus, the ship select, the level preview),
-  `audio/`; data in `bosses/`, `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
-  package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (making the levels, models, candidates and
-  songs), `app.py` (the game with the dev screens, `make dev`: the model screens, AI learning and rating), with
+  `audio/`; data in `weapons/`, `enemies/`, `bosses/`, `levels/` and `models/`. The dev tools apart, in `pewpewdev/`, not in the game nor its
+  package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (making the levels, the final bosses, models,
+  candidates and songs), `app.py` (the game with the dev screens, `make dev`: the model screens, AI learning and rating), with
   their own `states.py`, `candidates.py` and `ui/`
+- Enemies as data *(the user's choice)*: every enemy, boss, boss part and projectile is one class, `Enemy`, running
+  its description: a body (size, health, points, drops, entry, ground...), parts (a boss's), what it releases when
+  shot down, and states. Each state has motions (`game/enemies/motions.py`), guns (`game/weapons/guns.py`),
+  a look, whether it can be hurt, and exits to other states (a timer, a height, lined up with the player, a cycle of
+  its age, visits, parts destroyed, health lost, volleys fired...), each doing actions on the way (set a speed, aim,
+  relocate, fire, die). The enemies are in `src/pewpy/enemies/*.json`, the bosses in `src/pewpy/bosses/*.json`, written the same way
+  (`game/enemies/spec.py` reads them): a boss is only an enemy with parts, `"boss": true`, a state coming down and
+  a state per phase (each starting with a `warmup`); only its configuration differs. The final bosses are made by a
+  dev tool from short plans (`make final-bosses`, `pewpewdev/tools/make_final_bosses.py`). A new
+  behaviour is a new motion, exit, action or gun option in code, tested; the descriptions are data and need no
+  tests of their own.
+- Weapons as data *(the user's choice)*: the player's weapons and the enemies' are the same guns
+  (`game/weapons/guns.py`): a pattern (aimed, fan, ring, beams, the player's laser "ray", the lightning "chain"),
+  timing (interval or rate, volleys, charging, reloading), and what they fire (bullets of a style and size, missiles,
+  enemies). The player's are in `src/pewpy/weapons/` (`player.json`: one gun per level of each weapon;
+  `secondary.json`), the enemies' in their own descriptions. Only how they look is in code (`app.py`, `graphics/`).
 - Game loop timing (variable dt / fixed timestep): TBD
 - Collision detection (Panda3D CollisionTraverser / custom simple circles-boxes): TBD
 - Configuration (constants in code / TOML file for tunable values): TBD

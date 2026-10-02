@@ -1,16 +1,17 @@
+import math
+from dataclasses import replace
+
 import pytest
 
 from pewpy import config
-from pewpy.game.bosses.boss import EXPLOSIONS, make_boss
-from pewpy.game.bosses.catalog import BOSSES
-from pewpy.game.enemies.catalog import Drone, FlakCannon, ShieldCarrier, Splitter, Swarmer
-from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.enemy import Enemy, make
+from pewpy.game.enemies.kinds import BOSSES, KINDS
+from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Bullet, Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
-from pewpy.game.weapons.enemy.boss_guns import BossBeam
-from pewpy.game.weapons.enemy.projectiles import ClusterBomb, HomingMissile, Rocket
-from pewpy.game.weapons.player.arsenal import BULLET_FIRE_RATE, MAX_LEVEL, Arsenal, Missile
+from pewpy.game.weapons.bullets import BossBeam, Missile
+from pewpy.game.weapons.player.arsenal import LEVELS, MAX_LEVEL, Arsenal
 from pewpy.game.world import Controls, World
 from pewpy.scenery.terrain import GROUND_SPEED
 
@@ -44,8 +45,15 @@ def armed_world(weapon: str = "bullets", level: int = 1) -> World:
     return World(QUIET_LEVEL, seed=0, arsenal=arsenal_with(weapon, level))
 
 
-def still_enemy(kind: type[Enemy] = Drone, **fields) -> Enemy:
-    return kind(vy=0.0, fire_cooldown=1000.0, **fields)
+def placed(kind: str, **fields) -> Enemy:
+    made = make(kind)
+    for name, value in fields.items():
+        setattr(made, name, value)
+    return made
+
+
+def still_enemy(kind: str = "drone", **fields) -> Enemy:
+    return placed(kind, vy=0.0, fire_cooldown=1000.0, **fields)
 
 
 def test_fire_rate():
@@ -55,7 +63,7 @@ def test_fire_rate():
         before = len(world.player_bullets)
         world.update(DT, Controls(fire=True))
         shots += len(world.player_bullets) > before
-    assert abs(shots - 2 * BULLET_FIRE_RATE) <= 1
+    assert abs(shots - 2 / LEVELS["bullets"][0].interval) <= 1
 
 
 def test_no_shots_without_fire():
@@ -66,7 +74,7 @@ def test_no_shots_without_fire():
 
 def test_bullets_kill_enemy_and_score():
     world = make_world()
-    enemy = Drone(x=world.player.x, y=world.player.y + 0.6, vy=0.0, fire_cooldown=1000.0)
+    enemy = placed("drone", x=world.player.x, y=world.player.y + 0.6, vy=0.0, fire_cooldown=1000.0)
     world.enemies.append(enemy)
     run(world, 1.0, Controls(fire=True))
     assert not enemy.alive
@@ -90,18 +98,18 @@ def test_waves_spawn_on_time_at_top_and_move_down():
 
 def test_destroyed_splitter_adds_swarmers_and_score():
     world = make_world()
-    splitter = Splitter(x=world.player.x, y=world.player.y + 0.6, vy=0.0, health=1.0, fire_cooldown=1000.0)
+    splitter = placed("splitter", x=world.player.x, y=world.player.y + 0.6, vy=0.0, health=1.0, fire_cooldown=1000.0)
     world.enemies.append(splitter)
     world.player_bullets.append(Bullet(x=splitter.x, y=splitter.y))
     world.update(DT, Controls())
     assert not splitter.alive
     assert world.score == 200
-    assert sum(isinstance(enemy, Swarmer) for enemy in world.enemies) == 3
+    assert sum(enemy.kind == "swarmer" for enemy in world.enemies) == 3
 
 
 def test_shield_absorbs_bullets():
     world = make_world()
-    carrier = ShieldCarrier(x=0.0, y=0.3, vy=0.0)
+    carrier = placed("shield_carrier", x=0.0, y=0.3, vy=0.0)
     world.enemies.append(carrier)
     bullet = Bullet(x=carrier.x, y=carrier.y)
     world.player_bullets.append(bullet)
@@ -112,14 +120,14 @@ def test_shield_absorbs_bullets():
 
 def test_enemy_leaving_bottom_is_removed():
     world = make_world()
-    world.enemies.append(Drone(x=0.7, y=-config.PLAY_HEIGHT / 2, fire_cooldown=1000.0))
+    world.enemies.append(placed("drone", x=0.7, y=-config.PLAY_HEIGHT / 2, fire_cooldown=1000.0))
     run(world, 2.0)
     assert world.enemies == []
 
 
 def test_enemy_fires_at_player():
     world = make_world()
-    world.enemies.append(Drone(x=0.5, y=0.5, vy=0.0, fire_cooldown=0.0))
+    world.enemies.append(placed("drone", x=0.5, y=0.5, vy=0.0, fire_cooldown=0.0))
     world.update(DT, Controls())
     bullet = world.enemy_bullets[0]
     assert bullet.hostile
@@ -152,7 +160,7 @@ def test_invulnerability_wears_off():
 
 def test_ramming_enemy_damages_player_and_dies():
     world = make_world()
-    enemy = Drone(x=world.player.x, y=world.player.y, vy=0.0, fire_cooldown=1000.0)
+    enemy = placed("drone", x=world.player.x, y=world.player.y, vy=0.0, fire_cooldown=1000.0)
     world.enemies.append(enemy)
     world.update(DT, Controls())
     assert world.player.health == SHIPS[DEFAULT_SHIP].health - config.ENEMY_RAM_DAMAGE
@@ -221,14 +229,14 @@ def kinds(world: World) -> list[str]:
 
 def test_shots_hitting_and_destroying_enemies_are_reported():
     world = make_world()
-    drone = Drone(x=0.0, y=0.0, vy=0.0, fire_cooldown=1000.0, health=1.0)
+    drone = placed("drone", x=0.0, y=0.0, vy=0.0, fire_cooldown=1000.0, health=1.0)
     world.enemies.append(drone)
     world.player_bullets.append(Bullet(x=0.0, y=0.0, vy=0.0, damage=1.0))
     world.update(DT, Controls())
     assert kinds(world) == ["impact", "explosion"]
     impact, explosion = world.events
     assert impact.source == "enemy"
-    assert (explosion.source, explosion.x, explosion.y) == ("Drone", 0.0, 0.0)
+    assert (explosion.source, explosion.x, explosion.y) == ("drone", 0.0, 0.0)
     assert explosion.size == max(drone.width, drone.height)
     world.update(DT, Controls())
     assert world.events == []  # only what happened during the last update
@@ -247,7 +255,7 @@ def test_the_player_getting_hit_and_losing_a_life_is_reported():
 
 def test_ramming_an_enemy_blows_it_up_too():
     world = make_world()
-    world.enemies.append(Drone(x=world.player.x, y=world.player.y, vy=0.0, fire_cooldown=1000.0))
+    world.enemies.append(placed("drone", x=world.player.x, y=world.player.y, vy=0.0, fire_cooldown=1000.0))
     world.update(DT, Controls())
     assert kinds(world) == ["explosion", "hurt"]
     assert world.score == 0  # still no points for ramming
@@ -282,16 +290,16 @@ def test_enemies_appear_off_screen_and_fly_in():
 
 def test_a_bursting_cluster_bomb_blows_up_and_leaves_its_shards():
     world = make_world()
-    world.enemies.append(ClusterBomb(x=0.0, y=0.5, fuse=DT / 2))
+    world.enemies.append(placed("cluster_bomb", x=0.0, y=0.5, timer_override=DT / 2))
     world.update(DT, Controls())
     assert world.enemies == []
-    assert len(world.enemy_bullets) == ClusterBomb.shards
-    assert [event.source for event in world.events if event.kind == "explosion"] == ["ClusterBomb"]
+    assert len(world.enemy_bullets) == 8  # its shards
+    assert [event.source for event in world.events if event.kind == "explosion"] == ["cluster_bomb"]
 
 
 def test_enemy_missiles_can_be_shot_down():
     world = make_world()
-    missile = HomingMissile(x=world.player.x, y=world.player.y + 0.4)
+    missile = placed("homing_missile", x=world.player.x, y=world.player.y + 0.4)
     world.enemies.append(missile)
     world.player_bullets.append(Bullet(x=missile.x, y=missile.y, damage=5.0))
     world.update(DT, Controls())
@@ -319,8 +327,8 @@ def test_the_chosen_ship_is_kept_for_every_life():
 
 def test_ground_units_scroll_with_the_ground_and_flyers_with_the_level():
     world = make_world()
-    turret = FlakCannon(x=0.0, y=0.5)
-    drone = Drone(x=0.3, y=0.5)
+    turret = placed("flak_cannon", x=0.0, y=0.5)
+    drone = placed("drone", x=0.3, y=0.5)
     world.enemies += [turret, drone]
     world.update(DT, Controls())
     assert turret.vy == pytest.approx(-QUIET_LEVEL.scroll_speed * GROUND_SPEED)
@@ -366,13 +374,13 @@ def test_destroying_the_boss_takes_its_parts_down_and_completes_the_level():
     boss = world.boss
     assert boss is not None
     boss.parts[1].alive = False
-    boss.phase_index = 1
+    boss.go_to("phase 2")
     score = world.score
     world._damage(boss, boss.health)
     assert not boss.parts[0].alive
     assert world.score == score + boss.points  # the parts give no points when wrecked
     explosions = [event for event in world.events if event.kind == "explosion"]
-    assert len(explosions) == len(EXPLOSIONS) + 1
+    assert len(explosions) == len(BOSSES["harvester"].explosions) + 1
     run(world, DT)
     assert not world.completed  # a moment to pick up what it dropped
     run(world, config.BOSS_BEATEN_TIME)
@@ -384,11 +392,11 @@ def test_once_the_boss_is_beaten_enemies_and_their_shots_are_gone_and_the_player
     run(world, 0.1)
     boss = world.boss
     assert boss is not None
-    world.enemies.append(Rocket(x=0.3, y=0.2))
+    world.enemies.append(placed("rocket", x=0.3, y=0.2))
     world.enemy_bullets.append(Bullet(x=0.0, y=0.0, vy=-0.5))
     for part in boss.parts:
         part.alive = False
-    boss.phase_index = 1
+    boss.go_to("phase 2")
     world._damage(boss, boss.health)
     assert not boss.alive
     score = world.score
@@ -396,7 +404,7 @@ def test_once_the_boss_is_beaten_enemies_and_their_shots_are_gone_and_the_player
     assert world.enemies == []
     assert world.enemy_bullets == []
     assert world.score == score  # wrecked, not shot down: no points
-    assert any(event.kind == "explosion" and event.source == "Rocket" for event in world.events)
+    assert any(event.kind == "explosion" and event.source == "rocket" for event in world.events)
     x = world.player.x
     run(world, 0.5, Controls(move_x=1.0))
     assert world.player.x > x  # still playing
@@ -464,7 +472,7 @@ def test_laser_kill_scores_and_beam_goes_away_when_not_firing():
 
 def test_shielded_enemy_stops_the_laser_without_damage():
     world = armed_world("laser", 1)
-    carrier = still_enemy(ShieldCarrier, x=0.0, y=0.0)
+    carrier = still_enemy("shield_carrier", x=0.0, y=0.0)
     world.enemies.append(carrier)
     world.update(0.1, Controls(fire=True))
     assert carrier.health == 10.0
@@ -474,7 +482,7 @@ def test_missile_explosion_damages_neighbors():
     world = armed_world()
     target, neighbor, bystander = still_enemy(x=0.0, y=0.3), still_enemy(x=0.08, y=0.3), still_enemy(x=0.5, y=0.3)
     world.enemies += [target, neighbor, bystander]
-    world.player_bullets.append(Missile(x=0.0, y=0.3, damage=3.0, splash_damage=1.5))
+    world.player_bullets.append(Missile(x=0.0, y=0.3, damage=3.0, splash_damage=1.5, splash_radius=0.1))
     world.update(DT, Controls())
     assert target.health == 0.0
     assert neighbor.health == 1.5
@@ -482,7 +490,7 @@ def test_missile_explosion_damages_neighbors():
 
 
 def test_destroyed_enemies_can_drop_pickups(monkeypatch):
-    monkeypatch.setattr(Drone, "drop_chance", 1.0)
+    monkeypatch.setitem(KINDS, "drone", replace(KINDS["drone"], drop_chance=1.0))
     world = armed_world("laser", 3)
     enemy = still_enemy(x=0.0, y=0.0, health=0.1)
     world.enemies.append(enemy)
@@ -495,7 +503,7 @@ def test_destroyed_enemies_can_drop_pickups(monkeypatch):
 def test_enemies_without_drops_never_drop():
     world = armed_world("laser", 3)
     for y in (0.0, 0.2, 0.4, 0.6):
-        world.enemies.append(still_enemy(Swarmer, x=0.0, y=y, health=0.1))  # Swarmers have no drops
+        world.enemies.append(still_enemy("swarmer", x=0.0, y=y, health=0.1))  # Swarmers have no drops
     world.update(DT, Controls(fire=True))
     assert world.score == 4 * 50
     assert world.pickups == []
@@ -542,7 +550,7 @@ def test_an_extra_life_adds_a_life_up_to_the_most():
 
 
 def test_drops_are_mostly_upgrades_sometimes_a_repair_or_secondary_weapon_rarely_a_life(monkeypatch):
-    monkeypatch.setattr(Drone, "drop_chance", 1.0)
+    monkeypatch.setitem(KINDS, "drone", replace(KINDS["drone"], drop_chance=1.0))
     world = armed_world()
     kinds = []
     for _ in range(3000):
@@ -583,29 +591,29 @@ def test_every_part_of_every_boss_can_be_shot_from_below(kind):
     """Shots fly up: under a part they go over the core up to it (the parts in front of it destroyed)."""
     for target in BOSSES[kind].parts:
         world = make_world()
-        boss = make_boss(BOSSES[kind], 0.0, top=0.2)
+        boss = make_enemy(kind, 0.0, 0.0, "left", None, top=0.2)
         boss.parts_released = True
         world.enemies += [boss, *boss.parts]
         world.update(DT, Controls())  # the parts take their places
-        part = next(part for part in boss.parts if part.name == target.name)
+        part = next(part for part in boss.parts if part.part_name == target.name)
         for other in boss.parts:
             other.alive = other is part
         world.player_bullets.append(Bullet(x=part.x, y=part.y - part.height / 2 - 0.03, vy=3.0, width=0.02))
         run(world, 0.1)
-        assert part.health < target.health, target.name
+        assert part.health < target.spec.health, target.name
         assert boss.health == BOSSES[kind].health
 
 
 def test_the_laser_goes_over_a_boss_core_up_to_the_part_above_it():
     world = armed_world("laser", 1)
-    boss = make_boss(BOSSES["reaper"], 0.0, top=0.2)
+    boss = make_enemy("reaper", 0.0, 0.0, "left", None, top=0.2)
     boss.parts_released = True
     world.enemies += [boss, *boss.parts]
     world.update(DT, Controls())
-    cutter = next(part for part in boss.parts if part.name == "cutter")
+    cutter = next(part for part in boss.parts if part.part_name == "cutter")
     world.player.x = cutter.x
     run(world, 0.5, Controls(fire=True))
-    assert cutter.health < BOSSES["reaper"].parts[2].health
+    assert cutter.health < BOSSES["reaper"].parts[2].spec.health
     assert boss.health == BOSSES["reaper"].health
 
 
@@ -624,12 +632,12 @@ def test_the_waves_wait_while_a_boss_is_fought():
     world = World(TWO_BOSS_LEVEL, seed=0)
     run(world, 5.0)
     assert world.wave_time < 0.1
-    assert [type(enemy).__name__ for enemy in world.enemies] == ["Boss"]
+    assert [enemy.is_boss for enemy in world.enemies] == [True]
     boss = world.boss
     assert boss is not None
     world._damage(boss, boss.health)
     run(world, 2.1)
-    assert any(type(enemy).__name__ == "Drone" for enemy in world.enemies)
+    assert any(enemy.kind == "drone" for enemy in world.enemies)
 
 
 def test_beating_a_mini_boss_clears_its_shots_but_the_level_goes_on_to_the_final_boss():
@@ -648,8 +656,7 @@ def test_beating_a_mini_boss_clears_its_shots_but_the_level_goes_on_to_the_final
     assert final is not None and final.spec is BOSSES["avalanche"]
     for part in final.parts:
         part.alive = False
-    final.phase_index = len(final.spec.phases) - 1
-    final._start_phase()
+    final.go_to(final.spec.states[-1].name)  # its last phase
     world.enemies = [final]
     world._damage(final, final.health)
     assert world.boss_beaten
@@ -673,14 +680,14 @@ def test_homing_missiles_and_the_turret_aim_at_enemies_above_the_play_area_still
     world.enemies += [high, gone]
     assert world.in_sight(high)
     assert not world.in_sight(gone)
-    world.player_bullets.append(Missile(x=0.0, y=0.0, vy=1.6, homing=True))
+    world.player_bullets.append(Missile(x=0.0, y=0.0, vy=1.6, homing=True, turn_rate=math.pi))
     world._move_shots(DT)
     assert world.player_bullets[0].vx > 0  # turning towards the high enemy
 
 
 def test_an_enemy_already_destroyed_takes_no_more_damage():
     world = make_world()
-    drone = Drone(x=0.0, y=0.5)
+    drone = placed("drone", x=0.0, y=0.5)
     drone.alive = False
     world.enemies = [drone]
     world._damage(drone, 10.0)

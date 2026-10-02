@@ -1,88 +1,22 @@
-"""Player weapons from 01-gameplay.md: bullets, laser and missiles, 5 levels each. Independent from rendering."""
+"""The player's weapons from 01-gameplay.md: bullets, laser and missiles, with their levels, in
+`src/pewpy/weapons/player.json` (each level is a gun, see pewpy.game.weapons.guns). Independent from rendering.
+"""
 
-import math
-from collections.abc import Sequence
+import json
 from dataclasses import dataclass, field
 
+from pewpy.data import data_folder
 from pewpy.game.entities import Bullet, Entity
+from pewpy.game.weapons.guns import Gun, GunState, Shooter, parse_gun, step
 from pewpy.game.weapons.player.secondary import SecondaryWeapon
 
-WEAPONS = ("bullets", "laser", "missiles")
-LETTERS = {"bullets": "B", "laser": "L", "missiles": "M"}
-MAX_LEVEL = 5
-
-# Bullets: angles from straight up (degrees) and damage per bullet, by level; shots per second, by level
-BULLET_FIRE_RATE = 10.0  # at level 1
-BULLET_SPEED = 2.5
-BULLET_WIDTH = 0.02
-BULLET_HEIGHT = 0.05
-BULLET_PATTERNS = {
-    1: ((0,), 1.0),
-    2: ((-12, 0, 12), 0.8),
-    3: ((-24, -12, 0, 12, 24), 0.8),
-    4: ((-24, -12, 0, 12, 24), 1.0),
-    5: ((-30, -20, -10, 0, 10, 20, 30), 1.0),
+_WEAPONS = json.loads((data_folder() / "weapons" / "player.json").read_text())
+WEAPONS = tuple(_WEAPONS)  # the order the ship switches through them
+LETTERS: dict[str, str] = {weapon: data["letter"] for weapon, data in _WEAPONS.items()}  # on the upgrade capsules
+LEVELS: dict[str, tuple[Gun, ...]] = {
+    weapon: tuple(parse_gun(level) for level in data["levels"]) for weapon, data in _WEAPONS.items()
 }
-BULLET_FIRE_RATES = {1: BULLET_FIRE_RATE, 2: BULLET_FIRE_RATE, 3: BULLET_FIRE_RATE, 4: 12.0, 5: 12.0}
-
-
-@dataclass(frozen=True)
-class LaserStats:
-    width: float
-    damage_per_second: float
-    pierces: bool
-
-
-LASER_LEVELS = {
-    1: LaserStats(width=0.03, damage_per_second=8.0, pierces=False),
-    2: LaserStats(width=0.05, damage_per_second=12.0, pierces=False),
-    3: LaserStats(width=0.08, damage_per_second=18.0, pierces=True),
-    4: LaserStats(width=0.11, damage_per_second=24.0, pierces=True),
-    5: LaserStats(width=0.14, damage_per_second=32.0, pierces=True),
-}
-
-
-@dataclass(frozen=True)
-class MissileStats:
-    per_shot: int
-    homing: bool
-    damage: float
-    speed: float
-    splash_damage: float = 0.0
-    fire_rate: float = 3.0  # shots per second
-
-
-MISSILE_FIRE_RATE = 3.0  # at level 1
-MISSILE_TURN_RATE = math.radians(180)  # per second
-MISSILE_SPLASH_RADIUS = 0.1
-MISSILE_SIDE_OFFSET = 0.05
-MISSILE_LEVELS = {
-    1: MissileStats(per_shot=1, homing=False, damage=2.5, speed=1.6),
-    2: MissileStats(per_shot=1, homing=True, damage=2.5, speed=1.6),
-    3: MissileStats(per_shot=2, homing=True, damage=3.0, speed=1.8, splash_damage=1.5),
-    4: MissileStats(per_shot=2, homing=True, damage=3.5, speed=2.0, splash_damage=2.0, fire_rate=3.5),
-    5: MissileStats(per_shot=2, homing=True, damage=4.0, speed=2.2, splash_damage=2.5, fire_rate=4.0),
-}
-
-
-@dataclass(eq=False)
-class Missile(Bullet):
-    width: float = 0.03
-    height: float = 0.07
-    homing: bool = False
-    splash_damage: float = 0.0
-
-    def steer(self, dt: float, targets: Sequence[Entity]) -> None:
-        """Turn toward the nearest target, at most MISSILE_TURN_RATE; fly straight if there is none."""
-        if not self.homing or not targets:
-            return
-        target = min(targets, key=lambda entity: math.hypot(entity.x - self.x, entity.y - self.y))
-        speed = math.hypot(self.vx, self.vy)
-        heading = math.atan2(self.vy, self.vx)
-        wanted = math.atan2(target.y - self.y, target.x - self.x)
-        difference = (wanted - heading + math.pi) % (2 * math.pi) - math.pi
-        heading += max(-MISSILE_TURN_RATE * dt, min(MISSILE_TURN_RATE * dt, difference))
-        self.vx, self.vy = math.cos(heading) * speed, math.sin(heading) * speed
+MAX_LEVEL = len(LEVELS[WEAPONS[0]])  # every weapon has as many levels
 
 
 @dataclass(frozen=True)
@@ -97,19 +31,24 @@ class Beam:
 
 @dataclass
 class Arsenal:
-    """The three weapons the ship carries, their levels, which one is selected, and the secondary weapon if it has
-    one (see secondary.py).
+    """The weapons the ship carries, their levels, which one is selected, and the secondary weapon if it has one
+    (see secondary.py). They share one wait between shots (`cooldown`).
     """
 
     levels: dict[str, int] = field(default_factory=lambda: dict.fromkeys(WEAPONS, 1))
-    selected: str = "bullets"
+    selected: str = WEAPONS[0]
     cooldown: float = 0.0
-    next_side: int = 1  # missiles alternate: 1 = right, -1 = left
     secondary: SecondaryWeapon | None = None
+    states: dict[str, GunState] = field(default_factory=dict)  # each weapon's (missiles take turns from side to side)
 
     @property
     def level(self) -> int:
         return self.levels[self.selected]
+
+    @property
+    def gun(self) -> Gun:
+        """The selected weapon at its level."""
+        return LEVELS[self.selected][self.level - 1]
 
     def switch(self) -> None:
         self.selected = WEAPONS[(WEAPONS.index(self.selected) + 1) % len(WEAPONS)]
@@ -121,49 +60,16 @@ class Arsenal:
         self.levels[weapon] += 1
         return True
 
-    def laser(self, firing: bool) -> LaserStats | None:
-        """The laser's stats while it is selected and firing, else None."""
-        return LASER_LEVELS[self.level] if firing and self.selected == "laser" else None
+    def laser(self, firing: bool) -> Gun | None:
+        """The laser ("ray") while it is selected and firing, else None."""
+        return self.gun if firing and self.gun.pattern == "ray" else None
 
     def fire(self, dt: float, firing: bool, ship: Entity) -> list[Bullet]:
         """Bullets or missiles shot this frame (the laser is handled by the world, it needs the enemies)."""
-        self.cooldown -= dt
-        if not firing or self.selected == "laser":
-            self.cooldown = max(self.cooldown, 0.0)
-            return []
-        if self.cooldown > 0:
-            return []
-        nose_y = ship.y + ship.height / 2
-        if self.selected == "bullets":
-            self.cooldown += 1.0 / BULLET_FIRE_RATES[self.level]
-            angles, damage = BULLET_PATTERNS[self.level]
-            return [_bullet(ship.x, nose_y, angle, damage) for angle in angles]
-
-        stats = MISSILE_LEVELS[self.level]
-        self.cooldown += 1.0 / stats.fire_rate
-        sides = (1, -1) if stats.per_shot == 2 else (self.next_side,)
-        self.next_side = -self.next_side
-        return [
-            Missile(
-                x=ship.x + side * (ship.width / 2 - MISSILE_SIDE_OFFSET),
-                y=ship.y,
-                vy=stats.speed,
-                damage=stats.damage,
-                homing=stats.homing,
-                splash_damage=stats.splash_damage,
-            )
-            for side in sides
-        ]
-
-
-def _bullet(x: float, y: float, degrees_from_up: float, damage: float) -> Bullet:
-    angle = math.radians(degrees_from_up)
-    return Bullet(
-        x=x,
-        y=y,
-        vx=math.sin(angle) * BULLET_SPEED,
-        vy=math.cos(angle) * BULLET_SPEED,
-        width=BULLET_WIDTH,
-        height=BULLET_HEIGHT,
-        damage=damage,
-    )
+        gun = self.gun
+        state = self.states.setdefault(self.selected, GunState(cooldown=0.0))
+        state.cooldown = self.cooldown
+        trigger = firing and gun.pattern != "ray"
+        shots = step(gun, state, Shooter(ship, None, hostile=False, forward=1, trigger=trigger), dt)
+        self.cooldown = state.cooldown
+        return [shot for shot in shots if isinstance(shot, Bullet)]

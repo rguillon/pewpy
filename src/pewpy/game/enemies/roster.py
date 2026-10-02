@@ -1,76 +1,41 @@
-"""Every kind of enemy the levels can place (catalog.py and fleet.py), by name, and making one ready to enter."""
+"""Every kind of enemy the levels can place (see kinds.py), by name, and making one (or a boss) ready to enter."""
 
 import random
 
-from pewpy.game.enemies.catalog import (
-    Bomber,
-    Buckshot,
-    Diver,
-    Drone,
-    FlakCannon,
-    Gunship,
-    Hunter,
-    Lancer,
-    MineLayer,
-    MissileSilo,
-    Rocketeer,
-    RocketTruck,
-    Serpent,
-    ShieldCarrier,
-    Sniper,
-    Splitter,
-    Swarmer,
-    Tank,
-    Turret,
-    Weaver,
-)
-from pewpy.game.enemies.enemy import HALF_WIDTH, TOP, Enemy
-from pewpy.game.enemies.fleet import FLEET
+from pewpy.game.enemies.enemy import HALF_WIDTH, TOP, Enemy, make
+from pewpy.game.enemies.kinds import ENEMIES
+from pewpy.game.enemies.spec import EnemySpec
+from pewpy.game.weapons.guns import distance
 
-ENEMY_TYPES: dict[str, type[Enemy]] = {
-    **FLEET,
-    "drone": Drone,
-    "weaver": Weaver,
-    "diver": Diver,
-    "gunship": Gunship,
-    "turret": Turret,
-    "swarmer": Swarmer,
-    "sniper": Sniper,
-    "mine_layer": MineLayer,
-    "shield_carrier": ShieldCarrier,
-    "splitter": Splitter,
-    "flak_cannon": FlakCannon,
-    "tank": Tank,
-    "rocket_truck": RocketTruck,
-    "rocketeer": Rocketeer,
-    "hunter": Hunter,
-    "missile_silo": MissileSilo,
-    "bomber": Bomber,
-    "lancer": Lancer,
-    "serpent": Serpent,
-    "buckshot": Buckshot,
-}
+ENEMY_TYPES: dict[str, EnemySpec] = {kind: spec for kind, spec in ENEMIES.items() if spec.placeable}
 
 
 def make_enemy(
-    kind: str, x: float, y: float, side: str, rng: random.Random, top: float = TOP, edge: float = HALF_WIDTH
+    kind: str,
+    x: float,
+    y: float,
+    side: str,
+    rng: random.Random | None,
+    top: float = TOP,
+    edge: float = HALF_WIDTH,
 ) -> Enemy:
-    """Create an enemy of `kind` just outside the screen, ready to enter.
+    """Create an enemy (or a boss) of `kind` just outside the screen, ready to enter.
 
-    Top entries use `x`; side entries use `side` ("left" or "right") and `y`. `top` and `edge` are where the
-    screen really ends above and on the sides (the tilted camera shows more than the play area), so enemies
-    appear off screen and fly in.
+    Top entries use `x` (kept on the screen, parts included) and come in `entry_gap` above the screen; side entries
+    use `side` ("left" or "right") and `y`. `top` and `edge` are where the screen really ends above and on the sides
+    (the tilted camera shows more than the play area), so enemies appear off screen and fly in. `rng` staggers its
+    first shot, so a group doesn't fire all at once (None: not staggered).
     """
-    enemy = ENEMY_TYPES[kind]()
+    enemy = make(kind)
+    spec = enemy.spec
     if enemy.side_entry:
         direction = 1 if side == "left" else -1
-        enemy.x = -direction * (edge + enemy.width / 2)
-        enemy.y = y
+        enemy.place(-direction * (edge + enemy.width / 2), y)
         enemy.enter_from_side(direction)
     else:
-        max_x = HALF_WIDTH - enemy.width / 2
-        enemy.x = max(-max_x, min(max_x, x))
-        enemy.y = top + enemy.height / 2
-    # Stagger the first shot so a group doesn't fire all at once.
-    enemy.fire_cooldown = rng.uniform(0.3, enemy.fire_interval)
+        limit = HALF_WIDTH - spec.half_span
+        gap = distance(spec.entry_gap, spec.width, spec.height)
+        enemy.place(max(-limit, min(limit, x)), top + spec.top_reach + gap)
+    if rng is not None:
+        enemy.fire_cooldown = rng.uniform(0.3, enemy.fire_interval)
     return enemy

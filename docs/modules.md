@@ -6,13 +6,17 @@
 
 ::: pewpy.game.enemies.enemy
 
-::: pewpy.game.enemies.catalog
+::: pewpy.game.enemies.spec
+
+::: pewpy.game.enemies.motions
 
 ::: pewpy.game.player
 
 ::: pewpy.game.weapons.player.arsenal
 
-::: pewpy.game.weapons.enemy.shots
+::: pewpy.game.weapons.guns
+
+::: pewpy.game.weapons.bullets
 
 ::: pewpy.game.entities
 
