@@ -2,10 +2,11 @@
 
 - A danger radar that plans ahead: for each of MOVES (8 directions and staying put), the ship flies it for FIRST
   seconds then the best of MOVES until HORIZON (with its inertia, everything else going on at its speed, the threats
-  within NEAR): how long before a hit (closer than MARGIN; from 0 to 1, the whole HORIZON: none) and the room left on
-  the way (from 0 to 1, CLEAR or more); the safest of the moves (its direction); and the move to aim, the safe move
-  (within TOLERANCE of the safest) that best brings the ship under its target (the boss, else the nearest enemy
-  above it).
+  within NEAR, a laser's warning beam as the laser to come): how long before a hit (closer than MARGIN; from 0 to 1,
+  the whole HORIZON: none) and the room left on the way (from 0 to 1, CLEAR or more), a plan ending within EDGE of the
+  bottom of the screen ranking lower (cornered there, the shots coming down); the safest of the moves (its
+  direction); and the move to aim, the safe move (within TOLERANCE of the safest) that best brings the ship under its
+  target (the boss, else the nearest enemy above it), where its shots will meet it.
 - The NEAREST_SHOTS nearest enemy shots: where they are from the ship and how fast they go.
 - Lanes across the whole screen (LANES columns): how many enemy shots and how many enemies are in each, above the
   ship, so it can pick a lane to fly in and to shoot up.
@@ -19,6 +20,7 @@ import math
 import numpy as np
 
 from pewpy import config
+from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.player import SHIPS
 from pewpy.game.weapons.player.arsenal import MAX_LEVEL, WEAPONS
 from pewpy.game.world import World
@@ -31,6 +33,8 @@ NEAR = 0.9  # world units: farther threats can't reach the ship within HORIZON
 CLEAR = 0.2  # world units of room: safe enough
 MARGIN = 0.02  # world units: closer than this counts as a hit (the threats don't fly quite straight)
 UNHIT = 1.5  # a plan's score without a hit (one with a hit scores its time before it, as a share of HORIZON)
+EDGE = 0.3  # world units from the bottom of the screen where a plan's end ranks lower...
+EDGE_WEIGHT = 0.6  # ...by up to this much (at the very bottom)
 TOLERANCE = 0.1  # how much less than the safest a move can score and still be safe to aim with
 HOME = 0.0  # the height the ship aims from (the middle of the screen: room to dodge all around)...
 HOME_WEIGHT = 0.3  # ...minding it this much less than being under its target
@@ -56,13 +60,16 @@ def _rows(entities: list) -> np.ndarray:
     """Return living entities as rows of (x, y, vx, vy, width, height).
 
     A shot snaking across its line of flight (an `amplitude`) is as wide as its snaking, so flying straight is all the
-    radar needs to foresee.
+    radar needs to foresee. A laser's harmless warning beam is the laser to come (the ship keeps out of its line); a
+    beam goes with the boss firing it.
     """
     rows = []
     for e in entities:
         if e.alive:
             sway = 2 * getattr(e, "amplitude", 0.0)
-            rows.append((e.x, e.y, e.vx, e.vy, e.width + sway, e.height + sway))
+            source = getattr(e, "source", None)
+            vx = source.vx if source is not None else e.vx
+            rows.append((e.x, e.y, vx, e.vy, e.width + sway, e.height + sway))
     return np.array(rows, dtype=float) if rows else NO_THREATS
 
 
@@ -103,7 +110,7 @@ def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
     """Sweep the radar over the moves.
 
     For each move: its best plan's time before a hit (share of HORIZON, 1: none) and room left (share of CLEAR), and the
-    score that ranks the moves (see UNHIT); and where each move takes the ship (x and y after FIRST).
+    score that ranks the moves (see UNHIT, EDGE); and where each move takes the ship (x and y after FIRST).
     """
     player = world.player
     ship_x, ship_y = plans(world)
@@ -126,6 +133,8 @@ def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
     else:
         time = room = np.ones(len(_FIRSTS))
     score = np.where(time < 1.0, time, UNHIT) + CLEAR * room
+    above_bottom = ship_y[:, -1] + HALF_HEIGHT  # where the plan ends
+    score -= EDGE_WEIGHT * np.clip((EDGE - above_bottom) / EDGE, 0.0, 1.0)
     best = score.reshape(count, count).argmax(axis=1)  # each move's best second move
     pick = np.arange(count) * count + best
     after_first = np.arange(count) * count
@@ -133,10 +142,18 @@ def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
 
 
 def target(world: World) -> float | None:
-    """Where across the ship should be to shoot: under the boss, else under the nearest enemy above it on screen."""
-    if world.boss is not None:
-        return world.boss.x
+    """Where across the ship should be to shoot: under the boss, else under the nearest enemy above it on screen.
+
+    Leading it: where it will be when the selected weapon's shots get there (a laser's at once).
+    """
     player = world.player
+    speed = world.arsenal.gun.speed
+
+    def lead(enemy: Enemy) -> float:
+        return enemy.x + enemy.vx * max(enemy.y - player.y, 0.0) / speed if speed else enemy.x
+
+    if world.boss is not None:
+        return lead(world.boss)
     above = [
         enemy
         for enemy in world.enemies
@@ -144,7 +161,7 @@ def target(world: World) -> float | None:
     ]
     if not above:
         return None
-    return min(above, key=lambda enemy: abs(enemy.x - player.x) + 0.3 * (enemy.y - player.y)).x
+    return lead(min(above, key=lambda enemy: abs(lead(enemy) - player.x) + 0.3 * (enemy.y - player.y)))
 
 
 def safest(score: np.ndarray) -> tuple[float, float]:
@@ -191,7 +208,7 @@ def _towards(dx: float, dy: float) -> tuple[float, float]:
 def sense(world: World) -> np.ndarray:
     """Return the AI's view of `world`, SIZE numbers."""
     player = world.player
-    shots = _rows([shot for shot in world.enemy_bullets if not shot.harmless])
+    shots = _rows(world.enemy_bullets)  # a laser's warning beam too: the laser to come
     enemies = _rows(world.enemies)
     arsenal = world.arsenal
     ship = player.ship
