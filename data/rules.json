@@ -1,5 +1,4 @@
 {
-  "note": "The game's rules (01-gameplay.md, 02-enemies.md): read by config.py, which gives each its name.",
   "player": {
     "responsiveness": 12.0,
     "start_y": -0.75,
@@ -17,10 +16,12 @@
     "repair_amount": 2.0,
     "max_level_upgrade_points": 500
   },
+  "arrival_time": 1.5,
+  "departure_acceleration": 3.0,
   "enemies": {
-    "bullet_size": 0.03,
+    "bullet_size": 0.02,
     "bullet_damage": 1.0,
-    "ram_damage": 2.0
+    "ram_damage": 1.0
   },
   "bosses": {
     "beaten_time": 3.0

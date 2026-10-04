@@ -5,8 +5,9 @@ marked *(placeholder)* in docs/specs/.
 """
 
 import json
+from pathlib import Path
 
-from pewpy.data import data_folder
+from .data import data_folder
 
 # Window (the user's choice: 1280 x 1024, a 5:4 landscape window)
 WINDOW_TITLE = "pewpy"
@@ -33,8 +34,35 @@ PLAY_WIDTH = 2.5
 PLAY_HEIGHT = 2.0
 WIDTH_SCALE = PLAY_WIDTH / 1.5
 
+
+def load_json(path: Path) -> dict:
+    """Parse a JSON file safely.
+
+    Parameters
+    ----------
+    path : Path
+        Path to the JSON file.
+
+    Returns
+    -------
+    dict
+        Parsed data.
+
+    Raises
+    ------
+    RuntimeError
+        Wrapper around any exception to give a clear error message.
+
+    """
+    try:
+        return json.loads(path.read_text())
+    except Exception as exc:
+        err_msg = f"Could not load JSON from {path}"
+        raise RuntimeError(err_msg) from exc
+
+
 # The game's rules (01-gameplay.md, 02-enemies.md): in `data/rules.json`
-_RULES = json.loads((data_folder() / "rules.json").read_text())
+_RULES = load_json(Path(data_folder().joinpath("rules.json")))
 _PLAYER, _PICKUPS, _ENEMIES = _RULES["player"], _RULES["pickups"], _RULES["enemies"]
 
 PLAYER_RESPONSIVENESS: float = _PLAYER[
@@ -58,8 +86,10 @@ MAX_LEVEL_UPGRADE_POINTS: int = _PICKUPS["max_level_upgrade_points"]  # an upgra
 BOSS_BEATEN_TIME: float = _RULES["bosses"]["beaten_time"]  # seconds of play after the final boss, to pick things up
 
 # The level's start and end (placeholders): the ship flies in from the bottom, then away through the top
-ARRIVAL_TIME = 1.5  # seconds from below the screen to its starting place, slowing down
-DEPARTURE_ACCELERATION = 3.0  # world units per second squared, flying up once the level is over
+ARRIVAL_TIME = _RULES["arrival_time"]  # seconds from below the screen to start, slowing down
+DEPARTURE_ACCELERATION = _RULES[
+    "departure_acceleration"
+]  # world units per second squared, flying up once the level is over
 
 # Enemies: each kind in data/enemies/ (see game/enemies/)
 ENEMY_BULLET_SIZE: float = _ENEMIES["bullet_size"]
