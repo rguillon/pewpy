@@ -62,7 +62,7 @@ def load_json(path: Path) -> dict:
 
 
 # The game's rules (01-gameplay.md, 02-enemies.md): in `data/rules.json`
-_RULES = load_json(Path(data_folder().joinpath("rules.json")))
+_RULES = load_json(Path(str(data_folder())).joinpath("rules.json"))
 _PLAYER, _PICKUPS, _ENEMIES = _RULES["player"], _RULES["pickups"], _RULES["enemies"]
 
 PLAYER_RESPONSIVENESS: float = _PLAYER[
