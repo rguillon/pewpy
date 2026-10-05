@@ -1,8 +1,8 @@
 """What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through.
 
 Each state has its motions (motions/), its guns, its look and its ways out (exits/). Loaded from the JSON files in
-`data/enemies/` and `data/bosses/` (a boss is an enemy with parts and phases, see kinds.py). Independent from
-rendering.
+`data/enemies/` and `data/bosses/` (a boss is an enemy with parts and phases, see kinds.py; it is written shortly,
+with `phases` instead of `states`, see boss.py). Independent from rendering.
 
 In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
 the enemy's size or model cubes (see guns.distance).
@@ -17,6 +17,7 @@ from typing import Any
 from pewpy import config
 from pewpy.data import data_folder
 from pewpy.game.enemies.actions import Action, parse_action
+from pewpy.game.enemies.boss import expand_boss
 from pewpy.game.enemies.errors import EnemySpecError
 from pewpy.game.enemies.exits import Exit, parse_exit
 from pewpy.game.enemies.motions import Motion, parse_motion
@@ -114,6 +115,8 @@ def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
     data = dict(data)
     data.pop("note", None)
     try:
+        if "phases" in data:
+            data = expand_boss(data)
         if "voxels" in data:
             columns, rows = data.pop("voxels")
             data["width"], data["height"] = columns * config.MODEL_VOXEL, rows * config.MODEL_VOXEL

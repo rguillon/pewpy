@@ -6,11 +6,6 @@ from pewpewdev.tools.final_bosses.attacks import attack_guns
 from pewpy.game.weapons.guns import Gun
 
 CORE = "core"  # the gun source that is the boss itself
-HOLD_Y = 0.55  # where a boss stops coming down (the top of the screen is at 1)
-ENTRY_SPEED = 0.25
-PHASE_PAUSE = 1.2  # seconds without shooting when a phase starts, while the core flashes
-EXPLOSIONS = ((0.0, 0.0, 1.3), (-0.45, 0.25, 0.7), (0.45, -0.2, 0.7), (0.2, 0.4, 0.6), (-0.3, -0.35, 0.6))
-PART_DROP_CHANCE = 0.3
 
 
 @dataclass(frozen=True)
@@ -29,13 +24,13 @@ class PartSpec:
 
 @dataclass(frozen=True)
 class Phase:
-    """Guns as (source, gun): the source is CORE or a part's name. `sway`: side to side speed.
+    """Guns as (source, gun): the source is CORE, or parts' names firing it in turn. `sway`: side to side speed.
 
     It ends once every part in `until_destroyed` is destroyed, or once the core's health is below `until_below`
     (a fraction of its full health); the last phase lasts until the end.
     """
 
-    guns: tuple[tuple[str, Gun], ...]
+    guns: tuple[tuple[str | tuple[str, ...], Gun], ...]
     sway: float
     armored: bool = False
     until_destroyed: tuple[str, ...] = ()
@@ -107,13 +102,10 @@ def final_boss(
     front = tuple(spec.name for spec in specs if spec.drawing in front_kinds)
     back = tuple(spec.name for spec in specs if spec.drawing not in front_kinds)
 
-    def from_parts(names: tuple[str, ...], attack: str) -> tuple[tuple[str, Gun], ...]:
+    def from_parts(names: tuple[str, ...], attack: str) -> tuple[tuple[tuple[str, ...], Gun], ...]:
         """Every part of `names` firing `attack` in turn (as often in all as about two parts would)."""
         interval = guns[attack].interval * max(1.0, len(names) / 2) ** 0.5
-        return tuple(
-            (part, replace(guns[attack], interval=interval, delay=interval * index / len(names)))
-            for index, part in enumerate(names)
-        )
+        return ((names, replace(guns[attack], interval=interval)),)
 
     def from_core(attack: str, delay: float = 0.0) -> tuple[str, Gun]:
         offsets = (-width / 4, width / 4) if attack == "laser" else (0.0,)
