@@ -27,8 +27,19 @@
   color a thickness), a 3D drawing (`"layers"`: slices from the top down, with a palette), or a MagicaVoxel model
   (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). `make voxels` moves
   a model between the three forms; `make models` remodels ships from their recipes in `pewpewdev/tools/models/recipes/`.
+- Props (the things standing on the grounds: buildings, tanks, trees, hangars...) are JSON files in `data/props/`,
+  one per prop: its `kind` (what the grounds ask for), the box it was drawn in (`size`), and its parts, each a shape
+  (box, cylinder, disc, ellipsoid, gabled, ridge_roof, face, quad, lathe) with fixed geometry, fixed colors and a
+  material (how the shader paints it: windows, furnace glow, light, metal...). Plain data: no conditions, no
+  randomness. A kind with variants has several files; each prop on the ground picks one by its seed and is stretched
+  to its lot (turned a quarter first if its longer side lies the other way). Only the lights the shader paints
+  (lit and unlit windows, furnace glow) come from the scenery (`props` in `sceneries.json`).
+  `make props` (`python -m pewpy.tools.generate_props <count>`) writes random prop candidates (assemblies of
+  shapes, fixed size and colors) to `data/props/candidates/`, shown by the Prop candidates screen of `make dev`
+  (ten a page, all at the same scale, leaning to show their roofs); a candidate joins the game when it's moved to
+  `data/props/` with a name and a kind of its own.
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
-- Asset folder layout: `data/models/<name>.json` for the voxel drawings; other assets TBD
+- Asset folder layout: `data/models/<name>.json` for the voxel drawings, `data/props/<name>.json` for the props; other assets TBD
 
 > Until real assets exist, Claude should use simple placeholder shapes generated in code.
 

@@ -15,6 +15,7 @@ class DevState(Enum):
     BOSSES = auto()  # every boss on show, a world per page
     CANDIDATES = auto()  # numbered model candidates for new enemies (models/candidates), to pick from
     BOSS_CANDIDATES = auto()  # the same for new bosses (models/boss_candidates)
+    PROP_CANDIDATES = auto()  # numbered prop candidates for the grounds (props/candidates), to pick from
     AI_LEARNING = auto()  # the AI learns to play, in the background, while one of its brains plays on screen
     AI_RATING = auto()  # the trained AI rates every level for every ship
 

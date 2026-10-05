@@ -31,6 +31,10 @@ candidates: ## Generate enemy model candidates for the Enemy candidates screen (
 boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
 	@uv run python -m pewpewdev.tools.boss_candidates $(ARGS)
 
+.PHONY: props
+props: ## Generate prop candidates in data/props/candidates/ (options: ARGS="20 --seed 7 --append", see --help)
+	@uv run python -m pewpy.tools.generate_props $(or $(ARGS),20)
+
 .PHONY: levels
 levels: ## Generate the game's levels from the worlds' plans in src/pewpewdev/tools/levels/worlds/ (options: ARGS="--seed 1234", see --help)
 	@uv run python -m pewpewdev.tools.levels $(ARGS)

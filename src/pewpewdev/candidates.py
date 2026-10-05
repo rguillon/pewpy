@@ -1,18 +1,21 @@
-"""The model candidates: drawings for possible new enemies and bosses made by the tools.
+"""The candidates: drawings for possible new enemies and bosses, and possible new props, made by the tools.
 
-Made by tools/candidates/ and tools/boss_candidates/, kept with the game's models but not in the game: the Enemy
-candidates and Boss candidates screens show them.
+Made by tools/candidates/ and tools/boss_candidates/, kept with the game's models, and by pewpy.tools.generate_props,
+kept with the game's props, but not in the game: the Enemy candidates, Boss candidates and Prop candidates screens show
+them.
 """
 
 import json
 
 from pewpy.data import data_folder
 from pewpy.graphics.models import DRAWINGS_FOLDER
+from pewpy.scenery.ground.props.model import PROPS_FOLDER, PropModel
 
 CANDIDATES_FOLDER = "candidates"  # models/candidates/<number>.json: drawings for possible new enemies
 # models/boss_candidates/<number>.json: possible new bosses' cores, with <number>_a.json... their parts' drawings and
 # <number>.parts.json where the parts go (see tools/boss_candidates/).
 BOSS_CANDIDATES_FOLDER = "boss_candidates"
+PROP_CANDIDATES_FOLDER = "candidates"  # props/candidates/<number>.json: possible new props
 
 
 def candidate_names() -> list[str]:
@@ -41,3 +44,17 @@ def boss_candidate_parts(name: str) -> list[tuple[str, float, float]]:
     folder = name.rsplit("/", 1)[0]
     layout = json.loads(path.read_text())
     return [(f"{folder}/{entry['drawing']}", float(entry["x"]), float(entry["y"])) for entry in layout["parts"]]
+
+
+def prop_candidate_names() -> list[str]:
+    """Return the prop candidates, like "001", in order."""
+    folder = data_folder() / PROPS_FOLDER / PROP_CANDIDATES_FOLDER
+    if not folder.is_dir():
+        return []
+    return sorted(entry.name.removesuffix(".json") for entry in folder.iterdir() if entry.name.endswith(".json"))
+
+
+def prop_candidate(name: str) -> PropModel:
+    """Return a prop candidate, read again every time (edited files show when the page is shown again)."""
+    path = data_folder() / PROPS_FOLDER / PROP_CANDIDATES_FOLDER / f"{name}.json"
+    return PropModel(name, json.loads(path.read_text()))

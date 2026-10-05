@@ -42,16 +42,18 @@
     `body.py`, never on `Enemy` itself), the kinds and the roster).
   - `scenery/`: `params/` (the scenery's parameters), `background/` (stars, drifting layers in `layers/`, `view.py`
     drawing them), `ground/` (terrain, relief, the bases of `landscapes.py` and `settlement.py`, `kinds/` of ground,
-    `props/`, and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
+    `props/` (the one `PropModel` building every prop from its JSON in `data/props/`), and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
   - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered, MagicaVoxel), `built/` and `background/` models
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
   - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/`, `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
+  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/`, `props/`, `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (one package per tool, each run with
   `python -m`: `levels/` (`worlds/`: one module per world), `final_bosses/`, `models/` (`recipes/`: one module per
   model), `candidates/` and `boss_candidates/` (one module per family, core, attachment, appendage, wing plan, kind
   of part), `songs/` (`tracks/`: one module per part); `voxels.py`), `app/` (the game with the dev screens,
-  `make dev`: `model_screens.py`, `ai_screens.py`), with their own `states.py`, `candidates.py` and `ui/`
+  `make dev`: `model_screens.py`, `ai_screens.py`), with their own `states.py`, `candidates.py` and `ui/`.
+  One tool lives in the game's package, never imported by the game: `pewpy/tools/generate_props.py` (prop
+  candidates, *the user's choice*)
 - Enemies as data *(the user's choice)*: every enemy, boss, boss part and projectile is one class, `Enemy`, running
   its description: a body (size, health, points, drops, entry, ground...), parts (a boss's), what it releases when
   shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),

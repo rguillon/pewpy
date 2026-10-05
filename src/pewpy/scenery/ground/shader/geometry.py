@@ -25,7 +25,7 @@ def _vertex_format() -> GeomVertexFormat:
     return GeomVertexFormat.registerFormat(GeomVertexFormat(array))
 
 
-def _geometry(name: str, vertices: np.ndarray, triangles: np.ndarray) -> NodePath:
+def mesh_node(name: str, vertices: np.ndarray, triangles: np.ndarray) -> NodePath:
     """Make a mesh from vertices of 14 floats (position, normal, color, texture data) and triangle corner indices."""
     data = GeomVertexData(name, _vertex_format(), Geom.UH_static)
     data.uncleanSetNumRows(len(vertices))
@@ -70,14 +70,14 @@ def relief_chunk_model(relief: Relief, first_row: int, rows: int, max_height: fl
     a, b = index[:-1, :-1], index[:-1, 1:]
     c, d = index[1:, :-1], index[1:, 1:]
     triangles = np.stack([a, c, b, b, c, d], axis=-1).reshape(-1)  # two per square, facing the camera
-    path = _geometry("relief", vertices.reshape(-1, 14), triangles)
+    path = mesh_node("relief", vertices.reshape(-1, 14), triangles)
     path.setShader(shader("ground"), 20)
     return path
 
 
 def props_model(vertices: np.ndarray, triangles: np.ndarray) -> NodePath:
     """Make a strip's props into a mesh (see props.strip_arrays)."""
-    path = _geometry("props", vertices, triangles)
+    path = mesh_node("props", vertices, triangles)
     path.setShader(shader("props"), 20)
     path.setTwoSided(True)
     return path
