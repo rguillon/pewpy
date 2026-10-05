@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "numpy>=2.2.6",
+    "numpy>=2.3.2",  # the first with packages for Python 3.14: older ones are built from source, and miscompute there
     "panda3d>=1.10.16",
 ]
 
