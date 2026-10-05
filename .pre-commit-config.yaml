@@ -9,7 +9,7 @@ repos:
       - id: check-json
         exclude: ^.devcontainer/devcontainer.json
       - id: pretty-format-json
-        exclude: ^(.devcontainer/devcontainer.json|data/models/|data/levels/sceneries.json)
+        exclude: ^(.devcontainer/devcontainer.json|data/models/|data/levels/sceneries.json|data/enemies/|data/bosses/)
         args: [--autofix, --no-sort-keys]
       - id: end-of-file-fixer
       - id: trailing-whitespace

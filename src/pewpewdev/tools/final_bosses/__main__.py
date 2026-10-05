@@ -6,6 +6,7 @@ from pathlib import Path
 
 from pewpewdev.paths import DATA
 from pewpewdev.tools import final_bosses
+from pewpewdev.tools.compact_json import compact_json
 from pewpewdev.tools.final_bosses.plans import plan_boss
 from pewpewdev.tools.final_bosses.writing import boss_json
 
@@ -22,7 +23,7 @@ def main() -> None:
     args = parser.parse_args()
     plans = json.loads(PLANS.read_text())
     bosses = {name: boss_json(plan_boss(plan), plan.get("note", "")) for name, plan in plans.items()}
-    args.out.write_text(json.dumps(bosses, indent=2) + "\n")
+    args.out.write_text(compact_json(bosses))
     print(f"{len(bosses)} final bosses written to {args.out}")
 
 

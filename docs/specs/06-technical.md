@@ -57,10 +57,17 @@
   shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),
   a look, whether it can be hurt, and exits to other states (`game/enemies/exits/`: a timer, a height, lined up with the player, a cycle of
   its age, visits, parts destroyed, health lost, volleys fired...), each doing actions on the way (`game/enemies/actions/`: set a speed, aim,
-  relocate, fire, die). The enemies are in `data/enemies/*.json`, the bosses in `data/bosses/*.json`, written the same way
+  relocate, fire, die). The enemies are in `data/enemies/*.json`, the bosses in `data/bosses/*.json`
   (`game/enemies/spec.py` reads them): a boss is only an enemy with parts, `"boss": true`, a state coming down and
-  a state per phase (each starting with a `warmup`); only its configuration differs. The final bosses are made by a
-  dev tool from short plans (`make final-bosses`, `pewpewdev/tools/final_bosses/`). A new
+  a state per phase (each starting with a `warmup`). Every boss comes down and fights the same way, so a boss is
+  written shortly (`game/enemies/boss.py` makes it into states): its body, its parts and its `phases`, each a
+  `sway` speed, `armored` or not, its guns and `until` (the exit conditions ending it: parts destroyed, health
+  below a share); the bosses' usual fields (not rammable, a pickup, 30% for the parts, guns carrying their reload
+  and firing off screen, the explosions...) are filled in unless given. A boss gun `from` a list of parts is fired
+  by each of them in turn, their first shots spread over its interval. The final bosses are made by a
+  dev tool from short plans (`make final-bosses`, `pewpewdev/tools/final_bosses/`). The enemies' and bosses' JSON
+  is written compactly, each list or object on one line when it fits in 130 columns
+  (`python -m pewpewdev.tools.compact_json <files>`; the pre-commit JSON formatter leaves these folders alone). A new
   behaviour is a new motion, exit condition, action (a subclass of `Motion`, `Condition` or `Action`, with only the
   fields it uses, registered by its name in its package) or gun option in code, tested; the descriptions are data and need no
   tests of their own.
