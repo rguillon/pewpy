@@ -6,12 +6,12 @@ the game's rules (its lives, restarting the level after each death) and only ask
 
 from dataclasses import dataclass
 
-from pewpewdev.ai.brain import Brain
-from pewpewdev.ai.pilot import Pilot
 from pewpy.game.enemies.kinds import BOSSES
 from pewpy.game.level import Level
 from pewpy.game.player import SHIPS
 from pewpy.game.world import World
+from pewpy.tools.ai.brain import Brain
+from pewpy.tools.ai.pilot import Pilot
 
 DT = 1 / 60
 OVERTIME = 60.0  # seconds per boss before giving up (an AI that only dodges a boss forever)

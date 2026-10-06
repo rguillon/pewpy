@@ -1,22 +1,22 @@
 """The AI from the command line (`make learn`, `make rate`).
 
-python -m pewpewdev.ai learn [--generations 100] [--ships vanguard ...] [--workers 7] [--folder ...]
-python -m pewpewdev.ai rate [--runs 10] [--ships ...]
+python -m pewpy.tools.ai learn [--generations 100] [--ships vanguard ...] [--workers 7] [--folder ...]
+python -m pewpy.tools.ai rate [--runs 10] [--ships ...]
 """
 
 import argparse
 import time
 from pathlib import Path
 
-from pewpewdev.ai import files
-from pewpewdev.ai.learning import Report, learn
-from pewpewdev.ai.rating import RUNS, Rating, rate
 from pewpy.game.player import SHIPS
+from pewpy.tools.ai import files
+from pewpy.tools.ai.learning import Report, learn
+from pewpy.tools.ai.rating import RUNS, Rating, rate
 
 
 def main() -> None:
     """Learn or rate, as the command line says, printing the progress."""
-    parser = argparse.ArgumentParser(prog="python -m pewpewdev.ai", description=__doc__.splitlines()[0])
+    parser = argparse.ArgumentParser(prog="python -m pewpy.tools.ai", description=__doc__.splitlines()[0])
     parser.add_argument("mode", choices=["learn", "rate"])
     parser.add_argument("--ships", nargs="+", choices=list(SHIPS), default=list(SHIPS))
     parser.add_argument("--generations", type=int, default=100, help="learn: more generations (100)")

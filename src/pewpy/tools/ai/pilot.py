@@ -5,11 +5,11 @@ It holds the stick in between, like a player's reaction time.
 
 import numpy as np
 
-from pewpewdev.ai import sensors
-from pewpewdev.ai.brain import Brain
 from pewpy.game.controls import Controls
 from pewpy.game.weapons.player.arsenal import WEAPONS
 from pewpy.game.world import World
+from pewpy.tools.ai import sensors
+from pewpy.tools.ai.brain import Brain
 
 THINK_EVERY = 2  # updates (at 60 per second: it decides 30 times a second)
 

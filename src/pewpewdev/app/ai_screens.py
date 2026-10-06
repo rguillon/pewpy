@@ -5,17 +5,17 @@ from enum import Enum
 
 import numpy as np
 
-from pewpewdev.ai import files as ai_files
-from pewpewdev.ai.brain import Brain
-from pewpewdev.ai.pilot import Pilot
-from pewpewdev.ai.rating import RUNS as RATING_RUNS
-from pewpewdev.ai.rating import places as rated_places
-from pewpewdev.ai.sessions import LearningSession, RatingSession, Session
 from pewpewdev.app.model_screens import ModelScreens
 from pewpewdev.states import DevState
 from pewpewdev.ui.ai_panel import AIPanel, learning_text, rating_columns, rating_title
 from pewpy.game.player import SHIPS
 from pewpy.game.world import World
+from pewpy.tools.ai import files as ai_files
+from pewpy.tools.ai.brain import Brain
+from pewpy.tools.ai.pilot import Pilot
+from pewpy.tools.ai.rating import RUNS as RATING_RUNS
+from pewpy.tools.ai.rating import places as rated_places
+from pewpy.tools.ai.sessions import LearningSession, RatingSession, Session
 
 AI_STATES = frozenset({DevState.AI_LEARNING, DevState.AI_RATING})
 AI_WORKERS = max(
@@ -24,7 +24,7 @@ AI_WORKERS = max(
 
 
 class AIScreens(ModelScreens):
-    """The AI screens (see pewpewdev.ai)."""
+    """The AI screens (see pewpy.tools.ai)."""
 
     # Set up by DevApp._setup_screens.
     ai_session: Session | None  # learning or rating in the background, on the AI screens

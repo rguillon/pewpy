@@ -14,12 +14,12 @@ from typing import Any
 
 import numpy as np
 
-from pewpewdev.ai import files
-from pewpewdev.ai.brain import Brain
-from pewpewdev.ai.episode import Outcome, play
-from pewpewdev.ai.learning import default_workers
 from pewpy import config
 from pewpy.game.level import Level, load_worlds
+from pewpy.tools.ai import files
+from pewpy.tools.ai.brain import Brain
+from pewpy.tools.ai.episode import Outcome, play
+from pewpy.tools.ai.learning import default_workers
 
 RUNS = 10
 

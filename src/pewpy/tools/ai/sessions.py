@@ -8,10 +8,10 @@ from collections.abc import Callable
 from concurrent.futures import Executor
 from pathlib import Path
 
-from pewpewdev.ai import files
-from pewpewdev.ai.brain import Brain
-from pewpewdev.ai.learning import Check, Report, learn
-from pewpewdev.ai.rating import Rating, rate
+from pewpy.tools.ai import files
+from pewpy.tools.ai.brain import Brain
+from pewpy.tools.ai.learning import Check, Report, learn
+from pewpy.tools.ai.rating import Rating, rate
 
 
 class Session:

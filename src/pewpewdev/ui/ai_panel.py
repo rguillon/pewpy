@@ -9,9 +9,9 @@ from typing import Literal
 from direct.gui.OnscreenText import OnscreenText
 from panda3d.core import NodePath, TextNode
 
-from pewpewdev.ai.learning import Check, Report
-from pewpewdev.ai.rating import Rating
 from pewpy.game.player import SHIPS
+from pewpy.tools.ai.learning import Check, Report
+from pewpy.tools.ai.rating import Rating
 
 Color = tuple[float, float, float, float]
 TextAlign = Literal[0, 1, 2, 3, 4, 5]  # TextNode.ALeft, ARight...

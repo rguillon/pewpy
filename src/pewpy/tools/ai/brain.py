@@ -12,8 +12,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from pewpewdev.ai import sensors
 from pewpy.game.weapons.player.arsenal import WEAPONS
+from pewpy.tools.ai import sensors
 
 HIDDEN = (24,)  # neurons in each hidden layer
 OUTPUTS = 3 + len(WEAPONS)

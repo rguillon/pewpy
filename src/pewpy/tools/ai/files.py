@@ -13,8 +13,8 @@ from typing import Any
 
 import numpy as np
 
-from pewpewdev.ai import sensors
-from pewpewdev.ai.brain import Brain
+from pewpy.tools.ai import sensors
+from pewpy.tools.ai.brain import Brain
 
 
 def ai_folder() -> Path:

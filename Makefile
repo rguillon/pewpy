@@ -49,11 +49,11 @@ final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from thei
 
 .PHONY: learn
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
-	@uv run python -u -m pewpewdev.ai learn $(ARGS)
+	@uv run python -u -m pewpy.tools.ai learn $(ARGS)
 
 .PHONY: rate
 rate: ## Rate every level for every ship from how the trained AI fares: its clear rate (options: ARGS="--runs 20", see --help)
-	@uv run python -u -m pewpewdev.ai rate $(ARGS)
+	@uv run python -u -m pewpy.tools.ai rate $(ARGS)
 
 .PHONY: songs
 songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
@@ -68,8 +68,8 @@ voxels: ## Move a model between flat, 3D (layered) and MagicaVoxel forms (ARGS="
 	@uv run python -m pewpewdev.tools.voxels $(ARGS)
 
 .PHONY: screenshots
-screenshots: ## Save a screenshot of every world in docs/screenshots/ (how each is shot: SHOTS in src/pewpewdev/tools/screenshots/), without a window
-	@uv run python -m pewpewdev.tools.screenshots $(ARGS)
+screenshots: ## Save a screenshot of every world in docs/screenshots/ (how each is shot: SHOTS in src/pewpy/tools/screenshots/), without a window
+	@uv run python -m pewpy.tools.screenshots $(ARGS)
 
 .PHONY: test
 test: ## Test the code with pytest

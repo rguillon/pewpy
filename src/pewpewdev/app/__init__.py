@@ -19,8 +19,8 @@ from pewpy.game.states import State
 from pewpy.ui.menu import Menu, MenuItem
 
 if TYPE_CHECKING:
-    from pewpewdev.ai.pilot import Pilot
-    from pewpewdev.ai.sessions import Session
+    from pewpy.tools.ai.pilot import Pilot
+    from pewpy.tools.ai.sessions import Session
     from pewpy.ui.showcase import ModelShowcase
 
 

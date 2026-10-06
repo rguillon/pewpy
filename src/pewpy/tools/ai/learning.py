@@ -23,11 +23,11 @@ from typing import Any
 
 import numpy as np
 
-from pewpewdev.ai import files
-from pewpewdev.ai.brain import HIDDEN, Brain
-from pewpewdev.ai.episode import play
-from pewpewdev.ai.evolution import Evolution
 from pewpy.game.level import Level, load_levels, load_worlds
+from pewpy.tools.ai import files
+from pewpy.tools.ai.brain import HIDDEN, Brain
+from pewpy.tools.ai.episode import play
+from pewpy.tools.ai.evolution import Evolution
 
 CHECK_EVERY = 10  # generations
 OPEN_NEXT = 0.5  # how far into the open worlds' levels (on average, 0.5: the final boss) for the next world to open

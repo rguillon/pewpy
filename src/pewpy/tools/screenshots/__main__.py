@@ -3,11 +3,11 @@
 import argparse
 from pathlib import Path
 
-from pewpewdev.paths import REPOSITORY
-from pewpewdev.tools import screenshots
-from pewpewdev.tools.screenshots import SHOTS, ScreenshotApp
+from pewpy.data import SOURCE_DATA
+from pewpy.tools import screenshots
+from pewpy.tools.screenshots import SHOTS, ScreenshotApp
 
-SCREENSHOTS = REPOSITORY / "docs" / "screenshots"
+SCREENSHOTS = SOURCE_DATA.parent / "docs" / "screenshots"
 
 
 def main() -> None:

@@ -47,7 +47,7 @@
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
   - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
   The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, the props and the candidates: see `05-visuals.md`), `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
-  package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (one package per tool, each run with
+  package: `tools/` (one package per tool, each run with
   `python -m`: `levels/` (`worlds/`: one module per world), `models/` (`recipes/`: one module per model), `songs/`
   (`tracks/`: one module per part); `voxels.py`), `app/` (the game with the dev screens, `make dev`:
   `model_screens.py`, `ai_screens.py`), with their own `states.py`, `candidates.py` and `ui/`.
@@ -57,7 +57,7 @@
   `candidates/` (enemy candidates, `make candidates`: assembled from a kit of hardcoded parts, `kit/`,
   one module per family of parts, the kinds of ship in `archetypes.py`), `boss_candidates/` (`make boss-candidates`:
   sculpted from plans, one module per family, appendage, kind of part), `final_bosses/` (`make final-bosses`: the
-  final bosses' behaviour from plans) and `compact_json.py`. What the candidates share is in `common/`: the batch
+  final bosses' behaviour from plans), `ai/` (the AI player, no Panda3D, see `07-ai.md`; `make learn`, `make rate`), `screenshots/` (`make screenshots`: one screenshot of every world for the README, offscreen) and `compact_json.py`. What the candidates share is in `common/`: the batch
   command line (`--seed`, `--out`, `--append`), the 3D drawing and its numbered weapons, the colors, keeping the
   most different
 - Enemies as data *(the user's choice)*: every enemy, boss, boss part and projectile is one class, `Enemy`, running
@@ -96,8 +96,8 @@
 
 - What must be unit tested: the game logic (movement, collisions, scoring, wave spawning), kept separate from
   rendering: `app/` only handles window, input and drawing, so the logic is tested without opening a window.
-  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpewdev`: the AI, the content tools, the dev
-  screens) have none, only the linters and the type checker.
+  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpewdev` and `src/pewpy/tools`: the AI, the content
+  tools, the dev screens) have none, only the linters and the type checker.
 - Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
   fails below it. Code that can't happen is removed rather than tested. Content (levels, bosses, model drawings) is
   data in JSON files loaded by the game, not declarations in Python, so it needs no tests of its own *(the user's
