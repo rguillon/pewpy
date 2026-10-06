@@ -6,7 +6,9 @@
     "drawing": "player",
     "health": 5.0,
     "speed": 1.0,
-    "size": 0.12
+    "size": 0.12,
+    "regeneration": 0.3,
+    "regeneration_delay": 1.5
   },
   "juggernaut": {
     "name": "JUGGERNAUT",
@@ -14,11 +16,13 @@
     "drawing": "player_heavy",
     "health": 8.0,
     "speed": 0.8,
-    "size": 0.14
+    "size": 0.14,
+    "regeneration": 0.2,
+    "regeneration_delay": 1.5
   },
   "phantom": {
     "name": "PHANTOM",
-    "description": "Fast, light armor, repairs itself when not firing",
+    "description": "Fast, light armor, the best repairs",
     "drawing": "player_light",
     "health": 3.0,
     "speed": 1.3,

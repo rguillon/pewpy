@@ -9,7 +9,9 @@ share it clears and how far it gets are its progress, and it is saved (files.py)
 and go on later.
 
 A curriculum: a new brain trains on world 1 only; the next world opens once it gets OPEN_NEXT of the way into the
-open worlds' levels on average (every ship's) at a check.
+open worlds' levels on average (every ship's) at a check. Or no curriculum: training on the levels given (`make
+learn-level1`: the first one; `make learn-random`: all of them), each check playing them CHECK_RUNS times in all
+with each ship.
 """
 
 import os
@@ -30,6 +32,7 @@ from pewpy.tools.ai.episode import play
 from pewpy.tools.ai.evolution import Evolution
 
 CHECK_EVERY = 10  # generations
+CHECK_RUNS = 48  # runs per ship at a check on the levels given (each level as often, at least once)
 OPEN_NEXT = 0.5  # how far into the open worlds' levels (on average, 0.5: the final boss) for the next world to open
 
 
@@ -42,6 +45,24 @@ def _levels() -> tuple[Level, ...]:
 def _world_sizes() -> tuple[int, ...]:
     """How many levels each world has, in order (_levels() has them one world after the other)."""
     return tuple(len(world.levels) for world in load_worlds())
+
+
+def level_index(place: str) -> int:
+    """Return where the level at `place` ("2-5": world 2, level 5) is in _levels()."""
+    world, _, number = place.partition("-")
+    sizes = _world_sizes()
+    if not (world.isdigit() and number.isdigit() and 1 <= int(world) <= len(sizes)):
+        msg = f"no level {place} (levels are like 1-1)"
+        raise ValueError(msg)
+    if not 1 <= int(number) <= sizes[int(world) - 1]:
+        msg = f"no level {place} (levels are like 1-1)"
+        raise ValueError(msg)
+    return sum(sizes[: int(world) - 1]) + int(number) - 1
+
+
+def every_level() -> tuple[int, ...]:
+    """Every level's index."""
+    return tuple(range(len(_levels())))
 
 
 def open_levels(worlds: int) -> int:
@@ -84,16 +105,29 @@ class Report:
     mean: float
     checks: Check | None = None  # when the brain was checked this generation
     worlds: int = 1  # the worlds it trains on
+    levels: int = 0  # how many levels it trains on, when they are given (no curriculum)
 
 
 class Learner:
-    """The brain's training, a generation at a time, with the `ships` given."""
+    """The brain's training, a generation at a time, with the `ships` given.
 
-    def __init__(self, ships: Iterable[str], folder: Path, executor: Executor, seed: int = 0) -> None:
+    On the `levels` given (their indexes), or with the curriculum; a `new` brain, or the saved one if there is one.
+    """
+
+    def __init__(
+        self,
+        ships: Iterable[str],
+        folder: Path,
+        executor: Executor,
+        seed: int = 0,
+        levels: tuple[int, ...] | None = None,
+        new: bool = False,
+    ) -> None:
         self.ships = list(ships)
         self.folder = folder
         self.executor = executor
-        saved = files.load_training(folder)
+        self.levels = levels
+        saved = None if new else files.load_training(folder)
         self.training = saved or files.Training(Brain.random(np.random.default_rng(seed), HIDDEN))
         # Levels to play, not cryptography; a resumed training draws new ones, not the start's again.
         self.rng = random.Random(seed * 1_000_003 + self.training.generation)
@@ -109,8 +143,8 @@ class Learner:
 
     def step(self) -> Report:
         """Play a generation: every try plays the runs, the evolution steps; check the brain every CHECK_EVERY."""
-        levels = open_levels(self.training.worlds)
-        runs = tuple((ship, self.rng.randrange(levels), self.rng.randrange(1_000_000)) for ship in self.ships)
+        levels = self.levels or tuple(range(open_levels(self.training.worlds)))
+        runs = tuple((ship, self.rng.choice(levels), self.rng.randrange(1_000_000)) for ship in self.ships)
         nudges, tries = self.evolution.ask()
         hidden = self.brain.hidden
         fitness = np.array(list(self.executor.map(try_weights, [(w, hidden, runs) for w in tries])))
@@ -129,18 +163,31 @@ class Learner:
                 "cleared": float(np.mean([cleared for cleared, _ in checks.values()])),
                 "progress": float(np.mean([gone for _, gone in checks.values()])),
                 "worlds": self.training.worlds,
+                **({"levels": len(self.levels)} if self.levels else {}),
                 "ships": {ship: {"cleared": cleared, "progress": gone} for ship, (cleared, gone) in checks.items()},
             }
             self.training.history.append(record)
             files.save_training(self.folder, self.training)
-        return Report(self.training.generation, record["best"], record["mean"], checks, self.training.worlds)
+        trained = len(self.levels) if self.levels else 0
+        return Report(self.training.generation, record["best"], record["mean"], checks, self.training.worlds, trained)
 
     def check(self) -> Check:
         """Check the brain: for each ship, the share of levels it clears (one life each) and how far into them it gets.
 
-        Opens the next world when the brain gets far enough into the open ones.
+        Every level once, opening the next world when the brain gets far enough into the open ones; or the levels
+        given, CHECK_RUNS runs in all.
         """
         weights, hidden = self.brain.weights, self.brain.hidden
+        if self.levels:
+            repeats = -(-CHECK_RUNS // len(self.levels))
+            plays = [(index, run) for index in self.levels for run in range(repeats)]
+            tasks = [(weights, hidden, ship, index, run) for ship in self.ships for index, run in plays]
+            results = list(self.executor.map(check_level, tasks))
+            per_ship = {ship: results[n * len(plays) : (n + 1) * len(plays)] for n, ship in enumerate(self.ships)}
+            return {
+                ship: (float(np.mean([cleared for cleared, _ in runs])), float(np.mean([gone for _, gone in runs])))
+                for ship, runs in per_ship.items()
+            }
         count = len(_levels())
         tasks = [(weights, hidden, ship, index, index) for ship in self.ships for index in range(count)]
         results = list(self.executor.map(check_level, tasks))
@@ -168,13 +215,16 @@ def learn(
     stop: Callable[[], bool] = lambda: False,
     executor: Executor | None = None,
     on_brain: Callable[[Brain], None] = lambda _brain: None,
+    levels: tuple[int, ...] | None = None,
+    new: bool = False,
 ) -> None:
     """Train the brain with `ships` for `generations` more generations (0: until stopped).
 
+    On the `levels` given (their indexes), else with the curriculum; a `new` brain replaces the saved one.
     `on_brain` gets the brain after each generation.
     """
     with executor or ProcessPoolExecutor(max_workers=workers or default_workers()) as pool:
-        learner = Learner(ships, folder, pool)
+        learner = Learner(ships, folder, pool, levels=levels, new=new)
         done = 0
         try:
             while (not generations or done < generations) and not stop():

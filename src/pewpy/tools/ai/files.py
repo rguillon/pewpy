@@ -14,7 +14,7 @@ from typing import Any
 import numpy as np
 
 from pewpy.tools.ai import sensors
-from pewpy.tools.ai.brain import Brain
+from pewpy.tools.ai.brain import Brain, parameter_count
 
 
 def ai_folder() -> Path:
@@ -68,9 +68,10 @@ def load_training(folder: Path) -> Training | None:
     if not path.exists():
         return None
     with np.load(path) as data:
-        if int(data["inputs"]) != sensors.SIZE:
-            return None  # made for sensors that have changed since: it would see nonsense
-        brain = Brain(data["weights"], tuple(int(n) for n in data["hidden"]), int(data["inputs"]))
+        hidden = tuple(int(n) for n in data["hidden"])
+        if int(data["inputs"]) != sensors.SIZE or len(data["weights"]) != parameter_count(sensors.SIZE, hidden):
+            return None  # made for other sensors or outputs: it would see or do nonsense
+        brain = Brain(data["weights"], hidden, int(data["inputs"]))
         worlds = int(data["worlds"]) if "worlds" in data else 1
         return Training(brain, int(data["generation"]), json.loads(str(data["history"])), worlds)
 

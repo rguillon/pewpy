@@ -1,4 +1,5 @@
 import math
+from dataclasses import replace
 
 import pytest
 
@@ -55,8 +56,7 @@ def test_the_heavy_ship_is_tougher_bigger_and_slower_and_the_light_one_the_oppos
     assert heavy.health > normal.health > light.health
     assert heavy.speed < normal.speed < light.speed
     assert heavy.size > normal.size > light.size
-    assert light.regeneration > 0
-    assert normal.regeneration == heavy.regeneration == 0
+    assert light.regeneration > normal.regeneration > heavy.regeneration > 0  # every ship repairs itself
 
 
 def test_a_ship_starts_with_its_own_health_and_size() -> None:
@@ -75,8 +75,9 @@ def test_a_ship_moves_at_its_own_speed() -> None:
     assert light.vx == pytest.approx(SHIPS["phantom"].speed, rel=0.01)
 
 
-def test_the_light_ship_repairs_itself_only_once_it_stopped_firing_for_a_while() -> None:
-    ship = SHIPS["phantom"]
+@pytest.mark.parametrize("key", list(SHIPS))
+def test_a_ship_repairs_itself_only_once_it_stopped_firing_for_a_while(key: str) -> None:
+    ship = SHIPS[key]
     player = Player(ship=ship)
     player.health = 1.0
     for _ in range(100):  # firing: no repair
@@ -87,13 +88,13 @@ def test_the_light_ship_repairs_itself_only_once_it_stopped_firing_for_a_while()
     player.update(0.2, 0.0, 0.0)  # now it has: repairs start
     player.update(1.0, 0.0, 0.0)
     assert player.health == pytest.approx(1.0 + ship.regeneration * 1.2)
-    for _ in range(100):
+    for _ in range(1000):
         player.update(0.1, 0.0, 0.0)
     assert player.health == ship.health  # up to full, no more
 
 
 def test_ships_without_regeneration_never_repair() -> None:
-    player = Player(ship=SHIPS["vanguard"])
+    player = Player(ship=replace(SHIPS["vanguard"], regeneration=0.0))
     player.health = 1.0
     player.update(100.0, 0.0, 0.0)
     assert player.health == 1.0

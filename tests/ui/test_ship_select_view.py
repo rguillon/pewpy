@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 import pytest
 
 from pewpy.game.player import SHIPS
@@ -20,11 +22,11 @@ def test_the_bars_tell_the_ships_apart() -> None:
     bars = dict(zip(SHIPS, characteristics(SHIP_LIST), strict=True))
     assert bars["juggernaut"][0][1] == 1.0  # the most armor
     assert bars["phantom"][1][1] == 1.0  # the fastest
-    assert bars["phantom"][3][1] == 1.0  # the only one that repairs itself
-    assert bars["vanguard"][3][1] == 0.0
+    assert bars["phantom"][3][1] == 1.0  # the best repairs
+    assert 0.0 < bars["juggernaut"][3][1] < bars["vanguard"][3][1] < 1.0
 
 
 def test_details_give_the_numbers_and_the_repair_only_when_there_is_one() -> None:
     assert "Health 8" in details(SHIPS["juggernaut"])
-    assert "Repairs" not in details(SHIPS["juggernaut"])
     assert "Repairs 0.5 health a second" in details(SHIPS["phantom"])
+    assert "Repairs" not in details(replace(SHIPS["juggernaut"], regeneration=0.0))

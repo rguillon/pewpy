@@ -1,11 +1,15 @@
-"""The AI learning and AI rating screens: learning or rating in the background, the AI flying the ship on screen."""
+"""The AI screens: learning or rating in the background, the AI flying the ship on screen; the AI playing the game."""
 
 import os
+from dataclasses import dataclass
 from enum import Enum
 
 import numpy as np
 
+from pewpy import config
 from pewpy.game.player import SHIPS
+from pewpy.game.states import State
+from pewpy.game.weapons.player.arsenal import Arsenal
 from pewpy.game.world import World
 from pewpy.tools.ai import files as ai_files
 from pewpy.tools.ai.brain import Brain
@@ -15,12 +19,27 @@ from pewpy.tools.ai.rating import places as rated_places
 from pewpy.tools.ai.sessions import LearningSession, RatingSession, Session
 from pewpy.tools.dev.app.model_screens import ModelScreens
 from pewpy.tools.dev.states import DevState
-from pewpy.tools.dev.ui.ai_panel import AIPanel, learning_text, rating_columns, rating_title
+from pewpy.tools.dev.ui.ai_panel import AIPanel, learning_text, playing_text, rating_columns, rating_title
 
-AI_STATES = frozenset({DevState.AI_LEARNING, DevState.AI_RATING})
+AI_STATES = frozenset({DevState.AI_LEARNING, DevState.AI_RATING, DevState.AI_PLAYING})
 AI_WORKERS = max(
     1, (os.cpu_count() or 2) - 2
 )  # processes learning or rating: a core left for the game, one for the rest
+
+
+@dataclass
+class AIGame:
+    """The AI playing the game on the AI playing screen: the ship and level picked, a game after the other.
+
+    Each game starts on the level picked and goes on to the next levels until game over.
+    """
+
+    ship: str  # one of SHIPS
+    start: int  # the level each game starts on (its index)
+    generation: int | None = None  # the saved brain's (None: no brain yet, a new one plays)
+    games: int = 0  # the games started
+    cleared: int = 0  # the games that cleared the level they started on
+    best: int = 0  # the most levels cleared in a game
 
 
 class AIScreens(ModelScreens):
@@ -31,6 +50,8 @@ class AIScreens(ModelScreens):
     stopped_ai: list[Session]  # stopped, still finishing what they were doing
     pilot: Pilot | None  # the AI flying the ship on screen
     ai_watching: str  # what the AI on screen plays
+    ai_game: AIGame
+    ai_picking: bool  # the ship, world and level menus pick what the AI plays, not what the player plays
     ai_panel: AIPanel
 
     def _switch_ai(self, previous: Enum, current: Enum) -> None:
@@ -41,6 +62,8 @@ class AIScreens(ModelScreens):
             self._start_learning()
         elif current is DevState.AI_RATING:
             self._start_rating()
+        elif current is DevState.AI_PLAYING:
+            self._new_ai_game()
 
     def _start_learning(self) -> None:
         self._finish_stopped_ai()
@@ -90,12 +113,77 @@ class AIScreens(ModelScreens):
         self.effects.clear()
         self._show_hud(visible=True)
 
+    def _pick_for_ai(self) -> None:
+        """Pick the ship, world and level the AI plays, with the game's menus."""
+        self.ai_picking = True
+        self.states.transition(State.SHIP_SELECT)
+
+    def _start_ai(self, index: int) -> None:
+        """Watch the AI play from the level picked, with the ship picked."""
+        self.ai_game = AIGame(self.ship_key, index)
+        self.level_index = index  # the level select opens on it again
+        self.states.transition(DevState.AI_PLAYING)
+
+    def _new_ai_game(self) -> None:
+        """Start a game on the level picked, with the saved brain (it may have learned since the last game)."""
+        game = self.ai_game
+        game.games += 1
+        training = ai_files.load_training(ai_files.ai_folder())
+        game.generation = training.generation if training else None
+        self.pilot = Pilot(training.brain if training else Brain.random(np.random.default_rng()))
+        self._ai_level(game.start)
+
+    def _ai_level(
+        self, index: int, score: int = 0, lives: int = config.PLAYER_LIVES, arsenal: Arsenal | None = None
+    ) -> None:
+        """Start the AI on a level, by the game's rules (going on with the score, lives and weapons it has)."""
+        ship = self.ai_game.ship
+        level = self.levels[index]
+        screen = self.camera_view.area(0.0)
+        self.level_index = index
+        self.world = World(
+            level,
+            score=score,
+            lives=lives,
+            arsenal=arsenal,
+            view_top=screen.top,
+            view_side=screen.right,
+            view_bottom=screen.bottom,
+            ship=SHIPS[ship],
+        )
+        self.ai_watching = f"{SHIPS[ship].name} on {self._label(index)} {level.name}"
+        self._show_background(level)
+        self._prepare_bosses(level)
+        self.effects.clear()
+        self._show_hud(visible=True)
+
+    def _update_ai_game(self) -> None:
+        """Go on to the next level once one is cleared, or to a new game once the lives are gone."""
+        world, game = self.world, self.ai_game
+        if world is None or not (world.completed or world.game_over):
+            return
+        following = self.level_index + world.completed  # the level after the last one cleared
+        if world.completed and following < len(self.levels):
+            self._ai_level(following, world.score, world.lives, world.arsenal)
+            return
+        cleared = following - game.start  # in this game
+        game.cleared += cleared > 0
+        game.best = max(game.best, cleared)
+        self._new_ai_game()
+
     def _update_ai(self, dt: float) -> None:
         session = self.ai_session
         world, pilot = self.world, self.pilot
         if world is not None and pilot is not None:
             self._play(world, pilot.fly(world), dt)
-            if world.game_over or world.completed:
+            if self.states.state is DevState.AI_PLAYING:
+                self._update_ai_game()
+                game = self.ai_game
+                place = self._label(game.start)
+                self.ai_panel.show_learning(
+                    playing_text(game.generation, self.ai_watching, place, game.games, game.cleared, game.best)
+                )
+            elif world.game_over or world.completed:
                 self._watch_ai()
         if isinstance(session, LearningSession):
             with session.lock:

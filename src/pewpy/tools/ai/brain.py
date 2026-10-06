@@ -4,23 +4,23 @@ All its weights are in one flat vector, with a direct path from its inputs to it
 (so a simple rule, like following the radar's safest way, is only a few weights away, the hidden layer learning the
 rest).
 
-From what the AI sees (sensors.py) to what it does: OUTPUTS numbers, the stick (x, y, from -1 to 1), the fire button
-(fires above 0) and how much it wants each weapon (the highest one is the weapon it picks).
+From what the AI sees (sensors.py) to what it does: OUTPUTS numbers, the stick (x, y, from -1 to 1) and the fire
+button (fires above 0). The weapon is not its choice: the pilot fires the strongest one (pilot.py).
 """
 
 from dataclasses import dataclass
 
 import numpy as np
 
-from pewpy.game.weapons.player.arsenal import WEAPONS
 from pewpy.tools.ai import sensors
 
 HIDDEN = (24,)  # neurons in each hidden layer
-OUTPUTS = 3 + len(WEAPONS)
-FIRE_BIAS = 1.0  # a new brain starts with the fire button held: shooting is nearly always right
-WEAPON_BIAS = 1.0  # ...and with the bullets selected (the first weapon), not switching at random
+OUTPUTS = 3
+FIRE_BIAS = -1.0  # a new brain starts with the fire button released...
+FIRE_GAIN = 2.0  # ...but held while an enemy can be hurt: firing at nothing only puts the repairs off
 RADAR_GAIN = 3.0  # a new brain starts flying the radar's move to aim, the stick this far over (clamped to 1)
-STICK_NOISE = 0.1  # how much less its hidden layer moves the stick than the other outputs at first
+OUTPUT_NOISE = 0.03  # how much its hidden layer moves the outputs at first (scaled to its size): little, its hand-made
+# start (the radar to the stick, the fire button held) leads
 
 
 def shapes(inputs: int = sensors.SIZE, hidden: tuple[int, ...] = HIDDEN) -> list[tuple[int, int]]:
@@ -57,9 +57,9 @@ class Brain:
     def random(cls, rng: np.random.Generator, hidden: tuple[int, ...] = HIDDEN) -> "Brain":
         """Make a new brain that dodges and aims before it learns anything.
 
-        Its weights are small and random (scaled for each layer's inputs; smaller to the stick, STICK_NOISE), with no
-        biases but FIRE_BIAS and WEAPON_BIAS, and the direct path closed but from the radar's move to aim to the stick
-        (RADAR_GAIN).
+        Its weights are small and random (scaled for each layer's inputs; the outputs' OUTPUT_NOISE), with no
+        biases but FIRE_BIAS, and the direct path closed but from the radar's move to aim to the stick
+        (RADAR_GAIN) and from there being something to shoot to the fire button (FIRE_GAIN).
         """
         parts = []
         layers = shapes(sensors.SIZE, hidden)
@@ -68,11 +68,11 @@ class Brain:
             layer[-1] = 0.0
             parts.append(layer.ravel())
         out = parts[-1].reshape(-1, OUTPUTS)
-        out[:-1, :2] *= STICK_NOISE
+        out[:-1] *= OUTPUT_NOISE
         out[-1, 2] = FIRE_BIAS
-        out[-1, 3] = WEAPON_BIAS
         direct = np.zeros((sensors.SIZE, OUTPUTS))
         direct[sensors.AIM, 0] = direct[sensors.AIM + 1, 1] = RADAR_GAIN
+        direct[sensors.SHOOTABLE, 2] = FIRE_GAIN
         parts.append(direct.ravel())
         return cls(np.concatenate(parts), hidden)
 

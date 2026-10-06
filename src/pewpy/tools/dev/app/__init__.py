@@ -2,7 +2,7 @@
 
 The main menu also opens the Models, Bosses, Enemy candidates, Player candidates, Boss candidates and Prop candidates
 screens (models on
-show, to work on them, model_screens.py) and the AI learning and AI rating screens (ai_screens.py).
+show, to work on them, model_screens.py) and the AI learning, AI rating and AI playing screens (ai_screens.py).
 """
 
 from enum import Enum
@@ -10,9 +10,11 @@ from typing import TYPE_CHECKING
 
 from direct.task.Task import Task
 
+from pewpy import config
 from pewpy.app import EFFECTS_RUN_IN
 from pewpy.game.states import State
-from pewpy.tools.dev.app.ai_screens import AI_STATES, AIScreens
+from pewpy.game.weapons.player.arsenal import Arsenal
+from pewpy.tools.dev.app.ai_screens import AI_STATES, AIGame, AIScreens
 from pewpy.tools.dev.app.model_screens import SHOWCASE_STATES
 from pewpy.tools.dev.states import DEV_TRANSITIONS, DevState
 from pewpy.tools.dev.ui.ai_panel import AIPanel
@@ -24,11 +26,14 @@ if TYPE_CHECKING:
     from pewpy.ui.showcase import ModelShowcase
 
 
+PICKING = frozenset({State.SHIP_SELECT, State.WORLD_SELECT, State.LEVEL_SELECT})  # the menus picking what to play
+
+
 class DevApp(AIScreens):
     """The game with the dev tools' screens."""
 
     state_transitions = DEV_TRANSITIONS
-    effects_run_in = EFFECTS_RUN_IN | {DevState.AI_LEARNING}
+    effects_run_in = EFFECTS_RUN_IN | {DevState.AI_LEARNING, DevState.AI_PLAYING}
 
     def _setup_screens(self) -> None:
         self.showcase: ModelShowcase | None = None
@@ -38,6 +43,8 @@ class DevApp(AIScreens):
         self.stopped_ai: list[Session] = []  # stopped, still finishing what they were doing
         self.pilot: Pilot | None = None  # the AI flying the ship on screen
         self.ai_watching = ""  # what the AI on screen plays
+        self.ai_game = AIGame(self.ship_key, 0)  # the AI playing the game, on the AI playing screen
+        self.ai_picking = False  # the ship, world and level menus pick what the AI plays
         self.ai_panel = AIPanel(self.aspect2d)
 
     def _main_menu_items(self) -> list[MenuItem]:
@@ -52,14 +59,33 @@ class DevApp(AIScreens):
             MenuItem("Prop candidates", go(DevState.PROP_CANDIDATES)),
             MenuItem("AI learning", go(DevState.AI_LEARNING)),
             MenuItem("AI rating", go(DevState.AI_RATING)),
+            MenuItem("AI playing", self._pick_for_ai),
         ]
 
     def _menu(self, state: Enum) -> Menu | None:
         if state in SHOWCASE_STATES:
             return self._models_menu()
-        return super()._menu(state)
+        menu = super()._menu(state)
+        if menu is not None and self.ai_picking and state in PICKING:
+            menu.title = f"AI PLAYING\n{menu.title}"
+        return menu
+
+    def _start_level(
+        self, index: int, score: int = 0, lives: int = config.PLAYER_LIVES, arsenal: Arsenal | None = None
+    ) -> None:
+        """Play the level, or watch the AI play it when the menus pick for the AI."""
+        if self.ai_picking:
+            self._start_ai(index)
+        else:
+            super()._start_level(index, score, lives, arsenal)
 
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
+        if current is State.MAIN_MENU:
+            self.ai_picking = False
+        if previous is DevState.AI_PLAYING:  # back to the menus: no level behind them
+            self.world = None
+            self.effects.clear()
+            self._show_background()
         if current in SHOWCASE_STATES:
             self.showcase_page = 0  # before the menu: its title shows the page
         super()._on_state_change(previous, current)
@@ -84,7 +110,8 @@ class DevApp(AIScreens):
     def _on_back(self) -> None:
         if self.menu_view.menu is None and self.states.state in AI_STATES:
             self.audio.play("menu_back")
-            self.states.transition(State.MAIN_MENU)
+            back = State.LEVEL_SELECT if self.states.state is DevState.AI_PLAYING else State.MAIN_MENU
+            self.states.transition(back)
             return
         super()._on_back()
 
