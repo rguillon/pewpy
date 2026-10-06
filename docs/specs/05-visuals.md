@@ -28,7 +28,7 @@
   (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). A flat or 3D drawing
   can list its `"weapons"`: {"number", "kind", "x", "y"}, the column and row of each barrel's tip (see
   `02-enemies.md`, "Enemy weapons"). `make voxels` moves
-  a model between the three forms; `make models` remodels ships from their recipes in `pewpewdev/tools/models/recipes/`.
+  a model between the three forms; `make models` remodels ships from their recipes in `pewpy/tools/models/recipes/`.
 - Props (the things standing on the grounds: buildings, tanks, trees, hangars...) are JSON files in `data/models/props/`,
   one per prop: its `kind` (what the grounds ask for), the box it was drawn in (`size`), and its parts, each a shape
   (box, cylinder, disc, ellipsoid, gabled, ridge_roof, face, quad, lathe) with fixed geometry, fixed colors and a

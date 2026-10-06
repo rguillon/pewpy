@@ -40,7 +40,7 @@ EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, Sta
 class PewPewApp(Sound):
     """The game.
 
-    The dev tools (pewpewdev.app) add screens of their own through `state_transitions`, `effects_run_in`,
+    The dev tools (pewpy.tools.dev.app) add screens of their own through `state_transitions`, `effects_run_in`,
     `_main_menu_items`, `_setup_screens` and the methods they override.
     """
 

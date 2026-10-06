@@ -191,7 +191,7 @@ weapons, they score and make enemies drop pickups.
   enemies close together
 - Difficulty ramp across levels: each level has a difficulty from 1 (1-1) to 20 (8-6): 2 (world - 1) + level, so
   the levels of a world get harder one by one and a world starts as hard as the third level of the world before
-  (see `03-levels.md`). With the difficulty, the generated levels (`pewpewdev/tools/levels/`) scroll faster (0.2 to
+  (see `03-levels.md`). With the difficulty, the generated levels (`pewpy/tools/levels/`) scroll faster (0.2 to
   0.31), send bigger groups (about +7% per step), and send more: each half of a level has enemies adding up to a threat
   (their points) from 8600 to 22500, rising fast at first and slower later, spread over about 46 s, so harder
   levels are denser; the second half is as hard as a level 2 steps harder (see `03-levels.md`). New enemies come in

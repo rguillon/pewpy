@@ -30,7 +30,7 @@ Pause -> Main menu
   world's level select: its 6
   levels, like "2-5 Twilight Grove", then Back, with a window above the list showing the highlighted level's
   ground scrolling by, as in the game; both open on the last level played), Quit *(entries are a placeholder)*
-- With the dev tools (`make dev`: the game with the screens below, `src/pewpewdev/`), more entries after Start:
+- With the dev tools (`make dev`: the game with the screens below, `src/pewpy/tools/dev/`), more entries after Start:
   Models, Bosses, Enemy candidates, Boss candidates, AI learning, AI rating (see `07-ai.md`). Not in the game.
 
 ### Models (dev tools)
@@ -128,7 +128,7 @@ Pause -> Main menu
 
 - Music style: synthwave *(the user's choice)*
 - Music source (your files, free assets, generated): generated MIDI songs *(the user's choice)*: `make songs`
-  writes them to `data/music/` (pewpewdev/tools/songs/); the game plays them with its own synthesizer. Any MIDI
+  writes them to `data/music/` (pewpy/tools/songs/); the game plays them with its own synthesizer. Any MIDI
   file can replace one. Songs *(placeholder)*: "title" on the menus, "world_1" to "world_8" for
   each world's levels, "boss" while a boss is fought (from the final boss's coming, until the level ends), and two jingles played once,
   "level_complete" and "game_over". Lower while paused; M turns the music on and off. Volumes: `SFX_VOLUME`, `MUSIC_VOLUME` in `config.py`
