@@ -20,9 +20,9 @@ General rules for every boss:
   pickup.
 - Looks: giant industrial ships (see `05-visuals.md`): grey armor plates with seams, a raised deck, often a
   command tower with windows and a glowing reactor, ribbed engine nacelles at the back, the boss's color as
-  markings; parts are machines (turrets, cannons, launchers, clamps, generators...). Voxel models in
-  `data/models/` (one per core or kind of part), with the same cubes as every other model; each drawing is
-  about as big as its hitbox. The newest bosses (Reaper, Leviathan, Flare Rig, Crucible, Interdictor, Nightwatch,
+  markings; parts are machines (turrets, cannons, launchers, clamps, generators...). One voxel model per boss in
+  `data/models/bosses/`, its core's drawing with its kinds of part's drawings in it (see `05-visuals.md`), with the
+  same cubes as every other model; each drawing is about as big as its hitbox. The newest bosses (Reaper, Leviathan, Flare Rig, Crucible, Interdictor, Nightwatch,
   Arc Tower, Apex) are boss candidates (`make boss-candidates`) in real 3D, their parts standing on the hull.
 - Entry: comes down from above the screen at 0.25 and stops at y = 0.55, then sways left and right between the
   screen edges. It doesn't leave the screen and doesn't shoot before it stops; until then, it and its parts can't be
@@ -246,7 +246,7 @@ General rules for every boss:
 
 ### Boss: Turbine
 
-- Level: 3-1 (Mire)
+- Level: 3-1 (Lush Veld)
 - Look and size: a ring-shaped ship around a big glowing yellow turbine core, 0.3 x 0.3; no parts
 - Health: 110
 - Phases:
@@ -263,7 +263,7 @@ General rules for every boss:
 
 ### Boss: Clamp Barge
 
-- Level: 3-2 (Reedwater)
+- Level: 3-2 (Winding Sands)
 - Look and size: a wide salvage barge with a command tower and coral markings, 0.26 x 0.2; two clamps (0.12 x 0.14, 25
   health, 400 points each)
 - Health: 70 (core)
@@ -280,7 +280,7 @@ General rules for every boss:
 
 ### Boss: Spire
 
-- Level: 3-3 (Mistmarsh)
+- Level: 3-3 (Kopje Country)
 - Look and size: a long command ship carrying a tall tower from stern to prow, violet markings, 0.22 x 0.36; no parts
 - Health: 120
 - Phases:
@@ -297,7 +297,7 @@ General rules for every boss:
 
 ### Boss: Twin Fang
 
-- Level: 3-4 (Sunken Bog)
+- Level: 3-4 (Acacia Dusk)
 - Look and size: a wedge-shaped gunship with a command tower, cyan markings, 0.24 x 0.26; two guns (0.1 x 0.2, 30
   health, 500 points each)
 - Health: 90 (core)
@@ -314,7 +314,7 @@ General rules for every boss:
 
 ### Boss: Frigate
 
-- Level: 3-5 (Witchlight)
+- Level: 3-5 (Long Grass)
 - Look and size: a long frigate with a command tower, a prow gun and blue markings, 0.22 x 0.36; two guns (0.1 x 0.1, 30
   health, 500 points each)
 - Health: 90 (core)
@@ -332,7 +332,7 @@ General rules for every boss:
 
 ### Boss: Tidebreaker
 
-- Level: 3-6 (Fogbound Fen)
+- Level: 3-6 (Veld by Night)
 - Look and size: a heavy prow-shaped battleship with four engines, a tower and a cyan reactor, 0.3 x 0.36; two batterys
   (0.16 x 0.22, 45 health, 900 points each)
 - Health: 120 (core)
@@ -457,7 +457,7 @@ General rules for every boss:
 
 ### Boss: Enforcer
 
-- Level: 5-1 (Archipelago)
+- Level: 5-1 (Rust Pan)
 - Look and size: a wedge-shaped enforcer with a wide command tower and amber markings, 0.22 x 0.26; two shields (0.12 x
   0.19, 35 health, 500 points each)
 - Health: 90 (core)
@@ -473,7 +473,7 @@ General rules for every boss:
 
 ### Boss: Hive Carrier
 
-- Level: 5-2 (Coral Shoals)
+- Level: 5-2 (Copper Flats)
 - Look and size: a long carrier with wide hangar wings and amber markings, 0.22 x 0.3; two hangars (0.16 x 0.18, 30
   health, 500 points each)
 - Health: 110 (core)
@@ -492,7 +492,7 @@ General rules for every boss:
 
 ### Boss: Hover Tank
 
-- Level: 5-3 (Sunset Isles)
+- Level: 5-3 (Brine Pools)
 - Look and size: a heavy gunboat block with a cyan reactor and a prow gun, 0.3 x 0.3; two turrets (0.12 x 0.15, 30
   health, 500 points each)
 - Health: 110 (core)
@@ -510,7 +510,7 @@ General rules for every boss:
 
 ### Boss: Cryo Fortress
 
-- Level: 5-4 (Open Sea)
+- Level: 5-4 (Mineral Dusk)
 - Look and size: a fortress block with an icy blue reactor and a command tower, 0.3 x 0.26; two cannons (0.12 x 0.15, 35
   health, 600 points each)
 - Health: 110 (core)
@@ -526,7 +526,7 @@ General rules for every boss:
 
 ### Boss: Sentry Grid
 
-- Level: 5-5 (Squall Line)
+- Level: 5-5 (Dust Storm)
 - Look and size: a rounded sentry ship around a big cyan reactor, 0.24 x 0.24; two outer nodes (0.1 x 0.1, 22 health,
   400 points each) and two inner nodes (0.1 x 0.1, 22 health, 400 points each)
 - Health: 110 (core)
@@ -546,7 +546,7 @@ General rules for every boss:
 
 ### Boss: Leviathan
 
-- Level: 5-6 (Dark Tide)
+- Level: 5-6 (Night Crust)
 - Look and size: an arrowhead battleship (boss candidate #196, in real 3D): a long grey hull, two red reactors by the
   stern tower, turrets on its wings and nodes at their tips, 0.45 x 0.59; two turrets (0.13 x 0.15, 25 health, 500
   points each), two nodes (0.07 x 0.08, 20 health, 400 points each) and two reactors (0.1 x 0.12, 20 health, 500 points
@@ -569,7 +569,7 @@ General rules for every boss:
 
 ### Boss: Relay Array
 
-- Level: 6-1 (Geyser Basin)
+- Level: 6-1 (Bright Ridges)
 - Look and size: a cross-shaped relay ship with a tall tower and a blue reactor, 0.3 x 0.24; two dishes (0.14 x 0.14, 35
   health, 600 points each)
 - Health: 110 (core)
@@ -585,7 +585,7 @@ General rules for every boss:
 
 ### Boss: Scavenger
 
-- Level: 6-2 (Sinter Terraces)
+- Level: 6-2 (Striped Gullies)
 - Look and size: a delta-winged salvager with a command tower and ochre markings, 0.2 x 0.27; two batterys (0.2 x 0.13,
   35 health, 600 points each)
 - Health: 110 (core)
@@ -604,7 +604,7 @@ General rules for every boss:
 
 ### Boss: Mine Carrier
 
-- Level: 6-3 (Prismatic Springs)
+- Level: 6-3 (Ochre Walls)
 - Look and size: a heavy carrier with four engines and a purple reactor, 0.34 x 0.28; two launchers (0.12 x 0.12, 35
   health, 600 points each)
 - Health: 130 (core)
@@ -623,7 +623,7 @@ General rules for every boss:
 
 ### Boss: Foundry
 
-- Level: 6-4 (Sulfur Dusk)
+- Level: 6-4 (Red Dusk)
 - Look and size: a heavy foundry block around a big molten reactor, 0.28 x 0.3; two presses (0.12 x 0.14, 35 health, 600
   points each)
 - Health: 140 (core)
@@ -642,7 +642,7 @@ General rules for every boss:
 
 ### Boss: Gunship Prime
 
-- Level: 6-5 (Fumarole Field)
+- Level: 6-5 (Rainbow Breaks)
 - Look and size: a long heavy gunship with a tower, prow guns and an amber reactor, 0.24 x 0.33; two cannons (0.1 x
   0.18, 30 health, 500 points each) and two engines (0.12 x 0.12, 30 health, 500 points each)
 - Health: 140 (core)
@@ -663,7 +663,7 @@ General rules for every boss:
 
 ### Boss: Colossus
 
-- Level: 6-6 (The Caldera)
+- Level: 6-6 (Dark Strata)
 - Look and size: a huge armored fortress block with four engines, a tower, prow guns and a glowing furnace, 0.34 x 0.3;
   two outers (0.12 x 0.12, 30 health, 600 points each) and two inners (0.12 x 0.12, 30 health, 600 points each)
 - Health: 150 (core)
@@ -985,30 +985,30 @@ the screen for the last ones) and harder, with more parts and four phases. Same 
 | 2-4 | Wildfire | Autumn Wood | Delta Raider | #034 | 0.54 x 0.373 | 6 x 24 | 180 | accel, fan, laser, curve | 6400 |
 | 2-5 | Grovekeeper | Twilight Grove | Breacher | #002 | 0.553 x 0.367 | 11 x 26 | 194 | curve, missiles, ring, laser | 6800 |
 | 2-6 | Old Growth | Moonlit Woods | Harvester | #131 | 0.553 x 0.367 | 6 x 27 | 208 | wave, rockets, laser, accel | 7200 |
-| 3-1 | Bogmaw | Mire | Turbine | #099 | 0.527 x 0.387 | 6 x 22 | 166 | wave, pellets, curve, ring | 6000 |
-| 3-2 | Mirelord | Reedwater | Clamp Barge | #085 | 0.52 x 0.4 | 7 x 24 | 180 | missiles, fan, laser, wave | 6400 |
-| 3-3 | Fenwraith | Mistmarsh | Spire | #165 | 0.513 x 0.413 | 5 x 26 | 194 | curve, accel, wave, spiral | 6800 |
-| 3-4 | Hydra | Sunken Bog | Twin Fang | #138 | 0.58 x 0.373 | 5 x 27 | 208 | wave, cluster, laser, curve | 7200 |
-| 3-5 | Marsh Titan | Witchlight | Frigate | #028 | 0.607 x 0.373 | 9 x 29 | 222 | pellets, missiles, accel, laser | 7600 |
-| 3-6 | Drowned King | Fogbound Fen | Tidebreaker | #109 | 0.567 x 0.427 | 9 x 30 | 236 | curve, wave, laser, missiles | 8000 |
+| 3-1 | Bogmaw | Lush Veld | Turbine | #099 | 0.527 x 0.387 | 6 x 22 | 166 | wave, pellets, curve, ring | 6000 |
+| 3-2 | Mirelord | Winding Sands | Clamp Barge | #085 | 0.52 x 0.4 | 7 x 24 | 180 | missiles, fan, laser, wave | 6400 |
+| 3-3 | Fenwraith | Kopje Country | Spire | #165 | 0.513 x 0.413 | 5 x 26 | 194 | curve, accel, wave, spiral | 6800 |
+| 3-4 | Hydra | Acacia Dusk | Twin Fang | #138 | 0.58 x 0.373 | 5 x 27 | 208 | wave, cluster, laser, curve | 7200 |
+| 3-5 | Marsh Titan | Long Grass | Frigate | #028 | 0.607 x 0.373 | 9 x 29 | 222 | pellets, missiles, accel, laser | 7600 |
+| 3-6 | Drowned King | Veld by Night | Tidebreaker | #109 | 0.567 x 0.427 | 9 x 30 | 236 | curve, wave, laser, missiles | 8000 |
 | 4-1 | Scarecrow | Harvest Dusk | Picket | #042 | 0.64 x 0.4 | 8 x 26 | 194 | pellets, rockets, fan, laser | 6800 |
 | 4-2 | Combine | Golden Fields | Bulwark | #074 | 0.673 x 0.387 | 11 x 27 | 208 | fan, accel, laser, cluster | 7200 |
 | 4-3 | Locust | Lavender Rows | Borer | #083 | 0.7 x 0.387 | 10 x 29 | 222 | missiles, pellets, curve, spiral | 7600 |
 | 4-4 | Granary | Orchard Country | Silo Hauler | #066 | 0.607 x 0.447 | 10 x 30 | 236 | cluster, aimed, laser, wave | 8000 |
 | 4-5 | Harrowmaster | Hay Moon | Bastion | #010 | 0.647 x 0.427 | 9 x 32 | 250 | accel, rockets, laser, curve | 8400 |
 | 4-6 | Black Harvest | Last Harvest | Reaper | #103 | 0.74 x 0.373 | 10 x 34 | 264 | curve, missiles, laser, accel | 8800 |
-| 5-1 | Maelstrom | Archipelago | Enforcer | #024 | 0.66 x 0.427 | 10 x 29 | 222 | wave, curve, ring, laser | 7600 |
-| 5-2 | Man O' War | Coral Shoals | Hive Carrier | #039 | 0.633 x 0.447 | 8 x 30 | 236 | missiles, wave, laser, pellets | 8000 |
-| 5-3 | Typhoon | Sunset Isles | Hover Tank | #003 | 0.687 x 0.413 | 8 x 32 | 250 | curve, accel, wave, laser | 8400 |
-| 5-4 | Tsunami | Open Sea | Cryo Fortress | #096 | 0.527 x 0.553 | 8 x 34 | 264 | wave, cluster, laser, spiral | 8800 |
-| 5-5 | Abyssal | Squall Line | Sentry Grid | #058 | 0.607 x 0.493 | 7 x 35 | 278 | sniper, missiles, curve, laser | 9200 |
-| 5-6 | Kraken | Dark Tide | Leviathan | #102 | 0.5 x 0.6 | 4 x 37 | 292 | wave, rockets, laser, curve | 9600 |
-| 6-1 | Mesa | Geyser Basin | Relay Array | #152 | 0.713 x 0.433 | 10 x 32 | 250 | rockets, sniper, laser, fan | 8400 |
-| 6-2 | Dust Devil | Sinter Terraces | Scavenger | #191 | 0.72 x 0.44 | 12 x 34 | 264 | curve, pellets, spiral, accel | 8800 |
-| 6-3 | Landslide | Prismatic Springs | Mine Carrier | #183 | 0.74 x 0.467 | 10 x 35 | 278 | cluster, rockets, laser, wave | 9200 |
-| 6-4 | Basilisk | Sulfur Dusk | Foundry | #048 | 0.573 x 0.607 | 6 x 37 | 292 | accel, sniper, laser, curve | 9600 |
-| 6-5 | Sandworm | Fumarole Field | Gunship Prime | #094 | 0.607 x 0.573 | 9 x 38 | 306 | missiles, wave, curve, laser | 10000 |
-| 6-6 | Monolith | The Caldera | Colossus | #031 | 0.553 x 0.633 | 8 x 40 | 320 | sniper, cluster, laser, accel | 10400 |
+| 5-1 | Maelstrom | Rust Pan | Enforcer | #024 | 0.66 x 0.427 | 10 x 29 | 222 | wave, curve, ring, laser | 7600 |
+| 5-2 | Man O' War | Copper Flats | Hive Carrier | #039 | 0.633 x 0.447 | 8 x 30 | 236 | missiles, wave, laser, pellets | 8000 |
+| 5-3 | Typhoon | Brine Pools | Hover Tank | #003 | 0.687 x 0.413 | 8 x 32 | 250 | curve, accel, wave, laser | 8400 |
+| 5-4 | Tsunami | Mineral Dusk | Cryo Fortress | #096 | 0.527 x 0.553 | 8 x 34 | 264 | wave, cluster, laser, spiral | 8800 |
+| 5-5 | Abyssal | Dust Storm | Sentry Grid | #058 | 0.607 x 0.493 | 7 x 35 | 278 | sniper, missiles, curve, laser | 9200 |
+| 5-6 | Kraken | Night Crust | Leviathan | #102 | 0.5 x 0.6 | 4 x 37 | 292 | wave, rockets, laser, curve | 9600 |
+| 6-1 | Mesa | Bright Ridges | Relay Array | #152 | 0.713 x 0.433 | 10 x 32 | 250 | rockets, sniper, laser, fan | 8400 |
+| 6-2 | Dust Devil | Striped Gullies | Scavenger | #191 | 0.72 x 0.44 | 12 x 34 | 264 | curve, pellets, spiral, accel | 8800 |
+| 6-3 | Landslide | Ochre Walls | Mine Carrier | #183 | 0.74 x 0.467 | 10 x 35 | 278 | cluster, rockets, laser, wave | 9200 |
+| 6-4 | Basilisk | Red Dusk | Foundry | #048 | 0.573 x 0.607 | 6 x 37 | 292 | accel, sniper, laser, curve | 9600 |
+| 6-5 | Sandworm | Rainbow Breaks | Gunship Prime | #094 | 0.607 x 0.573 | 9 x 38 | 306 | missiles, wave, curve, laser | 10000 |
+| 6-6 | Monolith | Dark Strata | Colossus | #031 | 0.553 x 0.633 | 8 x 40 | 320 | sniper, cluster, laser, accel | 10400 |
 | 7-1 | Furnace | Refinery | Grappler | #158 | 0.733 x 0.48 | 10 x 35 | 278 | fan, rockets, laser, pellets | 9200 |
 | 7-2 | Smokestack | Tank Farm | Tugmaster | #156 | 0.66 x 0.533 | 8 x 37 | 292 | cluster, accel, curve, laser | 9600 |
 | 7-3 | Slag King | Smelter | Magma Rig | #047 | 0.593 x 0.6 | 10 x 38 | 306 | pellets, missiles, laser, wave | 10000 |

@@ -1,22 +1,22 @@
 """Where an enemy's guns fire from: the weapons drawn on its model (02-enemies.md, "Enemy weapons").
 
-A model file (`data/models/<group>/<drawing>.json`, see pewpy.data.model_path) can list its "weapons" like its
-"engines": each {"number", "kind", "x", "y"}, `number` naming it (1, 2...: a gun in the enemy's description picks its
-weapons by number, see pewpy.game.weapons.guns.Gun.weapons), `kind` what it is ("gun", "cannon", "missile"...: for
-whoever writes the descriptions, the game doesn't use it), `x` and `y` the column and row of its barrel's tip (row 0 at
-the top of the drawing). Its shots come out of the tip's edge facing down the screen (the way enemies fly).
+A model's drawing (`data/models/<group>/<drawing>.json`, or a part's in its model's file, see pewpy.data.read_model)
+can list its "weapons" like its "engines": each {"number", "kind", "x", "y"}, `number` naming it (1, 2...: a gun in
+the enemy's description picks its weapons by number, see pewpy.game.weapons.guns.Gun.weapons), `kind` what it is
+("gun", "cannon", "missile"...: for whoever writes the descriptions, the game doesn't use it), `x` and `y` the column
+and row of its barrel's tip (row 0 at the top of the drawing). Its shots come out of the tip's edge facing down the
+screen (the way enemies fly).
 
 Only flat ("rows") and 3D ("layers") drawings can have weapons: the game reads their size from the file. Independent
 from rendering.
 """
 
-import json
 from dataclasses import dataclass
 from functools import cache
 from typing import Any
 
 from pewpy import config
-from pewpy.data import model_path
+from pewpy.data import model_path, read_model
 
 WEAPON_KEYS = {"number", "kind", "x", "y"}
 
@@ -34,10 +34,9 @@ class Mount:
 @cache
 def model_mounts(drawing: str) -> dict[int, Mount]:
     """Return the weapons of a model, by number ({} for none, or for a model built in code: no file)."""
-    path = model_path(drawing)
-    if not drawing or not path.is_file():
+    if not drawing or not model_path(drawing).is_file():
         return {}
-    return parse_mounts(json.loads(path.read_text()), f"{drawing}.json")
+    return parse_mounts(*read_model(drawing))
 
 
 def parse_mounts(data: dict[str, Any], source: str) -> dict[int, Mount]:

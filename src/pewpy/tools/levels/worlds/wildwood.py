@@ -6,26 +6,28 @@ WILDWOOD = WorldPlan(
     "Wildwood",
     "forest",
     (
-        LevelPlan("Greenwood", "patrol_drone", "ironbark", clouds=0.5, seed=1111),
+        LevelPlan("Greenwood", "patrol_drone", "ironbark", clouds=0.3, seed=1111),
         LevelPlan(
             "Riverbend",
             "cyclone",
             "thornback",
-            clouds=0.2,
+            time_of_day="dusk",
+            clouds=0.1,
             scenery={"ground": {"shape": {"river_spacing": 1.8, "river_width": 0.16}}},
         ),
         LevelPlan(
             "Deep Canopy",
             "siege_pod",
             "rootmaw",
-            clouds=0.35,
+            time_of_day="night",
+            clouds=0.6,
             scenery={"ground": {"shape": {"canopy_size": 1.1, "river_spacing": 4.0}}},
         ),
         LevelPlan(
             "Autumn Wood",
             "delta_raider",
             "wildfire",
-            clouds=0.3,
+            clouds=0.5,
             scenery={
                 "ground": {
                     "colors": {
@@ -40,10 +42,10 @@ WILDWOOD = WorldPlan(
             "Twilight Grove",
             "breacher",
             "grovekeeper",
-            "dusk",
-            0.8,
+            time_of_day="dusk",
+            clouds=0.85,
             scenery={"ground": {"shape": {"canopy_size": 0.7}}},
         ),
-        LevelPlan("Moonlit Woods", "harvester", "old_growth", "night", 0.25),
+        LevelPlan("Moonlit Woods", "harvester", "old_growth", time_of_day="night", clouds=0.2),
     ),
 )

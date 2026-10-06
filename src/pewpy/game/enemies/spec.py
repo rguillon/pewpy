@@ -1,14 +1,15 @@
 """What an enemy is and does, as data (02-enemies.md): its body, and the states it goes through.
 
 Each state has its motions (motions/), its guns, its look and its ways out (exits/). Loaded from the JSON files in
-`data/enemies/` and `data/bosses/` (a boss is an enemy with parts and phases, see kinds.py; it is written shortly,
-with `phases` instead of `states`, see boss.py). Independent from rendering.
+`data/enemies/` and `data/bosses/` (see kinds.py), every one the same way: any enemy can have destructible parts, and
+be written shortly with `phases` instead of `states`; a boss is an enemy with `"boss": true`, which gives it the
+bosses' usual fields (see phases.py). Independent from rendering.
 
 In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
 the enemy's size or model cubes (see guns.distance), or they fire from the weapons drawn on the model (see mounts.py).
 """
 
-from __future__ import annotations  # a boss's parts are enemies too: EnemySpec and Part refer to each other
+from __future__ import annotations  # an enemy's parts are enemies too: EnemySpec and Part refer to each other
 
 import json
 from dataclasses import dataclass
@@ -17,12 +18,12 @@ from typing import Any
 from pewpy import config
 from pewpy.data import data_folder
 from pewpy.game.enemies.actions import Action, Fire, parse_action
-from pewpy.game.enemies.boss import expand_boss
 from pewpy.game.enemies.errors import EnemySpecError
 from pewpy.game.enemies.exits import Exit, parse_exit
 from pewpy.game.enemies.motions import Motion, parse_motion
 from pewpy.game.enemies.mounts import model_mounts
-from pewpy.game.weapons.guns import Distance, Gun, parse_gun
+from pewpy.game.enemies.phases import expand_phases, preset
+from pewpy.game.weapons.guns import PROJECTILES, Distance, Gun, parse_gun
 
 
 @dataclass(frozen=True)
@@ -36,8 +37,9 @@ class State:
     look: str = ""  # "flash", "hidden", "shield" or "armored" ("": its normal look, flashing when hit)
     blink: float = 0.0  # the look blinks: shown when int(timer left / blink) % 2 == blink_on
     blink_on: int = 1
-    warmup: float = 0.0  # a boss's phase: seconds without shooting when it starts, blinking (flash)
+    warmup: float = 0.0  # a phase: seconds without shooting when it starts, blinking (flash)
     vulnerable: bool = True
+    coming_in: bool = False  # still coming to its place: neither it nor its parts can be hurt
     faces: str = ""  # overrides the enemy's `facing` in this state
     exits: tuple[Exit, ...] = ()
 
@@ -52,7 +54,7 @@ class Spawn:
 
 @dataclass(frozen=True)
 class Part:
-    """A part of a boss: an enemy of its own, at (x, y) from the core's middle."""
+    """A destructible part of an enemy (a boss's, or any's): an enemy of its own, at (x, y) from the core's middle."""
 
     name: str
     spec: EnemySpec
@@ -66,7 +68,7 @@ class EnemySpec:
 
     kind: str
     name: str = ""  # shown over a boss's health bar
-    drawing: str = ""  # its model: models/<group>/<drawing>.json ("": built in code, see graphics/models/)
+    drawing: str = ""  # its model: models/<group>/<drawing>.json, "<model>:<part>" a part's in it ("": built in code)
     width: float = 0.1
     height: float = 0.1
     health: float = 3.0
@@ -79,7 +81,7 @@ class EnemySpec:
     ground: bool = False  # sits or drives on the ground (levels over water or clouds have none)
     rammable: bool = True  # False: ramming it hurts the player but doesn't destroy it (bosses)
     leaves_screen: bool = True  # False: stays in the game even beyond the edges (bosses)
-    placeable: bool = True  # the levels can place it (not projectiles, mines, parts, bosses)
+    placeable: bool = True  # the waves can send it (not projectiles, mines, parts; bosses come as boss waves)
     entry_gap: Distance = 0.0  # entering from the top: its highest point starts that far above the screen
     facing: str = ""  # its model turns: "travel" (the way it flies), "player" (its barrel), "spin"
     boss: bool = False  # a boss: a health bar, and the level goes on (or ends) when it's beaten
@@ -100,6 +102,19 @@ class EnemySpec:
         """How far the enemy reaches above its middle, parts included."""
         return max([self.height / 2] + [part.y + part.spec.height / 2 for part in self.parts])
 
+    def released(self) -> set[str]:
+        """Return the kinds of enemy it launches (its guns and its parts') or releases (when shot down)."""
+        guns = [gun for spec in (self, *(part.spec for part in self.parts)) for gun in spec.guns()]
+        guns += [item for gun in guns for item in gun.sequence]
+        kinds = {PROJECTILES[gun.projectile][0] if gun.projectile else gun.spawn for gun in guns} - {""}
+        return kinds | {spawn.kind for spawn in self.on_destroyed}
+
+    def guns(self) -> list[Gun]:
+        """Return its guns: its states', and those its actions fire."""
+        actions = [*self.start, *(action for state in self.states for exit_ in state.exits for action in exit_.then)]
+        found = [gun for state in self.states for _, gun in state.guns]
+        return found + [action.gun for action in actions if isinstance(action, Fire)]
+
     def state_index(self, name: str) -> int:
         """Return the index of the state called `name`."""
         return next(index for index, state in enumerate(self.states) if state.name == name)
@@ -112,12 +127,16 @@ def load_enemy_specs(name: str) -> dict[str, EnemySpec]:
 
 
 def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
-    """Read an enemy's description (EnemySpecError, naming `source`, if it's wrong)."""
-    data = dict(data)
+    """Read an enemy's description (EnemySpecError, naming `source`, if it's wrong).
+
+    Its preset's fields (see phases.py) are filled in unless it gives them.
+    """
+    usual = preset(data)
+    data = usual.body | data
     data.pop("note", None)
     try:
         if "phases" in data:
-            data = expand_boss(data)
+            data = expand_phases(data)
         if "voxels" in data:
             columns, rows = data.pop("voxels")
             data["width"], data["height"] = columns * config.MODEL_VOXEL, rows * config.MODEL_VOXEL
@@ -126,10 +145,10 @@ def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
         if "velocity" in data:
             data["velocity"] = tuple(data["velocity"])
         data["start"] = tuple(parse_action(action) for action in data.get("start", []))
-        data["states"] = tuple(parse_state(state) for state in data.get("states", [{"name": "idle"}]))
+        data["states"] = tuple(parse_state(state, usual.gun) for state in data.get("states", [{"name": "idle"}]))
         data["on_destroyed"] = tuple(Spawn(**spawn) for spawn in data.get("on_destroyed", []))
         data["explosions"] = tuple(tuple(explosion) for explosion in data.get("explosions", []))
-        data["parts"] = tuple(parse_part(part, source) for part in data.get("parts", []))
+        data["parts"] = tuple(parse_part(usual.part | part, source) for part in data.get("parts", []))
         spec = EnemySpec(kind=kind, **data)
     except (TypeError, ValueError) as error:
         raise EnemySpecError(source, str(error)) from error
@@ -162,17 +181,30 @@ def _check_weapons(spec: EnemySpec, source: str) -> None:
 def parse_part(data: dict[str, Any], source: str) -> Part:
     """Read a part: its name, where it is from the middle (x, y), and its body, like an enemy's.
 
-    Its kind is its drawing.
+    Its kind is its drawing (like "avalanche:a": a part drawn in its enemy's model file).
     """
     body = dict(data)
     name, x, y = body.pop("name"), body.pop("x"), body.pop("y")
     return Part(name, parse_enemy(body.get("drawing", name), body, f"{source}: {name}"), x, y)
 
 
-def parse_state(data: dict[str, Any]) -> State:
-    """Read a state: its motions, guns and exits."""
+def parse_state(data: dict[str, Any], usual_gun: dict[str, Any] | None = None) -> State:
+    """Read a state: its motions, guns (`usual_gun`'s fields filled in unless given) and exits."""
     data = dict(data)
+    guns = [(usual_gun or {}) | written for gun in data.get("guns", []) for written in _guns(gun)]
     data["motions"] = tuple(parse_motion(motion) for motion in data.get("motions", []))
-    data["guns"] = tuple((gun.get("from", ""), parse_gun(gun)) for gun in data.get("guns", []))
+    data["guns"] = tuple((gun.get("from", ""), parse_gun(gun)) for gun in guns)
     data["exits"] = tuple(parse_exit(exit_) for exit_ in data.get("exits", []))
     return State(**data)
+
+
+def _guns(gun: dict[str, Any]) -> list[dict[str, Any]]:
+    """Return the gun as it is, or once per part when it comes `from` several (a list): each fires it in turn.
+
+    Their first shots are spread over its interval.
+    """
+    sources = gun.get("from", "")
+    if not isinstance(sources, list):
+        return [gun]
+    delay, step = gun.get("delay", 0.0), gun["interval"] / len(sources)
+    return [gun | {"from": source, "delay": delay + step * index} for index, source in enumerate(sources)]

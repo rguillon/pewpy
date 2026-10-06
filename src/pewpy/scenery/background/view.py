@@ -1,5 +1,7 @@
 """Drawing the backgrounds (see pewpy.scenery.background) with Panda3D."""
 
+from typing import cast
+
 from panda3d.core import Lens, NodePath, Point2, Point3, Vec3
 
 from pewpy.graphics import models
@@ -7,7 +9,7 @@ from pewpy.scenery import background, params
 from pewpy.scenery.background import Area, Scenery
 from pewpy.scenery.ground import props, shader
 from pewpy.scenery.ground.terrain import Terrain
-from pewpy.scenery.params import Color3, SceneryParams
+from pewpy.scenery.params import Color3, DistantPlanet, SceneryParams
 
 AREA_MARGIN = 0.05  # world units beyond the screen edges, so nothing pops in at the edges
 
@@ -137,13 +139,10 @@ class BackgroundView:
             palettes = look.nebulas.palettes
             nebula = palettes[self.scenery.variant % len(palettes)]
             model = models.cloud_model(_opaque(nebula[drifter.shape % len(nebula)]), seed=drifter.shape)
-        elif layer.kind == "planet" and look.planet is not None:
-            palettes = look.planet.palettes
+        else:  # the distant planet: its layer is only there when the scenery has one
+            palettes = cast("DistantPlanet", look.planet).palettes
             palette = tuple(_opaque(color) for color in palettes[self.scenery.variant % len(palettes)])
             model = models.distant_planet_model(palette, seed=self.scenery.variant)
-        else:
-            colors = tuple(_opaque(color) for color in look.rocks.colors) if look.rocks else ()
-            model = models.rock_model(drifter.shape, colors)
         model.reparentTo(self.root)
         model.setScale(drifter.size)
         return model

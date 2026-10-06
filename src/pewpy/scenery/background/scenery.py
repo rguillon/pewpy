@@ -8,7 +8,6 @@ from pewpy.scenery import params
 from pewpy.scenery.background.layers.distant_planet import planet_layer
 from pewpy.scenery.background.layers.mist import mist_layer
 from pewpy.scenery.background.layers.nebulas import nebula_layer
-from pewpy.scenery.background.layers.rocks import rock_layer
 from pewpy.scenery.background.stars import Starfield
 from pewpy.scenery.ground.terrain import GROUND_SPEED, Area, Terrain
 from pewpy.scenery.params import SceneryParams
@@ -74,9 +73,6 @@ class Scenery:
             self.layers.append(nebula_layer(self.rng, scenery.nebulas, view.area(scenery.nebulas.depth)))
         if scenery.planet is not None:
             self.layers.append(planet_layer(self.rng, scenery.planet, view.area(scenery.planet.depth)))
-        if scenery.rocks is not None:
-            for layer in scenery.rocks.layers:
-                self.layers.append(rock_layer(self.rng, layer, view.area(layer.depth), scenery.rocks.spin))
         if scenery.ground is not None:
             depth = scenery.ground.depth
             # The ground is farther than the play plane, so it must move faster to look like GROUND_SPEED.

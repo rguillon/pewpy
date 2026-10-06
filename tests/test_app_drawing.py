@@ -315,10 +315,10 @@ def test_the_3d_view_is_drawn_at_most_so_tall() -> None:
     assert window.scene_size(0, 0) == (1, 1)
 
 
-def test_a_debris_field_draws_its_rocks(app: PewPewApp) -> None:
+def test_a_bare_ground_draws_its_strips_without_props(app: PewPewApp) -> None:
     play(app)
-    app._show_background(parse_level({"background": "debris"}))
-    rocks = [layer for layer in app.background.scenery.layers if layer.kind == "rock"]
-    assert rocks
-    assert rocks[0].drifters
-    assert app.background.root.getNumChildren() > 0
+    app._show_background(parse_level({"background": "savanna", "scenery": {"outposts": None, "flora": None}}))
+    terrain = app.background.scenery.terrain
+    assert terrain is not None
+    assert terrain.props == []
+    assert app.background.root.find("**/strip_0")

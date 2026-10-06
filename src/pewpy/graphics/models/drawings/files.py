@@ -1,10 +1,9 @@
-"""Reading the drawings' files (`data/models/<group>/<name>.json`) in any of their forms."""
+"""Reading the drawings' files (`data/models/<group>/<name>.json`) in any of their forms, and the parts in them."""
 
-import json
 from dataclasses import replace
 from typing import Any
 
-from pewpy.data import data_folder, model_folder, model_path
+from pewpy.data import data_folder, model_folder, read_model
 from pewpy.graphics.models.drawings import vox
 from pewpy.graphics.models.drawings.engines import Engine, parse_engines
 from pewpy.graphics.models.drawings.errors import VoxelDrawingError
@@ -14,7 +13,7 @@ from pewpy.graphics.models.drawings.magica import VOX_KEYS, voxels_from_vox
 from pewpy.graphics.models.drawings.voxels import OPTIONAL_DRAWING_KEYS, Voxels, voxel_cells
 from pewpy.graphics.models.types import Palette
 
-DRAWINGS_FOLDER = "models"  # data/models/<group>/<name>.json, one voxel drawing each (see pewpy.data.model_path)
+DRAWINGS_FOLDER = "models"  # data/models/<group>/<name>.json, a model each, its parts in it (see pewpy.data.read_model)
 
 
 def load_drawing(name: str) -> tuple[list[str], Palette]:
@@ -39,8 +38,11 @@ def load_engines(name: str) -> list[Engine]:
 
 
 def read_drawing(name: str) -> tuple[Any, str]:
-    """Read a model's file (wherever it is in models/, see pewpy.data.model_path); return its data and its name."""
-    return json.loads(model_path(name).read_text()), f"{name}.json"
+    """Read a model's drawing, or a part's ("avalanche:a", see pewpy.data.read_model); return it and where it's from."""
+    try:
+        return read_model(name)
+    except ValueError as error:
+        raise VoxelDrawingError(str(error)) from error
 
 
 def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:  # noqa: ANN401 - decoded JSON

@@ -5,7 +5,7 @@ import pytest
 from pewpy import app as app_module
 from pewpy import config
 from pewpy.app import PewPewApp, keys, window
-from pewpy.game.enemies.kinds import BOSSES
+from pewpy.game.enemies.kinds import BOSSES, drawings
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State
 from pewpy.game.world import World
@@ -117,7 +117,7 @@ def test_playing_a_level(app: PewPewApp) -> None:
     assert app.background.scenery.kind != "space"
     bosses = [wave.enemy for wave in world(app).level.waves if wave.enemy in BOSSES]
     assert bosses
-    assert all(BOSSES[boss].drawing in app.boss_models for boss in bosses)
+    assert all(drawing in app.ship_models for wave in world(app).level.waves for drawing in drawings(wave.enemy))
     press(app, keys.FIRE_KEY)
     press(app, "arrow_left")
     frames(app, 5)

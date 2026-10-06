@@ -54,7 +54,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 0.35 s, a shot straight down (speed 0.5) from one wingtip, then the other
 - Points: 400
 - Drops: 20%
-- First appears in level: 3-5 (Witchlight)
+- First appears in level: 3-5 (Long Grass)
 
 ### Enemy: Hornet
 
@@ -100,7 +100,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.6 s, in turn: 2 homing missiles from its wingtips, or a spread of 7 shots at the player (30° either side), speed 0.5
 - Points: 900
 - Drops: 35%
-- First appears in level: 5-6 (Dark Tide)
+- First appears in level: 5-6 (Night Crust)
 
 ### Enemy: Needle
 
@@ -111,7 +111,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.2 s, a stream of 5 shots straight down, 0.07 s apart, speed 0.8
 - Points: 250
 - Drops: 10%
-- First appears in level: 3-3 (Mistmarsh)
+- First appears in level: 3-3 (Kopje Country)
 
 ### Enemy: Kestrel
 
@@ -134,7 +134,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: none: it rams
 - Points: 250
 - Drops: 8%
-- First appears in level: 3-6 (Fogbound Fen)
+- First appears in level: 3-6 (Veld by Night)
 
 ### Enemy: Tick
 
@@ -157,7 +157,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.4 s, in turn: a spiral of 12 shots (0.1 s apart, speed 0.45), or 3 heavy shots at the player 10° apart, speed 0.5
 - Points: 1000
 - Drops: 50%
-- First appears in level: 6-5 (Fumarole Field)
+- First appears in level: 6-5 (Rainbow Breaks)
 - Notes: a heavy: comes alone
 
 ### Enemy: Catamaran
@@ -180,7 +180,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 2.5 s, a burst of 6 shots at the player, 0.08 s apart, scattered up to 8°, speed 0.6
 - Points: 350
 - Drops: 15%
-- First appears in level: 3-6 (Fogbound Fen)
+- First appears in level: 3-6 (Veld by Night)
 
 ### Enemy: Behemoth
 
@@ -214,7 +214,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: armored (darker, can't be hurt) for 3 s, then open for 1.2 s: as it opens, a wall of 7 shots across its width, straight down, speed 0.4
 - Points: 600
 - Drops: 30%
-- First appears in level: 5-5 (Squall Line)
+- First appears in level: 5-5 (Dust Storm)
 - Notes: only hurt while open
 
 ### Enemy: Imp
@@ -271,7 +271,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.5 s, fans of 3 shots out to both flanks (25°, 45° and 65° from straight down), speed 0.45
 - Points: 380
 - Drops: 15%
-- First appears in level: 3-6 (Fogbound Fen)
+- First appears in level: 3-6 (Veld by Night)
 
 ### Enemy: Rapier
 
@@ -305,7 +305,7 @@ Rampart) at least 22 s before the boss, so the fights don't overlap. *(placehold
 - Attack: every 1.3 s, a shot at the player from its turret, speed 0.55
 - Points: 200
 - Drops: 10%
-- First appears in level: 3-4 (Sunken Bog)
+- First appears in level: 3-4 (Acacia Dusk)
 
 ### Enemy: Brood
 

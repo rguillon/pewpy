@@ -186,5 +186,71 @@
       "length": 13,
       "towards": "top"
     }
-  ]
+  ],
+  "parts": {
+    "launcher": {
+      "rows": [
+        "NNNNNNNNNNNNNNNNN",
+        "khhhhhhhhhhhhhhhk",
+        "khohohohohohohohk",
+        "khhhhhhhhhhhhhhhk",
+        "khhhhhhhhhhhhhhhk",
+        "khohohohohohohohk",
+        "khhhhhhhhhhhhhhhk",
+        "khhhhhhhhhhhhhhhk",
+        "khohohohohohohohk",
+        "khhhhhhhhhhhhhhhk",
+        "khhhhhhhhhhhhhhhk",
+        "khohohohohohohohk",
+        "khhhhhhhhhhhhhhhk",
+        "khhhhhhhhhhhhhhhk",
+        "khohohohohohohohk",
+        "khhhhhhhhhhhhhhhk",
+        "ppppppppppppppppp",
+        "kkkkkkkkkkkkkkkkk"
+      ],
+      "palette": {
+        "N": {
+          "color": [
+            0.26,
+            0.27,
+            0.29
+          ],
+          "height": 9
+        },
+        "k": {
+          "color": [
+            0.17,
+            0.18,
+            0.2
+          ],
+          "height": 5
+        },
+        "h": {
+          "color": [
+            0.37,
+            0.38,
+            0.41
+          ],
+          "height": 7
+        },
+        "o": {
+          "color": [
+            0.08,
+            0.08,
+            0.09
+          ],
+          "height": 7
+        },
+        "p": {
+          "color": [
+            0.51,
+            0.212,
+            0.722
+          ],
+          "height": 7
+        }
+      }
+    }
+  }
 }

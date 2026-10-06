@@ -4,7 +4,7 @@
   "background": "refinery",
   "background_seed": 6325,
   "time_of_day": "night",
-  "clouds": 0.6,
+  "clouds": 0.3,
   "scenery": {
     "settlement": {
       "layout": {

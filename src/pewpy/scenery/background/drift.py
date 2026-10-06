@@ -24,7 +24,7 @@ class Drifter:
 class DriftLayer:
     """Drifters at one depth. One that leaves the bottom comes back above the top, somewhere else."""
 
-    kind: str  # "cloud", "planet", "rock" or "mist": what view.py draws
+    kind: str  # "cloud", "planet" or "mist": what view.py draws
     depth: float
     area: Area
     drifters: list[Drifter]

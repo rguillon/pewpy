@@ -1,8 +1,8 @@
 """The game with the dev tools' screens (`make dev`).
 
 The main menu also opens the Models, Bosses, Enemy candidates, Player candidates, Boss candidates and Prop candidates
-screens (models on
-show, to work on them, model_screens.py) and the AI learning, AI rating and AI playing screens (ai_screens.py).
+screens (models on show, to work on them, model_screens.py), the Background candidates screen (background_screens.py)
+and the AI learning, AI rating and AI playing screens (ai_screens.py).
 """
 
 from enum import Enum
@@ -57,6 +57,7 @@ class DevApp(AIScreens):
             MenuItem("Player candidates", go(DevState.PLAYER_CANDIDATES)),
             MenuItem("Boss candidates", go(DevState.BOSS_CANDIDATES)),
             MenuItem("Prop candidates", go(DevState.PROP_CANDIDATES)),
+            MenuItem("Background candidates", go(DevState.BACKGROUND_CANDIDATES)),
             MenuItem("AI learning", go(DevState.AI_LEARNING)),
             MenuItem("AI rating", go(DevState.AI_RATING)),
             MenuItem("AI playing", self._pick_for_ai),

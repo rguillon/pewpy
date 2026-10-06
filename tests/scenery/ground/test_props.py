@@ -6,8 +6,8 @@ from pewpy.scenery.ground.props.mesh import METAL, PLAIN, PropMesh
 from pewpy.scenery.ground.props.model import PropModel
 from pewpy.scenery.ground.settlement import Prop
 
-KINDS = ["antenna", "apron", "barn", "building", "containers", "cooling_tower", "dead_tree", "dome", "greenhouse"]
-KINDS += ["hangar", "hedge", "house", "pad", "palm", "pipes", "plant", "pylon", "radar", "silo", "stack", "tank"]
+KINDS = ["antenna", "apron", "barn", "building", "containers", "cooling_tower", "dome", "greenhouse"]
+KINDS += ["hangar", "hedge", "house", "pad", "pipes", "plant", "pylon", "radar", "silo", "stack", "tank"]
 KINDS += ["tree", "warehouse"]
 
 

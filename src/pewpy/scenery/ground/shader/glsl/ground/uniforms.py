@@ -2,7 +2,7 @@
 
 GLSL = """
 uniform float style;  // what the ground is (STYLES)
-uniform float fluid;  // what's below height 0: 0 nothing, 1 water, 2 lava, 3 gaps in clouds (FLUIDS)
+uniform float fluid;  // what's below height 0: 0 nothing, 1 water (FLUIDS)
 uniform vec3 palette[%(palette)s];  // the painter's colors (STYLE_COLORS, SURFACE_SLOTS)
 uniform vec3 fluid_colors[3];  // FLUID_COLORS
 uniform float osg_FrameTime;

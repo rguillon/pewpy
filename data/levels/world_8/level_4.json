@@ -4,7 +4,7 @@
   "background": "city",
   "background_seed": 5253,
   "time_of_day": "night",
-  "clouds": 0.7,
+  "clouds": 0.9,
   "waves": [
     {
       "time": 2.0,

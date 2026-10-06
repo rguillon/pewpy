@@ -4,7 +4,7 @@
   "background": "city",
   "background_seed": 346,
   "time_of_day": "night",
-  "clouds": 0.4,
+  "clouds": 0.35,
   "scenery": {
     "settlement": {
       "layout": {

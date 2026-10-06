@@ -28,8 +28,8 @@ gives the flat, arcade-style gameplay some depth.
 |                                                                 |                                                                 |
 | :-------------------------------------------------------------: | :-------------------------------------------------------------: |
 |   ![Highlands](docs/screenshots/world_1.png) **1. Highlands**   |    ![Wildwood](docs/screenshots/world_2.png) **2. Wildwood**    |
-|    ![Fenlands](docs/screenshots/world_3.png) **3. Fenlands**    |   ![Heartland](docs/screenshots/world_4.png) **4. Heartland**   |
-| ![Archipelago](docs/screenshots/world_5.png) **5. Archipelago** | ![Steamvale](docs/screenshots/world_6.png) **6. Steamvale** |
+|    ![Lush Veld](docs/screenshots/world_3.png) **3. Lush Veld**    |   ![Heartland](docs/screenshots/world_4.png) **4. Heartland**   |
+| ![Rust Pan](docs/screenshots/world_5.png) **5. Rust Pan** | ![Bright Ridges](docs/screenshots/world_6.png) **6. Bright Ridges** |
 |   ![Ironworks](docs/screenshots/world_7.png) **7. Ironworks**   |  ![Metropolis](docs/screenshots/world_8.png) **8. Metropolis**  |
 
 ## Playing

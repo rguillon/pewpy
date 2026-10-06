@@ -1,15 +1,61 @@
 {
-  "name": "Sinter Terraces",
+  "name": "Striped Gullies",
   "scroll_speed": 0.264,
-  "background": "geysers",
+  "background": "badlands",
   "background_seed": 8139,
+  "time_of_day": "night",
   "clouds": 0.1,
   "scenery": {
     "ground": {
       "shape": {
-        "mound_spacing": 1.0,
-        "steps": 5
+        "size": 0.6,
+        "floor": 0.282
+      },
+      "colors": {
+        "band_1": [
+          0.33,
+          0.122,
+          0.086
+        ],
+        "band_2": [
+          0.363,
+          0.208,
+          0.094
+        ],
+        "band_3": [
+          0.306,
+          0.281,
+          0.133
+        ],
+        "band_4": [
+          0.186,
+          0.214,
+          0.192
+        ],
+        "plateau": [
+          0.279,
+          0.2,
+          0.126
+        ],
+        "sand": [
+          0.281,
+          0.23,
+          0.147
+        ],
+        "green": [
+          0.116,
+          0.129,
+          0.07
+        ]
       }
+    },
+    "haze": {
+      "color": [
+        0.334,
+        0.271,
+        0.223
+      ],
+      "amount": 0.515
     }
   },
   "waves": [

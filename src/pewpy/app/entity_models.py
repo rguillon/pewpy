@@ -1,10 +1,10 @@
-"""The models of everything in play, built once (bosses when first needed), copied for each entity."""
+"""The models of everything in play, built once (an enemy's when first needed), copied for each entity."""
 
 from panda3d.core import NodePath
 
 from pewpy.app.window import Color, Window
 from pewpy.game.enemies.enemy import Enemy
-from pewpy.game.enemies.kinds import BOSSES, ENEMIES
+from pewpy.game.enemies.kinds import drawings
 from pewpy.game.entities import Entity, Pickup
 from pewpy.game.level import Level
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
@@ -28,14 +28,16 @@ class EntityModels(Window):
     """The models of the ships, enemies, bosses, pickups and secondary weapons."""
 
     def _build_models(self) -> None:
-        """Build every model from pewpy.graphics.models (looked up by name, so reloaded models are used)."""
-        # The enemies' and the player's missiles, by drawing (see EnemySpec.drawing, Missile.drawing).
-        self.ship_models = {drawing: models.model(drawing) for drawing in {spec.drawing for spec in ENEMIES.values()}}
-        self.ship_models[Missile.drawing] = models.model(Missile.drawing)
+        """Build the models from pewpy.graphics.models (looked up by name, so reloaded models are used).
+
+        The enemies' (and their parts') are built when first needed (see _ship_model): there are many, the bosses big.
+        """
+        # The enemies', their parts' and the player's missiles, by drawing (see EnemySpec.drawing, Missile.drawing).
+        self.ship_models: dict[str, NodePath] = {}
         self.player_models = {spec.drawing: models.model(spec.drawing) for spec in SHIPS.values()}
         # Explosions throw debris in the colors of what blew up (see Enemy.kind_name), the player's ship included.
-        self.debris_colors = {drawing: models.main_colors(model) for drawing, model in self.ship_models.items()}
-        self.debris_colors["Player"] = models.main_colors(self.player_models[SHIPS[DEFAULT_SHIP].drawing])
+        self.debris_colors = {"Player": models.main_colors(self.player_models[SHIPS[DEFAULT_SHIP].drawing])}
+        self._ship_model(Missile.drawing)
         self.shield_bubble = models.shield_bubble_model()
         self.pickup_models = {weapon: models.pickup_model(LETTERS[weapon], WEAPON_COLORS[weapon]) for weapon in WEAPONS}
         self.pickup_models["repair"] = models.repair_model()
@@ -43,23 +45,19 @@ class EntityModels(Window):
         for kind in SECONDARY_WEAPONS:
             self.pickup_models[kind] = models.pickup_model(SECONDARY_LETTERS[kind], SECONDARY_COLORS[kind])
         self.secondary_models = {"turret": models.gun_turret_model(), "lightning": models.lightning_coil_model()}
-        # Bosses and their parts: one model per drawing, built when first needed (they're big: building them all
-        # takes seconds), see _boss_model.
-        self.boss_models: dict[str, NodePath] = {}
 
-    def _boss_model(self, drawing: str) -> NodePath:
-        if drawing not in self.boss_models:
-            model = self.boss_models[drawing] = models.drawing_model(drawing)
+    def _ship_model(self, drawing: str) -> NodePath:
+        """Return the model of an enemy, a part or a missile, built the first time."""
+        if drawing not in self.ship_models:
+            model = self.ship_models[drawing] = models.model(drawing)
             self.debris_colors[drawing] = models.main_colors(model)
-        return self.boss_models[drawing]
+        return self.ship_models[drawing]
 
-    def _prepare_bosses(self, level: Level) -> None:
-        """Build the level's boss models now, so the game doesn't stall when the boss comes."""
-        for wave in level.waves:
-            spec = BOSSES.get(wave.enemy)
-            if spec:
-                for drawing in [spec.drawing, *(part.spec.drawing for part in spec.parts)]:
-                    self._boss_model(drawing)
+    def _prepare_level(self, level: Level) -> None:
+        """Build the models of the level's enemies now (and what they launch), so the game doesn't stall on them."""
+        for kind in {wave.enemy for wave in level.waves}:
+            for drawing in drawings(kind):
+                self._ship_model(drawing)
 
     def _make_block(self, entity: Entity) -> NodePath:
         """Make the entity's model in the scene (bullets are sprites, see _sync_nodes)."""
@@ -74,9 +72,6 @@ class EntityModels(Window):
         not instanced, so each Turret can aim its own barrel.
         """
         node = NodePath("entity")
-        if isinstance(entity, Enemy) and (entity.is_boss or entity.part_name):
-            self._boss_model(entity.drawing).copyTo(node)
-            return node
         if isinstance(entity, Player):
             self.player_models[entity.ship.drawing].copyTo(node)
             bounds = node.getTightBounds()
@@ -87,7 +82,7 @@ class EntityModels(Window):
                 model.copyTo(mount)
                 mount.hide()
             return node
-        model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self.ship_models[drawing_of(entity)]
+        model = self.pickup_models[entity.kind] if isinstance(entity, Pickup) else self._ship_model(drawing_of(entity))
         model.copyTo(node)
         if isinstance(entity, Enemy) and shielded(entity):
             bubble = node.attachNewNode("bubble")  # the bubble fits a 1 x 1 x 1 box: stretched around the ship

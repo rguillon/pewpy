@@ -3,7 +3,8 @@
   "scroll_speed": 0.217,
   "background": "mountains",
   "background_seed": 4923,
-  "clouds": 0.85,
+  "time_of_day": "dusk",
+  "clouds": 0.9,
   "scenery": {
     "ground": {
       "shape": {

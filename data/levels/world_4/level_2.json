@@ -3,7 +3,7 @@
   "scroll_speed": 0.241,
   "background": "farmland",
   "background_seed": 8675,
-  "clouds": 0.15,
+  "clouds": 0.4,
   "scenery": {
     "settlement": {
       "layout": {

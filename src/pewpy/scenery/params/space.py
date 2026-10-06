@@ -43,22 +43,3 @@ class DistantPlanet:
     size: tuple[float, float]
     spin: float  # degrees per second
     palettes: tuple[tuple[Color3, ...], ...]  # its bands; one is picked by the level's background seed
-
-
-@dataclass(frozen=True)
-class RockLayer:
-    """A layer of asteroids: how deep, how many, how big and how fast."""
-
-    depth: float
-    count: int
-    size: tuple[float, float]
-    speed: float
-
-
-@dataclass(frozen=True)
-class Rocks:
-    """Asteroids: their layers, tumble and colors."""
-
-    layers: tuple[RockLayer, ...]
-    spin: float  # fastest tumble, degrees per second
-    colors: tuple[Color3, ...]  # each voxel of an asteroid picks one

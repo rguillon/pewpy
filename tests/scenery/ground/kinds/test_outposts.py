@@ -12,7 +12,7 @@ from pewpy.scenery.params import Outposts, SceneryError
 
 STEP = 0.02
 KNOBS = Outposts(kinds=tuple(outposts.COMPOUNDS), spacing=1.0, size=(0.26, 0.4))
-WORLDS = ("mountains", "forest", "swamp", "farmland", "ocean", "geysers", "refinery", "city")
+WORLDS = ("mountains", "forest", "savanna", "farmland", "salt_pan", "badlands", "refinery", "city")
 
 
 def bumpy(rows: int = 200, columns: int = 150, seed: int = 0) -> Shape:

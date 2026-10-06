@@ -3,7 +3,7 @@
   "scroll_speed": 0.229,
   "background": "forest",
   "background_seed": 8636,
-  "clouds": 0.3,
+  "clouds": 0.5,
   "scenery": {
     "ground": {
       "colors": {

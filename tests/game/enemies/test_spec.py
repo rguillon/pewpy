@@ -4,7 +4,7 @@ import pytest
 
 from pewpy import config
 from pewpy.game.enemies.actions import Fire, Sway, Velocity
-from pewpy.game.enemies.exits import Cycle, Parts
+from pewpy.game.enemies.exits import BelowY, Cycle, Parts
 from pewpy.game.enemies.motions import Bounce
 from pewpy.game.enemies.spec import EnemySpec, EnemySpecError, Part, parse_enemy
 from pewpy.game.weapons.guns import Gun
@@ -94,6 +94,7 @@ def test_a_boss_is_written_shortly_with_its_phases() -> None:
     spec = parse_enemy(
         "boss",
         {
+            "boss": True,
             "size": [0.3, 0.2],
             "parts": [{"name": "arm", "x": 0.2, "y": 0.0, "size": [0.1, 0.1]}],
             "phases": [
@@ -110,6 +111,7 @@ def test_a_boss_is_written_shortly_with_its_phases() -> None:
     assert not spec.parts[0].spec.rammable
     enter, armored, rage = spec.states
     assert [state.name for state in spec.states] == ["enter", "phase 1", "phase 2"]
+    assert enter.coming_in
     assert enter.exits[0].then == (Velocity(vy=0.0), Sway(0.1))
     assert not enter.vulnerable
     assert not armored.vulnerable
@@ -124,9 +126,45 @@ def test_a_boss_is_written_shortly_with_its_phases() -> None:
     assert rage.faces == "player"
 
 
-def test_a_boss_gun_from_several_parts_fires_from_each_in_turn() -> None:
+def test_a_gun_from_several_parts_fires_from_each_in_turn() -> None:
     gun = {"from": ["a", "b", "c", "d"], "pattern": "fan", "interval": 2.0, "speed": 0.4, "delay": 0.1}
-    spec = parse_enemy("boss", {"phases": [{"sway": 0.1, "guns": [gun]}]}, "test")
-    guns = spec.states[1].guns
-    assert [source for source, _ in guns] == ["a", "b", "c", "d"]
-    assert [gun.delay for _, gun in guns] == pytest.approx([0.1, 0.6, 1.1, 1.6])
+    for written in (
+        {"phases": [{"sway": 0.1, "guns": [gun]}]},
+        {"states": [{"name": "fly"}, {"name": "x", "guns": [gun]}]},
+    ):
+        guns = parse_enemy("boss", written, "test").states[1].guns
+        assert [source for source, _ in guns] == ["a", "b", "c", "d"]
+        assert [gun.delay for _, gun in guns] == pytest.approx([0.1, 0.6, 1.1, 1.6])
+
+
+def test_any_enemy_can_have_phases_and_parts_without_the_bosses_usual_fields() -> None:
+    spec = parse_enemy(
+        "carrier",
+        {
+            "size": [0.2, 0.1],
+            "velocity": [0.0, -0.4],
+            "hold_y": 0.3,
+            "phase_pause": 0.5,
+            "parts": [{"name": "pod", "x": 0.1, "y": 0.0, "size": [0.05, 0.05]}],
+            "phases": [
+                {"sway": 0.1, "until": {"parts": ["pod"]},
+                 "guns": [{"from": "pod", "pattern": "aimed", "interval": 1.0, "speed": 0.5}]},
+                {"sway": 0.2},
+            ],
+        },
+        "test",
+    )  # fmt: skip
+    assert not spec.boss
+    assert spec.rammable
+    assert spec.leaves_screen
+    assert spec.velocity == (0.0, -0.4)
+    assert spec.explosions == ()
+    enter, first, _ = spec.states
+    assert enter.coming_in
+    assert enter.vulnerable
+    assert enter.exits[0].conditions == (BelowY(0.3),)
+    assert first.warmup == pytest.approx(0.5)
+    ((_, gun),) = first.guns
+    assert gun.reload != "carry"
+    pod = spec.parts[0].spec
+    assert (pod.placeable, pod.leaves_screen, pod.rammable, pod.drop_chance) == (False, False, True, 0.0)

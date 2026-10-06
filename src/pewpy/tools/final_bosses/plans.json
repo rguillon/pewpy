@@ -14,42 +14,42 @@
     },
     "parts": [
       {
-        "drawing": "avalanche_a",
+        "drawing": "avalanche:a",
         "x": -0.133,
         "y": -0.027,
         "width": 0.127,
         "height": 0.14
       },
       {
-        "drawing": "avalanche_a",
+        "drawing": "avalanche:a",
         "x": 0.133,
         "y": -0.027,
         "width": 0.127,
         "height": 0.14
       },
       {
-        "drawing": "avalanche_b",
+        "drawing": "avalanche:b",
         "x": -0.107,
         "y": 0.04,
         "width": 0.113,
         "height": 0.133
       },
       {
-        "drawing": "avalanche_b",
+        "drawing": "avalanche:b",
         "x": 0.107,
         "y": 0.04,
         "width": 0.113,
         "height": 0.133
       },
       {
-        "drawing": "avalanche_c",
+        "drawing": "avalanche:c",
         "x": -0.207,
         "y": -0.04,
         "width": 0.087,
         "height": 0.093
       },
       {
-        "drawing": "avalanche_c",
+        "drawing": "avalanche:c",
         "x": 0.207,
         "y": -0.04,
         "width": 0.087,
@@ -72,56 +72,56 @@
     },
     "parts": [
       {
-        "drawing": "frostjaw_a",
+        "drawing": "frostjaw:a",
         "x": -0.107,
         "y": 0.013,
         "width": 0.113,
         "height": 0.14
       },
       {
-        "drawing": "frostjaw_a",
+        "drawing": "frostjaw:a",
         "x": 0.107,
         "y": 0.013,
         "width": 0.113,
         "height": 0.14
       },
       {
-        "drawing": "frostjaw_b",
+        "drawing": "frostjaw:b",
         "x": -0.033,
         "y": -0.093,
         "width": 0.18,
         "height": 0.167
       },
       {
-        "drawing": "frostjaw_b",
+        "drawing": "frostjaw:b",
         "x": 0.033,
         "y": -0.093,
         "width": 0.18,
         "height": 0.167
       },
       {
-        "drawing": "frostjaw_c",
+        "drawing": "frostjaw:c",
         "x": -0.227,
         "y": 0.027,
         "width": 0.127,
         "height": 0.147
       },
       {
-        "drawing": "frostjaw_c",
+        "drawing": "frostjaw:c",
         "x": 0.227,
         "y": 0.027,
         "width": 0.127,
         "height": 0.147
       },
       {
-        "drawing": "frostjaw_d",
+        "drawing": "frostjaw:d",
         "x": -0.04,
         "y": -0.02,
         "width": 0.113,
         "height": 0.1
       },
       {
-        "drawing": "frostjaw_d",
+        "drawing": "frostjaw:d",
         "x": 0.04,
         "y": -0.02,
         "width": 0.113,
@@ -144,28 +144,28 @@
     },
     "parts": [
       {
-        "drawing": "iron_summit_a",
+        "drawing": "iron_summit:a",
         "x": -0.263,
         "y": 0.04,
         "width": 0.113,
         "height": 0.113
       },
       {
-        "drawing": "iron_summit_b",
+        "drawing": "iron_summit:b",
         "x": -0.037,
         "y": -0.007,
         "width": 0.14,
         "height": 0.187
       },
       {
-        "drawing": "iron_summit_c",
+        "drawing": "iron_summit:c",
         "x": -0.183,
         "y": 0.067,
         "width": 0.153,
         "height": 0.26
       },
       {
-        "drawing": "iron_summit_c",
+        "drawing": "iron_summit:c",
         "x": 0.183,
         "y": 0.067,
         "width": 0.153,
@@ -188,63 +188,63 @@
     },
     "parts": [
       {
-        "drawing": "stormpeak_a",
+        "drawing": "stormpeak:a",
         "x": -0.04,
         "y": 0.0,
         "width": 0.127,
         "height": 0.24
       },
       {
-        "drawing": "stormpeak_a",
+        "drawing": "stormpeak:a",
         "x": 0.04,
         "y": 0.0,
         "width": 0.127,
         "height": 0.24
       },
       {
-        "drawing": "stormpeak_b",
+        "drawing": "stormpeak:b",
         "x": -0.053,
         "y": -0.073,
         "width": 0.14,
         "height": 0.207
       },
       {
-        "drawing": "stormpeak_b",
+        "drawing": "stormpeak:b",
         "x": 0.053,
         "y": -0.073,
         "width": 0.14,
         "height": 0.207
       },
       {
-        "drawing": "stormpeak_c",
+        "drawing": "stormpeak:c",
         "x": -0.08,
         "y": 0.08,
         "width": 0.14,
         "height": 0.18
       },
       {
-        "drawing": "stormpeak_c",
+        "drawing": "stormpeak:c",
         "x": 0.08,
         "y": 0.08,
         "width": 0.14,
         "height": 0.18
       },
       {
-        "drawing": "stormpeak_d",
+        "drawing": "stormpeak:d",
         "x": -0.16,
         "y": -0.053,
         "width": 0.167,
         "height": 0.213
       },
       {
-        "drawing": "stormpeak_d",
+        "drawing": "stormpeak:d",
         "x": 0.16,
         "y": -0.053,
         "width": 0.167,
         "height": 0.213
       },
       {
-        "drawing": "stormpeak_e",
+        "drawing": "stormpeak:e",
         "x": 0.0,
         "y": -0.04,
         "width": 0.14,
@@ -267,42 +267,42 @@
     },
     "parts": [
       {
-        "drawing": "ridgebreaker_a",
+        "drawing": "ridgebreaker:a",
         "x": -0.147,
         "y": -0.007,
         "width": 0.167,
         "height": 0.193
       },
       {
-        "drawing": "ridgebreaker_b",
+        "drawing": "ridgebreaker:b",
         "x": -0.06,
         "y": 0.013,
         "width": 0.113,
         "height": 0.127
       },
       {
-        "drawing": "ridgebreaker_c",
+        "drawing": "ridgebreaker:c",
         "x": -0.027,
         "y": -0.107,
         "width": 0.1,
         "height": 0.147
       },
       {
-        "drawing": "ridgebreaker_c",
+        "drawing": "ridgebreaker:c",
         "x": 0.027,
         "y": -0.107,
         "width": 0.1,
         "height": 0.147
       },
       {
-        "drawing": "ridgebreaker_d",
+        "drawing": "ridgebreaker:d",
         "x": -0.16,
         "y": -0.1,
         "width": 0.113,
         "height": 0.147
       },
       {
-        "drawing": "ridgebreaker_e",
+        "drawing": "ridgebreaker:e",
         "x": 0.16,
         "y": -0.1,
         "width": 0.113,
@@ -325,49 +325,49 @@
     },
     "parts": [
       {
-        "drawing": "highlord_a",
+        "drawing": "highlord:a",
         "x": -0.113,
         "y": 0.1,
         "width": 0.14,
         "height": 0.12
       },
       {
-        "drawing": "highlord_a",
+        "drawing": "highlord:a",
         "x": 0.113,
         "y": 0.1,
         "width": 0.14,
         "height": 0.12
       },
       {
-        "drawing": "highlord_b",
+        "drawing": "highlord:b",
         "x": -0.14,
         "y": 0.013,
         "width": 0.167,
         "height": 0.147
       },
       {
-        "drawing": "highlord_b",
+        "drawing": "highlord:b",
         "x": 0.14,
         "y": 0.013,
         "width": 0.167,
         "height": 0.147
       },
       {
-        "drawing": "highlord_c",
+        "drawing": "highlord:c",
         "x": -0.027,
         "y": 0.14,
         "width": 0.1,
         "height": 0.14
       },
       {
-        "drawing": "highlord_c",
+        "drawing": "highlord:c",
         "x": 0.027,
         "y": 0.14,
         "width": 0.1,
         "height": 0.14
       },
       {
-        "drawing": "highlord_d",
+        "drawing": "highlord:d",
         "x": 0.0,
         "y": -0.033,
         "width": 0.1,
@@ -390,77 +390,77 @@
     },
     "parts": [
       {
-        "drawing": "ironbark_a",
+        "drawing": "ironbark:a",
         "x": -0.033,
         "y": 0.163,
         "width": 0.113,
         "height": 0.1
       },
       {
-        "drawing": "ironbark_a",
+        "drawing": "ironbark:a",
         "x": 0.033,
         "y": 0.163,
         "width": 0.113,
         "height": 0.1
       },
       {
-        "drawing": "ironbark_b",
+        "drawing": "ironbark:b",
         "x": -0.133,
         "y": -0.137,
         "width": 0.127,
         "height": 0.113
       },
       {
-        "drawing": "ironbark_b",
+        "drawing": "ironbark:b",
         "x": 0.133,
         "y": -0.137,
         "width": 0.127,
         "height": 0.113
       },
       {
-        "drawing": "ironbark_c",
+        "drawing": "ironbark:c",
         "x": -0.22,
         "y": -0.11,
         "width": 0.153,
         "height": 0.16
       },
       {
-        "drawing": "ironbark_c",
+        "drawing": "ironbark:c",
         "x": 0.22,
         "y": -0.11,
         "width": 0.153,
         "height": 0.16
       },
       {
-        "drawing": "ironbark_d",
+        "drawing": "ironbark:d",
         "x": -0.06,
         "y": 0.063,
         "width": 0.167,
         "height": 0.173
       },
       {
-        "drawing": "ironbark_d",
+        "drawing": "ironbark:d",
         "x": 0.06,
         "y": 0.063,
         "width": 0.167,
         "height": 0.173
       },
       {
-        "drawing": "ironbark_e",
+        "drawing": "ironbark:e",
         "x": -0.12,
         "y": -0.057,
         "width": 0.153,
         "height": 0.153
       },
       {
-        "drawing": "ironbark_e",
+        "drawing": "ironbark:e",
         "x": 0.12,
         "y": -0.057,
         "width": 0.153,
         "height": 0.153
       },
       {
-        "drawing": "ironbark_f",
+        "drawing": "ironbark:f",
         "x": 0.0,
         "y": -0.05,
         "width": 0.113,
@@ -483,35 +483,35 @@
     },
     "parts": [
       {
-        "drawing": "thornback_a",
+        "drawing": "thornback:a",
         "x": -0.073,
         "y": -0.027,
         "width": 0.113,
         "height": 0.213
       },
       {
-        "drawing": "thornback_a",
+        "drawing": "thornback:a",
         "x": 0.073,
         "y": -0.027,
         "width": 0.113,
         "height": 0.213
       },
       {
-        "drawing": "thornback_b",
+        "drawing": "thornback:b",
         "x": -0.193,
         "y": -0.033,
         "width": 0.113,
         "height": 0.16
       },
       {
-        "drawing": "thornback_b",
+        "drawing": "thornback:b",
         "x": 0.193,
         "y": -0.033,
         "width": 0.113,
         "height": 0.16
       },
       {
-        "drawing": "thornback_c",
+        "drawing": "thornback:c",
         "x": 0.0,
         "y": 0.02,
         "width": 0.14,
@@ -534,49 +534,49 @@
     },
     "parts": [
       {
-        "drawing": "rootmaw_a",
+        "drawing": "rootmaw:a",
         "x": -0.21,
         "y": -0.123,
         "width": 0.193,
         "height": 0.2
       },
       {
-        "drawing": "rootmaw_b",
+        "drawing": "rootmaw:b",
         "x": 0.21,
         "y": -0.123,
         "width": 0.193,
         "height": 0.2
       },
       {
-        "drawing": "rootmaw_c",
+        "drawing": "rootmaw:c",
         "x": -0.23,
         "y": 0.083,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "rootmaw_d",
+        "drawing": "rootmaw:d",
         "x": 0.23,
         "y": 0.083,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "rootmaw_e",
+        "drawing": "rootmaw:e",
         "x": -0.063,
         "y": 0.05,
         "width": 0.193,
         "height": 0.273
       },
       {
-        "drawing": "rootmaw_e",
+        "drawing": "rootmaw:e",
         "x": 0.063,
         "y": 0.05,
         "width": 0.193,
         "height": 0.273
       },
       {
-        "drawing": "rootmaw_f",
+        "drawing": "rootmaw:f",
         "x": -0.297,
         "y": -0.043,
         "width": 0.207,
@@ -599,42 +599,42 @@
     },
     "parts": [
       {
-        "drawing": "wildfire_a",
+        "drawing": "wildfire:a",
         "x": -0.107,
         "y": 0.11,
         "width": 0.1,
         "height": 0.113
       },
       {
-        "drawing": "wildfire_a",
+        "drawing": "wildfire:a",
         "x": 0.107,
         "y": 0.11,
         "width": 0.1,
         "height": 0.113
       },
       {
-        "drawing": "wildfire_b",
+        "drawing": "wildfire:b",
         "x": -0.093,
         "y": 0.01,
         "width": 0.127,
         "height": 0.14
       },
       {
-        "drawing": "wildfire_c",
+        "drawing": "wildfire:c",
         "x": -0.1,
         "y": -0.15,
         "width": 0.087,
         "height": 0.127
       },
       {
-        "drawing": "wildfire_d",
+        "drawing": "wildfire:d",
         "x": -0.26,
         "y": -0.063,
         "width": 0.14,
         "height": 0.16
       },
       {
-        "drawing": "wildfire_e",
+        "drawing": "wildfire:e",
         "x": -0.18,
         "y": -0.077,
         "width": 0.087,
@@ -657,77 +657,77 @@
     },
     "parts": [
       {
-        "drawing": "grovekeeper_a",
+        "drawing": "grovekeeper:a",
         "x": -0.06,
         "y": 0.107,
         "width": 0.1,
         "height": 0.167
       },
       {
-        "drawing": "grovekeeper_a",
+        "drawing": "grovekeeper:a",
         "x": 0.06,
         "y": 0.107,
         "width": 0.1,
         "height": 0.167
       },
       {
-        "drawing": "grovekeeper_b",
+        "drawing": "grovekeeper:b",
         "x": -0.073,
         "y": -0.073,
         "width": 0.1,
         "height": 0.087
       },
       {
-        "drawing": "grovekeeper_b",
+        "drawing": "grovekeeper:b",
         "x": 0.073,
         "y": -0.073,
         "width": 0.1,
         "height": 0.087
       },
       {
-        "drawing": "grovekeeper_c",
+        "drawing": "grovekeeper:c",
         "x": -0.14,
         "y": 0.167,
         "width": 0.167,
         "height": 0.167
       },
       {
-        "drawing": "grovekeeper_c",
+        "drawing": "grovekeeper:c",
         "x": 0.14,
         "y": 0.167,
         "width": 0.167,
         "height": 0.167
       },
       {
-        "drawing": "grovekeeper_d",
+        "drawing": "grovekeeper:d",
         "x": -0.087,
         "y": 0.02,
         "width": 0.073,
         "height": 0.093
       },
       {
-        "drawing": "grovekeeper_d",
+        "drawing": "grovekeeper:d",
         "x": 0.087,
         "y": 0.02,
         "width": 0.073,
         "height": 0.093
       },
       {
-        "drawing": "grovekeeper_e",
+        "drawing": "grovekeeper:e",
         "x": -0.253,
         "y": 0.007,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "grovekeeper_e",
+        "drawing": "grovekeeper:e",
         "x": 0.253,
         "y": 0.007,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "grovekeeper_f",
+        "drawing": "grovekeeper:f",
         "x": 0.0,
         "y": -0.02,
         "width": 0.087,
@@ -750,42 +750,42 @@
     },
     "parts": [
       {
-        "drawing": "old_growth_a",
+        "drawing": "old_growth:a",
         "x": -0.213,
         "y": 0.033,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "old_growth_a",
+        "drawing": "old_growth:a",
         "x": 0.213,
         "y": 0.033,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "old_growth_b",
+        "drawing": "old_growth:b",
         "x": -0.1,
         "y": -0.053,
         "width": 0.113,
         "height": 0.12
       },
       {
-        "drawing": "old_growth_b",
+        "drawing": "old_growth:b",
         "x": 0.1,
         "y": -0.053,
         "width": 0.113,
         "height": 0.12
       },
       {
-        "drawing": "old_growth_c",
+        "drawing": "old_growth:c",
         "x": -0.107,
         "y": 0.027,
         "width": 0.1,
         "height": 0.127
       },
       {
-        "drawing": "old_growth_c",
+        "drawing": "old_growth:c",
         "x": 0.107,
         "y": 0.027,
         "width": 0.1,
@@ -808,42 +808,42 @@
     },
     "parts": [
       {
-        "drawing": "bogmaw_a",
+        "drawing": "bogmaw:a",
         "x": -0.06,
         "y": -0.05,
         "width": 0.113,
         "height": 0.133
       },
       {
-        "drawing": "bogmaw_a",
+        "drawing": "bogmaw:a",
         "x": 0.06,
         "y": -0.05,
         "width": 0.113,
         "height": 0.133
       },
       {
-        "drawing": "bogmaw_b",
+        "drawing": "bogmaw:b",
         "x": -0.047,
         "y": -0.17,
         "width": 0.127,
         "height": 0.14
       },
       {
-        "drawing": "bogmaw_b",
+        "drawing": "bogmaw:b",
         "x": 0.047,
         "y": -0.17,
         "width": 0.127,
         "height": 0.14
       },
       {
-        "drawing": "bogmaw_c",
+        "drawing": "bogmaw:c",
         "x": -0.253,
         "y": 0.11,
         "width": 0.087,
         "height": 0.107
       },
       {
-        "drawing": "bogmaw_c",
+        "drawing": "bogmaw:c",
         "x": 0.253,
         "y": 0.11,
         "width": 0.087,
@@ -866,49 +866,49 @@
     },
     "parts": [
       {
-        "drawing": "mirelord_a",
+        "drawing": "mirelord:a",
         "x": -0.03,
         "y": -0.083,
         "width": 0.14,
         "height": 0.153
       },
       {
-        "drawing": "mirelord_b",
+        "drawing": "mirelord:b",
         "x": -0.037,
         "y": 0.137,
         "width": 0.1,
         "height": 0.147
       },
       {
-        "drawing": "mirelord_b",
+        "drawing": "mirelord:b",
         "x": 0.037,
         "y": 0.137,
         "width": 0.1,
         "height": 0.147
       },
       {
-        "drawing": "mirelord_c",
+        "drawing": "mirelord:c",
         "x": -0.17,
         "y": -0.017,
         "width": 0.153,
         "height": 0.213
       },
       {
-        "drawing": "mirelord_c",
+        "drawing": "mirelord:c",
         "x": 0.17,
         "y": -0.017,
         "width": 0.153,
         "height": 0.213
       },
       {
-        "drawing": "mirelord_d",
+        "drawing": "mirelord:d",
         "x": -0.11,
         "y": 0.15,
         "width": 0.14,
         "height": 0.24
       },
       {
-        "drawing": "mirelord_e",
+        "drawing": "mirelord:e",
         "x": 0.003,
         "y": 0.01,
         "width": 0.087,
@@ -931,35 +931,35 @@
     },
     "parts": [
       {
-        "drawing": "fenwraith_a",
+        "drawing": "fenwraith:a",
         "x": -0.04,
         "y": -0.03,
         "width": 0.167,
         "height": 0.24
       },
       {
-        "drawing": "fenwraith_a",
+        "drawing": "fenwraith:a",
         "x": 0.04,
         "y": -0.03,
         "width": 0.167,
         "height": 0.24
       },
       {
-        "drawing": "fenwraith_b",
+        "drawing": "fenwraith:b",
         "x": -0.053,
         "y": 0.177,
         "width": 0.113,
         "height": 0.16
       },
       {
-        "drawing": "fenwraith_b",
+        "drawing": "fenwraith:b",
         "x": 0.053,
         "y": 0.177,
         "width": 0.113,
         "height": 0.16
       },
       {
-        "drawing": "fenwraith_c",
+        "drawing": "fenwraith:c",
         "x": 0.0,
         "y": -0.037,
         "width": 0.153,
@@ -982,35 +982,35 @@
     },
     "parts": [
       {
-        "drawing": "hydra_a",
+        "drawing": "hydra:a",
         "x": -0.087,
         "y": 0.097,
         "width": 0.127,
         "height": 0.193
       },
       {
-        "drawing": "hydra_b",
+        "drawing": "hydra:b",
         "x": -0.207,
         "y": -0.123,
         "width": 0.127,
         "height": 0.247
       },
       {
-        "drawing": "hydra_b",
+        "drawing": "hydra:b",
         "x": 0.207,
         "y": -0.123,
         "width": 0.127,
         "height": 0.247
       },
       {
-        "drawing": "hydra_c",
+        "drawing": "hydra:c",
         "x": -0.08,
         "y": -0.023,
         "width": 0.087,
         "height": 0.14
       },
       {
-        "drawing": "hydra_c",
+        "drawing": "hydra:c",
         "x": 0.08,
         "y": -0.023,
         "width": 0.087,
@@ -1033,63 +1033,63 @@
     },
     "parts": [
       {
-        "drawing": "marsh_titan_a",
+        "drawing": "marsh_titan:a",
         "x": -0.127,
         "y": -0.077,
         "width": 0.153,
         "height": 0.213
       },
       {
-        "drawing": "marsh_titan_a",
+        "drawing": "marsh_titan:a",
         "x": 0.127,
         "y": -0.077,
         "width": 0.153,
         "height": 0.213
       },
       {
-        "drawing": "marsh_titan_b",
+        "drawing": "marsh_titan:b",
         "x": -0.207,
         "y": 0.063,
         "width": 0.14,
         "height": 0.12
       },
       {
-        "drawing": "marsh_titan_b",
+        "drawing": "marsh_titan:b",
         "x": 0.207,
         "y": 0.063,
         "width": 0.14,
         "height": 0.12
       },
       {
-        "drawing": "marsh_titan_c",
+        "drawing": "marsh_titan:c",
         "x": -0.233,
         "y": 0.177,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "marsh_titan_c",
+        "drawing": "marsh_titan:c",
         "x": 0.233,
         "y": 0.177,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "marsh_titan_d",
+        "drawing": "marsh_titan:d",
         "x": -0.247,
         "y": -0.03,
         "width": 0.1,
         "height": 0.093
       },
       {
-        "drawing": "marsh_titan_d",
+        "drawing": "marsh_titan:d",
         "x": 0.247,
         "y": -0.03,
         "width": 0.1,
         "height": 0.093
       },
       {
-        "drawing": "marsh_titan_e",
+        "drawing": "marsh_titan:e",
         "x": 0.0,
         "y": -0.063,
         "width": 0.14,
@@ -1112,63 +1112,63 @@
     },
     "parts": [
       {
-        "drawing": "drowned_king_a",
+        "drawing": "drowned_king:a",
         "x": -0.053,
         "y": 0.01,
         "width": 0.153,
         "height": 0.22
       },
       {
-        "drawing": "drowned_king_a",
+        "drawing": "drowned_king:a",
         "x": 0.053,
         "y": 0.01,
         "width": 0.153,
         "height": 0.22
       },
       {
-        "drawing": "drowned_king_b",
+        "drawing": "drowned_king:b",
         "x": -0.233,
         "y": 0.03,
         "width": 0.127,
         "height": 0.167
       },
       {
-        "drawing": "drowned_king_b",
+        "drawing": "drowned_king:b",
         "x": 0.233,
         "y": 0.03,
         "width": 0.127,
         "height": 0.167
       },
       {
-        "drawing": "drowned_king_c",
+        "drawing": "drowned_king:c",
         "x": -0.133,
         "y": -0.057,
         "width": 0.14,
         "height": 0.12
       },
       {
-        "drawing": "drowned_king_c",
+        "drawing": "drowned_king:c",
         "x": 0.133,
         "y": -0.057,
         "width": 0.14,
         "height": 0.12
       },
       {
-        "drawing": "drowned_king_d",
+        "drawing": "drowned_king:d",
         "x": -0.207,
         "y": -0.07,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "drowned_king_d",
+        "drawing": "drowned_king:d",
         "x": 0.207,
         "y": -0.07,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "drowned_king_e",
+        "drawing": "drowned_king:e",
         "x": 0.0,
         "y": -0.057,
         "width": 0.153,
@@ -1191,56 +1191,56 @@
     },
     "parts": [
       {
-        "drawing": "scarecrow_a",
+        "drawing": "scarecrow:a",
         "x": -0.283,
         "y": 0.063,
         "width": 0.087,
         "height": 0.093
       },
       {
-        "drawing": "scarecrow_b",
+        "drawing": "scarecrow:b",
         "x": 0.283,
         "y": 0.063,
         "width": 0.087,
         "height": 0.093
       },
       {
-        "drawing": "scarecrow_c",
+        "drawing": "scarecrow:c",
         "x": -0.217,
         "y": -0.043,
         "width": 0.113,
         "height": 0.153
       },
       {
-        "drawing": "scarecrow_d",
+        "drawing": "scarecrow:d",
         "x": -0.29,
         "y": -0.197,
         "width": 0.1,
         "height": 0.127
       },
       {
-        "drawing": "scarecrow_e",
+        "drawing": "scarecrow:e",
         "x": -0.043,
         "y": 0.083,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "scarecrow_f",
+        "drawing": "scarecrow:f",
         "x": -0.177,
         "y": 0.063,
         "width": 0.167,
         "height": 0.213
       },
       {
-        "drawing": "scarecrow_g",
+        "drawing": "scarecrow:g",
         "x": -0.023,
         "y": -0.083,
         "width": 0.087,
         "height": 0.107
       },
       {
-        "drawing": "scarecrow_g",
+        "drawing": "scarecrow:g",
         "x": 0.023,
         "y": -0.083,
         "width": 0.087,
@@ -1263,77 +1263,77 @@
     },
     "parts": [
       {
-        "drawing": "combine_a",
+        "drawing": "combine:a",
         "x": -0.267,
         "y": -0.083,
         "width": 0.22,
         "height": 0.233
       },
       {
-        "drawing": "combine_a",
+        "drawing": "combine:a",
         "x": 0.267,
         "y": -0.083,
         "width": 0.22,
         "height": 0.233
       },
       {
-        "drawing": "combine_b",
+        "drawing": "combine:b",
         "x": -0.053,
         "y": 0.157,
         "width": 0.207,
         "height": 0.193
       },
       {
-        "drawing": "combine_b",
+        "drawing": "combine:b",
         "x": 0.053,
         "y": 0.157,
         "width": 0.207,
         "height": 0.193
       },
       {
-        "drawing": "combine_c",
+        "drawing": "combine:c",
         "x": -0.147,
         "y": 0.037,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "combine_c",
+        "drawing": "combine:c",
         "x": 0.147,
         "y": 0.037,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "combine_d",
+        "drawing": "combine:d",
         "x": -0.053,
         "y": -0.117,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "combine_d",
+        "drawing": "combine:d",
         "x": 0.053,
         "y": -0.117,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "combine_e",
+        "drawing": "combine:e",
         "x": -0.033,
         "y": -0.03,
         "width": 0.153,
         "height": 0.16
       },
       {
-        "drawing": "combine_e",
+        "drawing": "combine:e",
         "x": 0.033,
         "y": -0.03,
         "width": 0.153,
         "height": 0.16
       },
       {
-        "drawing": "combine_f",
+        "drawing": "combine:f",
         "x": 0.0,
         "y": 0.003,
         "width": 0.127,
@@ -1356,70 +1356,70 @@
     },
     "parts": [
       {
-        "drawing": "locust_a",
+        "drawing": "locust:a",
         "x": -0.18,
         "y": -0.083,
         "width": 0.153,
         "height": 0.227
       },
       {
-        "drawing": "locust_a",
+        "drawing": "locust:a",
         "x": 0.18,
         "y": -0.083,
         "width": 0.153,
         "height": 0.227
       },
       {
-        "drawing": "locust_b",
+        "drawing": "locust:b",
         "x": -0.207,
         "y": 0.163,
         "width": 0.18,
         "height": 0.26
       },
       {
-        "drawing": "locust_b",
+        "drawing": "locust:b",
         "x": 0.207,
         "y": 0.163,
         "width": 0.18,
         "height": 0.26
       },
       {
-        "drawing": "locust_c",
+        "drawing": "locust:c",
         "x": -0.32,
         "y": 0.05,
         "width": 0.167,
         "height": 0.193
       },
       {
-        "drawing": "locust_c",
+        "drawing": "locust:c",
         "x": 0.32,
         "y": 0.05,
         "width": 0.167,
         "height": 0.193
       },
       {
-        "drawing": "locust_d",
+        "drawing": "locust:d",
         "x": -0.093,
         "y": 0.157,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "locust_d",
+        "drawing": "locust:d",
         "x": 0.093,
         "y": 0.157,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "locust_e",
+        "drawing": "locust:e",
         "x": -0.027,
         "y": 0.01,
         "width": 0.127,
         "height": 0.153
       },
       {
-        "drawing": "locust_e",
+        "drawing": "locust:e",
         "x": 0.027,
         "y": 0.01,
         "width": 0.127,
@@ -1442,70 +1442,70 @@
     },
     "parts": [
       {
-        "drawing": "granary_a",
+        "drawing": "granary:a",
         "x": -0.073,
         "y": 0.12,
         "width": 0.113,
         "height": 0.173
       },
       {
-        "drawing": "granary_a",
+        "drawing": "granary:a",
         "x": 0.073,
         "y": 0.12,
         "width": 0.113,
         "height": 0.173
       },
       {
-        "drawing": "granary_b",
+        "drawing": "granary:b",
         "x": -0.18,
         "y": 0.0,
         "width": 0.167,
         "height": 0.167
       },
       {
-        "drawing": "granary_b",
+        "drawing": "granary:b",
         "x": 0.18,
         "y": 0.0,
         "width": 0.167,
         "height": 0.167
       },
       {
-        "drawing": "granary_c",
+        "drawing": "granary:c",
         "x": -0.06,
         "y": -0.167,
         "width": 0.14,
         "height": 0.147
       },
       {
-        "drawing": "granary_c",
+        "drawing": "granary:c",
         "x": 0.06,
         "y": -0.167,
         "width": 0.14,
         "height": 0.147
       },
       {
-        "drawing": "granary_d",
+        "drawing": "granary:d",
         "x": -0.08,
         "y": 0.033,
         "width": 0.113,
         "height": 0.22
       },
       {
-        "drawing": "granary_d",
+        "drawing": "granary:d",
         "x": 0.08,
         "y": 0.033,
         "width": 0.113,
         "height": 0.22
       },
       {
-        "drawing": "granary_e",
+        "drawing": "granary:e",
         "x": -0.08,
         "y": -0.047,
         "width": 0.153,
         "height": 0.22
       },
       {
-        "drawing": "granary_e",
+        "drawing": "granary:e",
         "x": 0.08,
         "y": -0.047,
         "width": 0.153,
@@ -1528,63 +1528,63 @@
     },
     "parts": [
       {
-        "drawing": "harrowmaster_a",
+        "drawing": "harrowmaster:a",
         "x": -0.26,
         "y": 0.103,
         "width": 0.193,
         "height": 0.16
       },
       {
-        "drawing": "harrowmaster_b",
+        "drawing": "harrowmaster:b",
         "x": -0.127,
         "y": 0.13,
         "width": 0.087,
         "height": 0.113
       },
       {
-        "drawing": "harrowmaster_c",
+        "drawing": "harrowmaster:c",
         "x": -0.12,
         "y": -0.023,
         "width": 0.127,
         "height": 0.193
       },
       {
-        "drawing": "harrowmaster_d",
+        "drawing": "harrowmaster:d",
         "x": -0.04,
         "y": -0.15,
         "width": 0.167,
         "height": 0.293
       },
       {
-        "drawing": "harrowmaster_a",
+        "drawing": "harrowmaster:a",
         "x": -0.033,
         "y": -0.05,
         "width": 0.193,
         "height": 0.16
       },
       {
-        "drawing": "harrowmaster_a",
+        "drawing": "harrowmaster:a",
         "x": 0.033,
         "y": -0.05,
         "width": 0.193,
         "height": 0.16
       },
       {
-        "drawing": "harrowmaster_e",
+        "drawing": "harrowmaster:e",
         "x": -0.247,
         "y": 0.197,
         "width": 0.127,
         "height": 0.12
       },
       {
-        "drawing": "harrowmaster_f",
+        "drawing": "harrowmaster:f",
         "x": 0.247,
         "y": 0.197,
         "width": 0.127,
         "height": 0.12
       },
       {
-        "drawing": "harrowmaster_g",
+        "drawing": "harrowmaster:g",
         "x": 0.0,
         "y": 0.063,
         "width": 0.153,
@@ -1607,70 +1607,70 @@
     },
     "parts": [
       {
-        "drawing": "black_harvest_a",
+        "drawing": "black_harvest:a",
         "x": -0.167,
         "y": -0.063,
         "width": 0.167,
         "height": 0.213
       },
       {
-        "drawing": "black_harvest_a",
+        "drawing": "black_harvest:a",
         "x": 0.167,
         "y": -0.063,
         "width": 0.167,
         "height": 0.213
       },
       {
-        "drawing": "black_harvest_b",
+        "drawing": "black_harvest:b",
         "x": -0.053,
         "y": -0.077,
         "width": 0.26,
         "height": 0.233
       },
       {
-        "drawing": "black_harvest_b",
+        "drawing": "black_harvest:b",
         "x": 0.053,
         "y": -0.077,
         "width": 0.26,
         "height": 0.233
       },
       {
-        "drawing": "black_harvest_c",
+        "drawing": "black_harvest:c",
         "x": -0.207,
         "y": -0.177,
         "width": 0.127,
         "height": 0.187
       },
       {
-        "drawing": "black_harvest_c",
+        "drawing": "black_harvest:c",
         "x": 0.207,
         "y": -0.177,
         "width": 0.127,
         "height": 0.187
       },
       {
-        "drawing": "black_harvest_d",
+        "drawing": "black_harvest:d",
         "x": -0.267,
         "y": -0.057,
         "width": 0.207,
         "height": 0.22
       },
       {
-        "drawing": "black_harvest_d",
+        "drawing": "black_harvest:d",
         "x": 0.267,
         "y": -0.057,
         "width": 0.207,
         "height": 0.22
       },
       {
-        "drawing": "black_harvest_e",
+        "drawing": "black_harvest:e",
         "x": -0.187,
         "y": 0.043,
         "width": 0.167,
         "height": 0.187
       },
       {
-        "drawing": "black_harvest_e",
+        "drawing": "black_harvest:e",
         "x": 0.187,
         "y": 0.043,
         "width": 0.167,
@@ -1693,70 +1693,70 @@
     },
     "parts": [
       {
-        "drawing": "maelstrom_a",
+        "drawing": "maelstrom:a",
         "x": -0.28,
         "y": 0.103,
         "width": 0.167,
         "height": 0.133
       },
       {
-        "drawing": "maelstrom_a",
+        "drawing": "maelstrom:a",
         "x": 0.28,
         "y": 0.103,
         "width": 0.167,
         "height": 0.133
       },
       {
-        "drawing": "maelstrom_b",
+        "drawing": "maelstrom:b",
         "x": -0.133,
         "y": -0.023,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "maelstrom_b",
+        "drawing": "maelstrom:b",
         "x": 0.133,
         "y": -0.023,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "maelstrom_c",
+        "drawing": "maelstrom:c",
         "x": -0.14,
         "y": 0.19,
         "width": 0.207,
         "height": 0.247
       },
       {
-        "drawing": "maelstrom_c",
+        "drawing": "maelstrom:c",
         "x": 0.14,
         "y": 0.19,
         "width": 0.207,
         "height": 0.247
       },
       {
-        "drawing": "maelstrom_d",
+        "drawing": "maelstrom:d",
         "x": -0.14,
         "y": -0.163,
         "width": 0.207,
         "height": 0.22
       },
       {
-        "drawing": "maelstrom_d",
+        "drawing": "maelstrom:d",
         "x": 0.14,
         "y": -0.163,
         "width": 0.207,
         "height": 0.22
       },
       {
-        "drawing": "maelstrom_e",
+        "drawing": "maelstrom:e",
         "x": -0.027,
         "y": 0.003,
         "width": 0.153,
         "height": 0.193
       },
       {
-        "drawing": "maelstrom_e",
+        "drawing": "maelstrom:e",
         "x": 0.027,
         "y": 0.003,
         "width": 0.153,
@@ -1779,56 +1779,56 @@
     },
     "parts": [
       {
-        "drawing": "man_o_war_a",
+        "drawing": "man_o_war:a",
         "x": -0.153,
         "y": -0.013,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "man_o_war_a",
+        "drawing": "man_o_war:a",
         "x": 0.153,
         "y": -0.013,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "man_o_war_b",
+        "drawing": "man_o_war:b",
         "x": -0.213,
         "y": -0.22,
         "width": 0.153,
         "height": 0.18
       },
       {
-        "drawing": "man_o_war_b",
+        "drawing": "man_o_war:b",
         "x": 0.213,
         "y": -0.22,
         "width": 0.153,
         "height": 0.18
       },
       {
-        "drawing": "man_o_war_c",
+        "drawing": "man_o_war:c",
         "x": -0.147,
         "y": 0.16,
         "width": 0.113,
         "height": 0.133
       },
       {
-        "drawing": "man_o_war_c",
+        "drawing": "man_o_war:c",
         "x": 0.147,
         "y": 0.16,
         "width": 0.113,
         "height": 0.133
       },
       {
-        "drawing": "man_o_war_d",
+        "drawing": "man_o_war:d",
         "x": -0.087,
         "y": -0.107,
         "width": 0.153,
         "height": 0.193
       },
       {
-        "drawing": "man_o_war_d",
+        "drawing": "man_o_war:d",
         "x": 0.087,
         "y": -0.107,
         "width": 0.153,
@@ -1851,56 +1851,56 @@
     },
     "parts": [
       {
-        "drawing": "typhoon_a",
+        "drawing": "typhoon:a",
         "x": -0.047,
         "y": 0.097,
         "width": 0.207,
         "height": 0.18
       },
       {
-        "drawing": "typhoon_a",
+        "drawing": "typhoon:a",
         "x": 0.047,
         "y": 0.097,
         "width": 0.207,
         "height": 0.18
       },
       {
-        "drawing": "typhoon_b",
+        "drawing": "typhoon:b",
         "x": -0.093,
         "y": -0.177,
         "width": 0.18,
         "height": 0.233
       },
       {
-        "drawing": "typhoon_b",
+        "drawing": "typhoon:b",
         "x": 0.093,
         "y": -0.177,
         "width": 0.18,
         "height": 0.233
       },
       {
-        "drawing": "typhoon_c",
+        "drawing": "typhoon:c",
         "x": -0.233,
         "y": -0.137,
         "width": 0.113,
         "height": 0.213
       },
       {
-        "drawing": "typhoon_c",
+        "drawing": "typhoon:c",
         "x": 0.233,
         "y": -0.137,
         "width": 0.113,
         "height": 0.213
       },
       {
-        "drawing": "typhoon_d",
+        "drawing": "typhoon:d",
         "x": -0.167,
         "y": 0.077,
         "width": 0.153,
         "height": 0.253
       },
       {
-        "drawing": "typhoon_d",
+        "drawing": "typhoon:d",
         "x": 0.167,
         "y": 0.077,
         "width": 0.153,
@@ -1923,56 +1923,56 @@
     },
     "parts": [
       {
-        "drawing": "tsunami_a",
+        "drawing": "tsunami:a",
         "x": -0.127,
         "y": 0.133,
         "width": 0.18,
         "height": 0.173
       },
       {
-        "drawing": "tsunami_b",
+        "drawing": "tsunami:b",
         "x": -0.22,
         "y": 0.013,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "tsunami_c",
+        "drawing": "tsunami:c",
         "x": 0.22,
         "y": 0.013,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "tsunami_d",
+        "drawing": "tsunami:d",
         "x": -0.2,
         "y": 0.08,
         "width": 0.1,
         "height": 0.1
       },
       {
-        "drawing": "tsunami_e",
+        "drawing": "tsunami:e",
         "x": -0.027,
         "y": -0.047,
         "width": 0.153,
         "height": 0.133
       },
       {
-        "drawing": "tsunami_f",
+        "drawing": "tsunami:f",
         "x": -0.24,
         "y": -0.067,
         "width": 0.14,
         "height": 0.153
       },
       {
-        "drawing": "tsunami_g",
+        "drawing": "tsunami:g",
         "x": 0.24,
         "y": -0.067,
         "width": 0.14,
         "height": 0.153
       },
       {
-        "drawing": "tsunami_h",
+        "drawing": "tsunami:h",
         "x": -0.207,
         "y": 0.167,
         "width": 0.167,
@@ -1995,49 +1995,49 @@
     },
     "parts": [
       {
-        "drawing": "abyssal_a",
+        "drawing": "abyssal:a",
         "x": -0.187,
         "y": -0.143,
         "width": 0.167,
         "height": 0.167
       },
       {
-        "drawing": "abyssal_b",
+        "drawing": "abyssal:b",
         "x": 0.187,
         "y": -0.143,
         "width": 0.167,
         "height": 0.167
       },
       {
-        "drawing": "abyssal_c",
+        "drawing": "abyssal:c",
         "x": -0.16,
         "y": 0.123,
         "width": 0.18,
         "height": 0.253
       },
       {
-        "drawing": "abyssal_d",
+        "drawing": "abyssal:d",
         "x": -0.033,
         "y": 0.097,
         "width": 0.14,
         "height": 0.193
       },
       {
-        "drawing": "abyssal_d",
+        "drawing": "abyssal:d",
         "x": 0.033,
         "y": 0.097,
         "width": 0.14,
         "height": 0.193
       },
       {
-        "drawing": "abyssal_e",
+        "drawing": "abyssal:e",
         "x": -0.18,
         "y": -0.023,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "abyssal_e",
+        "drawing": "abyssal:e",
         "x": 0.18,
         "y": -0.023,
         "width": 0.153,
@@ -2060,28 +2060,28 @@
     },
     "parts": [
       {
-        "drawing": "kraken_a",
+        "drawing": "kraken:a",
         "x": -0.207,
         "y": -0.277,
         "width": 0.127,
         "height": 0.113
       },
       {
-        "drawing": "kraken_b",
+        "drawing": "kraken:b",
         "x": -0.1,
         "y": -0.237,
         "width": 0.087,
         "height": 0.107
       },
       {
-        "drawing": "kraken_c",
+        "drawing": "kraken:c",
         "x": -0.187,
         "y": 0.03,
         "width": 0.1,
         "height": 0.153
       },
       {
-        "drawing": "kraken_d",
+        "drawing": "kraken:d",
         "x": 0.0,
         "y": 0.063,
         "width": 0.153,
@@ -2104,70 +2104,70 @@
     },
     "parts": [
       {
-        "drawing": "mesa_a",
+        "drawing": "mesa:a",
         "x": -0.22,
         "y": -0.14,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "mesa_a",
+        "drawing": "mesa:a",
         "x": 0.22,
         "y": -0.14,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "mesa_b",
+        "drawing": "mesa:b",
         "x": -0.287,
         "y": 0.093,
         "width": 0.18,
         "height": 0.313
       },
       {
-        "drawing": "mesa_b",
+        "drawing": "mesa:b",
         "x": 0.287,
         "y": 0.093,
         "width": 0.18,
         "height": 0.313
       },
       {
-        "drawing": "mesa_c",
+        "drawing": "mesa:c",
         "x": -0.18,
         "y": -0.007,
         "width": 0.113,
         "height": 0.233
       },
       {
-        "drawing": "mesa_c",
+        "drawing": "mesa:c",
         "x": 0.18,
         "y": -0.007,
         "width": 0.113,
         "height": 0.233
       },
       {
-        "drawing": "mesa_d",
+        "drawing": "mesa:d",
         "x": -0.16,
         "y": 0.153,
         "width": 0.113,
         "height": 0.207
       },
       {
-        "drawing": "mesa_d",
+        "drawing": "mesa:d",
         "x": 0.16,
         "y": 0.153,
         "width": 0.113,
         "height": 0.207
       },
       {
-        "drawing": "mesa_e",
+        "drawing": "mesa:e",
         "x": -0.307,
         "y": -0.027,
         "width": 0.127,
         "height": 0.18
       },
       {
-        "drawing": "mesa_e",
+        "drawing": "mesa:e",
         "x": 0.307,
         "y": -0.027,
         "width": 0.127,
@@ -2190,84 +2190,84 @@
     },
     "parts": [
       {
-        "drawing": "dust_devil_a",
+        "drawing": "dust_devil:a",
         "x": -0.143,
         "y": 0.19,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "dust_devil_a",
+        "drawing": "dust_devil:a",
         "x": 0.143,
         "y": 0.19,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "dust_devil_b",
+        "drawing": "dust_devil:b",
         "x": -0.043,
         "y": -0.197,
         "width": 0.18,
         "height": 0.207
       },
       {
-        "drawing": "dust_devil_c",
+        "drawing": "dust_devil:c",
         "x": -0.29,
         "y": 0.063,
         "width": 0.193,
         "height": 0.233
       },
       {
-        "drawing": "dust_devil_d",
+        "drawing": "dust_devil:d",
         "x": -0.037,
         "y": -0.03,
         "width": 0.127,
         "height": 0.147
       },
       {
-        "drawing": "dust_devil_d",
+        "drawing": "dust_devil:d",
         "x": 0.037,
         "y": -0.03,
         "width": 0.127,
         "height": 0.147
       },
       {
-        "drawing": "dust_devil_e",
+        "drawing": "dust_devil:e",
         "x": -0.17,
         "y": -0.003,
         "width": 0.18,
         "height": 0.213
       },
       {
-        "drawing": "dust_devil_f",
+        "drawing": "dust_devil:f",
         "x": -0.023,
         "y": 0.177,
         "width": 0.18,
         "height": 0.207
       },
       {
-        "drawing": "dust_devil_g",
+        "drawing": "dust_devil:g",
         "x": -0.157,
         "y": -0.183,
         "width": 0.193,
         "height": 0.213
       },
       {
-        "drawing": "dust_devil_h",
+        "drawing": "dust_devil:h",
         "x": -0.283,
         "y": -0.097,
         "width": 0.22,
         "height": 0.253
       },
       {
-        "drawing": "dust_devil_i",
+        "drawing": "dust_devil:i",
         "x": 0.283,
         "y": -0.097,
         "width": 0.22,
         "height": 0.253
       },
       {
-        "drawing": "dust_devil_j",
+        "drawing": "dust_devil:j",
         "x": 0.003,
         "y": 0.037,
         "width": 0.14,
@@ -2290,70 +2290,70 @@
     },
     "parts": [
       {
-        "drawing": "landslide_a",
+        "drawing": "landslide:a",
         "x": -0.047,
         "y": 0.03,
         "width": 0.153,
         "height": 0.153
       },
       {
-        "drawing": "landslide_a",
+        "drawing": "landslide:a",
         "x": 0.047,
         "y": 0.03,
         "width": 0.153,
         "height": 0.153
       },
       {
-        "drawing": "landslide_b",
+        "drawing": "landslide:b",
         "x": -0.26,
         "y": 0.103,
         "width": 0.14,
         "height": 0.127
       },
       {
-        "drawing": "landslide_b",
+        "drawing": "landslide:b",
         "x": 0.26,
         "y": 0.103,
         "width": 0.14,
         "height": 0.127
       },
       {
-        "drawing": "landslide_c",
+        "drawing": "landslide:c",
         "x": -0.273,
         "y": 0.01,
         "width": 0.18,
         "height": 0.227
       },
       {
-        "drawing": "landslide_c",
+        "drawing": "landslide:c",
         "x": 0.273,
         "y": 0.01,
         "width": 0.18,
         "height": 0.227
       },
       {
-        "drawing": "landslide_d",
+        "drawing": "landslide:d",
         "x": -0.08,
         "y": -0.203,
         "width": 0.18,
         "height": 0.287
       },
       {
-        "drawing": "landslide_d",
+        "drawing": "landslide:d",
         "x": 0.08,
         "y": -0.203,
         "width": 0.18,
         "height": 0.287
       },
       {
-        "drawing": "landslide_e",
+        "drawing": "landslide:e",
         "x": -0.16,
         "y": -0.103,
         "width": 0.22,
         "height": 0.293
       },
       {
-        "drawing": "landslide_e",
+        "drawing": "landslide:e",
         "x": 0.16,
         "y": -0.103,
         "width": 0.22,
@@ -2376,42 +2376,42 @@
     },
     "parts": [
       {
-        "drawing": "basilisk_a",
+        "drawing": "basilisk:a",
         "x": -0.223,
         "y": -0.093,
         "width": 0.167,
         "height": 0.24
       },
       {
-        "drawing": "basilisk_b",
+        "drawing": "basilisk:b",
         "x": -0.023,
         "y": -0.067,
         "width": 0.18,
         "height": 0.227
       },
       {
-        "drawing": "basilisk_c",
+        "drawing": "basilisk:c",
         "x": 0.023,
         "y": -0.067,
         "width": 0.18,
         "height": 0.227
       },
       {
-        "drawing": "basilisk_d",
+        "drawing": "basilisk:d",
         "x": -0.143,
         "y": -0.027,
         "width": 0.113,
         "height": 0.167
       },
       {
-        "drawing": "basilisk_d",
+        "drawing": "basilisk:d",
         "x": 0.143,
         "y": -0.027,
         "width": 0.113,
         "height": 0.167
       },
       {
-        "drawing": "basilisk_e",
+        "drawing": "basilisk:e",
         "x": 0.003,
         "y": 0.033,
         "width": 0.167,
@@ -2434,63 +2434,63 @@
     },
     "parts": [
       {
-        "drawing": "sandworm_a",
+        "drawing": "sandworm:a",
         "x": -0.113,
         "y": 0.077,
         "width": 0.207,
         "height": 0.18
       },
       {
-        "drawing": "sandworm_a",
+        "drawing": "sandworm:a",
         "x": 0.113,
         "y": 0.077,
         "width": 0.207,
         "height": 0.18
       },
       {
-        "drawing": "sandworm_b",
+        "drawing": "sandworm:b",
         "x": -0.173,
         "y": 0.203,
         "width": 0.127,
         "height": 0.173
       },
       {
-        "drawing": "sandworm_b",
+        "drawing": "sandworm:b",
         "x": 0.173,
         "y": 0.203,
         "width": 0.127,
         "height": 0.173
       },
       {
-        "drawing": "sandworm_c",
+        "drawing": "sandworm:c",
         "x": -0.06,
         "y": 0.19,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "sandworm_c",
+        "drawing": "sandworm:c",
         "x": 0.06,
         "y": 0.19,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "sandworm_d",
+        "drawing": "sandworm:d",
         "x": -0.073,
         "y": -0.097,
         "width": 0.193,
         "height": 0.233
       },
       {
-        "drawing": "sandworm_d",
+        "drawing": "sandworm:d",
         "x": 0.073,
         "y": -0.097,
         "width": 0.193,
         "height": 0.233
       },
       {
-        "drawing": "sandworm_e",
+        "drawing": "sandworm:e",
         "x": 0.0,
         "y": -0.097,
         "width": 0.14,
@@ -2513,56 +2513,56 @@
     },
     "parts": [
       {
-        "drawing": "monolith_a",
+        "drawing": "monolith:a",
         "x": -0.113,
         "y": 0.08,
         "width": 0.14,
         "height": 0.153
       },
       {
-        "drawing": "monolith_a",
+        "drawing": "monolith:a",
         "x": 0.113,
         "y": 0.08,
         "width": 0.14,
         "height": 0.153
       },
       {
-        "drawing": "monolith_b",
+        "drawing": "monolith:b",
         "x": -0.027,
         "y": -0.22,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "monolith_b",
+        "drawing": "monolith:b",
         "x": 0.027,
         "y": -0.22,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "monolith_c",
+        "drawing": "monolith:c",
         "x": -0.067,
         "y": -0.313,
         "width": 0.1,
         "height": 0.12
       },
       {
-        "drawing": "monolith_c",
+        "drawing": "monolith:c",
         "x": 0.067,
         "y": -0.313,
         "width": 0.1,
         "height": 0.12
       },
       {
-        "drawing": "monolith_d",
+        "drawing": "monolith:d",
         "x": -0.067,
         "y": 0.26,
         "width": 0.18,
         "height": 0.2
       },
       {
-        "drawing": "monolith_d",
+        "drawing": "monolith:d",
         "x": 0.067,
         "y": 0.26,
         "width": 0.18,
@@ -2585,70 +2585,70 @@
     },
     "parts": [
       {
-        "drawing": "furnace_a",
+        "drawing": "furnace:a",
         "x": -0.263,
         "y": -0.07,
         "width": 0.193,
         "height": 0.18
       },
       {
-        "drawing": "furnace_b",
+        "drawing": "furnace:b",
         "x": 0.263,
         "y": -0.07,
         "width": 0.193,
         "height": 0.18
       },
       {
-        "drawing": "furnace_c",
+        "drawing": "furnace:c",
         "x": -0.11,
         "y": -0.21,
         "width": 0.127,
         "height": 0.113
       },
       {
-        "drawing": "furnace_d",
+        "drawing": "furnace:d",
         "x": 0.11,
         "y": -0.21,
         "width": 0.127,
         "height": 0.113
       },
       {
-        "drawing": "furnace_e",
+        "drawing": "furnace:e",
         "x": -0.223,
         "y": 0.097,
         "width": 0.193,
         "height": 0.247
       },
       {
-        "drawing": "furnace_f",
+        "drawing": "furnace:f",
         "x": -0.123,
         "y": 0.07,
         "width": 0.26,
         "height": 0.213
       },
       {
-        "drawing": "furnace_g",
+        "drawing": "furnace:g",
         "x": -0.35,
         "y": 0.05,
         "width": 0.18,
         "height": 0.207
       },
       {
-        "drawing": "furnace_h",
+        "drawing": "furnace:h",
         "x": -0.17,
         "y": -0.09,
         "width": 0.193,
         "height": 0.193
       },
       {
-        "drawing": "furnace_i",
+        "drawing": "furnace:i",
         "x": -0.137,
         "y": 0.19,
         "width": 0.26,
         "height": 0.307
       },
       {
-        "drawing": "furnace_i",
+        "drawing": "furnace:i",
         "x": 0.137,
         "y": 0.19,
         "width": 0.26,
@@ -2671,56 +2671,56 @@
     },
     "parts": [
       {
-        "drawing": "smokestack_a",
+        "drawing": "smokestack:a",
         "x": -0.307,
         "y": 0.21,
         "width": 0.18,
         "height": 0.167
       },
       {
-        "drawing": "smokestack_a",
+        "drawing": "smokestack:a",
         "x": 0.307,
         "y": 0.21,
         "width": 0.18,
         "height": 0.167
       },
       {
-        "drawing": "smokestack_b",
+        "drawing": "smokestack:b",
         "x": -0.033,
         "y": -0.223,
         "width": 0.207,
         "height": 0.253
       },
       {
-        "drawing": "smokestack_b",
+        "drawing": "smokestack:b",
         "x": 0.033,
         "y": -0.223,
         "width": 0.207,
         "height": 0.253
       },
       {
-        "drawing": "smokestack_c",
+        "drawing": "smokestack:c",
         "x": -0.087,
         "y": 0.097,
         "width": 0.127,
         "height": 0.127
       },
       {
-        "drawing": "smokestack_c",
+        "drawing": "smokestack:c",
         "x": 0.087,
         "y": 0.097,
         "width": 0.127,
         "height": 0.127
       },
       {
-        "drawing": "smokestack_d",
+        "drawing": "smokestack:d",
         "x": -0.067,
         "y": 0.197,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "smokestack_d",
+        "drawing": "smokestack:d",
         "x": 0.067,
         "y": 0.197,
         "width": 0.153,
@@ -2743,70 +2743,70 @@
     },
     "parts": [
       {
-        "drawing": "slag_king_a",
+        "drawing": "slag_king:a",
         "x": -0.173,
         "y": -0.037,
         "width": 0.167,
         "height": 0.18
       },
       {
-        "drawing": "slag_king_a",
+        "drawing": "slag_king:a",
         "x": 0.173,
         "y": -0.037,
         "width": 0.167,
         "height": 0.18
       },
       {
-        "drawing": "slag_king_b",
+        "drawing": "slag_king:b",
         "x": -0.12,
         "y": 0.123,
         "width": 0.113,
         "height": 0.153
       },
       {
-        "drawing": "slag_king_b",
+        "drawing": "slag_king:b",
         "x": 0.12,
         "y": 0.123,
         "width": 0.113,
         "height": 0.153
       },
       {
-        "drawing": "slag_king_c",
+        "drawing": "slag_king:c",
         "x": -0.14,
         "y": -0.123,
         "width": 0.1,
         "height": 0.087
       },
       {
-        "drawing": "slag_king_c",
+        "drawing": "slag_king:c",
         "x": 0.14,
         "y": -0.123,
         "width": 0.1,
         "height": 0.087
       },
       {
-        "drawing": "slag_king_d",
+        "drawing": "slag_king:d",
         "x": -0.093,
         "y": 0.21,
         "width": 0.167,
         "height": 0.2
       },
       {
-        "drawing": "slag_king_d",
+        "drawing": "slag_king:d",
         "x": 0.093,
         "y": 0.21,
         "width": 0.167,
         "height": 0.2
       },
       {
-        "drawing": "slag_king_e",
+        "drawing": "slag_king:e",
         "x": -0.2,
         "y": 0.137,
         "width": 0.14,
         "height": 0.133
       },
       {
-        "drawing": "slag_king_e",
+        "drawing": "slag_king:e",
         "x": 0.2,
         "y": 0.137,
         "width": 0.14,
@@ -2829,70 +2829,70 @@
     },
     "parts": [
       {
-        "drawing": "forgemaster_a",
+        "drawing": "forgemaster:a",
         "x": -0.18,
         "y": -0.193,
         "width": 0.14,
         "height": 0.167
       },
       {
-        "drawing": "forgemaster_a",
+        "drawing": "forgemaster:a",
         "x": 0.18,
         "y": -0.193,
         "width": 0.14,
         "height": 0.167
       },
       {
-        "drawing": "forgemaster_b",
+        "drawing": "forgemaster:b",
         "x": -0.14,
         "y": 0.053,
         "width": 0.127,
         "height": 0.173
       },
       {
-        "drawing": "forgemaster_b",
+        "drawing": "forgemaster:b",
         "x": 0.14,
         "y": 0.053,
         "width": 0.127,
         "height": 0.173
       },
       {
-        "drawing": "forgemaster_c",
+        "drawing": "forgemaster:c",
         "x": -0.233,
         "y": 0.06,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "forgemaster_c",
+        "drawing": "forgemaster:c",
         "x": 0.233,
         "y": 0.06,
         "width": 0.153,
         "height": 0.187
       },
       {
-        "drawing": "forgemaster_d",
+        "drawing": "forgemaster:d",
         "x": -0.047,
         "y": -0.02,
         "width": 0.1,
         "height": 0.133
       },
       {
-        "drawing": "forgemaster_d",
+        "drawing": "forgemaster:d",
         "x": 0.047,
         "y": -0.02,
         "width": 0.1,
         "height": 0.133
       },
       {
-        "drawing": "forgemaster_e",
+        "drawing": "forgemaster:e",
         "x": -0.073,
         "y": -0.16,
         "width": 0.1,
         "height": 0.113
       },
       {
-        "drawing": "forgemaster_e",
+        "drawing": "forgemaster:e",
         "x": 0.073,
         "y": -0.16,
         "width": 0.1,
@@ -2915,56 +2915,56 @@
     },
     "parts": [
       {
-        "drawing": "inferno_a",
+        "drawing": "inferno:a",
         "x": -0.1,
         "y": 0.177,
         "width": 0.153,
         "height": 0.233
       },
       {
-        "drawing": "inferno_a",
+        "drawing": "inferno:a",
         "x": 0.1,
         "y": 0.177,
         "width": 0.153,
         "height": 0.233
       },
       {
-        "drawing": "inferno_b",
+        "drawing": "inferno:b",
         "x": -0.167,
         "y": -0.11,
         "width": 0.153,
         "height": 0.193
       },
       {
-        "drawing": "inferno_b",
+        "drawing": "inferno:b",
         "x": 0.167,
         "y": -0.11,
         "width": 0.153,
         "height": 0.193
       },
       {
-        "drawing": "inferno_c",
+        "drawing": "inferno:c",
         "x": -0.14,
         "y": 0.257,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "inferno_c",
+        "drawing": "inferno:c",
         "x": 0.14,
         "y": 0.257,
         "width": 0.153,
         "height": 0.167
       },
       {
-        "drawing": "inferno_d",
+        "drawing": "inferno:d",
         "x": -0.253,
         "y": -0.17,
         "width": 0.113,
         "height": 0.147
       },
       {
-        "drawing": "inferno_d",
+        "drawing": "inferno:d",
         "x": 0.253,
         "y": -0.17,
         "width": 0.113,
@@ -2987,70 +2987,70 @@
     },
     "parts": [
       {
-        "drawing": "reactor_a",
+        "drawing": "reactor:a",
         "x": -0.22,
         "y": -0.007,
         "width": 0.233,
         "height": 0.307
       },
       {
-        "drawing": "reactor_a",
+        "drawing": "reactor:a",
         "x": 0.22,
         "y": -0.007,
         "width": 0.233,
         "height": 0.307
       },
       {
-        "drawing": "reactor_b",
+        "drawing": "reactor:b",
         "x": -0.04,
         "y": -0.213,
         "width": 0.193,
         "height": 0.26
       },
       {
-        "drawing": "reactor_b",
+        "drawing": "reactor:b",
         "x": 0.04,
         "y": -0.213,
         "width": 0.193,
         "height": 0.26
       },
       {
-        "drawing": "reactor_c",
+        "drawing": "reactor:c",
         "x": -0.12,
         "y": 0.253,
         "width": 0.233,
         "height": 0.213
       },
       {
-        "drawing": "reactor_c",
+        "drawing": "reactor:c",
         "x": 0.12,
         "y": 0.253,
         "width": 0.233,
         "height": 0.213
       },
       {
-        "drawing": "reactor_d",
+        "drawing": "reactor:d",
         "x": -0.247,
         "y": -0.127,
         "width": 0.113,
         "height": 0.14
       },
       {
-        "drawing": "reactor_d",
+        "drawing": "reactor:d",
         "x": 0.247,
         "y": -0.127,
         "width": 0.113,
         "height": 0.14
       },
       {
-        "drawing": "reactor_e",
+        "drawing": "reactor:e",
         "x": -0.047,
         "y": 0.093,
         "width": 0.127,
         "height": 0.133
       },
       {
-        "drawing": "reactor_e",
+        "drawing": "reactor:e",
         "x": 0.047,
         "y": 0.093,
         "width": 0.127,
@@ -3073,28 +3073,28 @@
     },
     "parts": [
       {
-        "drawing": "neon_tyrant_a",
+        "drawing": "neon_tyrant:a",
         "x": -0.087,
         "y": 0.05,
         "width": 0.233,
         "height": 0.34
       },
       {
-        "drawing": "neon_tyrant_b",
+        "drawing": "neon_tyrant:b",
         "x": -0.04,
         "y": -0.277,
         "width": 0.18,
         "height": 0.267
       },
       {
-        "drawing": "neon_tyrant_c",
+        "drawing": "neon_tyrant:c",
         "x": -0.287,
         "y": 0.097,
         "width": 0.193,
         "height": 0.24
       },
       {
-        "drawing": "neon_tyrant_d",
+        "drawing": "neon_tyrant:d",
         "x": 0.287,
         "y": 0.097,
         "width": 0.193,
@@ -3117,77 +3117,77 @@
     },
     "parts": [
       {
-        "drawing": "gridlock_a",
+        "drawing": "gridlock:a",
         "x": -0.267,
         "y": 0.277,
         "width": 0.18,
         "height": 0.233
       },
       {
-        "drawing": "gridlock_a",
+        "drawing": "gridlock:a",
         "x": 0.267,
         "y": 0.277,
         "width": 0.18,
         "height": 0.233
       },
       {
-        "drawing": "gridlock_b",
+        "drawing": "gridlock:b",
         "x": -0.08,
         "y": 0.017,
         "width": 0.14,
         "height": 0.193
       },
       {
-        "drawing": "gridlock_b",
+        "drawing": "gridlock:b",
         "x": 0.08,
         "y": 0.017,
         "width": 0.14,
         "height": 0.193
       },
       {
-        "drawing": "gridlock_c",
+        "drawing": "gridlock:c",
         "x": -0.06,
         "y": 0.15,
         "width": 0.167,
         "height": 0.22
       },
       {
-        "drawing": "gridlock_c",
+        "drawing": "gridlock:c",
         "x": 0.06,
         "y": 0.15,
         "width": 0.167,
         "height": 0.22
       },
       {
-        "drawing": "gridlock_d",
+        "drawing": "gridlock:d",
         "x": -0.173,
         "y": 0.143,
         "width": 0.233,
         "height": 0.26
       },
       {
-        "drawing": "gridlock_d",
+        "drawing": "gridlock:d",
         "x": 0.173,
         "y": 0.143,
         "width": 0.233,
         "height": 0.26
       },
       {
-        "drawing": "gridlock_e",
+        "drawing": "gridlock:e",
         "x": -0.1,
         "y": 0.27,
         "width": 0.193,
         "height": 0.22
       },
       {
-        "drawing": "gridlock_e",
+        "drawing": "gridlock:e",
         "x": 0.1,
         "y": 0.27,
         "width": 0.193,
         "height": 0.22
       },
       {
-        "drawing": "gridlock_f",
+        "drawing": "gridlock:f",
         "x": 0.0,
         "y": 0.043,
         "width": 0.18,
@@ -3210,56 +3210,56 @@
     },
     "parts": [
       {
-        "drawing": "blackout_a",
+        "drawing": "blackout:a",
         "x": -0.15,
         "y": 0.083,
         "width": 0.18,
         "height": 0.26
       },
       {
-        "drawing": "blackout_a",
+        "drawing": "blackout:a",
         "x": 0.15,
         "y": 0.083,
         "width": 0.18,
         "height": 0.26
       },
       {
-        "drawing": "blackout_b",
+        "drawing": "blackout:b",
         "x": -0.263,
         "y": -0.01,
         "width": 0.167,
         "height": 0.247
       },
       {
-        "drawing": "blackout_c",
+        "drawing": "blackout:c",
         "x": -0.23,
         "y": 0.23,
         "width": 0.127,
         "height": 0.16
       },
       {
-        "drawing": "blackout_d",
+        "drawing": "blackout:d",
         "x": -0.023,
         "y": -0.21,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "blackout_d",
+        "drawing": "blackout:d",
         "x": 0.023,
         "y": -0.21,
         "width": 0.14,
         "height": 0.227
       },
       {
-        "drawing": "blackout_e",
+        "drawing": "blackout:e",
         "x": -0.037,
         "y": 0.13,
         "width": 0.193,
         "height": 0.22
       },
       {
-        "drawing": "blackout_e",
+        "drawing": "blackout:e",
         "x": 0.037,
         "y": 0.13,
         "width": 0.193,
@@ -3282,77 +3282,77 @@
     },
     "parts": [
       {
-        "drawing": "skybreaker_a",
+        "drawing": "skybreaker:a",
         "x": -0.28,
         "y": 0.067,
         "width": 0.22,
         "height": 0.233
       },
       {
-        "drawing": "skybreaker_a",
+        "drawing": "skybreaker:a",
         "x": 0.28,
         "y": 0.067,
         "width": 0.22,
         "height": 0.233
       },
       {
-        "drawing": "skybreaker_b",
+        "drawing": "skybreaker:b",
         "x": -0.18,
         "y": 0.067,
         "width": 0.247,
         "height": 0.293
       },
       {
-        "drawing": "skybreaker_b",
+        "drawing": "skybreaker:b",
         "x": 0.18,
         "y": 0.067,
         "width": 0.247,
         "height": 0.293
       },
       {
-        "drawing": "skybreaker_c",
+        "drawing": "skybreaker:c",
         "x": -0.293,
         "y": -0.127,
         "width": 0.247,
         "height": 0.307
       },
       {
-        "drawing": "skybreaker_c",
+        "drawing": "skybreaker:c",
         "x": 0.293,
         "y": -0.127,
         "width": 0.247,
         "height": 0.307
       },
       {
-        "drawing": "skybreaker_d",
+        "drawing": "skybreaker:d",
         "x": -0.227,
         "y": 0.227,
         "width": 0.14,
         "height": 0.173
       },
       {
-        "drawing": "skybreaker_d",
+        "drawing": "skybreaker:d",
         "x": 0.227,
         "y": 0.227,
         "width": 0.14,
         "height": 0.173
       },
       {
-        "drawing": "skybreaker_e",
+        "drawing": "skybreaker:e",
         "x": -0.153,
         "y": -0.1,
         "width": 0.26,
         "height": 0.207
       },
       {
-        "drawing": "skybreaker_e",
+        "drawing": "skybreaker:e",
         "x": 0.153,
         "y": -0.1,
         "width": 0.26,
         "height": 0.207
       },
       {
-        "drawing": "skybreaker_f",
+        "drawing": "skybreaker:f",
         "x": 0.0,
         "y": 0.013,
         "width": 0.193,
@@ -3375,56 +3375,56 @@
     },
     "parts": [
       {
-        "drawing": "sovereign_a",
+        "drawing": "sovereign:a",
         "x": -0.187,
         "y": -0.187,
         "width": 0.1,
         "height": 0.147
       },
       {
-        "drawing": "sovereign_a",
+        "drawing": "sovereign:a",
         "x": 0.187,
         "y": -0.187,
         "width": 0.1,
         "height": 0.147
       },
       {
-        "drawing": "sovereign_b",
+        "drawing": "sovereign:b",
         "x": -0.147,
         "y": 0.087,
         "width": 0.233,
         "height": 0.213
       },
       {
-        "drawing": "sovereign_b",
+        "drawing": "sovereign:b",
         "x": 0.147,
         "y": 0.087,
         "width": 0.233,
         "height": 0.213
       },
       {
-        "drawing": "sovereign_c",
+        "drawing": "sovereign:c",
         "x": -0.233,
         "y": -0.067,
         "width": 0.273,
         "height": 0.247
       },
       {
-        "drawing": "sovereign_c",
+        "drawing": "sovereign:c",
         "x": 0.233,
         "y": -0.067,
         "width": 0.273,
         "height": 0.247
       },
       {
-        "drawing": "sovereign_d",
+        "drawing": "sovereign:d",
         "x": -0.287,
         "y": -0.207,
         "width": 0.233,
         "height": 0.22
       },
       {
-        "drawing": "sovereign_d",
+        "drawing": "sovereign:d",
         "x": 0.287,
         "y": -0.207,
         "width": 0.233,
@@ -3447,49 +3447,49 @@
     },
     "parts": [
       {
-        "drawing": "singularity_a",
+        "drawing": "singularity:a",
         "x": -0.073,
         "y": -0.137,
         "width": 0.26,
         "height": 0.273
       },
       {
-        "drawing": "singularity_a",
+        "drawing": "singularity:a",
         "x": 0.073,
         "y": -0.137,
         "width": 0.26,
         "height": 0.273
       },
       {
-        "drawing": "singularity_b",
+        "drawing": "singularity:b",
         "x": -0.027,
         "y": -0.023,
         "width": 0.207,
         "height": 0.2
       },
       {
-        "drawing": "singularity_b",
+        "drawing": "singularity:b",
         "x": 0.027,
         "y": -0.023,
         "width": 0.207,
         "height": 0.2
       },
       {
-        "drawing": "singularity_c",
+        "drawing": "singularity:c",
         "x": -0.193,
         "y": -0.11,
         "width": 0.233,
         "height": 0.227
       },
       {
-        "drawing": "singularity_c",
+        "drawing": "singularity:c",
         "x": 0.193,
         "y": -0.11,
         "width": 0.233,
         "height": 0.227
       },
       {
-        "drawing": "singularity_d",
+        "drawing": "singularity:d",
         "x": 0.0,
         "y": 0.09,
         "width": 0.153,

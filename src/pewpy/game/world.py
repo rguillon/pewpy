@@ -7,7 +7,7 @@ from typing import cast
 from pewpy import config
 from pewpy.game.controls import Controls
 from pewpy.game.enemies.enemy import Enemy
-from pewpy.game.enemies.kinds import BOSSES
+from pewpy.game.enemies.kinds import KINDS
 from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Entity, Pickup
 from pewpy.game.events import Event
@@ -190,19 +190,19 @@ class World:
     def _spawn_enemies(self) -> None:
         while self.pending_spawns and self.pending_spawns[0].time <= self.wave_time:
             spawn = self.pending_spawns.pop(0)
-            if spawn.enemy in BOSSES:
-                boss = make_enemy(spawn.enemy, spawn.x, spawn.y, spawn.side, None, self.view_top, self.view_side)
-                self.enemies.append(boss)
-                self.events.append(Event("boss", spawn.x, self.view_top, source=spawn.enemy))
-                continue
-            enemy = make_enemy(spawn.enemy, spawn.x, spawn.y, spawn.side, self.rng, self.view_top, self.view_side)
+            boss = KINDS[spawn.enemy].boss
+            rng = None if boss else self.rng  # a boss's first shots come when its phase says, not staggered
+            enemy = make_enemy(spawn.enemy, spawn.x, spawn.y, spawn.side, rng, self.view_top, self.view_side)
             self.enemies.append(enemy)
+            if boss:
+                self.events.append(Event("boss", spawn.x, self.view_top, source=spawn.enemy))
 
     def _update_enemies(self, dt: float) -> None:
         for enemy in list(self.enemies):
             self._add(enemy.update(dt, self.player, self.scroll_speed(enemy)))
             if not enemy.alive:  # it used itself up (a cluster bomb bursting): it blows up, without points
                 self._explode(enemy)
+                self._wreck(enemy)
 
     def scroll_speed(self, enemy: Enemy) -> float:
         """Return how fast the scenery under `enemy` scrolls down the play plane.
@@ -298,11 +298,9 @@ class World:
         self.score += enemy.points
         self._created += enemy.on_destroyed()
         self._maybe_drop(enemy)
-        for piece in enemy.wreckage():  # a boss's parts go down with it, without points
-            piece.alive = False
-            self._explode(piece)
+        self._wreck(enemy)
         if enemy.is_boss:
-            if any(spawn.enemy in BOSSES for spawn in self.pending_spawns):
+            if any(KINDS[spawn.enemy].boss for spawn in self.pending_spawns):
                 self._clear_shots()  # a mini boss: the level goes on
             else:
                 self.boss_beaten = True
@@ -362,6 +360,7 @@ class World:
                 if enemy.rammable:
                     enemy.alive = False
                     self._explode(enemy)  # rammed: no points
+                    self._wreck(enemy)
                 self._hurt(config.ENEMY_RAM_DAMAGE)
                 return
 
@@ -391,6 +390,12 @@ class World:
     def _explode(self, enemy: Enemy) -> None:
         for x, y, size in enemy.explosions():
             self.events.append(Event("explosion", x, y, size, enemy.kind_name))
+
+    def _wreck(self, enemy: Enemy) -> None:
+        """Take the parts left of a destroyed enemy down with it, without points."""
+        for piece in enemy.wreckage():
+            piece.alive = False
+            self._explode(piece)
 
     def _splash(self, missile: Missile, direct_hit: Enemy) -> None:
         for enemy in self.enemies:
@@ -422,15 +427,16 @@ class World:
         self.player_bullets = [b for b in self.player_bullets if b.alive and b.in_play_area(**on_screen)]
         self.enemy_bullets = [b for b in self.enemy_bullets if b.alive and b.in_play_area(**on_screen)]
         # Enemies go once they're off screen (they enter from off screen, so this is also after they came in);
-        # bosses stay until destroyed.
-        self.enemies = [
+        # bosses stay until destroyed. Parts go with their enemy.
+        kept = {
             e
             for e in self.enemies
             if e.alive and (not e.leaves_screen or e.in_play_area(top=self.view_top, side=self.view_side))
-        ]
+        }
+        self.enemies = [e for e in self.enemies if e in kept and (e.core is None or e.core in kept)]
         self.pickups = [p for p in self.pickups if p.alive and p.in_play_area()]
 
 
 def _behind_a_part(enemy: Enemy, x: float) -> bool:
-    """Tell whether a boss's core is under one of its living parts at `x`: shots and the laser stop at the part."""
+    """Tell whether an enemy's core is under one of its living parts at `x`: shots and the laser stop at the part."""
     return enemy.covered(x)

@@ -5,7 +5,7 @@ A relief is a grid of heights (world units, rising towards the camera from the g
 It also has each point's normal, how tucked-in it is (`cavity`: valleys and hollows get less sky light) and the
 shadows of a low sun, which the ground shader (shader/) uses with the height and slope to paint it.
 
-On grounds with a fluid (water, lava, or the gaps of a cloud deck), everything below height 0 is under it: the
+On grounds with a fluid (water), everything below height 0 is under it: the
 surface is flat there and `depth` says how deep it is. A landscape can also mark each point with a number from 0 to
 1 (`marks`: forest or clearing, reeds or mud...) for the shader. The landscapes are in grounds/ (see landscapes.py).
 

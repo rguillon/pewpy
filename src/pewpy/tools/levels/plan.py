@@ -22,6 +22,7 @@ class WorldPlan:
     """What a world is to be: its name, its ground and its levels."""
 
     name: str
-    background: str  # its ground: a preset of levels/sceneries.json
+    background: str  # its ground: a preset of levels/sceneries.json...
     levels: tuple[LevelPlan, ...]
-    ground_units: bool = True  # False over water: no tanks or turrets
+    ground_units: bool = True  # False: no tanks or turrets (over water)
+    scenery: dict[str, Any] = field(default_factory=dict)  # ...its changes to it, under every level's own

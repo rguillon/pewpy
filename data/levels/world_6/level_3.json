@@ -1,18 +1,61 @@
 {
-  "name": "Prismatic Springs",
+  "name": "Ochre Walls",
   "scroll_speed": 0.269,
-  "background": "geysers",
+  "background": "badlands",
   "background_seed": 1955,
-  "clouds": 0.3,
+  "time_of_day": "dusk",
+  "clouds": 0.6,
   "scenery": {
     "ground": {
       "shape": {
-        "spring_radius": [
-          0.06,
-          0.2
+        "size": 0.852,
+        "floor": 0.2
+      },
+      "colors": {
+        "band_1": [
+          0.33,
+          0.122,
+          0.086
         ],
-        "mat_width": 2.0
+        "band_2": [
+          0.363,
+          0.208,
+          0.094
+        ],
+        "band_3": [
+          0.306,
+          0.281,
+          0.133
+        ],
+        "band_4": [
+          0.186,
+          0.214,
+          0.192
+        ],
+        "plateau": [
+          0.279,
+          0.2,
+          0.126
+        ],
+        "sand": [
+          0.281,
+          0.23,
+          0.147
+        ],
+        "green": [
+          0.116,
+          0.129,
+          0.07
+        ]
       }
+    },
+    "haze": {
+      "color": [
+        0.334,
+        0.271,
+        0.223
+      ],
+      "amount": 0.515
     }
   },
   "waves": [

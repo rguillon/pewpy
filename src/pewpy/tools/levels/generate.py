@@ -3,6 +3,7 @@
 import random
 from typing import Any
 
+from pewpy.scenery.params import merge
 from pewpy.tools.levels.difficulty import (
     SCROLL_SPEED,
     between,
@@ -44,8 +45,9 @@ def make_level(rng: random.Random, world: WorldPlan, plan: LevelPlan, d: int) ->
         level["time_of_day"] = plan.time_of_day
     if plan.clouds:
         level["clouds"] = plan.clouds
-    if plan.scenery:
-        level["scenery"] = plan.scenery
+    scenery = merge(world.scenery, plan.scenery)
+    if scenery:
+        level["scenery"] = scenery
     return {**level, "waves": waves}
 
 

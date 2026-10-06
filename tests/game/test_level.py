@@ -2,7 +2,6 @@ from typing import Any
 
 import pytest
 
-from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.game.level import Level, LevelError, Wave, load_levels, load_worlds, parse_level
 from pewpy.scenery import params
 
@@ -14,10 +13,10 @@ def test_bundled_levels_load_as_eight_worlds_of_six() -> None:
     assert [world.name for world in worlds] == [
         "Highlands",
         "Wildwood",
-        "Fenlands",
+        "Lush Veld",
         "Heartland",
-        "Archipelago",
-        "Steamvale",
+        "Rust Pan",
+        "Bright Ridges",
         "Ironworks",
         "Metropolis",
     ]
@@ -74,13 +73,13 @@ def test_parse_level() -> None:
 
 
 def test_parse_level_background() -> None:
-    assert parse_level({"background": "debris"}).background == "debris"
+    assert parse_level({"background": "space"}).background == "space"
     assert parse_level({"background": "city"}).background == "city"
-    assert parse_level({"background": "ocean"}).background == "ocean"
+    assert parse_level({"background": "salt_pan"}).background == "salt_pan"
 
 
 def test_each_world_keeps_to_its_ground() -> None:
-    grounds = ["mountains", "forest", "swamp", "farmland", "ocean", "geysers", "refinery", "city"]
+    grounds = ["mountains", "forest", "savanna", "farmland", "salt_pan", "badlands", "refinery", "city"]
     for world, ground in zip(load_worlds(), grounds, strict=True):
         assert {level.background for level in world.levels} == {ground}
 
@@ -124,7 +123,7 @@ def test_parse_level_time_of_day_and_background_seed() -> None:
         ({"waves": [{"time": 1}, {"time": 2, "count": 0}]}, "wave 2: 'count' must be at least 1"),
         ({"background": "jungle"}, "unknown background 'jungle'"),
         ({"time_of_day": "noon"}, "unknown time_of_day 'noon'"),
-        ({"background": "ocean", "scenery": {"fluid": {"colours": {}}}}, "ocean.fluid: unknown keys ['colours']"),
+        ({"background": "salt_pan", "scenery": {"fluid": {"colours": {}}}}, "salt_pan.fluid: unknown keys ['colours']"),
         ({"background": "city", "scenery": {"ground": {"depth": "deep"}}}, "city.ground.depth: expected a number"),
     ],
 )
@@ -134,11 +133,11 @@ def test_parse_level_reports_mistakes(data: dict[str, Any], message: str) -> Non
 
 
 def test_a_level_can_change_its_scenery() -> None:
-    level = parse_level({"background": "ocean", "scenery": {"fluid": {"colors": {"deep": [0.1, 0.0, 0.0]}}}})
+    level = parse_level({"background": "salt_pan", "scenery": {"fluid": {"colors": {"deep": [0.1, 0.0, 0.0]}}}})
     look = level.scenery_params()
     assert look.fluid is not None
     assert look.fluid.colors["deep"] == (0.1, 0.0, 0.0)
-    preset = parse_level({"background": "ocean"}).scenery_params().fluid
+    preset = parse_level({"background": "salt_pan"}).scenery_params().fluid
     assert preset is not None
     assert look.fluid.colors["foam"] == preset.colors["foam"]  # the rest stays
 
@@ -158,16 +157,6 @@ def test_every_level_is_on_a_ground_and_each_world_on_its_own() -> None:
     worlds = load_worlds()
     assert all(level.background in GROUNDS for world in worlds for level in world.levels)
     assert len({world.levels[0].background for world in worlds}) == len(worlds)
-
-
-def test_no_ground_enemies_over_water_or_clouds() -> None:
-    # Turrets, tanks and the like are on the ground: they would look odd on the sea, the ice floes or the clouds.
-    for level in load_levels():
-        if level.background in ("pack_ice", "swamp", "clouds", "ocean"):
-            ground = [
-                wave.enemy for wave in level.waves if wave.enemy in ENEMY_TYPES and ENEMY_TYPES[wave.enemy].ground
-            ]
-            assert ground == [], level.name
 
 
 def test_a_wave_with_an_unknown_key_says_so() -> None:

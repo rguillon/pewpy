@@ -20,6 +20,9 @@
   weapon, 24% repair *(placeholder)* (see `01-gameplay.md`; the shares are in `data/rules.json`).
 - Looks: every enemy is a voxel model in its colors, drawn in `data/models/<group>/<name>.json` (its description names
   its drawing) and built by `src/pewpy/graphics/models/`; the size given is its hitbox.
+- Parts: any enemy can have destructible parts, like the bosses (see `02-enemies-bosses.md`): each is hit like an
+  enemy of its own and gives its own points; the parts move with their enemy, and go with it when it is destroyed
+  (without their points), rammed or leaves the screen. Their drawings are in their enemy's model file.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
 - What each enemy does is data: `data/enemies/` (`catalog.json`, `fleet.json`, `projectiles.json`), see
   `06-technical.md`, "Enemies as data".

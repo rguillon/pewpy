@@ -3,7 +3,7 @@
   "scroll_speed": 0.2,
   "background": "mountains",
   "background_seed": 2828,
-  "clouds": 0.6,
+  "clouds": 0.1,
   "waves": [
     {
       "time": 2.0,

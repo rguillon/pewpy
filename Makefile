@@ -35,9 +35,13 @@ players: ## Generate player ship candidates for the Player candidates screen (op
 boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
 	@uv run python -m pewpy.tools.boss_candidates $(ARGS)
 
+.PHONY: backgrounds
+backgrounds: ## Generate background candidates for the Background candidates screen, one per theme (see --help)
+	@uv run python -m pewpy.tools.background_candidates $(ARGS)
+
 .PHONY: props
 props: ## Generate prop candidates in data/models/candidates/props/ (options: ARGS="20 --seed 7 --append", see --help)
-	@uv run python -m pewpy.tools.generate_props $(or $(ARGS),20)
+	@uv run python -m pewpy.tools.generate_props $(or $(ARGS),100)
 
 .PHONY: levels
 levels: ## Generate the game's levels from the worlds' plans in src/pewpy/tools/levels/worlds/ (options: ARGS="--seed 1234", see --help)

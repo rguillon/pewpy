@@ -30,7 +30,7 @@ def fighter(rng: Rng) -> Ship:
         rng.uniform(1.5, 2.4),
         rng.uniform(1.2, 2.0),
     )
-    main = _wings(
+    main = wing_pair(
         rng,
         ship,
         body,
@@ -41,14 +41,14 @@ def fighter(rng: Rng) -> Ship:
         rise=rng.choice([0.0, 0.1, 0.2]),
     )
     if rng.random() < 0.6:
-        _tailplane(rng, ship, body)
+        tailplane(rng, ship, body)
     else:
-        _canards(rng, ship, body)
+        canards(rng, ship, body)
     COCKPITS[rng.choice(["bubble", "bubble", "canopy"])](rng, ship, body)
     _guns(rng, ship, body, main)
     tail_engines(ship, body, rng.choice([1, 2]), rng.choice([1, 2]))
     extras.fins(rng, ship, body)
-    _sometimes(rng, ship, body, {extras.intakes: 0.4, extras.antenna: 0.2})
+    sometimes(rng, ship, body, {extras.intakes: 0.4, extras.antenna: 0.2})
     _finish(rng, ship, body)
     return ship
 
@@ -64,7 +64,7 @@ def interceptor(rng: Rng) -> Ship:
         rng.uniform(1.0, 1.6),
         rng.uniform(1.0, 1.6),
     )
-    main = _wings(
+    main = wing_pair(
         rng,
         ship,
         body,
@@ -74,7 +74,7 @@ def interceptor(rng: Rng) -> Ship:
         span=(3, 7),
         rise=0.0,
     )
-    _canards(rng, ship, body)
+    canards(rng, ship, body)
     COCKPITS["canopy"](rng, ship, body)
     weapons.tip_weapons(rng, ship, main)
     if rng.random() < 0.5:
@@ -96,7 +96,7 @@ def bomber(rng: Rng) -> Ship:
         rng.uniform(2.2, 3.4),
         rng.uniform(1.6, 2.4),
     )
-    main = _wings(
+    main = wing_pair(
         rng,
         ship,
         body,
@@ -111,7 +111,7 @@ def bomber(rng: Rng) -> Ship:
         x = xs[min(len(xs) - 1, round(share * (len(xs) - 1)))]
         front, z = main.leading[x]
         nacelle(ship, x, z - 2, front - rng.randint(4, 6), rng.randint(5, 7))
-    _tailplane(rng, ship, body)
+    tailplane(rng, ship, body)
     COCKPITS[rng.choice(["bubble", "visor", "bridge"])](rng, ship, body)
     weapons.turret(rng, ship, body, round(body.length * 0.4))
     if rng.random() < 0.6:
@@ -140,7 +140,7 @@ def drone(rng: Rng) -> Ship:
         y = body.widest()
         nacelle(ship, -round(body.half(y)) - 1, 0, max(0, y - 3), rng.randint(3, 5), size=1)
     else:
-        main = _wings(
+        main = wing_pair(
             rng,
             ship,
             body,
@@ -158,7 +158,7 @@ def drone(rng: Rng) -> Ship:
     else:
         weapons.gatling(rng, ship, body)
     tail_engines(ship, body, 1, rng.choice([1, 2]), depth=1)
-    _sometimes(rng, ship, body, {extras.antenna: 0.6, extras.dome: 0.3})
+    sometimes(rng, ship, body, {extras.antenna: 0.6, extras.dome: 0.3})
     _finish(rng, ship, body)
     return ship
 
@@ -175,7 +175,7 @@ def gunship(rng: Rng) -> Ship:
         rng.uniform(1.6, 2.6),
     )
     if rng.random() < 0.7:
-        sponson = _wings(
+        sponson = wing_pair(
             rng,
             ship,
             body,
@@ -194,7 +194,7 @@ def gunship(rng: Rng) -> Ship:
     COCKPITS[rng.choice(["bridge", "visor"])](rng, ship, body)
     tail_engines(ship, body, rng.choice([2, 3]), 2)
     extras.armor(rng, ship, body)
-    _sometimes(rng, ship, body, {extras.antenna: 0.6, extras.fins: 0.4, extras.dome: 0.2})
+    sometimes(rng, ship, body, {extras.antenna: 0.6, extras.fins: 0.4, extras.dome: 0.2})
     if rng.random() < 0.3:
         weapons.side_cannon(rng, ship, body)
     _finish(rng, ship, body)
@@ -212,7 +212,7 @@ def heavy(rng: Rng) -> Ship:
         rng.uniform(3.5, 5.5),
         rng.uniform(2.0, 3.0),
     )
-    main = _wings(
+    main = wing_pair(
         rng,
         ship,
         body,
@@ -230,7 +230,7 @@ def heavy(rng: Rng) -> Ship:
     COCKPITS["bridge"](rng, ship, body)
     tail_engines(ship, body, 3, rng.choice([2, 3]))
     extras.armor(rng, ship, body)
-    _sometimes(rng, ship, body, {extras.fins: 0.6, extras.dome: 0.4, extras.antenna: 0.5})
+    sometimes(rng, ship, body, {extras.fins: 0.6, extras.dome: 0.4, extras.antenna: 0.5})
     if rng.random() < 0.5:
         weapons.nose_guns(rng, ship, body)
     _finish(rng, ship, body)
@@ -278,7 +278,7 @@ def player_ship(rng: Rng, kind: str) -> Ship:
     body = hull(rng, ship, name, length, rng.uniform(*halves), rng.uniform(*heights))
     frame = _player_wings(rng, ship, body, layout, span)
     if layout in ("single", "twin_boom") and rng.random() < 0.6:
-        (_tailplane if rng.random() < 0.5 else _canards)(rng, ship, body)
+        (tailplane if rng.random() < 0.5 else canards)(rng, ship, body)
     cockpits = ["bubble", "bubble", "canopy", "visor"] + (["bridge"] if kind == "juggernaut" else [])
     COCKPITS[rng.choice(cockpits)](rng, ship, body)
     _player_engines(rng, ship, frame, engine)
@@ -290,7 +290,7 @@ def player_ship(rng: Rng, kind: str) -> Ship:
         extras.armor: 0.7 if kind == "juggernaut" else 0.15,
         extras.dome: 0.1,
     }
-    _sometimes(rng, ship, body, extras_chances)
+    sometimes(rng, ship, body, extras_chances)
     _player_paint(rng, ship, body)
     if not ship.weapons:
         weapons.nose_guns(rng, ship, body)
@@ -307,29 +307,29 @@ def _player_wings(rng: Rng, ship: Ship, body: Hull, layout: str, span: tuple[int
     booms: list[tuple[int, int, int]] = []
     if layout == "x_wing":  # two pairs, one rising and one drooping: an X seen from behind
         outline = rng.choice(["box", "trapezoid", "straight", "swept"])
-        main = _wings(
+        main = wing_pair(
             rng, ship, body, outline, (0.1, 0.2), (0.25, 0.35), span, 0.3, z_shift=1, max_half=PLAYER_MAX_HALF
         )
-        _wings(rng, ship, body, outline, (0.1, 0.2), (0.25, 0.35), span, -0.3, z_shift=-1, max_half=PLAYER_MAX_HALF)
+        wing_pair(rng, ship, body, outline, (0.1, 0.2), (0.25, 0.35), span, -0.3, z_shift=-1, max_half=PLAYER_MAX_HALF)
     elif layout == "biplane":  # two pairs, one above the other
-        main = _wings(
+        main = wing_pair(
             rng, ship, body, outline, (0.2, 0.3), (0.25, 0.35), span, 0.0, z_shift=2, max_half=PLAYER_MAX_HALF
         )
-        _wings(rng, ship, body, outline, (0.15, 0.25), (0.25, 0.35), span, 0.0, z_shift=-2, max_half=PLAYER_MAX_HALF)
+        wing_pair(rng, ship, body, outline, (0.15, 0.25), (0.25, 0.35), span, 0.0, z_shift=-2, max_half=PLAYER_MAX_HALF)
     elif layout == "tandem":  # a small pair forward, the main pair at the back
-        main = _wings(rng, ship, body, outline, (0.05, 0.15), (0.25, 0.35), span, rise, max_half=PLAYER_MAX_HALF)
+        main = wing_pair(rng, ship, body, outline, (0.05, 0.15), (0.25, 0.35), span, rise, max_half=PLAYER_MAX_HALF)
         small = (max(3, span[0] // 2), max(4, span[1] // 2))
-        _wings(
+        wing_pair(
             rng, ship, body, rng.choice(ALL_OUTLINES), (0.55, 0.65), (0.15, 0.22), small, rise, max_half=PLAYER_MAX_HALF
         )
     elif layout == "flying_wing":  # one wide wing, most of the ship
         outline = rng.choice(["delta", "bat", "ogival", "cranked", "scythe"])
         wide = (span[0] + 2, span[1] + 4)
-        main = _wings(
+        main = wing_pair(
             rng, ship, body, outline, (0.0, 0.08), (0.6, 0.8), wide, rng.choice([0.0, 0.05]), max_half=PLAYER_MAX_HALF
         )
     else:
-        main = _wings(rng, ship, body, outline, (0.1, 0.3), (0.3, 0.45), span, rise, max_half=PLAYER_MAX_HALF)
+        main = wing_pair(rng, ship, body, outline, (0.1, 0.3), (0.3, 0.45), span, rise, max_half=PLAYER_MAX_HALF)
     if layout == "twin_boom" and main.leading:
         xs = sorted(main.leading)
         x = xs[len(xs) // 2]  # halfway out along the wing
@@ -406,7 +406,7 @@ def _player_paint(rng: Rng, ship: Ship, body: Hull) -> None:
 PLAYER_ARCHETYPES: dict[str, Callable[[Rng], Ship]] = {kind: partial(player_ship, kind=kind) for kind in PLAYER_CLASSES}
 
 
-def _wings(
+def wing_pair(
     rng: Rng,
     ship: Ship,
     body: Hull,
@@ -434,9 +434,9 @@ def _wings(
     return wing(ship, outline, root, back, reach, long, z, rise, tip_marking=rng.random() < 0.4, char=char)
 
 
-def _tailplane(rng: Rng, ship: Ship, body: Hull) -> None:
+def tailplane(rng: Rng, ship: Ship, body: Hull) -> None:
     """Put a small tailplane at the back."""
-    _wings(
+    wing_pair(
         rng,
         ship,
         body,
@@ -448,9 +448,9 @@ def _tailplane(rng: Rng, ship: Ship, body: Hull) -> None:
     )
 
 
-def _canards(rng: Rng, ship: Ship, body: Hull) -> None:
+def canards(rng: Rng, ship: Ship, body: Hull) -> None:
     """Put small canards near the nose."""
-    _wings(
+    wing_pair(
         rng,
         ship,
         body,
@@ -475,7 +475,7 @@ def _guns(rng: Rng, ship: Ship, body: Hull, main: Wing) -> None:
         weapons.missiles(rng, ship, main)
 
 
-def _sometimes(rng: Rng, ship: Ship, body: Hull, chances: dict[Callable[[Rng, Ship, Hull], None], float]) -> None:
+def sometimes(rng: Rng, ship: Ship, body: Hull, chances: dict[Callable[[Rng, Ship, Hull], None], float]) -> None:
     """Put each extra with its chance."""
     for extra, chance in chances.items():
         if rng.random() < chance:
@@ -486,10 +486,10 @@ def _finish(rng: Rng, ship: Ship, body: Hull) -> None:
     """Make sure it's armed (guns in its nose if nothing else), then paint it."""
     if not ship.weapons:
         weapons.nose_guns(rng, ship, body)
-    _paint(rng, ship, body)
+    paint(rng, ship, body)
 
 
-def _paint(rng: Rng, ship: Ship, body: Hull) -> None:
+def paint(rng: Rng, ship: Ship, body: Hull) -> None:
     """Paint the livery and the markings, sometimes."""
     if rng.random() < 0.55:
         extras.livery(rng, ship, body)

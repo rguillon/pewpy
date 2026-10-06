@@ -12,18 +12,12 @@ STYLES = {
     "city": 1.0,
     "refinery": 2.0,
     "farmland": 3.0,
-    "planet": 4.0,
-    "ocean": 5.0,
-    "desert": 6.0,
-    "forest": 7.0,
-    "canyon": 8.0,
-    "pack_ice": 9.0,
-    "volcano": 10.0,
-    "swamp": 11.0,
-    "clouds": 12.0,
-    "geysers": 13.0,
+    "forest": 4.0,
+    "canyon": 5.0,
+    "salt_pan": 6.0,
+    "savanna": 7.0,
 }
-FLUIDS = {"water": 1.0, "lava": 2.0, "gap": 3.0}
+FLUIDS = {"water": 1.0}
 PALETTE_SIZE = 16
 # Built-up grounds' colors in the palette: the surface's number (settlement.py Surface) is its slot.
 SURFACE_SLOTS = (

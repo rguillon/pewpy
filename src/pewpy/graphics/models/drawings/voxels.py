@@ -7,7 +7,9 @@ from pewpy.graphics.models.drawings.errors import VoxelDrawingError
 from pewpy.graphics.models.types import Cell, Color, Palette
 
 EMPTY = ".", " "
-OPTIONAL_DRAWING_KEYS = {"engines", "scale", "weapons"}  # weapons: read by the game (pewpy.game.enemies.mounts)
+# weapons: read by the game (pewpy.game.enemies.mounts); parts: the drawings of the model's destructible parts, each
+# named "<model>:<part>" (see pewpy.data.read_model); layout: where they go, for the tools' candidates
+OPTIONAL_DRAWING_KEYS = {"engines", "scale", "weapons", "parts", "layout"}
 
 
 def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int], Color]:

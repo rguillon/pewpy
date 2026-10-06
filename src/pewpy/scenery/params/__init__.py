@@ -26,7 +26,7 @@ from pewpy.scenery.params.props import PropColors
 from pewpy.scenery.params.reader import DEPENDS_ON, build, merge
 from pewpy.scenery.params.scenery import SceneryParams
 from pewpy.scenery.params.sky import Haze, Light, Mist, MistLayer, TimeOfDay
-from pewpy.scenery.params.space import DistantPlanet, Nebulas, RockLayer, Rocks, StarLayer, Stars
+from pewpy.scenery.params.space import DistantPlanet, Nebulas, StarLayer, Stars
 from pewpy.scenery.params.types import Color3, Knobs, SceneryError
 
 __all__ = [
@@ -47,8 +47,6 @@ __all__ = [
     "Nebulas",
     "Outposts",
     "PropColors",
-    "RockLayer",
-    "Rocks",
     "SceneryError",
     "SceneryParams",
     "Settlement",

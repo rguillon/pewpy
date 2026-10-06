@@ -2,6 +2,7 @@
   "sentinel": {
     "note": "1-1: a patrol platform, no parts.",
     "name": "SENTINEL",
+    "boss": true,
     "drawing": "sentinel",
     "size": [0.26, 0.2],
     "health": 60.0,
@@ -24,6 +25,7 @@
   "thresher": {
     "note": "1-2: a heavy hauler with cutters in front, no parts.",
     "name": "THRESHER",
+    "boss": true,
     "drawing": "thresher",
     "size": [0.3, 0.22],
     "health": 70.0,
@@ -46,6 +48,7 @@
   "prowler": {
     "note": "1-3: a raider with swept wings, no parts.",
     "name": "PROWLER",
+    "boss": true,
     "drawing": "prowler",
     "size": [0.34, 0.2],
     "health": 75.0,
@@ -68,6 +71,7 @@
   "pulsar": {
     "note": "1-4: a ring-shaped pulse ship, no parts: rings.",
     "name": "PULSAR",
+    "boss": true,
     "drawing": "pulsar",
     "size": [0.26, 0.3],
     "health": 90.0,
@@ -90,6 +94,7 @@
   "rockbreaker": {
     "note": "1-5: a mining ship with two drills; armored until they're gone.",
     "name": "ROCKBREAKER",
+    "boss": true,
     "drawing": "rockbreaker",
     "size": [0.26, 0.22],
     "health": 60.0,
@@ -99,7 +104,7 @@
         "name": "left drill",
         "x": -0.2,
         "y": -0.04,
-        "drawing": "rockbreaker_drill",
+        "drawing": "rockbreaker:drill",
         "size": [0.1, 0.16],
         "health": 25.0,
         "points": 400
@@ -108,7 +113,7 @@
         "name": "right drill",
         "x": 0.2,
         "y": -0.04,
-        "drawing": "rockbreaker_drill",
+        "drawing": "rockbreaker:drill",
         "size": [0.1, 0.16],
         "health": 25.0,
         "points": 400
@@ -136,6 +141,7 @@
   "warden": {
     "note": "1-6, Highlands' boss: a battle station, no parts, two phases by health.",
     "name": "WARDEN",
+    "boss": true,
     "drawing": "warden",
     "size": [0.46, 0.3],
     "health": 140.0,
@@ -161,6 +167,7 @@
   "patrol_drone": {
     "note": "2-1: a patrol gunship, no parts.",
     "name": "PATROL DRONE",
+    "boss": true,
     "drawing": "patrol_drone",
     "size": [0.3, 0.2],
     "health": 80.0,
@@ -183,6 +190,7 @@
   "cyclone": {
     "note": "2-2: a ring ship spinning its guns, no parts: spirals, three phases.",
     "name": "CYCLONE",
+    "boss": true,
     "drawing": "cyclone",
     "size": [0.28, 0.28],
     "health": 100.0,
@@ -213,6 +221,7 @@
   "siege_pod": {
     "note": "2-3: an armored siege ship, no parts, three phases on its health.",
     "name": "SIEGE POD",
+    "boss": true,
     "drawing": "siege_pod",
     "size": [0.3, 0.3],
     "health": 110.0,
@@ -236,6 +245,7 @@
   "delta_raider": {
     "note": "2-4: a delta-winged raider, no parts: sweeping fans, three phases.",
     "name": "DELTA RAIDER",
+    "boss": true,
     "drawing": "delta_raider",
     "size": [0.4, 0.23],
     "health": 110.0,
@@ -266,6 +276,7 @@
   "breacher": {
     "note": "2-5: an assault ship with two breaching clamps; armored until they're gone.",
     "name": "BREACHER",
+    "boss": true,
     "drawing": "breacher",
     "size": [0.24, 0.24],
     "health": 70.0,
@@ -275,7 +286,7 @@
         "name": "left clamp",
         "x": -0.17,
         "y": -0.12,
-        "drawing": "breacher_clamp",
+        "drawing": "breacher:clamp",
         "size": [0.1, 0.16],
         "health": 25.0,
         "points": 400
@@ -284,7 +295,7 @@
         "name": "right clamp",
         "x": 0.17,
         "y": -0.12,
-        "drawing": "breacher_clamp",
+        "drawing": "breacher:clamp",
         "size": [0.1, 0.16],
         "health": 25.0,
         "points": 400
@@ -313,6 +324,7 @@
   "harvester": {
     "note": "2-6, Wildwood's boss: two cannons; the core is armored until both are gone.",
     "name": "HARVESTER",
+    "boss": true,
     "drawing": "harvester",
     "size": [0.34, 0.26],
     "health": 100.0,
@@ -322,7 +334,7 @@
         "name": "left cannon",
         "x": -0.26,
         "y": 0.02,
-        "drawing": "harvester_cannon",
+        "drawing": "harvester:cannon",
         "size": [0.14, 0.18],
         "health": 40.0,
         "points": 800
@@ -331,7 +343,7 @@
         "name": "right cannon",
         "x": 0.26,
         "y": 0.02,
-        "drawing": "harvester_cannon",
+        "drawing": "harvester:cannon",
         "size": [0.14, 0.18],
         "health": 40.0,
         "points": 800
@@ -360,6 +372,7 @@
   "turbine": {
     "note": "3-1: a ship built around a spinning turbine, no parts: spirals, three phases.",
     "name": "TURBINE",
+    "boss": true,
     "drawing": "turbine",
     "size": [0.3, 0.3],
     "health": 110.0,
@@ -387,6 +400,7 @@
   "clamp_barge": {
     "note": "3-2: a barge with two clamps; armored until they're gone.",
     "name": "CLAMP BARGE",
+    "boss": true,
     "drawing": "clamp_barge",
     "size": [0.26, 0.2],
     "health": 70.0,
@@ -396,7 +410,7 @@
         "name": "left clamp",
         "x": -0.2,
         "y": -0.08,
-        "drawing": "clamp_barge_clamp",
+        "drawing": "clamp_barge:clamp",
         "size": [0.12, 0.14],
         "health": 25.0,
         "points": 400
@@ -405,7 +419,7 @@
         "name": "right clamp",
         "x": 0.2,
         "y": -0.08,
-        "drawing": "clamp_barge_clamp",
+        "drawing": "clamp_barge:clamp",
         "size": [0.12, 0.14],
         "health": 25.0,
         "points": 400
@@ -434,6 +448,7 @@
   "spire": {
     "note": "3-3: a tall command ship, no parts, three phases on its health.",
     "name": "SPIRE",
+    "boss": true,
     "drawing": "spire",
     "size": [0.22, 0.36],
     "health": 120.0,
@@ -464,6 +479,7 @@
   "twin_fang": {
     "note": "3-4: two side guns that can be left alive: the core isn't armored.",
     "name": "TWIN FANG",
+    "boss": true,
     "drawing": "twin_fang",
     "size": [0.24, 0.26],
     "health": 90.0,
@@ -473,7 +489,7 @@
         "name": "left gun",
         "x": -0.19,
         "y": -0.02,
-        "drawing": "twin_fang_cannon",
+        "drawing": "twin_fang:cannon",
         "size": [0.1, 0.2],
         "health": 30.0,
         "points": 500
@@ -482,7 +498,7 @@
         "name": "right gun",
         "x": 0.19,
         "y": -0.02,
-        "drawing": "twin_fang_cannon",
+        "drawing": "twin_fang:cannon",
         "size": [0.1, 0.2],
         "health": 30.0,
         "points": 500
@@ -511,13 +527,14 @@
   "frigate": {
     "note": "3-5: a frigate with two deck guns; armored until they're gone.",
     "name": "FRIGATE",
+    "boss": true,
     "drawing": "frigate",
     "size": [0.22, 0.36],
     "health": 90.0,
     "points": 2400,
     "parts": [
-      {"name": "left gun", "x": -0.17, "y": 0.02, "drawing": "frigate_turret", "size": [0.1, 0.1], "health": 30.0, "points": 500},
-      {"name": "right gun", "x": 0.17, "y": 0.02, "drawing": "frigate_turret", "size": [0.1, 0.1], "health": 30.0, "points": 500}
+      {"name": "left gun", "x": -0.17, "y": 0.02, "drawing": "frigate:turret", "size": [0.1, 0.1], "health": 30.0, "points": 500},
+      {"name": "right gun", "x": 0.17, "y": 0.02, "drawing": "frigate:turret", "size": [0.1, 0.1], "health": 30.0, "points": 500}
     ],
     "phases": [
       {
@@ -540,8 +557,9 @@
     ]
   },
   "tidebreaker": {
-    "note": "3-6, Fenlands' boss: two missile batteries, then two phases of the core alone.",
+    "note": "3-6, Lush Veld's boss: two missile batteries, then two phases of the core alone.",
     "name": "TIDEBREAKER",
+    "boss": true,
     "drawing": "tidebreaker",
     "size": [0.3, 0.36],
     "health": 120.0,
@@ -551,7 +569,7 @@
         "name": "left battery",
         "x": -0.24,
         "y": 0.04,
-        "drawing": "tidebreaker_launcher",
+        "drawing": "tidebreaker:launcher",
         "size": [0.16, 0.22],
         "health": 45.0,
         "points": 900
@@ -560,7 +578,7 @@
         "name": "right battery",
         "x": 0.24,
         "y": 0.04,
-        "drawing": "tidebreaker_launcher",
+        "drawing": "tidebreaker:launcher",
         "size": [0.16, 0.22],
         "health": 45.0,
         "points": 900
@@ -606,6 +624,7 @@
   "picket": {
     "note": "4-1: a picket ship with two gun pods; armored until they're gone.",
     "name": "PICKET",
+    "boss": true,
     "drawing": "picket",
     "size": [0.2, 0.26],
     "health": 80.0,
@@ -615,7 +634,7 @@
         "name": "left gun pod",
         "x": -0.19,
         "y": 0.04,
-        "drawing": "picket_cannon",
+        "drawing": "picket:cannon",
         "size": [0.16, 0.09],
         "health": 25.0,
         "points": 400
@@ -624,7 +643,7 @@
         "name": "right gun pod",
         "x": 0.19,
         "y": 0.04,
-        "drawing": "picket_cannon",
+        "drawing": "picket:cannon",
         "size": [0.16, 0.09],
         "health": 25.0,
         "points": 400
@@ -653,13 +672,14 @@
   "bulwark": {
     "note": "4-2: an armored ship with two rams in front; armored until they're gone.",
     "name": "BULWARK",
+    "boss": true,
     "drawing": "bulwark",
     "size": [0.28, 0.3],
     "health": 90.0,
     "points": 2400,
     "parts": [
-      {"name": "left ram", "x": -0.07, "y": -0.2, "drawing": "bulwark_ram", "size": [0.08, 0.14], "health": 30.0, "points": 500},
-      {"name": "right ram", "x": 0.07, "y": -0.2, "drawing": "bulwark_ram", "size": [0.08, 0.14], "health": 30.0, "points": 500}
+      {"name": "left ram", "x": -0.07, "y": -0.2, "drawing": "bulwark:ram", "size": [0.08, 0.14], "health": 30.0, "points": 500},
+      {"name": "right ram", "x": 0.07, "y": -0.2, "drawing": "bulwark:ram", "size": [0.08, 0.14], "health": 30.0, "points": 500}
     ],
     "phases": [
       {
@@ -684,6 +704,7 @@
   "borer": {
     "note": "4-3: a boring ship with two generators; armored until they're gone.",
     "name": "BORER",
+    "boss": true,
     "drawing": "borer",
     "size": [0.24, 0.24],
     "health": 90.0,
@@ -693,7 +714,7 @@
         "name": "left generator",
         "x": -0.2,
         "y": 0.08,
-        "drawing": "borer_generator",
+        "drawing": "borer:generator",
         "size": [0.14, 0.14],
         "health": 30.0,
         "points": 500
@@ -702,7 +723,7 @@
         "name": "right generator",
         "x": 0.2,
         "y": 0.08,
-        "drawing": "borer_generator",
+        "drawing": "borer:generator",
         "size": [0.14, 0.14],
         "health": 30.0,
         "points": 500
@@ -731,6 +752,7 @@
   "silo_hauler": {
     "note": "4-4: a hauler with two fuel tanks; armored until they're gone.",
     "name": "SILO HAULER",
+    "boss": true,
     "drawing": "silo_hauler",
     "size": [0.26, 0.24],
     "health": 100.0,
@@ -740,7 +762,7 @@
         "name": "left tank",
         "x": -0.21,
         "y": 0.04,
-        "drawing": "silo_hauler_tank",
+        "drawing": "silo_hauler:tank",
         "size": [0.12, 0.19],
         "health": 35.0,
         "points": 600
@@ -749,7 +771,7 @@
         "name": "right tank",
         "x": 0.21,
         "y": 0.04,
-        "drawing": "silo_hauler_tank",
+        "drawing": "silo_hauler:tank",
         "size": [0.12, 0.19],
         "health": 35.0,
         "points": 600
@@ -778,6 +800,7 @@
   "bastion": {
     "note": "4-5: a fortress ship with two turrets; armored until they're gone.",
     "name": "BASTION",
+    "boss": true,
     "drawing": "bastion",
     "size": [0.32, 0.23],
     "health": 110.0,
@@ -787,7 +810,7 @@
         "name": "left turret",
         "x": -0.25,
         "y": -0.06,
-        "drawing": "bastion_turret",
+        "drawing": "bastion:turret",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 500
@@ -796,7 +819,7 @@
         "name": "right turret",
         "x": 0.25,
         "y": -0.06,
-        "drawing": "bastion_turret",
+        "drawing": "bastion:turret",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 500
@@ -825,6 +848,7 @@
   "reaper": {
     "note": "4-6, Heartland's boss: a giant harvester: augers and a cutter in front, then two drills at the back.",
     "name": "REAPER",
+    "boss": true,
     "drawing": "reaper",
     "size": [0.407, 0.327],
     "health": 120.0,
@@ -834,7 +858,7 @@
         "name": "left auger",
         "x": -0.067,
         "y": -0.033,
-        "drawing": "reaper_auger",
+        "drawing": "reaper:auger",
         "size": [0.047, 0.093],
         "health": 20.0,
         "points": 400
@@ -843,7 +867,7 @@
         "name": "right auger",
         "x": 0.067,
         "y": -0.033,
-        "drawing": "reaper_auger",
+        "drawing": "reaper:auger",
         "size": [0.047, 0.093],
         "health": 20.0,
         "points": 400
@@ -852,7 +876,7 @@
         "name": "cutter",
         "x": 0.0,
         "y": -0.027,
-        "drawing": "reaper_cutter",
+        "drawing": "reaper:cutter",
         "size": [0.113, 0.147],
         "health": 30.0,
         "points": 600
@@ -861,7 +885,7 @@
         "name": "left drill",
         "x": -0.113,
         "y": 0.153,
-        "drawing": "reaper_drill",
+        "drawing": "reaper:drill",
         "size": [0.1, 0.16],
         "health": 25.0,
         "points": 500
@@ -870,7 +894,7 @@
         "name": "right drill",
         "x": 0.113,
         "y": 0.153,
-        "drawing": "reaper_drill",
+        "drawing": "reaper:drill",
         "size": [0.1, 0.16],
         "health": 25.0,
         "points": 500
@@ -918,6 +942,7 @@
   "enforcer": {
     "note": "5-1: an enforcer behind two armor shields (they don't shoot); armored until they're gone.",
     "name": "ENFORCER",
+    "boss": true,
     "drawing": "enforcer",
     "size": [0.22, 0.26],
     "health": 90.0,
@@ -927,7 +952,7 @@
         "name": "left shield",
         "x": -0.18,
         "y": -0.06,
-        "drawing": "enforcer_shield",
+        "drawing": "enforcer:shield",
         "size": [0.12, 0.19],
         "health": 35.0,
         "points": 500
@@ -936,7 +961,7 @@
         "name": "right shield",
         "x": 0.18,
         "y": -0.06,
-        "drawing": "enforcer_shield",
+        "drawing": "enforcer:shield",
         "size": [0.12, 0.19],
         "health": 35.0,
         "points": 500
@@ -964,6 +989,7 @@
   "hive_carrier": {
     "note": "5-2: a carrier with two hangars; armored, then two phases on its health.",
     "name": "HIVE CARRIER",
+    "boss": true,
     "drawing": "hive_carrier",
     "size": [0.22, 0.3],
     "health": 110.0,
@@ -973,7 +999,7 @@
         "name": "left hangar",
         "x": -0.19,
         "y": 0.06,
-        "drawing": "hive_carrier_launcher",
+        "drawing": "hive_carrier:launcher",
         "size": [0.16, 0.18],
         "health": 30.0,
         "points": 500
@@ -982,7 +1008,7 @@
         "name": "right hangar",
         "x": 0.19,
         "y": 0.06,
-        "drawing": "hive_carrier_launcher",
+        "drawing": "hive_carrier:launcher",
         "size": [0.16, 0.18],
         "health": 30.0,
         "points": 500
@@ -1025,6 +1051,7 @@
   "hover_tank": {
     "note": "5-3: a heavy gunboat with two turrets; armored until they're gone.",
     "name": "HOVER TANK",
+    "boss": true,
     "drawing": "hover_tank",
     "size": [0.3, 0.3],
     "health": 110.0,
@@ -1034,7 +1061,7 @@
         "name": "left turret",
         "x": -0.22,
         "y": -0.02,
-        "drawing": "hover_tank_turret",
+        "drawing": "hover_tank:turret",
         "size": [0.12, 0.15],
         "health": 30.0,
         "points": 500
@@ -1043,7 +1070,7 @@
         "name": "right turret",
         "x": 0.22,
         "y": -0.02,
-        "drawing": "hover_tank_turret",
+        "drawing": "hover_tank:turret",
         "size": [0.12, 0.15],
         "health": 30.0,
         "points": 500
@@ -1072,6 +1099,7 @@
   "cryo_fortress": {
     "note": "5-4: a fortress ship with two cryo cannons; armored until they're gone.",
     "name": "CRYO FORTRESS",
+    "boss": true,
     "drawing": "cryo_fortress",
     "size": [0.3, 0.26],
     "health": 110.0,
@@ -1081,7 +1109,7 @@
         "name": "left cannon",
         "x": -0.23,
         "y": 0.02,
-        "drawing": "cryo_fortress_cannon",
+        "drawing": "cryo_fortress:cannon",
         "size": [0.12, 0.15],
         "health": 35.0,
         "points": 600
@@ -1090,7 +1118,7 @@
         "name": "right cannon",
         "x": 0.23,
         "y": 0.02,
-        "drawing": "cryo_fortress_cannon",
+        "drawing": "cryo_fortress:cannon",
         "size": [0.12, 0.15],
         "health": 35.0,
         "points": 600
@@ -1119,6 +1147,7 @@
   "sentry_grid": {
     "note": "5-5: a sentry ship with four nodes: the outer pair, then the inner pair, then the core.",
     "name": "SENTRY GRID",
+    "boss": true,
     "drawing": "sentry_grid",
     "size": [0.24, 0.24],
     "health": 110.0,
@@ -1128,7 +1157,7 @@
         "name": "left outer node",
         "x": -0.3,
         "y": 0.06,
-        "drawing": "sentry_grid_generator",
+        "drawing": "sentry_grid:generator",
         "size": [0.1, 0.1],
         "health": 22.0,
         "points": 400
@@ -1137,7 +1166,7 @@
         "name": "right outer node",
         "x": 0.3,
         "y": 0.06,
-        "drawing": "sentry_grid_generator",
+        "drawing": "sentry_grid:generator",
         "size": [0.1, 0.1],
         "health": 22.0,
         "points": 400
@@ -1146,7 +1175,7 @@
         "name": "left inner node",
         "x": -0.18,
         "y": -0.13,
-        "drawing": "sentry_grid_generator",
+        "drawing": "sentry_grid:generator",
         "size": [0.1, 0.1],
         "health": 22.0,
         "points": 400
@@ -1155,7 +1184,7 @@
         "name": "right inner node",
         "x": 0.18,
         "y": -0.13,
-        "drawing": "sentry_grid_generator",
+        "drawing": "sentry_grid:generator",
         "size": [0.1, 0.1],
         "health": 22.0,
         "points": 400
@@ -1193,8 +1222,9 @@
     ]
   },
   "leviathan": {
-    "note": "5-6, Archipelago's boss: a battleship: turrets and flank nodes, then the reactors at the stern, then the core.",
+    "note": "5-6, Rust Pan's boss: a battleship: turrets and flank nodes, then the reactors at the stern, then the core.",
     "name": "LEVIATHAN",
+    "boss": true,
     "drawing": "leviathan",
     "size": [0.447, 0.593],
     "health": 130.0,
@@ -1204,7 +1234,7 @@
         "name": "left turret",
         "x": -0.12,
         "y": -0.08,
-        "drawing": "leviathan_turret",
+        "drawing": "leviathan:turret",
         "size": [0.127, 0.153],
         "health": 25.0,
         "points": 500
@@ -1213,7 +1243,7 @@
         "name": "right turret",
         "x": 0.12,
         "y": -0.08,
-        "drawing": "leviathan_turret",
+        "drawing": "leviathan:turret",
         "size": [0.127, 0.153],
         "health": 25.0,
         "points": 500
@@ -1222,7 +1252,7 @@
         "name": "left node",
         "x": -0.213,
         "y": -0.033,
-        "drawing": "leviathan_node",
+        "drawing": "leviathan:node",
         "size": [0.073, 0.08],
         "health": 20.0,
         "points": 400
@@ -1231,7 +1261,7 @@
         "name": "right node",
         "x": 0.213,
         "y": -0.033,
-        "drawing": "leviathan_node",
+        "drawing": "leviathan:node",
         "size": [0.073, 0.08],
         "health": 20.0,
         "points": 400
@@ -1240,7 +1270,7 @@
         "name": "left reactor",
         "x": -0.047,
         "y": 0.2,
-        "drawing": "leviathan_reactor",
+        "drawing": "leviathan:reactor",
         "size": [0.1, 0.12],
         "health": 20.0,
         "points": 500
@@ -1249,7 +1279,7 @@
         "name": "right reactor",
         "x": 0.047,
         "y": 0.2,
-        "drawing": "leviathan_reactor",
+        "drawing": "leviathan:reactor",
         "size": [0.1, 0.12],
         "health": 20.0,
         "points": 500
@@ -1289,6 +1319,7 @@
   "relay_array": {
     "note": "6-1: a relay station with two dishes; armored until they're gone.",
     "name": "RELAY ARRAY",
+    "boss": true,
     "drawing": "relay_array",
     "size": [0.3, 0.24],
     "health": 110.0,
@@ -1298,7 +1329,7 @@
         "name": "left dish",
         "x": -0.26,
         "y": 0.06,
-        "drawing": "relay_array_dish",
+        "drawing": "relay_array:dish",
         "size": [0.14, 0.14],
         "health": 35.0,
         "points": 600
@@ -1307,7 +1338,7 @@
         "name": "right dish",
         "x": 0.26,
         "y": 0.06,
-        "drawing": "relay_array_dish",
+        "drawing": "relay_array:dish",
         "size": [0.14, 0.14],
         "health": 35.0,
         "points": 600
@@ -1336,6 +1367,7 @@
   "scavenger": {
     "note": "6-2: a salvager with two wing batteries; armored, then two phases.",
     "name": "SCAVENGER",
+    "boss": true,
     "drawing": "scavenger",
     "size": [0.2, 0.27],
     "health": 110.0,
@@ -1345,7 +1377,7 @@
         "name": "left battery",
         "x": -0.21,
         "y": 0.05,
-        "drawing": "scavenger_launcher",
+        "drawing": "scavenger:launcher",
         "size": [0.2, 0.13],
         "health": 35.0,
         "points": 600
@@ -1354,7 +1386,7 @@
         "name": "right battery",
         "x": 0.21,
         "y": 0.05,
-        "drawing": "scavenger_launcher",
+        "drawing": "scavenger:launcher",
         "size": [0.2, 0.13],
         "health": 35.0,
         "points": 600
@@ -1400,6 +1432,7 @@
   "mine_carrier": {
     "note": "6-3: a mine carrier with two launchers; armored, then two phases on its health.",
     "name": "MINE CARRIER",
+    "boss": true,
     "drawing": "mine_carrier",
     "size": [0.34, 0.28],
     "health": 130.0,
@@ -1409,7 +1442,7 @@
         "name": "left launcher",
         "x": -0.27,
         "y": -0.08,
-        "drawing": "mine_carrier_launcher",
+        "drawing": "mine_carrier:launcher",
         "size": [0.12, 0.12],
         "health": 35.0,
         "points": 600
@@ -1418,7 +1451,7 @@
         "name": "right launcher",
         "x": 0.27,
         "y": -0.08,
-        "drawing": "mine_carrier_launcher",
+        "drawing": "mine_carrier:launcher",
         "size": [0.12, 0.12],
         "health": 35.0,
         "points": 600
@@ -1455,6 +1488,7 @@
   "foundry": {
     "note": "6-4: a foundry ship with two presses; armored, then two phases on its health.",
     "name": "FOUNDRY",
+    "boss": true,
     "drawing": "foundry",
     "size": [0.28, 0.3],
     "health": 140.0,
@@ -1464,7 +1498,7 @@
         "name": "left press",
         "x": -0.22,
         "y": -0.1,
-        "drawing": "foundry_piston",
+        "drawing": "foundry:piston",
         "size": [0.12, 0.14],
         "health": 35.0,
         "points": 600
@@ -1473,7 +1507,7 @@
         "name": "right press",
         "x": 0.22,
         "y": -0.1,
-        "drawing": "foundry_piston",
+        "drawing": "foundry:piston",
         "size": [0.12, 0.14],
         "health": 35.0,
         "points": 600
@@ -1519,6 +1553,7 @@
   "gunship_prime": {
     "note": "6-5: a heavy gunship with two cannons and two engines: cannons, then engines, then the core.",
     "name": "GUNSHIP PRIME",
+    "boss": true,
     "drawing": "gunship_prime",
     "size": [0.24, 0.33],
     "health": 140.0,
@@ -1528,7 +1563,7 @@
         "name": "left cannon",
         "x": -0.18,
         "y": -0.08,
-        "drawing": "gunship_prime_cannon",
+        "drawing": "gunship_prime:cannon",
         "size": [0.1, 0.18],
         "health": 30.0,
         "points": 500
@@ -1537,7 +1572,7 @@
         "name": "right cannon",
         "x": 0.18,
         "y": -0.08,
-        "drawing": "gunship_prime_cannon",
+        "drawing": "gunship_prime:cannon",
         "size": [0.1, 0.18],
         "health": 30.0,
         "points": 500
@@ -1546,7 +1581,7 @@
         "name": "left engine",
         "x": -0.3,
         "y": 0.1,
-        "drawing": "gunship_prime_engine",
+        "drawing": "gunship_prime:engine",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 500
@@ -1555,7 +1590,7 @@
         "name": "right engine",
         "x": 0.3,
         "y": 0.1,
-        "drawing": "gunship_prime_engine",
+        "drawing": "gunship_prime:engine",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 500
@@ -1593,8 +1628,9 @@
     ]
   },
   "colossus": {
-    "note": "6-6, Steamvale's boss: four turrets, the outer pair first, then the inner pair, then the core.",
+    "note": "6-6, Bright Ridges' boss: four turrets, the outer pair first, then the inner pair, then the core.",
     "name": "COLOSSUS",
+    "boss": true,
     "drawing": "colossus",
     "size": [0.34, 0.3],
     "health": 150.0,
@@ -1604,7 +1640,7 @@
         "name": "left outer",
         "x": -0.3,
         "y": -0.02,
-        "drawing": "colossus_turret",
+        "drawing": "colossus:turret",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 600
@@ -1613,7 +1649,7 @@
         "name": "right outer",
         "x": 0.3,
         "y": -0.02,
-        "drawing": "colossus_turret",
+        "drawing": "colossus:turret",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 600
@@ -1622,7 +1658,7 @@
         "name": "left inner",
         "x": -0.1,
         "y": -0.2,
-        "drawing": "colossus_turret",
+        "drawing": "colossus:turret",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 600
@@ -1631,7 +1667,7 @@
         "name": "right inner",
         "x": 0.1,
         "y": -0.2,
-        "drawing": "colossus_turret",
+        "drawing": "colossus:turret",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 600
@@ -1671,6 +1707,7 @@
   "grappler": {
     "note": "7-1: a salvage ship with four grapples; armored until they're all gone, then two phases.",
     "name": "GRAPPLER",
+    "boss": true,
     "drawing": "grappler",
     "size": [0.26, 0.26],
     "health": 130.0,
@@ -1680,7 +1717,7 @@
         "name": "left grapple",
         "x": -0.2,
         "y": -0.13,
-        "drawing": "grappler_clamp",
+        "drawing": "grappler:clamp",
         "size": [0.08, 0.21],
         "health": 20.0,
         "points": 400
@@ -1689,7 +1726,7 @@
         "name": "right grapple",
         "x": 0.2,
         "y": -0.13,
-        "drawing": "grappler_clamp",
+        "drawing": "grappler:clamp",
         "size": [0.08, 0.21],
         "health": 20.0,
         "points": 400
@@ -1698,7 +1735,7 @@
         "name": "left inner grapple",
         "x": -0.09,
         "y": -0.21,
-        "drawing": "grappler_clamp",
+        "drawing": "grappler:clamp",
         "size": [0.08, 0.21],
         "health": 20.0,
         "points": 400
@@ -1707,7 +1744,7 @@
         "name": "right inner grapple",
         "x": 0.09,
         "y": -0.21,
-        "drawing": "grappler_clamp",
+        "drawing": "grappler:clamp",
         "size": [0.08, 0.21],
         "health": 20.0,
         "points": 400
@@ -1745,6 +1782,7 @@
   "tugmaster": {
     "note": "7-2: a space tug with two thrusters and a ram plate: thrusters, then the plate, then the core.",
     "name": "TUGMASTER",
+    "boss": true,
     "drawing": "tugmaster",
     "size": [0.3, 0.28],
     "health": 130.0,
@@ -1754,7 +1792,7 @@
         "name": "left thruster",
         "x": -0.23,
         "y": 0.0,
-        "drawing": "tugmaster_engine",
+        "drawing": "tugmaster:engine",
         "size": [0.12, 0.19],
         "health": 30.0,
         "points": 500
@@ -1763,7 +1801,7 @@
         "name": "right thruster",
         "x": 0.23,
         "y": 0.0,
-        "drawing": "tugmaster_engine",
+        "drawing": "tugmaster:engine",
         "size": [0.12, 0.19],
         "health": 30.0,
         "points": 500
@@ -1772,7 +1810,7 @@
         "name": "ram plate",
         "x": 0.0,
         "y": -0.19,
-        "drawing": "tugmaster_plate",
+        "drawing": "tugmaster:plate",
         "size": [0.22, 0.08],
         "health": 40.0,
         "points": 700
@@ -1810,6 +1848,7 @@
   "magma_rig": {
     "note": "7-3: a mining rig with two furnaces and two cannons: furnaces, then cannons, then the core.",
     "name": "MAGMA RIG",
+    "boss": true,
     "drawing": "magma_rig",
     "size": [0.3, 0.28],
     "health": 150.0,
@@ -1819,7 +1858,7 @@
         "name": "left furnace",
         "x": -0.24,
         "y": 0.1,
-        "drawing": "magma_rig_generator",
+        "drawing": "magma_rig:generator",
         "size": [0.12, 0.14],
         "health": 30.0,
         "points": 500
@@ -1828,7 +1867,7 @@
         "name": "right furnace",
         "x": 0.24,
         "y": 0.1,
-        "drawing": "magma_rig_generator",
+        "drawing": "magma_rig:generator",
         "size": [0.12, 0.14],
         "health": 30.0,
         "points": 500
@@ -1837,7 +1876,7 @@
         "name": "left cannon",
         "x": -0.36,
         "y": -0.06,
-        "drawing": "magma_rig_cannon",
+        "drawing": "magma_rig:cannon",
         "size": [0.1, 0.16],
         "health": 30.0,
         "points": 500
@@ -1846,7 +1885,7 @@
         "name": "right cannon",
         "x": 0.36,
         "y": -0.06,
-        "drawing": "magma_rig_cannon",
+        "drawing": "magma_rig:cannon",
         "size": [0.1, 0.16],
         "health": 30.0,
         "points": 500
@@ -1887,6 +1926,7 @@
   "dreadnought": {
     "note": "7-4: a battleship with four turrets and a bow gun: turrets, then the bow gun, then the core.",
     "name": "DREADNOUGHT",
+    "boss": true,
     "drawing": "dreadnought",
     "size": [0.24, 0.37],
     "health": 150.0,
@@ -1896,7 +1936,7 @@
         "name": "left front turret",
         "x": -0.18,
         "y": -0.1,
-        "drawing": "dreadnought_turret",
+        "drawing": "dreadnought:turret",
         "size": [0.12, 0.12],
         "health": 25.0,
         "points": 500
@@ -1905,7 +1945,7 @@
         "name": "right front turret",
         "x": 0.18,
         "y": -0.1,
-        "drawing": "dreadnought_turret",
+        "drawing": "dreadnought:turret",
         "size": [0.12, 0.12],
         "health": 25.0,
         "points": 500
@@ -1914,7 +1954,7 @@
         "name": "left rear turret",
         "x": -0.26,
         "y": 0.1,
-        "drawing": "dreadnought_turret",
+        "drawing": "dreadnought:turret",
         "size": [0.12, 0.12],
         "health": 25.0,
         "points": 500
@@ -1923,7 +1963,7 @@
         "name": "right rear turret",
         "x": 0.26,
         "y": 0.1,
-        "drawing": "dreadnought_turret",
+        "drawing": "dreadnought:turret",
         "size": [0.12, 0.12],
         "health": 25.0,
         "points": 500
@@ -1932,7 +1972,7 @@
         "name": "bow gun",
         "x": 0.0,
         "y": -0.24,
-        "drawing": "dreadnought_cannon",
+        "drawing": "dreadnought:cannon",
         "size": [0.08, 0.11],
         "health": 35.0,
         "points": 700
@@ -1972,6 +2012,7 @@
   "flare_rig": {
     "note": "7-5: a flare rig: two gun pods in front, two missile launchers behind them and two flak towers.",
     "name": "FLARE RIG",
+    "boss": true,
     "drawing": "flare_rig",
     "size": [0.38, 0.347],
     "health": 165.0,
@@ -1981,7 +2022,7 @@
         "name": "left gun",
         "x": -0.08,
         "y": -0.077,
-        "drawing": "flare_rig_gun",
+        "drawing": "flare_rig:gun",
         "size": [0.113, 0.107],
         "health": 20.0,
         "points": 400
@@ -1990,7 +2031,7 @@
         "name": "right gun",
         "x": 0.08,
         "y": -0.077,
-        "drawing": "flare_rig_gun",
+        "drawing": "flare_rig:gun",
         "size": [0.113, 0.107],
         "health": 20.0,
         "points": 400
@@ -1999,7 +2040,7 @@
         "name": "left launcher",
         "x": -0.1,
         "y": 0.017,
-        "drawing": "flare_rig_launcher",
+        "drawing": "flare_rig:launcher",
         "size": [0.087, 0.127],
         "health": 20.0,
         "points": 400
@@ -2008,7 +2049,7 @@
         "name": "right launcher",
         "x": 0.1,
         "y": 0.017,
-        "drawing": "flare_rig_launcher",
+        "drawing": "flare_rig:launcher",
         "size": [0.087, 0.127],
         "health": 20.0,
         "points": 400
@@ -2017,7 +2058,7 @@
         "name": "left flak",
         "x": -0.16,
         "y": 0.07,
-        "drawing": "flare_rig_flak",
+        "drawing": "flare_rig:flak",
         "size": [0.113, 0.1],
         "health": 20.0,
         "points": 400
@@ -2026,7 +2067,7 @@
         "name": "right flak",
         "x": 0.16,
         "y": 0.07,
-        "drawing": "flare_rig_flak",
+        "drawing": "flare_rig:flak",
         "size": [0.113, 0.1],
         "health": 20.0,
         "points": 400
@@ -2075,6 +2116,7 @@
   "crucible": {
     "note": "7-6, Ironworks' boss: a smelting block: two furnaces on deck, two beacons at the bow; armored, then two phases.",
     "name": "CRUCIBLE",
+    "boss": true,
     "drawing": "crucible",
     "size": [0.367, 0.453],
     "health": 170.0,
@@ -2084,7 +2126,7 @@
         "name": "left beacon",
         "x": -0.033,
         "y": -0.143,
-        "drawing": "crucible_beacon",
+        "drawing": "crucible:beacon",
         "size": [0.073, 0.073],
         "health": 30.0,
         "points": 600
@@ -2093,7 +2135,7 @@
         "name": "right beacon",
         "x": 0.033,
         "y": -0.143,
-        "drawing": "crucible_beacon",
+        "drawing": "crucible:beacon",
         "size": [0.073, 0.073],
         "health": 30.0,
         "points": 600
@@ -2102,7 +2144,7 @@
         "name": "left furnace",
         "x": -0.08,
         "y": -0.017,
-        "drawing": "crucible_dish",
+        "drawing": "crucible:dish",
         "size": [0.1, 0.087],
         "health": 30.0,
         "points": 600
@@ -2111,7 +2153,7 @@
         "name": "right furnace",
         "x": 0.08,
         "y": -0.017,
-        "drawing": "crucible_dish",
+        "drawing": "crucible:dish",
         "size": [0.1, 0.087],
         "health": 30.0,
         "points": 600
@@ -2152,6 +2194,7 @@
   "executor": {
     "note": "8-1: a command ship with two generators and two blades; armored, then two phases on its health.",
     "name": "EXECUTOR",
+    "boss": true,
     "drawing": "executor",
     "size": [0.28, 0.3],
     "health": 160.0,
@@ -2161,7 +2204,7 @@
         "name": "left generator",
         "x": -0.32,
         "y": 0.08,
-        "drawing": "executor_generator",
+        "drawing": "executor:generator",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 500
@@ -2170,7 +2213,7 @@
         "name": "right generator",
         "x": 0.32,
         "y": 0.08,
-        "drawing": "executor_generator",
+        "drawing": "executor:generator",
         "size": [0.12, 0.12],
         "health": 30.0,
         "points": 500
@@ -2179,7 +2222,7 @@
         "name": "left blade",
         "x": -0.2,
         "y": -0.1,
-        "drawing": "executor_blade",
+        "drawing": "executor:blade",
         "size": [0.1, 0.22],
         "health": 30.0,
         "points": 500
@@ -2188,7 +2231,7 @@
         "name": "right blade",
         "x": 0.2,
         "y": -0.1,
-        "drawing": "executor_blade",
+        "drawing": "executor:blade",
         "size": [0.1, 0.22],
         "health": 30.0,
         "points": 500
@@ -2229,6 +2272,7 @@
   "interdictor": {
     "note": "8-2: an interceptor carrier: two bow cannons, two sensor dishes on its wings; armored until the dishes go.",
     "name": "INTERDICTOR",
+    "boss": true,
     "drawing": "interdictor",
     "size": [0.287, 0.333],
     "health": 160.0,
@@ -2238,7 +2282,7 @@
         "name": "left cannon",
         "x": -0.093,
         "y": -0.123,
-        "drawing": "interdictor_cannon",
+        "drawing": "interdictor:cannon",
         "size": [0.047, 0.08],
         "health": 30.0,
         "points": 500
@@ -2247,7 +2291,7 @@
         "name": "right cannon",
         "x": 0.093,
         "y": -0.123,
-        "drawing": "interdictor_cannon",
+        "drawing": "interdictor:cannon",
         "size": [0.047, 0.08],
         "health": 30.0,
         "points": 500
@@ -2256,7 +2300,7 @@
         "name": "left dish",
         "x": -0.133,
         "y": 0.057,
-        "drawing": "interdictor_dish",
+        "drawing": "interdictor:dish",
         "size": [0.073, 0.1],
         "health": 30.0,
         "points": 500
@@ -2265,7 +2309,7 @@
         "name": "right dish",
         "x": 0.133,
         "y": 0.057,
-        "drawing": "interdictor_dish",
+        "drawing": "interdictor:dish",
         "size": [0.073, 0.1],
         "health": 30.0,
         "points": 500
@@ -2305,6 +2349,7 @@
   "nightwatch": {
     "note": "8-3: a gunboat: two turrets on deck and two guns on its flanks; turrets, then guns, then the core.",
     "name": "NIGHTWATCH",
+    "boss": true,
     "drawing": "nightwatch",
     "size": [0.247, 0.333],
     "health": 165.0,
@@ -2314,7 +2359,7 @@
         "name": "left gun",
         "x": -0.113,
         "y": -0.07,
-        "drawing": "nightwatch_gun",
+        "drawing": "nightwatch:gun",
         "size": [0.06, 0.067],
         "health": 30.0,
         "points": 500
@@ -2323,7 +2368,7 @@
         "name": "right gun",
         "x": 0.113,
         "y": -0.07,
-        "drawing": "nightwatch_gun",
+        "drawing": "nightwatch:gun",
         "size": [0.06, 0.067],
         "health": 30.0,
         "points": 500
@@ -2332,7 +2377,7 @@
         "name": "left turret",
         "x": -0.06,
         "y": 0.003,
-        "drawing": "nightwatch_turret",
+        "drawing": "nightwatch:turret",
         "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
@@ -2341,7 +2386,7 @@
         "name": "right turret",
         "x": 0.06,
         "y": 0.003,
-        "drawing": "nightwatch_turret",
+        "drawing": "nightwatch:turret",
         "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
@@ -2389,6 +2434,7 @@
   "arc_tower": {
     "note": "8-4: a power station: two arc emitters at the bow and two nodes on deck; armored, then two phases.",
     "name": "ARC TOWER",
+    "boss": true,
     "drawing": "arc_tower",
     "size": [0.393, 0.293],
     "health": 170.0,
@@ -2398,7 +2444,7 @@
         "name": "left emitter",
         "x": -0.14,
         "y": -0.117,
-        "drawing": "arc_tower_emitter",
+        "drawing": "arc_tower:emitter",
         "size": [0.127, 0.113],
         "health": 30.0,
         "points": 500
@@ -2407,7 +2453,7 @@
         "name": "right emitter",
         "x": 0.14,
         "y": -0.117,
-        "drawing": "arc_tower_emitter",
+        "drawing": "arc_tower:emitter",
         "size": [0.127, 0.113],
         "health": 30.0,
         "points": 500
@@ -2416,7 +2462,7 @@
         "name": "left node",
         "x": -0.053,
         "y": 0.03,
-        "drawing": "arc_tower_node",
+        "drawing": "arc_tower:node",
         "size": [0.113, 0.1],
         "health": 30.0,
         "points": 500
@@ -2425,7 +2471,7 @@
         "name": "right node",
         "x": 0.053,
         "y": 0.03,
-        "drawing": "arc_tower_node",
+        "drawing": "arc_tower:node",
         "size": [0.113, 0.1],
         "health": 30.0,
         "points": 500
@@ -2473,6 +2519,7 @@
   "apex": {
     "note": "8-5: a flagship: two heavy cannons on its wings and two beam emitters at the stern; armored, then two phases.",
     "name": "APEX",
+    "boss": true,
     "drawing": "apex",
     "size": [0.433, 0.287],
     "health": 175.0,
@@ -2482,7 +2529,7 @@
         "name": "left cannon",
         "x": -0.16,
         "y": -0.127,
-        "drawing": "apex_cannon",
+        "drawing": "apex:cannon",
         "size": [0.113, 0.18],
         "health": 30.0,
         "points": 500
@@ -2491,7 +2538,7 @@
         "name": "right cannon",
         "x": 0.16,
         "y": -0.127,
-        "drawing": "apex_cannon",
+        "drawing": "apex:cannon",
         "size": [0.113, 0.18],
         "health": 30.0,
         "points": 500
@@ -2500,7 +2547,7 @@
         "name": "left emitter",
         "x": -0.093,
         "y": 0.107,
-        "drawing": "apex_emitter",
+        "drawing": "apex:emitter",
         "size": [0.087, 0.093],
         "health": 30.0,
         "points": 500
@@ -2509,7 +2556,7 @@
         "name": "right emitter",
         "x": 0.093,
         "y": 0.107,
-        "drawing": "apex_emitter",
+        "drawing": "apex:emitter",
         "size": [0.087, 0.093],
         "health": 30.0,
         "points": 500
@@ -2567,6 +2614,7 @@
   "overmind": {
     "note": "8-6, Metropolis' boss: shield generators armor the core; cannons on the sides keep firing.",
     "name": "OVERMIND",
+    "boss": true,
     "drawing": "overmind",
     "size": [0.3, 0.3],
     "health": 160.0,
@@ -2576,7 +2624,7 @@
         "name": "left generator",
         "x": -0.24,
         "y": 0.14,
-        "drawing": "overmind_generator",
+        "drawing": "overmind:generator",
         "size": [0.12, 0.12],
         "health": 35.0,
         "points": 700
@@ -2585,7 +2633,7 @@
         "name": "right generator",
         "x": 0.24,
         "y": 0.14,
-        "drawing": "overmind_generator",
+        "drawing": "overmind:generator",
         "size": [0.12, 0.12],
         "health": 35.0,
         "points": 700
@@ -2594,7 +2642,7 @@
         "name": "left cannon",
         "x": -0.37,
         "y": -0.08,
-        "drawing": "overmind_cannon",
+        "drawing": "overmind:cannon",
         "size": [0.1, 0.16],
         "health": 35.0,
         "points": 700
@@ -2603,7 +2651,7 @@
         "name": "right cannon",
         "x": 0.37,
         "y": -0.08,
-        "drawing": "overmind_cannon",
+        "drawing": "overmind:cannon",
         "size": [0.1, 0.16],
         "health": 35.0,
         "points": 700

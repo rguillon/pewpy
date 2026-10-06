@@ -54,7 +54,6 @@
     "stars": null,
     "nebulas": null,
     "planet": null,
-    "rocks": null,
     "ground": null,
     "fluid": null,
     "settlement": null,
@@ -98,65 +97,6 @@
       "palettes": [[[0.12, 0.13, 0.25], [0.16, 0.14, 0.28], [0.1, 0.16, 0.24]], [[0.25, 0.15, 0.1], [0.3, 0.2, 0.12], [0.22, 0.12, 0.1]], [[0.1, 0.2, 0.18], [0.14, 0.22, 0.16], [0.08, 0.16, 0.2]]]
     }
   },
-  "debris": {
-    "stars": {
-      "depth": 0.3,
-      "count": 90,
-      "layers": [
-        {
-          "speed": 0.4,
-          "size": 0.008,
-          "brightness": 0.35
-        },
-        {
-          "speed": 0.7,
-          "size": 0.012,
-          "brightness": 0.6
-        },
-        {
-          "speed": 1.0,
-          "size": 0.018,
-          "brightness": 1.0
-        }
-      ]
-    },
-    "rocks": {
-      "layers": [
-        {
-          "depth": 2.2,
-          "count": 12,
-          "size": [0.08, 0.16],
-          "speed": 0.35
-        },
-        {
-          "depth": 0.9,
-          "count": 6,
-          "size": [0.1, 0.2],
-          "speed": 0.7
-        }
-      ],
-      "spin": 40.0,
-      "colors": [[0.16, 0.15, 0.15], [0.2, 0.18, 0.16], [0.13, 0.13, 0.15]]
-    }
-  },
-  "planet": {
-    "ground": {
-      "landscape": "hills",
-      "shape": {
-        "size": 0.9,
-        "crater_spacing": 0.5,
-        "crater_radius": [0.07, 0.18]
-      },
-      "style": "planet",
-      "colors": {
-        "low": [0.05, 0.045, 0.04],
-        "high": [0.13, 0.11, 0.08],
-        "rims": [0.16, 0.14, 0.11]
-      },
-      "depth": 0.35,
-      "max_height": 0.21
-    }
-  },
   "city": {
     "ground": {
       "landscape": "level_ground",
@@ -196,82 +136,8 @@
     },
     "outposts": {
       "kinds": ["colony", "airfield", "radar_station"],
-      "spacing": 1.5,
+      "spacing": 1.1,
       "size": [0.26, 0.4]
-    }
-  },
-  "ocean": {
-    "ground": {
-      "landscape": "islands",
-      "shape": {
-        "land_share": 0.22,
-        "size": 0.7,
-        "detail_size": 0.28,
-        "fine_size": 0.1
-      },
-      "style": "ocean",
-      "colors": {
-        "beach": [0.2, 0.18, 0.12],
-        "grass": [0.07, 0.13, 0.07],
-        "trees": [0.045, 0.095, 0.05],
-        "rock": [0.13, 0.125, 0.12]
-      },
-      "depth": 0.5,
-      "max_height": 0.28
-    },
-    "fluid": {
-      "kind": "water",
-      "colors": {
-        "deep": [0.02, 0.06, 0.1],
-        "shallow": [0.052, 0.156, 0.26],
-        "foam": [0.3, 0.33, 0.36]
-      }
-    },
-    "outposts": {
-      "kinds": ["airfield", "colony", "radar_station"],
-      "spacing": 1.6,
-      "size": [0.26, 0.4]
-    }
-  },
-  "desert": {
-    "haze": {
-      "color": [0.36, 0.27, 0.18],
-      "amount": 0.45
-    },
-    "ground": {
-      "landscape": "desert",
-      "shape": {
-        "dune_spacing": 0.5,
-        "mesa_size": 1.05,
-        "pool_size": 0.56
-      },
-      "style": "desert",
-      "colors": {
-        "sand_low": [0.24, 0.18, 0.11],
-        "sand_high": [0.34, 0.27, 0.16],
-        "rock_a": [0.3, 0.17, 0.11],
-        "rock_b": [0.24, 0.14, 0.1],
-        "rock_top": [0.34, 0.22, 0.14],
-        "grass": [0.12, 0.18, 0.08]
-      },
-      "depth": 0.5,
-      "max_height": 0.3
-    },
-    "fluid": {
-      "kind": "water",
-      "colors": {
-        "deep": [0.03, 0.1, 0.1],
-        "shallow": [0.078, 0.26, 0.26],
-        "foam": [0.3, 0.33, 0.36]
-      }
-    },
-    "flora": {
-      "kind": "palms",
-      "knobs": {
-        "chance": 0.3,
-        "size": 0.035,
-        "height": [0.03, 0.045]
-      }
     }
   },
   "forest": {
@@ -307,100 +173,7 @@
     },
     "outposts": {
       "kinds": ["factory", "depot", "radar_station", "airfield"],
-      "spacing": 1.6,
-      "size": [0.26, 0.4]
-    }
-  },
-  "canyon": {
-    "haze": {
-      "color": [0.36, 0.24, 0.2],
-      "amount": 0.4
-    },
-    "ground": {
-      "landscape": "canyon",
-      "shape": {
-        "bend_spacing": 3.1,
-        "river": 0.11,
-        "floor": 0.22,
-        "wall": 0.45,
-        "steps": 4
-      },
-      "style": "canyon",
-      "colors": {
-        "band_1": [0.3, 0.14, 0.09],
-        "band_2": [0.36, 0.2, 0.12],
-        "band_3": [0.26, 0.12, 0.08],
-        "band_4": [0.4, 0.27, 0.17],
-        "plateau": [0.32, 0.22, 0.13],
-        "sand": [0.33, 0.27, 0.18],
-        "green": [0.12, 0.15, 0.07]
-      },
-      "depth": 0.7,
-      "max_height": 0.5
-    },
-    "fluid": {
-      "kind": "water",
-      "colors": {
-        "deep": [0.03, 0.08, 0.08],
-        "shallow": [0.078, 0.208, 0.208],
-        "foam": [0.3, 0.33, 0.36]
-      }
-    },
-    "outposts": {
-      "kinds": ["factory", "depot", "radar_station", "colony"],
-      "spacing": 1.6,
-      "size": [0.26, 0.4]
-    }
-  },
-  "geysers": {
-    "haze": {
-      "color": [0.33, 0.35, 0.36],
-      "amount": 0.45
-    },
-    "ground": {
-      "landscape": "geysers",
-      "shape": {
-        "spring_spacing": 0.55,
-        "spring_radius": [0.04, 0.14],
-        "mat_width": 1.1,
-        "mound_spacing": 1.2,
-        "mound_radius": [0.2, 0.32],
-        "steps": 4,
-        "ridge_share": 0.2
-      },
-      "style": "geysers",
-      "colors": {
-        "crust_low": [0.29, 0.28, 0.25],
-        "crust_high": [0.36, 0.35, 0.31],
-        "mat_inner": [0.3, 0.29, 0.16],
-        "mat_middle": [0.31, 0.18, 0.09],
-        "mat_outer": [0.21, 0.14, 0.09],
-        "forest": [0.06, 0.1, 0.07],
-        "rock": [0.16, 0.15, 0.14],
-        "ledges": [0.3, 0.23, 0.14]
-      },
-      "depth": 0.5,
-      "max_height": 0.3
-    },
-    "fluid": {
-      "kind": "water",
-      "colors": {
-        "deep": [0.02, 0.1, 0.18],
-        "shallow": [0.1, 0.3, 0.3],
-        "foam": [0.36, 0.38, 0.36]
-      }
-    },
-    "flora": {
-      "kind": "snags",
-      "knobs": {
-        "chance": 0.04,
-        "size": 0.03,
-        "height": [0.03, 0.05]
-      }
-    },
-    "outposts": {
-      "kinds": ["factory", "depot", "radar_station", "colony"],
-      "spacing": 1.6,
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   },
@@ -449,139 +222,8 @@
     },
     "outposts": {
       "kinds": ["airfield", "depot", "factory"],
-      "spacing": 1.6,
+      "spacing": 1.1,
       "size": [0.26, 0.4]
-    }
-  },
-  "pack_ice": {
-    "haze": {
-      "color": [0.36, 0.42, 0.48],
-      "amount": 0.45
-    },
-    "ground": {
-      "landscape": "pack_ice",
-      "shape": {
-        "open_water": 0.6,
-        "berg_share": 0.03,
-        "floe_size": 0.5
-      },
-      "style": "pack_ice",
-      "colors": {
-        "floe": [0.32, 0.36, 0.4],
-        "berg_low": [0.24, 0.33, 0.42],
-        "berg_high": [0.4, 0.47, 0.53]
-      },
-      "depth": 0.5,
-      "max_height": 0.3
-    },
-    "fluid": {
-      "kind": "water",
-      "colors": {
-        "deep": [0.01, 0.025, 0.05],
-        "shallow": [0.026, 0.065, 0.13],
-        "foam": [0.3, 0.33, 0.36]
-      }
-    }
-  },
-  "volcano": {
-    "haze": {
-      "color": [0.2, 0.06, 0.04],
-      "amount": 0.45
-    },
-    "ground": {
-      "landscape": "volcano",
-      "shape": {
-        "size": 0.77,
-        "lava_level": 0.25,
-        "river_size": 0.63
-      },
-      "style": "volcano",
-      "colors": {
-        "rock": [0.06, 0.055, 0.06],
-        "ash": [0.1, 0.09, 0.09],
-        "glow": [0.3, 0.07, 0.02]
-      },
-      "depth": 0.5,
-      "max_height": 0.3
-    },
-    "fluid": {
-      "kind": "lava",
-      "colors": {
-        "hot": [0.62, 0.17, 0.03],
-        "crust": [0.07, 0.03, 0.02]
-      }
-    }
-  },
-  "swamp": {
-    "haze": {
-      "color": [0.2, 0.25, 0.18],
-      "amount": 0.5
-    },
-    "ground": {
-      "landscape": "swamp",
-      "shape": {
-        "water_share": 0.45,
-        "size": 0.7,
-        "detail_size": 0.3
-      },
-      "style": "swamp",
-      "colors": {
-        "mud": [0.15, 0.13, 0.08],
-        "reeds_low": [0.14, 0.16, 0.07],
-        "reeds_high": [0.2, 0.22, 0.09]
-      },
-      "depth": 0.4,
-      "max_height": 0.22
-    },
-    "fluid": {
-      "kind": "water",
-      "colors": {
-        "deep": [0.015, 0.045, 0.04],
-        "shallow": [0.039, 0.117, 0.104],
-        "foam": [0.3, 0.33, 0.36]
-      }
-    },
-    "flora": {
-      "kind": "dead_trees",
-      "knobs": {
-        "chance": 0.01,
-        "size": 0.03,
-        "height": [0.04, 0.07]
-      }
-    },
-    "outposts": {
-      "kinds": ["colony", "radar_station", "depot"],
-      "spacing": 1.7,
-      "size": [0.26, 0.4]
-    }
-  },
-  "clouds": {
-    "sky": [0.01, 0.03, 0.05],
-    "haze": {
-      "color": [0.16, 0.18, 0.26],
-      "amount": 0.4
-    },
-    "ground": {
-      "landscape": "clouds",
-      "shape": {
-        "cover": 0.6,
-        "size": 0.9
-      },
-      "style": "clouds",
-      "colors": {
-        "shade": [0.2, 0.23, 0.32],
-        "lit": [0.33, 0.37, 0.47]
-      },
-      "depth": 0.6,
-      "max_height": 0.12
-    },
-    "fluid": {
-      "kind": "gap",
-      "colors": {
-        "below": [0.01, 0.015, 0.025],
-        "light_a": [0.45, 0.32, 0.12],
-        "light_b": [0.3, 0.4, 0.45]
-      }
     }
   },
   "refinery": {
@@ -618,7 +260,7 @@
     },
     "outposts": {
       "kinds": ["factory", "depot", "airfield"],
-      "spacing": 1.5,
+      "spacing": 1.1,
       "size": [0.26, 0.4]
     }
   },
@@ -648,7 +290,110 @@
     },
     "outposts": {
       "kinds": ["radar_station", "radar_station", "colony", "airfield"],
-      "spacing": 1.7,
+      "spacing": 0.75,
+      "size": [0.26, 0.4]
+    }
+  },
+  "salt_pan": {
+    "haze": {
+      "color": [0.36, 0.34, 0.32],
+      "amount": 0.4
+    },
+    "ground": {
+      "landscape": "salt_pan",
+      "shape": {
+        "size": 0.8,
+        "pool_share": 0.15
+      },
+      "style": "salt_pan",
+      "colors": {
+        "crust_a": [0.26, 0.26, 0.25],
+        "crust_b": [0.31, 0.3, 0.29],
+        "ridge": [0.36, 0.35, 0.34],
+        "crack": [0.11, 0.1, 0.09],
+        "shore": [0.18, 0.15, 0.13]
+      },
+      "depth": 0.4,
+      "max_height": 0.1
+    },
+    "fluid": {
+      "kind": "water",
+      "colors": {
+        "deep": [0.12, 0.06, 0.07],
+        "shallow": [0.24, 0.13, 0.14],
+        "foam": [0.36, 0.34, 0.33]
+      }
+    },
+    "outposts": {
+      "kinds": ["airfield", "depot", "factory"],
+      "spacing": 0.75,
+      "size": [0.26, 0.4]
+    }
+  },
+  "savanna": {
+    "haze": {
+      "color": [0.36, 0.32, 0.24],
+      "amount": 0.45
+    },
+    "ground": {
+      "landscape": "savanna",
+      "shape": {
+        "size": 0.9,
+        "bend_spacing": 1.6,
+        "outcrop_share": 0.03
+      },
+      "style": "savanna",
+      "colors": {
+        "grass_dry": [0.22, 0.18, 0.1],
+        "grass_gold": [0.3, 0.24, 0.11],
+        "grass_green": [0.13, 0.15, 0.07],
+        "sand": [0.34, 0.31, 0.26],
+        "rock": [0.18, 0.16, 0.14]
+      },
+      "depth": 0.4,
+      "max_height": 0.12
+    },
+    "flora": {
+      "kind": "acacias",
+      "knobs": {
+        "chance": 0.012,
+        "size": 0.055,
+        "height": [0.022, 0.03]
+      }
+    },
+    "outposts": {
+      "kinds": ["airfield", "depot", "radar_station"],
+      "spacing": 0.75,
+      "size": [0.26, 0.4]
+    }
+  },
+  "badlands": {
+    "haze": {
+      "color": [0.36, 0.28, 0.22],
+      "amount": 0.4
+    },
+    "ground": {
+      "landscape": "badlands",
+      "shape": {
+        "size": 0.8,
+        "floor": 0.25
+      },
+      "style": "canyon",
+      "colors": {
+        "band_1": [0.3, 0.15, 0.1],
+        "band_2": [0.34, 0.27, 0.15],
+        "band_3": [0.24, 0.12, 0.09],
+        "band_4": [0.32, 0.3, 0.24],
+        "plateau": [0.3, 0.24, 0.16],
+        "sand": [0.3, 0.25, 0.18],
+        "green": [0.12, 0.13, 0.07]
+      },
+      "depth": 0.6,
+      "max_height": 0.3
+    },
+    "outposts": {
+      "kinds": ["factory", "depot", "radar_station"],
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   }

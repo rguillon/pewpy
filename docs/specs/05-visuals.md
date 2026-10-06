@@ -22,13 +22,16 @@
 
 - Source of models / sprites (made by you, free packs, placeholders generated in code): generated in code
   (`src/pewpy/graphics/models/`), no 3D files. The voxel drawings (rows of characters, and each character's color and
-  height in voxels) are JSON files in `data/models/`, one per model
+  height in voxels) are JSON files in `data/models/`, one per model (an enemy's parts in its file)
 - Model file forms: a model file (`data/models/<group>/<name>.json`) is a flat drawing (rows of characters, each
   color a thickness), a 3D drawing (`"layers"`: slices from the top down, with a palette), or a MagicaVoxel model
   (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). A flat or 3D drawing
   can list its `"weapons"`: {"number", "kind", "x", "y"}, the column and row of each barrel's tip (see
-  `02-enemies.md`, "Enemy weapons"). `make voxels` moves
-  a model between the three forms; `make models` remodels ships from their recipes in `pewpy/tools/models/recipes/`.
+  `02-enemies.md`, "Enemy weapons"). A model with destructible parts (a boss's, or any enemy's) has their drawings in
+  its own file *(the user's choice)*: `"parts"`, each kind of part's drawing by its name (any of the three forms, with
+  its own weapons and engines), named `<model>:<part>` by the game data (`"avalanche:a"`); a boss candidate also has
+  its `"layout"`, where its parts go (`[{"part", "x", "y"}]`, in cubes from the core's middle) *(placeholder)*. `make voxels` moves
+  a model (or a part, `avalanche:a`) between the three forms; `make models` remodels ships from their recipes in `pewpy/tools/models/recipes/`.
 - Props (the things standing on the grounds: buildings, tanks, trees, hangars...) are JSON files in `data/models/props/`,
   one per prop: its `kind` (what the grounds ask for), the box it was drawn in (`size`), and its parts, each a shape
   (box, cylinder, disc, ellipsoid, gabled, ridge_roof, face, quad, lathe) with fixed geometry, fixed colors and a
@@ -42,9 +45,10 @@
   `data/models/props/` with a name and a kind of its own.
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
 - Asset folder layout: `data/models/` holds the voxel drawings by group, `enemies/` (projectiles included), `bosses/`
-  (cores and parts), `player/` (the ships and the player's missile) and `items/` (the pickups), each named once across
+  (one file per boss, its parts in it), `player/` (the ships and the player's missile) and `items/` (the pickups), each named once across
   the groups (the game data names a model without its group); `props/` the props (`<name>.json`); `candidates/` what
-  the tools make, not in the game: `enemies/`, `player/`, `bosses/`, `props/` *(the user's choice)*; other assets
+  the tools make, not in the game: `enemies/`, `player/`, `bosses/`, `props/` *(the user's choice)*, `backgrounds/`
+  (level backgrounds, see `04-ui-audio.md`) *(placeholder: with the other candidates, though not models)*; other assets
   TBD
 
 > Until real assets exist, Claude should use simple placeholder shapes generated in code.

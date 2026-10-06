@@ -95,6 +95,12 @@ class Screens(Drawing):
         self.ship_select = ShipSelectView(ships, fitted, self.cam, lens, self.aspect2d, extent)
         self._highlight_ship()
 
+    def _on_highlight(self, menu: Menu) -> None:
+        """Show what the item just highlighted is about: its ship, or its level's background."""
+        self._highlight_ship()
+        if self.states.state is State.LEVEL_SELECT:
+            self._preview_level(menu)
+
     def _highlight_ship(self) -> None:
         menu = self.menu_view.menu
         if self.ship_select is not None and menu is not None:
@@ -156,7 +162,7 @@ class Screens(Drawing):
         )
         level = self.levels[index]
         self._show_background(level)
-        self._prepare_bosses(level)
+        self._prepare_level(level)
         self.effects.clear()
         self.states.transition(State.PLAYING)
 

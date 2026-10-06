@@ -10,7 +10,8 @@ A plan gives a final boss's drawing, size, difficulty (1 to 20), four attacks an
 parts, and four attacks. Its phases come from them (see `final_boss`): the front parts first, then the back ones,
 while the core is armored; then the core, then the core in a rage. Everything gets harder with the difficulty.
 
-A boss is written shortly, as the game reads it (see pewpy.game.enemies.boss): its body, its parts and its phases.
+A boss is written shortly, as the game reads it (see pewpy.game.enemies.phases): its body, its parts and its phases.
+Its parts' drawings are in its model's file, named "<model>:<part>" (like "avalanche:a"), in the plans too.
 `boss_json` (writing.py) writes a boss described by a BossSpec (boss.py) that way; attacks.py has the attacks' guns,
 plans.py reads the plans.
 """

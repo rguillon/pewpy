@@ -189,5 +189,142 @@
       "length": 14,
       "towards": "top"
     }
-  ]
+  ],
+  "parts": {
+    "generator": {
+      "rows": [
+        "rHHHHHHHHHHHHHHHr",
+        "khhhhhhhhhhhhhhhk",
+        "rhqqqqqqqqqqqqqhr",
+        "khqgggggggggggqhk",
+        "rhqgggggggggggqhr",
+        "khqgggggggggggqhk",
+        "rhqgggggggggggqhr",
+        "khqgggggggggggqhk",
+        "rhqgggggggggggqhr",
+        "khqgggggggggggqhk",
+        "rhqgggggggggggqhr",
+        "khqgggggggggggqhk",
+        "rhqgggggggggggqhr",
+        "khqgggggggggggqhk",
+        "rhqqqqqqqqqqqqqhr",
+        "khhhhhhhhhhhhhhhk",
+        "rhhhhhhhhhhhhhhhr",
+        "kkkkkkkkkkkkkkkkk"
+      ],
+      "palette": {
+        "r": {
+          "color": [
+            0.13,
+            0.13,
+            0.15
+          ],
+          "height": 7
+        },
+        "H": {
+          "color": [
+            0.5,
+            0.51,
+            0.54
+          ],
+          "height": 7
+        },
+        "k": {
+          "color": [
+            0.17,
+            0.18,
+            0.2
+          ],
+          "height": 5
+        },
+        "h": {
+          "color": [
+            0.37,
+            0.38,
+            0.41
+          ],
+          "height": 7
+        },
+        "q": {
+          "color": [
+            0.46,
+            0.34,
+            0.7
+          ],
+          "height": 9
+        },
+        "g": {
+          "color": [
+            0.81,
+            0.69,
+            1
+          ],
+          "height": 9
+        }
+      }
+    },
+    "blade": {
+      "rows": [
+        "NNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNN",
+        "NNNNNNNNNNNNNNN",
+        "WWWWWWWHWWWWWWW",
+        "WWWWWWWHWWWWWWW",
+        "WWWWWWWHWWWWWWW",
+        ".WWWWWWHWWWWWW.",
+        ".WWWWWWHWWWWWW.",
+        ".WWWWWWHWWWWWW.",
+        ".WWWWWWHWWWWWW.",
+        "..WWWWWHWWWWW..",
+        "..WWWWWHWWWWW..",
+        "..WWWWWHWWWWW..",
+        "..WWWWWHWWWWW..",
+        "...WWWWHWWWW...",
+        "...WWWWHWWWW...",
+        "...WWWWHWWWW...",
+        "...WWWWHWWWW...",
+        "...WWWWHWWWW...",
+        "....WWWHWWW....",
+        "....WWWHWWW....",
+        "....WWWHWWW....",
+        "....WWWHWWW....",
+        ".....WWHWW.....",
+        ".....WWHWW.....",
+        ".....WWHWW.....",
+        ".....WWHWW.....",
+        "......WHW......",
+        "......WHW......",
+        "......WHW......",
+        "......WHW......",
+        ".......H.......",
+        ".......H......."
+      ],
+      "palette": {
+        "N": {
+          "color": [
+            0.26,
+            0.27,
+            0.29
+          ],
+          "height": 9
+        },
+        "W": {
+          "color": [
+            0.42,
+            0.43,
+            0.46
+          ],
+          "height": 3
+        },
+        "H": {
+          "color": [
+            0.5,
+            0.51,
+            0.54
+          ],
+          "height": 7
+        }
+      }
+    }
+  }
 }

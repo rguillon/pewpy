@@ -17,7 +17,7 @@ from pewpy.tools.ai.pilot import Pilot
 from pewpy.tools.ai.rating import RUNS as RATING_RUNS
 from pewpy.tools.ai.rating import places as rated_places
 from pewpy.tools.ai.sessions import LearningSession, RatingSession, Session
-from pewpy.tools.dev.app.model_screens import ModelScreens
+from pewpy.tools.dev.app.background_screens import BackgroundScreens
 from pewpy.tools.dev.states import DevState
 from pewpy.tools.dev.ui.ai_panel import AIPanel, learning_text, playing_text, rating_columns, rating_title
 
@@ -42,7 +42,7 @@ class AIGame:
     best: int = 0  # the most levels cleared in a game
 
 
-class AIScreens(ModelScreens):
+class AIScreens(BackgroundScreens):
     """The AI screens (see pewpy.tools.ai)."""
 
     # Set up by DevApp._setup_screens.
@@ -109,7 +109,7 @@ class AIScreens(ModelScreens):
         self.pilot = Pilot(brain)
         self.ai_watching = f"On screen: {SHIPS[ship].name} on {self._label(index)} {level.name}"
         self._show_background(level)
-        self._prepare_bosses(level)
+        self._prepare_level(level)
         self.effects.clear()
         self._show_hud(visible=True)
 
@@ -153,7 +153,7 @@ class AIScreens(ModelScreens):
         )
         self.ai_watching = f"{SHIPS[ship].name} on {self._label(index)} {level.name}"
         self._show_background(level)
-        self._prepare_bosses(level)
+        self._prepare_level(level)
         self.effects.clear()
         self._show_hud(visible=True)
 

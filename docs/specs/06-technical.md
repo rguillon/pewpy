@@ -50,28 +50,34 @@
   `pewpy/tools/` *(the user's choice)*, one package per tool run with `python -m`, each with its own make target:
   `levels/` (`make levels`; `worlds/`: one module per world), `models/` (`make models`; `recipes/`: one module per
   model), `songs/` (`make songs`; `tracks/`: one module per part), `voxels.py` (`make voxels`), `dev/` (the game with
-  the dev screens, `make dev`: `app/` with `model_screens.py` and `ai_screens.py`, its own `states.py`,
+  the dev screens, `make dev`: `app/` with `model_screens.py`, `background_screens.py` and `ai_screens.py`, its own `states.py`,
   `candidates.py` and `ui/`), `paths.py` (where the tools write), `generate_props.py` (prop candidates,
   `make props`), `player_candidates/` (player ship candidates, `make players`, from the same kit as the enemies'),
   `candidates/` (enemy candidates, `make candidates`: assembled from a kit of hardcoded parts, `kit/`,
   one module per family of parts, the kinds of ship in `archetypes.py`), `boss_candidates/` (`make boss-candidates`:
-  sculpted from plans, one module per family, appendage, kind of part), `final_bosses/` (`make final-bosses`: the
-  final bosses' behaviour from plans), `ai/` (the AI player, no Panda3D, see `07-ai.md`; `make learn`, `make rate`), `screenshots/` (`make screenshots`: one screenshot of every world for the README, offscreen) and `compact_json.py`. What the candidates share is in `common/`: the batch
+  made like the enemies, from the same kit, bigger: the cores' recipes in `archetypes.py`, the parts' in `parts.py`), `final_bosses/` (`make final-bosses`: the
+  final bosses' behaviour from plans), `background_candidates/` (`make backgrounds`: the presets changed by themes,
+  `themes.py`), `ai/` (the AI player, no Panda3D, see `07-ai.md`; `make learn`, `make rate`), `screenshots/` (`make screenshots`: one screenshot of every world for the README, offscreen) and `compact_json.py`. What the candidates share is in `common/`: the batch
   command line (`--seed`, `--out`, `--append`), the 3D drawing and its numbered weapons, the colors, keeping the
   most different
-- Enemies as data *(the user's choice)*: every enemy, boss, boss part and projectile is one class, `Enemy`, running
-  its description: a body (size, health, points, drops, entry, ground...), parts (a boss's), what it releases when
-  shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),
+- Enemies as data *(the user's choice)*: every enemy, boss, part and projectile is one class, `Enemy`, running
+  its description, and every description is read and made the same way, bosses included *(the user's choice)*: a
+  body (size, health, points, drops, entry, ground...), destructible parts (any enemy can have some), what it
+  releases when shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),
   a look, whether it can be hurt, and exits to other states (`game/enemies/exits/`: a timer, a height, lined up with the player, a cycle of
   its age, visits, parts destroyed, health lost, volleys fired...), each doing actions on the way (`game/enemies/actions/`: set a speed, aim,
   relocate, fire, die). The enemies are in `data/enemies/*.json`, the bosses in `data/bosses/*.json`
-  (`game/enemies/spec.py` reads them): a boss is only an enemy with parts, `"boss": true`, a state coming down and
-  a state per phase (each starting with a `warmup`). Every boss comes down and fights the same way, so a boss is
-  written shortly (`game/enemies/boss.py` makes it into states): its body, its parts and its `phases`, each a
-  `sway` speed, `armored` or not, its guns and `until` (the exit conditions ending it: parts destroyed, health
-  below a share); the bosses' usual fields (not rammable, a pickup, 30% for the parts, guns carrying their reload
-  and firing off screen, the explosions...) are filled in unless given. A boss gun `from` a list of parts is fired
-  by each of them in turn, their first shots spread over its interval. A gun fires from the numbered weapons drawn on
+  (`game/enemies/spec.py` reads them; the files only sort them): a boss is an enemy with `"boss": true` (a health
+  bar, the level waits for it), usually with parts. Any enemy can be written shortly with `phases` instead of
+  `states` (`game/enemies/phases.py` makes them into states): it comes down at its speed to `hold_y` (0.55 unless
+  given; neither it nor its parts can be hurt until then), then each phase is a state starting with
+  `phase_pause` seconds without shooting (1.2 unless given), written as a `sway` speed, `armored` or not, its guns
+  and `until` (the exit conditions ending it: parts destroyed, health below a share). A preset fills in a kind of
+  enemy's usual fields unless given, for its body, its parts and its guns: any enemy's parts aren't placed by the
+  levels and go with their enemy; a boss's body isn't rammable, always drops a pickup, comes down at 0.25 and
+  explodes several times, its parts drop a pickup 30% of the time, its guns carry their reload and fire off screen.
+  Every boss comes down and fights the same way, so each is written with phases. A gun `from` a list of parts is
+  fired by each of them in turn, their first shots spread over its interval. A gun fires from the numbered weapons drawn on
   the model of what fires it (`weapon`/`weapons`, checked when the enemies are read; see `02-enemies.md`, "Enemy
   weapons", and `game/enemies/mounts.py`, which reads them from the model file: the game logic never loads the
   models themselves). The final bosses are made by a

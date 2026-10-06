@@ -25,8 +25,8 @@ def ground_depth(name: str) -> float:
     return ground.depth
 
 
-def planet() -> Terrain:
-    return Terrain(AREA, 1.0, params.resolve("planet"), seed=0)
+def savanna() -> Terrain:
+    return Terrain(AREA, 1.0, params.resolve("savanna"), seed=0)
 
 
 class FakeView:
@@ -64,7 +64,7 @@ def test_stars_fill_the_area_and_stay_still_without_scrolling() -> None:
 
 def test_drifters_move_spin_and_come_back_above_the_top() -> None:
     rock = Drifter(0.0, AREA.bottom - 0.09, size=0.1, speed_factor=0.5, spin=(10.0, 0.0, -20.0))
-    layer = DriftLayer("rock", 1.0, AREA, [rock])
+    layer = DriftLayer("planet", 1.0, AREA, [rock])
     layer.update(0.5, scroll_speed=0.2)
     assert rock.angle == pytest.approx((5.0, 0.0, -10.0))
     assert AREA.top - 0.2 < rock.y <= AREA.top + rock.size
@@ -72,7 +72,7 @@ def test_drifters_move_spin_and_come_back_above_the_top() -> None:
 
 
 def test_ground_chunks_follow_each_other_down_and_loop() -> None:
-    terrain = planet()
+    terrain = savanna()
     tops = [terrain.chunk_top(chunk) for chunk in range(CHUNKS)]
     for upper, lower in pairwise(tops):
         assert upper - lower == pytest.approx(terrain.chunk_height)
@@ -83,7 +83,7 @@ def test_ground_chunks_follow_each_other_down_and_loop() -> None:
 
 
 def test_ground_always_covers_the_screen() -> None:
-    terrain = planet()
+    terrain = savanna()
     for _ in range(50):
         terrain.update(0.37, scroll_speed=0.5)
         spans = sorted((top - terrain.chunk_height, top) for top in map(terrain.chunk_top, range(CHUNKS)))
@@ -94,20 +94,19 @@ def test_ground_always_covers_the_screen() -> None:
         assert covered_to >= AREA.top
 
 
-def test_the_city_sits_deeper_than_the_hills() -> None:
+def test_the_city_sits_deeper_than_the_savanna() -> None:
     scenery = Scenery("city", FakeView(), seed=0)
     assert scenery.terrain is not None
-    assert scenery.terrain.depth == ground_depth("city") > ground_depth("planet")
+    assert scenery.terrain.depth == ground_depth("city") > ground_depth("savanna")
 
 
 @pytest.mark.parametrize(
     ("kind", "stars", "layers", "ground"),
     [
         ("space", True, ["cloud", "planet"], False),
-        ("planet", False, [], True),
+        ("savanna", False, [], True),
         ("city", False, [], True),
-        ("ocean", False, [], True),
-        ("debris", True, ["rock", "rock"], False),
+        ("salt_pan", False, [], True),
     ],
 )
 def test_each_kind_of_background_has_its_own_scenery(kind: str, stars: bool, layers: list[str], ground: bool) -> None:
@@ -120,9 +119,9 @@ def test_each_kind_of_background_has_its_own_scenery(kind: str, stars: bool, lay
 
 def test_ground_seems_to_move_at_ground_speed_on_screen() -> None:
     view = FakeView()
-    terrain = Scenery("planet", view, seed=0).terrain
+    terrain = Scenery("savanna", view, seed=0).terrain
     assert terrain is not None
-    on_screen = terrain.speed_factor * view.parallax(ground_depth("planet"))
+    on_screen = terrain.speed_factor * view.parallax(ground_depth("savanna"))
     assert on_screen == pytest.approx(GROUND_SPEED)
 
 

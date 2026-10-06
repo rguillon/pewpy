@@ -1,9 +1,62 @@
 {
-  "name": "Geyser Basin",
+  "name": "Bright Ridges",
   "scroll_speed": 0.258,
-  "background": "geysers",
-  "background_seed": 2626,
-  "clouds": 0.15,
+  "background": "badlands",
+  "background_seed": 243193,
+  "clouds": 0.3,
+  "scenery": {
+    "ground": {
+      "shape": {
+        "size": 0.852,
+        "floor": 0.282
+      },
+      "colors": {
+        "band_1": [
+          0.33,
+          0.122,
+          0.086
+        ],
+        "band_2": [
+          0.363,
+          0.208,
+          0.094
+        ],
+        "band_3": [
+          0.306,
+          0.281,
+          0.133
+        ],
+        "band_4": [
+          0.186,
+          0.214,
+          0.192
+        ],
+        "plateau": [
+          0.279,
+          0.2,
+          0.126
+        ],
+        "sand": [
+          0.281,
+          0.23,
+          0.147
+        ],
+        "green": [
+          0.116,
+          0.129,
+          0.07
+        ]
+      }
+    },
+    "haze": {
+      "color": [
+        0.334,
+        0.271,
+        0.223
+      ],
+      "amount": 0.515
+    }
+  },
   "waves": [
     {
       "time": 2.0,

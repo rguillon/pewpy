@@ -20,27 +20,13 @@ void main() {
     if (style > 0.5 && style < 3.5) {
         ground = built_up(p, large, medium, fine, glow, smooth_surface);
     } else if (style == 4.0) {
-        ground = planet(height, mark, medium, fine);
-    } else if (style == 5.0) {
-        ground = island(p, height, flat_ground, medium, fine);
-    } else if (style == 6.0) {
-        ground = desert(p, height, mark, flat_ground, medium, fine);
-    } else if (style == 7.0) {
         ground = forest(p, mark, medium, fine, n);
-    } else if (style == 8.0) {
+    } else if (style == 5.0) {
         ground = canyon(height, mark, flat_ground, medium, fine);
-    } else if (style == 9.0) {
-        ground = pack_ice(mark, flat_ground, medium, fine);
-        smooth_surface = 1.0;
-    } else if (style == 10.0) {
-        ground = volcano(p, height, world_height, fine, glow);
-    } else if (style == 11.0) {
-        ground = swamp(p, mark, medium, fine);
-    } else if (style == 12.0) {
-        ground = cloud_deck(height, flat_ground, medium);
-        smooth_surface = 1.0;
-    } else if (style == 13.0) {
-        ground = geysers(p, height, mark, flat_ground, medium, fine, smooth_surface);
+    } else if (style == 6.0) {
+        ground = salt_pan(p, mark, medium, fine, smooth_surface);
+    } else if (style == 7.0) {
+        ground = savanna(p, mark, flat_ground, large, medium, fine);
     } else {
         ground = mountains(p, height, cavity, flat_ground, large, medium, fine, smooth_surface);
     }
