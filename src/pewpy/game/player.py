@@ -15,7 +15,7 @@ class ShipSpec:
 
     name: str
     description: str  # a few words, shown on the ship selection screen
-    drawing: str  # its model: models/<drawing>.json
+    drawing: str  # its model: models/<group>/<drawing>.json
     health: float  # a full health bar
     speed: float  # top speed, world units per second
     size: float  # the hitbox, a square; the model is about as big

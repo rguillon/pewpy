@@ -1,4 +1,4 @@
-"""The Models, Bosses, Enemy candidates and Boss candidates screens: models on show in a turning circle.
+"""The Models, Bosses and candidates (enemy, boss, prop) screens: models on show in a turning circle.
 
 Page by page, to work on them ("Reload models" reads their files again).
 """
@@ -23,6 +23,7 @@ from pewpy.game.weapons.bullets import Missile
 from pewpy.game.weapons.player.arsenal import LETTERS, WEAPONS
 from pewpy.game.weapons.player.secondary import SECONDARY_LETTERS, SECONDARY_WEAPONS
 from pewpy.graphics import models
+from pewpy.scenery.ground.shader.geometry import mesh_node
 from pewpy.ui import showcase
 from pewpy.ui.menu import Menu, MenuItem
 from pewpy.ui.showcase import ModelShowcase
@@ -31,8 +32,16 @@ SHOWCASE_STATES = frozenset({
     DevState.MODELS,
     DevState.BOSSES,
     DevState.CANDIDATES,
+    DevState.PLAYER_CANDIDATES,
     DevState.BOSS_CANDIDATES,
+    DevState.PROP_CANDIDATES,
 })  # screens showing models in a turning circle
+CANDIDATE_STATES = frozenset({
+    DevState.CANDIDATES,
+    DevState.PLAYER_CANDIDATES,
+    DevState.BOSS_CANDIDATES,
+    DevState.PROP_CANDIDATES,
+})  # screens showing candidates, numbered, page by page
 SECONDARY_NAMES = {"turret": "Turret", "lightning": "Lightning gun"}
 PICKUPS_PAGE = "Player, pickups and projectiles"
 # The second fleet (data/enemies/fleet.json), on pages of their own.
@@ -55,6 +64,13 @@ SHOWCASE_STRETCH = max(1.0, GAME_ASPECT / 0.75)
 SHOWCASE_BOSS_CANDIDATE_SIZE = 0.42  # bigger than the Bosses screen's: some candidates are huge...
 BOSS_CANDIDATE_SCALE = 125  # ...a boss this many cubes across fills that size (all drawn to the same scale)
 CANDIDATE_SCALE = 32  # ...a model this many cubes across fills that size: they're all drawn to the same scale
+PLAYER_CANDIDATE_SCALE = 22  # the same for the player's ships: about the biggest's size (0.14 across, 21 cubes)
+PROP_CANDIDATES_PER_PAGE = 10
+PROP_SCALE = 0.16  # world units: a prop this big fills the Candidates screen's size (all drawn to the same scale)
+PROP_TILT = 30.0  # degrees: the props lean their tops towards the camera, to show their roofs
+PART_TAG = "part"  # tags a boss's destroyable parts, to blink them
+PART_BLINK = 1.2  # seconds: a boss's parts are lit up for the first half of each, then plain (a slow blink)
+PART_LIT = (1.9, 1.9, 1.9, 1.0)  # how much brighter they are when lit up
 SHOWCASE_BOSS_SIZE = 0.28  # the Models screen's boss pages: fewer models, drawn bigger (see showcase.MODEL_SIZE)
 SHOWCASE_BOSS_RADIUS = 0.6  # and a smaller circle, so the names fit on the screen
 
@@ -65,6 +81,7 @@ class ModelScreens(PewPewApp):
     # Set up by DevApp._setup_screens.
     showcase: ModelShowcase | None
     showcase_page: int  # the page shown on the Models or Bosses screen
+    blinking: list[NodePath]  # the bosses' parts on show (see blink_parts)
 
     def _models_menu(self, note: str = "") -> Menu:
         """Make the Models, Bosses and Candidates screens' menu: the page's title, "Next page" when there are several.
@@ -96,7 +113,20 @@ class ModelScreens(PewPewApp):
         entries, size, radius = self._showcase_page(self.showcase_page)
         if self.states.state is DevState.BOSS_CANDIDATES:
             radius = BOSS_CANDIDATE_RADIUS  # big models: farther from the title and menu, up and down
-        self.showcase = ModelShowcase(entries, self.cam, size, radius, SHOWCASE_STRETCH)
+        tilt = PROP_TILT if self.states.state is DevState.PROP_CANDIDATES else 0.0
+        self.showcase = ModelShowcase(entries, self.cam, size, radius, SHOWCASE_STRETCH, tilt)
+        self.blinking = list(self.showcase.root.findAllMatches(f"**/={PART_TAG}"))
+
+    def blink_parts(self) -> None:
+        """Light up the bosses' destroyable parts for half of every PART_BLINK seconds, so they stand out."""
+        if not self.showcase:
+            return
+        lit = self.showcase.time % PART_BLINK < PART_BLINK / 2
+        for part in self.blinking:
+            if lit:
+                part.setColorScale(*PART_LIT)
+            else:
+                part.clearColorScale()
 
     def _showcase_titles(self) -> list[str]:
         """Return the pages of the screen being shown.
@@ -104,10 +134,13 @@ class ModelScreens(PewPewApp):
         The Models screen's (see MODEL_PAGES), the Bosses screen's two per world (its mini bosses, then its final
         bosses).
         """
-        if self.states.state in (DevState.CANDIDATES, DevState.BOSS_CANDIDATES):
-            bosses = self.states.state is DevState.BOSS_CANDIDATES
-            count = len(candidates.boss_candidate_names() if bosses else candidates.candidate_names())
-            per_page = BOSS_CANDIDATES_PER_PAGE if bosses else CANDIDATES_PER_PAGE
+        if self.states.state in CANDIDATE_STATES:
+            count, per_page = {
+                DevState.CANDIDATES: (len(candidates.candidate_names()), CANDIDATES_PER_PAGE),
+                DevState.PLAYER_CANDIDATES: (len(candidates.player_candidate_names()), CANDIDATES_PER_PAGE),
+                DevState.BOSS_CANDIDATES: (len(candidates.boss_candidate_names()), BOSS_CANDIDATES_PER_PAGE),
+                DevState.PROP_CANDIDATES: (len(candidates.prop_candidate_names()), PROP_CANDIDATES_PER_PAGE),
+            }[self.states.state]
             pages = max(1, math.ceil(count / per_page))
             return [
                 f"{page * per_page + 1}-{min(count, (page + 1) * per_page)} ({page + 1}/{pages})"
@@ -130,6 +163,17 @@ class ModelScreens(PewPewApp):
         if self.states.state is DevState.CANDIDATES:
             names = candidates.candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
             return [self._candidate(name) for name in names], SHOWCASE_CANDIDATE_SIZE, showcase.RADIUS
+        if self.states.state is DevState.PLAYER_CANDIDATES:
+            names = candidates.player_candidate_names()[index * CANDIDATES_PER_PAGE : (index + 1) * CANDIDATES_PER_PAGE]
+            return (
+                [self._candidate(name, PLAYER_CANDIDATE_SCALE) for name in names],
+                SHOWCASE_CANDIDATE_SIZE,
+                showcase.RADIUS,
+            )
+        if self.states.state is DevState.PROP_CANDIDATES:
+            per_page = PROP_CANDIDATES_PER_PAGE
+            names = candidates.prop_candidate_names()[index * per_page : (index + 1) * per_page]
+            return [self._prop_candidate(name) for name in names], SHOWCASE_CANDIDATE_SIZE, showcase.RADIUS
         if self.states.state is DevState.BOSS_CANDIDATES:
             per_page = BOSS_CANDIDATES_PER_PAGE
             names = candidates.boss_candidate_names()[index * per_page : (index + 1) * per_page]
@@ -173,15 +217,15 @@ class ModelScreens(PewPewApp):
                 entries.append((name, fitted_model(self.pickup_models[kind], config.PICKUP_SIZE)))
         return entries
 
-    def _candidate(self, name: str) -> tuple[str, NodePath]:
-        """Return a model candidate, numbered like its file ("#007" for candidates/007) with its size in cubes.
+    def _candidate(self, name: str, scale: int = CANDIDATE_SCALE) -> tuple[str, NodePath]:
+        """Return a model candidate, numbered like its file ("#007" for candidates/enemies/007) with its size in cubes.
 
-        All are drawn at the same scale so small and big ones compare (read again every time: edited drawings show when
-        the page is shown again).
+        All are drawn at the same scale (`scale` model cubes across fill the slot) so small and big ones compare (read
+        again every time: edited drawings show when the page is shown again).
         """
         voxels = models.load_voxels(name)
         label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height}"
-        return label, fitted_model(models.drawing_model(name), CANDIDATE_SCALE * config.MODEL_VOXEL)
+        return label, fitted_model(models.drawing_model(name), scale * config.MODEL_VOXEL)
 
     def _boss_candidate(self, name: str) -> tuple[str, NodePath]:
         """Return a boss candidate with its parts in place, numbered like its file, all drawn to the same scale.
@@ -196,18 +240,41 @@ class ModelScreens(PewPewApp):
             piece = models.drawing_model(drawing)
             piece.reparentTo(whole)
             piece.setPos(x * config.MODEL_VOXEL, 0, y * config.MODEL_VOXEL)
+            piece.setTag(PART_TAG, "")
         label = f"#{name.rsplit('/', 1)[-1]}  {voxels.width}x{voxels.height} +{len(parts)}"  # size, and parts
         return label, fitted_model(whole, BOSS_CANDIDATE_SCALE * config.MODEL_VOXEL)
+
+    def _prop_candidate(self, name: str) -> tuple[str, NodePath]:
+        """Return a prop candidate, numbered like its file with its size (in hundredths), all drawn to the same scale.
+
+        Upright, its middle at the slot's; lit like the models. A file that doesn't build shows its number and the
+        mistake, without a model.
+        """
+        try:
+            prop = candidates.prop_candidate(name)
+        except (ValueError, KeyError, TypeError) as error:
+            return f"#{name}  {type(error).__name__}", NodePath(name)
+        vertices = prop.vertices.copy()
+        width, length, height = prop.size
+        vertices[:, 2] -= height / 2
+        vertices[:, 9] = 1.0  # opaque: the 4th color number is the ground shader's material
+        vertices[:, 10:12] = 0.5  # no bevel (see pewpy.graphics.lighting)
+        model = mesh_node(name, vertices, prop.indices)
+        model.setTwoSided(True)
+        label = f"#{name}  {width * 100:.0f}x{length * 100:.0f}x{height * 100:.0f}"
+        return label, fitted_model(model, PROP_SCALE)
 
     def _whole_boss(self, spec: EnemySpec) -> NodePath:
         """Return a boss with its parts in place, fitted in a 1 x 1 x 1 box like the other models."""
         whole = NodePath(spec.drawing)
         pieces = [(spec.drawing, 0.0, 0.0, spec.width, spec.height)]
         pieces += [(part.spec.drawing, part.x, part.y, part.spec.width, part.spec.height) for part in spec.parts]
-        for drawing, x, y, _, _ in pieces:
+        for index, (drawing, x, y, _, _) in enumerate(pieces):
             piece = whole.attachNewNode(drawing)
             self._boss_model(drawing).copyTo(piece)
             piece.setPos(x, 0, y)
+            if index:  # the parts, not the core
+                piece.setTag(PART_TAG, "")
         bottom = min(y - height / 2 for _, _, y, _, height in pieces)
         extent = max(2 * spec.half_span, spec.top_reach - bottom)
         box = NodePath("boss")

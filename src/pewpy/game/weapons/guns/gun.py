@@ -10,6 +10,7 @@ from typing import Any
 from pewpy import config
 
 Distance = float | str  # see `distance`
+MIDDLE: tuple[tuple[Distance, Distance], ...] = ((0.0, 0.0),)  # a gun's origins unless given: the middle
 
 
 @dataclass(frozen=True)
@@ -28,8 +29,11 @@ class Gun:
     and right. `delay`: the first shot waits that much more, so guns take turns. `speeds`: each shot's own speed, in
     turn, instead of `speed`; `velocities`: each shot's (vx, vy), instead of a pattern.
 
-    It fires from each of its `origins`: (x, y) from the middle of what carries it (see `distance`). `sequence`:
-    guns whose patterns are fired in turn, one per volley (this gun only times them).
+    It fires from each of its `origins`: (x, y) from the middle of what carries it (see `distance`), or from each of
+    its `weapons`: the numbers of weapons drawn on the model of what carries it (see pewpy.game.enemies.mounts). With
+    neither, an enemy whose model has weapons fires its guns from them in turn: its state's first gun from its first
+    weapon, the second from the second... (back to the first when it has more guns than weapons). `sequence`: guns
+    whose patterns are fired in turn, one per volley (this gun only times them).
 
     `style`: "normal", "sniper" (blue), "heavy" (bigger, orange), "pellet" (small), "wave" (violet, snaking across its
     line of flight), "accel" (cyan, starts slow and speeds up) or "curve" (yellow, its path bends by `curve` degrees per
@@ -80,7 +84,8 @@ class Gun:
     speeds: tuple[float, ...] = ()
     velocities: tuple[tuple[float, float], ...] = ()
     volley_angles: tuple[float, ...] = ()
-    origins: tuple[tuple[Distance, Distance], ...] = ((0.0, 0.0),)
+    origins: tuple[tuple[Distance, Distance], ...] = MIDDLE
+    weapons: tuple[int, ...] = ()
     sequence: tuple["Gun", ...] = ()
     spawn: str = ""
     spawn_speed: float | None = None
@@ -114,14 +119,19 @@ class Gun:
 def parse_gun(data: dict[str, Any]) -> Gun:
     """Read a gun as written in the JSON files.
 
-    Like Gun, with lists for tuples, `rate` (shots per second) instead of `interval`, and `from` (what fires it: see
-    pewpy.game.enemies.spec) left out.
+    Like Gun, with lists for tuples, `rate` (shots per second) instead of `interval`, `weapon` (one weapon's number)
+    as well as `weapons`, and `from` (what fires it: see pewpy.game.enemies.spec) left out.
     """
+    if "origins" in data and ("weapon" in data or "weapons" in data):
+        msg = "a gun fires from its 'origins' or from its model's weapons, not both"
+        raise ValueError(msg)
     values: dict[str, Any] = {}
     for key, value in data.items():
         if key == "from":
             continue
-        if key == "rate":
+        if key == "weapon":
+            values["weapons"] = (value,)
+        elif key == "rate":
             values["interval"] = 1.0 / value
         elif key == "sequence":
             values[key] = tuple(parse_gun({"interval": 0.0, "speed": 0.0, **item}) for item in value)

@@ -171,7 +171,7 @@ class BackgroundView:
             model.reparentTo(strip)
             standing = terrain.chunk_props(chunk)
             if standing:
-                vertices, triangles = props.strip_arrays(standing, chunk * terrain.chunk_height, look.props)
+                vertices, triangles = props.strip_arrays(standing, chunk * terrain.chunk_height)
                 shader.props_model(vertices, triangles).reparentTo(strip)
             nodes.append(strip)
         return nodes

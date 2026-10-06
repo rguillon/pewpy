@@ -8,8 +8,8 @@ import numpy as np
 import pytest
 from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
-from pewpy import config
-from pewpy.data import data_folder
+from pewpy import config, data
+from pewpy.data import MODEL_GROUPS, data_folder
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.player import Player
@@ -280,9 +280,12 @@ def test_main_colors_are_what_most_of_a_model_is_made_of() -> None:
 
 
 def test_every_drawing_file_loads() -> None:
-    folder = data_folder() / models.DRAWINGS_FOLDER
-    names = sorted(file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json"))
+    names = []
+    for group in MODEL_GROUPS:
+        folder = data_folder() / models.DRAWINGS_FOLDER / group
+        names += [file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json")]
     assert "player" in names
+    assert len(names) == len(set(names))  # unique across the groups: the game names a model without its group
     for name in names:
         assert models.load_voxels(name).cells
 
@@ -487,6 +490,7 @@ def test_a_model_can_be_a_magicavoxel_file(monkeypatch: pytest.MonkeyPatch, tmp_
     (folder / "lost.json").write_text('{"vox": "nowhere.vox"}')
     (folder / "odd.json").write_text('{"vox": 3}')
     monkeypatch.setattr(files, "data_folder", lambda: tmp_path)
+    monkeypatch.setattr(data, "data_folder", lambda: tmp_path)
     voxels = models.load_voxels("ships/box")
     assert voxels.cells == {(0, 0, 0): (1.0, 0.0, 0.0, 1.0)}
     assert voxels.scale == 2

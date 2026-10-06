@@ -4,7 +4,7 @@ import argparse
 
 from pewpewdev.tools import models
 from pewpewdev.tools.models.recipes import RECIPES
-from pewpewdev.tools.models.registry import MODELS
+from pewpewdev.tools.models.registry import model_file
 
 
 def main() -> None:
@@ -14,7 +14,7 @@ def main() -> None:
     args = parser.parse_args()
     for name in args.names or RECIPES:
         model, engines = RECIPES[name]()
-        model.save(MODELS / f"{name}.json", engines)
+        model.save(model_file(name), engines)
         print(f"{name}: {len(model.cells)} cubes")
 
 

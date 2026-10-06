@@ -10,8 +10,8 @@ The states are:
   it:
   - Models: every ship and pickup model on show, for working on them
   - Bosses: every boss on show, a world per page
-  - Enemy candidates, Boss candidates: numbered model candidates for new enemies (10 per page) and bosses (4 per
-    page), to pick from
+  - Enemy candidates, Player candidates, Boss candidates, Prop candidates: numbered candidates for new enemies,
+    player ships and props (10 per page) and bosses (4 per page), to pick from
   - AI learning, AI rating: the AI learning to play while one of its brains plays on screen, and the levels'
     ratings for each ship (see `07-ai.md`); Escape goes back to the main menu
 - World selection: select one of the worlds (see `03-levels.md`)

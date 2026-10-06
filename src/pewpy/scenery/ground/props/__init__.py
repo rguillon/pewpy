@@ -2,88 +2,31 @@
 
 Buildings, farms, refinery units, trees, hangars, radars, domes...
 
-Each kind is built by its own module (`build(mesh, rng, prop, colors)`), from its seed: every kind has variants
-(a tower with one or two setbacks, a hipped or gabled roof, a domed or floating-roof tank...), and colors that vary
-a little around the scenery's (`props`, see pewpy.scenery.params). They're built in bulk with numpy as plain arrays
-(mesh.py); the ground's shader/ turns them into Panda3D geometry. Every vertex has 14 floats: position (3), normal
-(3), color (red, green, blue, material) and texture data (4: along the wall, up the wall, the prop's seed from 0 to
-1, unused). The material tells the prop shader how to paint a face; the wall coordinates, in world units, place the
-windows.
+Each prop is described in data/models/props/<name>.json: its kind, the box it was drawn in, and its parts with their
+geometry and colors (see model.py). The grounds ask for a kind; a kind with several files picks one by the prop's
+seed, stretched to the prop's lot. They're built in bulk with numpy as plain arrays (mesh.py); the ground's shader/
+turns them into Panda3D geometry. Every vertex has 14 floats: position (3), normal (3), color (red, green, blue,
+material) and texture data (4: along the wall, up the wall, the prop's seed from 0 to 1, unused). The material tells
+the prop shader how to paint a face; the wall coordinates, in world units, place the windows.
 
 Props are built in ground coordinates (x right, y down the loop, z up towards the camera), then turned into a
 strip's model space (x right, y away from the camera, z up the screen) by `strip_arrays`. Independent from Panda3D.
 """
 
-import random
-from collections.abc import Callable
-
-from pewpy.scenery.ground.props import (
-    antenna,
-    apron,
-    barn,
-    building,
-    containers,
-    cooling_tower,
-    dead_tree,
-    dome,
-    greenhouse,
-    hangar,
-    hedge,
-    house,
-    pad,
-    palm,
-    pipes,
-    plant,
-    pylon,
-    radar,
-    silo,
-    stack,
-    tank,
-    tree,
-    warehouse,
-)
 from pewpy.scenery.ground.props.mesh import SUNK, FloatArray, IndexArray, PropMesh
+from pewpy.scenery.ground.props.model import PropModel, catalog
 from pewpy.scenery.ground.settlement import Prop
-from pewpy.scenery.params import PropColors
 
-__all__ = ["BUILDERS", "SUNK", "PropMesh", "build", "strip_arrays"]
-
-Builder = Callable[[PropMesh, random.Random, Prop, PropColors], None]
-BUILDERS: dict[str, Builder] = {
-    "building": building.build,
-    "house": house.build,
-    "barn": barn.build,
-    "silo": silo.build,
-    "greenhouse": greenhouse.build,
-    "tank": tank.build,
-    "plant": plant.build,
-    "stack": stack.build,
-    "pipes": pipes.build,
-    "cooling_tower": cooling_tower.build,
-    "tree": tree.build,
-    "palm": palm.build,
-    "dead_tree": dead_tree.build,
-    "hedge": hedge.build,
-    "apron": apron.build,
-    "hangar": hangar.build,
-    "warehouse": warehouse.build,
-    "containers": containers.build,
-    "radar": radar.build,
-    "dome": dome.build,
-    "antenna": antenna.build,
-    "pad": pad.build,
-    "pylon": pylon.build,
-}
+__all__ = ["SUNK", "PropMesh", "PropModel", "build", "catalog", "strip_arrays"]
 
 
-def build(mesh: PropMesh, prop: Prop, colors: PropColors) -> None:
-    """Add a prop to a mesh."""
-    rng = random.Random(prop.seed)
-    mesh.seed = (prop.seed % 997) / 997
-    BUILDERS[prop.kind](mesh, rng, prop, colors)
+def build(mesh: PropMesh, prop: Prop) -> None:
+    """Add a prop to a mesh: one of its kind's, picked by its seed."""
+    models = catalog()[prop.kind]
+    models[prop.seed % len(models)].build(mesh, prop)
 
 
-def strip_arrays(props: list[Prop], first_y: float, colors: PropColors) -> tuple[FloatArray, IndexArray]:
+def strip_arrays(props: list[Prop], first_y: float) -> tuple[FloatArray, IndexArray]:
     """Build every prop of a strip, in the strip's model space.
 
     x right, y away from the camera (heights towards the camera are -y), z up the screen from the strip's top edge
@@ -91,7 +34,7 @@ def strip_arrays(props: list[Prop], first_y: float, colors: PropColors) -> tuple
     """
     mesh = PropMesh()
     for prop in props:
-        build(mesh, prop, colors)
+        build(mesh, prop)
     vertices, indices = mesh.arrays()
     model = vertices.copy()
     model[:, 1] = -vertices[:, 2]

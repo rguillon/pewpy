@@ -4,7 +4,7 @@ import math
 
 from pewpy.game.entities import Entity
 from pewpy.game.weapons.bullets import beam
-from pewpy.game.weapons.guns.gun import Gun, distance
+from pewpy.game.weapons.guns.gun import MIDDLE, Gun, distance
 from pewpy.game.weapons.guns.launch import launch
 from pewpy.game.weapons.guns.shooter import Shooter
 from pewpy.game.weapons.guns.state import GunState
@@ -21,8 +21,7 @@ def fire(gun: Gun, shooter: Shooter, state: GunState | None = None, angle: float
     created: list[Entity] = []
     if gun.pattern in ("ray", "chain"):
         return created  # played out by what carries it (see pewpy.game.weapons.guns)
-    for x, y in gun.origins:
-        ox, oy = distance(x, piece.width, piece.height), distance(y, piece.width, piece.height)
+    for ox, oy in origins(gun, shooter):
         muzzle = piece if ox == 0 and oy == 0 else Entity(x=piece.x + ox, y=piece.y + oy)
         if gun.pattern == "beam":
             created.append(beam(muzzle.x, muzzle.y, gun.width, gun.duration))
@@ -45,6 +44,17 @@ def fire(gun: Gun, shooter: Shooter, state: GunState | None = None, angle: float
                 vx, vy = math.sin(radians) * speed, shooter.forward * math.cos(radians) * speed
                 created.append(styled_bullet(gun, muzzle, vx, vy, shooter.hostile))
     return created
+
+
+def origins(gun: Gun, shooter: Shooter) -> list[tuple[float, float]]:
+    """Return where a gun's shots come out, from the middle of what carries it (see Gun.origins and Gun.weapons)."""
+    if gun.weapons:
+        return [shooter.mounts[number] for number in gun.weapons]
+    if shooter.mounts and gun.origins == MIDDLE:
+        numbers = sorted(shooter.mounts)
+        return [shooter.mounts[numbers[shooter.slot % len(numbers)]]]
+    piece = shooter.piece
+    return [(distance(x, piece.width, piece.height), distance(y, piece.width, piece.height)) for x, y in gun.origins]
 
 
 def pattern_angles(

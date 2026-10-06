@@ -49,7 +49,7 @@ class Prop:
 
     `kind`: "building", "house", "barn", "silo", "greenhouse", "tank", "plant", "stack", "pipes", "cooling_tower",
     "tree", "hedge", "palm", "dead_tree", or in the outposts "apron", "hangar", "warehouse", "containers", "radar",
-    "dome", "antenna", "pad", "pylon"; `seed` picks its variant, colors and details (see props/).
+    "dome", "antenna", "pad", "pylon"; `seed` picks which of its kind's props (data/models/props/) stands there.
     """
 
     kind: str

@@ -52,7 +52,7 @@ Each level has one background (see `05-visuals.md`). All kept dark and muted so 
 fade into haze towards the top of the screen.
 
 Each background is a preset of `data/levels/sceneries.json`, which holds every value of the sceneries: colors
-(of the grounds, water, lava, props, the sky, the haze), sizes and shares (city blocks, streets, building heights,
+(of the grounds, water, lava, the props' lit windows, the sky, the haze), sizes and shares (city blocks, streets, building heights,
 fields, islands, dunes, outposts...), depths, stars, nebulas, asteroids, clouds, times of day. A level's `scenery` changes
 any of them for that level, e.g. `"scenery": {"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}}` for greener
 water (see `pewpy.scenery.params`).
@@ -101,8 +101,8 @@ halls (sawtooth roofs with glazed teeth or flat roofs with vents, loading doors,
 container stacks (one to three high, in rows), radars (a dish looking up, or a radome on a tower), domes (on a
 ring wall with a glowing cyan band; some are glass, with plants inside), antenna masts (a red light at the tip),
 landing pads (eight-sided, a painted ring and cross, cyan lights, sometimes a small craft parked), energy pylons
-(six-sided spires with glowing rings and a crystal). Their colors are in `props` (`apron`, `marking`, `hull`,
-`hangar_walls`, `containers`, `scifi_light`).
+(six-sided spires with glowing rings and a crystal). Like every prop, they're described in `data/models/props/` (see
+`05-visuals.md`).
 
 Each preset picks its compounds (`outposts.kinds`), how far apart they are (`spacing`, about 1.5 to 1.7: about
 five per ground loop) and their size (`size`, 0.26 to 0.4 across) *(placeholder)*:

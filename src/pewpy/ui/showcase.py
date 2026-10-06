@@ -27,12 +27,14 @@ class ModelShowcase:
         size: float = MODEL_SIZE,
         radius: float = RADIUS,
         stretch: float = 1.0,
+        tilt: float = 0.0,
     ) -> None:
         """Place the models around the circle.
 
         `entries`: (name, model) pairs; the models are copied, so they can be shared with the game. `size`: how big a 1
         x 1 x 1 model is drawn; `radius`: the circle's, up and down; `stretch`: how much wider it is across (on a wide
-        screen, an ellipse uses the room on the sides).
+        screen, an ellipse uses the room on the sides); `tilt`: how many degrees the models lean their tops towards the
+        camera (to see the roofs of the props), spinning around their own up axis.
 
         The circle hangs in front of the camera, facing it, so it's round and centered on the screen (the game's camera
         is tilted: on the play plane it would look squashed). The models go round it slowly, staying upright.
@@ -48,7 +50,9 @@ class ModelShowcase:
         for index, (name, model) in enumerate(entries):
             self.angles.append(2 * math.pi * index / len(entries) + math.pi / 2)  # the first one at the top
             slot = self.circle.attachNewNode(name)
-            spinner = slot.attachNewNode("spinner")
+            leaning = slot.attachNewNode("tilt")
+            leaning.setP(tilt)
+            spinner = leaning.attachNewNode("spinner")
             model.copyTo(spinner)
             spinner.setScale(size)
             label = slot.attachNewNode(self._label(name))

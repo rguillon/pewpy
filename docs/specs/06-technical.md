@@ -42,16 +42,24 @@
     `body.py`, never on `Enemy` itself), the kinds and the roster).
   - `scenery/`: `params/` (the scenery's parameters), `background/` (stars, drifting layers in `layers/`, `view.py`
     drawing them), `ground/` (terrain, relief, the bases of `landscapes.py` and `settlement.py`, `kinds/` of ground,
-    `props/`, and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
+    `props/` (the one `PropModel` building every prop from its JSON in `data/models/props/`), and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
   - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered, MagicaVoxel), `built/` and `background/` models
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
   - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/`, `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
+  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, the props and the candidates: see `05-visuals.md`), `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
   package: `ai/` (the AI player, no Panda3D, see `07-ai.md`), `tools/` (one package per tool, each run with
-  `python -m`: `levels/` (`worlds/`: one module per world), `final_bosses/`, `models/` (`recipes/`: one module per
-  model), `candidates/` and `boss_candidates/` (one module per family, core, attachment, appendage, wing plan, kind
-  of part), `songs/` (`tracks/`: one module per part); `voxels.py`), `app/` (the game with the dev screens,
-  `make dev`: `model_screens.py`, `ai_screens.py`), with their own `states.py`, `candidates.py` and `ui/`
+  `python -m`: `levels/` (`worlds/`: one module per world), `models/` (`recipes/`: one module per model), `songs/`
+  (`tracks/`: one module per part); `voxels.py`), `app/` (the game with the dev screens, `make dev`:
+  `model_screens.py`, `ai_screens.py`), with their own `states.py`, `candidates.py` and `ui/`.
+  The tools making the props, enemies and bosses live in the game's package, never imported by the game, in
+  `pewpy/tools/` *(the user's choice)*, each with its own make target: `generate_props.py` (prop candidates,
+  `make props`), `player_candidates/` (player ship candidates, `make players`, from the same kit as the enemies'),
+  `candidates/` (enemy candidates, `make candidates`: assembled from a kit of hardcoded parts, `kit/`,
+  one module per family of parts, the kinds of ship in `archetypes.py`), `boss_candidates/` (`make boss-candidates`:
+  sculpted from plans, one module per family, appendage, kind of part), `final_bosses/` (`make final-bosses`: the
+  final bosses' behaviour from plans) and `compact_json.py`. What the candidates share is in `common/`: the batch
+  command line (`--seed`, `--out`, `--append`), the 3D drawing and its numbered weapons, the colors, keeping the
+  most different
 - Enemies as data *(the user's choice)*: every enemy, boss, boss part and projectile is one class, `Enemy`, running
   its description: a body (size, health, points, drops, entry, ground...), parts (a boss's), what it releases when
   shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),
@@ -64,10 +72,13 @@
   `sway` speed, `armored` or not, its guns and `until` (the exit conditions ending it: parts destroyed, health
   below a share); the bosses' usual fields (not rammable, a pickup, 30% for the parts, guns carrying their reload
   and firing off screen, the explosions...) are filled in unless given. A boss gun `from` a list of parts is fired
-  by each of them in turn, their first shots spread over its interval. The final bosses are made by a
-  dev tool from short plans (`make final-bosses`, `pewpewdev/tools/final_bosses/`). The enemies' and bosses' JSON
+  by each of them in turn, their first shots spread over its interval. A gun fires from the numbered weapons drawn on
+  the model of what fires it (`weapon`/`weapons`, checked when the enemies are read; see `02-enemies.md`, "Enemy
+  weapons", and `game/enemies/mounts.py`, which reads them from the model file: the game logic never loads the
+  models themselves). The final bosses are made by a
+  dev tool from short plans (`make final-bosses`, `pewpy/tools/final_bosses/`). The enemies' and bosses' JSON
   is written compactly, each list or object on one line when it fits in 130 columns
-  (`python -m pewpewdev.tools.compact_json <files>`; the pre-commit JSON formatter leaves these folders alone). A new
+  (`python -m pewpy.tools.compact_json <files>`; the pre-commit JSON formatter leaves these folders alone). A new
   behaviour is a new motion, exit condition, action (a subclass of `Motion`, `Condition` or `Action`, with only the
   fields it uses, registered by its name in its package) or gun option in code, tested; the descriptions are data and need no
   tests of their own.

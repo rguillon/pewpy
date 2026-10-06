@@ -8,18 +8,14 @@ up the wall, the prop's seed from 0 to 1, unused). The material tells the prop s
 MATERIALS); the wall coordinates, in world units, place the windows.
 
 Props are built in ground coordinates (x right, y down the loop, z up towards the camera), then turned into a
-strip's model space (x right, y away from the camera, z up the screen) by `strip_arrays`.
-Their colors come from the level's scenery (`props`, see pewpy.scenery.params). Independent from Panda3D.
+strip's model space (x right, y away from the camera, z up the screen) by `strip_arrays`. Independent from Panda3D.
 """
 
 import itertools
 import math
-import random
 
 import numpy as np
 from numpy.typing import NDArray
-
-from pewpy.scenery.ground.settlement import Prop
 
 Color = tuple[float, float, float]
 FloatArray = NDArray[np.float32]
@@ -40,7 +36,8 @@ class PropMesh:
         self.count = 0
         self.seed = 0.0  # the prop being built (0 to 1): the shader picks its lit windows with it
 
-    def _add(self, vertices: FloatArray, indices: IndexArray) -> None:
+    def add(self, vertices: FloatArray, indices: IndexArray) -> None:
+        """Add vertices and the triangles between them (their indices counted from the first of them)."""
         self.vertices.append(vertices)
         self.indices.append(indices + self.count)
         self.count += len(vertices)
@@ -62,7 +59,7 @@ class PropMesh:
         if wall is not None:
             vertices[:, 10:12] = wall
         vertices[:, 12] = self.seed
-        self._add(vertices, np.array([0, 1, 2, 0, 2, 3], dtype=np.uint32))
+        self.add(vertices, np.array([0, 1, 2, 0, 2, 3], dtype=np.uint32))
 
     def box(
         self,
@@ -121,7 +118,7 @@ class PropMesh:
         vertices[:, 12] = self.seed
         a = np.arange(segments, dtype=np.uint32)
         sides = np.stack([a, a + 1, a + 1 + ring, a, a + 1 + ring, a + ring], axis=-1).reshape(-1)
-        self._add(vertices, sides)
+        self.add(vertices, sides)
         self.disc(x, y, radius, z1, top or color, material if top is None else PLAIN, segments)
 
     def disc(
@@ -139,7 +136,7 @@ class PropMesh:
         vertices[:, 9] = material
         vertices[:, 12] = self.seed
         a = np.arange(1, segments + 1, dtype=np.uint32)
-        self._add(vertices, np.stack([np.zeros_like(a), a, a % segments + 1], axis=-1).reshape(-1))
+        self.add(vertices, np.stack([np.zeros_like(a), a, a % segments + 1], axis=-1).reshape(-1))
 
     def ellipsoid(
         self,
@@ -169,7 +166,7 @@ class PropMesh:
         vertices[..., 12] = self.seed
         index = np.arange((rings + 1) * (segments + 1), dtype=np.uint32).reshape(rings + 1, segments + 1)
         a, b, c, d = index[:-1, :-1], index[:-1, 1:], index[1:, :-1], index[1:, 1:]
-        self._add(vertices.reshape(-1, 14), np.stack([a, b, d, a, d, c], axis=-1).reshape(-1))
+        self.add(vertices.reshape(-1, 14), np.stack([a, b, d, a, d, c], axis=-1).reshape(-1))
 
     def gabled(
         self,
@@ -232,7 +229,7 @@ class PropMesh:
         vertices[:, 3:6] = normal
         vertices[:, 6:9] = color
         vertices[:, 12] = self.seed
-        self._add(vertices, np.array([0, 1, 2], dtype=np.uint32))
+        self.add(vertices, np.array([0, 1, 2], dtype=np.uint32))
 
     def face(self, corners: list[tuple[float, float, float]], color: Color, material: int) -> None:
         """Add a flat face of 3 or 4 corners (a roof's slope), its normal facing up."""
@@ -319,7 +316,7 @@ class PropMesh:
             np.stack([a, a + 1, a + 1 + ring, a, a + 1 + ring, a + ring], axis=-1).reshape(-1) + level * ring
             for level in range(levels - 1)
         ]
-        self._add(vertices, np.concatenate(bands).astype(np.uint32))
+        self.add(vertices, np.concatenate(bands).astype(np.uint32))
         if cap is not None:
             top_z, top_r = profile[-1]
             if top_r > 0:
@@ -330,23 +327,3 @@ class PropMesh:
         if not self.vertices:
             return np.zeros((0, 14), dtype=np.float32), np.zeros(0, dtype=np.uint32)
         return np.concatenate(self.vertices), np.concatenate(self.indices)
-
-
-def footprint(prop: Prop) -> tuple[float, float, float, float]:
-    """(x0, x1, y0, y1): the prop's footprint."""
-    return prop.x - prop.width / 2, prop.x + prop.width / 2, prop.y - prop.length / 2, prop.y + prop.length / 2
-
-
-def radius(prop: Prop) -> float:
-    """Return the radius of the biggest round thing that fits its footprint."""
-    return min(prop.width, prop.length) / 2
-
-
-def shade(color: Color, factor: float) -> Color:
-    """Return a color made lighter or darker by `factor` (each channel at most 1)."""
-    return (min(color[0] * factor, 1.0), min(color[1] * factor, 1.0), min(color[2] * factor, 1.0))
-
-
-def varied(rng: random.Random, color: Color, amount: float = 0.08) -> Color:
-    """Return the color a little lighter or darker: no two props quite the same."""
-    return shade(color, 1.0 + rng.uniform(-amount, amount))

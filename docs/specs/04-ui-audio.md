@@ -53,22 +53,43 @@ Pause -> Main menu
 
 ### Enemy candidates (dev tools)
 
-- For picking new enemies: model candidates (drawings in `data/models/candidates/`, numbered 001, 002...; not
+- For picking new enemies: model candidates (drawings in `data/models/candidates/enemies/`, numbered 001, 002...; not
   used in the game) on show like the Models screen, 10 per page, each labelled with its number ("#007"); the title
   says which numbers and the page, like "11-20 (2/10)".
 - Entries: Next page, Previous page, Reload models, Back. Drawings are read again whenever a page is shown.
-- Made by `make candidates` (pewpewdev/tools/candidates/), as real 3D voxel models: the aircraft built from their
-  parts, the industrial ships sculpted from a plan (a chamfered hull, higher on top than underneath, a raised spine
-  and cockpit, recessed panel lines, thin wings rising to their tips).
+- Made by `make candidates` (pewpy/tools/candidates/), as real 3D voxel models assembled from a kit of hardcoded
+  parts: a hull (a profile stretched along the ship), wings (an outline), a tailplane or canards, a cockpit (bubble,
+  canopy, visor, bridge or sensor eye), engines (tail nozzles or nacelles), weapons (nose barrels, wing and tip guns,
+  missiles, a turret, a gatling, a side cannon), fins, antennas, a radar dome, intakes, armor, a livery stripe and
+  markings. Six kinds, each a recipe choosing and placing the parts: fighter, interceptor, bomber, drone, gunship,
+  heavy (`--kind` picks one). Each lists its weapons (numbered, at their barrels' tips), at least one.
+
+### Player candidates (dev tools)
+
+- For picking new player ships: player ship candidates (`data/models/candidates/player/`, numbered; not used in the
+  game), like the Enemy candidates screen: 10 per page, labelled with their number and size in their cubes, all drawn
+  to the same scale (22 model cubes, about the biggest ship's size, fill a slot).
+- Made by `make players` (pewpy/tools/player_candidates/) from the enemies' kit of parts. The class, in the spirit
+  of the game's three ships, sets the size: vanguard (balanced), juggernaut (heavy), phantom (light) (`--kind` picks
+  one); the rest is picked on its own, for variety: the hull, the wings' layout (one pair, crossed X wings, stacked
+  pairs, a small pair forward, a flying wing, two booms) and outline, the engines (tail, booms, pods on the wings or
+  the hull), the cockpit, the weapons and the extras. Their main color is always a bluish grey, like the game's ships, with
+  colored bits (a livery stripe, a nose cone, wing stripes, markings, sensors) *(the user's choice)*. Like the game's
+  ships, they point up the screen, flames out of their tail at the bottom, drawn finer ("scale": 2, 30 to 43 cubes
+  across: the ships' hitbox size), without weapons listed (the player's guns don't fire from the model).
 
 ### Boss candidates (dev tools)
 
-- For picking new bosses: boss candidates (`data/models/boss_candidates/`: a core, its parts' drawings and
-  where they go, see pewpewdev/tools/boss_candidates/; not used in the game), each whole with its parts, 4 per page,
+- For picking new bosses: boss candidates (`data/models/candidates/bosses/`: a core, its parts' drawings and
+  where they go, see pewpy/tools/boss_candidates/; not used in the game), each whole with its parts, 4 per page,
   all drawn to the same scale, labelled with their number, size in cubes and how many parts ("#007  51x42 +2").
 - Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`, as real 3D voxel models
   sculpted from a plan: stepped decks and a superstructure on the hull, the bridge on top, recessed panel lines and
-  hangar bays; each part stands on the hull where it's mounted.
+  hangar bays; then no flat zone left plain: plating panels raised or sunk, machinery on the hull and decks (blocks,
+  grilled vents, domes, pipes, radiator fins, antennas, lights, lit trenches), ribs and weapon pods on the wings, the
+  same (smaller) on the parts; each part stands on the hull where it's mounted, on a socket following its outline.
+  Each drawing lists its weapons: the parts' barrels (a launcher, a missile pod or an emitter: its front edge), and
+  guns on the core's front edge, enough for at least five on the boss.
 
 ### Options
 

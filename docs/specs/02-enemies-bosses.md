@@ -930,15 +930,15 @@ General rules for every boss:
 
 ## Final bosses
 
-> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `src/pewpewdev/tools/final_bosses/plans.json` by
-> `src/pewpewdev/tools/final_bosses/` (`make final-bosses`).
+> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `src/pewpy/tools/final_bosses/plans.json` by
+> `src/pewpy/tools/final_bosses/` (`make final-bosses`).
 
 Each level ends with a final boss, after its mini boss (see `03-levels.md`): bigger (0.5 to 0.77 wide, about half
 the screen for the last ones) and harder, with more parts and four phases. Same general rules as every boss (see
 "Bosses" above).
 
 - Looks: boss candidates (`make boss-candidates`, see `04-ui-audio.md`) in real 3D, among the biggest, the bigger
-  for the later levels: their core in `data/models/<name>.json`, their parts' drawings in
+  for the later levels: their core in `data/models/bosses/<name>.json`, their parts' drawings in
   `<name>_a.json`, `<name>_b.json`... Each hitbox is its drawing's size.
 - Health, for a level of difficulty d (1 to 20): the core 110 + 14 (d - 1), each part 16 + 1.6 (d - 1) (rounded).
   Points: the core 4000 + 400 d, each part 300 + 30 d.
