@@ -88,7 +88,7 @@ def final_boss(
     front_kinds = set(kinds[: (len(kinds) + 1) // 2])
     specs = tuple(
         PartSpec(
-            f"{part_drawing.rsplit('_', 1)[-1]} {index + 1}",
+            f"{part_drawing.rsplit(':', 1)[-1]} {index + 1}",
             part_drawing,
             x,
             y,

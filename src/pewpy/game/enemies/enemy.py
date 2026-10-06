@@ -1,4 +1,4 @@
-"""The one kind of enemy (02-enemies.md): every enemy, boss, boss part and projectile is an Enemy.
+"""The one kind of enemy (02-enemies.md): every enemy, boss, part and projectile is an Enemy.
 
 Each runs its description (EnemySpec, see spec.py). Independent from rendering.
 
@@ -8,7 +8,7 @@ the bullets and enemies it created. The ways out are checked by exits/, what's d
 act on its Body (body.py).
 """
 
-from __future__ import annotations  # a boss's parts are enemies too
+from __future__ import annotations  # an enemy's parts are enemies too
 
 import math
 from dataclasses import dataclass, field
@@ -39,13 +39,13 @@ class Enemy(Body):
     fire_cooldown: float = 0.0  # its first wait before firing (a "staggered" gun), set when it's placed
     flash_time: float = 0.0
     state_index: int = 0
-    warmup: float = 0.0  # a boss's phase: seconds left without shooting
+    warmup: float = 0.0  # a phase: seconds left without shooting
     entries: dict[int, int] = field(default_factory=dict)  # how many times it entered each state, by index
     started: bool = False
     timer_override: float | None = None  # replaces its first state's timer (a shell timed to burst on the player)
     parts: list[Enemy] = field(default_factory=list)
-    mount: Part | None = None  # a boss's part: its name, and where it is from the core's middle
-    core: Enemy | None = field(default=None, repr=False)  # a boss's part: the boss it belongs to
+    mount: Part | None = None  # a part: its name, and where it is from the core's middle
+    core: Enemy | None = field(default=None, repr=False)  # a part: the enemy it belongs to
     parts_released: bool = False
 
     @classmethod
@@ -86,7 +86,7 @@ class Enemy(Body):
 
     @property
     def part_name(self) -> str:
-        """A boss's part: its name ("" for anything else)."""
+        """A part: its name ("" for anything else)."""
         return self.mount.name if self.mount else ""
 
     @property
@@ -120,7 +120,7 @@ class Enemy(Body):
 
     @property
     def drawing(self) -> str:
-        """Its model: models/<group>/<drawing>.json ("": built in code)."""
+        """Its model: models/<group>/<drawing>.json, or a part's in it ("model:part"; "": built in code)."""
         return self.spec.drawing
 
     @property
@@ -176,13 +176,13 @@ class Enemy(Body):
 
     @property
     def vulnerable(self) -> bool:
-        """Whether shots hurt it in its current state (a boss and its parts: not until it has come to its place)."""
+        """Whether shots hurt it in its current state (it and its parts: not while it's coming to its place)."""
         return self.state.vulnerable and not (self.core or self).arriving
 
     @property
     def arriving(self) -> bool:
-        """A boss: whether it's still coming down to its place (its first state)."""
-        return self.is_boss and self.state_index == 0
+        """Whether it's still coming to its place (see State.coming_in)."""
+        return self.state.coming_in
 
     @property
     def health_fraction(self) -> float:
@@ -262,7 +262,7 @@ class Enemy(Body):
         return released
 
     def wreckage(self) -> list[Enemy]:
-        """Enemies destroyed along with this one (a boss's parts), without points."""
+        """Enemies destroyed along with this one (its parts left), without points."""
         return [part for part in self.parts if part.alive]
 
     def covered(self, x: float) -> bool:

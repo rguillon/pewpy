@@ -286,7 +286,9 @@ def test_every_drawing_file_loads() -> None:
         names += [file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json")]
     assert "player" in names
     assert len(names) == len(set(names))  # unique across the groups: the game names a model without its group
-    for name in names:
+    parts = [f"{name}:{part}" for name in names for part in data.read_model(name)[0].get("parts", {})]
+    assert "rockbreaker:drill" in parts
+    for name in names + parts:
         assert models.load_voxels(name).cells
 
 

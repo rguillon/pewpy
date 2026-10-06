@@ -30,7 +30,7 @@ class Wave:
     """A group of enemies entering the screen.
 
     Most enemies enter from the top at `x`. Side-entry enemies (swarmer, mine_layer) enter from `side`
-    ("left" or "right") at height `y`. `enemy` can also be a boss (a key of boss_catalog.BOSSES), which comes down from
+    ("left" or "right") at height `y`. `enemy` can also be a boss (a key of kinds.BOSSES), which comes down from
     the top at `x`.
 
     Formations:

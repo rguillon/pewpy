@@ -271,7 +271,7 @@ class ModelScreens(PewPewApp):
         pieces += [(part.spec.drawing, part.x, part.y, part.spec.width, part.spec.height) for part in spec.parts]
         for index, (drawing, x, y, _, _) in enumerate(pieces):
             piece = whole.attachNewNode(drawing)
-            self._boss_model(drawing).copyTo(piece)
+            self._ship_model(drawing).copyTo(piece)
             piece.setPos(x, 0, y)
             if index:  # the parts, not the core
                 piece.setTag(PART_TAG, "")

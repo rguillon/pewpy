@@ -7,7 +7,7 @@ import pytest
 from pewpy import config
 from pewpy.data import model_path
 from pewpy.game.enemies.actions import Fire
-from pewpy.game.enemies.kinds import BOSSES, ENEMIES
+from pewpy.game.enemies.kinds import BOSSES, ENEMIES, drawings
 from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
 from pewpy.game.weapons.guns import PROJECTILES, Gun
@@ -39,3 +39,9 @@ def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec: E
 
 def test_the_levels_place_enemies_not_what_they_launch() -> None:
     assert set(ENEMIES) - set(ENEMY_TYPES) == {"rocket", "homing_missile", "cluster_bomb", "mine"}
+
+
+def test_an_enemy_needs_its_models_its_parts_and_those_of_what_it_launches() -> None:
+    assert drawings("rockbreaker") == {"rockbreaker", "rockbreaker:drill"}
+    assert drawings("splitter") == {"splitter", "swarmer"}  # what it releases when shot down
+    assert drawings("missile_silo") == {"missile_silo", "homing_missile"}  # what its guns launch

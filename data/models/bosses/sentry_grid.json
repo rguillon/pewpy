@@ -150,5 +150,76 @@
       "length": 11,
       "towards": "top"
     }
-  ]
+  ],
+  "parts": {
+    "generator": {
+      "rows": [
+        "rHHHHHHHHHHHHHr",
+        "khhhhhhhhhhhhhk",
+        "rhqqqqqqqqqqqhr",
+        "khqgggggggggqhk",
+        "rhqgggggggggqhr",
+        "khqgggggggggqhk",
+        "rhqgggggggggqhr",
+        "khqgggggggggqhk",
+        "rhqgggggggggqhr",
+        "khqgggggggggqhk",
+        "rhqgggggggggqhr",
+        "khqgggggggggqhk",
+        "rhqqqqqqqqqqqhr",
+        "khhhhhhhhhhhhhk",
+        "rkkkkkkkkkkkkkr"
+      ],
+      "palette": {
+        "r": {
+          "color": [
+            0.13,
+            0.13,
+            0.15
+          ],
+          "height": 7
+        },
+        "H": {
+          "color": [
+            0.5,
+            0.51,
+            0.54
+          ],
+          "height": 7
+        },
+        "k": {
+          "color": [
+            0.17,
+            0.18,
+            0.2
+          ],
+          "height": 5
+        },
+        "h": {
+          "color": [
+            0.37,
+            0.38,
+            0.41
+          ],
+          "height": 7
+        },
+        "q": {
+          "color": [
+            0.28,
+            0.64,
+            0.7
+          ],
+          "height": 9
+        },
+        "g": {
+          "color": [
+            0.63,
+            0.99,
+            1
+          ],
+          "height": 9
+        }
+      }
+    }
+  }
 }

@@ -6,11 +6,11 @@
 
 (or `uv run python -m pewpy.tools.boss_candidates ...`). Then open Main menu > Boss candidates in `make dev`.
 
-Like the game's bosses, each candidate is a big core and destroyable parts placed on it. For candidate 007:
-- `007.json`: the core's drawing (with its engines);
-- `007_a.json`, `007_b.json`...: its parts' drawings;
-- `007.parts.json`: where the parts go: {"parts": [{"drawing": "007_a", "x": ..., "y": ...}]}, in cubes from the
-  core's middle (x right, y up the screen); a part used on both sides is listed twice.
+Like the game's bosses, each candidate is a big core and destroyable parts placed on it, all in one file, like the
+game's models (see pewpy.data.read_model). Candidate 007 is `007.json`: the core's drawing (with its engines and
+weapons), its parts' drawings under "parts" ({"a": ..., "b": ...}, each written once: the part "a" is
+"candidates/bosses/007:a"), and where they go under "layout": [{"part": "a", "x": ..., "y": ...}], in cubes from the
+core's middle (x right, y up the screen); a part used on both sides is listed twice.
 
 Cores: 18 families (carrier, dreadnought, station, hammerhead, twin hull, flying wing, crescent, modular, citadel,
 spider, trident, barge, mothership, chain, fortress, blade, gunline, ring cluster), a quarter of them combining two (a

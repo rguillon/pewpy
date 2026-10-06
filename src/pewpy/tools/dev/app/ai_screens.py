@@ -109,7 +109,7 @@ class AIScreens(ModelScreens):
         self.pilot = Pilot(brain)
         self.ai_watching = f"On screen: {SHIPS[ship].name} on {self._label(index)} {level.name}"
         self._show_background(level)
-        self._prepare_bosses(level)
+        self._prepare_level(level)
         self.effects.clear()
         self._show_hud(visible=True)
 
@@ -153,7 +153,7 @@ class AIScreens(ModelScreens):
         )
         self.ai_watching = f"{SHIPS[ship].name} on {self._label(index)} {level.name}"
         self._show_background(level)
-        self._prepare_bosses(level)
+        self._prepare_level(level)
         self.effects.clear()
         self._show_hud(visible=True)
 

@@ -20,9 +20,9 @@ General rules for every boss:
   pickup.
 - Looks: giant industrial ships (see `05-visuals.md`): grey armor plates with seams, a raised deck, often a
   command tower with windows and a glowing reactor, ribbed engine nacelles at the back, the boss's color as
-  markings; parts are machines (turrets, cannons, launchers, clamps, generators...). Voxel models in
-  `data/models/` (one per core or kind of part), with the same cubes as every other model; each drawing is
-  about as big as its hitbox. The newest bosses (Reaper, Leviathan, Flare Rig, Crucible, Interdictor, Nightwatch,
+  markings; parts are machines (turrets, cannons, launchers, clamps, generators...). One voxel model per boss in
+  `data/models/bosses/`, its core's drawing with its kinds of part's drawings in it (see `05-visuals.md`), with the
+  same cubes as every other model; each drawing is about as big as its hitbox. The newest bosses (Reaper, Leviathan, Flare Rig, Crucible, Interdictor, Nightwatch,
   Arc Tower, Apex) are boss candidates (`make boss-candidates`) in real 3D, their parts standing on the hull.
 - Entry: comes down from above the screen at 0.25 and stops at y = 0.55, then sways left and right between the
   screen edges. It doesn't leave the screen and doesn't shoot before it stops; until then, it and its parts can't be

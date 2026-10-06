@@ -2,17 +2,18 @@
   "avalanche": {
     "note": "1-1: boss candidate #167.",
     "name": "AVALANCHE",
+    "boss": true,
     "drawing": "avalanche",
     "size": [0.5, 0.287],
     "health": 110.0,
     "points": 4400,
     "parts": [
-      {"name": "a 1", "x": -0.133, "y": -0.027, "drawing": "avalanche_a", "size": [0.127, 0.14], "health": 16, "points": 330},
-      {"name": "a 2", "x": 0.133, "y": -0.027, "drawing": "avalanche_a", "size": [0.127, 0.14], "health": 16, "points": 330},
-      {"name": "b 3", "x": -0.107, "y": 0.04, "drawing": "avalanche_b", "size": [0.113, 0.133], "health": 16, "points": 330},
-      {"name": "b 4", "x": 0.107, "y": 0.04, "drawing": "avalanche_b", "size": [0.113, 0.133], "health": 16, "points": 330},
-      {"name": "c 5", "x": -0.207, "y": -0.04, "drawing": "avalanche_c", "size": [0.087, 0.093], "health": 16, "points": 330},
-      {"name": "c 6", "x": 0.207, "y": -0.04, "drawing": "avalanche_c", "size": [0.087, 0.093], "health": 16, "points": 330}
+      {"name": "a 1", "x": -0.133, "y": -0.027, "drawing": "avalanche:a", "size": [0.127, 0.14], "health": 16, "points": 330},
+      {"name": "a 2", "x": 0.133, "y": -0.027, "drawing": "avalanche:a", "size": [0.127, 0.14], "health": 16, "points": 330},
+      {"name": "b 3", "x": -0.107, "y": 0.04, "drawing": "avalanche:b", "size": [0.113, 0.133], "health": 16, "points": 330},
+      {"name": "b 4", "x": 0.107, "y": 0.04, "drawing": "avalanche:b", "size": [0.113, 0.133], "health": 16, "points": 330},
+      {"name": "c 5", "x": -0.207, "y": -0.04, "drawing": "avalanche:c", "size": [0.087, 0.093], "health": 16, "points": 330},
+      {"name": "c 6", "x": 0.207, "y": -0.04, "drawing": "avalanche:c", "size": [0.087, 0.093], "health": 16, "points": 330}
     ],
     "phases": [
       {
@@ -61,19 +62,20 @@
   "frostjaw": {
     "note": "1-2: boss candidate #187.",
     "name": "FROSTJAW",
+    "boss": true,
     "drawing": "frostjaw",
     "size": [0.513, 0.287],
     "health": 124.0,
     "points": 4800,
     "parts": [
-      {"name": "a 1", "x": -0.107, "y": 0.013, "drawing": "frostjaw_a", "size": [0.113, 0.14], "health": 18, "points": 360},
-      {"name": "a 2", "x": 0.107, "y": 0.013, "drawing": "frostjaw_a", "size": [0.113, 0.14], "health": 18, "points": 360},
-      {"name": "b 3", "x": -0.033, "y": -0.093, "drawing": "frostjaw_b", "size": [0.18, 0.167], "health": 18, "points": 360},
-      {"name": "b 4", "x": 0.033, "y": -0.093, "drawing": "frostjaw_b", "size": [0.18, 0.167], "health": 18, "points": 360},
-      {"name": "c 5", "x": -0.227, "y": 0.027, "drawing": "frostjaw_c", "size": [0.127, 0.147], "health": 18, "points": 360},
-      {"name": "c 6", "x": 0.227, "y": 0.027, "drawing": "frostjaw_c", "size": [0.127, 0.147], "health": 18, "points": 360},
-      {"name": "d 7", "x": -0.04, "y": -0.02, "drawing": "frostjaw_d", "size": [0.113, 0.1], "health": 18, "points": 360},
-      {"name": "d 8", "x": 0.04, "y": -0.02, "drawing": "frostjaw_d", "size": [0.113, 0.1], "health": 18, "points": 360}
+      {"name": "a 1", "x": -0.107, "y": 0.013, "drawing": "frostjaw:a", "size": [0.113, 0.14], "health": 18, "points": 360},
+      {"name": "a 2", "x": 0.107, "y": 0.013, "drawing": "frostjaw:a", "size": [0.113, 0.14], "health": 18, "points": 360},
+      {"name": "b 3", "x": -0.033, "y": -0.093, "drawing": "frostjaw:b", "size": [0.18, 0.167], "health": 18, "points": 360},
+      {"name": "b 4", "x": 0.033, "y": -0.093, "drawing": "frostjaw:b", "size": [0.18, 0.167], "health": 18, "points": 360},
+      {"name": "c 5", "x": -0.227, "y": 0.027, "drawing": "frostjaw:c", "size": [0.127, 0.147], "health": 18, "points": 360},
+      {"name": "c 6", "x": 0.227, "y": 0.027, "drawing": "frostjaw:c", "size": [0.127, 0.147], "health": 18, "points": 360},
+      {"name": "d 7", "x": -0.04, "y": -0.02, "drawing": "frostjaw:d", "size": [0.113, 0.1], "health": 18, "points": 360},
+      {"name": "d 8", "x": 0.04, "y": -0.02, "drawing": "frostjaw:d", "size": [0.113, 0.1], "health": 18, "points": 360}
     ],
     "phases": [
       {
@@ -130,15 +132,16 @@
   "iron_summit": {
     "note": "1-3: boss candidate #070.",
     "name": "IRON SUMMIT",
+    "boss": true,
     "drawing": "iron_summit",
     "size": [0.547, 0.313],
     "health": 138.0,
     "points": 5200,
     "parts": [
-      {"name": "a 1", "x": -0.263, "y": 0.04, "drawing": "iron_summit_a", "size": [0.113, 0.113], "health": 19, "points": 390},
-      {"name": "b 2", "x": -0.037, "y": -0.007, "drawing": "iron_summit_b", "size": [0.14, 0.187], "health": 19, "points": 390},
-      {"name": "c 3", "x": -0.183, "y": 0.067, "drawing": "iron_summit_c", "size": [0.153, 0.26], "health": 19, "points": 390},
-      {"name": "c 4", "x": 0.183, "y": 0.067, "drawing": "iron_summit_c", "size": [0.153, 0.26], "health": 19, "points": 390}
+      {"name": "a 1", "x": -0.263, "y": 0.04, "drawing": "iron_summit:a", "size": [0.113, 0.113], "health": 19, "points": 390},
+      {"name": "b 2", "x": -0.037, "y": -0.007, "drawing": "iron_summit:b", "size": [0.14, 0.187], "health": 19, "points": 390},
+      {"name": "c 3", "x": -0.183, "y": 0.067, "drawing": "iron_summit:c", "size": [0.153, 0.26], "health": 19, "points": 390},
+      {"name": "c 4", "x": 0.183, "y": 0.067, "drawing": "iron_summit:c", "size": [0.153, 0.26], "health": 19, "points": 390}
     ],
     "phases": [
       {
@@ -203,20 +206,21 @@
   "stormpeak": {
     "note": "1-4: boss candidate #179.",
     "name": "STORMPEAK",
+    "boss": true,
     "drawing": "stormpeak",
     "size": [0.54, 0.327],
     "health": 152.0,
     "points": 5600,
     "parts": [
-      {"name": "a 1", "x": -0.04, "y": 0.0, "drawing": "stormpeak_a", "size": [0.127, 0.24], "health": 21, "points": 420},
-      {"name": "a 2", "x": 0.04, "y": 0.0, "drawing": "stormpeak_a", "size": [0.127, 0.24], "health": 21, "points": 420},
-      {"name": "b 3", "x": -0.053, "y": -0.073, "drawing": "stormpeak_b", "size": [0.14, 0.207], "health": 21, "points": 420},
-      {"name": "b 4", "x": 0.053, "y": -0.073, "drawing": "stormpeak_b", "size": [0.14, 0.207], "health": 21, "points": 420},
-      {"name": "c 5", "x": -0.08, "y": 0.08, "drawing": "stormpeak_c", "size": [0.14, 0.18], "health": 21, "points": 420},
-      {"name": "c 6", "x": 0.08, "y": 0.08, "drawing": "stormpeak_c", "size": [0.14, 0.18], "health": 21, "points": 420},
-      {"name": "d 7", "x": -0.16, "y": -0.053, "drawing": "stormpeak_d", "size": [0.167, 0.213], "health": 21, "points": 420},
-      {"name": "d 8", "x": 0.16, "y": -0.053, "drawing": "stormpeak_d", "size": [0.167, 0.213], "health": 21, "points": 420},
-      {"name": "e 9", "x": 0.0, "y": -0.04, "drawing": "stormpeak_e", "size": [0.14, 0.16], "health": 21, "points": 420}
+      {"name": "a 1", "x": -0.04, "y": 0.0, "drawing": "stormpeak:a", "size": [0.127, 0.24], "health": 21, "points": 420},
+      {"name": "a 2", "x": 0.04, "y": 0.0, "drawing": "stormpeak:a", "size": [0.127, 0.24], "health": 21, "points": 420},
+      {"name": "b 3", "x": -0.053, "y": -0.073, "drawing": "stormpeak:b", "size": [0.14, 0.207], "health": 21, "points": 420},
+      {"name": "b 4", "x": 0.053, "y": -0.073, "drawing": "stormpeak:b", "size": [0.14, 0.207], "health": 21, "points": 420},
+      {"name": "c 5", "x": -0.08, "y": 0.08, "drawing": "stormpeak:c", "size": [0.14, 0.18], "health": 21, "points": 420},
+      {"name": "c 6", "x": 0.08, "y": 0.08, "drawing": "stormpeak:c", "size": [0.14, 0.18], "health": 21, "points": 420},
+      {"name": "d 7", "x": -0.16, "y": -0.053, "drawing": "stormpeak:d", "size": [0.167, 0.213], "health": 21, "points": 420},
+      {"name": "d 8", "x": 0.16, "y": -0.053, "drawing": "stormpeak:d", "size": [0.167, 0.213], "health": 21, "points": 420},
+      {"name": "e 9", "x": 0.0, "y": -0.04, "drawing": "stormpeak:e", "size": [0.14, 0.16], "health": 21, "points": 420}
     ],
     "phases": [
       {
@@ -265,17 +269,18 @@
   "ridgebreaker": {
     "note": "1-5: boss candidate #064.",
     "name": "RIDGEBREAKER",
+    "boss": true,
     "drawing": "ridgebreaker",
     "size": [0.5, 0.353],
     "health": 166.0,
     "points": 6000,
     "parts": [
-      {"name": "a 1", "x": -0.147, "y": -0.007, "drawing": "ridgebreaker_a", "size": [0.167, 0.193], "health": 22, "points": 450},
-      {"name": "b 2", "x": -0.06, "y": 0.013, "drawing": "ridgebreaker_b", "size": [0.113, 0.127], "health": 22, "points": 450},
-      {"name": "c 3", "x": -0.027, "y": -0.107, "drawing": "ridgebreaker_c", "size": [0.1, 0.147], "health": 22, "points": 450},
-      {"name": "c 4", "x": 0.027, "y": -0.107, "drawing": "ridgebreaker_c", "size": [0.1, 0.147], "health": 22, "points": 450},
-      {"name": "d 5", "x": -0.16, "y": -0.1, "drawing": "ridgebreaker_d", "size": [0.113, 0.147], "health": 22, "points": 450},
-      {"name": "e 6", "x": 0.16, "y": -0.1, "drawing": "ridgebreaker_e", "size": [0.113, 0.147], "health": 22, "points": 450}
+      {"name": "a 1", "x": -0.147, "y": -0.007, "drawing": "ridgebreaker:a", "size": [0.167, 0.193], "health": 22, "points": 450},
+      {"name": "b 2", "x": -0.06, "y": 0.013, "drawing": "ridgebreaker:b", "size": [0.113, 0.127], "health": 22, "points": 450},
+      {"name": "c 3", "x": -0.027, "y": -0.107, "drawing": "ridgebreaker:c", "size": [0.1, 0.147], "health": 22, "points": 450},
+      {"name": "c 4", "x": 0.027, "y": -0.107, "drawing": "ridgebreaker:c", "size": [0.1, 0.147], "health": 22, "points": 450},
+      {"name": "d 5", "x": -0.16, "y": -0.1, "drawing": "ridgebreaker:d", "size": [0.113, 0.147], "health": 22, "points": 450},
+      {"name": "e 6", "x": 0.16, "y": -0.1, "drawing": "ridgebreaker:e", "size": [0.113, 0.147], "health": 22, "points": 450}
     ],
     "phases": [
       {
@@ -340,18 +345,19 @@
   "highlord": {
     "note": "1-6: boss candidate #068.",
     "name": "HIGHLORD",
+    "boss": true,
     "drawing": "highlord",
     "size": [0.567, 0.327],
     "health": 180.0,
     "points": 6400,
     "parts": [
-      {"name": "a 1", "x": -0.113, "y": 0.1, "drawing": "highlord_a", "size": [0.14, 0.12], "health": 24, "points": 480},
-      {"name": "a 2", "x": 0.113, "y": 0.1, "drawing": "highlord_a", "size": [0.14, 0.12], "health": 24, "points": 480},
-      {"name": "b 3", "x": -0.14, "y": 0.013, "drawing": "highlord_b", "size": [0.167, 0.147], "health": 24, "points": 480},
-      {"name": "b 4", "x": 0.14, "y": 0.013, "drawing": "highlord_b", "size": [0.167, 0.147], "health": 24, "points": 480},
-      {"name": "c 5", "x": -0.027, "y": 0.14, "drawing": "highlord_c", "size": [0.1, 0.14], "health": 24, "points": 480},
-      {"name": "c 6", "x": 0.027, "y": 0.14, "drawing": "highlord_c", "size": [0.1, 0.14], "health": 24, "points": 480},
-      {"name": "d 7", "x": 0.0, "y": -0.033, "drawing": "highlord_d", "size": [0.1, 0.153], "health": 24, "points": 480}
+      {"name": "a 1", "x": -0.113, "y": 0.1, "drawing": "highlord:a", "size": [0.14, 0.12], "health": 24, "points": 480},
+      {"name": "a 2", "x": 0.113, "y": 0.1, "drawing": "highlord:a", "size": [0.14, 0.12], "health": 24, "points": 480},
+      {"name": "b 3", "x": -0.14, "y": 0.013, "drawing": "highlord:b", "size": [0.167, 0.147], "health": 24, "points": 480},
+      {"name": "b 4", "x": 0.14, "y": 0.013, "drawing": "highlord:b", "size": [0.167, 0.147], "health": 24, "points": 480},
+      {"name": "c 5", "x": -0.027, "y": 0.14, "drawing": "highlord:c", "size": [0.1, 0.14], "health": 24, "points": 480},
+      {"name": "c 6", "x": 0.027, "y": 0.14, "drawing": "highlord:c", "size": [0.1, 0.14], "health": 24, "points": 480},
+      {"name": "d 7", "x": 0.0, "y": -0.033, "drawing": "highlord:d", "size": [0.1, 0.153], "health": 24, "points": 480}
     ],
     "phases": [
       {
@@ -416,22 +422,23 @@
   "ironbark": {
     "note": "2-1: boss candidate #063.",
     "name": "IRONBARK",
+    "boss": true,
     "drawing": "ironbark",
     "size": [0.5, 0.373],
     "health": 138.0,
     "points": 5200,
     "parts": [
-      {"name": "a 1", "x": -0.033, "y": 0.163, "drawing": "ironbark_a", "size": [0.113, 0.1], "health": 19, "points": 390},
-      {"name": "a 2", "x": 0.033, "y": 0.163, "drawing": "ironbark_a", "size": [0.113, 0.1], "health": 19, "points": 390},
-      {"name": "b 3", "x": -0.133, "y": -0.137, "drawing": "ironbark_b", "size": [0.127, 0.113], "health": 19, "points": 390},
-      {"name": "b 4", "x": 0.133, "y": -0.137, "drawing": "ironbark_b", "size": [0.127, 0.113], "health": 19, "points": 390},
-      {"name": "c 5", "x": -0.22, "y": -0.11, "drawing": "ironbark_c", "size": [0.153, 0.16], "health": 19, "points": 390},
-      {"name": "c 6", "x": 0.22, "y": -0.11, "drawing": "ironbark_c", "size": [0.153, 0.16], "health": 19, "points": 390},
-      {"name": "d 7", "x": -0.06, "y": 0.063, "drawing": "ironbark_d", "size": [0.167, 0.173], "health": 19, "points": 390},
-      {"name": "d 8", "x": 0.06, "y": 0.063, "drawing": "ironbark_d", "size": [0.167, 0.173], "health": 19, "points": 390},
-      {"name": "e 9", "x": -0.12, "y": -0.057, "drawing": "ironbark_e", "size": [0.153, 0.153], "health": 19, "points": 390},
-      {"name": "e 10", "x": 0.12, "y": -0.057, "drawing": "ironbark_e", "size": [0.153, 0.153], "health": 19, "points": 390},
-      {"name": "f 11", "x": 0.0, "y": -0.05, "drawing": "ironbark_f", "size": [0.113, 0.107], "health": 19, "points": 390}
+      {"name": "a 1", "x": -0.033, "y": 0.163, "drawing": "ironbark:a", "size": [0.113, 0.1], "health": 19, "points": 390},
+      {"name": "a 2", "x": 0.033, "y": 0.163, "drawing": "ironbark:a", "size": [0.113, 0.1], "health": 19, "points": 390},
+      {"name": "b 3", "x": -0.133, "y": -0.137, "drawing": "ironbark:b", "size": [0.127, 0.113], "health": 19, "points": 390},
+      {"name": "b 4", "x": 0.133, "y": -0.137, "drawing": "ironbark:b", "size": [0.127, 0.113], "health": 19, "points": 390},
+      {"name": "c 5", "x": -0.22, "y": -0.11, "drawing": "ironbark:c", "size": [0.153, 0.16], "health": 19, "points": 390},
+      {"name": "c 6", "x": 0.22, "y": -0.11, "drawing": "ironbark:c", "size": [0.153, 0.16], "health": 19, "points": 390},
+      {"name": "d 7", "x": -0.06, "y": 0.063, "drawing": "ironbark:d", "size": [0.167, 0.173], "health": 19, "points": 390},
+      {"name": "d 8", "x": 0.06, "y": 0.063, "drawing": "ironbark:d", "size": [0.167, 0.173], "health": 19, "points": 390},
+      {"name": "e 9", "x": -0.12, "y": -0.057, "drawing": "ironbark:e", "size": [0.153, 0.153], "health": 19, "points": 390},
+      {"name": "e 10", "x": 0.12, "y": -0.057, "drawing": "ironbark:e", "size": [0.153, 0.153], "health": 19, "points": 390},
+      {"name": "f 11", "x": 0.0, "y": -0.05, "drawing": "ironbark:f", "size": [0.113, 0.107], "health": 19, "points": 390}
     ],
     "phases": [
       {
@@ -488,16 +495,17 @@
   "thornback": {
     "note": "2-2: boss candidate #163.",
     "name": "THORNBACK",
+    "boss": true,
     "drawing": "thornback",
     "size": [0.5, 0.393],
     "health": 152.0,
     "points": 5600,
     "parts": [
-      {"name": "a 1", "x": -0.073, "y": -0.027, "drawing": "thornback_a", "size": [0.113, 0.213], "health": 21, "points": 420},
-      {"name": "a 2", "x": 0.073, "y": -0.027, "drawing": "thornback_a", "size": [0.113, 0.213], "health": 21, "points": 420},
-      {"name": "b 3", "x": -0.193, "y": -0.033, "drawing": "thornback_b", "size": [0.113, 0.16], "health": 21, "points": 420},
-      {"name": "b 4", "x": 0.193, "y": -0.033, "drawing": "thornback_b", "size": [0.113, 0.16], "health": 21, "points": 420},
-      {"name": "c 5", "x": 0.0, "y": 0.02, "drawing": "thornback_c", "size": [0.14, 0.127], "health": 21, "points": 420}
+      {"name": "a 1", "x": -0.073, "y": -0.027, "drawing": "thornback:a", "size": [0.113, 0.213], "health": 21, "points": 420},
+      {"name": "a 2", "x": 0.073, "y": -0.027, "drawing": "thornback:a", "size": [0.113, 0.213], "health": 21, "points": 420},
+      {"name": "b 3", "x": -0.193, "y": -0.033, "drawing": "thornback:b", "size": [0.113, 0.16], "health": 21, "points": 420},
+      {"name": "b 4", "x": 0.193, "y": -0.033, "drawing": "thornback:b", "size": [0.113, 0.16], "health": 21, "points": 420},
+      {"name": "c 5", "x": 0.0, "y": 0.02, "drawing": "thornback:c", "size": [0.14, 0.127], "health": 21, "points": 420}
     ],
     "phases": [
       {
@@ -554,18 +562,19 @@
   "rootmaw": {
     "note": "2-3: boss candidate #040.",
     "name": "ROOTMAW",
+    "boss": true,
     "drawing": "rootmaw",
     "size": [0.68, 0.293],
     "health": 166.0,
     "points": 6000,
     "parts": [
-      {"name": "a 1", "x": -0.21, "y": -0.123, "drawing": "rootmaw_a", "size": [0.193, 0.2], "health": 22, "points": 450},
-      {"name": "b 2", "x": 0.21, "y": -0.123, "drawing": "rootmaw_b", "size": [0.193, 0.2], "health": 22, "points": 450},
-      {"name": "c 3", "x": -0.23, "y": 0.083, "drawing": "rootmaw_c", "size": [0.14, 0.133], "health": 22, "points": 450},
-      {"name": "d 4", "x": 0.23, "y": 0.083, "drawing": "rootmaw_d", "size": [0.14, 0.133], "health": 22, "points": 450},
-      {"name": "e 5", "x": -0.063, "y": 0.05, "drawing": "rootmaw_e", "size": [0.193, 0.273], "health": 22, "points": 450},
-      {"name": "e 6", "x": 0.063, "y": 0.05, "drawing": "rootmaw_e", "size": [0.193, 0.273], "health": 22, "points": 450},
-      {"name": "f 7", "x": -0.297, "y": -0.043, "drawing": "rootmaw_f", "size": [0.207, 0.187], "health": 22, "points": 450}
+      {"name": "a 1", "x": -0.21, "y": -0.123, "drawing": "rootmaw:a", "size": [0.193, 0.2], "health": 22, "points": 450},
+      {"name": "b 2", "x": 0.21, "y": -0.123, "drawing": "rootmaw:b", "size": [0.193, 0.2], "health": 22, "points": 450},
+      {"name": "c 3", "x": -0.23, "y": 0.083, "drawing": "rootmaw:c", "size": [0.14, 0.133], "health": 22, "points": 450},
+      {"name": "d 4", "x": 0.23, "y": 0.083, "drawing": "rootmaw:d", "size": [0.14, 0.133], "health": 22, "points": 450},
+      {"name": "e 5", "x": -0.063, "y": 0.05, "drawing": "rootmaw:e", "size": [0.193, 0.273], "health": 22, "points": 450},
+      {"name": "e 6", "x": 0.063, "y": 0.05, "drawing": "rootmaw:e", "size": [0.193, 0.273], "health": 22, "points": 450},
+      {"name": "f 7", "x": -0.297, "y": -0.043, "drawing": "rootmaw:f", "size": [0.207, 0.187], "health": 22, "points": 450}
     ],
     "phases": [
       {
@@ -622,17 +631,18 @@
   "wildfire": {
     "note": "2-4: boss candidate #034.",
     "name": "WILDFIRE",
+    "boss": true,
     "drawing": "wildfire",
     "size": [0.54, 0.373],
     "health": 180.0,
     "points": 6400,
     "parts": [
-      {"name": "a 1", "x": -0.107, "y": 0.11, "drawing": "wildfire_a", "size": [0.1, 0.113], "health": 24, "points": 480},
-      {"name": "a 2", "x": 0.107, "y": 0.11, "drawing": "wildfire_a", "size": [0.1, 0.113], "health": 24, "points": 480},
-      {"name": "b 3", "x": -0.093, "y": 0.01, "drawing": "wildfire_b", "size": [0.127, 0.14], "health": 24, "points": 480},
-      {"name": "c 4", "x": -0.1, "y": -0.15, "drawing": "wildfire_c", "size": [0.087, 0.127], "health": 24, "points": 480},
-      {"name": "d 5", "x": -0.26, "y": -0.063, "drawing": "wildfire_d", "size": [0.14, 0.16], "health": 24, "points": 480},
-      {"name": "e 6", "x": -0.18, "y": -0.077, "drawing": "wildfire_e", "size": [0.087, 0.147], "health": 24, "points": 480}
+      {"name": "a 1", "x": -0.107, "y": 0.11, "drawing": "wildfire:a", "size": [0.1, 0.113], "health": 24, "points": 480},
+      {"name": "a 2", "x": 0.107, "y": 0.11, "drawing": "wildfire:a", "size": [0.1, 0.113], "health": 24, "points": 480},
+      {"name": "b 3", "x": -0.093, "y": 0.01, "drawing": "wildfire:b", "size": [0.127, 0.14], "health": 24, "points": 480},
+      {"name": "c 4", "x": -0.1, "y": -0.15, "drawing": "wildfire:c", "size": [0.087, 0.127], "health": 24, "points": 480},
+      {"name": "d 5", "x": -0.26, "y": -0.063, "drawing": "wildfire:d", "size": [0.14, 0.16], "health": 24, "points": 480},
+      {"name": "e 6", "x": -0.18, "y": -0.077, "drawing": "wildfire:e", "size": [0.087, 0.147], "health": 24, "points": 480}
     ],
     "phases": [
       {
@@ -697,22 +707,23 @@
   "grovekeeper": {
     "note": "2-5: boss candidate #002.",
     "name": "GROVEKEEPER",
+    "boss": true,
     "drawing": "grovekeeper",
     "size": [0.553, 0.367],
     "health": 194.0,
     "points": 6800,
     "parts": [
-      {"name": "a 1", "x": -0.06, "y": 0.107, "drawing": "grovekeeper_a", "size": [0.1, 0.167], "health": 26, "points": 510},
-      {"name": "a 2", "x": 0.06, "y": 0.107, "drawing": "grovekeeper_a", "size": [0.1, 0.167], "health": 26, "points": 510},
-      {"name": "b 3", "x": -0.073, "y": -0.073, "drawing": "grovekeeper_b", "size": [0.1, 0.087], "health": 26, "points": 510},
-      {"name": "b 4", "x": 0.073, "y": -0.073, "drawing": "grovekeeper_b", "size": [0.1, 0.087], "health": 26, "points": 510},
-      {"name": "c 5", "x": -0.14, "y": 0.167, "drawing": "grovekeeper_c", "size": [0.167, 0.167], "health": 26, "points": 510},
-      {"name": "c 6", "x": 0.14, "y": 0.167, "drawing": "grovekeeper_c", "size": [0.167, 0.167], "health": 26, "points": 510},
-      {"name": "d 7", "x": -0.087, "y": 0.02, "drawing": "grovekeeper_d", "size": [0.073, 0.093], "health": 26, "points": 510},
-      {"name": "d 8", "x": 0.087, "y": 0.02, "drawing": "grovekeeper_d", "size": [0.073, 0.093], "health": 26, "points": 510},
-      {"name": "e 9", "x": -0.253, "y": 0.007, "drawing": "grovekeeper_e", "size": [0.14, 0.227], "health": 26, "points": 510},
-      {"name": "e 10", "x": 0.253, "y": 0.007, "drawing": "grovekeeper_e", "size": [0.14, 0.227], "health": 26, "points": 510},
-      {"name": "f 11", "x": 0.0, "y": -0.02, "drawing": "grovekeeper_f", "size": [0.087, 0.113], "health": 26, "points": 510}
+      {"name": "a 1", "x": -0.06, "y": 0.107, "drawing": "grovekeeper:a", "size": [0.1, 0.167], "health": 26, "points": 510},
+      {"name": "a 2", "x": 0.06, "y": 0.107, "drawing": "grovekeeper:a", "size": [0.1, 0.167], "health": 26, "points": 510},
+      {"name": "b 3", "x": -0.073, "y": -0.073, "drawing": "grovekeeper:b", "size": [0.1, 0.087], "health": 26, "points": 510},
+      {"name": "b 4", "x": 0.073, "y": -0.073, "drawing": "grovekeeper:b", "size": [0.1, 0.087], "health": 26, "points": 510},
+      {"name": "c 5", "x": -0.14, "y": 0.167, "drawing": "grovekeeper:c", "size": [0.167, 0.167], "health": 26, "points": 510},
+      {"name": "c 6", "x": 0.14, "y": 0.167, "drawing": "grovekeeper:c", "size": [0.167, 0.167], "health": 26, "points": 510},
+      {"name": "d 7", "x": -0.087, "y": 0.02, "drawing": "grovekeeper:d", "size": [0.073, 0.093], "health": 26, "points": 510},
+      {"name": "d 8", "x": 0.087, "y": 0.02, "drawing": "grovekeeper:d", "size": [0.073, 0.093], "health": 26, "points": 510},
+      {"name": "e 9", "x": -0.253, "y": 0.007, "drawing": "grovekeeper:e", "size": [0.14, 0.227], "health": 26, "points": 510},
+      {"name": "e 10", "x": 0.253, "y": 0.007, "drawing": "grovekeeper:e", "size": [0.14, 0.227], "health": 26, "points": 510},
+      {"name": "f 11", "x": 0.0, "y": -0.02, "drawing": "grovekeeper:f", "size": [0.087, 0.113], "health": 26, "points": 510}
     ],
     "phases": [
       {
@@ -777,17 +788,18 @@
   "old_growth": {
     "note": "2-6: boss candidate #131.",
     "name": "OLD GROWTH",
+    "boss": true,
     "drawing": "old_growth",
     "size": [0.553, 0.367],
     "health": 208.0,
     "points": 7200,
     "parts": [
-      {"name": "a 1", "x": -0.213, "y": 0.033, "drawing": "old_growth_a", "size": [0.14, 0.133], "health": 27, "points": 540},
-      {"name": "a 2", "x": 0.213, "y": 0.033, "drawing": "old_growth_a", "size": [0.14, 0.133], "health": 27, "points": 540},
-      {"name": "b 3", "x": -0.1, "y": -0.053, "drawing": "old_growth_b", "size": [0.113, 0.12], "health": 27, "points": 540},
-      {"name": "b 4", "x": 0.1, "y": -0.053, "drawing": "old_growth_b", "size": [0.113, 0.12], "health": 27, "points": 540},
-      {"name": "c 5", "x": -0.107, "y": 0.027, "drawing": "old_growth_c", "size": [0.1, 0.127], "health": 27, "points": 540},
-      {"name": "c 6", "x": 0.107, "y": 0.027, "drawing": "old_growth_c", "size": [0.1, 0.127], "health": 27, "points": 540}
+      {"name": "a 1", "x": -0.213, "y": 0.033, "drawing": "old_growth:a", "size": [0.14, 0.133], "health": 27, "points": 540},
+      {"name": "a 2", "x": 0.213, "y": 0.033, "drawing": "old_growth:a", "size": [0.14, 0.133], "health": 27, "points": 540},
+      {"name": "b 3", "x": -0.1, "y": -0.053, "drawing": "old_growth:b", "size": [0.113, 0.12], "health": 27, "points": 540},
+      {"name": "b 4", "x": 0.1, "y": -0.053, "drawing": "old_growth:b", "size": [0.113, 0.12], "health": 27, "points": 540},
+      {"name": "c 5", "x": -0.107, "y": 0.027, "drawing": "old_growth:c", "size": [0.1, 0.127], "health": 27, "points": 540},
+      {"name": "c 6", "x": 0.107, "y": 0.027, "drawing": "old_growth:c", "size": [0.1, 0.127], "health": 27, "points": 540}
     ],
     "phases": [
       {
@@ -853,17 +865,18 @@
   "bogmaw": {
     "note": "3-1: boss candidate #099.",
     "name": "BOGMAW",
+    "boss": true,
     "drawing": "bogmaw",
     "size": [0.527, 0.387],
     "health": 166.0,
     "points": 6000,
     "parts": [
-      {"name": "a 1", "x": -0.06, "y": -0.05, "drawing": "bogmaw_a", "size": [0.113, 0.133], "health": 22, "points": 450},
-      {"name": "a 2", "x": 0.06, "y": -0.05, "drawing": "bogmaw_a", "size": [0.113, 0.133], "health": 22, "points": 450},
-      {"name": "b 3", "x": -0.047, "y": -0.17, "drawing": "bogmaw_b", "size": [0.127, 0.14], "health": 22, "points": 450},
-      {"name": "b 4", "x": 0.047, "y": -0.17, "drawing": "bogmaw_b", "size": [0.127, 0.14], "health": 22, "points": 450},
-      {"name": "c 5", "x": -0.253, "y": 0.11, "drawing": "bogmaw_c", "size": [0.087, 0.107], "health": 22, "points": 450},
-      {"name": "c 6", "x": 0.253, "y": 0.11, "drawing": "bogmaw_c", "size": [0.087, 0.107], "health": 22, "points": 450}
+      {"name": "a 1", "x": -0.06, "y": -0.05, "drawing": "bogmaw:a", "size": [0.113, 0.133], "health": 22, "points": 450},
+      {"name": "a 2", "x": 0.06, "y": -0.05, "drawing": "bogmaw:a", "size": [0.113, 0.133], "health": 22, "points": 450},
+      {"name": "b 3", "x": -0.047, "y": -0.17, "drawing": "bogmaw:b", "size": [0.127, 0.14], "health": 22, "points": 450},
+      {"name": "b 4", "x": 0.047, "y": -0.17, "drawing": "bogmaw:b", "size": [0.127, 0.14], "health": 22, "points": 450},
+      {"name": "c 5", "x": -0.253, "y": 0.11, "drawing": "bogmaw:c", "size": [0.087, 0.107], "health": 22, "points": 450},
+      {"name": "c 6", "x": 0.253, "y": 0.11, "drawing": "bogmaw:c", "size": [0.087, 0.107], "health": 22, "points": 450}
     ],
     "phases": [
       {
@@ -920,18 +933,19 @@
   "mirelord": {
     "note": "3-2: boss candidate #085.",
     "name": "MIRELORD",
+    "boss": true,
     "drawing": "mirelord",
     "size": [0.52, 0.4],
     "health": 180.0,
     "points": 6400,
     "parts": [
-      {"name": "a 1", "x": -0.03, "y": -0.083, "drawing": "mirelord_a", "size": [0.14, 0.153], "health": 24, "points": 480},
-      {"name": "b 2", "x": -0.037, "y": 0.137, "drawing": "mirelord_b", "size": [0.1, 0.147], "health": 24, "points": 480},
-      {"name": "b 3", "x": 0.037, "y": 0.137, "drawing": "mirelord_b", "size": [0.1, 0.147], "health": 24, "points": 480},
-      {"name": "c 4", "x": -0.17, "y": -0.017, "drawing": "mirelord_c", "size": [0.153, 0.213], "health": 24, "points": 480},
-      {"name": "c 5", "x": 0.17, "y": -0.017, "drawing": "mirelord_c", "size": [0.153, 0.213], "health": 24, "points": 480},
-      {"name": "d 6", "x": -0.11, "y": 0.15, "drawing": "mirelord_d", "size": [0.14, 0.24], "health": 24, "points": 480},
-      {"name": "e 7", "x": 0.003, "y": 0.01, "drawing": "mirelord_e", "size": [0.087, 0.127], "health": 24, "points": 480}
+      {"name": "a 1", "x": -0.03, "y": -0.083, "drawing": "mirelord:a", "size": [0.14, 0.153], "health": 24, "points": 480},
+      {"name": "b 2", "x": -0.037, "y": 0.137, "drawing": "mirelord:b", "size": [0.1, 0.147], "health": 24, "points": 480},
+      {"name": "b 3", "x": 0.037, "y": 0.137, "drawing": "mirelord:b", "size": [0.1, 0.147], "health": 24, "points": 480},
+      {"name": "c 4", "x": -0.17, "y": -0.017, "drawing": "mirelord:c", "size": [0.153, 0.213], "health": 24, "points": 480},
+      {"name": "c 5", "x": 0.17, "y": -0.017, "drawing": "mirelord:c", "size": [0.153, 0.213], "health": 24, "points": 480},
+      {"name": "d 6", "x": -0.11, "y": 0.15, "drawing": "mirelord:d", "size": [0.14, 0.24], "health": 24, "points": 480},
+      {"name": "e 7", "x": 0.003, "y": 0.01, "drawing": "mirelord:e", "size": [0.087, 0.127], "health": 24, "points": 480}
     ],
     "phases": [
       {
@@ -996,16 +1010,17 @@
   "fenwraith": {
     "note": "3-3: boss candidate #165.",
     "name": "FENWRAITH",
+    "boss": true,
     "drawing": "fenwraith",
     "size": [0.513, 0.413],
     "health": 194.0,
     "points": 6800,
     "parts": [
-      {"name": "a 1", "x": -0.04, "y": -0.03, "drawing": "fenwraith_a", "size": [0.167, 0.24], "health": 26, "points": 510},
-      {"name": "a 2", "x": 0.04, "y": -0.03, "drawing": "fenwraith_a", "size": [0.167, 0.24], "health": 26, "points": 510},
-      {"name": "b 3", "x": -0.053, "y": 0.177, "drawing": "fenwraith_b", "size": [0.113, 0.16], "health": 26, "points": 510},
-      {"name": "b 4", "x": 0.053, "y": 0.177, "drawing": "fenwraith_b", "size": [0.113, 0.16], "health": 26, "points": 510},
-      {"name": "c 5", "x": 0.0, "y": -0.037, "drawing": "fenwraith_c", "size": [0.153, 0.167], "health": 26, "points": 510}
+      {"name": "a 1", "x": -0.04, "y": -0.03, "drawing": "fenwraith:a", "size": [0.167, 0.24], "health": 26, "points": 510},
+      {"name": "a 2", "x": 0.04, "y": -0.03, "drawing": "fenwraith:a", "size": [0.167, 0.24], "health": 26, "points": 510},
+      {"name": "b 3", "x": -0.053, "y": 0.177, "drawing": "fenwraith:b", "size": [0.113, 0.16], "health": 26, "points": 510},
+      {"name": "b 4", "x": 0.053, "y": 0.177, "drawing": "fenwraith:b", "size": [0.113, 0.16], "health": 26, "points": 510},
+      {"name": "c 5", "x": 0.0, "y": -0.037, "drawing": "fenwraith:c", "size": [0.153, 0.167], "health": 26, "points": 510}
     ],
     "phases": [
       {
@@ -1062,16 +1077,17 @@
   "hydra": {
     "note": "3-4: boss candidate #138.",
     "name": "HYDRA",
+    "boss": true,
     "drawing": "hydra",
     "size": [0.58, 0.373],
     "health": 208.0,
     "points": 7200,
     "parts": [
-      {"name": "a 1", "x": -0.087, "y": 0.097, "drawing": "hydra_a", "size": [0.127, 0.193], "health": 27, "points": 540},
-      {"name": "b 2", "x": -0.207, "y": -0.123, "drawing": "hydra_b", "size": [0.127, 0.247], "health": 27, "points": 540},
-      {"name": "b 3", "x": 0.207, "y": -0.123, "drawing": "hydra_b", "size": [0.127, 0.247], "health": 27, "points": 540},
-      {"name": "c 4", "x": -0.08, "y": -0.023, "drawing": "hydra_c", "size": [0.087, 0.14], "health": 27, "points": 540},
-      {"name": "c 5", "x": 0.08, "y": -0.023, "drawing": "hydra_c", "size": [0.087, 0.14], "health": 27, "points": 540}
+      {"name": "a 1", "x": -0.087, "y": 0.097, "drawing": "hydra:a", "size": [0.127, 0.193], "health": 27, "points": 540},
+      {"name": "b 2", "x": -0.207, "y": -0.123, "drawing": "hydra:b", "size": [0.127, 0.247], "health": 27, "points": 540},
+      {"name": "b 3", "x": 0.207, "y": -0.123, "drawing": "hydra:b", "size": [0.127, 0.247], "health": 27, "points": 540},
+      {"name": "c 4", "x": -0.08, "y": -0.023, "drawing": "hydra:c", "size": [0.087, 0.14], "health": 27, "points": 540},
+      {"name": "c 5", "x": 0.08, "y": -0.023, "drawing": "hydra:c", "size": [0.087, 0.14], "health": 27, "points": 540}
     ],
     "phases": [
       {
@@ -1129,20 +1145,21 @@
   "marsh_titan": {
     "note": "3-5: boss candidate #028.",
     "name": "MARSH TITAN",
+    "boss": true,
     "drawing": "marsh_titan",
     "size": [0.607, 0.373],
     "health": 222.0,
     "points": 7600,
     "parts": [
-      {"name": "a 1", "x": -0.127, "y": -0.077, "drawing": "marsh_titan_a", "size": [0.153, 0.213], "health": 29, "points": 570},
-      {"name": "a 2", "x": 0.127, "y": -0.077, "drawing": "marsh_titan_a", "size": [0.153, 0.213], "health": 29, "points": 570},
-      {"name": "b 3", "x": -0.207, "y": 0.063, "drawing": "marsh_titan_b", "size": [0.14, 0.12], "health": 29, "points": 570},
-      {"name": "b 4", "x": 0.207, "y": 0.063, "drawing": "marsh_titan_b", "size": [0.14, 0.12], "health": 29, "points": 570},
-      {"name": "c 5", "x": -0.233, "y": 0.177, "drawing": "marsh_titan_c", "size": [0.153, 0.187], "health": 29, "points": 570},
-      {"name": "c 6", "x": 0.233, "y": 0.177, "drawing": "marsh_titan_c", "size": [0.153, 0.187], "health": 29, "points": 570},
-      {"name": "d 7", "x": -0.247, "y": -0.03, "drawing": "marsh_titan_d", "size": [0.1, 0.093], "health": 29, "points": 570},
-      {"name": "d 8", "x": 0.247, "y": -0.03, "drawing": "marsh_titan_d", "size": [0.1, 0.093], "health": 29, "points": 570},
-      {"name": "e 9", "x": 0.0, "y": -0.063, "drawing": "marsh_titan_e", "size": [0.14, 0.207], "health": 29, "points": 570}
+      {"name": "a 1", "x": -0.127, "y": -0.077, "drawing": "marsh_titan:a", "size": [0.153, 0.213], "health": 29, "points": 570},
+      {"name": "a 2", "x": 0.127, "y": -0.077, "drawing": "marsh_titan:a", "size": [0.153, 0.213], "health": 29, "points": 570},
+      {"name": "b 3", "x": -0.207, "y": 0.063, "drawing": "marsh_titan:b", "size": [0.14, 0.12], "health": 29, "points": 570},
+      {"name": "b 4", "x": 0.207, "y": 0.063, "drawing": "marsh_titan:b", "size": [0.14, 0.12], "health": 29, "points": 570},
+      {"name": "c 5", "x": -0.233, "y": 0.177, "drawing": "marsh_titan:c", "size": [0.153, 0.187], "health": 29, "points": 570},
+      {"name": "c 6", "x": 0.233, "y": 0.177, "drawing": "marsh_titan:c", "size": [0.153, 0.187], "health": 29, "points": 570},
+      {"name": "d 7", "x": -0.247, "y": -0.03, "drawing": "marsh_titan:d", "size": [0.1, 0.093], "health": 29, "points": 570},
+      {"name": "d 8", "x": 0.247, "y": -0.03, "drawing": "marsh_titan:d", "size": [0.1, 0.093], "health": 29, "points": 570},
+      {"name": "e 9", "x": 0.0, "y": -0.063, "drawing": "marsh_titan:e", "size": [0.14, 0.207], "health": 29, "points": 570}
     ],
     "phases": [
       {
@@ -1208,20 +1225,21 @@
   "drowned_king": {
     "note": "3-6: boss candidate #109.",
     "name": "DROWNED KING",
+    "boss": true,
     "drawing": "drowned_king",
     "size": [0.567, 0.427],
     "health": 236.0,
     "points": 8000,
     "parts": [
-      {"name": "a 1", "x": -0.053, "y": 0.01, "drawing": "drowned_king_a", "size": [0.153, 0.22], "health": 30, "points": 600},
-      {"name": "a 2", "x": 0.053, "y": 0.01, "drawing": "drowned_king_a", "size": [0.153, 0.22], "health": 30, "points": 600},
-      {"name": "b 3", "x": -0.233, "y": 0.03, "drawing": "drowned_king_b", "size": [0.127, 0.167], "health": 30, "points": 600},
-      {"name": "b 4", "x": 0.233, "y": 0.03, "drawing": "drowned_king_b", "size": [0.127, 0.167], "health": 30, "points": 600},
-      {"name": "c 5", "x": -0.133, "y": -0.057, "drawing": "drowned_king_c", "size": [0.14, 0.12], "health": 30, "points": 600},
-      {"name": "c 6", "x": 0.133, "y": -0.057, "drawing": "drowned_king_c", "size": [0.14, 0.12], "health": 30, "points": 600},
-      {"name": "d 7", "x": -0.207, "y": -0.07, "drawing": "drowned_king_d", "size": [0.14, 0.227], "health": 30, "points": 600},
-      {"name": "d 8", "x": 0.207, "y": -0.07, "drawing": "drowned_king_d", "size": [0.14, 0.227], "health": 30, "points": 600},
-      {"name": "e 9", "x": 0.0, "y": -0.057, "drawing": "drowned_king_e", "size": [0.153, 0.28], "health": 30, "points": 600}
+      {"name": "a 1", "x": -0.053, "y": 0.01, "drawing": "drowned_king:a", "size": [0.153, 0.22], "health": 30, "points": 600},
+      {"name": "a 2", "x": 0.053, "y": 0.01, "drawing": "drowned_king:a", "size": [0.153, 0.22], "health": 30, "points": 600},
+      {"name": "b 3", "x": -0.233, "y": 0.03, "drawing": "drowned_king:b", "size": [0.127, 0.167], "health": 30, "points": 600},
+      {"name": "b 4", "x": 0.233, "y": 0.03, "drawing": "drowned_king:b", "size": [0.127, 0.167], "health": 30, "points": 600},
+      {"name": "c 5", "x": -0.133, "y": -0.057, "drawing": "drowned_king:c", "size": [0.14, 0.12], "health": 30, "points": 600},
+      {"name": "c 6", "x": 0.133, "y": -0.057, "drawing": "drowned_king:c", "size": [0.14, 0.12], "health": 30, "points": 600},
+      {"name": "d 7", "x": -0.207, "y": -0.07, "drawing": "drowned_king:d", "size": [0.14, 0.227], "health": 30, "points": 600},
+      {"name": "d 8", "x": 0.207, "y": -0.07, "drawing": "drowned_king:d", "size": [0.14, 0.227], "health": 30, "points": 600},
+      {"name": "e 9", "x": 0.0, "y": -0.057, "drawing": "drowned_king:e", "size": [0.153, 0.28], "health": 30, "points": 600}
     ],
     "phases": [
       {
@@ -1287,19 +1305,20 @@
   "scarecrow": {
     "note": "4-1: boss candidate #042.",
     "name": "SCARECROW",
+    "boss": true,
     "drawing": "scarecrow",
     "size": [0.64, 0.4],
     "health": 194.0,
     "points": 6800,
     "parts": [
-      {"name": "a 1", "x": -0.283, "y": 0.063, "drawing": "scarecrow_a", "size": [0.087, 0.093], "health": 26, "points": 510},
-      {"name": "b 2", "x": 0.283, "y": 0.063, "drawing": "scarecrow_b", "size": [0.087, 0.093], "health": 26, "points": 510},
-      {"name": "c 3", "x": -0.217, "y": -0.043, "drawing": "scarecrow_c", "size": [0.113, 0.153], "health": 26, "points": 510},
-      {"name": "d 4", "x": -0.29, "y": -0.197, "drawing": "scarecrow_d", "size": [0.1, 0.127], "health": 26, "points": 510},
-      {"name": "e 5", "x": -0.043, "y": 0.083, "drawing": "scarecrow_e", "size": [0.127, 0.16], "health": 26, "points": 510},
-      {"name": "f 6", "x": -0.177, "y": 0.063, "drawing": "scarecrow_f", "size": [0.167, 0.213], "health": 26, "points": 510},
-      {"name": "g 7", "x": -0.023, "y": -0.083, "drawing": "scarecrow_g", "size": [0.087, 0.107], "health": 26, "points": 510},
-      {"name": "g 8", "x": 0.023, "y": -0.083, "drawing": "scarecrow_g", "size": [0.087, 0.107], "health": 26, "points": 510}
+      {"name": "a 1", "x": -0.283, "y": 0.063, "drawing": "scarecrow:a", "size": [0.087, 0.093], "health": 26, "points": 510},
+      {"name": "b 2", "x": 0.283, "y": 0.063, "drawing": "scarecrow:b", "size": [0.087, 0.093], "health": 26, "points": 510},
+      {"name": "c 3", "x": -0.217, "y": -0.043, "drawing": "scarecrow:c", "size": [0.113, 0.153], "health": 26, "points": 510},
+      {"name": "d 4", "x": -0.29, "y": -0.197, "drawing": "scarecrow:d", "size": [0.1, 0.127], "health": 26, "points": 510},
+      {"name": "e 5", "x": -0.043, "y": 0.083, "drawing": "scarecrow:e", "size": [0.127, 0.16], "health": 26, "points": 510},
+      {"name": "f 6", "x": -0.177, "y": 0.063, "drawing": "scarecrow:f", "size": [0.167, 0.213], "health": 26, "points": 510},
+      {"name": "g 7", "x": -0.023, "y": -0.083, "drawing": "scarecrow:g", "size": [0.087, 0.107], "health": 26, "points": 510},
+      {"name": "g 8", "x": 0.023, "y": -0.083, "drawing": "scarecrow:g", "size": [0.087, 0.107], "health": 26, "points": 510}
     ],
     "phases": [
       {
@@ -1364,22 +1383,23 @@
   "combine": {
     "note": "4-2: boss candidate #074.",
     "name": "COMBINE",
+    "boss": true,
     "drawing": "combine",
     "size": [0.673, 0.387],
     "health": 208.0,
     "points": 7200,
     "parts": [
-      {"name": "a 1", "x": -0.267, "y": -0.083, "drawing": "combine_a", "size": [0.22, 0.233], "health": 27, "points": 540},
-      {"name": "a 2", "x": 0.267, "y": -0.083, "drawing": "combine_a", "size": [0.22, 0.233], "health": 27, "points": 540},
-      {"name": "b 3", "x": -0.053, "y": 0.157, "drawing": "combine_b", "size": [0.207, 0.193], "health": 27, "points": 540},
-      {"name": "b 4", "x": 0.053, "y": 0.157, "drawing": "combine_b", "size": [0.207, 0.193], "health": 27, "points": 540},
-      {"name": "c 5", "x": -0.147, "y": 0.037, "drawing": "combine_c", "size": [0.14, 0.133], "health": 27, "points": 540},
-      {"name": "c 6", "x": 0.147, "y": 0.037, "drawing": "combine_c", "size": [0.14, 0.133], "health": 27, "points": 540},
-      {"name": "d 7", "x": -0.053, "y": -0.117, "drawing": "combine_d", "size": [0.127, 0.16], "health": 27, "points": 540},
-      {"name": "d 8", "x": 0.053, "y": -0.117, "drawing": "combine_d", "size": [0.127, 0.16], "health": 27, "points": 540},
-      {"name": "e 9", "x": -0.033, "y": -0.03, "drawing": "combine_e", "size": [0.153, 0.16], "health": 27, "points": 540},
-      {"name": "e 10", "x": 0.033, "y": -0.03, "drawing": "combine_e", "size": [0.153, 0.16], "health": 27, "points": 540},
-      {"name": "f 11", "x": 0.0, "y": 0.003, "drawing": "combine_f", "size": [0.127, 0.12], "health": 27, "points": 540}
+      {"name": "a 1", "x": -0.267, "y": -0.083, "drawing": "combine:a", "size": [0.22, 0.233], "health": 27, "points": 540},
+      {"name": "a 2", "x": 0.267, "y": -0.083, "drawing": "combine:a", "size": [0.22, 0.233], "health": 27, "points": 540},
+      {"name": "b 3", "x": -0.053, "y": 0.157, "drawing": "combine:b", "size": [0.207, 0.193], "health": 27, "points": 540},
+      {"name": "b 4", "x": 0.053, "y": 0.157, "drawing": "combine:b", "size": [0.207, 0.193], "health": 27, "points": 540},
+      {"name": "c 5", "x": -0.147, "y": 0.037, "drawing": "combine:c", "size": [0.14, 0.133], "health": 27, "points": 540},
+      {"name": "c 6", "x": 0.147, "y": 0.037, "drawing": "combine:c", "size": [0.14, 0.133], "health": 27, "points": 540},
+      {"name": "d 7", "x": -0.053, "y": -0.117, "drawing": "combine:d", "size": [0.127, 0.16], "health": 27, "points": 540},
+      {"name": "d 8", "x": 0.053, "y": -0.117, "drawing": "combine:d", "size": [0.127, 0.16], "health": 27, "points": 540},
+      {"name": "e 9", "x": -0.033, "y": -0.03, "drawing": "combine:e", "size": [0.153, 0.16], "health": 27, "points": 540},
+      {"name": "e 10", "x": 0.033, "y": -0.03, "drawing": "combine:e", "size": [0.153, 0.16], "health": 27, "points": 540},
+      {"name": "f 11", "x": 0.0, "y": 0.003, "drawing": "combine:f", "size": [0.127, 0.12], "health": 27, "points": 540}
     ],
     "phases": [
       {
@@ -1445,21 +1465,22 @@
   "locust": {
     "note": "4-3: boss candidate #083.",
     "name": "LOCUST",
+    "boss": true,
     "drawing": "locust",
     "size": [0.7, 0.387],
     "health": 222.0,
     "points": 7600,
     "parts": [
-      {"name": "a 1", "x": -0.18, "y": -0.083, "drawing": "locust_a", "size": [0.153, 0.227], "health": 29, "points": 570},
-      {"name": "a 2", "x": 0.18, "y": -0.083, "drawing": "locust_a", "size": [0.153, 0.227], "health": 29, "points": 570},
-      {"name": "b 3", "x": -0.207, "y": 0.163, "drawing": "locust_b", "size": [0.18, 0.26], "health": 29, "points": 570},
-      {"name": "b 4", "x": 0.207, "y": 0.163, "drawing": "locust_b", "size": [0.18, 0.26], "health": 29, "points": 570},
-      {"name": "c 5", "x": -0.32, "y": 0.05, "drawing": "locust_c", "size": [0.167, 0.193], "health": 29, "points": 570},
-      {"name": "c 6", "x": 0.32, "y": 0.05, "drawing": "locust_c", "size": [0.167, 0.193], "health": 29, "points": 570},
-      {"name": "d 7", "x": -0.093, "y": 0.157, "drawing": "locust_d", "size": [0.153, 0.187], "health": 29, "points": 570},
-      {"name": "d 8", "x": 0.093, "y": 0.157, "drawing": "locust_d", "size": [0.153, 0.187], "health": 29, "points": 570},
-      {"name": "e 9", "x": -0.027, "y": 0.01, "drawing": "locust_e", "size": [0.127, 0.153], "health": 29, "points": 570},
-      {"name": "e 10", "x": 0.027, "y": 0.01, "drawing": "locust_e", "size": [0.127, 0.153], "health": 29, "points": 570}
+      {"name": "a 1", "x": -0.18, "y": -0.083, "drawing": "locust:a", "size": [0.153, 0.227], "health": 29, "points": 570},
+      {"name": "a 2", "x": 0.18, "y": -0.083, "drawing": "locust:a", "size": [0.153, 0.227], "health": 29, "points": 570},
+      {"name": "b 3", "x": -0.207, "y": 0.163, "drawing": "locust:b", "size": [0.18, 0.26], "health": 29, "points": 570},
+      {"name": "b 4", "x": 0.207, "y": 0.163, "drawing": "locust:b", "size": [0.18, 0.26], "health": 29, "points": 570},
+      {"name": "c 5", "x": -0.32, "y": 0.05, "drawing": "locust:c", "size": [0.167, 0.193], "health": 29, "points": 570},
+      {"name": "c 6", "x": 0.32, "y": 0.05, "drawing": "locust:c", "size": [0.167, 0.193], "health": 29, "points": 570},
+      {"name": "d 7", "x": -0.093, "y": 0.157, "drawing": "locust:d", "size": [0.153, 0.187], "health": 29, "points": 570},
+      {"name": "d 8", "x": 0.093, "y": 0.157, "drawing": "locust:d", "size": [0.153, 0.187], "health": 29, "points": 570},
+      {"name": "e 9", "x": -0.027, "y": 0.01, "drawing": "locust:e", "size": [0.127, 0.153], "health": 29, "points": 570},
+      {"name": "e 10", "x": 0.027, "y": 0.01, "drawing": "locust:e", "size": [0.127, 0.153], "health": 29, "points": 570}
     ],
     "phases": [
       {
@@ -1517,21 +1538,22 @@
   "granary": {
     "note": "4-4: boss candidate #066.",
     "name": "GRANARY",
+    "boss": true,
     "drawing": "granary",
     "size": [0.607, 0.447],
     "health": 236.0,
     "points": 8000,
     "parts": [
-      {"name": "a 1", "x": -0.073, "y": 0.12, "drawing": "granary_a", "size": [0.113, 0.173], "health": 30, "points": 600},
-      {"name": "a 2", "x": 0.073, "y": 0.12, "drawing": "granary_a", "size": [0.113, 0.173], "health": 30, "points": 600},
-      {"name": "b 3", "x": -0.18, "y": 0.0, "drawing": "granary_b", "size": [0.167, 0.167], "health": 30, "points": 600},
-      {"name": "b 4", "x": 0.18, "y": 0.0, "drawing": "granary_b", "size": [0.167, 0.167], "health": 30, "points": 600},
-      {"name": "c 5", "x": -0.06, "y": -0.167, "drawing": "granary_c", "size": [0.14, 0.147], "health": 30, "points": 600},
-      {"name": "c 6", "x": 0.06, "y": -0.167, "drawing": "granary_c", "size": [0.14, 0.147], "health": 30, "points": 600},
-      {"name": "d 7", "x": -0.08, "y": 0.033, "drawing": "granary_d", "size": [0.113, 0.22], "health": 30, "points": 600},
-      {"name": "d 8", "x": 0.08, "y": 0.033, "drawing": "granary_d", "size": [0.113, 0.22], "health": 30, "points": 600},
-      {"name": "e 9", "x": -0.08, "y": -0.047, "drawing": "granary_e", "size": [0.153, 0.22], "health": 30, "points": 600},
-      {"name": "e 10", "x": 0.08, "y": -0.047, "drawing": "granary_e", "size": [0.153, 0.22], "health": 30, "points": 600}
+      {"name": "a 1", "x": -0.073, "y": 0.12, "drawing": "granary:a", "size": [0.113, 0.173], "health": 30, "points": 600},
+      {"name": "a 2", "x": 0.073, "y": 0.12, "drawing": "granary:a", "size": [0.113, 0.173], "health": 30, "points": 600},
+      {"name": "b 3", "x": -0.18, "y": 0.0, "drawing": "granary:b", "size": [0.167, 0.167], "health": 30, "points": 600},
+      {"name": "b 4", "x": 0.18, "y": 0.0, "drawing": "granary:b", "size": [0.167, 0.167], "health": 30, "points": 600},
+      {"name": "c 5", "x": -0.06, "y": -0.167, "drawing": "granary:c", "size": [0.14, 0.147], "health": 30, "points": 600},
+      {"name": "c 6", "x": 0.06, "y": -0.167, "drawing": "granary:c", "size": [0.14, 0.147], "health": 30, "points": 600},
+      {"name": "d 7", "x": -0.08, "y": 0.033, "drawing": "granary:d", "size": [0.113, 0.22], "health": 30, "points": 600},
+      {"name": "d 8", "x": 0.08, "y": 0.033, "drawing": "granary:d", "size": [0.113, 0.22], "health": 30, "points": 600},
+      {"name": "e 9", "x": -0.08, "y": -0.047, "drawing": "granary:e", "size": [0.153, 0.22], "health": 30, "points": 600},
+      {"name": "e 10", "x": 0.08, "y": -0.047, "drawing": "granary:e", "size": [0.153, 0.22], "health": 30, "points": 600}
     ],
     "phases": [
       {
@@ -1597,20 +1619,21 @@
   "harrowmaster": {
     "note": "4-5: boss candidate #010.",
     "name": "HARROWMASTER",
+    "boss": true,
     "drawing": "harrowmaster",
     "size": [0.647, 0.427],
     "health": 250.0,
     "points": 8400,
     "parts": [
-      {"name": "a 1", "x": -0.26, "y": 0.103, "drawing": "harrowmaster_a", "size": [0.193, 0.16], "health": 32, "points": 630},
-      {"name": "b 2", "x": -0.127, "y": 0.13, "drawing": "harrowmaster_b", "size": [0.087, 0.113], "health": 32, "points": 630},
-      {"name": "c 3", "x": -0.12, "y": -0.023, "drawing": "harrowmaster_c", "size": [0.127, 0.193], "health": 32, "points": 630},
-      {"name": "d 4", "x": -0.04, "y": -0.15, "drawing": "harrowmaster_d", "size": [0.167, 0.293], "health": 32, "points": 630},
-      {"name": "a 5", "x": -0.033, "y": -0.05, "drawing": "harrowmaster_a", "size": [0.193, 0.16], "health": 32, "points": 630},
-      {"name": "a 6", "x": 0.033, "y": -0.05, "drawing": "harrowmaster_a", "size": [0.193, 0.16], "health": 32, "points": 630},
-      {"name": "e 7", "x": -0.247, "y": 0.197, "drawing": "harrowmaster_e", "size": [0.127, 0.12], "health": 32, "points": 630},
-      {"name": "f 8", "x": 0.247, "y": 0.197, "drawing": "harrowmaster_f", "size": [0.127, 0.12], "health": 32, "points": 630},
-      {"name": "g 9", "x": 0.0, "y": 0.063, "drawing": "harrowmaster_g", "size": [0.153, 0.253], "health": 32, "points": 630}
+      {"name": "a 1", "x": -0.26, "y": 0.103, "drawing": "harrowmaster:a", "size": [0.193, 0.16], "health": 32, "points": 630},
+      {"name": "b 2", "x": -0.127, "y": 0.13, "drawing": "harrowmaster:b", "size": [0.087, 0.113], "health": 32, "points": 630},
+      {"name": "c 3", "x": -0.12, "y": -0.023, "drawing": "harrowmaster:c", "size": [0.127, 0.193], "health": 32, "points": 630},
+      {"name": "d 4", "x": -0.04, "y": -0.15, "drawing": "harrowmaster:d", "size": [0.167, 0.293], "health": 32, "points": 630},
+      {"name": "a 5", "x": -0.033, "y": -0.05, "drawing": "harrowmaster:a", "size": [0.193, 0.16], "health": 32, "points": 630},
+      {"name": "a 6", "x": 0.033, "y": -0.05, "drawing": "harrowmaster:a", "size": [0.193, 0.16], "health": 32, "points": 630},
+      {"name": "e 7", "x": -0.247, "y": 0.197, "drawing": "harrowmaster:e", "size": [0.127, 0.12], "health": 32, "points": 630},
+      {"name": "f 8", "x": 0.247, "y": 0.197, "drawing": "harrowmaster:f", "size": [0.127, 0.12], "health": 32, "points": 630},
+      {"name": "g 9", "x": 0.0, "y": 0.063, "drawing": "harrowmaster:g", "size": [0.153, 0.253], "health": 32, "points": 630}
     ],
     "phases": [
       {
@@ -1676,6 +1699,7 @@
   "black_harvest": {
     "note": "4-6: boss candidate #103.",
     "name": "BLACK HARVEST",
+    "boss": true,
     "drawing": "black_harvest",
     "size": [0.74, 0.373],
     "health": 264.0,
@@ -1685,28 +1709,28 @@
         "name": "a 1",
         "x": -0.167,
         "y": -0.063,
-        "drawing": "black_harvest_a",
+        "drawing": "black_harvest:a",
         "size": [0.167, 0.213],
         "health": 34,
         "points": 660
       },
-      {"name": "a 2", "x": 0.167, "y": -0.063, "drawing": "black_harvest_a", "size": [0.167, 0.213], "health": 34, "points": 660},
-      {"name": "b 3", "x": -0.053, "y": -0.077, "drawing": "black_harvest_b", "size": [0.26, 0.233], "health": 34, "points": 660},
-      {"name": "b 4", "x": 0.053, "y": -0.077, "drawing": "black_harvest_b", "size": [0.26, 0.233], "health": 34, "points": 660},
+      {"name": "a 2", "x": 0.167, "y": -0.063, "drawing": "black_harvest:a", "size": [0.167, 0.213], "health": 34, "points": 660},
+      {"name": "b 3", "x": -0.053, "y": -0.077, "drawing": "black_harvest:b", "size": [0.26, 0.233], "health": 34, "points": 660},
+      {"name": "b 4", "x": 0.053, "y": -0.077, "drawing": "black_harvest:b", "size": [0.26, 0.233], "health": 34, "points": 660},
       {
         "name": "c 5",
         "x": -0.207,
         "y": -0.177,
-        "drawing": "black_harvest_c",
+        "drawing": "black_harvest:c",
         "size": [0.127, 0.187],
         "health": 34,
         "points": 660
       },
-      {"name": "c 6", "x": 0.207, "y": -0.177, "drawing": "black_harvest_c", "size": [0.127, 0.187], "health": 34, "points": 660},
-      {"name": "d 7", "x": -0.267, "y": -0.057, "drawing": "black_harvest_d", "size": [0.207, 0.22], "health": 34, "points": 660},
-      {"name": "d 8", "x": 0.267, "y": -0.057, "drawing": "black_harvest_d", "size": [0.207, 0.22], "health": 34, "points": 660},
-      {"name": "e 9", "x": -0.187, "y": 0.043, "drawing": "black_harvest_e", "size": [0.167, 0.187], "health": 34, "points": 660},
-      {"name": "e 10", "x": 0.187, "y": 0.043, "drawing": "black_harvest_e", "size": [0.167, 0.187], "health": 34, "points": 660}
+      {"name": "c 6", "x": 0.207, "y": -0.177, "drawing": "black_harvest:c", "size": [0.127, 0.187], "health": 34, "points": 660},
+      {"name": "d 7", "x": -0.267, "y": -0.057, "drawing": "black_harvest:d", "size": [0.207, 0.22], "health": 34, "points": 660},
+      {"name": "d 8", "x": 0.267, "y": -0.057, "drawing": "black_harvest:d", "size": [0.207, 0.22], "health": 34, "points": 660},
+      {"name": "e 9", "x": -0.187, "y": 0.043, "drawing": "black_harvest:e", "size": [0.167, 0.187], "health": 34, "points": 660},
+      {"name": "e 10", "x": 0.187, "y": 0.043, "drawing": "black_harvest:e", "size": [0.167, 0.187], "health": 34, "points": 660}
     ],
     "phases": [
       {
@@ -1772,21 +1796,22 @@
   "maelstrom": {
     "note": "5-1: boss candidate #024.",
     "name": "MAELSTROM",
+    "boss": true,
     "drawing": "maelstrom",
     "size": [0.66, 0.427],
     "health": 222.0,
     "points": 7600,
     "parts": [
-      {"name": "a 1", "x": -0.28, "y": 0.103, "drawing": "maelstrom_a", "size": [0.167, 0.133], "health": 29, "points": 570},
-      {"name": "a 2", "x": 0.28, "y": 0.103, "drawing": "maelstrom_a", "size": [0.167, 0.133], "health": 29, "points": 570},
-      {"name": "b 3", "x": -0.133, "y": -0.023, "drawing": "maelstrom_b", "size": [0.153, 0.167], "health": 29, "points": 570},
-      {"name": "b 4", "x": 0.133, "y": -0.023, "drawing": "maelstrom_b", "size": [0.153, 0.167], "health": 29, "points": 570},
-      {"name": "c 5", "x": -0.14, "y": 0.19, "drawing": "maelstrom_c", "size": [0.207, 0.247], "health": 29, "points": 570},
-      {"name": "c 6", "x": 0.14, "y": 0.19, "drawing": "maelstrom_c", "size": [0.207, 0.247], "health": 29, "points": 570},
-      {"name": "d 7", "x": -0.14, "y": -0.163, "drawing": "maelstrom_d", "size": [0.207, 0.22], "health": 29, "points": 570},
-      {"name": "d 8", "x": 0.14, "y": -0.163, "drawing": "maelstrom_d", "size": [0.207, 0.22], "health": 29, "points": 570},
-      {"name": "e 9", "x": -0.027, "y": 0.003, "drawing": "maelstrom_e", "size": [0.153, 0.193], "health": 29, "points": 570},
-      {"name": "e 10", "x": 0.027, "y": 0.003, "drawing": "maelstrom_e", "size": [0.153, 0.193], "health": 29, "points": 570}
+      {"name": "a 1", "x": -0.28, "y": 0.103, "drawing": "maelstrom:a", "size": [0.167, 0.133], "health": 29, "points": 570},
+      {"name": "a 2", "x": 0.28, "y": 0.103, "drawing": "maelstrom:a", "size": [0.167, 0.133], "health": 29, "points": 570},
+      {"name": "b 3", "x": -0.133, "y": -0.023, "drawing": "maelstrom:b", "size": [0.153, 0.167], "health": 29, "points": 570},
+      {"name": "b 4", "x": 0.133, "y": -0.023, "drawing": "maelstrom:b", "size": [0.153, 0.167], "health": 29, "points": 570},
+      {"name": "c 5", "x": -0.14, "y": 0.19, "drawing": "maelstrom:c", "size": [0.207, 0.247], "health": 29, "points": 570},
+      {"name": "c 6", "x": 0.14, "y": 0.19, "drawing": "maelstrom:c", "size": [0.207, 0.247], "health": 29, "points": 570},
+      {"name": "d 7", "x": -0.14, "y": -0.163, "drawing": "maelstrom:d", "size": [0.207, 0.22], "health": 29, "points": 570},
+      {"name": "d 8", "x": 0.14, "y": -0.163, "drawing": "maelstrom:d", "size": [0.207, 0.22], "health": 29, "points": 570},
+      {"name": "e 9", "x": -0.027, "y": 0.003, "drawing": "maelstrom:e", "size": [0.153, 0.193], "health": 29, "points": 570},
+      {"name": "e 10", "x": 0.027, "y": 0.003, "drawing": "maelstrom:e", "size": [0.153, 0.193], "health": 29, "points": 570}
     ],
     "phases": [
       {
@@ -1852,19 +1877,20 @@
   "man_o_war": {
     "note": "5-2: boss candidate #039.",
     "name": "MAN O' WAR",
+    "boss": true,
     "drawing": "man_o_war",
     "size": [0.633, 0.447],
     "health": 236.0,
     "points": 8000,
     "parts": [
-      {"name": "a 1", "x": -0.153, "y": -0.013, "drawing": "man_o_war_a", "size": [0.153, 0.187], "health": 30, "points": 600},
-      {"name": "a 2", "x": 0.153, "y": -0.013, "drawing": "man_o_war_a", "size": [0.153, 0.187], "health": 30, "points": 600},
-      {"name": "b 3", "x": -0.213, "y": -0.22, "drawing": "man_o_war_b", "size": [0.153, 0.18], "health": 30, "points": 600},
-      {"name": "b 4", "x": 0.213, "y": -0.22, "drawing": "man_o_war_b", "size": [0.153, 0.18], "health": 30, "points": 600},
-      {"name": "c 5", "x": -0.147, "y": 0.16, "drawing": "man_o_war_c", "size": [0.113, 0.133], "health": 30, "points": 600},
-      {"name": "c 6", "x": 0.147, "y": 0.16, "drawing": "man_o_war_c", "size": [0.113, 0.133], "health": 30, "points": 600},
-      {"name": "d 7", "x": -0.087, "y": -0.107, "drawing": "man_o_war_d", "size": [0.153, 0.193], "health": 30, "points": 600},
-      {"name": "d 8", "x": 0.087, "y": -0.107, "drawing": "man_o_war_d", "size": [0.153, 0.193], "health": 30, "points": 600}
+      {"name": "a 1", "x": -0.153, "y": -0.013, "drawing": "man_o_war:a", "size": [0.153, 0.187], "health": 30, "points": 600},
+      {"name": "a 2", "x": 0.153, "y": -0.013, "drawing": "man_o_war:a", "size": [0.153, 0.187], "health": 30, "points": 600},
+      {"name": "b 3", "x": -0.213, "y": -0.22, "drawing": "man_o_war:b", "size": [0.153, 0.18], "health": 30, "points": 600},
+      {"name": "b 4", "x": 0.213, "y": -0.22, "drawing": "man_o_war:b", "size": [0.153, 0.18], "health": 30, "points": 600},
+      {"name": "c 5", "x": -0.147, "y": 0.16, "drawing": "man_o_war:c", "size": [0.113, 0.133], "health": 30, "points": 600},
+      {"name": "c 6", "x": 0.147, "y": 0.16, "drawing": "man_o_war:c", "size": [0.113, 0.133], "health": 30, "points": 600},
+      {"name": "d 7", "x": -0.087, "y": -0.107, "drawing": "man_o_war:d", "size": [0.153, 0.193], "health": 30, "points": 600},
+      {"name": "d 8", "x": 0.087, "y": -0.107, "drawing": "man_o_war:d", "size": [0.153, 0.193], "health": 30, "points": 600}
     ],
     "phases": [
       {
@@ -1930,19 +1956,20 @@
   "typhoon": {
     "note": "5-3: boss candidate #003.",
     "name": "TYPHOON",
+    "boss": true,
     "drawing": "typhoon",
     "size": [0.687, 0.413],
     "health": 250.0,
     "points": 8400,
     "parts": [
-      {"name": "a 1", "x": -0.047, "y": 0.097, "drawing": "typhoon_a", "size": [0.207, 0.18], "health": 32, "points": 630},
-      {"name": "a 2", "x": 0.047, "y": 0.097, "drawing": "typhoon_a", "size": [0.207, 0.18], "health": 32, "points": 630},
-      {"name": "b 3", "x": -0.093, "y": -0.177, "drawing": "typhoon_b", "size": [0.18, 0.233], "health": 32, "points": 630},
-      {"name": "b 4", "x": 0.093, "y": -0.177, "drawing": "typhoon_b", "size": [0.18, 0.233], "health": 32, "points": 630},
-      {"name": "c 5", "x": -0.233, "y": -0.137, "drawing": "typhoon_c", "size": [0.113, 0.213], "health": 32, "points": 630},
-      {"name": "c 6", "x": 0.233, "y": -0.137, "drawing": "typhoon_c", "size": [0.113, 0.213], "health": 32, "points": 630},
-      {"name": "d 7", "x": -0.167, "y": 0.077, "drawing": "typhoon_d", "size": [0.153, 0.253], "health": 32, "points": 630},
-      {"name": "d 8", "x": 0.167, "y": 0.077, "drawing": "typhoon_d", "size": [0.153, 0.253], "health": 32, "points": 630}
+      {"name": "a 1", "x": -0.047, "y": 0.097, "drawing": "typhoon:a", "size": [0.207, 0.18], "health": 32, "points": 630},
+      {"name": "a 2", "x": 0.047, "y": 0.097, "drawing": "typhoon:a", "size": [0.207, 0.18], "health": 32, "points": 630},
+      {"name": "b 3", "x": -0.093, "y": -0.177, "drawing": "typhoon:b", "size": [0.18, 0.233], "health": 32, "points": 630},
+      {"name": "b 4", "x": 0.093, "y": -0.177, "drawing": "typhoon:b", "size": [0.18, 0.233], "health": 32, "points": 630},
+      {"name": "c 5", "x": -0.233, "y": -0.137, "drawing": "typhoon:c", "size": [0.113, 0.213], "health": 32, "points": 630},
+      {"name": "c 6", "x": 0.233, "y": -0.137, "drawing": "typhoon:c", "size": [0.113, 0.213], "health": 32, "points": 630},
+      {"name": "d 7", "x": -0.167, "y": 0.077, "drawing": "typhoon:d", "size": [0.153, 0.253], "health": 32, "points": 630},
+      {"name": "d 8", "x": 0.167, "y": 0.077, "drawing": "typhoon:d", "size": [0.153, 0.253], "health": 32, "points": 630}
     ],
     "phases": [
       {
@@ -2008,19 +2035,20 @@
   "tsunami": {
     "note": "5-4: boss candidate #096.",
     "name": "TSUNAMI",
+    "boss": true,
     "drawing": "tsunami",
     "size": [0.527, 0.553],
     "health": 264.0,
     "points": 8800,
     "parts": [
-      {"name": "a 1", "x": -0.127, "y": 0.133, "drawing": "tsunami_a", "size": [0.18, 0.173], "health": 34, "points": 660},
-      {"name": "b 2", "x": -0.22, "y": 0.013, "drawing": "tsunami_b", "size": [0.14, 0.133], "health": 34, "points": 660},
-      {"name": "c 3", "x": 0.22, "y": 0.013, "drawing": "tsunami_c", "size": [0.14, 0.133], "health": 34, "points": 660},
-      {"name": "d 4", "x": -0.2, "y": 0.08, "drawing": "tsunami_d", "size": [0.1, 0.1], "health": 34, "points": 660},
-      {"name": "e 5", "x": -0.027, "y": -0.047, "drawing": "tsunami_e", "size": [0.153, 0.133], "health": 34, "points": 660},
-      {"name": "f 6", "x": -0.24, "y": -0.067, "drawing": "tsunami_f", "size": [0.14, 0.153], "health": 34, "points": 660},
-      {"name": "g 7", "x": 0.24, "y": -0.067, "drawing": "tsunami_g", "size": [0.14, 0.153], "health": 34, "points": 660},
-      {"name": "h 8", "x": -0.207, "y": 0.167, "drawing": "tsunami_h", "size": [0.167, 0.213], "health": 34, "points": 660}
+      {"name": "a 1", "x": -0.127, "y": 0.133, "drawing": "tsunami:a", "size": [0.18, 0.173], "health": 34, "points": 660},
+      {"name": "b 2", "x": -0.22, "y": 0.013, "drawing": "tsunami:b", "size": [0.14, 0.133], "health": 34, "points": 660},
+      {"name": "c 3", "x": 0.22, "y": 0.013, "drawing": "tsunami:c", "size": [0.14, 0.133], "health": 34, "points": 660},
+      {"name": "d 4", "x": -0.2, "y": 0.08, "drawing": "tsunami:d", "size": [0.1, 0.1], "health": 34, "points": 660},
+      {"name": "e 5", "x": -0.027, "y": -0.047, "drawing": "tsunami:e", "size": [0.153, 0.133], "health": 34, "points": 660},
+      {"name": "f 6", "x": -0.24, "y": -0.067, "drawing": "tsunami:f", "size": [0.14, 0.153], "health": 34, "points": 660},
+      {"name": "g 7", "x": 0.24, "y": -0.067, "drawing": "tsunami:g", "size": [0.14, 0.153], "health": 34, "points": 660},
+      {"name": "h 8", "x": -0.207, "y": 0.167, "drawing": "tsunami:h", "size": [0.167, 0.213], "health": 34, "points": 660}
     ],
     "phases": [
       {
@@ -2086,18 +2114,19 @@
   "abyssal": {
     "note": "5-5: boss candidate #058.",
     "name": "ABYSSAL",
+    "boss": true,
     "drawing": "abyssal",
     "size": [0.607, 0.493],
     "health": 278.0,
     "points": 9200,
     "parts": [
-      {"name": "a 1", "x": -0.187, "y": -0.143, "drawing": "abyssal_a", "size": [0.167, 0.167], "health": 35, "points": 690},
-      {"name": "b 2", "x": 0.187, "y": -0.143, "drawing": "abyssal_b", "size": [0.167, 0.167], "health": 35, "points": 690},
-      {"name": "c 3", "x": -0.16, "y": 0.123, "drawing": "abyssal_c", "size": [0.18, 0.253], "health": 35, "points": 690},
-      {"name": "d 4", "x": -0.033, "y": 0.097, "drawing": "abyssal_d", "size": [0.14, 0.193], "health": 35, "points": 690},
-      {"name": "d 5", "x": 0.033, "y": 0.097, "drawing": "abyssal_d", "size": [0.14, 0.193], "health": 35, "points": 690},
-      {"name": "e 6", "x": -0.18, "y": -0.023, "drawing": "abyssal_e", "size": [0.153, 0.187], "health": 35, "points": 690},
-      {"name": "e 7", "x": 0.18, "y": -0.023, "drawing": "abyssal_e", "size": [0.153, 0.187], "health": 35, "points": 690}
+      {"name": "a 1", "x": -0.187, "y": -0.143, "drawing": "abyssal:a", "size": [0.167, 0.167], "health": 35, "points": 690},
+      {"name": "b 2", "x": 0.187, "y": -0.143, "drawing": "abyssal:b", "size": [0.167, 0.167], "health": 35, "points": 690},
+      {"name": "c 3", "x": -0.16, "y": 0.123, "drawing": "abyssal:c", "size": [0.18, 0.253], "health": 35, "points": 690},
+      {"name": "d 4", "x": -0.033, "y": 0.097, "drawing": "abyssal:d", "size": [0.14, 0.193], "health": 35, "points": 690},
+      {"name": "d 5", "x": 0.033, "y": 0.097, "drawing": "abyssal:d", "size": [0.14, 0.193], "health": 35, "points": 690},
+      {"name": "e 6", "x": -0.18, "y": -0.023, "drawing": "abyssal:e", "size": [0.153, 0.187], "health": 35, "points": 690},
+      {"name": "e 7", "x": 0.18, "y": -0.023, "drawing": "abyssal:e", "size": [0.153, 0.187], "health": 35, "points": 690}
     ],
     "phases": [
       {
@@ -2163,15 +2192,16 @@
   "kraken": {
     "note": "5-6: boss candidate #102.",
     "name": "KRAKEN",
+    "boss": true,
     "drawing": "kraken",
     "size": [0.5, 0.6],
     "health": 292.0,
     "points": 9600,
     "parts": [
-      {"name": "a 1", "x": -0.207, "y": -0.277, "drawing": "kraken_a", "size": [0.127, 0.113], "health": 37, "points": 720},
-      {"name": "b 2", "x": -0.1, "y": -0.237, "drawing": "kraken_b", "size": [0.087, 0.107], "health": 37, "points": 720},
-      {"name": "c 3", "x": -0.187, "y": 0.03, "drawing": "kraken_c", "size": [0.1, 0.153], "health": 37, "points": 720},
-      {"name": "d 4", "x": 0.0, "y": 0.063, "drawing": "kraken_d", "size": [0.153, 0.2], "health": 37, "points": 720}
+      {"name": "a 1", "x": -0.207, "y": -0.277, "drawing": "kraken:a", "size": [0.127, 0.113], "health": 37, "points": 720},
+      {"name": "b 2", "x": -0.1, "y": -0.237, "drawing": "kraken:b", "size": [0.087, 0.107], "health": 37, "points": 720},
+      {"name": "c 3", "x": -0.187, "y": 0.03, "drawing": "kraken:c", "size": [0.1, 0.153], "health": 37, "points": 720},
+      {"name": "d 4", "x": 0.0, "y": 0.063, "drawing": "kraken:d", "size": [0.153, 0.2], "health": 37, "points": 720}
     ],
     "phases": [
       {
@@ -2237,21 +2267,22 @@
   "mesa": {
     "note": "6-1: boss candidate #152.",
     "name": "MESA",
+    "boss": true,
     "drawing": "mesa",
     "size": [0.713, 0.433],
     "health": 250.0,
     "points": 8400,
     "parts": [
-      {"name": "a 1", "x": -0.22, "y": -0.14, "drawing": "mesa_a", "size": [0.14, 0.227], "health": 32, "points": 630},
-      {"name": "a 2", "x": 0.22, "y": -0.14, "drawing": "mesa_a", "size": [0.14, 0.227], "health": 32, "points": 630},
-      {"name": "b 3", "x": -0.287, "y": 0.093, "drawing": "mesa_b", "size": [0.18, 0.313], "health": 32, "points": 630},
-      {"name": "b 4", "x": 0.287, "y": 0.093, "drawing": "mesa_b", "size": [0.18, 0.313], "health": 32, "points": 630},
-      {"name": "c 5", "x": -0.18, "y": -0.007, "drawing": "mesa_c", "size": [0.113, 0.233], "health": 32, "points": 630},
-      {"name": "c 6", "x": 0.18, "y": -0.007, "drawing": "mesa_c", "size": [0.113, 0.233], "health": 32, "points": 630},
-      {"name": "d 7", "x": -0.16, "y": 0.153, "drawing": "mesa_d", "size": [0.113, 0.207], "health": 32, "points": 630},
-      {"name": "d 8", "x": 0.16, "y": 0.153, "drawing": "mesa_d", "size": [0.113, 0.207], "health": 32, "points": 630},
-      {"name": "e 9", "x": -0.307, "y": -0.027, "drawing": "mesa_e", "size": [0.127, 0.18], "health": 32, "points": 630},
-      {"name": "e 10", "x": 0.307, "y": -0.027, "drawing": "mesa_e", "size": [0.127, 0.18], "health": 32, "points": 630}
+      {"name": "a 1", "x": -0.22, "y": -0.14, "drawing": "mesa:a", "size": [0.14, 0.227], "health": 32, "points": 630},
+      {"name": "a 2", "x": 0.22, "y": -0.14, "drawing": "mesa:a", "size": [0.14, 0.227], "health": 32, "points": 630},
+      {"name": "b 3", "x": -0.287, "y": 0.093, "drawing": "mesa:b", "size": [0.18, 0.313], "health": 32, "points": 630},
+      {"name": "b 4", "x": 0.287, "y": 0.093, "drawing": "mesa:b", "size": [0.18, 0.313], "health": 32, "points": 630},
+      {"name": "c 5", "x": -0.18, "y": -0.007, "drawing": "mesa:c", "size": [0.113, 0.233], "health": 32, "points": 630},
+      {"name": "c 6", "x": 0.18, "y": -0.007, "drawing": "mesa:c", "size": [0.113, 0.233], "health": 32, "points": 630},
+      {"name": "d 7", "x": -0.16, "y": 0.153, "drawing": "mesa:d", "size": [0.113, 0.207], "health": 32, "points": 630},
+      {"name": "d 8", "x": 0.16, "y": 0.153, "drawing": "mesa:d", "size": [0.113, 0.207], "health": 32, "points": 630},
+      {"name": "e 9", "x": -0.307, "y": -0.027, "drawing": "mesa:e", "size": [0.127, 0.18], "health": 32, "points": 630},
+      {"name": "e 10", "x": 0.307, "y": -0.027, "drawing": "mesa:e", "size": [0.127, 0.18], "health": 32, "points": 630}
     ],
     "phases": [
       {
@@ -2317,23 +2348,24 @@
   "dust_devil": {
     "note": "6-2: boss candidate #191.",
     "name": "DUST DEVIL",
+    "boss": true,
     "drawing": "dust_devil",
     "size": [0.72, 0.44],
     "health": 264.0,
     "points": 8800,
     "parts": [
-      {"name": "a 1", "x": -0.143, "y": 0.19, "drawing": "dust_devil_a", "size": [0.153, 0.167], "health": 34, "points": 660},
-      {"name": "a 2", "x": 0.143, "y": 0.19, "drawing": "dust_devil_a", "size": [0.153, 0.167], "health": 34, "points": 660},
-      {"name": "b 3", "x": -0.043, "y": -0.197, "drawing": "dust_devil_b", "size": [0.18, 0.207], "health": 34, "points": 660},
-      {"name": "c 4", "x": -0.29, "y": 0.063, "drawing": "dust_devil_c", "size": [0.193, 0.233], "health": 34, "points": 660},
-      {"name": "d 5", "x": -0.037, "y": -0.03, "drawing": "dust_devil_d", "size": [0.127, 0.147], "health": 34, "points": 660},
-      {"name": "d 6", "x": 0.037, "y": -0.03, "drawing": "dust_devil_d", "size": [0.127, 0.147], "health": 34, "points": 660},
-      {"name": "e 7", "x": -0.17, "y": -0.003, "drawing": "dust_devil_e", "size": [0.18, 0.213], "health": 34, "points": 660},
-      {"name": "f 8", "x": -0.023, "y": 0.177, "drawing": "dust_devil_f", "size": [0.18, 0.207], "health": 34, "points": 660},
-      {"name": "g 9", "x": -0.157, "y": -0.183, "drawing": "dust_devil_g", "size": [0.193, 0.213], "health": 34, "points": 660},
-      {"name": "h 10", "x": -0.283, "y": -0.097, "drawing": "dust_devil_h", "size": [0.22, 0.253], "health": 34, "points": 660},
-      {"name": "i 11", "x": 0.283, "y": -0.097, "drawing": "dust_devil_i", "size": [0.22, 0.253], "health": 34, "points": 660},
-      {"name": "j 12", "x": 0.003, "y": 0.037, "drawing": "dust_devil_j", "size": [0.14, 0.153], "health": 34, "points": 660}
+      {"name": "a 1", "x": -0.143, "y": 0.19, "drawing": "dust_devil:a", "size": [0.153, 0.167], "health": 34, "points": 660},
+      {"name": "a 2", "x": 0.143, "y": 0.19, "drawing": "dust_devil:a", "size": [0.153, 0.167], "health": 34, "points": 660},
+      {"name": "b 3", "x": -0.043, "y": -0.197, "drawing": "dust_devil:b", "size": [0.18, 0.207], "health": 34, "points": 660},
+      {"name": "c 4", "x": -0.29, "y": 0.063, "drawing": "dust_devil:c", "size": [0.193, 0.233], "health": 34, "points": 660},
+      {"name": "d 5", "x": -0.037, "y": -0.03, "drawing": "dust_devil:d", "size": [0.127, 0.147], "health": 34, "points": 660},
+      {"name": "d 6", "x": 0.037, "y": -0.03, "drawing": "dust_devil:d", "size": [0.127, 0.147], "health": 34, "points": 660},
+      {"name": "e 7", "x": -0.17, "y": -0.003, "drawing": "dust_devil:e", "size": [0.18, 0.213], "health": 34, "points": 660},
+      {"name": "f 8", "x": -0.023, "y": 0.177, "drawing": "dust_devil:f", "size": [0.18, 0.207], "health": 34, "points": 660},
+      {"name": "g 9", "x": -0.157, "y": -0.183, "drawing": "dust_devil:g", "size": [0.193, 0.213], "health": 34, "points": 660},
+      {"name": "h 10", "x": -0.283, "y": -0.097, "drawing": "dust_devil:h", "size": [0.22, 0.253], "health": 34, "points": 660},
+      {"name": "i 11", "x": 0.283, "y": -0.097, "drawing": "dust_devil:i", "size": [0.22, 0.253], "health": 34, "points": 660},
+      {"name": "j 12", "x": 0.003, "y": 0.037, "drawing": "dust_devil:j", "size": [0.14, 0.153], "health": 34, "points": 660}
     ],
     "phases": [
       {
@@ -2391,21 +2423,22 @@
   "landslide": {
     "note": "6-3: boss candidate #183.",
     "name": "LANDSLIDE",
+    "boss": true,
     "drawing": "landslide",
     "size": [0.74, 0.467],
     "health": 278.0,
     "points": 9200,
     "parts": [
-      {"name": "a 1", "x": -0.047, "y": 0.03, "drawing": "landslide_a", "size": [0.153, 0.153], "health": 35, "points": 690},
-      {"name": "a 2", "x": 0.047, "y": 0.03, "drawing": "landslide_a", "size": [0.153, 0.153], "health": 35, "points": 690},
-      {"name": "b 3", "x": -0.26, "y": 0.103, "drawing": "landslide_b", "size": [0.14, 0.127], "health": 35, "points": 690},
-      {"name": "b 4", "x": 0.26, "y": 0.103, "drawing": "landslide_b", "size": [0.14, 0.127], "health": 35, "points": 690},
-      {"name": "c 5", "x": -0.273, "y": 0.01, "drawing": "landslide_c", "size": [0.18, 0.227], "health": 35, "points": 690},
-      {"name": "c 6", "x": 0.273, "y": 0.01, "drawing": "landslide_c", "size": [0.18, 0.227], "health": 35, "points": 690},
-      {"name": "d 7", "x": -0.08, "y": -0.203, "drawing": "landslide_d", "size": [0.18, 0.287], "health": 35, "points": 690},
-      {"name": "d 8", "x": 0.08, "y": -0.203, "drawing": "landslide_d", "size": [0.18, 0.287], "health": 35, "points": 690},
-      {"name": "e 9", "x": -0.16, "y": -0.103, "drawing": "landslide_e", "size": [0.22, 0.293], "health": 35, "points": 690},
-      {"name": "e 10", "x": 0.16, "y": -0.103, "drawing": "landslide_e", "size": [0.22, 0.293], "health": 35, "points": 690}
+      {"name": "a 1", "x": -0.047, "y": 0.03, "drawing": "landslide:a", "size": [0.153, 0.153], "health": 35, "points": 690},
+      {"name": "a 2", "x": 0.047, "y": 0.03, "drawing": "landslide:a", "size": [0.153, 0.153], "health": 35, "points": 690},
+      {"name": "b 3", "x": -0.26, "y": 0.103, "drawing": "landslide:b", "size": [0.14, 0.127], "health": 35, "points": 690},
+      {"name": "b 4", "x": 0.26, "y": 0.103, "drawing": "landslide:b", "size": [0.14, 0.127], "health": 35, "points": 690},
+      {"name": "c 5", "x": -0.273, "y": 0.01, "drawing": "landslide:c", "size": [0.18, 0.227], "health": 35, "points": 690},
+      {"name": "c 6", "x": 0.273, "y": 0.01, "drawing": "landslide:c", "size": [0.18, 0.227], "health": 35, "points": 690},
+      {"name": "d 7", "x": -0.08, "y": -0.203, "drawing": "landslide:d", "size": [0.18, 0.287], "health": 35, "points": 690},
+      {"name": "d 8", "x": 0.08, "y": -0.203, "drawing": "landslide:d", "size": [0.18, 0.287], "health": 35, "points": 690},
+      {"name": "e 9", "x": -0.16, "y": -0.103, "drawing": "landslide:e", "size": [0.22, 0.293], "health": 35, "points": 690},
+      {"name": "e 10", "x": 0.16, "y": -0.103, "drawing": "landslide:e", "size": [0.22, 0.293], "health": 35, "points": 690}
     ],
     "phases": [
       {
@@ -2471,17 +2504,18 @@
   "basilisk": {
     "note": "6-4: boss candidate #048.",
     "name": "BASILISK",
+    "boss": true,
     "drawing": "basilisk",
     "size": [0.573, 0.607],
     "health": 292.0,
     "points": 9600,
     "parts": [
-      {"name": "a 1", "x": -0.223, "y": -0.093, "drawing": "basilisk_a", "size": [0.167, 0.24], "health": 37, "points": 720},
-      {"name": "b 2", "x": -0.023, "y": -0.067, "drawing": "basilisk_b", "size": [0.18, 0.227], "health": 37, "points": 720},
-      {"name": "c 3", "x": 0.023, "y": -0.067, "drawing": "basilisk_c", "size": [0.18, 0.227], "health": 37, "points": 720},
-      {"name": "d 4", "x": -0.143, "y": -0.027, "drawing": "basilisk_d", "size": [0.113, 0.167], "health": 37, "points": 720},
-      {"name": "d 5", "x": 0.143, "y": -0.027, "drawing": "basilisk_d", "size": [0.113, 0.167], "health": 37, "points": 720},
-      {"name": "e 6", "x": 0.003, "y": 0.033, "drawing": "basilisk_e", "size": [0.167, 0.14], "health": 37, "points": 720}
+      {"name": "a 1", "x": -0.223, "y": -0.093, "drawing": "basilisk:a", "size": [0.167, 0.24], "health": 37, "points": 720},
+      {"name": "b 2", "x": -0.023, "y": -0.067, "drawing": "basilisk:b", "size": [0.18, 0.227], "health": 37, "points": 720},
+      {"name": "c 3", "x": 0.023, "y": -0.067, "drawing": "basilisk:c", "size": [0.18, 0.227], "health": 37, "points": 720},
+      {"name": "d 4", "x": -0.143, "y": -0.027, "drawing": "basilisk:d", "size": [0.113, 0.167], "health": 37, "points": 720},
+      {"name": "d 5", "x": 0.143, "y": -0.027, "drawing": "basilisk:d", "size": [0.113, 0.167], "health": 37, "points": 720},
+      {"name": "e 6", "x": 0.003, "y": 0.033, "drawing": "basilisk:e", "size": [0.167, 0.14], "health": 37, "points": 720}
     ],
     "phases": [
       {
@@ -2547,20 +2581,21 @@
   "sandworm": {
     "note": "6-5: boss candidate #094.",
     "name": "SANDWORM",
+    "boss": true,
     "drawing": "sandworm",
     "size": [0.607, 0.573],
     "health": 306.0,
     "points": 10000,
     "parts": [
-      {"name": "a 1", "x": -0.113, "y": 0.077, "drawing": "sandworm_a", "size": [0.207, 0.18], "health": 38, "points": 750},
-      {"name": "a 2", "x": 0.113, "y": 0.077, "drawing": "sandworm_a", "size": [0.207, 0.18], "health": 38, "points": 750},
-      {"name": "b 3", "x": -0.173, "y": 0.203, "drawing": "sandworm_b", "size": [0.127, 0.173], "health": 38, "points": 750},
-      {"name": "b 4", "x": 0.173, "y": 0.203, "drawing": "sandworm_b", "size": [0.127, 0.173], "health": 38, "points": 750},
-      {"name": "c 5", "x": -0.06, "y": 0.19, "drawing": "sandworm_c", "size": [0.127, 0.16], "health": 38, "points": 750},
-      {"name": "c 6", "x": 0.06, "y": 0.19, "drawing": "sandworm_c", "size": [0.127, 0.16], "health": 38, "points": 750},
-      {"name": "d 7", "x": -0.073, "y": -0.097, "drawing": "sandworm_d", "size": [0.193, 0.233], "health": 38, "points": 750},
-      {"name": "d 8", "x": 0.073, "y": -0.097, "drawing": "sandworm_d", "size": [0.193, 0.233], "health": 38, "points": 750},
-      {"name": "e 9", "x": 0.0, "y": -0.097, "drawing": "sandworm_e", "size": [0.14, 0.113], "health": 38, "points": 750}
+      {"name": "a 1", "x": -0.113, "y": 0.077, "drawing": "sandworm:a", "size": [0.207, 0.18], "health": 38, "points": 750},
+      {"name": "a 2", "x": 0.113, "y": 0.077, "drawing": "sandworm:a", "size": [0.207, 0.18], "health": 38, "points": 750},
+      {"name": "b 3", "x": -0.173, "y": 0.203, "drawing": "sandworm:b", "size": [0.127, 0.173], "health": 38, "points": 750},
+      {"name": "b 4", "x": 0.173, "y": 0.203, "drawing": "sandworm:b", "size": [0.127, 0.173], "health": 38, "points": 750},
+      {"name": "c 5", "x": -0.06, "y": 0.19, "drawing": "sandworm:c", "size": [0.127, 0.16], "health": 38, "points": 750},
+      {"name": "c 6", "x": 0.06, "y": 0.19, "drawing": "sandworm:c", "size": [0.127, 0.16], "health": 38, "points": 750},
+      {"name": "d 7", "x": -0.073, "y": -0.097, "drawing": "sandworm:d", "size": [0.193, 0.233], "health": 38, "points": 750},
+      {"name": "d 8", "x": 0.073, "y": -0.097, "drawing": "sandworm:d", "size": [0.193, 0.233], "health": 38, "points": 750},
+      {"name": "e 9", "x": 0.0, "y": -0.097, "drawing": "sandworm:e", "size": [0.14, 0.113], "health": 38, "points": 750}
     ],
     "phases": [
       {
@@ -2626,19 +2661,20 @@
   "monolith": {
     "note": "6-6: boss candidate #031.",
     "name": "MONOLITH",
+    "boss": true,
     "drawing": "monolith",
     "size": [0.553, 0.633],
     "health": 320.0,
     "points": 10400,
     "parts": [
-      {"name": "a 1", "x": -0.113, "y": 0.08, "drawing": "monolith_a", "size": [0.14, 0.153], "health": 40, "points": 780},
-      {"name": "a 2", "x": 0.113, "y": 0.08, "drawing": "monolith_a", "size": [0.14, 0.153], "health": 40, "points": 780},
-      {"name": "b 3", "x": -0.027, "y": -0.22, "drawing": "monolith_b", "size": [0.127, 0.16], "health": 40, "points": 780},
-      {"name": "b 4", "x": 0.027, "y": -0.22, "drawing": "monolith_b", "size": [0.127, 0.16], "health": 40, "points": 780},
-      {"name": "c 5", "x": -0.067, "y": -0.313, "drawing": "monolith_c", "size": [0.1, 0.12], "health": 40, "points": 780},
-      {"name": "c 6", "x": 0.067, "y": -0.313, "drawing": "monolith_c", "size": [0.1, 0.12], "health": 40, "points": 780},
-      {"name": "d 7", "x": -0.067, "y": 0.26, "drawing": "monolith_d", "size": [0.18, 0.2], "health": 40, "points": 780},
-      {"name": "d 8", "x": 0.067, "y": 0.26, "drawing": "monolith_d", "size": [0.18, 0.2], "health": 40, "points": 780}
+      {"name": "a 1", "x": -0.113, "y": 0.08, "drawing": "monolith:a", "size": [0.14, 0.153], "health": 40, "points": 780},
+      {"name": "a 2", "x": 0.113, "y": 0.08, "drawing": "monolith:a", "size": [0.14, 0.153], "health": 40, "points": 780},
+      {"name": "b 3", "x": -0.027, "y": -0.22, "drawing": "monolith:b", "size": [0.127, 0.16], "health": 40, "points": 780},
+      {"name": "b 4", "x": 0.027, "y": -0.22, "drawing": "monolith:b", "size": [0.127, 0.16], "health": 40, "points": 780},
+      {"name": "c 5", "x": -0.067, "y": -0.313, "drawing": "monolith:c", "size": [0.1, 0.12], "health": 40, "points": 780},
+      {"name": "c 6", "x": 0.067, "y": -0.313, "drawing": "monolith:c", "size": [0.1, 0.12], "health": 40, "points": 780},
+      {"name": "d 7", "x": -0.067, "y": 0.26, "drawing": "monolith:d", "size": [0.18, 0.2], "health": 40, "points": 780},
+      {"name": "d 8", "x": 0.067, "y": 0.26, "drawing": "monolith:d", "size": [0.18, 0.2], "health": 40, "points": 780}
     ],
     "phases": [
       {
@@ -2704,21 +2740,22 @@
   "furnace": {
     "note": "7-1: boss candidate #158.",
     "name": "FURNACE",
+    "boss": true,
     "drawing": "furnace",
     "size": [0.733, 0.48],
     "health": 278.0,
     "points": 9200,
     "parts": [
-      {"name": "a 1", "x": -0.263, "y": -0.07, "drawing": "furnace_a", "size": [0.193, 0.18], "health": 35, "points": 690},
-      {"name": "b 2", "x": 0.263, "y": -0.07, "drawing": "furnace_b", "size": [0.193, 0.18], "health": 35, "points": 690},
-      {"name": "c 3", "x": -0.11, "y": -0.21, "drawing": "furnace_c", "size": [0.127, 0.113], "health": 35, "points": 690},
-      {"name": "d 4", "x": 0.11, "y": -0.21, "drawing": "furnace_d", "size": [0.127, 0.113], "health": 35, "points": 690},
-      {"name": "e 5", "x": -0.223, "y": 0.097, "drawing": "furnace_e", "size": [0.193, 0.247], "health": 35, "points": 690},
-      {"name": "f 6", "x": -0.123, "y": 0.07, "drawing": "furnace_f", "size": [0.26, 0.213], "health": 35, "points": 690},
-      {"name": "g 7", "x": -0.35, "y": 0.05, "drawing": "furnace_g", "size": [0.18, 0.207], "health": 35, "points": 690},
-      {"name": "h 8", "x": -0.17, "y": -0.09, "drawing": "furnace_h", "size": [0.193, 0.193], "health": 35, "points": 690},
-      {"name": "i 9", "x": -0.137, "y": 0.19, "drawing": "furnace_i", "size": [0.26, 0.307], "health": 35, "points": 690},
-      {"name": "i 10", "x": 0.137, "y": 0.19, "drawing": "furnace_i", "size": [0.26, 0.307], "health": 35, "points": 690}
+      {"name": "a 1", "x": -0.263, "y": -0.07, "drawing": "furnace:a", "size": [0.193, 0.18], "health": 35, "points": 690},
+      {"name": "b 2", "x": 0.263, "y": -0.07, "drawing": "furnace:b", "size": [0.193, 0.18], "health": 35, "points": 690},
+      {"name": "c 3", "x": -0.11, "y": -0.21, "drawing": "furnace:c", "size": [0.127, 0.113], "health": 35, "points": 690},
+      {"name": "d 4", "x": 0.11, "y": -0.21, "drawing": "furnace:d", "size": [0.127, 0.113], "health": 35, "points": 690},
+      {"name": "e 5", "x": -0.223, "y": 0.097, "drawing": "furnace:e", "size": [0.193, 0.247], "health": 35, "points": 690},
+      {"name": "f 6", "x": -0.123, "y": 0.07, "drawing": "furnace:f", "size": [0.26, 0.213], "health": 35, "points": 690},
+      {"name": "g 7", "x": -0.35, "y": 0.05, "drawing": "furnace:g", "size": [0.18, 0.207], "health": 35, "points": 690},
+      {"name": "h 8", "x": -0.17, "y": -0.09, "drawing": "furnace:h", "size": [0.193, 0.193], "health": 35, "points": 690},
+      {"name": "i 9", "x": -0.137, "y": 0.19, "drawing": "furnace:i", "size": [0.26, 0.307], "health": 35, "points": 690},
+      {"name": "i 10", "x": 0.137, "y": 0.19, "drawing": "furnace:i", "size": [0.26, 0.307], "health": 35, "points": 690}
     ],
     "phases": [
       {
@@ -2784,19 +2821,20 @@
   "smokestack": {
     "note": "7-2: boss candidate #156.",
     "name": "SMOKESTACK",
+    "boss": true,
     "drawing": "smokestack",
     "size": [0.66, 0.533],
     "health": 292.0,
     "points": 9600,
     "parts": [
-      {"name": "a 1", "x": -0.307, "y": 0.21, "drawing": "smokestack_a", "size": [0.18, 0.167], "health": 37, "points": 720},
-      {"name": "a 2", "x": 0.307, "y": 0.21, "drawing": "smokestack_a", "size": [0.18, 0.167], "health": 37, "points": 720},
-      {"name": "b 3", "x": -0.033, "y": -0.223, "drawing": "smokestack_b", "size": [0.207, 0.253], "health": 37, "points": 720},
-      {"name": "b 4", "x": 0.033, "y": -0.223, "drawing": "smokestack_b", "size": [0.207, 0.253], "health": 37, "points": 720},
-      {"name": "c 5", "x": -0.087, "y": 0.097, "drawing": "smokestack_c", "size": [0.127, 0.127], "health": 37, "points": 720},
-      {"name": "c 6", "x": 0.087, "y": 0.097, "drawing": "smokestack_c", "size": [0.127, 0.127], "health": 37, "points": 720},
-      {"name": "d 7", "x": -0.067, "y": 0.197, "drawing": "smokestack_d", "size": [0.153, 0.167], "health": 37, "points": 720},
-      {"name": "d 8", "x": 0.067, "y": 0.197, "drawing": "smokestack_d", "size": [0.153, 0.167], "health": 37, "points": 720}
+      {"name": "a 1", "x": -0.307, "y": 0.21, "drawing": "smokestack:a", "size": [0.18, 0.167], "health": 37, "points": 720},
+      {"name": "a 2", "x": 0.307, "y": 0.21, "drawing": "smokestack:a", "size": [0.18, 0.167], "health": 37, "points": 720},
+      {"name": "b 3", "x": -0.033, "y": -0.223, "drawing": "smokestack:b", "size": [0.207, 0.253], "health": 37, "points": 720},
+      {"name": "b 4", "x": 0.033, "y": -0.223, "drawing": "smokestack:b", "size": [0.207, 0.253], "health": 37, "points": 720},
+      {"name": "c 5", "x": -0.087, "y": 0.097, "drawing": "smokestack:c", "size": [0.127, 0.127], "health": 37, "points": 720},
+      {"name": "c 6", "x": 0.087, "y": 0.097, "drawing": "smokestack:c", "size": [0.127, 0.127], "health": 37, "points": 720},
+      {"name": "d 7", "x": -0.067, "y": 0.197, "drawing": "smokestack:d", "size": [0.153, 0.167], "health": 37, "points": 720},
+      {"name": "d 8", "x": 0.067, "y": 0.197, "drawing": "smokestack:d", "size": [0.153, 0.167], "health": 37, "points": 720}
     ],
     "phases": [
       {
@@ -2862,21 +2900,22 @@
   "slag_king": {
     "note": "7-3: boss candidate #047.",
     "name": "SLAG KING",
+    "boss": true,
     "drawing": "slag_king",
     "size": [0.593, 0.6],
     "health": 306.0,
     "points": 10000,
     "parts": [
-      {"name": "a 1", "x": -0.173, "y": -0.037, "drawing": "slag_king_a", "size": [0.167, 0.18], "health": 38, "points": 750},
-      {"name": "a 2", "x": 0.173, "y": -0.037, "drawing": "slag_king_a", "size": [0.167, 0.18], "health": 38, "points": 750},
-      {"name": "b 3", "x": -0.12, "y": 0.123, "drawing": "slag_king_b", "size": [0.113, 0.153], "health": 38, "points": 750},
-      {"name": "b 4", "x": 0.12, "y": 0.123, "drawing": "slag_king_b", "size": [0.113, 0.153], "health": 38, "points": 750},
-      {"name": "c 5", "x": -0.14, "y": -0.123, "drawing": "slag_king_c", "size": [0.1, 0.087], "health": 38, "points": 750},
-      {"name": "c 6", "x": 0.14, "y": -0.123, "drawing": "slag_king_c", "size": [0.1, 0.087], "health": 38, "points": 750},
-      {"name": "d 7", "x": -0.093, "y": 0.21, "drawing": "slag_king_d", "size": [0.167, 0.2], "health": 38, "points": 750},
-      {"name": "d 8", "x": 0.093, "y": 0.21, "drawing": "slag_king_d", "size": [0.167, 0.2], "health": 38, "points": 750},
-      {"name": "e 9", "x": -0.2, "y": 0.137, "drawing": "slag_king_e", "size": [0.14, 0.133], "health": 38, "points": 750},
-      {"name": "e 10", "x": 0.2, "y": 0.137, "drawing": "slag_king_e", "size": [0.14, 0.133], "health": 38, "points": 750}
+      {"name": "a 1", "x": -0.173, "y": -0.037, "drawing": "slag_king:a", "size": [0.167, 0.18], "health": 38, "points": 750},
+      {"name": "a 2", "x": 0.173, "y": -0.037, "drawing": "slag_king:a", "size": [0.167, 0.18], "health": 38, "points": 750},
+      {"name": "b 3", "x": -0.12, "y": 0.123, "drawing": "slag_king:b", "size": [0.113, 0.153], "health": 38, "points": 750},
+      {"name": "b 4", "x": 0.12, "y": 0.123, "drawing": "slag_king:b", "size": [0.113, 0.153], "health": 38, "points": 750},
+      {"name": "c 5", "x": -0.14, "y": -0.123, "drawing": "slag_king:c", "size": [0.1, 0.087], "health": 38, "points": 750},
+      {"name": "c 6", "x": 0.14, "y": -0.123, "drawing": "slag_king:c", "size": [0.1, 0.087], "health": 38, "points": 750},
+      {"name": "d 7", "x": -0.093, "y": 0.21, "drawing": "slag_king:d", "size": [0.167, 0.2], "health": 38, "points": 750},
+      {"name": "d 8", "x": 0.093, "y": 0.21, "drawing": "slag_king:d", "size": [0.167, 0.2], "health": 38, "points": 750},
+      {"name": "e 9", "x": -0.2, "y": 0.137, "drawing": "slag_king:e", "size": [0.14, 0.133], "health": 38, "points": 750},
+      {"name": "e 10", "x": 0.2, "y": 0.137, "drawing": "slag_king:e", "size": [0.14, 0.133], "health": 38, "points": 750}
     ],
     "phases": [
       {
@@ -2942,21 +2981,22 @@
   "forgemaster": {
     "note": "7-4: boss candidate #084.",
     "name": "FORGEMASTER",
+    "boss": true,
     "drawing": "forgemaster",
     "size": [0.673, 0.54],
     "health": 320.0,
     "points": 10400,
     "parts": [
-      {"name": "a 1", "x": -0.18, "y": -0.193, "drawing": "forgemaster_a", "size": [0.14, 0.167], "health": 40, "points": 780},
-      {"name": "a 2", "x": 0.18, "y": -0.193, "drawing": "forgemaster_a", "size": [0.14, 0.167], "health": 40, "points": 780},
-      {"name": "b 3", "x": -0.14, "y": 0.053, "drawing": "forgemaster_b", "size": [0.127, 0.173], "health": 40, "points": 780},
-      {"name": "b 4", "x": 0.14, "y": 0.053, "drawing": "forgemaster_b", "size": [0.127, 0.173], "health": 40, "points": 780},
-      {"name": "c 5", "x": -0.233, "y": 0.06, "drawing": "forgemaster_c", "size": [0.153, 0.187], "health": 40, "points": 780},
-      {"name": "c 6", "x": 0.233, "y": 0.06, "drawing": "forgemaster_c", "size": [0.153, 0.187], "health": 40, "points": 780},
-      {"name": "d 7", "x": -0.047, "y": -0.02, "drawing": "forgemaster_d", "size": [0.1, 0.133], "health": 40, "points": 780},
-      {"name": "d 8", "x": 0.047, "y": -0.02, "drawing": "forgemaster_d", "size": [0.1, 0.133], "health": 40, "points": 780},
-      {"name": "e 9", "x": -0.073, "y": -0.16, "drawing": "forgemaster_e", "size": [0.1, 0.113], "health": 40, "points": 780},
-      {"name": "e 10", "x": 0.073, "y": -0.16, "drawing": "forgemaster_e", "size": [0.1, 0.113], "health": 40, "points": 780}
+      {"name": "a 1", "x": -0.18, "y": -0.193, "drawing": "forgemaster:a", "size": [0.14, 0.167], "health": 40, "points": 780},
+      {"name": "a 2", "x": 0.18, "y": -0.193, "drawing": "forgemaster:a", "size": [0.14, 0.167], "health": 40, "points": 780},
+      {"name": "b 3", "x": -0.14, "y": 0.053, "drawing": "forgemaster:b", "size": [0.127, 0.173], "health": 40, "points": 780},
+      {"name": "b 4", "x": 0.14, "y": 0.053, "drawing": "forgemaster:b", "size": [0.127, 0.173], "health": 40, "points": 780},
+      {"name": "c 5", "x": -0.233, "y": 0.06, "drawing": "forgemaster:c", "size": [0.153, 0.187], "health": 40, "points": 780},
+      {"name": "c 6", "x": 0.233, "y": 0.06, "drawing": "forgemaster:c", "size": [0.153, 0.187], "health": 40, "points": 780},
+      {"name": "d 7", "x": -0.047, "y": -0.02, "drawing": "forgemaster:d", "size": [0.1, 0.133], "health": 40, "points": 780},
+      {"name": "d 8", "x": 0.047, "y": -0.02, "drawing": "forgemaster:d", "size": [0.1, 0.133], "health": 40, "points": 780},
+      {"name": "e 9", "x": -0.073, "y": -0.16, "drawing": "forgemaster:e", "size": [0.1, 0.113], "health": 40, "points": 780},
+      {"name": "e 10", "x": 0.073, "y": -0.16, "drawing": "forgemaster:e", "size": [0.1, 0.113], "health": 40, "points": 780}
     ],
     "phases": [
       {
@@ -3022,19 +3062,20 @@
   "inferno": {
     "note": "7-5: boss candidate #043.",
     "name": "INFERNO",
+    "boss": true,
     "drawing": "inferno",
     "size": [0.607, 0.613],
     "health": 334.0,
     "points": 10800,
     "parts": [
-      {"name": "a 1", "x": -0.1, "y": 0.177, "drawing": "inferno_a", "size": [0.153, 0.233], "health": 42, "points": 810},
-      {"name": "a 2", "x": 0.1, "y": 0.177, "drawing": "inferno_a", "size": [0.153, 0.233], "health": 42, "points": 810},
-      {"name": "b 3", "x": -0.167, "y": -0.11, "drawing": "inferno_b", "size": [0.153, 0.193], "health": 42, "points": 810},
-      {"name": "b 4", "x": 0.167, "y": -0.11, "drawing": "inferno_b", "size": [0.153, 0.193], "health": 42, "points": 810},
-      {"name": "c 5", "x": -0.14, "y": 0.257, "drawing": "inferno_c", "size": [0.153, 0.167], "health": 42, "points": 810},
-      {"name": "c 6", "x": 0.14, "y": 0.257, "drawing": "inferno_c", "size": [0.153, 0.167], "health": 42, "points": 810},
-      {"name": "d 7", "x": -0.253, "y": -0.17, "drawing": "inferno_d", "size": [0.113, 0.147], "health": 42, "points": 810},
-      {"name": "d 8", "x": 0.253, "y": -0.17, "drawing": "inferno_d", "size": [0.113, 0.147], "health": 42, "points": 810}
+      {"name": "a 1", "x": -0.1, "y": 0.177, "drawing": "inferno:a", "size": [0.153, 0.233], "health": 42, "points": 810},
+      {"name": "a 2", "x": 0.1, "y": 0.177, "drawing": "inferno:a", "size": [0.153, 0.233], "health": 42, "points": 810},
+      {"name": "b 3", "x": -0.167, "y": -0.11, "drawing": "inferno:b", "size": [0.153, 0.193], "health": 42, "points": 810},
+      {"name": "b 4", "x": 0.167, "y": -0.11, "drawing": "inferno:b", "size": [0.153, 0.193], "health": 42, "points": 810},
+      {"name": "c 5", "x": -0.14, "y": 0.257, "drawing": "inferno:c", "size": [0.153, 0.167], "health": 42, "points": 810},
+      {"name": "c 6", "x": 0.14, "y": 0.257, "drawing": "inferno:c", "size": [0.153, 0.167], "health": 42, "points": 810},
+      {"name": "d 7", "x": -0.253, "y": -0.17, "drawing": "inferno:d", "size": [0.113, 0.147], "health": 42, "points": 810},
+      {"name": "d 8", "x": 0.253, "y": -0.17, "drawing": "inferno:d", "size": [0.113, 0.147], "health": 42, "points": 810}
     ],
     "phases": [
       {
@@ -3100,21 +3141,22 @@
   "reactor": {
     "note": "7-6: boss candidate #049.",
     "name": "REACTOR",
+    "boss": true,
     "drawing": "reactor",
     "size": [0.647, 0.593],
     "health": 348.0,
     "points": 11200,
     "parts": [
-      {"name": "a 1", "x": -0.22, "y": -0.007, "drawing": "reactor_a", "size": [0.233, 0.307], "health": 43, "points": 840},
-      {"name": "a 2", "x": 0.22, "y": -0.007, "drawing": "reactor_a", "size": [0.233, 0.307], "health": 43, "points": 840},
-      {"name": "b 3", "x": -0.04, "y": -0.213, "drawing": "reactor_b", "size": [0.193, 0.26], "health": 43, "points": 840},
-      {"name": "b 4", "x": 0.04, "y": -0.213, "drawing": "reactor_b", "size": [0.193, 0.26], "health": 43, "points": 840},
-      {"name": "c 5", "x": -0.12, "y": 0.253, "drawing": "reactor_c", "size": [0.233, 0.213], "health": 43, "points": 840},
-      {"name": "c 6", "x": 0.12, "y": 0.253, "drawing": "reactor_c", "size": [0.233, 0.213], "health": 43, "points": 840},
-      {"name": "d 7", "x": -0.247, "y": -0.127, "drawing": "reactor_d", "size": [0.113, 0.14], "health": 43, "points": 840},
-      {"name": "d 8", "x": 0.247, "y": -0.127, "drawing": "reactor_d", "size": [0.113, 0.14], "health": 43, "points": 840},
-      {"name": "e 9", "x": -0.047, "y": 0.093, "drawing": "reactor_e", "size": [0.127, 0.133], "health": 43, "points": 840},
-      {"name": "e 10", "x": 0.047, "y": 0.093, "drawing": "reactor_e", "size": [0.127, 0.133], "health": 43, "points": 840}
+      {"name": "a 1", "x": -0.22, "y": -0.007, "drawing": "reactor:a", "size": [0.233, 0.307], "health": 43, "points": 840},
+      {"name": "a 2", "x": 0.22, "y": -0.007, "drawing": "reactor:a", "size": [0.233, 0.307], "health": 43, "points": 840},
+      {"name": "b 3", "x": -0.04, "y": -0.213, "drawing": "reactor:b", "size": [0.193, 0.26], "health": 43, "points": 840},
+      {"name": "b 4", "x": 0.04, "y": -0.213, "drawing": "reactor:b", "size": [0.193, 0.26], "health": 43, "points": 840},
+      {"name": "c 5", "x": -0.12, "y": 0.253, "drawing": "reactor:c", "size": [0.233, 0.213], "health": 43, "points": 840},
+      {"name": "c 6", "x": 0.12, "y": 0.253, "drawing": "reactor:c", "size": [0.233, 0.213], "health": 43, "points": 840},
+      {"name": "d 7", "x": -0.247, "y": -0.127, "drawing": "reactor:d", "size": [0.113, 0.14], "health": 43, "points": 840},
+      {"name": "d 8", "x": 0.247, "y": -0.127, "drawing": "reactor:d", "size": [0.113, 0.14], "health": 43, "points": 840},
+      {"name": "e 9", "x": -0.047, "y": 0.093, "drawing": "reactor:e", "size": [0.127, 0.133], "health": 43, "points": 840},
+      {"name": "e 10", "x": 0.047, "y": 0.093, "drawing": "reactor:e", "size": [0.127, 0.133], "health": 43, "points": 840}
     ],
     "phases": [
       {
@@ -3180,15 +3222,16 @@
   "neon_tyrant": {
     "note": "8-1: boss candidate #110.",
     "name": "NEON TYRANT",
+    "boss": true,
     "drawing": "neon_tyrant",
     "size": [0.687, 0.6],
     "health": 306.0,
     "points": 10000,
     "parts": [
-      {"name": "a 1", "x": -0.087, "y": 0.05, "drawing": "neon_tyrant_a", "size": [0.233, 0.34], "health": 38, "points": 750},
-      {"name": "b 2", "x": -0.04, "y": -0.277, "drawing": "neon_tyrant_b", "size": [0.18, 0.267], "health": 38, "points": 750},
-      {"name": "c 3", "x": -0.287, "y": 0.097, "drawing": "neon_tyrant_c", "size": [0.193, 0.24], "health": 38, "points": 750},
-      {"name": "d 4", "x": 0.287, "y": 0.097, "drawing": "neon_tyrant_d", "size": [0.193, 0.24], "health": 38, "points": 750}
+      {"name": "a 1", "x": -0.087, "y": 0.05, "drawing": "neon_tyrant:a", "size": [0.233, 0.34], "health": 38, "points": 750},
+      {"name": "b 2", "x": -0.04, "y": -0.277, "drawing": "neon_tyrant:b", "size": [0.18, 0.267], "health": 38, "points": 750},
+      {"name": "c 3", "x": -0.287, "y": 0.097, "drawing": "neon_tyrant:c", "size": [0.193, 0.24], "health": 38, "points": 750},
+      {"name": "d 4", "x": 0.287, "y": 0.097, "drawing": "neon_tyrant:d", "size": [0.193, 0.24], "health": 38, "points": 750}
     ],
     "phases": [
       {
@@ -3254,22 +3297,23 @@
   "gridlock": {
     "note": "8-2: boss candidate #186.",
     "name": "GRIDLOCK",
+    "boss": true,
     "drawing": "gridlock",
     "size": [0.673, 0.613],
     "health": 320.0,
     "points": 10400,
     "parts": [
-      {"name": "a 1", "x": -0.267, "y": 0.277, "drawing": "gridlock_a", "size": [0.18, 0.233], "health": 40, "points": 780},
-      {"name": "a 2", "x": 0.267, "y": 0.277, "drawing": "gridlock_a", "size": [0.18, 0.233], "health": 40, "points": 780},
-      {"name": "b 3", "x": -0.08, "y": 0.017, "drawing": "gridlock_b", "size": [0.14, 0.193], "health": 40, "points": 780},
-      {"name": "b 4", "x": 0.08, "y": 0.017, "drawing": "gridlock_b", "size": [0.14, 0.193], "health": 40, "points": 780},
-      {"name": "c 5", "x": -0.06, "y": 0.15, "drawing": "gridlock_c", "size": [0.167, 0.22], "health": 40, "points": 780},
-      {"name": "c 6", "x": 0.06, "y": 0.15, "drawing": "gridlock_c", "size": [0.167, 0.22], "health": 40, "points": 780},
-      {"name": "d 7", "x": -0.173, "y": 0.143, "drawing": "gridlock_d", "size": [0.233, 0.26], "health": 40, "points": 780},
-      {"name": "d 8", "x": 0.173, "y": 0.143, "drawing": "gridlock_d", "size": [0.233, 0.26], "health": 40, "points": 780},
-      {"name": "e 9", "x": -0.1, "y": 0.27, "drawing": "gridlock_e", "size": [0.193, 0.22], "health": 40, "points": 780},
-      {"name": "e 10", "x": 0.1, "y": 0.27, "drawing": "gridlock_e", "size": [0.193, 0.22], "health": 40, "points": 780},
-      {"name": "f 11", "x": 0.0, "y": 0.043, "drawing": "gridlock_f", "size": [0.18, 0.24], "health": 40, "points": 780}
+      {"name": "a 1", "x": -0.267, "y": 0.277, "drawing": "gridlock:a", "size": [0.18, 0.233], "health": 40, "points": 780},
+      {"name": "a 2", "x": 0.267, "y": 0.277, "drawing": "gridlock:a", "size": [0.18, 0.233], "health": 40, "points": 780},
+      {"name": "b 3", "x": -0.08, "y": 0.017, "drawing": "gridlock:b", "size": [0.14, 0.193], "health": 40, "points": 780},
+      {"name": "b 4", "x": 0.08, "y": 0.017, "drawing": "gridlock:b", "size": [0.14, 0.193], "health": 40, "points": 780},
+      {"name": "c 5", "x": -0.06, "y": 0.15, "drawing": "gridlock:c", "size": [0.167, 0.22], "health": 40, "points": 780},
+      {"name": "c 6", "x": 0.06, "y": 0.15, "drawing": "gridlock:c", "size": [0.167, 0.22], "health": 40, "points": 780},
+      {"name": "d 7", "x": -0.173, "y": 0.143, "drawing": "gridlock:d", "size": [0.233, 0.26], "health": 40, "points": 780},
+      {"name": "d 8", "x": 0.173, "y": 0.143, "drawing": "gridlock:d", "size": [0.233, 0.26], "health": 40, "points": 780},
+      {"name": "e 9", "x": -0.1, "y": 0.27, "drawing": "gridlock:e", "size": [0.193, 0.22], "health": 40, "points": 780},
+      {"name": "e 10", "x": 0.1, "y": 0.27, "drawing": "gridlock:e", "size": [0.193, 0.22], "health": 40, "points": 780},
+      {"name": "f 11", "x": 0.0, "y": 0.043, "drawing": "gridlock:f", "size": [0.18, 0.24], "health": 40, "points": 780}
     ],
     "phases": [
       {
@@ -3335,19 +3379,20 @@
   "blackout": {
     "note": "8-3: boss candidate #081.",
     "name": "BLACKOUT",
+    "boss": true,
     "drawing": "blackout",
     "size": [0.707, 0.587],
     "health": 334.0,
     "points": 10800,
     "parts": [
-      {"name": "a 1", "x": -0.15, "y": 0.083, "drawing": "blackout_a", "size": [0.18, 0.26], "health": 42, "points": 810},
-      {"name": "a 2", "x": 0.15, "y": 0.083, "drawing": "blackout_a", "size": [0.18, 0.26], "health": 42, "points": 810},
-      {"name": "b 3", "x": -0.263, "y": -0.01, "drawing": "blackout_b", "size": [0.167, 0.247], "health": 42, "points": 810},
-      {"name": "c 4", "x": -0.23, "y": 0.23, "drawing": "blackout_c", "size": [0.127, 0.16], "health": 42, "points": 810},
-      {"name": "d 5", "x": -0.023, "y": -0.21, "drawing": "blackout_d", "size": [0.14, 0.227], "health": 42, "points": 810},
-      {"name": "d 6", "x": 0.023, "y": -0.21, "drawing": "blackout_d", "size": [0.14, 0.227], "health": 42, "points": 810},
-      {"name": "e 7", "x": -0.037, "y": 0.13, "drawing": "blackout_e", "size": [0.193, 0.22], "health": 42, "points": 810},
-      {"name": "e 8", "x": 0.037, "y": 0.13, "drawing": "blackout_e", "size": [0.193, 0.22], "health": 42, "points": 810}
+      {"name": "a 1", "x": -0.15, "y": 0.083, "drawing": "blackout:a", "size": [0.18, 0.26], "health": 42, "points": 810},
+      {"name": "a 2", "x": 0.15, "y": 0.083, "drawing": "blackout:a", "size": [0.18, 0.26], "health": 42, "points": 810},
+      {"name": "b 3", "x": -0.263, "y": -0.01, "drawing": "blackout:b", "size": [0.167, 0.247], "health": 42, "points": 810},
+      {"name": "c 4", "x": -0.23, "y": 0.23, "drawing": "blackout:c", "size": [0.127, 0.16], "health": 42, "points": 810},
+      {"name": "d 5", "x": -0.023, "y": -0.21, "drawing": "blackout:d", "size": [0.14, 0.227], "health": 42, "points": 810},
+      {"name": "d 6", "x": 0.023, "y": -0.21, "drawing": "blackout:d", "size": [0.14, 0.227], "health": 42, "points": 810},
+      {"name": "e 7", "x": -0.037, "y": 0.13, "drawing": "blackout:e", "size": [0.193, 0.22], "health": 42, "points": 810},
+      {"name": "e 8", "x": 0.037, "y": 0.13, "drawing": "blackout:e", "size": [0.193, 0.22], "health": 42, "points": 810}
     ],
     "phases": [
       {
@@ -3413,22 +3458,23 @@
   "skybreaker": {
     "note": "8-4: boss candidate #072.",
     "name": "SKYBREAKER",
+    "boss": true,
     "drawing": "skybreaker",
     "size": [0.767, 0.553],
     "health": 348.0,
     "points": 11200,
     "parts": [
-      {"name": "a 1", "x": -0.28, "y": 0.067, "drawing": "skybreaker_a", "size": [0.22, 0.233], "health": 43, "points": 840},
-      {"name": "a 2", "x": 0.28, "y": 0.067, "drawing": "skybreaker_a", "size": [0.22, 0.233], "health": 43, "points": 840},
-      {"name": "b 3", "x": -0.18, "y": 0.067, "drawing": "skybreaker_b", "size": [0.247, 0.293], "health": 43, "points": 840},
-      {"name": "b 4", "x": 0.18, "y": 0.067, "drawing": "skybreaker_b", "size": [0.247, 0.293], "health": 43, "points": 840},
-      {"name": "c 5", "x": -0.293, "y": -0.127, "drawing": "skybreaker_c", "size": [0.247, 0.307], "health": 43, "points": 840},
-      {"name": "c 6", "x": 0.293, "y": -0.127, "drawing": "skybreaker_c", "size": [0.247, 0.307], "health": 43, "points": 840},
-      {"name": "d 7", "x": -0.227, "y": 0.227, "drawing": "skybreaker_d", "size": [0.14, 0.173], "health": 43, "points": 840},
-      {"name": "d 8", "x": 0.227, "y": 0.227, "drawing": "skybreaker_d", "size": [0.14, 0.173], "health": 43, "points": 840},
-      {"name": "e 9", "x": -0.153, "y": -0.1, "drawing": "skybreaker_e", "size": [0.26, 0.207], "health": 43, "points": 840},
-      {"name": "e 10", "x": 0.153, "y": -0.1, "drawing": "skybreaker_e", "size": [0.26, 0.207], "health": 43, "points": 840},
-      {"name": "f 11", "x": 0.0, "y": 0.013, "drawing": "skybreaker_f", "size": [0.193, 0.193], "health": 43, "points": 840}
+      {"name": "a 1", "x": -0.28, "y": 0.067, "drawing": "skybreaker:a", "size": [0.22, 0.233], "health": 43, "points": 840},
+      {"name": "a 2", "x": 0.28, "y": 0.067, "drawing": "skybreaker:a", "size": [0.22, 0.233], "health": 43, "points": 840},
+      {"name": "b 3", "x": -0.18, "y": 0.067, "drawing": "skybreaker:b", "size": [0.247, 0.293], "health": 43, "points": 840},
+      {"name": "b 4", "x": 0.18, "y": 0.067, "drawing": "skybreaker:b", "size": [0.247, 0.293], "health": 43, "points": 840},
+      {"name": "c 5", "x": -0.293, "y": -0.127, "drawing": "skybreaker:c", "size": [0.247, 0.307], "health": 43, "points": 840},
+      {"name": "c 6", "x": 0.293, "y": -0.127, "drawing": "skybreaker:c", "size": [0.247, 0.307], "health": 43, "points": 840},
+      {"name": "d 7", "x": -0.227, "y": 0.227, "drawing": "skybreaker:d", "size": [0.14, 0.173], "health": 43, "points": 840},
+      {"name": "d 8", "x": 0.227, "y": 0.227, "drawing": "skybreaker:d", "size": [0.14, 0.173], "health": 43, "points": 840},
+      {"name": "e 9", "x": -0.153, "y": -0.1, "drawing": "skybreaker:e", "size": [0.26, 0.207], "health": 43, "points": 840},
+      {"name": "e 10", "x": 0.153, "y": -0.1, "drawing": "skybreaker:e", "size": [0.26, 0.207], "health": 43, "points": 840},
+      {"name": "f 11", "x": 0.0, "y": 0.013, "drawing": "skybreaker:f", "size": [0.193, 0.193], "health": 43, "points": 840}
     ],
     "phases": [
       {
@@ -3494,19 +3540,20 @@
   "sovereign": {
     "note": "8-5: boss candidate #121.",
     "name": "SOVEREIGN",
+    "boss": true,
     "drawing": "sovereign",
     "size": [0.74, 0.607],
     "health": 362.0,
     "points": 11600,
     "parts": [
-      {"name": "a 1", "x": -0.187, "y": -0.187, "drawing": "sovereign_a", "size": [0.1, 0.147], "health": 45, "points": 870},
-      {"name": "a 2", "x": 0.187, "y": -0.187, "drawing": "sovereign_a", "size": [0.1, 0.147], "health": 45, "points": 870},
-      {"name": "b 3", "x": -0.147, "y": 0.087, "drawing": "sovereign_b", "size": [0.233, 0.213], "health": 45, "points": 870},
-      {"name": "b 4", "x": 0.147, "y": 0.087, "drawing": "sovereign_b", "size": [0.233, 0.213], "health": 45, "points": 870},
-      {"name": "c 5", "x": -0.233, "y": -0.067, "drawing": "sovereign_c", "size": [0.273, 0.247], "health": 45, "points": 870},
-      {"name": "c 6", "x": 0.233, "y": -0.067, "drawing": "sovereign_c", "size": [0.273, 0.247], "health": 45, "points": 870},
-      {"name": "d 7", "x": -0.287, "y": -0.207, "drawing": "sovereign_d", "size": [0.233, 0.22], "health": 45, "points": 870},
-      {"name": "d 8", "x": 0.287, "y": -0.207, "drawing": "sovereign_d", "size": [0.233, 0.22], "health": 45, "points": 870}
+      {"name": "a 1", "x": -0.187, "y": -0.187, "drawing": "sovereign:a", "size": [0.1, 0.147], "health": 45, "points": 870},
+      {"name": "a 2", "x": 0.187, "y": -0.187, "drawing": "sovereign:a", "size": [0.1, 0.147], "health": 45, "points": 870},
+      {"name": "b 3", "x": -0.147, "y": 0.087, "drawing": "sovereign:b", "size": [0.233, 0.213], "health": 45, "points": 870},
+      {"name": "b 4", "x": 0.147, "y": 0.087, "drawing": "sovereign:b", "size": [0.233, 0.213], "health": 45, "points": 870},
+      {"name": "c 5", "x": -0.233, "y": -0.067, "drawing": "sovereign:c", "size": [0.273, 0.247], "health": 45, "points": 870},
+      {"name": "c 6", "x": 0.233, "y": -0.067, "drawing": "sovereign:c", "size": [0.273, 0.247], "health": 45, "points": 870},
+      {"name": "d 7", "x": -0.287, "y": -0.207, "drawing": "sovereign:d", "size": [0.233, 0.22], "health": 45, "points": 870},
+      {"name": "d 8", "x": 0.287, "y": -0.207, "drawing": "sovereign:d", "size": [0.233, 0.22], "health": 45, "points": 870}
     ],
     "phases": [
       {
@@ -3572,18 +3619,19 @@
   "singularity": {
     "note": "8-6: boss candidate #155.",
     "name": "SINGULARITY",
+    "boss": true,
     "drawing": "singularity",
     "size": [0.767, 0.6],
     "health": 376.0,
     "points": 12000,
     "parts": [
-      {"name": "a 1", "x": -0.073, "y": -0.137, "drawing": "singularity_a", "size": [0.26, 0.273], "health": 46, "points": 900},
-      {"name": "a 2", "x": 0.073, "y": -0.137, "drawing": "singularity_a", "size": [0.26, 0.273], "health": 46, "points": 900},
-      {"name": "b 3", "x": -0.027, "y": -0.023, "drawing": "singularity_b", "size": [0.207, 0.2], "health": 46, "points": 900},
-      {"name": "b 4", "x": 0.027, "y": -0.023, "drawing": "singularity_b", "size": [0.207, 0.2], "health": 46, "points": 900},
-      {"name": "c 5", "x": -0.193, "y": -0.11, "drawing": "singularity_c", "size": [0.233, 0.227], "health": 46, "points": 900},
-      {"name": "c 6", "x": 0.193, "y": -0.11, "drawing": "singularity_c", "size": [0.233, 0.227], "health": 46, "points": 900},
-      {"name": "d 7", "x": 0.0, "y": 0.09, "drawing": "singularity_d", "size": [0.153, 0.167], "health": 46, "points": 900}
+      {"name": "a 1", "x": -0.073, "y": -0.137, "drawing": "singularity:a", "size": [0.26, 0.273], "health": 46, "points": 900},
+      {"name": "a 2", "x": 0.073, "y": -0.137, "drawing": "singularity:a", "size": [0.26, 0.273], "health": 46, "points": 900},
+      {"name": "b 3", "x": -0.027, "y": -0.023, "drawing": "singularity:b", "size": [0.207, 0.2], "health": 46, "points": 900},
+      {"name": "b 4", "x": 0.027, "y": -0.023, "drawing": "singularity:b", "size": [0.207, 0.2], "health": 46, "points": 900},
+      {"name": "c 5", "x": -0.193, "y": -0.11, "drawing": "singularity:c", "size": [0.233, 0.227], "health": 46, "points": 900},
+      {"name": "c 6", "x": 0.193, "y": -0.11, "drawing": "singularity:c", "size": [0.233, 0.227], "health": 46, "points": 900},
+      {"name": "d 7", "x": 0.0, "y": 0.09, "drawing": "singularity:d", "size": [0.153, 0.167], "health": 46, "points": 900}
     ],
     "phases": [
       {

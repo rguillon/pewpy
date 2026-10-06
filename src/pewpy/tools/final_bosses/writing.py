@@ -1,4 +1,4 @@
-"""Writing a boss shortly, as the game reads it (see pewpy.game.enemies.boss)."""
+"""Writing a boss shortly, as the game reads it (see pewpy.game.enemies.phases)."""
 
 import dataclasses
 from typing import Any
@@ -8,7 +8,7 @@ from pewpy.tools.final_bosses.boss import CORE, BossSpec
 
 
 def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
-    """Write the boss: its body, its parts and its phases."""
+    """Write the boss: its body, its parts and its phases (the bosses' usual fields are filled in by the game)."""
     parts = [
         {
             "name": part.name, "x": part.x, "y": part.y, "drawing": part.drawing, "size": [part.width, part.height],
@@ -31,8 +31,8 @@ def boss_json(spec: BossSpec, note: str = "") -> dict[str, Any]:
         phases.append(written)
     body = {"note": note} if note else {}
     return body | {
-        "name": spec.name, "drawing": spec.drawing, "size": [spec.width, spec.height], "health": spec.health,
-        "points": spec.points, "parts": parts, "phases": phases,
+        "name": spec.name, "boss": True, "drawing": spec.drawing, "size": [spec.width, spec.height],
+        "health": spec.health, "points": spec.points, "parts": parts, "phases": phases,
     }  # fmt: skip
 
 

@@ -8,6 +8,7 @@ from pewpy.game.controls import Controls
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import BOSSES, KINDS
 from pewpy.game.enemies.roster import make_enemy
+from pewpy.game.enemies.spec import parse_enemy
 from pewpy.game.entities import Pickup
 from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
@@ -736,3 +737,51 @@ def test_with_cutscenes_the_ship_flies_away_through_the_top_once_the_level_is_ov
     run(world, 3.0)
     assert world.player.y > 1.6
     assert world.completed
+
+
+# Any enemy can have destructible parts, not only the bosses.
+CARRIER = {
+    "drawing": "drone", "size": [0.1, 0.1], "health": 5.0, "points": 200, "velocity": [0.0, -0.3],
+    "parts": [
+        {"name": "pod", "x": 0.1, "y": 0.0, "drawing": "drone", "size": [0.05, 0.05], "health": 1.0, "points": 50}
+    ],
+}  # fmt: skip
+
+
+@pytest.fixture
+def carrier(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setitem(KINDS, "carrier", parse_enemy("carrier", CARRIER, "test"))
+
+
+@pytest.mark.usefixtures("carrier")
+def test_an_enemys_part_is_shot_off_for_its_own_points() -> None:
+    world = make_world()
+    enemy = still_enemy("carrier", x=0.5, y=0.5)
+    world.enemies.append(enemy)
+    world.update(DT, Controls())
+    (pod,) = enemy.parts
+    assert world.enemies == [enemy, pod]
+    world._damage(pod, 1.0)
+    assert not pod.alive
+    assert enemy.alive
+    assert world.score == 50
+
+
+@pytest.mark.usefixtures("carrier")
+def test_an_enemys_parts_leave_the_screen_with_it() -> None:
+    world = make_world()
+    world.enemies.append(placed("carrier", x=0.7, y=-config.PLAY_HEIGHT / 2, fire_cooldown=1000.0))
+    run(world, 2.0)
+    assert world.enemies == []
+
+
+@pytest.mark.usefixtures("carrier")
+def test_an_enemy_rammed_takes_its_parts_down() -> None:
+    world = make_world()
+    enemy = still_enemy("carrier", x=world.player.x, y=world.player.y)
+    world.enemies.append(enemy)
+    world.update(DT, Controls())
+    assert not enemy.alive
+    assert not enemy.parts[0].alive
+    assert kinds(world).count("explosion") == 2
+    assert world.score == 0

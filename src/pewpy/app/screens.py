@@ -156,7 +156,7 @@ class Screens(Drawing):
         )
         level = self.levels[index]
         self._show_background(level)
-        self._prepare_bosses(level)
+        self._prepare_level(level)
         self.effects.clear()
         self.states.transition(State.PLAYING)
 

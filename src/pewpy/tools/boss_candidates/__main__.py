@@ -12,18 +12,18 @@ DEFAULT_OUT = SOURCE_DATA / "models" / "candidates" / "bosses"
 
 
 def write(out: Path, number: int, candidate: dict) -> None:
-    """Write a candidate: its core's drawing, its parts' drawings (each once) and where the parts go."""
-    name = f"{number:03d}"
-    (out / f"{name}.json").write_text(json.dumps(candidate["core"], indent=2) + "\n")
-    drawings: dict[str, str] = {}  # the same part drawing placed twice is written once
+    """Write a candidate in one file: its core's drawing, its parts' drawings (each once) and where the parts go."""
+    parts: dict[str, dict] = {}  # the same part drawing placed twice is written once
+    names: dict[str, str] = {}  # a part's name, by its drawing written out
     layout = []
     for part_drawing, x, y in candidate["parts"]:
-        text = json.dumps(part_drawing, indent=2) + "\n"
-        if text not in drawings:
-            drawings[text] = f"{name}_{chr(ord('a') + len(drawings))}"
-            (out / f"{drawings[text]}.json").write_text(text)
-        layout.append({"drawing": drawings[text], "x": round(x, 2), "y": round(y, 2)})
-    (out / f"{name}.parts.json").write_text(json.dumps({"parts": layout}, indent=2) + "\n")
+        text = json.dumps(part_drawing)
+        if text not in names:
+            names[text] = chr(ord("a") + len(names))
+            parts[names[text]] = part_drawing
+        layout.append({"part": names[text], "x": round(x, 2), "y": round(y, 2)})
+    model = candidate["core"] | ({"parts": parts, "layout": layout} if parts else {})
+    (out / f"{number:03d}.json").write_text(json.dumps(model, indent=2) + "\n")
 
 
 def main() -> None:

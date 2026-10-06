@@ -7,14 +7,14 @@ the Enemy candidates, Player candidates, Boss candidates and Prop candidates scr
 
 import json
 
-from pewpy.data import data_folder
+from pewpy.data import PART_SEPARATOR, data_folder, read_model
 from pewpy.graphics.models import DRAWINGS_FOLDER
 from pewpy.scenery.ground.props.model import PropModel
 
 CANDIDATES_FOLDER = "candidates/enemies"  # models/candidates/enemies/<number>.json: drawings for possible new enemies
 PLAYER_CANDIDATES_FOLDER = "candidates/player"  # models/candidates/player/<number>.json: possible new player ships
-# models/candidates/bosses/<number>.json: possible new bosses' cores, with <number>_a.json... their parts' drawings
-# and <number>.parts.json where the parts go (see pewpy.tools.boss_candidates).
+# models/candidates/bosses/<number>.json: possible new bosses, each a core with its parts' drawings and where they go
+# (see pewpy.tools.boss_candidates).
 BOSS_CANDIDATES_FOLDER = "candidates/bosses"
 PROP_CANDIDATES_FOLDER = "candidates/props"  # models/candidates/props/<number>.json: possible new props
 
@@ -38,7 +38,7 @@ def player_candidate_names() -> list[str]:
 
 
 def boss_candidate_names() -> list[str]:
-    """Return the boss candidates' cores, like "candidates/bosses/001", in order."""
+    """Return the boss candidates, like "candidates/bosses/001", in order."""
     folder = data_folder() / DRAWINGS_FOLDER / BOSS_CANDIDATES_FOLDER
     if not folder.is_dir():
         return []
@@ -48,12 +48,11 @@ def boss_candidate_names() -> list[str]:
 
 def boss_candidate_parts(name: str) -> list[tuple[str, float, float]]:
     """Return a boss candidate's parts: (drawing, x, y), in cubes from the core's middle (x right, y up the screen)."""
-    path = data_folder() / DRAWINGS_FOLDER / f"{name}.parts.json"
-    if not path.is_file():
-        return []
-    folder = name.rsplit("/", 1)[0]
-    layout = json.loads(path.read_text())
-    return [(f"{folder}/{entry['drawing']}", float(entry["x"]), float(entry["y"])) for entry in layout["parts"]]
+    data, _ = read_model(name)
+    return [
+        (f"{name}{PART_SEPARATOR}{entry['part']}", float(entry["x"]), float(entry["y"]))
+        for entry in data.get("layout", [])
+    ]
 
 
 def prop_candidate_names() -> list[str]:

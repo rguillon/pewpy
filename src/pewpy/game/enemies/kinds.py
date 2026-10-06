@@ -4,7 +4,7 @@ The first enemies (`enemies/catalog.json`, 02-enemies-catalog.md), the second fl
 02-enemies-fleet.md), the projectiles and mines other enemies launch (`enemies/projectiles.json`, 02-enemies.md), and
 the bosses (02-enemies-bosses.md): the mini bosses, one halfway through each level (`bosses/mini_bosses.json`), and
 the final bosses, one at the end of each level (`bosses/final_bosses.json`, made by pewpy/tools/final_bosses/).
-They're all enemies.
+They're all enemies, read the same way: the files only sort them.
 """
 
 from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
@@ -16,3 +16,16 @@ MINI_BOSSES = load_enemy_specs("bosses/mini_bosses.json")
 FINAL_BOSSES = load_enemy_specs("bosses/final_bosses.json")
 BOSSES: dict[str, EnemySpec] = {**MINI_BOSSES, **FINAL_BOSSES}
 KINDS: dict[str, EnemySpec] = {**ENEMIES, **BOSSES}
+
+
+def drawings(kind: str) -> set[str]:
+    """Return the models an enemy of `kind` shows: its own, its parts', those of every enemy it launches or releases."""
+    found: set[str] = set()
+    seen: set[str] = set()
+    waiting = [kind]
+    while waiting:
+        spec = KINDS[waiting.pop()]
+        seen.add(spec.kind)
+        found |= {spec.drawing, *(part.spec.drawing for part in spec.parts)}
+        waiting += spec.released() - seen
+    return found - {""}
