@@ -12,6 +12,8 @@
 - The ship: where it is on the screen, its speed, health, whether it is invulnerable, its kind (its top speed and
   size, and which of SHIPS it is: one brain flies them all); the weapon selected and the weapons' levels.
 - Targets: the nearest TARGETS enemies and the nearest pickup (where they are from the ship), the boss.
+- Repairs: whether any enemy can be hurt (firing at nothing only puts the repairs off), how long since the
+  ship last fired (as a share of the wait before its repairs start, 1 once they have) and how fast it repairs.
 """
 
 import math
@@ -40,12 +42,16 @@ SHOT_RANGE = 0.6  # where the shots are, in this unit
 LANES = 8
 TARGETS = 3
 REACH = 1.0  # targets are seen this far away (world units) at most
+FAST_REPAIR = 0.5  # health a second: a repair rate seen as 1
 
 HALF_WIDTH = config.PLAY_WIDTH / 2
 HALF_HEIGHT = config.PLAY_HEIGHT / 2
-SIZE = 2 * len(MOVES) + 2 + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + len(SHIPS) + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3
+SIZE = (
+    2 * len(MOVES) + 2 + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + len(SHIPS) + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3 + 3
+)
 SAFEST = 2 * len(MOVES)  # where the safest move's direction (x, y) is in the view
 AIM = SAFEST + 2  # where the move to aim's direction (x, y) is
+SHOOTABLE = SIZE - 3  # where "something on screen can be hurt" is (1, else 0)
 NO_THREATS = np.zeros((0, 6))
 TIMES = np.linspace(HORIZON / STEPS, HORIZON, STEPS)  # when the radar looks
 _FIRSTS = np.repeat(np.arange(len(MOVES)), len(MOVES))  # every plan: its first move...
@@ -160,6 +166,19 @@ def target(world: World) -> tuple[float, float | None] | None:
     return min(above, key=lambda enemy: abs(enemy.x - player.x) + 0.3 * (enemy.y - player.y)).x, None
 
 
+def shootable(world: World) -> bool:
+    """Tell whether an enemy can be hurt (not an armored core nor an arriving boss), on screen or coming onto it."""
+    return any(enemy.alive and enemy.vulnerable for enemy in world.enemies)
+
+
+def repairs(world: World) -> list[float]:
+    """Return the repairs' inputs: something to shoot, the time since the ship fired (1: repairing), its repair rate."""
+    player = world.player
+    ship = player.ship
+    waited = min(player.since_fired / ship.regeneration_delay, 1.0) if ship.regeneration_delay else 1.0
+    return [1.0 if shootable(world) else 0.0, waited, ship.regeneration / FAST_REPAIR]
+
+
 def safest(score: np.ndarray) -> tuple[float, float]:
     """Return the direction of the move with the best score (staying put when tied)."""
     return MOVES[int(np.argmax(score))]
@@ -251,4 +270,5 @@ def sense(world: World) -> np.ndarray:
         targets,
         [*_towards(pickup.x - player.x, pickup.y - player.y), 1.0] if pickup else [0.0, 0.0, 0.0],
         [*_towards(boss.x - player.x, boss.y - player.y), boss.health_fraction] if boss else [0.0, 0.0, 0.0],
+        repairs(world),
     ])

@@ -16,7 +16,8 @@ from pewpy.tools.ai import sensors
 
 HIDDEN = (24,)  # neurons in each hidden layer
 OUTPUTS = 3
-FIRE_BIAS = 1.0  # a new brain starts with the fire button held: shooting is nearly always right
+FIRE_BIAS = -1.0  # a new brain starts with the fire button released...
+FIRE_GAIN = 2.0  # ...but held while an enemy can be hurt: firing at nothing only puts the repairs off
 RADAR_GAIN = 3.0  # a new brain starts flying the radar's move to aim, the stick this far over (clamped to 1)
 OUTPUT_NOISE = 0.03  # how much its hidden layer moves the outputs at first (scaled to its size): little, its hand-made
 # start (the radar to the stick, the fire button held) leads
@@ -58,7 +59,7 @@ class Brain:
 
         Its weights are small and random (scaled for each layer's inputs; the outputs' OUTPUT_NOISE), with no
         biases but FIRE_BIAS, and the direct path closed but from the radar's move to aim to the stick
-        (RADAR_GAIN).
+        (RADAR_GAIN) and from there being something to shoot to the fire button (FIRE_GAIN).
         """
         parts = []
         layers = shapes(sensors.SIZE, hidden)
@@ -71,6 +72,7 @@ class Brain:
         out[-1, 2] = FIRE_BIAS
         direct = np.zeros((sensors.SIZE, OUTPUTS))
         direct[sensors.AIM, 0] = direct[sensors.AIM + 1, 1] = RADAR_GAIN
+        direct[sensors.SHOOTABLE, 2] = FIRE_GAIN
         parts.append(direct.ravel())
         return cls(np.concatenate(parts), hidden)
 
