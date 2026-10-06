@@ -1,13 +1,14 @@
 """The AI screens: learning or rating in the background, the AI flying the ship on screen; the AI playing the game."""
 
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 
 import numpy as np
 
 from pewpy import config
 from pewpy.game.player import SHIPS
+from pewpy.game.states import State
 from pewpy.game.weapons.player.arsenal import Arsenal
 from pewpy.game.world import World
 from pewpy.tools.ai import files as ai_files
@@ -28,11 +29,17 @@ AI_WORKERS = max(
 
 @dataclass
 class AIGame:
-    """The AI playing the game on the AI playing screen: each ship in turn, from the first level until game over."""
+    """The AI playing the game on the AI playing screen: the ship and level picked, a game after the other.
 
-    ship: int = -1  # which of SHIPS plays (the next one at each game)
+    Each game starts on the level picked and goes on to the next levels until game over.
+    """
+
+    ship: str  # one of SHIPS
+    start: int  # the level each game starts on (its index)
     generation: int | None = None  # the saved brain's (None: no brain yet, a new one plays)
-    reached: dict[str, int] = field(default_factory=dict)  # for each ship, the most levels cleared in a game
+    games: int = 0  # the games started
+    cleared: int = 0  # the games that cleared the level they started on
+    best: int = 0  # the most levels cleared in a game
 
 
 class AIScreens(ModelScreens):
@@ -44,6 +51,7 @@ class AIScreens(ModelScreens):
     pilot: Pilot | None  # the AI flying the ship on screen
     ai_watching: str  # what the AI on screen plays
     ai_game: AIGame
+    ai_picking: bool  # the ship, world and level menus pick what the AI plays, not what the player plays
     ai_panel: AIPanel
 
     def _switch_ai(self, previous: Enum, current: Enum) -> None:
@@ -55,7 +63,6 @@ class AIScreens(ModelScreens):
         elif current is DevState.AI_RATING:
             self._start_rating()
         elif current is DevState.AI_PLAYING:
-            self.ai_game = AIGame()
             self._new_ai_game()
 
     def _start_learning(self) -> None:
@@ -106,20 +113,31 @@ class AIScreens(ModelScreens):
         self.effects.clear()
         self._show_hud(visible=True)
 
+    def _pick_for_ai(self) -> None:
+        """Pick the ship, world and level the AI plays, with the game's menus."""
+        self.ai_picking = True
+        self.states.transition(State.SHIP_SELECT)
+
+    def _start_ai(self, index: int) -> None:
+        """Watch the AI play from the level picked, with the ship picked."""
+        self.ai_game = AIGame(self.ship_key, index)
+        self.level_index = index  # the level select opens on it again
+        self.states.transition(DevState.AI_PLAYING)
+
     def _new_ai_game(self) -> None:
-        """Start a game with the next ship and the saved brain (it may have learned since the last game)."""
+        """Start a game on the level picked, with the saved brain (it may have learned since the last game)."""
         game = self.ai_game
-        game.ship = (game.ship + 1) % len(SHIPS)
+        game.games += 1
         training = ai_files.load_training(ai_files.ai_folder())
         game.generation = training.generation if training else None
         self.pilot = Pilot(training.brain if training else Brain.random(np.random.default_rng()))
-        self._ai_level(0)
+        self._ai_level(game.start)
 
     def _ai_level(
         self, index: int, score: int = 0, lives: int = config.PLAYER_LIVES, arsenal: Arsenal | None = None
     ) -> None:
         """Start the AI on a level, by the game's rules (going on with the score, lives and weapons it has)."""
-        ship = list(SHIPS)[self.ai_game.ship]
+        ship = self.ai_game.ship
         level = self.levels[index]
         screen = self.camera_view.area(0.0)
         self.level_index = index
@@ -144,13 +162,14 @@ class AIScreens(ModelScreens):
         world, game = self.world, self.ai_game
         if world is None or not (world.completed or world.game_over):
             return
-        ship = list(SHIPS)[game.ship]
-        cleared = self.level_index + world.completed
-        game.reached[ship] = max(game.reached.get(ship, 0), cleared)
-        if world.completed and cleared < len(self.levels):
-            self._ai_level(cleared, world.score, world.lives, world.arsenal)
-        else:
-            self._new_ai_game()
+        following = self.level_index + world.completed  # the level after the last one cleared
+        if world.completed and following < len(self.levels):
+            self._ai_level(following, world.score, world.lives, world.arsenal)
+            return
+        cleared = following - game.start  # in this game
+        game.cleared += cleared > 0
+        game.best = max(game.best, cleared)
+        self._new_ai_game()
 
     def _update_ai(self, dt: float) -> None:
         session = self.ai_session
@@ -159,8 +178,10 @@ class AIScreens(ModelScreens):
             self._play(world, pilot.fly(world), dt)
             if self.states.state is DevState.AI_PLAYING:
                 self._update_ai_game()
+                game = self.ai_game
+                place = self._label(game.start)
                 self.ai_panel.show_learning(
-                    playing_text(self.ai_game.generation, self.ai_watching, self.ai_game.reached, len(self.levels))
+                    playing_text(game.generation, self.ai_watching, place, game.games, game.cleared, game.best)
                 )
             elif world.game_over or world.completed:
                 self._watch_ai()

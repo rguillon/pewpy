@@ -47,13 +47,14 @@ def learning_text(report: Report | None, checks: Check, watching: str, error: st
     return "\n".join(lines)
 
 
-def playing_text(generation: int | None, watching: str, reached: dict[str, int], levels: int) -> str:
-    """Write the AI playing screen's text: the brain, what it plays, and how far each ship got in a game."""
+def playing_text(generation: int | None, watching: str, start: str, games: int, cleared: int, best: int) -> str:
+    """Write the AI playing screen's text: the brain, what it plays, how its games from the level picked went."""
     brain = "no brain yet: a new one plays" if generation is None else f"the brain at generation {generation}"
-    lines = [f"AI PLAYING  {brain}, by the game's rules  (Esc: back)", "", f"On screen: {watching}", ""]
-    for ship, spec in SHIPS.items():
-        if ship in reached:
-            lines.append(f"  {spec.name:<11} best game: {reached[ship]}/{levels} levels cleared")
+    lines = [f"AI PLAYING  {brain}, by the game's rules  (Esc: pick another level)", "", f"On screen: {watching}"]
+    done = games - 1  # the one being played isn't over
+    if done:
+        lines.append(f"Games from {start}: {done}, {start} cleared in {cleared} ({100 * cleared / done:.0f}%)")
+        lines.append(f"Best game: {best} level{'s' if best != 1 else ''} cleared")
     return "\n".join(lines)
 
 
