@@ -46,13 +46,12 @@
   - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered, MagicaVoxel), `built/` and `background/` models
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
   - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, the props and the candidates: see `05-visuals.md`), `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools apart, in `pewpewdev/`, not in the game nor its
-  package: `tools/` (one package per tool, each run with
-  `python -m`: `levels/` (`worlds/`: one module per world), `models/` (`recipes/`: one module per model), `songs/`
-  (`tracks/`: one module per part); `voxels.py`), `app/` (the game with the dev screens, `make dev`:
-  `model_screens.py`, `ai_screens.py`), with their own `states.py`, `candidates.py` and `ui/`.
-  The tools making the props, enemies and bosses live in the game's package, never imported by the game, in
-  `pewpy/tools/` *(the user's choice)*, each with its own make target: `generate_props.py` (prop candidates,
+  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, the props and the candidates: see `05-visuals.md`), `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools live in the game's package, never imported by the game, in
+  `pewpy/tools/` *(the user's choice)*, one package per tool run with `python -m`, each with its own make target:
+  `levels/` (`make levels`; `worlds/`: one module per world), `models/` (`make models`; `recipes/`: one module per
+  model), `songs/` (`make songs`; `tracks/`: one module per part), `voxels.py` (`make voxels`), `dev/` (the game with
+  the dev screens, `make dev`: `app/` with `model_screens.py` and `ai_screens.py`, its own `states.py`,
+  `candidates.py` and `ui/`), `paths.py` (where the tools write), `generate_props.py` (prop candidates,
   `make props`), `player_candidates/` (player ship candidates, `make players`, from the same kit as the enemies'),
   `candidates/` (enemy candidates, `make candidates`: assembled from a kit of hardcoded parts, `kit/`,
   one module per family of parts, the kinds of ship in `archetypes.py`), `boss_candidates/` (`make boss-candidates`:
@@ -96,7 +95,7 @@
 
 - What must be unit tested: the game logic (movement, collisions, scoring, wave spawning), kept separate from
   rendering: `app/` only handles window, input and drawing, so the logic is tested without opening a window.
-  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpewdev` and `src/pewpy/tools`: the AI, the content
+  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpy/tools`: the AI, the content
   tools, the dev screens) have none, only the linters and the type checker.
 - Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
   fails below it. Code that can't happen is removed rather than tested. Content (levels, bosses, model drawings) is

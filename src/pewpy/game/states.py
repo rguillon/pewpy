@@ -17,7 +17,7 @@ class State(Enum):
     LEVEL_COMPLETE = auto()
 
 
-# Where each state can go. The states are any Enum's members: the dev tools (pewpewdev) add screens of their own.
+# Where each state can go. The states are any Enum's members: the dev tools (pewpy.tools.dev) add screens of their own.
 Transitions = Mapping[Enum, frozenset[Enum]]
 TRANSITIONS: Transitions = {
     State.MAIN_MENU: frozenset({State.SHIP_SELECT}),

@@ -93,7 +93,6 @@ ignore = [  "COM812",   # cause incompatibility with the formatter
 "src/pewpy/game/enemies/actions/*" = ["ARG002"]
 "src/pewpy/scenery/ground/kinds/*" = ["ARG002"]
 # The dev tools' command lines talk to the user with print.
-"src/pewpewdev/**/__main__.py" = ["T201"]
 "src/pewpy/tools/*" = ["T201"]
 "tests/*" = [ "S101",     # Allow assert in tests
               "D100",     # No docstring in tests
@@ -120,5 +119,5 @@ skip_covered = true
 
 [tool.coverage.run]
 branch = true
-source = ["src/pewpy"]  # the game only: the dev tools (src/pewpewdev, src/pewpy/tools) have no unit tests
+source = ["src/pewpy"]  # the game only: the dev tools (src/pewpy/tools) have no unit tests
 omit = ["src/pewpy/tools/*"]
