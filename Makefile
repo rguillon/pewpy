@@ -63,6 +63,10 @@ learn-random: ## Teach the AI on levels drawn at random among them all, no curri
 rate: ## Rate every level for every ship from how the trained AI fares: its clear rate (options: ARGS="--runs 20", see --help)
 	@uv run python -u -m pewpy.tools.ai rate $(ARGS)
 
+.PHONY: winrate
+winrate: ## Play every level with the current brain and show its win rates, saving nothing (options: ARGS="--runs 20 --lives 3")
+	@uv run python -u -m pewpy.tools.ai winrate $(ARGS)
+
 .PHONY: songs
 songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
 	@uv run python -m pewpy.tools.songs $(ARGS)

@@ -1,31 +1,36 @@
-"""The AI from the command line (`make learn`, `make rate`).
+"""The AI from the command line (`make learn`, `make rate`, `make winrate`).
 
 python -m pewpy.tools.ai learn [--generations 100] [--ships vanguard ...] [--levels 1-1 ... | all] [--new] [--workers 7]
     [--folder ...]
 python -m pewpy.tools.ai rate [--runs 10] [--ships ...]
+python -m pewpy.tools.ai winrate [--runs 10] [--lives 1] [--ships ...]
 """
 
 import argparse
 import time
 from pathlib import Path
 
+import numpy as np
+
 from pewpy.game.player import SHIPS
 from pewpy.tools.ai import files
+from pewpy.tools.ai.brain import Brain
 from pewpy.tools.ai.learning import Report, every_level, learn, level_index
-from pewpy.tools.ai.rating import RUNS, Rating, rate
+from pewpy.tools.ai.rating import RUNS, Rating, rate, win_rates
 
 
 def main() -> None:
-    """Learn or rate, as the command line says, printing the progress."""
+    """Learn, rate or measure the win rates, as the command line says, printing the progress."""
     parser = argparse.ArgumentParser(prog="python -m pewpy.tools.ai", description=__doc__.splitlines()[0])
-    parser.add_argument("mode", choices=["learn", "rate"])
+    parser.add_argument("mode", choices=["learn", "rate", "winrate"])
     parser.add_argument("--ships", nargs="+", choices=list(SHIPS), default=list(SHIPS))
     parser.add_argument("--generations", type=int, default=100, help="learn: more generations (100)")
     parser.add_argument(
         "--levels", nargs="+", help='learn: only on these levels ("1-1 2-3"), or on every level ("all"), no curriculum'
     )
     parser.add_argument("--new", action="store_true", help="learn: start a new brain (replacing the saved one)")
-    parser.add_argument("--runs", type=int, default=RUNS, help=f"rate: runs per level ({RUNS})")
+    parser.add_argument("--runs", type=int, default=RUNS, help=f"rate, winrate: runs per level and ship ({RUNS})")
+    parser.add_argument("--lives", type=int, default=1, help="winrate: lives per run (1, as in training)")
     parser.add_argument("--workers", type=int, help="processes playing in parallel (default: the cores but one)")
     parser.add_argument("--folder", type=Path, default=files.ai_folder(), help="where the brains and ratings are")
     args = parser.parse_args()
@@ -51,6 +56,8 @@ def main() -> None:
             except ValueError as error:
                 parser.error(str(error))
         learn(args.ships, args.generations, args.folder, args.workers, report, levels=levels, new=args.new)
+    elif args.mode == "winrate":
+        winrate(args)
     else:
 
         def show(ship: str, rating: Rating) -> None:
@@ -59,6 +66,30 @@ def main() -> None:
         rate(args.ships, args.folder, args.runs, args.workers, show)
         print(f"ratings written to {args.folder / 'ratings.json'}")
     print(f"{time.monotonic() - start:.0f} s")
+
+
+def winrate(args: argparse.Namespace) -> None:
+    """Play every level with the saved brain (a new one without), printing each level's win rates, then the totals."""
+    training = files.load_training(args.folder)
+    brain = training.brain if training else Brain.random(np.random.default_rng(0))
+    print(f"brain: {f'generation {training.generation}' if training else 'none saved, a new one'}")
+    lives = f"{args.lives} li{'ves' if args.lives > 1 else 'fe'}"
+    print(f"{args.runs} runs per level and ship, {lives} each: the share of runs that clear the level\n")
+    names = "".join(f"{SHIPS[ship].name[:10]:>11}" for ship in args.ships)
+    print(f"{'LEVEL':<24}{names}{'ALL':>8}")
+
+    def show(place: str, name: str, rates: dict[str, float]) -> None:
+        cells = "".join(f"{100 * rates[ship]:10.0f}%" for ship in args.ships)
+        print(f"{place:<4} {name:<19}{cells}{100 * np.mean(list(rates.values())):7.0f}%")
+
+    rates = win_rates(brain, args.ships, args.runs, args.lives, args.workers, show)
+    print()
+    worlds = sorted({place.split("-")[0] for place in rates}, key=int)
+    for world in [*worlds, None]:
+        levels = [r for place, r in rates.items() if world is None or place.split("-")[0] == world]
+        cells = "".join(f"{100 * np.mean([r[ship] for r in levels]):10.0f}%" for ship in args.ships)
+        overall = 100 * np.mean([value for r in levels for value in r.values()])
+        print(f"{f'world {world}' if world else 'every level':<24}{cells}{overall:7.0f}%")
 
 
 if __name__ == "__main__":
