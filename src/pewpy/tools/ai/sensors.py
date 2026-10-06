@@ -46,7 +46,6 @@ HALF_HEIGHT = config.PLAY_HEIGHT / 2
 SIZE = 2 * len(MOVES) + 2 + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + len(SHIPS) + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3
 SAFEST = 2 * len(MOVES)  # where the safest move's direction (x, y) is in the view
 AIM = SAFEST + 2  # where the move to aim's direction (x, y) is
-LEVELS = AIM + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + len(SHIPS) + len(WEAPONS)  # where the weapons' levels are
 NO_THREATS = np.zeros((0, 6))
 TIMES = np.linspace(HORIZON / STEPS, HORIZON, STEPS)  # when the radar looks
 _FIRSTS = np.repeat(np.arange(len(MOVES)), len(MOVES))  # every plan: its first move...

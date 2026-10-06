@@ -1,17 +1,22 @@
 """Flying the ship with a brain: what it sees, what it decides, every THINK_EVERY updates.
 
-It holds the stick in between, like a player's reaction time.
+It holds the stick in between, like a player's reaction time. The weapon is a rule, not the brain's: the strongest
+one (`strongest`).
 """
 
-import numpy as np
-
 from pewpy.game.controls import Controls
-from pewpy.game.weapons.player.arsenal import WEAPONS
+from pewpy.game.weapons.player.arsenal import Arsenal
 from pewpy.game.world import World
 from pewpy.tools.ai import sensors
 from pewpy.tools.ai.brain import Brain
 
 THINK_EVERY = 2  # updates (at 60 per second: it decides 30 times a second)
+PREFERENCE = ("bullets", "laser", "missiles")  # between weapons at the same level, the first one
+
+
+def strongest(arsenal: Arsenal) -> str:
+    """Return the weapon to fire: the highest level, PREFERENCE's order when tied."""
+    return max(PREFERENCE, key=lambda weapon: (arsenal.levels[weapon], -PREFERENCE.index(weapon)))
 
 
 class Pilot:
@@ -23,7 +28,7 @@ class Pilot:
         self.wait = 0
 
     def fly(self, world: World) -> Controls:
-        """Return the controls for this update; switch the weapon when the brain wants another one."""
+        """Return the controls for this update; switch to the strongest weapon."""
         if self.wait > 0:
             self.wait -= 1
             return self.controls
@@ -31,7 +36,7 @@ class Pilot:
         out = self.brain.think(sensors.sense(world))
         move_x, move_y = (max(-1.0, min(1.0, float(value))) for value in out[:2])
         self.controls = Controls(move_x=move_x, move_y=move_y, fire=bool(out[2] > 0))
-        wanted = WEAPONS[int(np.argmax(out[3:]))]
+        wanted = strongest(world.arsenal)
         if wanted != world.arsenal.selected:
             world.arsenal.selected = wanted
         return self.controls
