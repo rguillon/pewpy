@@ -61,14 +61,15 @@ The states are:
 
 The player picks a ship before the world (see 04-ui-audio.md). It is kept for every life and level of the game.
 
-| Ship       | Health | Speed | Size (hitbox) | Special                                                                |
-| ---------- | ------ | ----- | ------------- | ---------------------------------------------------------------------- |
-| Vanguard   | 5      | 1.0   | 0.12          | Balanced                                                               |
-| Juggernaut | 8      | 0.8   | 0.14          | Heavy armor, a bit slower (and a bigger target)                        |
-| Phantom    | 3      | 1.3   | 0.10          | Repairs 0.5 health a second once it hasn't fired for 1.5 s, up to full |
+| Ship       | Health | Speed | Size (hitbox) | Repairs (health a second) | Special                                         |
+| ---------- | ------ | ----- | ------------- | ------------------------- | ----------------------------------------------- |
+| Vanguard   | 5      | 1.0   | 0.12          | 0.3                       | Balanced                                        |
+| Juggernaut | 8      | 0.8   | 0.14          | 0.2                       | Heavy armor, a bit slower (and a bigger target) |
+| Phantom    | 3      | 1.3   | 0.10          | 0.5                       | Fast, light armor, the best repairs             |
 
-*(numbers are a placeholder; in `data/ships.json`, the first one the default)* Weapons, lives and repairs work the same for
-every ship; repairs fill up to the ship's own health.
+*(numbers are a placeholder; in `data/ships.json`, the first one the default)* Every ship repairs itself *(the user's
+choice: the balanced one medium repairs, the big one little, the small one the best)*: once it hasn't fired for
+1.5 s, at its own rate, up to its own full health. Weapons, lives and repair pickups work the same for every ship.
 
 ## Weapons
 
