@@ -5,7 +5,7 @@ Each state has its motions (motions/), its guns, its look and its ways out (exit
 with `phases` instead of `states`, see boss.py). Independent from rendering.
 
 In the JSON files, guns are written as pewpy.game.weapons.guns.parse_gun reads them; their origins can be shares of
-the enemy's size or model cubes (see guns.distance).
+the enemy's size or model cubes (see guns.distance), or they fire from the weapons drawn on the model (see mounts.py).
 """
 
 from __future__ import annotations  # a boss's parts are enemies too: EnemySpec and Part refer to each other
@@ -16,11 +16,12 @@ from typing import Any
 
 from pewpy import config
 from pewpy.data import data_folder
-from pewpy.game.enemies.actions import Action, parse_action
+from pewpy.game.enemies.actions import Action, Fire, parse_action
 from pewpy.game.enemies.boss import expand_boss
 from pewpy.game.enemies.errors import EnemySpecError
 from pewpy.game.enemies.exits import Exit, parse_exit
 from pewpy.game.enemies.motions import Motion, parse_motion
+from pewpy.game.enemies.mounts import model_mounts
 from pewpy.game.weapons.guns import Distance, Gun, parse_gun
 
 
@@ -65,7 +66,7 @@ class EnemySpec:
 
     kind: str
     name: str = ""  # shown over a boss's health bar
-    drawing: str = ""  # its model: models/<drawing>.json ("": built in code, see graphics/models/)
+    drawing: str = ""  # its model: models/<group>/<drawing>.json ("": built in code, see graphics/models/)
     width: float = 0.1
     height: float = 0.1
     health: float = 3.0
@@ -132,12 +133,30 @@ def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
         spec = EnemySpec(kind=kind, **data)
     except (TypeError, ValueError) as error:
         raise EnemySpecError(source, str(error)) from error
+    _check_weapons(spec, source)
     names = {state.name for state in spec.states}
     for state in spec.states:
         for exit_ in state.exits:
             if exit_.to not in names:
                 raise EnemySpecError(source, f"state {state.name!r} goes to unknown state {exit_.to!r}")
     return spec
+
+
+def _check_weapons(spec: EnemySpec, source: str) -> None:
+    """Make sure every weapon a gun fires from is on the model of what fires it (itself, or one of its parts)."""
+    drawings = {part.name: part.spec.drawing for part in spec.parts}
+    fired = [(drawings.get(name, spec.drawing), gun) for state in spec.states for name, gun in state.guns]
+    actions = [*spec.start, *(action for state in spec.states for exit_ in state.exits for action in exit_.then)]
+    fired += [(spec.drawing, action.gun) for action in actions if isinstance(action, Fire)]
+    try:
+        for drawing, gun in fired:
+            mounts = model_mounts(drawing)
+            for number in [*gun.weapons, *(n for item in gun.sequence for n in item.weapons)]:
+                if number not in mounts:
+                    msg = f"a gun fires from weapon {number}, which model {drawing or '(built in code)'!r} doesn't have"
+                    raise EnemySpecError(source, msg)
+    except (OSError, TypeError, ValueError) as error:
+        raise EnemySpecError(source, str(error)) from error
 
 
 def parse_part(data: dict[str, Any], source: str) -> Part:

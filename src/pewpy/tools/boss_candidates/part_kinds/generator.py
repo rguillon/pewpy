@@ -1,0 +1,17 @@
+"""The generator part."""
+
+import math
+
+from pewpy.tools.boss_candidates.canvas import Canvas
+from pewpy.tools.common.geometry import Rng
+
+
+def part_generator(rng: Rng, cv: Canvas) -> None:
+    """Draw a generator: a round core with fins around it."""
+    mx, my = cv.w // 2, cv.h / 2
+    r = min(cv.w, cv.h) / 2 - 1
+    for angle in range(0, 360, 90 if rng.random() < 0.5 else 60):  # fins
+        a = math.radians(angle)
+        cv.line(mx, my, mx + (r + 1) * math.cos(a), my + (r + 1) * math.sin(a), "W")
+    cv.ellipse(mx, my, r * 0.7, r * 0.7, "t")
+    cv.ellipse(mx, my, r * 0.35, r * 0.35, "G")  # the glowing core

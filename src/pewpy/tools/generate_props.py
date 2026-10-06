@@ -1,16 +1,15 @@
 """Generate prop candidates: random assemblies of shapes, each with a fixed size and fixed colors.
 
-    uv run python -m pewpy.tools.generate_props 20                    # 20 candidates in data/props/candidates/
+    uv run python -m pewpy.tools.generate_props 20                    # 20 candidates in data/models/candidates/props/
     uv run python -m pewpy.tools.generate_props 20 --seed 7 --append  # 20 more, numbered after the ones there
 
-A candidate is a prop description (see pewpy.scenery.ground.props.model) of kind "candidate", in a box about the
-size of the game's props: a main body (a block, a tower, a hall, a vault, a silo, a dome), maybe stacked with
-setbacks, topped (a parapet, roof units, fans, solar panels, a water tank, antennas and a dish, a helipad, a dome, a
-spire, a mast, chimneys), with an annex beside it joined by pipes, and maybe a yard of barrels and crates around.
-Every body carries its own details: floors of windows, pilasters and a cornice on a block; bands, ribs, a catwalk
-and a ladder on a tower; buttresses, a ridge vent and a big door on a hall; ribs and a lit door on a vault; hoops on
-a silo or a dome; beacons on tall things. To use one in the game, move it to data/props/ under a name of its own and
-set its kind.
+A candidate is a prop description (see pewpy.scenery.ground.props.model) of kind "candidate", in a box about the size of
+the game's props: a main body (a block, a tower, a hall, a vault, a silo, a dome), maybe stacked with setbacks, topped
+(a parapet, roof units, fans, solar panels, a water tank, antennas and a dish, a helipad, a dome, a spire, a mast,
+chimneys), with an annex beside it joined by pipes, and maybe a yard of barrels and crates around. Every body carries
+its own details: floors of windows, pilasters and a cornice on a block; bands, ribs, a catwalk and a ladder on a tower;
+buttresses, a ridge vent and a big door on a hall; ribs and a lit door on a vault; hoops on a silo or a dome; beacons on
+tall things. To use one in the game, move it to data/models/props/ under a name of its own and set its kind.
 """
 
 import argparse
@@ -19,15 +18,14 @@ import itertools
 import json
 import math
 import random
-import time
 from collections.abc import Callable
-from pathlib import Path
 from typing import Any
 
 from pewpy.data import SOURCE_DATA
-from pewpy.scenery.ground.props.model import COLORS, PROPS_FOLDER, PropModel
+from pewpy.scenery.ground.props.model import COLORS, PropModel
+from pewpy.tools.common import batch
 
-DEFAULT_OUT = SOURCE_DATA / PROPS_FOLDER / "candidates"
+DEFAULT_OUT = SOURCE_DATA / "models" / "candidates" / "props"
 KIND = "candidate"
 LIGHTS = [(0.9, 0.1, 0.06), (0.25, 0.8, 0.95), (0.95, 0.6, 0.2), (0.6, 0.95, 0.4)]  # beacon, sci-fi, amber, green
 WINDOW_LIGHTS = [(0.95, 0.75, 0.4), (0.6, 0.85, 1.0), (1.0, 0.9, 0.7)]
@@ -717,26 +715,15 @@ def main() -> None:
     """Generate the candidates the command line asks for and write them."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("count", type=int, help="how many to write")
-    parser.add_argument("--seed", type=int, help="the same seed makes the same batch (default: a new one)")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="where (default: data/props/candidates/)")
-    parser.add_argument("--append", action="store_true", help="number after the ones there instead of replacing them")
+    batch.options(parser, DEFAULT_OUT, "data/models/candidates/props/")
     args = parser.parse_args()
-    seed = args.seed if args.seed is not None else int(time.time() * 1000) % 1_000_000
+    seed, first = batch.start(args)
     rng = random.Random(seed)
-    args.out.mkdir(parents=True, exist_ok=True)
-    existing = sorted(args.out.glob("*.json"))
-    first = 1
-    if args.append:
-        first = max((int(path.stem) for path in existing if path.stem.isdigit()), default=0) + 1
-    else:
-        for path in existing:
-            path.unlink()
     for number in range(first, first + args.count):
         description = candidate(rng)
         PropModel(f"{number:03d}", description)  # it builds: no missing or unknown argument
         (args.out / f"{number:03d}.json").write_text(to_json(description))
-    print(f"wrote {args.count} prop candidates ({first:03d} to {first + args.count - 1:03d}) to {args.out}")
-    print(f"seed {seed}: --seed {seed} makes the same batch again")
+    batch.report("prop candidates", args.count, first, args.out, seed)
 
 
 if __name__ == "__main__":

@@ -101,7 +101,7 @@ halls (sawtooth roofs with glazed teeth or flat roofs with vents, loading doors,
 container stacks (one to three high, in rows), radars (a dish looking up, or a radome on a tower), domes (on a
 ring wall with a glowing cyan band; some are glass, with plants inside), antenna masts (a red light at the tip),
 landing pads (eight-sided, a painted ring and cross, cyan lights, sometimes a small craft parked), energy pylons
-(six-sided spires with glowing rings and a crystal). Like every prop, they're described in `data/props/` (see
+(six-sided spires with glowing rings and a crystal). Like every prop, they're described in `data/models/props/` (see
 `05-visuals.md`).
 
 Each preset picks its compounds (`outposts.kinds`), how far apart they are (`spacing`, about 1.5 to 1.7: about

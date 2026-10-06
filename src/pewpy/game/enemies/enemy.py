@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING
 from pewpy import config
 from pewpy.game.enemies.body import Body
 from pewpy.game.enemies.kinds import KINDS
+from pewpy.game.enemies.mounts import model_mounts
 from pewpy.game.enemies.spec import EnemySpec, Part, State
 from pewpy.game.weapons.guns import GunState, Shooter, step
 
@@ -119,7 +120,7 @@ class Enemy(Body):
 
     @property
     def drawing(self) -> str:
-        """Its model: models/<drawing>.json ("": built in code)."""
+        """Its model: models/<group>/<drawing>.json ("": built in code)."""
         return self.spec.drawing
 
     @property
@@ -340,16 +341,40 @@ class Enemy(Body):
 
     def _fire(self, dt: float, target: Entity) -> list[Entity]:
         created: list[Entity] = []
-        for (source, gun), state in zip(self.state.guns, self.guns, strict=True):
+        for slot, ((source, gun), state) in enumerate(zip(self.state.guns, self.guns, strict=True)):
             piece = self if not source else next((part for part in self.parts if part.part_name == source), None)
             if piece is not None and piece.alive:
-                created += step(gun, state, self.shooter(target, piece), dt)
+                created += step(gun, state, self.shooter(target, piece, slot), dt)
         return created
 
-    def shooter(self, target: Entity, piece: Body | None = None) -> Shooter:
-        """Return what its guns need to know, firing from `piece` (itself, or one of its parts) at `target`."""
+    def shooter(self, target: Entity, piece: Enemy | None = None, slot: int = 0) -> Shooter:
+        """Return what its guns need to know, firing from `piece` (itself, or one of its parts) at `target`.
+
+        `slot`: which of its state's guns fires (see Gun.weapons).
+        """
         piece = self if piece is None else piece
-        return Shooter(piece, target, self.age, self.clock, self.timer, piece.on_screen, self.of_kind, self._stop)
+        return Shooter(
+            piece,
+            target,
+            self.age,
+            self.clock,
+            self.timer,
+            piece.on_screen,
+            self.of_kind,
+            self._stop,
+            mounts=piece.mounts(),
+            slot=slot,
+        )
+
+    def mounts(self) -> dict[int, tuple[float, float]]:
+        """Return where its model's weapons fire from, from its middle: turned with its model if it faces its way."""
+        mounts = model_mounts(self.spec.drawing)
+        if not (self.faces_travel and (self.vx or self.vy)):
+            return {number: (mount.x, mount.y) for number, mount in mounts.items()}
+        # The model points down the screen; turned to point along its velocity.
+        turn = math.atan2(self.vy, self.vx) + math.pi / 2
+        cos, sin = math.cos(turn), math.sin(turn)
+        return {number: (m.x * cos - m.y * sin, m.x * sin + m.y * cos) for number, m in mounts.items()}
 
     def _stop(self) -> None:
         self.vx = 0.0

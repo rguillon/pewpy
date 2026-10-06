@@ -24,15 +24,19 @@ dev: ## Run the game with the dev screens: models, bosses, candidates, AI learni
 	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpewdev; else uv run python -m pewpewdev; fi
 
 .PHONY: candidates
-candidates: ## Generate enemy model candidates for the Enemy candidates screen (options: ARGS="--kind aircraft --count 50", see --help)
-	@uv run python -m pewpewdev.tools.candidates $(ARGS)
+candidates: ## Generate enemy model candidates for the Enemy candidates screen (options: ARGS="--kind fighter --count 50", see --help)
+	@uv run python -m pewpy.tools.candidates $(ARGS)
+
+.PHONY: players
+players: ## Generate player ship candidates for the Player candidates screen (options: ARGS="--kind phantom --count 20", see --help)
+	@uv run python -m pewpy.tools.player_candidates $(ARGS)
 
 .PHONY: boss-candidates
 boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
-	@uv run python -m pewpewdev.tools.boss_candidates $(ARGS)
+	@uv run python -m pewpy.tools.boss_candidates $(ARGS)
 
 .PHONY: props
-props: ## Generate prop candidates in data/props/candidates/ (options: ARGS="20 --seed 7 --append", see --help)
+props: ## Generate prop candidates in data/models/candidates/props/ (options: ARGS="20 --seed 7 --append", see --help)
 	@uv run python -m pewpy.tools.generate_props $(or $(ARGS),20)
 
 .PHONY: levels
@@ -40,8 +44,8 @@ levels: ## Generate the game's levels from the worlds' plans in src/pewpewdev/to
 	@uv run python -m pewpewdev.tools.levels $(ARGS)
 
 .PHONY: final-bosses
-final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from their plans in src/pewpewdev/tools/final_bosses/plans.json
-	@uv run python -m pewpewdev.tools.final_bosses $(ARGS)
+final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from their plans in src/pewpy/tools/final_bosses/plans.json
+	@uv run python -m pewpy.tools.final_bosses $(ARGS)
 
 .PHONY: learn
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)

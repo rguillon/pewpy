@@ -35,3 +35,5 @@ class Shooter:
     hostile: bool = True  # its shots hurt the player (else the enemies)
     forward: int = -1  # straight ahead: -1 down the screen (enemies), 1 up (the player)
     trigger: bool = True  # fire held (enemies always fire)
+    mounts: dict[int, tuple[float, float]] = field(default_factory=dict)  # its model's weapons: (x, y) from its middle
+    slot: int = 0  # which of its state's guns is firing (the first: 0), for picking a weapon (see Gun.weapons)

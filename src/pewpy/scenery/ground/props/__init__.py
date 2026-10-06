@@ -2,7 +2,7 @@
 
 Buildings, farms, refinery units, trees, hangars, radars, domes...
 
-Each prop is described in data/props/<name>.json: its kind, the box it was drawn in, and its parts with their
+Each prop is described in data/models/props/<name>.json: its kind, the box it was drawn in, and its parts with their
 geometry and colors (see model.py). The grounds ask for a kind; a kind with several files picks one by the prop's
 seed, stretched to the prop's lot. They're built in bulk with numpy as plain arrays (mesh.py); the ground's shader/
 turns them into Panda3D geometry. Every vertex has 14 floats: position (3), normal (3), color (red, green, blue,

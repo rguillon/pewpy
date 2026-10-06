@@ -9,7 +9,7 @@ from pewpy.scenery.params.types import Color3
 class PropColors:
     """The lights of the props standing on the grounds (props/), painted by the shader from their materials.
 
-    The props' own colors are fixed in their descriptions (data/props/).
+    The props' own colors are fixed in their descriptions (data/models/props/).
     """
 
     window_lights: tuple[Color3, Color3]  # most windows lit with the first, some with the second

@@ -1,4 +1,4 @@
-"""A prop read from data/props/<name>.json: fixed parts, with their colors, built once and stretched to each lot.
+"""A prop read from data/models/props/<name>.json: fixed parts, with their colors, built once and stretched to each lot.
 
 A description holds the prop's `kind` (what the grounds ask for: "barn", "tank"...), its `size` [width, length,
 height]: the box it was drawn in, around (0, 0) with z from 0 at its base, and its `parts`. A part is one shape of
@@ -34,7 +34,7 @@ from pewpy.scenery.ground.props.mesh import (
 )
 from pewpy.scenery.ground.settlement import Prop
 
-PROPS_FOLDER = "props"  # in data/
+PROPS_FOLDER = "models/props"  # in data/
 SHAPES = ("box", "cylinder", "disc", "ellipsoid", "gabled", "ridge_roof", "face", "quad", "lathe")
 COLORS = ("color", "top", "cap", "walls", "roof")
 OPTIONS = ("top_material", "segments", "rings", "lower", "wall")
@@ -72,7 +72,7 @@ class PropModel:
     @staticmethod
     @cache
     def named(name: str) -> "PropModel":
-        """Return a prop read from data/props/<name>.json, the first time it's needed."""
+        """Return a prop read from data/models/props/<name>.json, the first time it's needed."""
         text = (data_folder() / PROPS_FOLDER / f"{name}.json").read_text()
         return PropModel(name, json.loads(text))
 
@@ -124,7 +124,7 @@ class PropModel:
 
 @cache
 def catalog() -> dict[str, list[PropModel]]:
-    """Return every prop in data/props/, by kind, in the order of their file names."""
+    """Return every prop in data/models/props/, by kind, in the order of their file names."""
     folder = data_folder() / PROPS_FOLDER
     found: dict[str, list[PropModel]] = {}
     for name in sorted(entry.name.removesuffix(".json") for entry in folder.iterdir() if entry.name.endswith(".json")):

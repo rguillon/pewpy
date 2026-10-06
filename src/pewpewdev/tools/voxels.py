@@ -1,25 +1,24 @@
 """Move a model between the game's forms: a flat drawing, a 3D (layered) drawing, a MagicaVoxel model.
 
-    make voxels ARGS="export drone"     # models/drone.vox: open it in MagicaVoxel (the game doesn't use it yet)
-    make voxels ARGS="use drone"        # the game now draws models/drone.vox (drone.json keeps its engines)
+    make voxels ARGS="export drone"     # models/enemies/drone.vox: open it in MagicaVoxel (the game doesn't use it yet)
+    make voxels ARGS="use drone"        # the game now draws models/enemies/drone.vox (drone.json keeps its engines)
     make voxels ARGS="layers drone"     # drone.json becomes a 3D drawing: its layers, to edit as text
 
-(or `uv run python -m pewpewdev.tools.voxels ...`). NAME is a model's file name without ".json", like "drone", or
-"candidates/007". In MagicaVoxel the ship lies on the ground seen from above like in the game: its nose where it
-points on screen, z up towards the camera. Engines stay in the .json file ("x" and "y" on the drawing, "z" cubes
-above its middle plane), and so does a finer model's "scale"; "use" and "layers" keep them. `git checkout` a model's
-.json to go back.
+(or `uv run python -m pewpewdev.tools.voxels ...`). NAME is a model's file name without ".json", like "drone" (found in
+its group, see pewpy.data.model_path), or "candidates/enemies/007". In MagicaVoxel the ship lies on the ground seen from
+above like in the game: its nose where it points on screen, z up towards the camera. Engines stay in the .json file ("x"
+and "y" on the drawing, "z" cubes above its middle plane), and so does a finer model's "scale"; "use" and "layers" keep
+them. `git checkout` a model's .json to go back.
 """
 
 import argparse
 import json
 from pathlib import Path
 
-from pewpewdev.paths import DATA
+from pewpewdev.paths import REPOSITORY
+from pewpewdev.tools.models.registry import model_file
 from pewpy.graphics import models
 from pewpy.graphics.models.drawings import vox
-
-MODELS = DATA / "models"
 
 
 class NotExportedError(SystemExit):
@@ -31,15 +30,15 @@ class NotExportedError(SystemExit):
 
 def export(name: str) -> Path:
     """Export the model as a .vox file next to its .json (it stays as it is)."""
-    path = MODELS / f"{name}.vox"
+    path = model_file(name, ".vox")
     path.write_bytes(vox.write(models.voxels_to_vox(models.load_voxels(name))))
     return path
 
 
 def use(name: str) -> Path:
     """Make the model's .json name its .vox file (exported before, then edited), keeping its engines."""
-    path = MODELS / f"{name}.json"
-    if not (MODELS / f"{name}.vox").is_file():
+    path = model_file(name)
+    if not model_file(name, ".vox").is_file():
         raise NotExportedError(name)
     data = json.loads(path.read_text())
     data = {"vox": f"{Path(name).name}.vox", **_kept(data)}
@@ -50,7 +49,7 @@ def use(name: str) -> Path:
 
 def layers(name: str) -> Path:
     """Rewrite the model's .json as a 3D drawing: slices from the top (nearest the camera) down, keeping its engines."""
-    path = MODELS / f"{name}.json"
+    path = model_file(name)
     data = json.loads(path.read_text())
     voxels = models.load_voxels(name)
     chars: dict[tuple[float, ...], str] = {}
@@ -92,7 +91,7 @@ def main() -> None:
     args = parser.parse_args()
     action = {"export": export, "use": use, "layers": layers}[args.command]
     for name in args.names:
-        print(f"{args.command} {name}: {action(name).relative_to(MODELS.parent.parent.parent)}")  # noqa: T201 - a command line
+        print(f"{args.command} {name}: {action(name).relative_to(REPOSITORY)}")  # noqa: T201 - a command line
 
 
 if __name__ == "__main__":

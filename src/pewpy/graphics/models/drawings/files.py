@@ -1,10 +1,10 @@
-"""Reading the drawings' files (`data/models/<name>.json`) in any of their forms."""
+"""Reading the drawings' files (`data/models/<group>/<name>.json`) in any of their forms."""
 
 import json
 from dataclasses import replace
 from typing import Any
 
-from pewpy.data import data_folder
+from pewpy.data import data_folder, model_folder, model_path
 from pewpy.graphics.models.drawings import vox
 from pewpy.graphics.models.drawings.engines import Engine, parse_engines
 from pewpy.graphics.models.drawings.errors import VoxelDrawingError
@@ -14,22 +14,22 @@ from pewpy.graphics.models.drawings.magica import VOX_KEYS, voxels_from_vox
 from pewpy.graphics.models.drawings.voxels import OPTIONAL_DRAWING_KEYS, Voxels, voxel_cells
 from pewpy.graphics.models.types import Palette
 
-DRAWINGS_FOLDER = "models"  # data/models/<name>.json, one voxel drawing each
+DRAWINGS_FOLDER = "models"  # data/models/<group>/<name>.json, one voxel drawing each (see pewpy.data.model_path)
 
 
 def load_drawing(name: str) -> tuple[list[str], Palette]:
-    """Read `models/<name>.json` (read again every time, so edited files show up with "Reload models")."""
+    """Read `models/<group>/<name>.json` (read again every time, so edited files show up with "Reload models")."""
     data, source = read_drawing(name)
     return parse_drawing(data, source)
 
 
 def load_voxels(name: str) -> Voxels:
-    """Load a model's cubes from `models/<name>.json`: a flat drawing, a 3D (layered) one, or a MagicaVoxel model.
+    """Load a model's cubes from `models/<group>/<name>.json`: a flat drawing, a 3D (layered) one, or a .vox model.
 
     Read again every time, so edited files show up with "Reload models".
     """
     data, source = read_drawing(name)
-    return parse_voxels(data, source, name.rsplit("/", 1)[0] if "/" in name else "")
+    return parse_voxels(data, source, model_folder(name))
 
 
 def load_engines(name: str) -> list[Engine]:
@@ -39,9 +39,8 @@ def load_engines(name: str) -> list[Engine]:
 
 
 def read_drawing(name: str) -> tuple[Any, str]:
-    """Read a model's file; return its data and its file name."""
-    source = f"{name}.json"
-    return json.loads((data_folder() / DRAWINGS_FOLDER / source).read_text()), source
+    """Read a model's file (wherever it is in models/, see pewpy.data.model_path); return its data and its name."""
+    return json.loads(model_path(name).read_text()), f"{name}.json"
 
 
 def parse_voxels(data: Any, source: str = "drawing", folder: str = "") -> Voxels:  # noqa: ANN401 - decoded JSON

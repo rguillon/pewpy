@@ -1,6 +1,7 @@
 """The game with the dev tools' screens (`make dev`).
 
-The main menu also opens the Models, Bosses, Enemy candidates, Boss candidates and Prop candidates screens (models on
+The main menu also opens the Models, Bosses, Enemy candidates, Player candidates, Boss candidates and Prop candidates
+screens (models on
 show, to work on them, model_screens.py) and the AI learning and AI rating screens (ai_screens.py).
 """
 
@@ -32,6 +33,7 @@ class DevApp(AIScreens):
     def _setup_screens(self) -> None:
         self.showcase: ModelShowcase | None = None
         self.showcase_page = 0  # the page shown on the Models or Bosses screen
+        self.blinking = []  # the bosses' parts on show, blinking
         self.ai_session: Session | None = None  # learning or rating in the background, on the AI screens
         self.stopped_ai: list[Session] = []  # stopped, still finishing what they were doing
         self.pilot: Pilot | None = None  # the AI flying the ship on screen
@@ -45,6 +47,7 @@ class DevApp(AIScreens):
             MenuItem("Models", go(DevState.MODELS)),
             MenuItem("Bosses", go(DevState.BOSSES)),
             MenuItem("Enemy candidates", go(DevState.CANDIDATES)),
+            MenuItem("Player candidates", go(DevState.PLAYER_CANDIDATES)),
             MenuItem("Boss candidates", go(DevState.BOSS_CANDIDATES)),
             MenuItem("Prop candidates", go(DevState.PROP_CANDIDATES)),
             MenuItem("AI learning", go(DevState.AI_LEARNING)),
@@ -75,6 +78,7 @@ class DevApp(AIScreens):
             self._update_ai(dt)
         if self.showcase:
             self.showcase.update(dt)
+            self.blink_parts()
         return super()._update(task)
 
     def _on_back(self) -> None:

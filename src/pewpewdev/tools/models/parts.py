@@ -2,13 +2,13 @@
 
 import json
 
-from pewpewdev.tools.models.registry import MODELS
+from pewpewdev.tools.models.registry import model_file
 from pewpewdev.tools.models.sculpt import Model
 
 
 def engines_of(name: str, z: float | None = None) -> list[dict]:
     """Return the model's engines as in its file now (their flames stay where they were), maybe raised to `z`."""
-    data = json.loads((MODELS / f"{name}.json").read_text())
+    data = json.loads(model_file(name).read_text())
     engines = [dict(engine) for engine in data.get("engines", [])]
     if z is not None:
         for engine in engines:

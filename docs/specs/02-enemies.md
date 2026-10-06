@@ -18,13 +18,22 @@
   destroys), not rammed ones. Every destroyed or rammed enemy explodes (see `05-visuals.md`).
 - "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 64% upgrade capsule, 4% extra life, 8% secondary
   weapon, 24% repair *(placeholder)* (see `01-gameplay.md`; the shares are in `data/rules.json`).
-- Looks: every enemy is a voxel model in its colors, drawn in `data/models/<name>.json` (its description names
+- Looks: every enemy is a voxel model in its colors, drawn in `data/models/<group>/<name>.json` (its description names
   its drawing) and built by `src/pewpy/graphics/models/`; the size given is its hitbox.
 - "First appears in level" uses the worlds' places (see `03-levels.md`).
 - What each enemy does is data: `data/enemies/` (`catalog.json`, `fleet.json`, `projectiles.json`), see
   `06-technical.md`, "Enemies as data".
 
 ## Enemy weapons
+
+Shots come out of the weapons drawn on the enemy's model: a model lists its `weapons` (like its engines), each
+numbered (1, 2...) with its kind (gun, gatling, cannon, turret, flak, missile, laser) and its barrel's tip, where the
+shots leave it, facing down the screen. A gun names the weapons it fires from (`weapon`, or `weapons` to fire from
+several at once), so one gun can be given per kind of shot; without them, an enemy's guns fire from its weapons in
+turn (its state's first gun from weapon 1, the second from weapon 2...). The weapons turn with a model that faces the
+way it flies. A model without weapons (or a gun with its own `origins`) fires from the gun's origins, as before.
+The candidates the tools make always have weapons: at least one on an enemy, at least five on a boss (its core and
+its parts together) *(the user's choice)*.
 
 Besides plain shots (pink, 0.03), enemies use:
 
