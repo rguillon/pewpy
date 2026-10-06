@@ -19,6 +19,7 @@ HIDDEN = (24,)  # neurons in each hidden layer
 OUTPUTS = 3 + len(WEAPONS)
 FIRE_BIAS = 1.0  # a new brain starts with the fire button held: shooting is nearly always right
 WEAPON_BIAS = 1.0  # ...and with the bullets selected (the first weapon), not switching at random
+LEVEL_GAIN = 10.0  # ...and wanting each weapon by its level, so it picks the highest one (the bullets when tied)
 RADAR_GAIN = 3.0  # a new brain starts flying the radar's move to aim, the stick this far over (clamped to 1)
 STICK_NOISE = 0.1  # how much less its hidden layer moves the stick than the other outputs at first
 
@@ -73,6 +74,8 @@ class Brain:
         out[-1, 3] = WEAPON_BIAS
         direct = np.zeros((sensors.SIZE, OUTPUTS))
         direct[sensors.AIM, 0] = direct[sensors.AIM + 1, 1] = RADAR_GAIN
+        for number in range(len(WEAPONS)):
+            direct[sensors.LEVELS + number, 3 + number] = LEVEL_GAIN
         parts.append(direct.ravel())
         return cls(np.concatenate(parts), hidden)
 

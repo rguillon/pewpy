@@ -34,6 +34,7 @@ UNHIT = 1.5  # a plan's score without a hit (one with a hit scores its time befo
 TOLERANCE = 0.1  # how much less than the safest a move can score and still be safe to aim with
 HOME = 0.0  # the height the ship aims from (the middle of the screen: room to dodge all around)...
 HOME_WEIGHT = 0.3  # ...minding it this much less than being under its target
+CEILING = 0.0  # the highest it goes for a pickup: above, it waits under the pickup for it to drift down
 NEAREST_SHOTS = 6
 SHOT_RANGE = 0.6  # where the shots are, in this unit
 LANES = 8
@@ -45,6 +46,7 @@ HALF_HEIGHT = config.PLAY_HEIGHT / 2
 SIZE = 2 * len(MOVES) + 2 + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + len(SHIPS) + 2 * len(WEAPONS) + 3 * TARGETS + 3 + 3
 SAFEST = 2 * len(MOVES)  # where the safest move's direction (x, y) is in the view
 AIM = SAFEST + 2  # where the move to aim's direction (x, y) is
+LEVELS = AIM + 2 + 4 * NEAREST_SHOTS + 2 * LANES + 8 + len(SHIPS) + len(WEAPONS)  # where the weapons' levels are
 NO_THREATS = np.zeros((0, 6))
 TIMES = np.linspace(HORIZON / STEPS, HORIZON, STEPS)  # when the radar looks
 _FIRSTS = np.repeat(np.arange(len(MOVES)), len(MOVES))  # every plan: its first move...
@@ -132,11 +134,23 @@ def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
     return time[pick], room[pick], score[pick], ship_x[after_first, _AIM_STEP], ship_y[after_first, _AIM_STEP]
 
 
-def target(world: World) -> float | None:
-    """Where across the ship should be to shoot: under the boss, else under the nearest enemy above it on screen."""
-    if world.boss is not None:
-        return world.boss.x
+def target(world: World) -> tuple[float, float | None] | None:
+    """Where the ship should go: (x, y), or (x, None) for anywhere at that x (to shoot up from HOME height).
+
+    Onto the nearest pickup (where it will be after FIRST: they drift down; waiting under it, not above CEILING),
+    else under the boss (under its part nearest across while its core is armored: its parts must go first), else
+    under the nearest enemy above it.
+    """
     player = world.player
+    pickup = min(world.pickups, key=lambda p: math.hypot(p.x - player.x, p.y - player.y), default=None)
+    if pickup is not None:
+        return pickup.x, min(pickup.y + pickup.vy * FIRST, CEILING)
+    boss = world.boss
+    if boss is not None:
+        parts = [part for part in boss.parts if part.alive]
+        if parts and not boss.state.vulnerable:
+            return min(parts, key=lambda part: abs(part.x - player.x)).x, None
+        return boss.x, None
     above = [
         enemy
         for enemy in world.enemies
@@ -144,7 +158,7 @@ def target(world: World) -> float | None:
     ]
     if not above:
         return None
-    return min(above, key=lambda enemy: abs(enemy.x - player.x) + 0.3 * (enemy.y - player.y)).x
+    return min(above, key=lambda enemy: abs(enemy.x - player.x) + 0.3 * (enemy.y - player.y)).x, None
 
 
 def safest(score: np.ndarray) -> tuple[float, float]:
@@ -152,15 +166,21 @@ def safest(score: np.ndarray) -> tuple[float, float]:
     return MOVES[int(np.argmax(score))]
 
 
-def aim(score: np.ndarray, reach_x: np.ndarray, reach_y: np.ndarray, aim_x: float | None) -> tuple[float, float]:
-    """Return the direction of the safe move that takes the ship nearest under `aim_x`, at HOME height.
+def aim(
+    score: np.ndarray, reach_x: np.ndarray, reach_y: np.ndarray, goal: tuple[float, float | None] | None
+) -> tuple[float, float]:
+    """Return the direction of the safe move that takes the ship nearest to `goal` (at HOME height if it has no y).
 
-    The safe moves are within TOLERANCE of the safest; without a target, the safest move.
+    The safe moves are within TOLERANCE of the safest; without a goal, the safest move.
     """
-    if aim_x is None:
+    if goal is None:
         return safest(score)
+    goal_x, goal_y = goal
     safe = score >= score.max() - TOLERANCE
-    cost = np.abs(reach_x - aim_x) + HOME_WEIGHT * np.abs(reach_y - HOME)
+    if goal_y is None:
+        cost = np.abs(reach_x - goal_x) + HOME_WEIGHT * np.abs(reach_y - HOME)
+    else:
+        cost = np.hypot(reach_x - goal_x, reach_y - goal_y)
     return MOVES[int(np.argmin(np.where(safe, cost, np.inf)))]
 
 

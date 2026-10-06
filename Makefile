@@ -51,6 +51,14 @@ final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from thei
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
 	@uv run python -u -m pewpy.tools.ai learn $(ARGS)
 
+.PHONY: learn-level1
+learn-level1: ## Teach the AI to play level 1-1 only, every ship (options: ARGS="--generations 300 --new", see --help)
+	@uv run python -u -m pewpy.tools.ai learn --levels 1-1 $(ARGS)
+
+.PHONY: learn-random
+learn-random: ## Teach the AI on levels drawn at random among them all, no curriculum (options: ARGS="--generations 300")
+	@uv run python -u -m pewpy.tools.ai learn --levels all $(ARGS)
+
 .PHONY: rate
 rate: ## Rate every level for every ship from how the trained AI fares: its clear rate (options: ARGS="--runs 20", see --help)
 	@uv run python -u -m pewpy.tools.ai rate $(ARGS)
