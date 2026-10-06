@@ -3,6 +3,7 @@
   "scroll_speed": 0.264,
   "background": "badlands",
   "background_seed": 8139,
+  "time_of_day": "night",
   "clouds": 0.1,
   "scenery": {
     "ground": {

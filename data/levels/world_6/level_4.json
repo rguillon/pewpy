@@ -4,7 +4,7 @@
   "background": "badlands",
   "background_seed": 368,
   "time_of_day": "dusk",
-  "clouds": 0.25,
+  "clouds": 0.2,
   "scenery": {
     "ground": {
       "shape": {

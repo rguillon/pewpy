@@ -4,7 +4,7 @@
   "background": "farmland",
   "background_seed": 1667,
   "time_of_day": "dusk",
-  "clouds": 0.4,
+  "clouds": 0.5,
   "scenery": {
     "settlement": {
       "layout": {

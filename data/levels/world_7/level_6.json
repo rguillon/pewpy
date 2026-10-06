@@ -3,8 +3,8 @@
   "scroll_speed": 0.298,
   "background": "refinery",
   "background_seed": 4243,
-  "time_of_day": "night",
-  "clouds": 0.8,
+  "time_of_day": "dusk",
+  "clouds": 0.85,
   "scenery": {
     "settlement": {
       "layout": {

@@ -3,7 +3,7 @@
   "scroll_speed": 0.258,
   "background": "salt_pan",
   "background_seed": 9657,
-  "clouds": 0.35,
+  "clouds": 0.6,
   "scenery": {
     "ground": {
       "shape": {

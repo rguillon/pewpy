@@ -136,7 +136,7 @@
     },
     "outposts": {
       "kinds": ["colony", "airfield", "radar_station"],
-      "spacing": 1.5,
+      "spacing": 1.1,
       "size": [0.26, 0.4]
     }
   },
@@ -173,7 +173,7 @@
     },
     "outposts": {
       "kinds": ["factory", "depot", "radar_station", "airfield"],
-      "spacing": 1.6,
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   },
@@ -222,7 +222,7 @@
     },
     "outposts": {
       "kinds": ["airfield", "depot", "factory"],
-      "spacing": 1.6,
+      "spacing": 1.1,
       "size": [0.26, 0.4]
     }
   },
@@ -260,7 +260,7 @@
     },
     "outposts": {
       "kinds": ["factory", "depot", "airfield"],
-      "spacing": 1.5,
+      "spacing": 1.1,
       "size": [0.26, 0.4]
     }
   },
@@ -290,7 +290,7 @@
     },
     "outposts": {
       "kinds": ["radar_station", "radar_station", "colony", "airfield"],
-      "spacing": 1.7,
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   },
@@ -326,7 +326,7 @@
     },
     "outposts": {
       "kinds": ["airfield", "depot", "factory"],
-      "spacing": 1.6,
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   },
@@ -356,14 +356,14 @@
     "flora": {
       "kind": "acacias",
       "knobs": {
-        "chance": 0.006,
+        "chance": 0.012,
         "size": 0.055,
         "height": [0.022, 0.03]
       }
     },
     "outposts": {
       "kinds": ["airfield", "depot", "radar_station"],
-      "spacing": 1.7,
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   },
@@ -393,7 +393,7 @@
     },
     "outposts": {
       "kinds": ["factory", "depot", "radar_station"],
-      "spacing": 1.7,
+      "spacing": 0.75,
       "size": [0.26, 0.4]
     }
   }

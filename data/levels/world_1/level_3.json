@@ -3,7 +3,7 @@
   "scroll_speed": 0.212,
   "background": "mountains",
   "background_seed": 4280,
-  "clouds": 0.4,
+  "clouds": 0.45,
   "scenery": {
     "haze": {
       "amount": 0.55

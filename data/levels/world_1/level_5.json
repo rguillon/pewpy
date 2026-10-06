@@ -4,7 +4,7 @@
   "background": "mountains",
   "background_seed": 621,
   "time_of_day": "dusk",
-  "clouds": 0.3,
+  "clouds": 0.2,
   "scenery": {
     "ground": {
       "shape": {

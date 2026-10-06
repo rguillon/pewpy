@@ -6,16 +6,21 @@ RUST_PAN = WorldPlan(
     "Rust Pan",
     "salt_pan",
     (
-        LevelPlan("Rust Pan", "enforcer", "maelstrom", "dusk", seed=791353),
+        LevelPlan("Rust Pan", "enforcer", "maelstrom", time_of_day="dusk", seed=791353),
         LevelPlan(
-            "Copper Flats", "hive_carrier", "man_o_war", clouds=0.15, scenery={"ground": {"shape": {"pool_share": 0.1}}}
+            "Copper Flats",
+            "hive_carrier",
+            "man_o_war",
+            time_of_day="night",
+            clouds=0.3,
+            scenery={"ground": {"shape": {"pool_share": 0.1}}},
         ),
         LevelPlan(
-            "Brine Pools", "hover_tank", "typhoon", clouds=0.35, scenery={"ground": {"shape": {"pool_share": 0.28}}}
+            "Brine Pools", "hover_tank", "typhoon", clouds=0.6, scenery={"ground": {"shape": {"pool_share": 0.28}}}
         ),
-        LevelPlan("Mineral Dusk", "cryo_fortress", "tsunami", "dusk", 0.3),
-        LevelPlan("Dust Storm", "sentry_grid", "abyssal", "dusk", 0.85, scenery={"haze": {"amount": 0.7}}),
-        LevelPlan("Night Crust", "leviathan", "kraken", "night", 0.4),
+        LevelPlan("Mineral Dusk", "cryo_fortress", "tsunami", time_of_day="dusk", clouds=0.15),
+        LevelPlan("Dust Storm", "sentry_grid", "abyssal", clouds=0.9, scenery={"haze": {"amount": 0.7}}),
+        LevelPlan("Night Crust", "leviathan", "kraken", time_of_day="night", clouds=0.45),
     ),
     ground_units=False,  # no tanks: the waves the world in its place had (over water) *(placeholder)*
     scenery={

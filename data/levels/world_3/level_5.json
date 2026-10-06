@@ -3,7 +3,6 @@
   "scroll_speed": 0.246,
   "background": "savanna",
   "background_seed": 6500,
-  "time_of_day": "dusk",
   "clouds": 0.85,
   "scenery": {
     "ground": {
@@ -42,7 +41,7 @@
     },
     "flora": {
       "knobs": {
-        "chance": 0.01
+        "chance": 0.018
       }
     },
     "haze": {

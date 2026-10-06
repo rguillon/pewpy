@@ -240,11 +240,12 @@ def test_ship_models_are_about_the_size_of_their_hitbox(kind: str) -> None:
 
 
 def test_every_drawing_has_the_same_cubes() -> None:
-    """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL, whatever its size."""
-    for drawing in ("swarmer", "player", "gunship"):
+    """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL (or its finer cube), whatever its size."""
+    for drawing in ("swarmer", "player", "player_light", "gunship"):
+        cube = models.load_voxels(drawing).size  # config.MODEL_VOXEL / the drawing's scale
         points = all_points(models.model(drawing))
-        xs = sorted({round(point.x / config.MODEL_VOXEL, 3) for point in points})
-        assert all(abs(x - round(x * 2) / 2) < 1e-3 for x in xs)  # corners on the half-voxel grid
+        xs = sorted({round(point.x / cube, 3) for point in points})
+        assert all(abs(x - round(x * 2) / 2) < 1e-3 for x in xs)  # corners on the half-cube grid
 
 
 def test_turret_has_a_barrel_to_aim() -> None:

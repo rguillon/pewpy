@@ -4,7 +4,7 @@
   "background": "savanna",
   "background_seed": 9124,
   "time_of_day": "dusk",
-  "clouds": 0.3,
+  "clouds": 0.4,
   "scenery": {
     "ground": {
       "shape": {
@@ -42,7 +42,7 @@
     },
     "flora": {
       "knobs": {
-        "chance": 0.016
+        "chance": 0.028
       }
     },
     "haze": {

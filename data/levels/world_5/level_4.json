@@ -4,7 +4,7 @@
   "background": "salt_pan",
   "background_seed": 9184,
   "time_of_day": "dusk",
-  "clouds": 0.3,
+  "clouds": 0.15,
   "scenery": {
     "ground": {
       "shape": {

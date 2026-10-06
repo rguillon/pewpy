@@ -4,7 +4,7 @@
   "background": "forest",
   "background_seed": 6244,
   "time_of_day": "night",
-  "clouds": 0.25,
+  "clouds": 0.2,
   "waves": [
     {
       "time": 2.0,

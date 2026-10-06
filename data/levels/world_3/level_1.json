@@ -42,7 +42,7 @@
     },
     "flora": {
       "knobs": {
-        "chance": 0.01
+        "chance": 0.018
       }
     },
     "haze": {

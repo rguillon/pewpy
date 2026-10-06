@@ -8,16 +8,26 @@ BRIGHT_RIDGES = WorldPlan(
     (
         LevelPlan("Bright Ridges", "relay_array", "mesa", clouds=0.3, seed=243193),
         LevelPlan(
-            "Striped Gullies", "scavenger", "dust_devil", clouds=0.1, scenery={"ground": {"shape": {"size": 0.6}}}
+            "Striped Gullies",
+            "scavenger",
+            "dust_devil",
+            time_of_day="night",
+            clouds=0.1,
+            scenery={"ground": {"shape": {"size": 0.6}}},
         ),
         LevelPlan(
-            "Ochre Walls", "mine_carrier", "landslide", clouds=0.3, scenery={"ground": {"shape": {"floor": 0.2}}}
+            "Ochre Walls",
+            "mine_carrier",
+            "landslide",
+            time_of_day="dusk",
+            clouds=0.6,
+            scenery={"ground": {"shape": {"floor": 0.2}}},
         ),
-        LevelPlan("Red Dusk", "foundry", "basilisk", "dusk", 0.25),
+        LevelPlan("Red Dusk", "foundry", "basilisk", time_of_day="dusk", clouds=0.2),
         LevelPlan(
-            "Rainbow Breaks", "gunship_prime", "sandworm", "dusk", 0.8, scenery={"ground": {"shape": {"size": 1.05}}}
+            "Rainbow Breaks", "gunship_prime", "sandworm", clouds=0.85, scenery={"ground": {"shape": {"size": 1.05}}}
         ),
-        LevelPlan("Dark Strata", "colossus", "monolith", "night", 0.2),
+        LevelPlan("Dark Strata", "colossus", "monolith", time_of_day="night", clouds=0.5),
     ),
     scenery={
         "ground": {

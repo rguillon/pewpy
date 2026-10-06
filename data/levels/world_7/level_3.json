@@ -4,7 +4,7 @@
   "background": "refinery",
   "background_seed": 1995,
   "time_of_day": "dusk",
-  "clouds": 0.5,
+  "clouds": 0.6,
   "waves": [
     {
       "time": 2.0,

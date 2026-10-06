@@ -97,8 +97,9 @@ landing pads (eight-sided, a painted ring and cross, cyan lights, sometimes a sm
 (six-sided spires with glowing rings and a crystal). Like every prop, they're described in `data/models/props/` (see
 `05-visuals.md`).
 
-Each preset picks its compounds (`outposts.kinds`), how far apart they are (`spacing`, about 1.5 to 1.7: about
-five per ground loop) and their size (`size`, 0.26 to 0.4 across) *(placeholder)*:
+Each preset picks its compounds (`outposts.kinds`), how far apart they are (`spacing`: 0.75 on the natural grounds,
+close together, as many as the flat dry ground has room for; 1.1 on the built-up ones, the city, the refinery and the farmland, already
+full of their own buildings) and their size (`size`, 0.26 to 0.4 across) *(placeholder; the user's choice: dense)*:
 
 | Preset | Compounds |
 |--------|-----------|
@@ -124,29 +125,31 @@ levels have none.
 ## Worlds
 
 Each world keeps its ground on all its levels, changing only its numbers (the preset's changes are listed;
-the first level of each world shows the preset as it is). Difficulty: see "Difficulty" above.
+the first level of each world shows the preset as it is). Each world varies its sky *(the user's choice)*: two
+levels by day, two at dusk and two at night (a level named for its time keeps it), and clouds from nearly clear
+(0.2 or less) to heavy (0.8 or more), in no rising order. Difficulty: see "Difficulty" above.
 
 ### World 1: Highlands (`mountains`: snowy ridges)
 
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 1-1 | High Peaks | 1 | day | 0.6 |  | Sentinel | Avalanche |
-| 1-2 | Pine Ridge | 2 | day | 0.15 | `ground.shape.range_size` 1.4, `ground.shape.crest_size` 0.5 | Thresher | Frostjaw |
-| 1-3 | Glacier Pass | 3 | day | 0.4 | `haze.amount` 0.55, `ground.colors.snow` [0.46 0.48 0.53] | Prowler | Iron Summit |
-| 1-4 | Stormcrest | 4 | day | 0.85 | `ground.shape.crest_size` 0.75 | Pulsar | Stormpeak |
-| 1-5 | Dusk Peaks | 5 | dusk | 0.3 | `ground.shape.range_size` 0.9 | Rockbreaker | Ridgebreaker |
-| 1-6 | Summit | 6 | night | 0.5 | `ground.shape.range_size` 1.2, `ground.shape.crest_size` 0.7 | Warden | Highlord |
+| 1-1 | High Peaks | 1 | day | 0.1 |  | Sentinel | Avalanche |
+| 1-2 | Pine Ridge | 2 | night | 0.5 | `ground.shape.range_size` 1.4, `ground.shape.crest_size` 0.5 | Thresher | Frostjaw |
+| 1-3 | Glacier Pass | 3 | day | 0.45 | `haze.amount` 0.55, `ground.colors.snow` [0.46 0.48 0.53] | Prowler | Iron Summit |
+| 1-4 | Stormcrest | 4 | dusk | 0.9 | `ground.shape.crest_size` 0.75 | Pulsar | Stormpeak |
+| 1-5 | Dusk Peaks | 5 | dusk | 0.2 | `ground.shape.range_size` 0.9 | Rockbreaker | Ridgebreaker |
+| 1-6 | Summit | 6 | night | 0.7 | `ground.shape.range_size` 1.2, `ground.shape.crest_size` 0.7 | Warden | Highlord |
 
 ### World 2: Wildwood (`forest`: woods and rivers)
 
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 2-1 | Greenwood | 3 | day | 0.5 |  | Patrol Drone | Ironbark |
-| 2-2 | Riverbend | 4 | day | 0.2 | `ground.shape.river_spacing` 1.8, `ground.shape.river_width` 0.16 | Cyclone | Thornback |
-| 2-3 | Deep Canopy | 5 | day | 0.35 | `ground.shape.canopy_size` 1.1, `ground.shape.river_spacing` 4.0 | Siege Pod | Rootmaw |
-| 2-4 | Autumn Wood | 6 | day | 0.3 | `ground.colors.tree_a` [0.16 0.1 0.04], `ground.colors.tree_b` [0.09 0.05 0.03], `ground.colors.tree_c` [0.14 0.13 0.05] | Delta Raider | Wildfire |
-| 2-5 | Twilight Grove | 7 | dusk | 0.8 | `ground.shape.canopy_size` 0.7 | Breacher | Grovekeeper |
-| 2-6 | Moonlit Woods | 8 | night | 0.25 |  | Harvester | Old Growth |
+| 2-1 | Greenwood | 3 | day | 0.3 |  | Patrol Drone | Ironbark |
+| 2-2 | Riverbend | 4 | dusk | 0.1 | `ground.shape.river_spacing` 1.8, `ground.shape.river_width` 0.16 | Cyclone | Thornback |
+| 2-3 | Deep Canopy | 5 | night | 0.6 | `ground.shape.canopy_size` 1.1, `ground.shape.river_spacing` 4.0 | Siege Pod | Rootmaw |
+| 2-4 | Autumn Wood | 6 | day | 0.5 | `ground.colors.tree_a` [0.16 0.1 0.04], `ground.colors.tree_b` [0.09 0.05 0.03], `ground.colors.tree_c` [0.14 0.13 0.05] | Delta Raider | Wildfire |
+| 2-5 | Twilight Grove | 7 | dusk | 0.85 | `ground.shape.canopy_size` 0.7 | Breacher | Grovekeeper |
+| 2-6 | Moonlit Woods | 8 | night | 0.2 |  | Harvester | Old Growth |
 
 ### World 3: Lush Veld (`savanna`: a green-season savanna)
 
@@ -157,22 +160,22 @@ No ground enemies (tanks, turrets...): the waves the world in its place had, ove
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the world's look | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------------|-----------|------------|
 | 3-1 | Lush Veld | 5 | dusk | 0.21 |  | Turbine | Bogmaw |
-| 3-2 | Winding Sands | 6 | day | 0.15 | `ground.shape.bend_spacing` 0.9 | Clamp Barge | Mirelord |
-| 3-3 | Kopje Country | 7 | day | 0.5 | `ground.shape.outcrop_share` 0.05 | Spire | Fenwraith |
-| 3-4 | Acacia Dusk | 8 | dusk | 0.3 | `flora.knobs.chance` 0.016 | Twin Fang | Hydra |
-| 3-5 | Long Grass | 9 | dusk | 0.85 | `ground.shape.size` 1.5 | Frigate | Marsh Titan |
-| 3-6 | Veld by Night | 10 | night | 0.4 |  | Tidebreaker | Drowned King |
+| 3-2 | Winding Sands | 6 | day | 0.05 | `ground.shape.bend_spacing` 0.9 | Clamp Barge | Mirelord |
+| 3-3 | Kopje Country | 7 | night | 0.5 | `ground.shape.outcrop_share` 0.05 | Spire | Fenwraith |
+| 3-4 | Acacia Dusk | 8 | dusk | 0.4 | `flora.knobs.chance` 0.016 | Twin Fang | Hydra |
+| 3-5 | Long Grass | 9 | day | 0.85 | `ground.shape.size` 1.5 | Frigate | Marsh Titan |
+| 3-6 | Veld by Night | 10 | night | 0.3 |  | Tidebreaker | Drowned King |
 
 ### World 4: Heartland (`farmland`: fields and farms)
 
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------|-----------|------------|
 | 4-1 | Harvest Dusk | 7 | dusk | 0.1 |  | Picket | Scarecrow |
-| 4-2 | Golden Fields | 8 | day | 0.15 | `settlement.layout.fields` ["wheat" "wheat" "wheat" "crop" "plowed" "wheat"] | Bulwark | Combine |
-| 4-3 | Lavender Rows | 9 | day | 0.25 | `settlement.layout.fields` ["lavender" "lavender" "crop" "wheat" "plowed" "lavender"] | Borer | Locust |
-| 4-4 | Orchard Country | 10 | day | 0.3 | `settlement.layout.orchard_share` 0.3, `settlement.layout.hedge_share` 0.6 | Silo Hauler | Granary |
+| 4-2 | Golden Fields | 8 | day | 0.4 | `settlement.layout.fields` ["wheat" "wheat" "wheat" "crop" "plowed" "wheat"] | Bulwark | Combine |
+| 4-3 | Lavender Rows | 9 | night | 0.6 | `settlement.layout.fields` ["lavender" "lavender" "crop" "wheat" "plowed" "lavender"] | Borer | Locust |
+| 4-4 | Orchard Country | 10 | day | 0.2 | `settlement.layout.orchard_share` 0.3, `settlement.layout.hedge_share` 0.6 | Silo Hauler | Granary |
 | 4-5 | Hay Moon | 11 | night | 0.85 | `settlement.layout.farm_share` 0.2 | Bastion | Harrowmaster |
-| 4-6 | Last Harvest | 12 | dusk | 0.4 | `settlement.layout.greenhouse_share` 0.15, `settlement.layout.block` 0.4 | Reaper | Black Harvest |
+| 4-6 | Last Harvest | 12 | dusk | 0.5 | `settlement.layout.greenhouse_share` 0.15, `settlement.layout.block` 0.4 | Reaper | Black Harvest |
 
 ### World 5: Rust Pan (`salt_pan`: a copper salt pan)
 
@@ -183,11 +186,11 @@ No ground enemies (tanks, turrets...): the waves the world in its place had, ove
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the world's look | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------------|-----------|------------|
 | 5-1 | Rust Pan | 9 | dusk | 0 |  | Enforcer | Maelstrom |
-| 5-2 | Copper Flats | 10 | day | 0.15 | `ground.shape.pool_share` 0.1 | Hive Carrier | Man o' War |
-| 5-3 | Brine Pools | 11 | day | 0.35 | `ground.shape.pool_share` 0.28 | Hover Tank | Typhoon |
-| 5-4 | Mineral Dusk | 12 | dusk | 0.3 |  | Cryo Fortress | Tsunami |
-| 5-5 | Dust Storm | 13 | dusk | 0.85 | `haze.amount` 0.7 | Sentry Grid | Abyssal |
-| 5-6 | Night Crust | 14 | night | 0.4 |  | Leviathan | Kraken |
+| 5-2 | Copper Flats | 10 | night | 0.3 | `ground.shape.pool_share` 0.1 | Hive Carrier | Man o' War |
+| 5-3 | Brine Pools | 11 | day | 0.6 | `ground.shape.pool_share` 0.28 | Hover Tank | Typhoon |
+| 5-4 | Mineral Dusk | 12 | dusk | 0.15 |  | Cryo Fortress | Tsunami |
+| 5-5 | Dust Storm | 13 | day | 0.9 | `haze.amount` 0.7 | Sentry Grid | Abyssal |
+| 5-6 | Night Crust | 14 | night | 0.45 |  | Leviathan | Kraken |
 
 ### World 6: Bright Ridges (`badlands`: rainbow badlands)
 
@@ -196,30 +199,30 @@ Background candidate #022 *(the user's choice)*: its look is the world's (`scene
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the world's look | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------------|-----------|------------|
 | 6-1 | Bright Ridges | 11 | day | 0.3 |  | Relay Array | Mesa |
-| 6-2 | Striped Gullies | 12 | day | 0.1 | `ground.shape.size` 0.6 | Scavenger | Dust Devil |
-| 6-3 | Ochre Walls | 13 | day | 0.3 | `ground.shape.floor` 0.2 | Mine Carrier | Landslide |
-| 6-4 | Red Dusk | 14 | dusk | 0.25 |  | Foundry | Basilisk |
-| 6-5 | Rainbow Breaks | 15 | dusk | 0.8 | `ground.shape.size` 1.05 | Gunship Prime | Sandworm |
-| 6-6 | Dark Strata | 16 | night | 0.2 |  | Colossus | Monolith |
+| 6-2 | Striped Gullies | 12 | night | 0.1 | `ground.shape.size` 0.6 | Scavenger | Dust Devil |
+| 6-3 | Ochre Walls | 13 | dusk | 0.6 | `ground.shape.floor` 0.2 | Mine Carrier | Landslide |
+| 6-4 | Red Dusk | 14 | dusk | 0.2 |  | Foundry | Basilisk |
+| 6-5 | Rainbow Breaks | 15 | day | 0.85 | `ground.shape.size` 1.05 | Gunship Prime | Sandworm |
+| 6-6 | Dark Strata | 16 | night | 0.5 |  | Colossus | Monolith |
 
 ### World 7: Ironworks (`refinery`: industrial plants)
 
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------|-----------|------------|
 | 7-1 | Refinery | 13 | day | 0.4 |  | Grappler | Furnace |
-| 7-2 | Tank Farm | 14 | day | 0.2 | `settlement.layout.units` ["tanks" "tanks" "tanks" "pipes" "stack" "tanks"] | Tugmaster | Smokestack |
-| 7-3 | Smelter | 15 | dusk | 0.5 |  | Magma Rig | Slag King |
-| 7-4 | Pipe Maze | 16 | dusk | 0.3 | `settlement.layout.units` ["pipes" "pipes" "plant" "stack" "tanks" "pipes"] | Dreadnought | Forgemaster |
-| 7-5 | Flare Stacks | 17 | night | 0.6 | `settlement.layout.units` ["stack" "stack" "plant" "tanks" "cooling" "stack"] | Flare Rig | Inferno |
-| 7-6 | Meltdown | 18 | night | 0.8 | `settlement.layout.units` ["plant" "plant" "cooling" "stack" "tanks" "cooling"] | Crucible | Reactor |
+| 7-2 | Tank Farm | 14 | night | 0.15 | `settlement.layout.units` ["tanks" "tanks" "tanks" "pipes" "stack" "tanks"] | Tugmaster | Smokestack |
+| 7-3 | Smelter | 15 | dusk | 0.6 |  | Magma Rig | Slag King |
+| 7-4 | Pipe Maze | 16 | day | 0.9 | `settlement.layout.units` ["pipes" "pipes" "plant" "stack" "tanks" "pipes"] | Dreadnought | Forgemaster |
+| 7-5 | Flare Stacks | 17 | night | 0.3 | `settlement.layout.units` ["stack" "stack" "plant" "tanks" "cooling" "stack"] | Flare Rig | Inferno |
+| 7-6 | Meltdown | 18 | dusk | 0.85 | `settlement.layout.units` ["plant" "plant" "cooling" "stack" "tanks" "cooling"] | Crucible | Reactor |
 
 ### World 8: Metropolis (`city`: the city)
 
 | Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
 |-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 8-1 | Neon City | 15 | day | 0.2 |  | Executor | Neon Tyrant |
+| 8-1 | Neon City | 15 | dusk | 0.2 |  | Executor | Neon Tyrant |
 | 8-2 | Downtown | 16 | day | 0.1 | `settlement.layout.tower_share` 0.15 | Interdictor | Gridlock |
-| 8-3 | Skyline | 17 | dusk | 0.3 | `settlement.layout.tower_share` 0.2, `settlement.layout.midrise_share` 0.35 | Nightwatch | Blackout |
-| 8-4 | Neon Rain | 18 | night | 0.7 |  | Arc Tower | Skybreaker |
-| 8-5 | Night Grid | 19 | night | 0.4 | `settlement.layout.block` 0.3, `settlement.layout.park_share` 0.03 | Apex | Sovereign |
-| 8-6 | The Core | 20 | night | 0.9 | `settlement.layout.tower_share` 0.25 | Overmind | Singularity |
+| 8-3 | Skyline | 17 | day | 0.5 | `settlement.layout.tower_share` 0.2, `settlement.layout.midrise_share` 0.35 | Nightwatch | Blackout |
+| 8-4 | Neon Rain | 18 | night | 0.9 |  | Arc Tower | Skybreaker |
+| 8-5 | Night Grid | 19 | night | 0.35 | `settlement.layout.block` 0.3, `settlement.layout.park_share` 0.03 | Apex | Sovereign |
+| 8-6 | The Core | 20 | dusk | 0.7 | `settlement.layout.tower_share` 0.25 | Overmind | Singularity |

@@ -3,6 +3,7 @@
   "scroll_speed": 0.281,
   "background": "city",
   "background_seed": 3333,
+  "time_of_day": "dusk",
   "clouds": 0.2,
   "waves": [
     {
