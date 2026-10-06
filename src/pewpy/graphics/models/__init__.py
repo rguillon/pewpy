@@ -17,7 +17,6 @@ The player points up the screen (+Z); enemies point down (-Z). The first row of 
 from pewpy.graphics.models.background.cloud import cloud_model
 from pewpy.graphics.models.background.distant_planet import distant_planet_model
 from pewpy.graphics.models.background.mist import MIST_TEXTURES, mist_model
-from pewpy.graphics.models.background.rock import rock_model
 from pewpy.graphics.models.built.cube import make_cube
 from pewpy.graphics.models.built.gun_turret import gun_turret_model
 from pewpy.graphics.models.built.laser_beam import laser_beam_model
@@ -144,7 +143,6 @@ __all__ = [
     "parse_voxels",
     "pickup_model",
     "repair_model",
-    "rock_model",
     "shade",
     "shield_bubble_model",
     "tank_model",

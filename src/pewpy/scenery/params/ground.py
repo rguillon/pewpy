@@ -19,7 +19,7 @@ class Ground:
 
 @dataclass(frozen=True)
 class Fluid:
-    """What's below height 0: "water", "lava" or "gap" (in a cloud deck: the ground far below)."""
+    """What's below height 0: "water"."""
 
     kind: str
     colors: dict[str, Color3]  # see colors.py FLUID_COLORS

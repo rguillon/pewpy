@@ -10,6 +10,7 @@ Main menu <-> Models
 Main menu <-> Bosses
 Main menu <-> Enemy candidates
 Main menu <-> Boss candidates
+Main menu <-> Background candidates
 Playing -> Level complete ("World complete" after a world's last level) -> next level (Playing, into the next
 world after a world's last level), or after the very last level: "YOU WIN" -> Main menu
 Playing -> Game over -> Continue (restart the level) or Main menu
@@ -31,7 +32,8 @@ Pause -> Main menu
   levels, like "2-5 Twilight Grove", then Back, with a window above the list showing the highlighted level's
   ground scrolling by, as in the game; both open on the last level played), Quit *(entries are a placeholder)*
 - With the dev tools (`make dev`: the game with the screens below, `src/pewpy/tools/dev/`), more entries after Start:
-  Models, Bosses, Enemy candidates, Boss candidates, AI learning, AI rating, AI playing (see `07-ai.md`). Not in the game.
+  Models, Bosses, Enemy candidates, Player candidates, Boss candidates, Prop candidates, Background candidates, AI
+  learning, AI rating, AI playing (see `07-ai.md`). Not in the game.
 
 ### Models (dev tools)
 
@@ -83,13 +85,31 @@ Pause -> Main menu
 - For picking new bosses: boss candidates (`data/models/candidates/bosses/`: a core, its parts' drawings and
   where they go, see pewpy/tools/boss_candidates/; not used in the game), each whole with its parts, 4 per page,
   all drawn to the same scale, labelled with their number, size in cubes and how many parts ("#007  51x42 +2").
-- Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`, as real 3D voxel models
-  sculpted from a plan: stepped decks and a superstructure on the hull, the bridge on top, recessed panel lines and
-  hangar bays; then no flat zone left plain: plating panels raised or sunk, machinery on the hull and decks (blocks,
-  grilled vents, domes, pipes, radiator fins, antennas, lights, lit trenches), ribs and weapon pods on the wings, the
-  same (smaller) on the parts; each part stands on the hull where it's mounted, on a socket following its outline.
-  Each drawing lists its weapons: the parts' barrels (a launcher, a missile pod or an emitter: its front edge), and
-  guns on the core's front edge, enough for at least five on the boss.
+- Entries: Next page, Previous page, Reload models, Back. Made by `make boss-candidates`, the same way as the enemy
+  candidates and from the same kit of parts, bigger *(the user's choice)*: the core a big ship (carrier,
+  dreadnought, flying wing, twin hull, mothership, gunline: a hull, wings, a bridge, engines, weapons, extras), its
+  destructible parts small ships of their own from the kit (turrets, cannons, gatlings, flak batteries, missile
+  launchers, beam emitters, radars, generators), each standing on the hull where it's mounted, on a plate. Each
+  drawing lists its weapons: the parts' all of their kind, and the core's, with turrets added on its spine until
+  the boss has at least five.
+
+### Background candidates (dev tools)
+
+- For picking new backgrounds: background candidates (`data/models/candidates/backgrounds/`, see
+  pewpy/tools/background_candidates/; not used in the game), listed by name 6 a page like the level select, with
+  the same window showing the highlighted one's ground scrolling by; the title says its number, theme and time of
+  day. Choosing one shows it on the whole screen, scrolling, without the menu; Escape goes back to the list.
+- Entries: the page's candidates, Next page, Previous page, Reload (reads the files again), Back.
+- Made by `make backgrounds` (one candidate per theme, none twice *(the user's choice)*) *(the user's request: mountains, seas with isles, cities, urban...)*.
+  A candidate is what a level says of its background (`background`, `scenery`, `time_of_day`, `clouds`,
+  `background_seed`, see `03-levels.md`), with a name and its theme: it joins the game by copying those fields into a
+  level, or into `sceneries.json` as a new preset. Each shows one of the kinds of ground made for them, with
+  generators and painters of their own (`salt_pan`, `savanna`, `badlands`, see `03-levels.md`; three candidates became
+  worlds 3, 5 and 6): earth-like only, after real places, no space and nothing alien-looking *(the user's choice)*. A
+  theme gives one its palette, sometimes other water, its numbers, its time of day and clouds: salt, turquoise,
+  copper and clay pans, a salt shore; Serengeti, green-season, Kalahari or outback savannas; painted, grey, cream or
+  rainbow badlands. Kept dark and muted like the game's backgrounds, so bullets stand out *(placeholder: the
+  themes)*.
 
 ### Options
 

@@ -61,9 +61,7 @@ class Keys(Screens):
             menu.move(MENU_MOVES[key])
             self.audio.play("menu_move")
             self.menu_view.refresh()
-            self._highlight_ship()
-            if self.states.state is State.LEVEL_SELECT:
-                self._preview_level(menu)
+            self._on_highlight(menu)
 
     def _on_choose(self) -> None:
         if self.menu_view.menu is not None:

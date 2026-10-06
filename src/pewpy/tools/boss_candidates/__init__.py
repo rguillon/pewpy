@@ -12,24 +12,18 @@ weapons), its parts' drawings under "parts" ({"a": ..., "b": ...}, each written 
 "candidates/bosses/007:a"), and where they go under "layout": [{"part": "a", "x": ..., "y": ...}], in cubes from the
 core's middle (x right, y up the screen); a part used on both sides is listed twice.
 
-Cores: 18 families (carrier, dreadnought, station, hammerhead, twin hull, flying wing, crescent, modular, citadel,
-spider, trident, barge, mothership, chain, fortress, blade, gunline, ring cluster), a quarter of them combining two (a
-second hull at the back or on the sides), with 0 to 3 appendages (big wings, arms ending in pods, armor spikes, a halo
-ring, engine nacelles, radiator panels, masts); medium (41 to 61 cubes wide), large (up to 85) or huge (up to 115, half
-the screen); a fifth of them lopsided. Details: raised decks and a bridge, hangar bays, armor bands, engine banks,
-lights, and a paint scheme (plain, two-tone or glowing seams). Parts (11 kinds: turrets, cannons, generators, missile
-launchers, drills, missile pods, beam emitters, shield nodes, radar dishes, flak guns, claws), sized to the boss, up to
-10 on the biggest, each on a socket. Everything is a real 3D model ("layers"), sculpted from its plan
-(sculpting.py): a chamfered hull, higher on top than underneath, raised decks stacked on it with
-the bridge on top, recessed panel lines and hangar bays, thin wings and sponsons; then its flat tops broken up
-(greebles.py): plating panels raised or sunk, machinery (blocks, grilled vents, domes, pipes, radiator fins, antennas,
-lights, lit trenches), ribs and weapon pods on the wings, and the same, smaller, on every part; each part stands on the
-core's surface where it is mounted, its barrels at half its height. As for the enemies (pewpy.tools.candidates), many
-more are made than kept, and the ones kept are the most different from each other (outline, size, family, parts).
+A boss is made the same way as an enemy (pewpy.tools.candidates), from the same kit of hardcoded parts, bigger: its
+core is a recipe placing a hull, wings, a cockpit or bridge, engines, weapons and extras (archetypes.py: carrier,
+dreadnought, flying wing, twin hull, mothership, gunline), its sizes times its size class's scale: medium (about 41
+to 61 cubes wide), large (up to 85) or huge (up to 115, half the screen); a fifth of them lopsided (a side cannon,
+parts on one side). Its destructible parts are small ships of their own from the same kit (parts.py: turrets,
+cannons, gatlings, flak batteries, missile launchers, beam emitters, radars, generators), sized to the boss, a few
+kinds on each, up to 10 on the biggest, each standing on the hull on a plate, mirrored on a symmetric boss. Each
+drawing lists its weapons, a part's all of its kind; the core gets turrets on its spine until the boss has at least
+MIN_WEAPONS. As for the enemies, many more are made than kept, and the ones kept are the most different from each
+other (outline, size, kind, parts).
 
-Each part in its own module: canvas.py (the plan), families/ (one module per family), appendages/ (one per
-appendage), core.py (the core's outline and details), details.py (bands, panel lines, markings on a plan),
-sculpting.py (a plan made 3D) and shaping.py (how a core's and a part's are), greebles.py (the surface details),
-part_kinds/ (one module per kind of part), mounting.py (placing them), weapons.py, selection.py and __main__.py; what
-the candidates share is in pewpy.tools.common (the command line, the 3D drawing, the colors, the variety).
+The modules: archetypes.py (the cores' recipes), parts.py (the parts' recipes, and placing them), selection.py
+(making bosses, keeping the most different) and __main__.py; the kit is pewpy.tools.candidates.kit, and what the
+candidates share is in pewpy.tools.common (the command line, the 3D drawing, the colors, the variety).
 """

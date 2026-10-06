@@ -52,33 +52,26 @@ Each level has one background (see `05-visuals.md`). All kept dark and muted so 
 fade into haze towards the top of the screen.
 
 Each background is a preset of `data/levels/sceneries.json`, which holds every value of the sceneries: colors
-(of the grounds, water, lava, the props' lit windows, the sky, the haze), sizes and shares (city blocks, streets, building heights,
-fields, islands, dunes, outposts...), depths, stars, nebulas, asteroids, clouds, times of day. A level's `scenery` changes
+(of the grounds, water, the props' lit windows, the sky, the haze), sizes and shares (city blocks, streets, building heights,
+fields, pools, outcrops, outposts...), depths, stars, nebulas, clouds, times of day. A level's `scenery` changes
 any of them for that level, e.g. `"scenery": {"fluid": {"colors": {"deep": [0.02, 0.08, 0.06]}}}` for greener
 water (see `pewpy.scenery.params`).
 
-The worlds use `mountains`, `forest`, `swamp`, `farmland`, `ocean`, `geysers`, `refinery` and `city`. The other
-presets (`space`, `debris`, `planet`, `pack_ice`, `clouds`, `desert`, `volcano`, `canyon`) and their generators are kept for
-later worlds *(open: which ones, and where)*.
+The worlds use `mountains`, `forest`, `savanna`, `farmland`, `salt_pan`, `badlands`, `refinery` and `city`; `space` is
+behind the menus. No other preset is kept: the unused ones were deleted, with their generators and painters *(the
+user's choice)*.
 
 | Background | Look |
 |------------|------|
 | `space` | Stars, faint nebula clouds, a distant voxel planet; nebula and planet colors and the planet's size vary by level |
-| `debris` | Stars and tumbling voxel asteroids at two depths |
-| `planet` | Rolling hills and craters |
 | `farmland` | Patchwork fields (wheat, crops, plowed earth, lavender), hedges, orchards, farms with silos and greenhouses, dirt roads |
 | `forest` | A canopy of round treetops, clearings, a winding river |
-| `swamp` | Murky water with muddy islets, reeds and dead trees |
-| `ocean` | A sea with islands: beaches, grass, forest and rocky tops; animated water, lighter in the shallows |
-| `pack_ice` | Ice floes and icebergs on a dark sea |
-| `clouds` | Flat moonlit clouds, with town lights far below in the gaps |
-| `desert` | Dune ridges, rock mesas, oasis pools with palms |
-| `canyon` | Layered cliffs stepping down to a river |
-| `geysers` | A geyser basin: a flat pale crust of sinter; hot pools (blue in the middle, turquoise at the edges) in a few hot patches, ringed with bacterial mats (pale yellow at the water, then orange, then rust) that run off in fingers one way; terraced mounds stepping up in white rims round ochre ledges under clear shallow water, a spring on top, an orange apron of runoff round the foot; low ridges of dark pines with bare rock where steep; bleached dead trees at the edge of the mats |
-| `volcano` | Black volcanic hills with glowing lava rivers |
 | `mountains` | Snowy ridges, glaciers, pine forests |
 | `city` | A sci-fi city at night: blocks of towers with lit windows, street lights, red beacons |
 | `refinery` | Tanks, pipe yards, plants with glowing furnaces, cooling towers, flaming stacks, at night |
+| `salt_pan` | A flat salt crust cracked into polygon plates with raised edges, pools of brine |
+| `savanna` | Golden grassland gently rolling, a pale dry riverbed winding through it, small boulder piles, trees standing alone (more along the riverbed) |
+| `badlands` | Bare ridges eroded into branching gullies, striped in colored layers (painted like the canyon), sandy floors |
 
 Every world's ground also has **outposts** *(the user's idea: hangars, industrial buildings, sci-fi stuff)*:
 small compounds set where the ground is flattest (and dry, and open: in a forest's clearings, not on reeds). About
@@ -111,15 +104,15 @@ five per ground loop) and their size (`size`, 0.26 to 0.4 across) *(placeholder)
 |--------|-----------|
 | `mountains` | Radar stations (twice as likely), a colony, an airfield |
 | `forest` | A factory, a depot, a radar station, an airfield |
-| `swamp` | A colony, a radar station, a depot |
+| `savanna` | An airfield, a depot, a radar station |
 | `farmland` | An airfield, a depot, a factory |
-| `ocean` | An airfield, a colony, a radar station |
-| `geysers` | A factory, a depot, a radar station, a colony |
+| `salt_pan` | An airfield, a depot, a factory |
+| `badlands` | A factory, a depot, a radar station |
 | `refinery` | A factory, a depot, an airfield |
 | `city` | A colony, an airfield, a radar station |
 
 On the grounds, `time_of_day` tints the ground, its haze and the sky: `dusk` warmer, `night` darker and bluer;
-lights (windows, lava, flames) keep their colors. The ground scrolls at 30% of the level's speed on screen,
+lights (windows, flames) keep their colors. The ground scrolls at 30% of the level's speed on screen,
 as if flying high, so it never moves with the flying enemies; ground enemies scroll with it (see
 `02-enemies-catalog.md`).
 
@@ -155,18 +148,20 @@ the first level of each world shows the preset as it is). Difficulty: see "Diffi
 | 2-5 | Twilight Grove | 7 | dusk | 0.8 | `ground.shape.canopy_size` 0.7 | Breacher | Grovekeeper |
 | 2-6 | Moonlit Woods | 8 | night | 0.25 |  | Harvester | Old Growth |
 
-### World 3: Fenlands (`swamp`: marshes)
+### World 3: Lush Veld (`savanna`: a green-season savanna)
 
-No ground enemies (tanks, turrets...): the ground is mostly water.
+Background candidate #001 *(the user's choice)*: its look is the world's (`scenery` in `pewpy/tools/levels/worlds/lush_veld.py`, under each level's changes), its first level the candidate itself.
 
-| Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
-|-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 3-1 | Mire | 5 | day | 0.6 |  | Turbine | Bogmaw |
-| 3-2 | Reedwater | 6 | day | 0.15 | `ground.shape.water_share` 0.55 | Clamp Barge | Mirelord |
-| 3-3 | Mistmarsh | 7 | day | 0.8 | `haze.amount` 0.6 | Spire | Fenwraith |
-| 3-4 | Sunken Bog | 8 | dusk | 0.4 | `ground.shape.water_share` 0.35, `ground.shape.size` 0.9 | Twin Fang | Hydra |
-| 3-5 | Witchlight | 9 | night | 0.5 | `fluid.colors.deep` [0.02 0.08 0.06] | Frigate | Marsh Titan |
-| 3-6 | Fogbound Fen | 10 | night | 0.85 |  | Tidebreaker | Drowned King |
+No ground enemies (tanks, turrets...): the waves the world in its place had, over water *(placeholder: the ground is dry now)*.
+
+| Level | Name | Difficulty | Time of day | Clouds | Changes to the world's look | Mini boss | Final boss |
+|-------|------|------------|-------------|--------|-----------------------------|-----------|------------|
+| 3-1 | Lush Veld | 5 | dusk | 0.21 |  | Turbine | Bogmaw |
+| 3-2 | Winding Sands | 6 | day | 0.15 | `ground.shape.bend_spacing` 0.9 | Clamp Barge | Mirelord |
+| 3-3 | Kopje Country | 7 | day | 0.5 | `ground.shape.outcrop_share` 0.05 | Spire | Fenwraith |
+| 3-4 | Acacia Dusk | 8 | dusk | 0.3 | `flora.knobs.chance` 0.016 | Twin Fang | Hydra |
+| 3-5 | Long Grass | 9 | dusk | 0.85 | `ground.shape.size` 1.5 | Frigate | Marsh Titan |
+| 3-6 | Veld by Night | 10 | night | 0.4 |  | Tidebreaker | Drowned King |
 
 ### World 4: Heartland (`farmland`: fields and farms)
 
@@ -179,29 +174,33 @@ No ground enemies (tanks, turrets...): the ground is mostly water.
 | 4-5 | Hay Moon | 11 | night | 0.85 | `settlement.layout.farm_share` 0.2 | Bastion | Harrowmaster |
 | 4-6 | Last Harvest | 12 | dusk | 0.4 | `settlement.layout.greenhouse_share` 0.15, `settlement.layout.block` 0.4 | Reaper | Black Harvest |
 
-### World 5: Archipelago (`ocean`: islands at sea)
+### World 5: Rust Pan (`salt_pan`: a copper salt pan)
 
-No ground enemies (tanks, turrets...): the ground is mostly water.
+Background candidate #010 *(the user's choice)*: its look is the world's (`scenery` in `pewpy/tools/levels/worlds/rust_pan.py`, under each level's changes), its first level the candidate itself.
 
-| Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
-|-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 5-1 | Archipelago | 9 | day | 0.5 |  | Enforcer | Maelstrom |
-| 5-2 | Coral Shoals | 10 | day | 0.15 | `ground.shape.land_share` 0.15 | Hive Carrier | Man o' War |
-| 5-3 | Sunset Isles | 11 | dusk | 0.35 |  | Hover Tank | Typhoon |
-| 5-4 | Open Sea | 12 | day | 0.6 | `ground.shape.land_share` 0.1, `ground.shape.size` 0.9 | Cryo Fortress | Tsunami |
-| 5-5 | Squall Line | 13 | dusk | 0.85 | `ground.shape.land_share` 0.3 | Sentry Grid | Abyssal |
-| 5-6 | Dark Tide | 14 | night | 0.4 |  | Leviathan | Kraken |
+No ground enemies (tanks, turrets...): the waves the world in its place had, over water *(placeholder: the ground is dry now)*.
 
-### World 6: Steamvale (`geysers`: a geyser basin)
+| Level | Name | Difficulty | Time of day | Clouds | Changes to the world's look | Mini boss | Final boss |
+|-------|------|------------|-------------|--------|-----------------------------|-----------|------------|
+| 5-1 | Rust Pan | 9 | dusk | 0 |  | Enforcer | Maelstrom |
+| 5-2 | Copper Flats | 10 | day | 0.15 | `ground.shape.pool_share` 0.1 | Hive Carrier | Man o' War |
+| 5-3 | Brine Pools | 11 | day | 0.35 | `ground.shape.pool_share` 0.28 | Hover Tank | Typhoon |
+| 5-4 | Mineral Dusk | 12 | dusk | 0.3 |  | Cryo Fortress | Tsunami |
+| 5-5 | Dust Storm | 13 | dusk | 0.85 | `haze.amount` 0.7 | Sentry Grid | Abyssal |
+| 5-6 | Night Crust | 14 | night | 0.4 |  | Leviathan | Kraken |
 
-| Level | Name | Difficulty | Time of day | Clouds | Changes to the preset | Mini boss | Final boss |
-|-------|------|------------|-------------|--------|-----------------------|-----------|------------|
-| 6-1 | Geyser Basin | 11 | day | 0.15 |  | Relay Array | Mesa |
-| 6-2 | Sinter Terraces | 12 | day | 0.1 | `ground.shape.mound_spacing` 1.0, `ground.shape.steps` 5 | Scavenger | Dust Devil |
-| 6-3 | Prismatic Springs | 13 | day | 0.3 | `ground.shape.spring_radius` [0.06 0.2], `ground.shape.mat_width` 2.0 | Mine Carrier | Landslide |
-| 6-4 | Sulfur Dusk | 14 | dusk | 0.25 |  | Foundry | Basilisk |
-| 6-5 | Fumarole Field | 15 | dusk | 0.8 | `ground.shape.spring_spacing` 0.3, `ground.shape.spring_radius` [0.04 0.09] | Gunship Prime | Sandworm |
-| 6-6 | The Caldera | 16 | night | 0.2 | `ground.shape.ridge_share` 0.35 | Colossus | Monolith |
+### World 6: Bright Ridges (`badlands`: rainbow badlands)
+
+Background candidate #022 *(the user's choice)*: its look is the world's (`scenery` in `pewpy/tools/levels/worlds/bright_ridges.py`, under each level's changes), its first level the candidate itself.
+
+| Level | Name | Difficulty | Time of day | Clouds | Changes to the world's look | Mini boss | Final boss |
+|-------|------|------------|-------------|--------|-----------------------------|-----------|------------|
+| 6-1 | Bright Ridges | 11 | day | 0.3 |  | Relay Array | Mesa |
+| 6-2 | Striped Gullies | 12 | day | 0.1 | `ground.shape.size` 0.6 | Scavenger | Dust Devil |
+| 6-3 | Ochre Walls | 13 | day | 0.3 | `ground.shape.floor` 0.2 | Mine Carrier | Landslide |
+| 6-4 | Red Dusk | 14 | dusk | 0.25 |  | Foundry | Basilisk |
+| 6-5 | Rainbow Breaks | 15 | dusk | 0.8 | `ground.shape.size` 1.05 | Gunship Prime | Sandworm |
+| 6-6 | Dark Strata | 16 | night | 0.2 |  | Colossus | Monolith |
 
 ### World 7: Ironworks (`refinery`: industrial plants)
 

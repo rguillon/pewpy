@@ -557,7 +557,7 @@
     ]
   },
   "tidebreaker": {
-    "note": "3-6, Fenlands' boss: two missile batteries, then two phases of the core alone.",
+    "note": "3-6, Lush Veld's boss: two missile batteries, then two phases of the core alone.",
     "name": "TIDEBREAKER",
     "boss": true,
     "drawing": "tidebreaker",
@@ -1222,7 +1222,7 @@
     ]
   },
   "leviathan": {
-    "note": "5-6, Archipelago's boss: a battleship: turrets and flank nodes, then the reactors at the stern, then the core.",
+    "note": "5-6, Rust Pan's boss: a battleship: turrets and flank nodes, then the reactors at the stern, then the core.",
     "name": "LEVIATHAN",
     "boss": true,
     "drawing": "leviathan",
@@ -1628,7 +1628,7 @@
     ]
   },
   "colossus": {
-    "note": "6-6, Steamvale's boss: four turrets, the outer pair first, then the inner pair, then the core.",
+    "note": "6-6, Bright Ridges' boss: four turrets, the outer pair first, then the inner pair, then the core.",
     "name": "COLOSSUS",
     "boss": true,
     "drawing": "colossus",

@@ -50,13 +50,14 @@
   `pewpy/tools/` *(the user's choice)*, one package per tool run with `python -m`, each with its own make target:
   `levels/` (`make levels`; `worlds/`: one module per world), `models/` (`make models`; `recipes/`: one module per
   model), `songs/` (`make songs`; `tracks/`: one module per part), `voxels.py` (`make voxels`), `dev/` (the game with
-  the dev screens, `make dev`: `app/` with `model_screens.py` and `ai_screens.py`, its own `states.py`,
+  the dev screens, `make dev`: `app/` with `model_screens.py`, `background_screens.py` and `ai_screens.py`, its own `states.py`,
   `candidates.py` and `ui/`), `paths.py` (where the tools write), `generate_props.py` (prop candidates,
   `make props`), `player_candidates/` (player ship candidates, `make players`, from the same kit as the enemies'),
   `candidates/` (enemy candidates, `make candidates`: assembled from a kit of hardcoded parts, `kit/`,
   one module per family of parts, the kinds of ship in `archetypes.py`), `boss_candidates/` (`make boss-candidates`:
-  sculpted from plans, one module per family, appendage, kind of part), `final_bosses/` (`make final-bosses`: the
-  final bosses' behaviour from plans), `ai/` (the AI player, no Panda3D, see `07-ai.md`; `make learn`, `make rate`), `screenshots/` (`make screenshots`: one screenshot of every world for the README, offscreen) and `compact_json.py`. What the candidates share is in `common/`: the batch
+  made like the enemies, from the same kit, bigger: the cores' recipes in `archetypes.py`, the parts' in `parts.py`), `final_bosses/` (`make final-bosses`: the
+  final bosses' behaviour from plans), `background_candidates/` (`make backgrounds`: the presets changed by themes,
+  `themes.py`), `ai/` (the AI player, no Panda3D, see `07-ai.md`; `make learn`, `make rate`), `screenshots/` (`make screenshots`: one screenshot of every world for the README, offscreen) and `compact_json.py`. What the candidates share is in `common/`: the batch
   command line (`--seed`, `--out`, `--append`), the 3D drawing and its numbered weapons, the colors, keeping the
   most different
 - Enemies as data *(the user's choice)*: every enemy, boss, part and projectile is one class, `Enemy`, running

@@ -47,7 +47,8 @@
 - Asset folder layout: `data/models/` holds the voxel drawings by group, `enemies/` (projectiles included), `bosses/`
   (one file per boss, its parts in it), `player/` (the ships and the player's missile) and `items/` (the pickups), each named once across
   the groups (the game data names a model without its group); `props/` the props (`<name>.json`); `candidates/` what
-  the tools make, not in the game: `enemies/`, `player/`, `bosses/`, `props/` *(the user's choice)*; other assets
+  the tools make, not in the game: `enemies/`, `player/`, `bosses/`, `props/` *(the user's choice)*, `backgrounds/`
+  (level backgrounds, see `04-ui-audio.md`) *(placeholder: with the other candidates, though not models)*; other assets
   TBD
 
 > Until real assets exist, Claude should use simple placeholder shapes generated in code.

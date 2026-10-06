@@ -2,7 +2,7 @@
 
 A landscape makes the shape of a kind of ground, as heights and marks, looping along the rows. Its knobs are its own
 numbers, from the level's scenery (see pewpy.scenery.params); sizes are in world units (divided by the step to count
-grid points). Grounds with water, lava or the gaps of a cloud deck have them below height 0 (see relief.py); the
+grid points). Grounds with water have it below height 0 (see relief.py); the
 marks are for the ground shader (shader/), their meaning depends on the landscape. A few landscapes also have sparse
 props, placed from their shape: a flora. The helpers below are shared by the landscapes.
 
@@ -70,14 +70,6 @@ def meander(rng: Generator, rows: int, columns: int, spacing: float, swing: floa
     turn = 2 * math.pi * bends * np.arange(rows) / rows + phase
     middle = columns * step * (0.5 + swing * np.sin(turn) + 0.05 * np.sin(3 * turn))
     return np.abs(np.arange(columns)[None, :] * step - middle[:, None])
-
-
-def wrapped_distance(rows: int, columns: int, step: float, x: float, y: float) -> FloatGrid:
-    """Distance from (x, y) to every point, the rows looping."""
-    dy = np.abs(np.arange(rows) * step - y)
-    dy = np.minimum(dy, rows * step - dy)
-    dx = np.arange(columns) * step - x
-    return np.hypot(dx[None, :], dy[:, None])
 
 
 def scatter(

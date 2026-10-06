@@ -16,7 +16,7 @@ def test_every_ground_builds_whatever_its_layout(name: str) -> None:
 
 
 def test_a_ground_is_wider_than_its_area_and_centered() -> None:
-    terrain = Terrain(AREA, 1.0, params.resolve("planet"), seed=0)
+    terrain = Terrain(AREA, 1.0, params.resolve("savanna"), seed=0)
     assert terrain.width >= AREA.width
     assert terrain.left == pytest.approx(-terrain.width / 2)
 
@@ -28,7 +28,7 @@ def test_a_scenery_without_a_ground_has_no_terrain() -> None:
 
 def test_ground_loop_grows_to_stay_longer_than_the_screen() -> None:
     tall = Area(-1, 1, -10, 10)
-    terrain = Terrain(tall, 1.0, params.resolve("planet"))
+    terrain = Terrain(tall, 1.0, params.resolve("savanna"))
     assert terrain.chunks > CHUNKS
     assert terrain.loop_length >= tall.height + terrain.chunk_height
 
@@ -47,3 +47,10 @@ def test_a_built_up_terrain_splits_its_props_between_its_chunks() -> None:
     assert terrain.props
     shares = [terrain.chunk_props(chunk) for chunk in range(terrain.chunks)]
     assert sum(len(share) for share in shares) == len(terrain.props)
+
+
+def test_a_ground_can_go_bare_without_outposts_or_flora() -> None:
+    bare = params.resolve("savanna", {"outposts": None, "flora": None})
+    terrain = Terrain(AREA, 1.0, bare, seed=0)
+    assert terrain.props == []
+    assert terrain.relief.rows == terrain.relief_rows * terrain.chunks

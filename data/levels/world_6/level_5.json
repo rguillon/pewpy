@@ -1,19 +1,61 @@
 {
-  "name": "Fumarole Field",
+  "name": "Rainbow Breaks",
   "scroll_speed": 0.281,
-  "background": "geysers",
+  "background": "badlands",
   "background_seed": 5850,
   "time_of_day": "dusk",
   "clouds": 0.8,
   "scenery": {
     "ground": {
       "shape": {
-        "spring_spacing": 0.3,
-        "spring_radius": [
-          0.04,
-          0.09
+        "size": 1.05,
+        "floor": 0.282
+      },
+      "colors": {
+        "band_1": [
+          0.33,
+          0.122,
+          0.086
+        ],
+        "band_2": [
+          0.363,
+          0.208,
+          0.094
+        ],
+        "band_3": [
+          0.306,
+          0.281,
+          0.133
+        ],
+        "band_4": [
+          0.186,
+          0.214,
+          0.192
+        ],
+        "plateau": [
+          0.279,
+          0.2,
+          0.126
+        ],
+        "sand": [
+          0.281,
+          0.23,
+          0.147
+        ],
+        "green": [
+          0.116,
+          0.129,
+          0.07
         ]
       }
+    },
+    "haze": {
+      "color": [
+        0.334,
+        0.271,
+        0.223
+      ],
+      "amount": 0.515
     }
   },
   "waves": [

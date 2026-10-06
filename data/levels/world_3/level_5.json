@@ -1,19 +1,57 @@
 {
-  "name": "Witchlight",
+  "name": "Long Grass",
   "scroll_speed": 0.246,
-  "background": "swamp",
+  "background": "savanna",
   "background_seed": 6500,
-  "time_of_day": "night",
-  "clouds": 0.5,
+  "time_of_day": "dusk",
+  "clouds": 0.85,
   "scenery": {
-    "fluid": {
+    "ground": {
+      "shape": {
+        "size": 1.5,
+        "bend_spacing": 1.261,
+        "outcrop_share": 0.025
+      },
       "colors": {
-        "deep": [
-          0.02,
-          0.08,
-          0.06
+        "grass_dry": [
+          0.137,
+          0.16,
+          0.074
+        ],
+        "grass_gold": [
+          0.179,
+          0.182,
+          0.083
+        ],
+        "grass_green": [
+          0.092,
+          0.155,
+          0.056
+        ],
+        "sand": [
+          0.291,
+          0.282,
+          0.218
+        ],
+        "rock": [
+          0.166,
+          0.165,
+          0.15
         ]
       }
+    },
+    "flora": {
+      "knobs": {
+        "chance": 0.01
+      }
+    },
+    "haze": {
+      "color": [
+        0.345,
+        0.335,
+        0.306
+      ],
+      "amount": 0.364
     }
   },
   "waves": [

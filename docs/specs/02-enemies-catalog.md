@@ -234,7 +234,7 @@
   "Enemy weapons")
 - Points: 350
 - Drops: 15%
-- First appears in level: 3-5 (Witchlight)
+- First appears in level: 3-5 (Long Grass)
 
 ### Enemy: Serpent
 

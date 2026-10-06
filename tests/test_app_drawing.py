@@ -13,7 +13,6 @@ from pewpy.game.enemies.kinds import BOSSES, ENEMIES
 from pewpy.game.enemies.roster import make_enemy
 from pewpy.game.entities import Entity, Pickup
 from pewpy.game.events import Event
-from pewpy.game.level import parse_level
 from pewpy.game.states import State
 from pewpy.game.weapons.bullets import Bullet, Missile
 from pewpy.game.weapons.player.arsenal import Beam
@@ -313,12 +312,3 @@ def test_the_3d_view_is_drawn_at_most_so_tall() -> None:
     assert window.scene_size(1280, 1024, max_height=1440) == (1280, 1024)
     assert window.scene_size(2700, 2160, max_height=1440) == (1800, 1440)
     assert window.scene_size(0, 0) == (1, 1)
-
-
-def test_a_debris_field_draws_its_rocks(app: PewPewApp) -> None:
-    play(app)
-    app._show_background(parse_level({"background": "debris"}))
-    rocks = [layer for layer in app.background.scenery.layers if layer.kind == "rock"]
-    assert rocks
-    assert rocks[0].drifters
-    assert app.background.root.getNumChildren() > 0

@@ -7,16 +7,10 @@ STYLE_COLORS: dict[str, tuple[str, ...]] = {
     "city": (),
     "refinery": (),
     "farmland": (),
-    "planet": ("low", "high", "rims"),
-    "ocean": ("beach", "grass", "trees", "rock"),
-    "desert": ("sand_low", "sand_high", "rock_a", "rock_b", "rock_top", "grass"),
     "forest": ("tree_a", "tree_b", "tree_c", "clearing_low", "clearing_high"),
     "canyon": ("band_1", "band_2", "band_3", "band_4", "plateau", "sand", "green"),
-    "pack_ice": ("floe", "berg_low", "berg_high"),
-    "volcano": ("rock", "ash", "glow"),
-    "swamp": ("mud", "reeds_low", "reeds_high"),
-    "clouds": ("shade", "lit"),
-    "geysers": ("crust_low", "crust_high", "mat_inner", "mat_middle", "mat_outer", "forest", "rock", "ledges"),
+    "salt_pan": ("crust_a", "crust_b", "ridge", "crack", "shore"),
+    "savanna": ("grass_dry", "grass_gold", "grass_green", "sand", "rock"),
 }
 # The colors of what covers a settlement's ground (settlement.py Surface); "natural" is the ground between (park
 # grass, scrub, grass), "lamp" the street lights at night.
@@ -39,6 +33,4 @@ SURFACE_COLORS: dict[str, tuple[str, ...]] = {
 # A fluid's colors, in the order the shader reads them.
 FLUID_COLORS: dict[str, tuple[str, ...]] = {
     "water": ("deep", "shallow", "foam"),
-    "lava": ("hot", "crust"),
-    "gap": ("below", "light_a", "light_b"),  # the ground far below, and the two colors of its town lights
 }

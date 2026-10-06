@@ -194,23 +194,14 @@ def test_glowing_voxel_faces_are_marked_for_the_shader() -> None:
     assert uvs == set(models.QUAD_UVS) | set(models.GLOW_UVS)
 
 
-ROCKS = ((0.16, 0.15, 0.15, 1.0), (0.2, 0.18, 0.16, 1.0))
+PLANET = ((0.16, 0.15, 0.15, 1.0), (0.2, 0.18, 0.16, 1.0))
 
 
-@pytest.mark.parametrize(
-    "build",
-    [partial(models.distant_planet_model, ROCKS), *(partial(models.rock_model, shape, ROCKS) for shape in range(3))],
-)
-def test_background_models_fit_the_unit_box(build: Callable[[], NodePath]) -> None:
-    points = all_points(build())
+def test_the_distant_planet_fits_the_unit_box() -> None:
+    points = all_points(models.distant_planet_model(PLANET))
     for axis in range(3):
         assert min(point[axis] for point in points) >= -0.5 - 1e-6
         assert max(point[axis] for point in points) <= 0.5 + 1e-6
-
-
-def test_rocks_differ_by_shape_and_repeat_for_the_same_shape() -> None:
-    assert all_points(models.rock_model(1, ROCKS)) == all_points(models.rock_model(1, ROCKS))
-    assert all_points(models.rock_model(1, ROCKS)) != all_points(models.rock_model(2, ROCKS))
 
 
 def test_voxel_thickness_is_centered_on_the_depth() -> None:

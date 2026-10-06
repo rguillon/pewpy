@@ -74,7 +74,7 @@ def test_marks_stay_between_0_and_1() -> None:
             assert float(np.max(marks)) <= 1.0
 
 
-@pytest.mark.parametrize(("name", "kind"), [("desert", "palm"), ("swamp", "dead_tree")])
+@pytest.mark.parametrize(("name", "kind"), [("savanna", "tree")])
 def test_flora_stands_on_land(name: str, kind: str) -> None:
     terrain = Terrain(Area(-1.0, 1.0, -1.3, 1.3), 1.0, params.resolve(name), seed=4)
     relief = terrain.relief
