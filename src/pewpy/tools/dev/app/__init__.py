@@ -2,7 +2,7 @@
 
 The main menu also opens the Models, Bosses, Enemy candidates, Player candidates, Boss candidates and Prop candidates
 screens (models on
-show, to work on them, model_screens.py) and the AI learning and AI rating screens (ai_screens.py).
+show, to work on them, model_screens.py) and the AI learning, AI rating and AI playing screens (ai_screens.py).
 """
 
 from enum import Enum
@@ -12,7 +12,7 @@ from direct.task.Task import Task
 
 from pewpy.app import EFFECTS_RUN_IN
 from pewpy.game.states import State
-from pewpy.tools.dev.app.ai_screens import AI_STATES, AIScreens
+from pewpy.tools.dev.app.ai_screens import AI_STATES, AIGame, AIScreens
 from pewpy.tools.dev.app.model_screens import SHOWCASE_STATES
 from pewpy.tools.dev.states import DEV_TRANSITIONS, DevState
 from pewpy.tools.dev.ui.ai_panel import AIPanel
@@ -28,7 +28,7 @@ class DevApp(AIScreens):
     """The game with the dev tools' screens."""
 
     state_transitions = DEV_TRANSITIONS
-    effects_run_in = EFFECTS_RUN_IN | {DevState.AI_LEARNING}
+    effects_run_in = EFFECTS_RUN_IN | {DevState.AI_LEARNING, DevState.AI_PLAYING}
 
     def _setup_screens(self) -> None:
         self.showcase: ModelShowcase | None = None
@@ -38,6 +38,7 @@ class DevApp(AIScreens):
         self.stopped_ai: list[Session] = []  # stopped, still finishing what they were doing
         self.pilot: Pilot | None = None  # the AI flying the ship on screen
         self.ai_watching = ""  # what the AI on screen plays
+        self.ai_game = AIGame()  # the AI playing the game, on the AI playing screen
         self.ai_panel = AIPanel(self.aspect2d)
 
     def _main_menu_items(self) -> list[MenuItem]:
@@ -52,6 +53,7 @@ class DevApp(AIScreens):
             MenuItem("Prop candidates", go(DevState.PROP_CANDIDATES)),
             MenuItem("AI learning", go(DevState.AI_LEARNING)),
             MenuItem("AI rating", go(DevState.AI_RATING)),
+            MenuItem("AI playing", go(DevState.AI_PLAYING)),
         ]
 
     def _menu(self, state: Enum) -> Menu | None:

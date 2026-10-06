@@ -12,8 +12,9 @@ The states are:
   - Bosses: every boss on show, a world per page
   - Enemy candidates, Player candidates, Boss candidates, Prop candidates: numbered candidates for new enemies,
     player ships and props (10 per page) and bosses (4 per page), to pick from
-  - AI learning, AI rating: the AI learning to play while one of its brains plays on screen, and the levels'
-    ratings for each ship (see `07-ai.md`); Escape goes back to the main menu
+  - AI learning, AI rating, AI playing: the AI learning to play while one of its brains plays on screen, the
+    levels' ratings for each ship, and the trained AI playing the game (see `07-ai.md`); Escape goes back to the
+    main menu
 - World selection: select one of the worlds (see `03-levels.md`)
 - Level selection: select one of the world's levels to play
 - The actual game

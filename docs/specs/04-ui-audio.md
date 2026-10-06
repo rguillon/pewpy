@@ -31,7 +31,7 @@ Pause -> Main menu
   levels, like "2-5 Twilight Grove", then Back, with a window above the list showing the highlighted level's
   ground scrolling by, as in the game; both open on the last level played), Quit *(entries are a placeholder)*
 - With the dev tools (`make dev`: the game with the screens below, `src/pewpy/tools/dev/`), more entries after Start:
-  Models, Bosses, Enemy candidates, Boss candidates, AI learning, AI rating (see `07-ai.md`). Not in the game.
+  Models, Bosses, Enemy candidates, Boss candidates, AI learning, AI rating, AI playing (see `07-ai.md`). Not in the game.
 
 ### Models (dev tools)
 

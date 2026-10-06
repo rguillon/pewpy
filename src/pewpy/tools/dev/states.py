@@ -19,6 +19,7 @@ class DevState(Enum):
     PROP_CANDIDATES = auto()  # numbered prop candidates for the grounds (props/candidates), to pick from
     AI_LEARNING = auto()  # the AI learns to play, in the background, while one of its brains plays on screen
     AI_RATING = auto()  # the trained AI rates every level for every ship
+    AI_PLAYING = auto()  # the trained AI plays the game, to watch it
 
 
 DEV_TRANSITIONS: Transitions = {
