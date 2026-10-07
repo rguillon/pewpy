@@ -228,7 +228,7 @@ class World:
         return enemy.y < self.view_top and abs(enemy.x) < self.view_side
 
     def _move_shots(self, dt: float) -> None:
-        targets = [enemy for enemy in self.enemies if enemy.alive and self.in_sight(enemy)]
+        targets = [enemy for enemy in self.enemies if enemy.alive and self.in_sight(enemy) and not enemy.see_through]
         for bullet in self.player_bullets:
             if isinstance(bullet, Missile):
                 bullet.steer(dt, targets)
@@ -247,7 +247,7 @@ class World:
                 enemy
                 for enemy in self.enemies
                 if enemy.alive
-                and not _behind_a_part(enemy, player.x)
+                and _in_the_way(enemy, player.x)
                 and enemy.y + enemy.height / 2 > bottom
                 and enemy.y - enemy.height / 2 < self.view_top  # not above the screen
                 and abs(enemy.x - player.x) < (laser.width + enemy.width) / 2
@@ -272,9 +272,7 @@ class World:
             return
         player = self.player
         targets = [
-            enemy
-            for enemy in self.enemies
-            if enemy.alive and self.in_sight(enemy) and not _behind_a_part(enemy, enemy.x)
+            enemy for enemy in self.enemies if enemy.alive and self.in_sight(enemy) and _in_the_way(enemy, enemy.x)
         ]
         shots, struck = secondary.fire(dt, player, targets)
         if shots:
@@ -343,7 +341,7 @@ class World:
     def _collide(self) -> None:
         for bullet in self.player_bullets:
             for enemy in self.enemies:
-                if enemy.alive and bullet.overlaps(enemy) and not _behind_a_part(enemy, bullet.x):
+                if enemy.alive and bullet.overlaps(enemy) and _in_the_way(enemy, bullet.x):
                     self._shot_hits(bullet, enemy)
                     break
 
@@ -438,6 +436,9 @@ class World:
         self.pickups = [p for p in self.pickups if p.alive and p.in_play_area()]
 
 
-def _behind_a_part(enemy: Enemy, x: float) -> bool:
-    """Tell whether an enemy's core is under one of its living parts at `x`: shots and the laser stop at the part."""
-    return enemy.covered(x)
+def _in_the_way(enemy: Enemy, x: float) -> bool:
+    """Tell whether the player's weapons stop at `enemy` at `x`.
+
+    Not at a core under one of its living parts there (they stop at the part), nor at an armored core (they go on).
+    """
+    return not enemy.covered(x) and not enemy.see_through

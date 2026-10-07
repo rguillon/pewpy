@@ -628,6 +628,30 @@ def test_the_laser_goes_over_a_boss_core_up_to_the_part_above_it() -> None:
     assert boss.health == BOSSES["test_reaper"].health
 
 
+@pytest.mark.usefixtures("test_bosses")
+def test_the_players_weapons_go_through_an_armored_core() -> None:
+    world = armed_world("laser", 1)
+    boss = make_enemy("test_harvester", 0.0, 0.0, "left", None, top=0.2)
+    boss.parts_released = True
+    world.enemies += [boss, *boss.parts]
+    world.update(DT, Controls())
+    boss.go_to(boss.spec.states[1].name)  # its first phase: armored
+    assert boss.see_through
+    beyond = still_enemy(x=boss.x + boss.width / 4, y=boss.y + boss.height)
+    world.enemies.append(beyond)
+    world.player.x = beyond.x
+    world.player_bullets.append(Bullet(x=beyond.x, y=boss.y - boss.height / 2 - 0.03, vy=3.0, width=0.02))
+    run(world, 0.2)
+    assert beyond.health < KINDS["drone"].health  # shot through the core
+    run(world, DT, Controls(fire=True))
+    assert world.laser is not None
+    assert world.laser.top > boss.y + boss.height / 2  # the beam goes on past the core
+    assert boss.health == BOSSES["test_harvester"].health
+    for part in boss.parts:
+        part.alive = False
+    assert not boss.see_through
+
+
 TWO_BOSS_LEVEL = Level(
     name="two bosses",
     scroll_speed=0.2,

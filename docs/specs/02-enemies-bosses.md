@@ -20,8 +20,9 @@ boss** at the end. *(placeholder: every boss's numbers; not playtested)*
   health it names; the last phase lasts until the end. When a phase ends, the next one shall start in the same frame.
 - **BOS-6** At the start of each phase (its first one included) the core shall flash white (blinking every 0.1 s) and
   not shoot for 1.2 s.
-- **BOS-7** Armored: in an armored phase the core shall not be hurt (shots are absorbed and the laser stops at it)
-  and shall look darker; its parts must be destroyed first.
+- **BOS-7** Armored: in an armored phase the core shall not be hurt and shall look darker; its parts must be destroyed
+  first. The player's weapons shall go through it as if it were not there: shots, missiles and the laser fly on to
+  the parts behind it, and neither the homing missiles nor the secondary weapons aim at it.
 - **BOS-8** Parts cover the core: a shot (or the laser, or a secondary weapon's aim) at a column of the core over
   which a living part is mounted shall fly over the core up to that part, as seen from above; a part in front of
   another shall be hit first, the one behind once the first is destroyed.
