@@ -1,6 +1,6 @@
 {
   "sentinel": {
-    "note": "1-1: a patrol platform, no parts.",
+    "note": "1-1: A narrow patrol platform with wide solar wings and a command tower, a reactor glowing on each wing.",
     "name": "SENTINEL",
     "boss": true,
     "drawing": "sentinel",
@@ -43,7 +43,7 @@
     ]
   },
   "thresher": {
-    "note": "1-2: a heavy hauler with cutters in front, no parts.",
+    "note": "1-2: A heavy hauler with cutting blades at its prow and turrets on its deck.",
     "name": "THRESHER",
     "boss": true,
     "drawing": "thresher",
@@ -104,7 +104,7 @@
     ]
   },
   "prowler": {
-    "note": "1-3: a raider with swept wings, no parts.",
+    "note": "1-3: A swept-wing raider with a red reactor and a flak gun on each wing.",
     "name": "PROWLER",
     "boss": true,
     "drawing": "prowler",
@@ -139,7 +139,7 @@
     ]
   },
   "pulsar": {
-    "note": "1-4: a ring-shaped pulse ship, no parts: rings.",
+    "note": "1-4: A ring-shaped ship around a bright cyan reactor, gatlings on the ring.",
     "name": "PULSAR",
     "boss": true,
     "drawing": "pulsar",
@@ -182,7 +182,7 @@
     ]
   },
   "rockbreaker": {
-    "note": "1-5: a mining ship with two drills; armored until they're gone.",
+    "note": "1-5: A boxy mining ship with prow drills, powered by exposed reactors that shield its core.",
     "name": "ROCKBREAKER",
     "boss": true,
     "drawing": "rockbreaker",
@@ -260,7 +260,7 @@
     ]
   },
   "warden": {
-    "note": "1-6, Highlands' boss: a battle station, no parts, two phases by health.",
+    "note": "1-6: A wide battle station with side wings and a command tower, bristling with reactors, flak guns and beam emitters.",
     "name": "WARDEN",
     "boss": true,
     "drawing": "warden",
@@ -342,7 +342,7 @@
     ]
   },
   "patrol_drone": {
-    "note": "2-1: a patrol gunship, no parts.",
+    "note": "2-1: A cross-shaped patrol gunship with a tall tower and a gatling on each arm.",
     "name": "PATROL DRONE",
     "boss": true,
     "drawing": "patrol_drone",
@@ -385,7 +385,7 @@
     ]
   },
   "cyclone": {
-    "note": "2-2: a ring ship spinning its guns, no parts: spirals, three phases.",
+    "note": "2-2: A ring ship spinning its turrets around a sandy glowing core.",
     "name": "CYCLONE",
     "boss": true,
     "drawing": "cyclone",
@@ -454,7 +454,7 @@
     ]
   },
   "siege_pod": {
-    "note": "2-3: an armored siege ship, no parts, three phases on its health.",
+    "note": "2-3: A rounded armored siege ship around a big orange reactor, smaller reactors on its hull.",
     "name": "SIEGE POD",
     "boss": true,
     "drawing": "siege_pod",
@@ -516,7 +516,7 @@
     ]
   },
   "delta_raider": {
-    "note": "2-4: a delta-winged raider, no parts: sweeping fans, three phases.",
+    "note": "2-4: A delta-winged raider with a teal reactor, twin cannons and flak guns on its wings.",
     "name": "DELTA RAIDER",
     "boss": true,
     "drawing": "delta_raider",
@@ -585,7 +585,7 @@
     ]
   },
   "breacher": {
-    "note": "2-5: an assault ship with two breaching clamps; armored until they're gone.",
+    "note": "2-5: A wedge-shaped assault ship with a prow ram, gatlings and missile racks.",
     "name": "BREACHER",
     "boss": true,
     "drawing": "breacher",
@@ -682,7 +682,7 @@
     ]
   },
   "harvester": {
-    "note": "2-6, Wildwood's boss: two cannons; the core is armored until both are gone.",
+    "note": "2-6: A heavy prow-shaped harvester with four engines and a green reactor, its deck lined with cannons and turrets.",
     "name": "HARVESTER",
     "boss": true,
     "drawing": "harvester",
@@ -850,7 +850,7 @@
     ]
   },
   "turbine": {
-    "note": "3-1: a ship built around a spinning turbine, no parts: spirals, three phases.",
+    "note": "3-1: A ring-shaped ship around a glowing yellow turbine, missile racks and reactors on its rim.",
     "name": "TURBINE",
     "boss": true,
     "drawing": "turbine",
@@ -916,7 +916,7 @@
     ]
   },
   "clamp_barge": {
-    "note": "3-2: a barge with two clamps; armored until they're gone.",
+    "note": "3-2: A wide salvage barge with a command tower and coral markings, armed with cannons, flak and missile racks.",
     "name": "CLAMP BARGE",
     "boss": true,
     "drawing": "clamp_barge",
@@ -1015,7 +1015,7 @@
     ]
   },
   "spire": {
-    "note": "3-3: a tall command ship, no parts, three phases on its health.",
+    "note": "3-3: A long command ship carrying a tall tower from stern to prow, cannons all along it.",
     "name": "SPIRE",
     "boss": true,
     "drawing": "spire",
@@ -1120,7 +1120,7 @@
     ]
   },
   "twin_fang": {
-    "note": "3-4: two side guns that can be left alive: the core isn't armored.",
+    "note": "3-4: A wedge-shaped gunship with two fang-like prongs and rows of flak guns.",
     "name": "TWIN FANG",
     "boss": true,
     "drawing": "twin_fang",
@@ -1248,7 +1248,7 @@
     ]
   },
   "frigate": {
-    "note": "3-5: a frigate with two deck guns; armored until they're gone.",
+    "note": "3-5: A long frigate with a command tower and a prow gun, turrets and flak along its deck.",
     "name": "FRIGATE",
     "boss": true,
     "drawing": "frigate",
@@ -1363,7 +1363,7 @@
     ]
   },
   "tidebreaker": {
-    "note": "3-6, Lush Veld' boss: two missile batteries, then two phases of the core alone.",
+    "note": "3-6: A heavy cruiser with a breakwater prow, cannons and flak batteries.",
     "name": "TIDEBREAKER",
     "boss": true,
     "drawing": "tidebreaker",
@@ -1377,7 +1377,7 @@
         "y": 0.257,
         "drawing": "tidebreaker:cannon",
         "size": [0.06, 0.133],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1386,7 +1386,7 @@
         "y": 0.257,
         "drawing": "tidebreaker:cannon",
         "size": [0.06, 0.133],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1395,7 +1395,7 @@
         "y": 0.197,
         "drawing": "tidebreaker:flak",
         "size": [0.047, 0.067],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1404,7 +1404,7 @@
         "y": 0.197,
         "drawing": "tidebreaker:flak",
         "size": [0.047, 0.067],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1413,7 +1413,7 @@
         "y": 0.043,
         "drawing": "tidebreaker:flak2",
         "size": [0.06, 0.087],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1422,7 +1422,7 @@
         "y": 0.043,
         "drawing": "tidebreaker:flak2",
         "size": [0.06, 0.087],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1431,7 +1431,7 @@
         "y": -0.057,
         "drawing": "tidebreaker:flak3",
         "size": [0.047, 0.067],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1440,7 +1440,7 @@
         "y": -0.057,
         "drawing": "tidebreaker:flak3",
         "size": [0.047, 0.067],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1449,7 +1449,7 @@
         "y": -0.017,
         "drawing": "tidebreaker:cannon2",
         "size": [0.047, 0.1],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       },
       {
@@ -1458,7 +1458,7 @@
         "y": -0.017,
         "drawing": "tidebreaker:cannon2",
         "size": [0.047, 0.1],
-        "health": 45.0,
+        "health": 40.0,
         "points": 900
       }
     ],
@@ -1510,7 +1510,7 @@
     ]
   },
   "picket": {
-    "note": "4-1: a picket ship with two gun pods; armored until they're gone.",
+    "note": "4-1: A slim picket ship with gun pods of twin cannons.",
     "name": "PICKET",
     "boss": true,
     "drawing": "picket",
@@ -1591,7 +1591,7 @@
     ]
   },
   "bulwark": {
-    "note": "4-2: an armored ship with two rams in front; armored until they're gone.",
+    "note": "4-2: An armored ship with ramming plates in front and missile racks behind them.",
     "name": "BULWARK",
     "boss": true,
     "drawing": "bulwark",
@@ -1688,7 +1688,7 @@
     ]
   },
   "borer": {
-    "note": "4-3: a boring ship with two generators; armored until they're gone.",
+    "note": "4-3: A boring ship with a drill nose, beam emitters cutting the way ahead.",
     "name": "BORER",
     "boss": true,
     "drawing": "borer",
@@ -1787,7 +1787,7 @@
     ]
   },
   "silo_hauler": {
-    "note": "4-4: a hauler with two fuel tanks; armored until they're gone.",
+    "note": "4-4: A hauler carrying fuel silos, gatlings and a radar on its deck.",
     "name": "SILO HAULER",
     "boss": true,
     "drawing": "silo_hauler",
@@ -1886,7 +1886,7 @@
     ]
   },
   "bastion": {
-    "note": "4-5: a fortress ship with two turrets; armored until they're gone.",
+    "note": "4-5: A fortress ship with thick walls and flak towers.",
     "name": "BASTION",
     "boss": true,
     "drawing": "bastion",
@@ -1969,7 +1969,7 @@
     ]
   },
   "reaper": {
-    "note": "4-6, Heartland's boss: a giant harvester: augers and a cutter in front, then two drills at the back.",
+    "note": "4-6: A giant harvester with augers in front, flak guns and banks of missile racks.",
     "name": "REAPER",
     "boss": true,
     "drawing": "reaper",
@@ -2110,7 +2110,7 @@
     ]
   },
   "enforcer": {
-    "note": "5-1: an enforcer behind two armor shields (they don't shoot); armored until they're gone.",
+    "note": "5-1: An enforcer gunship behind armor shields, a radar directing its flak.",
     "name": "ENFORCER",
     "boss": true,
     "drawing": "enforcer",
@@ -2175,7 +2175,7 @@
     ]
   },
   "hive_carrier": {
-    "note": "5-2: a carrier with two hangars; armored, then two phases on its health.",
+    "note": "5-2: A carrier with two hangars, its swarms guided by radar dishes.",
     "name": "HIVE CARRIER",
     "boss": true,
     "drawing": "hive_carrier",
@@ -2281,7 +2281,7 @@
     ]
   },
   "hover_tank": {
-    "note": "5-3: a heavy gunboat with two turrets; armored until they're gone.",
+    "note": "5-3: A heavy hover gunboat with gatling turrets around a reactor.",
     "name": "HOVER TANK",
     "boss": true,
     "drawing": "hover_tank",
@@ -2398,7 +2398,7 @@
     ]
   },
   "cryo_fortress": {
-    "note": "5-4: a fortress ship with two cryo cannons; armored until they're gone.",
+    "note": "5-4: A fortress ship with frosted cryo reactors and gatlings.",
     "name": "CRYO FORTRESS",
     "boss": true,
     "drawing": "cryo_fortress",
@@ -2517,7 +2517,7 @@
     ]
   },
   "sentry_grid": {
-    "note": "5-5: a sentry ship with four nodes: the outer pair, then the inner pair, then the core.",
+    "note": "5-5: A sentry ship laid out as a grid of missile-rack nodes.",
     "name": "SENTRY GRID",
     "boss": true,
     "drawing": "sentry_grid",
@@ -2634,7 +2634,7 @@
     ]
   },
   "leviathan": {
-    "note": "5-6, Rust Pan's boss: a battleship: turrets and flank nodes, then the reactors at the stern, then the core.",
+    "note": "5-6: A long battleship lined with turrets from bow to stern.",
     "name": "LEVIATHAN",
     "boss": true,
     "drawing": "leviathan",
@@ -2809,7 +2809,7 @@
     ]
   },
   "relay_array": {
-    "note": "6-1: a relay station with two dishes; armored until they're gone.",
+    "note": "6-1: A relay station of dish arrays, with beam emitters and a gatling.",
     "name": "RELAY ARRAY",
     "boss": true,
     "drawing": "relay_array",
@@ -2908,7 +2908,7 @@
     ]
   },
   "scavenger": {
-    "note": "6-2: a salvager with two wing batteries; armored, then two phases.",
+    "note": "6-2: A patched-up salvager with wing batteries of beam emitters.",
     "name": "SCAVENGER",
     "boss": true,
     "drawing": "scavenger",
@@ -3017,7 +3017,7 @@
     ]
   },
   "mine_carrier": {
-    "note": "6-3: a mine carrier with two launchers; armored, then two phases on its health.",
+    "note": "6-3: A mine carrier with launch bays, radars, a turret and a beam emitter.",
     "name": "MINE CARRIER",
     "boss": true,
     "drawing": "mine_carrier",
@@ -3142,7 +3142,7 @@
     ]
   },
   "foundry": {
-    "note": "6-4: a foundry ship with two presses; armored, then two phases on its health.",
+    "note": "6-4: A foundry ship with heavy presses, cannons and a beam emitter.",
     "name": "FOUNDRY",
     "boss": true,
     "drawing": "foundry",
@@ -3269,7 +3269,7 @@
     ]
   },
   "gunship_prime": {
-    "note": "6-5: a heavy gunship with two cannons and two engines: cannons, then engines, then the core.",
+    "note": "6-5: A heavy gunship with two big engines and beam emitters along its hull.",
     "name": "GUNSHIP PRIME",
     "boss": true,
     "drawing": "gunship_prime",
@@ -3426,7 +3426,7 @@
     ]
   },
   "colossus": {
-    "note": "6-6, Bright Ridges's boss: four turrets, the outer pair first, then the inner pair, then the core.",
+    "note": "6-6: A giant battle station with flak guns and missile racks on its outer and inner decks.",
     "name": "COLOSSUS",
     "boss": true,
     "drawing": "colossus",
@@ -3581,7 +3581,7 @@
     ]
   },
   "grappler": {
-    "note": "7-1: a salvage ship with four grapples; armored until they're all gone, then two phases.",
+    "note": "7-1: A salvage ship with grappling arms tipped with cannons.",
     "name": "GRAPPLER",
     "boss": true,
     "drawing": "grappler",
@@ -3699,7 +3699,7 @@
     ]
   },
   "tugmaster": {
-    "note": "7-2: a space tug with two thrusters and a ram plate: thrusters, then the plate, then the core.",
+    "note": "7-2: A space tug with two thrusters and a ram plate, radars and a reactor on deck.",
     "name": "TUGMASTER",
     "boss": true,
     "drawing": "tugmaster",
@@ -3805,7 +3805,7 @@
     ]
   },
   "magma_rig": {
-    "note": "7-3: a mining rig with two furnaces and two cannons: furnaces, then cannons, then the core.",
+    "note": "7-3: A mining rig with glowing furnaces and beam emitters.",
     "name": "MAGMA RIG",
     "boss": true,
     "drawing": "magma_rig",
@@ -3891,7 +3891,7 @@
     ]
   },
   "dreadnought": {
-    "note": "7-4: a battleship with four turrets and a bow gun: turrets, then the bow gun, then the core.",
+    "note": "7-4: A narrow battleship with deck turrets and a bow gun of twin cannons.",
     "name": "DREADNOUGHT",
     "boss": true,
     "drawing": "dreadnought",
@@ -4023,7 +4023,7 @@
     ]
   },
   "flare_rig": {
-    "note": "7-5: a flare rig: two gun pods in front, two missile launchers behind them and two flak towers.",
+    "note": "7-5: An oil rig turned warship, flare stacks and turrets on its platform.",
     "name": "FLARE RIG",
     "boss": true,
     "drawing": "flare_rig",
@@ -4140,7 +4140,7 @@
     ]
   },
   "crucible": {
-    "note": "7-6, Ironworks' boss: a smelting block: two furnaces on deck, two beacons at the bow; armored, then two phases.",
+    "note": "7-6: A smelting block with furnaces on deck, beacons at the bow, missile racks and a reactor.",
     "name": "CRUCIBLE",
     "boss": true,
     "drawing": "crucible",
@@ -4290,7 +4290,7 @@
     ]
   },
   "executor": {
-    "note": "8-1: a command ship with two generators and two blades; armored, then two phases on its health.",
+    "note": "8-1: A command ship with blade wings, gatlings and a turret.",
     "name": "EXECUTOR",
     "boss": true,
     "drawing": "executor",
@@ -4441,7 +4441,7 @@
     ]
   },
   "interdictor": {
-    "note": "8-2: an interceptor carrier: two bow cannons, two sensor dishes on its wings; armored until the dishes go.",
+    "note": "8-2: An interceptor carrier with sensor-dish wings and turrets all over.",
     "name": "INTERDICTOR",
     "boss": true,
     "drawing": "interdictor",
@@ -4568,7 +4568,7 @@
     ]
   },
   "nightwatch": {
-    "note": "8-3: a gunboat: two turrets on deck and two guns on its flanks; turrets, then guns, then the core.",
+    "note": "8-3: A dark gunboat with gatlings on deck and missile racks on its flanks.",
     "name": "NIGHTWATCH",
     "boss": true,
     "drawing": "nightwatch",
@@ -4694,7 +4694,7 @@
     ]
   },
   "arc_tower": {
-    "note": "8-4: a power station: two arc emitters at the bow and two nodes on deck; armored, then two phases.",
+    "note": "8-4: A floating power station with an arc emitter at the bow and flak nodes on deck.",
     "name": "ARC TOWER",
     "boss": true,
     "drawing": "arc_tower",
@@ -4851,7 +4851,7 @@
     ]
   },
   "apex": {
-    "note": "8-5: a flagship: two heavy cannons on its wings and two beam emitters at the stern; armored, then two phases.",
+    "note": "8-5: A sleek flagship with heavy wing guns and two reactors at its stern.",
     "name": "APEX",
     "boss": true,
     "drawing": "apex",
@@ -4982,7 +4982,7 @@
     ]
   },
   "overmind": {
-    "note": "8-6, Metropolis' boss: shield generators armor the core; cannons on the sides keep firing.",
+    "note": "8-6: A massive command ship whose shield generators armor its core, cannons, turrets and gatlings on its sides.",
     "name": "OVERMIND",
     "boss": true,
     "drawing": "overmind",
