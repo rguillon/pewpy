@@ -14,7 +14,8 @@ from pewpy.makers.common.geometry import Rng
 from pewpy.makers.ships.kit import Ship
 from pewpy.makers.ships.selection import PLAYER_SHARES, SHARES, build, finish, usual_fit
 
-ATTEMPTS = 12  # ships or bosses made for each one kept
+ATTEMPTS = 12  # bosses made for each one kept
+SHIP_ATTEMPTS = 60  # ships made for each one kept: the nearest the size's shape (a ship's kind sets its proportions)
 DECIMALS = 4  # a size's, in world units
 AREA_PER_PART = 600  # square cubes of a boss's core for each destroyable part (placeholder)
 MIN_PARTS = 2
@@ -42,7 +43,7 @@ def sized_ship(rng: Rng, size: Size, *, player: bool = False) -> dict:
     """Make a ship's drawing about `size`, of any kind (an enemy's, or the player's), with that "size"."""
     wanted = cubes(size)
     made = min(
-        (_fitted(rng, wanted, player=player) for _ in range(ATTEMPTS)), key=lambda ship: miss(ship.size(), wanted)
+        (_fitted(rng, wanted, player=player) for _ in range(SHIP_ATTEMPTS)), key=lambda ship: miss(ship.size(), wanted)
     )
     return {**finish(rng, made, player=player)(), "size": rounded(size)}
 

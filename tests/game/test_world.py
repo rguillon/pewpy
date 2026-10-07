@@ -21,7 +21,7 @@ DT = 1 / 60
 EMPTY_LEVEL = Level(name="empty", scroll_speed=0.2, waves=())
 # One far away wave, so the level is not complete while a test adds its own enemies.
 QUIET_LEVEL = Level(name="quiet", scroll_speed=0.2, waves=(Wave(time=1000.0),))
-BOSS_LEVEL = Level(name="boss", scroll_speed=0.2, waves=(Wave(time=0.0, enemy="harvester"),))
+BOSS_LEVEL = Level(name="boss", scroll_speed=0.2, waves=(Wave(time=0.0, enemy="test_harvester"),))
 
 
 def make_world(level: Level = QUIET_LEVEL) -> World:
@@ -34,6 +34,7 @@ def run(world: World, seconds: float, controls: Controls | None = None) -> None:
 
 
 def boss_world() -> World:
+    """Return a level of the tests' own boss (the tests using it need the `test_bosses` fixture)."""
     return World(BOSS_LEVEL, seed=0)
 
 
@@ -360,16 +361,18 @@ def test_a_boss_coming_is_reported() -> None:
     assert "boss" in kinds(world)
 
 
+@pytest.mark.usefixtures("test_bosses")
 def test_a_boss_and_its_parts_stay_in_the_world_and_hold_the_level() -> None:
     world = boss_world()
     run(world, 0.1)
     assert world.boss is not None
-    assert len(world.enemies) == 1 + len(BOSSES["harvester"].parts)
+    assert len(world.enemies) == 1 + len(BOSSES["test_harvester"].parts)
     run(world, 30)
     assert not world.completed
     assert world.boss is not None
 
 
+@pytest.mark.usefixtures("test_bosses")
 def test_destroying_the_boss_takes_its_parts_down_and_completes_the_level() -> None:
     world = boss_world()
     run(world, 0.1)
@@ -382,13 +385,14 @@ def test_destroying_the_boss_takes_its_parts_down_and_completes_the_level() -> N
     assert not boss.parts[0].alive
     assert world.score == score + boss.points  # the parts give no points when wrecked
     explosions = [event for event in world.events if event.kind == "explosion"]
-    assert len(explosions) == len(BOSSES["harvester"].explosions) + 1
+    assert len(explosions) == len(BOSSES["test_harvester"].explosions) + 1
     run(world, DT)
     assert not world.completed  # a moment to pick up what it dropped
     run(world, config.BOSS_BEATEN_TIME)
     assert world.completed
 
 
+@pytest.mark.usefixtures("test_bosses")
 def test_once_the_boss_is_beaten_enemies_and_their_shots_are_gone_and_the_player_plays_on() -> None:
     world = boss_world()
     run(world, 0.1)
@@ -415,6 +419,7 @@ def test_once_the_boss_is_beaten_enemies_and_their_shots_are_gone_and_the_player
     assert world.enemy_bullets == []
 
 
+@pytest.mark.usefixtures("test_bosses")
 def test_ramming_a_boss_hurts_the_player_but_not_the_boss() -> None:
     world = boss_world()
     run(world, 0.1)
@@ -609,17 +614,18 @@ def test_every_part_of_every_boss_can_be_shot_from_below(kind: str) -> None:
         assert boss.health == BOSSES[kind].health
 
 
+@pytest.mark.usefixtures("test_bosses")
 def test_the_laser_goes_over_a_boss_core_up_to_the_part_above_it() -> None:
     world = armed_world("laser", 1)
-    boss = make_enemy("reaper", 0.0, 0.0, "left", None, top=0.2)
+    boss = make_enemy("test_reaper", 0.0, 0.0, "left", None, top=0.2)
     boss.parts_released = True
     world.enemies += [boss, *boss.parts]
     world.update(DT, Controls())
     cutter = next(part for part in boss.parts if part.part_name == "cutter")
     world.player.x = cutter.x
     run(world, 0.5, Controls(fire=True))
-    assert cutter.health < BOSSES["reaper"].parts[2].spec.health
-    assert boss.health == BOSSES["reaper"].health
+    assert cutter.health < BOSSES["test_reaper"].parts[2].spec.health
+    assert boss.health == BOSSES["test_reaper"].health
 
 
 TWO_BOSS_LEVEL = Level(
@@ -718,6 +724,7 @@ def test_with_cutscenes_the_ship_flies_in_from_the_bottom_before_the_waves() -> 
     assert world.enemies
 
 
+@pytest.mark.usefixtures("test_bosses")
 def test_with_cutscenes_the_ship_flies_away_through_the_top_once_the_level_is_over() -> None:
     world = World(BOSS_LEVEL, seed=0, cutscenes=True, view_top=1.6)
     world.arrival_time = 0.0

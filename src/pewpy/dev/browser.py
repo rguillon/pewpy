@@ -1,8 +1,8 @@
 """The model browser of the Dev menu: one category's models, one at a time, to make new ones in their place.
 
-Left and Right go from one model to the next, Up and Down make its size bigger or smaller, Space makes a new model of
-that size (shown, not saved), Enter saves it in place of the model (or only the size, without a new model). Independent
-from rendering: the app shows `pieces`.
+Left and Right go from one model to the next; its width and height can each be made bigger or smaller, to change the
+model's shape; Space makes a new model of that size (shown, not saved), Enter saves it in place of the model (or only
+the size, without a new model). Independent from rendering: the app shows `pieces`.
 """
 
 import random
@@ -16,7 +16,7 @@ from pewpy.graphics.models import drawing_size, parse_voxels
 from pewpy.makers.common.geometry import Rng
 from pewpy.makers.sized import Size, rounded, sized_boss, sized_ship
 
-SIZE_STEP = 1.05  # Up makes the size this much bigger, Down this much smaller
+SIZE_STEP = 1.05  # each step makes the width (or the height) this much bigger or smaller
 
 
 @dataclass(frozen=True)
@@ -71,10 +71,9 @@ class ModelBrowser:
         """Show the next model (step 1) or the previous one (-1), wrapping around; a new model not saved is lost."""
         self._show(self.index + step)
 
-    def resize(self, step: int) -> None:
-        """Make the size bigger (step 1) or smaller (-1), keeping its proportions."""
-        factor = SIZE_STEP**step
-        self.size = (self.size[0] * factor, self.size[1] * factor)
+    def stretch(self, across: int, up: int) -> None:
+        """Make the width `across` steps bigger (or smaller, below 0) and the height `up` steps: the model's shape."""
+        self.size = (self.size[0] * SIZE_STEP**across, self.size[1] * SIZE_STEP**up)
         self.saved = False
 
     def generate(self) -> None:

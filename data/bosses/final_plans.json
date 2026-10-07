@@ -1,6 +1,6 @@
 {
   "avalanche": {
-    "note": "1-1: boss candidate #167.",
+    "note": "1-1: A snow-white mountain fortress coming down like an avalanche, twin cannons on its slopes.",
     "name": "AVALANCHE",
     "drawing": "avalanche",
     "width": 0.5,
@@ -58,7 +58,7 @@
     ]
   },
   "frostjaw": {
-    "note": "1-2: boss candidate #187.",
+    "note": "1-2: An icebreaker with a jagged frozen jaw, missile racks along its flanks.",
     "name": "FROSTJAW",
     "drawing": "frostjaw",
     "width": 0.513,
@@ -116,7 +116,7 @@
     ]
   },
   "iron_summit": {
-    "note": "1-3: boss candidate #070.",
+    "note": "1-3: An iron peak of stacked decks: turrets, cannons and two reactors at its summit.",
     "name": "IRON SUMMIT",
     "drawing": "iron_summit",
     "width": 0.58,
@@ -188,7 +188,7 @@
     ]
   },
   "stormpeak": {
-    "note": "1-4: boss candidate #179.",
+    "note": "1-4: A storm-wreathed spire ship crackling with beam emitters.",
     "name": "STORMPEAK",
     "drawing": "stormpeak",
     "width": 0.54,
@@ -246,7 +246,7 @@
     ]
   },
   "ridgebreaker": {
-    "note": "1-5: boss candidate #064.",
+    "note": "1-5: A broad mining crawler with a ridge-splitting prow and a field of flak guns.",
     "name": "RIDGEBREAKER",
     "drawing": "ridgebreaker",
     "width": 0.673,
@@ -346,7 +346,7 @@
     ]
   },
   "highlord": {
-    "note": "1-6: boss candidate #068.",
+    "note": "1-6: The Highlands' warlord: a crowned flagship with heavy cannons and flak towers.",
     "name": "HIGHLORD",
     "drawing": "highlord",
     "width": 0.567,
@@ -404,7 +404,7 @@
     ]
   },
   "ironbark": {
-    "note": "2-1: boss candidate #063.",
+    "note": "2-1: A gnarled armored hulk like an iron-barked tree, reactors at its roots, missile racks in its branches.",
     "name": "IRONBARK",
     "drawing": "ironbark",
     "width": 0.593,
@@ -490,7 +490,7 @@
     ]
   },
   "thornback": {
-    "note": "2-2: boss candidate #163.",
+    "note": "2-2: A spiny cruiser whose back bristles with flak guns like thorns.",
     "name": "THORNBACK",
     "drawing": "thornback",
     "width": 0.513,
@@ -562,7 +562,7 @@
     ]
   },
   "rootmaw": {
-    "note": "2-3: boss candidate #040.",
+    "note": "2-3: A very wide ship spreading like roots around a gaping maw, turrets all over.",
     "name": "ROOTMAW",
     "drawing": "rootmaw",
     "width": 0.967,
@@ -662,7 +662,7 @@
     ]
   },
   "wildfire": {
-    "note": "2-4: boss candidate #034.",
+    "note": "2-4: A blazing raider wing packed with missile racks.",
     "name": "WILDFIRE",
     "drawing": "wildfire",
     "width": 0.74,
@@ -762,7 +762,7 @@
     ]
   },
   "grovekeeper": {
-    "note": "2-5: boss candidate #002.",
+    "note": "2-5: A tall guardian ship standing in a grove of flak towers.",
     "name": "GROVEKEEPER",
     "drawing": "grovekeeper",
     "width": 0.633,
@@ -848,7 +848,7 @@
     ]
   },
   "old_growth": {
-    "note": "2-6: boss candidate #131.",
+    "note": "2-6: An ancient, moss-dark battleship with beam emitters and radar dishes.",
     "name": "OLD GROWTH",
     "drawing": "old_growth",
     "width": 0.673,
@@ -948,7 +948,7 @@
     ]
   },
   "bogmaw": {
-    "note": "3-1: boss candidate #099.",
+    "note": "3-1: A squat swamp hulk with a wide maw, missile racks and radars.",
     "name": "BOGMAW",
     "drawing": "bogmaw",
     "width": 0.527,
@@ -1020,7 +1020,7 @@
     ]
   },
   "mirelord": {
-    "note": "3-2: boss candidate #085.",
+    "note": "3-2: A huge, wide marsh barge, its deck a field of flak guns.",
     "name": "MIRELORD",
     "drawing": "mirelord",
     "width": 0.933,
@@ -1120,7 +1120,7 @@
     ]
   },
   "fenwraith": {
-    "note": "3-3: boss candidate #165.",
+    "note": "3-3: A pale, ghostly ship drifting low, flak guns around two reactors.",
     "name": "FENWRAITH",
     "drawing": "fenwraith",
     "width": 0.46,
@@ -1192,7 +1192,7 @@
     ]
   },
   "hydra": {
-    "note": "3-4: boss candidate #138.",
+    "note": "3-4: A many-headed warship: cannon, missile and flak heads on long necks.",
     "name": "HYDRA",
     "drawing": "hydra",
     "width": 0.573,
@@ -1264,7 +1264,7 @@
     ]
   },
   "marsh_titan": {
-    "note": "3-5: boss candidate #028.",
+    "note": "3-5: A colossal swamp titan, wider than half the screen, studded with radar dishes.",
     "name": "MARSH TITAN",
     "drawing": "marsh_titan",
     "width": 1.073,
@@ -1364,7 +1364,7 @@
     ]
   },
   "drowned_king": {
-    "note": "3-6: boss candidate #109.",
+    "note": "3-6: A barnacled royal flagship risen from the river, radar dishes and two gatlings.",
     "name": "DROWNED KING",
     "drawing": "drowned_king",
     "width": 0.567,
@@ -1450,7 +1450,7 @@
     ]
   },
   "scarecrow": {
-    "note": "4-1: boss candidate #042.",
+    "note": "4-1: A gaunt cross-shaped ship with ragged wings, reactors glowing like eyes.",
     "name": "SCARECROW",
     "drawing": "scarecrow",
     "width": 0.633,
@@ -1536,7 +1536,7 @@
     ]
   },
   "combine": {
-    "note": "4-2: boss candidate #074.",
+    "note": "4-2: A giant harvesting combine with a wide reaper bar and reactors along its body.",
     "name": "COMBINE",
     "drawing": "combine",
     "width": 0.673,
@@ -1622,7 +1622,7 @@
     ]
   },
   "locust": {
-    "note": "4-3: boss candidate #083.",
+    "note": "4-3: A swarm mother with long locust wings, reactors, missile racks and radars.",
     "name": "LOCUST",
     "drawing": "locust",
     "width": 1.073,
@@ -1722,7 +1722,7 @@
     ]
   },
   "granary": {
-    "note": "4-4: boss candidate #066.",
+    "note": "4-4: A flying grain silo complex with radars, beam emitters and reactors.",
     "name": "GRANARY",
     "drawing": "granary",
     "width": 0.873,
@@ -1822,7 +1822,7 @@
     ]
   },
   "harrowmaster": {
-    "note": "4-5: boss candidate #010.",
+    "note": "4-5: A wide harrow ship dragging its tines, turrets on its frame and a big cannon.",
     "name": "HARROWMASTER",
     "drawing": "harrowmaster",
     "width": 0.687,
@@ -1908,7 +1908,7 @@
     ]
   },
   "black_harvest": {
-    "note": "4-6: boss candidate #103.",
+    "note": "4-6: A black reaper ship with a long scythe wing and rows of reactors.",
     "name": "BLACK HARVEST",
     "drawing": "black_harvest",
     "width": 0.78,
@@ -2008,7 +2008,7 @@
     ]
   },
   "maelstrom": {
-    "note": "5-1: boss candidate #024.",
+    "note": "5-1: A whirling vortex ship ringed with gatlings and reactors.",
     "name": "MAELSTROM",
     "drawing": "maelstrom",
     "width": 0.833,
@@ -2108,7 +2108,7 @@
     ]
   },
   "man_o_war": {
-    "note": "5-2: boss candidate #039.",
+    "note": "5-2: A jellyfish-like warship trailing beam emitters and cannons like stinging tentacles.",
     "name": "MAN O' WAR",
     "drawing": "man_o_war",
     "width": 0.633,
@@ -2194,7 +2194,7 @@
     ]
   },
   "typhoon": {
-    "note": "5-3: boss candidate #003.",
+    "note": "5-3: A wide storm carrier, a wall of cannons along its front.",
     "name": "TYPHOON",
     "drawing": "typhoon",
     "width": 1.007,
@@ -2294,7 +2294,7 @@
     ]
   },
   "tsunami": {
-    "note": "5-4: boss candidate #096.",
+    "note": "5-4: A towering wave-shaped ship, reactors in its crest and gatlings below.",
     "name": "TSUNAMI",
     "drawing": "tsunami",
     "width": 0.767,
@@ -2394,7 +2394,7 @@
     ]
   },
   "abyssal": {
-    "note": "5-5: boss candidate #058.",
+    "note": "5-5: A huge deep-sea leviathan, the biggest of its world, with gatlings and radar dishes.",
     "name": "ABYSSAL",
     "drawing": "abyssal",
     "width": 1.147,
@@ -2494,7 +2494,7 @@
     ]
   },
   "kraken": {
-    "note": "5-6: boss candidate #102.",
+    "note": "5-6: A tall tentacled monster ship, missile racks on its arms.",
     "name": "KRAKEN",
     "drawing": "kraken",
     "width": 0.667,
@@ -2594,7 +2594,7 @@
     ]
   },
   "mesa": {
-    "note": "6-1: boss candidate #152.",
+    "note": "6-1: A flat-topped table mountain of armor, flak guns and cannons on its plateau.",
     "name": "MESA",
     "drawing": "mesa",
     "width": 0.913,
@@ -2694,7 +2694,7 @@
     ]
   },
   "dust_devil": {
-    "note": "6-2: boss candidate #191.",
+    "note": "6-2: A sand-colored ship whirling around a ring of reactors.",
     "name": "DUST DEVIL",
     "drawing": "dust_devil",
     "width": 0.62,
@@ -2780,7 +2780,7 @@
     ]
   },
   "landslide": {
-    "note": "6-3: boss candidate #183.",
+    "note": "6-3: A tumbling slide of armor plates hiding missile racks.",
     "name": "LANDSLIDE",
     "drawing": "landslide",
     "width": 0.687,
@@ -2880,7 +2880,7 @@
     ]
   },
   "basilisk": {
-    "note": "6-4: boss candidate #048.",
+    "note": "6-4: A long serpent-king ship with a crested head, turrets, flak guns and reactors.",
     "name": "BASILISK",
     "drawing": "basilisk",
     "width": 0.713,
@@ -2980,7 +2980,7 @@
     ]
   },
   "sandworm": {
-    "note": "6-5: boss candidate #094.",
+    "note": "6-5: A segmented worm ship rising from the sand, cannons along its rings.",
     "name": "SANDWORM",
     "drawing": "sandworm",
     "width": 0.593,
@@ -3080,7 +3080,7 @@
     ]
   },
   "monolith": {
-    "note": "6-6: boss candidate #031.",
+    "note": "6-6: A tall black slab of a ship, turrets set in its faces.",
     "name": "MONOLITH",
     "drawing": "monolith",
     "width": 0.753,
@@ -3180,7 +3180,7 @@
     ]
   },
   "furnace": {
-    "note": "7-1: boss candidate #158.",
+    "note": "7-1: A huge glowing furnace hulk, the widest boss of the game, lined with cannons.",
     "name": "FURNACE",
     "drawing": "furnace",
     "width": 1.207,
@@ -3280,7 +3280,7 @@
     ]
   },
   "smokestack": {
-    "note": "7-2: boss candidate #156.",
+    "note": "7-2: A factory ship of chimneys and stacks, reactors and cannons between them.",
     "name": "SMOKESTACK",
     "drawing": "smokestack",
     "width": 0.793,
@@ -3380,7 +3380,7 @@
     ]
   },
   "slag_king": {
-    "note": "7-3: boss candidate #047.",
+    "note": "7-3: A molten-armored king of the smelters, crowned with cannons.",
     "name": "SLAG KING",
     "drawing": "slag_king",
     "width": 0.58,
@@ -3480,7 +3480,7 @@
     ]
   },
   "forgemaster": {
-    "note": "7-4: boss candidate #084.",
+    "note": "7-4: An anvil-shaped forge ship, flak towers for hammers.",
     "name": "FORGEMASTER",
     "drawing": "forgemaster",
     "width": 0.673,
@@ -3580,7 +3580,7 @@
     ]
   },
   "inferno": {
-    "note": "7-5: boss candidate #043.",
+    "note": "7-5: A square fire ship of flaming stacks, turrets and cannons.",
     "name": "INFERNO",
     "drawing": "inferno",
     "width": 0.607,
@@ -3680,7 +3680,7 @@
     ]
   },
   "reactor": {
-    "note": "7-6: boss candidate #049.",
+    "note": "7-6: A giant power plant in meltdown, flying: reactors, gatlings and flak guns.",
     "name": "REACTOR",
     "drawing": "reactor",
     "width": 1.1,
@@ -3780,7 +3780,7 @@
     ]
   },
   "neon_tyrant": {
-    "note": "8-1: boss candidate #110.",
+    "note": "8-1: A neon-lit tyrant ship blazing with reactors.",
     "name": "NEON TYRANT",
     "drawing": "neon_tyrant",
     "width": 0.833,
@@ -3880,7 +3880,7 @@
     ]
   },
   "gridlock": {
-    "note": "8-2: boss candidate #186.",
+    "note": "8-2: A flying city block of towers and traffic, missile racks and radars on its roofs.",
     "name": "GRIDLOCK",
     "drawing": "gridlock",
     "width": 0.887,
@@ -3980,7 +3980,7 @@
     ]
   },
   "blackout": {
-    "note": "8-3: boss candidate #081.",
+    "note": "8-3: A huge dark ship that swallows the city lights, ringed with radar dishes.",
     "name": "BLACKOUT",
     "drawing": "blackout",
     "width": 1.06,
@@ -4080,7 +4080,7 @@
     ]
   },
   "skybreaker": {
-    "note": "8-4: boss candidate #072.",
+    "note": "8-4: A skyscraper warship piercing the clouds, reactors and flak guns on its floors.",
     "name": "SKYBREAKER",
     "drawing": "skybreaker",
     "width": 0.727,
@@ -4180,7 +4180,7 @@
     ]
   },
   "sovereign": {
-    "note": "8-5: boss candidate #121.",
+    "note": "8-5: The city's regal flagship, its gold-trimmed hull lined with gatlings and flak guns.",
     "name": "SOVEREIGN",
     "drawing": "sovereign",
     "width": 0.86,
@@ -4280,7 +4280,7 @@
     ]
   },
   "singularity": {
-    "note": "8-6: boss candidate #155.",
+    "note": "8-6: The last boss: a dark core collapsing into itself, turrets orbiting it.",
     "name": "SINGULARITY",
     "drawing": "singularity",
     "width": 0.833,

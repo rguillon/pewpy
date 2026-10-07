@@ -33,7 +33,7 @@ INFO_HEIGHT = -0.72
 INFO_SCALE = 0.04
 STATUS_HEIGHT = -0.8
 KEYS_HEIGHT = -0.9
-KEYS = "Left/Right: model   Up/Down: size   Space: new model   Enter: save   Escape: back"
+KEYS = "Left/Right: model   Z/S: height   Q/D: width   Space: new model   Enter: save   Escape: back"
 
 
 def fit_scale(extent: float) -> float:

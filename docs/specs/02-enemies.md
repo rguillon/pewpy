@@ -1,65 +1,91 @@
 # 02 — Enemies
 
-> Units: speed in world units per second (the play area is 2.5 wide and 2.0 tall, the player moves at 1.0),
-> health in damage points (the starting weapon does 1.0 per bullet).
+Units: see `00-vision.md`. Each enemy is described in `02-enemies-catalog.md` (the first enemies),
+`02-enemies-fleet.md` (the second fleet) and `02-enemies-bosses.md` (the bosses).
 
-## General rules
+## Coming in and leaving
 
-- Enemies collide with the player: the player takes 2 damage and the enemy is destroyed (no points). Ramming
-  doesn't split a Splitter.
-- Enemies appear just beyond the screen's edges and fly in (the tilted camera shows more than the play area: up
-  to about y 1.65 at the top, x ±1.86 at the sides). They disappear once they are fully off screen again. They
-  don't come back.
-- Enemies only shoot (and Mine Layers only drop mines) while inside the play area (x -1.25 to 1.25, below y 1).
-- Enemy bullets: speed 0.4 to 0.9, small (0.03), drawn as soft round dots, pink unless stated otherwise. 1 damage
-  each.
-- Enemies flash white for 0.05 s when hit, and the whole time the laser touches them.
-- Only enemies destroyed by the player's weapons score and drop pickups (including those a missile's explosion
-  destroys), not rammed ones. Every destroyed or rammed enemy explodes (see `05-visuals.md`).
-- "Drops" gives the chance that a destroyed enemy leaves a pickup; when it does, 64% upgrade capsule, 4% extra life, 8% secondary
-  weapon, 24% repair *(placeholder)* (see `01-gameplay.md`; the shares are in `data/rules.json`).
-- Looks: every enemy is a voxel model in its colors, drawn in `data/models/<group>/<name>.json` (its description names
-  its drawing) and built by `src/pewpy/graphics/models/`; the size given is its hitbox.
-- Parts: any enemy can have destructible parts, like the bosses (see `02-enemies-bosses.md`): each is hit like an
-  enemy of its own and gives its own points; the parts move with their enemy, and go with it when it is destroyed
-  (without their points), rammed or leaves the screen. Their drawings are in their enemy's model file.
-- "First appears in level" uses the worlds' places (see `03-levels.md`).
-- What each enemy does is data: `data/enemies/` (`catalog.json`, `fleet.json`, `projectiles.json`), see
-  `06-technical.md`, "Enemies as data".
+- **ENM-1** An enemy coming from the top shall appear just above the top edge of the screen, out of sight: its middle
+  as far above the screen's top edge as its highest point (its parts included) is above its middle (bosses start half
+  their height higher still). It shall appear at the x its wave gives, moved inwards if needed so that it is entirely
+  (its parts included) inside the play area's width.
+- **ENM-2** An enemy coming from a side ("side entry") shall appear just beyond the left or right edge of the screen,
+  at the height its wave gives, and fly across the screen at its crossing speed (×W), pointing the way it goes.
+- **ENM-3** An enemy shall disappear, without points and without exploding, once it is more than 0.2 beyond any edge
+  of the screen (the bottom edge being the play area's, y = −1). It shall never come back.
+- **ENM-4** Bosses shall never leave the screen; they stay until destroyed.
+- **ENM-5** Ground enemies (Turret, Flak Cannon) shall be fixed to the ground: they move down at the ground's speed,
+  30% of the level's scroll speed (see `03-levels.md`).
 
-## Enemy weapons
+## Shooting
 
-Shots come out of the weapons drawn on the enemy's model: a model lists its `weapons` (like its engines), each
-numbered (1, 2...) with its kind (gun, gatling, cannon, turret, flak, missile, laser) and its barrel's tip, where the
-shots leave it, facing down the screen. A gun names the weapons it fires from (`weapon`, or `weapons` to fire from
-several at once), so one gun can be given per kind of shot; without them, an enemy's guns fire from its weapons in
-turn (its state's first gun from weapon 1, the second from weapon 2...). The weapons turn with a model that faces the
-way it flies. A model without weapons (or a gun with its own `origins`) fires from the gun's origins, as before.
-The models the makers make (`src/pewpy/makers/`) always have weapons: at least one on an enemy, at least five on a boss (its core and
-its parts together) *(the user's choice)*.
+- **ENM-6** An enemy shall only fire while its middle is on the play area (y below 1 and x between −1.25 and 1.25),
+  unless stated otherwise: a shot that comes due while it is off the play area shall wait until it is on it.
+- **ENM-7** Enemies of a group shall not fire all at once: an enemy whose gun is "staggered" shall fire its first
+  shot after a random wait between 0.3 s and its gun's interval.
+- **ENM-8** Unless stated otherwise, enemy shots shall be plain shots: 0.03 × 0.03, pink, 1 damage, flying straight
+  at their speed until 0.05 beyond the screen.
+- **ENM-9** Shots shall leave from the weapons drawn on the enemy's model (the tips of its barrels), or from the
+  places the enemy's description gives. A model's weapons shall turn with a model that faces the way it flies.
+- **ENM-10** "Aimed" shall mean aimed at the player's middle at the moment of firing. A pattern of several aimed shots
+  shall be centred on that direction.
+- **ENM-11** Shot kinds:
 
-Besides plain shots (pink, 0.03), enemies use:
+| Kind | Look | Size | Behaviour |
+|------|------|-----:|-----------|
+| Plain | Pink | 0.03 | Straight |
+| Sniper | Blue | 0.03 | Straight |
+| Heavy | Orange, bigger | 0.05 | Straight |
+| Pellet | Pink, small | 0.022 | Straight |
+| Snaking ("wave") | Violet | 0.03 | Snakes from side to side across its line of flight: 0.06 to each side, one full wave every 0.7 s |
+| Accelerating ("accel") | Cyan | 0.03 | Starts at 35% of its speed, speeds up by 90% of its speed per second, up to 1.8 times its speed |
+| Curving ("curve") | Yellow | 0.03 | Its path turns by its curve rate (degrees per second, counter-clockwise) for 1.5 s, then it flies straight |
 
-- Colored and sized shots: blue (Sniper), big orange "heavy" shots (0.05: bosses), small pellets
-  (0.022, Buckshot), violet shots that snake from side to side across their line of flight (0.06 either way, a
-  wave every 0.7 s: Serpent), and a red laser beam (Lancer: 0.035 wide, from the Lancer down past the bottom of
-  the screen, for 0.5 s; it goes on through the player, who is briefly invulnerable after a hit anyway).
-- Bosses' shots also come cyan, starting slow and speeding up ("accel"), and yellow, their path bending for 1.5 s
-  then going straight ("curve"); bosses fire laser beams too, each announced 1 s before by a thin harmless red beam
-  where it will be (see `02-enemies-bosses.md`).
-- Projectiles that are small enemies of their own, launched by other enemies rather than placed by the waves: they
-  can be shot down (a few points, no drops), and hitting the player they do 2 damage and are destroyed, like
-  ramming. Enemy missiles are among the targets of the player's homing missiles.
-    - Rocket (0.03 x 0.07, 1 health, 10 points): flies straight, from 0.25 speeding up by 1.0 per second to 1.1.
-    - Homing missile (0.04 x 0.08, 2 health, 20 points): speed 0.45, turns towards the player at up to 100° per
-      second for 3 s (its fuel), then flies straight on.
-    - Cluster bomb (0.05, 1 health, 10 points): falls at 0.3 and after 1.2 s bursts into a ring of 8 shots (speed
-      0.4), unless shot down first.
+- **ENM-12** A **laser beam** shall go straight down from its muzzle to 0.1 below the bottom of the play area, for
+  its duration, doing 1 damage on contact. It shall go on through the player (the player is invulnerable for a moment
+  after a hit anyway) and shall not hurt the player again while the player is invulnerable.
+- **ENM-13** An enemy that "charges" before firing shall glow white for its charge time, then fire; the wait to its
+  next shot shall start after it fires. An enemy that "holds" shall stand still while charging and while its beam
+  lasts.
 
-## Where the rest is
+## Projectiles
 
-The catalog is split by section so each can be read on its own:
+- **ENM-14** Some enemies shall launch projectiles: small enemies of their own, which can be shot down (a few points,
+  no drops), are targets for the player's homing missiles and secondary weapons, and do 2 damage when they hit the
+  player, like a ram (they are destroyed doing so). The waves never place them on their own.
 
-- `02-enemies-catalog.md` — Enemy catalog: Drone, Weaver, Diver, Gunship, Turret, Flak Cannon, Swarmer, Sniper, Mine Layer, Shield Carrier, Splitter, Rocketeer, Hunter, Bomber, Lancer, Serpent, Buckshot
-- `02-enemies-fleet.md` — The second fleet: Albatross, Dart, Brawler, Manta, Hornet, Mite, Outrider, Condor, Needle, Kestrel, Javelin, Tick, Warhawk, Catamaran, Harrier, Behemoth, Wisp, Rampart, Imp, Howitzer, Stalker, Spark, Broadside, Rapier, Freighter, Scrapper, Brood, Stormcrow, Pincer
-- `02-enemies-bosses.md` — Bosses (general rules, the mini bosses one by one, then the final bosses): Sentinel, Prowler, Rockbreaker, Siege Pod, Twin Fang, Relay Array, Mine Carrier, Warden, Thresher, Picket, Bulwark, Turbine, Silo Hauler, Hive Carrier, Tugmaster, Harvester, Clamp Barge, Pulsar, Frigate, Delta Raider, Cryo Fortress, Grappler, Dreadnought, Tidebreaker, Breacher, Cyclone, Borer, Bastion, Foundry, Scavenger, Magma Rig, Colossus, Patrol Drone, Enforcer, Hover Tank, Spire, Sentry Grid, Gunship Prime, Executor, Overmind
+| Projectile | Size | Health | Points | Behaviour |
+|------------|-----:|-------:|-------:|-----------|
+| Rocket | 0.03 × 0.07 | 1 | 10 | Flies straight, starting at 0.25 and speeding up by 1.0 per second to 1.1; points the way it flies |
+| Homing missile | 0.04 × 0.08 | 2 | 20 | Flies at 0.45, turning towards the player at up to 100° per second for 3 s (its fuel), then flies straight on; points the way it flies |
+| Cluster bomb | 0.05 × 0.05 | 1 | 10 | Falls at 0.3; after 1.2 s (unless shot down first) it bursts: it blows up (no points) and fires a ring of 8 plain shots at speed 0.4, the first one 22.5° off straight down; it spins |
+| Mine | 0.06 × 0.06 | 1 | 20 | Spiked ball, does not move by itself: drifts straight down at the level's scroll speed; it spins |
+
+- **ENM-15** Mines and other projectiles shall count as enemies for the end of a level (a level only ends once they
+  are gone).
+
+## Being hit
+
+- **ENM-16** An enemy shall lose health equal to the damage of each hit, unless it cannot be hurt in its current
+  state; at 0 health it shall be destroyed.
+- **ENM-17** An enemy shall flash white for 0.05 s when hit (bosses shall get brighter instead, see BOS-12).
+- **ENM-18** Every destroyed or rammed enemy shall explode, with debris in its own colors (see `05-visuals.md`).
+- **ENM-19** When the player's weapons destroy an enemy, the player shall score its points, and it shall drop a
+  pickup with its drop chance (see GAM-58). Rammed enemies give no points and drop nothing.
+- **ENM-20** When the player collides with an enemy that can be rammed, the enemy shall be destroyed and the player
+  shall take 2 damage. Ramming shall not trigger what an enemy does when shot down (a Splitter does not split).
+
+## Parts
+
+- **ENM-21** Any enemy may have destructible parts (bosses always do). A part shall be hit like an enemy of its own,
+  give its own points and drop a pickup with its own drop chance; it moves with its enemy.
+- **ENM-22** When an enemy is destroyed, its parts left shall be destroyed with it, without their points. A part shall
+  disappear with its enemy, never by leaving the screen on its own.
+
+## Looks
+
+- **ENM-23** Every enemy shall be a voxel model in its own colors, about the size of its hitbox (see
+  `05-visuals.md`). Enemies that point "the way they fly" turn their model along their velocity; others point down
+  the screen.
+- **ENM-24** Enemy groups and the levels they first appear in are listed with each enemy; how the levels use them is
+  in `03-levels.md`.

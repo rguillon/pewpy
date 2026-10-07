@@ -54,11 +54,11 @@ def test_cannot_leave_play_area(move_x: float, move_y: float) -> None:
     assert abs(player.x) + abs(player.y) > 0.5  # it actually reached an edge
 
 
-def test_the_heavy_ship_is_tougher_bigger_and_slower_and_the_light_one_the_opposite() -> None:
+def test_the_heavy_ship_is_tougher_and_slower_and_the_light_one_the_opposite_and_the_smallest() -> None:
     normal, heavy, light = SHIPS["vanguard"], SHIPS["juggernaut"], SHIPS["phantom"]
     assert heavy.health > normal.health > light.health
     assert heavy.speed < normal.speed < light.speed
-    assert heavy.size > normal.size > light.size
+    assert light.size < min(normal.size, heavy.size)  # the others' sizes follow their models (01-gameplay.md)
     assert light.regeneration > normal.regeneration > heavy.regeneration > 0  # every ship repairs itself
 
 
