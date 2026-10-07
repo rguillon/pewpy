@@ -5,6 +5,7 @@ import pytest
 from pewpy import data
 from pewpy.data import model_folder, model_path, read_model
 from pewpy.graphics import models
+from pewpy.graphics.models.drawings.files import read_drawing
 
 
 def test_a_model_is_found_in_its_group() -> None:
@@ -15,28 +16,22 @@ def test_a_model_is_found_in_its_group() -> None:
     assert Path(str(model_path("drone"))).parent.name == "enemies"
 
 
-def test_a_name_with_its_folder_is_where_it_says() -> None:
-    assert model_folder("candidates/bosses/007") == "candidates/bosses"
-    assert str(model_path("candidates/bosses/007")).endswith("models/candidates/bosses/007.json")
-
-
 def test_a_part_is_drawn_in_its_models_file() -> None:
-    assert model_folder("rockbreaker:drill") == "bosses"
-    assert model_path("rockbreaker:drill") == model_path("rockbreaker")
-    model, _ = read_model("rockbreaker")
-    part, source = read_model("rockbreaker:drill")
-    assert part == model["parts"]["drill"]
-    assert source == "rockbreaker.json: part drill"
-    assert model_folder("candidates/bosses/007:a") == "candidates/bosses"
+    assert model_folder("avalanche:cannon") == "bosses"
+    assert model_path("avalanche:cannon") == model_path("avalanche")
+    model, _ = read_model("avalanche")
+    part, source = read_model("avalanche:cannon")
+    assert part == model["parts"]["cannon"]
+    assert source == "avalanche.json: part cannon"
 
 
 def test_a_part_missing_from_its_models_file_is_an_error() -> None:
     with pytest.raises(ValueError, match="no part 'lost'"):
-        read_model("rockbreaker:lost")
+        read_model("avalanche:lost")
     with pytest.raises(ValueError, match="no part 'lost'"):
         read_model("drone:lost")  # a model without parts
     with pytest.raises(models.VoxelDrawingError, match="no part 'lost'"):
-        models.load_voxels("rockbreaker:lost")
+        read_drawing("avalanche:lost")
 
 
 def test_a_model_in_no_group_is_right_in_models(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

@@ -48,7 +48,7 @@ def parse_mounts(data: dict[str, Any], source: str) -> dict[int, Mount]:
         msg = f"{source}: 'weapons' must be a list"
         raise TypeError(msg)
     columns, rows = _size(data, source)
-    voxel = config.MODEL_VOXEL / data.get("scale", 1)
+    voxel = config.MODEL_VOXEL
     mounts: dict[int, Mount] = {}
     for index, entry in enumerate(entries):
         where = f"{source}: weapon {index + 1}"

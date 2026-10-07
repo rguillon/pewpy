@@ -60,7 +60,7 @@ def test_a_level_starts_with_the_ship_flying_in_from_the_bottom(app: PewPewApp) 
 
 
 def test_the_main_menu_starts_or_quits(app: PewPewApp, monkeypatch: pytest.MonkeyPatch) -> None:
-    assert labels(app) == ["Start", "Quit"]
+    assert labels(app) == ["Start", "Dev", "Quit"]
     quit_calls = []
     monkeypatch.setattr(app, "userExit", lambda: quit_calls.append(True))
     menu(app).items[-1] = menu(app).items[-1].__class__("Quit", app.userExit)
@@ -139,7 +139,8 @@ def test_pausing_and_going_on(app: PewPewApp) -> None:
     choose(app, "Main menu")
     assert app.states.state is State.MAIN_MENU
     assert app.world is None
-    assert app.background.scenery.kind == "space"
+    assert app.menu_level is not None  # a level's ground behind the menus
+    assert app.background.scenery.kind == app.menu_level.scenery_params().name
 
 
 def test_the_weapon_only_switches_while_playing(app: PewPewApp) -> None:

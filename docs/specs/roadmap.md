@@ -40,9 +40,16 @@
 
 ## Later / ideas
 
-- [x] AI player: learns to play by itself and rates every level for every ship (`07-ai.md`)
+- [x] AI player: learns to play by itself, measures its win rates on every level with every ship (`07-ai.md`)
+- [x] Screenshots in the Dev menu: one per world, a moment of one of its levels drawn at random, saved as its README picture
+  (`04-ui-audio.md`)
+- [x] Music in the Dev menu: a music browser playing the songs, composing new ones and saving them (`04-ui-audio.md`)
+- [x] AI playing in the game: the Dev menu's AI playing screen, the trained AI playing from the ship and level picked
+  (`07-ai.md`, `04-ui-audio.md`)
 - [x] Secondary weapons from enemy drops: a turret and a lightning gun, lost instead of health when hit (`01-gameplay.md`)
 - [x] Longer levels in two halves, the second harder: the old bosses as mini bosses halfway, a bigger final boss per
   level; bosses' new shots (accel, curve, pellets, snaking, projectiles) and lasers announced by a warning beam
   (`03-levels.md`, `02-enemies-bosses.md`)
+- [x] Dev menu in the game: a model browser for the player's ships, the enemies and the bosses, making new models of
+  a size each model registers, every model with the same cubes (`04-ui-audio.md`, `05-visuals.md`)
 - TBD

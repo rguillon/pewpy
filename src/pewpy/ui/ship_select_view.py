@@ -6,12 +6,14 @@ Bars compare their characteristics; the highlighted one is bigger, with its desc
 from panda3d.core import CardMaker, Lens, NodePath, Point2, Point3, TextNode
 
 from pewpy.game.player import ShipSpec
-from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR
+from pewpy.ui import panel
+from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR, console
 from pewpy.ui.showcase import DISTANCE, ModelShowcase
 
 Color = tuple[float, float, float, float]
 
-COLUMN_SPACING = 0.8  # between the ships' columns (aspect2d units)
+COLUMN_SPACING = 0.8  # between the ships' columns (aspect2d units), unless that's too wide for the screen
+SCREEN_MARGIN = 0.1  # aspect2d units kept free on each side of the screen
 SHIP_HEIGHT = -0.36  # where the ships spin (aspect2d units)
 SHIP_SIZE = 0.2  # a ship's model (fitted to 1 x 1 x 1) is drawn this big; the highlighted one bigger
 SELECTED_GROWTH = 1.25
@@ -25,21 +27,40 @@ LABEL_SCALE = 0.04
 LABEL_WIDTH = 0.22  # from a label's start to its bar
 DETAILS_HEIGHT = -0.86
 DETAILS_SCALE = 0.038
-BAR_EMPTY: Color = (0.12, 0.13, 0.17, 1)
-BAR_FULL: Color = (0.3, 0.85, 1.0, 1)
-BAR_DIM: Color = (0.25, 0.3, 0.38, 1)
-DETAILS_COLOR: Color = (0.7, 0.72, 0.8, 1)
+CONSOLE = (-0.985, -0.475)  # the console under the names, bars and details: its bottom and top...
+CONSOLE_MARGIN = 0.03  # ...from the screen's sides...
+CONSOLE_DISPLAY_TOP = -0.575  # ...its display under the names
+BAR_EMPTY: Color = panel.AMBER_GHOST  # like the HUD's readouts
+BAR_FULL: Color = panel.AMBER
+BAR_DIM: Color = (0.55, 0.38, 0.12, 1)
+DETAILS_COLOR: Color = panel.LABEL
 
 
 def characteristics(ships: list[ShipSpec]) -> list[list[tuple[str, float]]]:
-    """For each ship: (name, share of the best of all ships, 0 to 1) of what the bars show."""
+    """For each ship: (name, share of the best of the regular ships, 0 to 1) of what the bars show.
+
+    A test ship (ShipSpec.test) isn't compared: its bars are full where it's at least as good.
+    """
     rows = [
         ("Armor", [ship.health for ship in ships]),
         ("Speed", [ship.speed for ship in ships]),
         ("Size", [ship.size for ship in ships]),
         ("Repair", [ship.regeneration for ship in ships]),
     ]
-    return [[(name, values[index] / (max(values) or 1.0)) for name, values in rows] for index in range(len(ships))]
+    regular = [index for index, ship in enumerate(ships) if not ship.test] or list(range(len(ships)))
+    bests = [max(values[index] for index in regular) or 1.0 for _, values in rows]
+    return [
+        [(name, min(1.0, values[index] / best)) for (name, values), best in zip(rows, bests, strict=True)]
+        for index in range(len(ships))
+    ]
+
+
+def column_spacing(count: int, right: float) -> float:
+    """Return the room between the ships' columns: COLUMN_SPACING, less when `count` columns wouldn't fit.
+
+    `right`: the screen's right edge (aspect2d units, its left one at -right).
+    """
+    return min(COLUMN_SPACING, (2 * (right - SCREEN_MARGIN)) / count)
 
 
 def details(ship: ShipSpec) -> str:
@@ -73,8 +94,12 @@ class ShipSelectView:
         self.names: list[TextNode] = []
         self.bars: list[list[tuple[TextNode, NodePath]]] = []  # per ship: (label, fill) per bar
         right, top = extent
+        bottom, console_top = CONSOLE
+        side = right - CONSOLE_MARGIN
+        console(self.root, (-side, side, bottom, console_top), CONSOLE_DISPLAY_TOP)  # first: under the texts
+        spacing = column_spacing(len(ships), right)
         for index, (model, stats) in enumerate(zip(models, characteristics(ships), strict=True)):
-            x = (index - (len(ships) - 1) / 2) * COLUMN_SPACING
+            x = (index - (len(ships) - 1) / 2) * spacing
             showcase = ModelShowcase([("", model)], camera, SHIP_SIZE, radius=0.0)
             showcase.root.setPos(_on_screen(lens, x / right, SHIP_HEIGHT / top))
             self.showcases.append(showcase)

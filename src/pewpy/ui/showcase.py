@@ -1,7 +1,4 @@
-"""The Models screen: every model in a slowly turning circle, each spinning, its name underneath.
-
-For working on the models (pewpy.graphics.models): the screen can reload them without restarting the game.
-"""
+"""Models in a slowly turning circle, each spinning, its name underneath (the ship select's ships, one each)."""
 
 import math
 
@@ -26,15 +23,11 @@ class ModelShowcase:
         camera: NodePath,
         size: float = MODEL_SIZE,
         radius: float = RADIUS,
-        stretch: float = 1.0,
-        tilt: float = 0.0,
     ) -> None:
         """Place the models around the circle.
 
         `entries`: (name, model) pairs; the models are copied, so they can be shared with the game. `size`: how big a 1
-        x 1 x 1 model is drawn; `radius`: the circle's, up and down; `stretch`: how much wider it is across (on a wide
-        screen, an ellipse uses the room on the sides); `tilt`: how many degrees the models lean their tops towards the
-        camera (to see the roofs of the props), spinning around their own up axis.
+        x 1 x 1 model is drawn; `radius`: the circle's.
 
         The circle hangs in front of the camera, facing it, so it's round and centered on the screen (the game's camera
         is tilted: on the play plane it would look squashed). The models go round it slowly, staying upright.
@@ -42,7 +35,7 @@ class ModelShowcase:
         self.root = camera.attachNewNode("showcase")
         self.root.setY(DISTANCE)
         self.circle = self.root.attachNewNode("circle")
-        self.radius, self.stretch = radius, stretch
+        self.radius = radius
         self.angles: list[float] = []
         self.slots: list[NodePath] = []
         self.spinners: list[NodePath] = []
@@ -50,9 +43,7 @@ class ModelShowcase:
         for index, (name, model) in enumerate(entries):
             self.angles.append(2 * math.pi * index / len(entries) + math.pi / 2)  # the first one at the top
             slot = self.circle.attachNewNode(name)
-            leaning = slot.attachNewNode("tilt")
-            leaning.setP(tilt)
-            spinner = leaning.attachNewNode("spinner")
+            spinner = slot.attachNewNode("spinner")
             model.copyTo(spinner)
             spinner.setScale(size)
             label = slot.attachNewNode(self._label(name))
@@ -74,7 +65,7 @@ class ModelShowcase:
         turn = -math.radians(self.time * TURN_SPEED)  # clockwise
         for angle, slot, spinner in zip(self.angles, self.slots, self.spinners, strict=True):
             across, up = math.cos(angle + turn), math.sin(angle + turn)
-            slot.setPos(across * self.radius * self.stretch, 0, up * self.radius)
+            slot.setPos(across * self.radius, 0, up * self.radius)
             spinner.setH(self.time * SPIN_SPEED)
 
     def destroy(self) -> None:

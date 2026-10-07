@@ -52,5 +52,9 @@
       "height": 7
     }
   },
-  "engines": []
+  "engines": [],
+  "size": [
+    0.06,
+    0.06
+  ]
 }

@@ -151,3 +151,21 @@ def test_without_music_or_a_song_that_wont_load_nothing_plays(songs: Path) -> No
     assert broken.playing == Music("one")
     assert broken.song is None
     assert len(loader.loaded) == 1
+
+
+def test_a_song_added_in_memory_plays_and_a_changed_song_is_rendered_again(songs: Path, tmp_path: Path) -> None:
+    loader = FakeLoader()
+    library = Library(songs, tmp_path / "cache")
+    audio = Audio(cast("Any", loader), None, cast("Any", FakeManager()), library)  # fakes for Panda3D's
+    new = Song(tempo=240.0, notes=[Note(0, 1, 67)], programs={0: 81}, length=1.0)
+    library.add("new-one", midi.write(new))
+    assert library.has("new-one")
+    play_until(audio, "new-one")
+    play_until(audio, "one")
+    first = loader.loaded[-1]
+    (songs / "one.mid").write_bytes(midi.write(new))  # saved over
+    audio.forget_song("one")
+    play_until(audio, "two")
+    play_until(audio, "one")
+    assert loader.loaded[-1] != first  # its new file: the old one is kept
+    assert VirtualFileSystem.getGlobalPtr().exists(first)

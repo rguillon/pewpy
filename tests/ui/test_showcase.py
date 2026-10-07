@@ -40,23 +40,3 @@ def test_every_model_has_its_name() -> None:
     assert [slot.getName() for slot in show.slots] == ["model 0", "model 1", "model 2"]
     show.destroy()
     assert show.root.isEmpty()
-
-
-def test_a_stretched_circle_is_wider_than_tall() -> None:
-    camera = NodePath("camera")
-    show = ModelShowcase([(f"model {i}", models.model("drone")) for i in range(4)], camera, radius=0.5, stretch=2.0)
-    xs = [abs(slot.getPos(show.root).x) for slot in show.slots]
-    zs = [abs(slot.getPos(show.root).z) for slot in show.slots]
-    assert max(xs) == pytest.approx(1.0)
-    assert max(zs) == pytest.approx(0.5)
-
-
-def test_tilted_models_lean_towards_the_camera_and_spin_around_their_own_axis() -> None:
-    camera = NodePath("camera")
-    show = ModelShowcase([("prop", models.model("drone"))], camera, tilt=30.0)
-    show.update(1.0)
-    spinner = show.spinners[0]
-    assert spinner.getParent().getP() == pytest.approx(30.0)
-    up = show.root.getRelativeVector(spinner, (0, 0, 1))
-    assert up.y < 0  # its top towards the camera
-    assert math.degrees(math.atan2(-up.y, up.z)) == pytest.approx(30.0)

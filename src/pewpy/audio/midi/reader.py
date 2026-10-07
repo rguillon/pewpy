@@ -41,6 +41,7 @@ class _Parsed:
     volumes: dict[int, int] = field(default_factory=dict)
     tempos: list[tuple[float, float]] = field(default_factory=list)
     loop: float = 0.0
+    title: str = ""
     playing: dict[tuple[int, int], tuple[float, int]] = field(default_factory=dict)  # (channel, pitch) -> start
 
     def note_off(self, channel: int, pitch: int, beat: float) -> None:
@@ -57,6 +58,8 @@ def _meta(reader: _Reader, beat: float, parsed: _Parsed) -> bool:
         parsed.tempos.append((beat, 60_000_000 / int.from_bytes(data, "big")))
     elif kind == 0x06 and data == b"loop":
         parsed.loop = beat
+    elif kind == 0x03 and not parsed.title:
+        parsed.title = data.decode("utf-8", "replace")
     return kind != 0x2F
 
 
@@ -122,4 +125,5 @@ def read(data: bytes) -> Song:
         volumes=parsed.volumes,
         tempo_changes=[(beat, bpm) for beat, bpm in tempos if beat > 0],
         length=parsed.loop,
+        title=parsed.title,
     )

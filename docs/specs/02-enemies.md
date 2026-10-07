@@ -35,12 +35,12 @@ shots leave it, facing down the screen. A gun names the weapons it fires from (`
 several at once), so one gun can be given per kind of shot; without them, an enemy's guns fire from its weapons in
 turn (its state's first gun from weapon 1, the second from weapon 2...). The weapons turn with a model that faces the
 way it flies. A model without weapons (or a gun with its own `origins`) fires from the gun's origins, as before.
-The candidates the tools make always have weapons: at least one on an enemy, at least five on a boss (its core and
+The models the makers make (`src/pewpy/makers/`) always have weapons: at least one on an enemy, at least five on a boss (its core and
 its parts together) *(the user's choice)*.
 
 Besides plain shots (pink, 0.03), enemies use:
 
-- Colored and sized shots: blue (Sniper), big orange "heavy" shots (0.05: bosses, Rocket Truck), small pellets
+- Colored and sized shots: blue (Sniper), big orange "heavy" shots (0.05: bosses), small pellets
   (0.022, Buckshot), violet shots that snake from side to side across their line of flight (0.06 either way, a
   wave every 0.7 s: Serpent), and a red laser beam (Lancer: 0.035 wide, from the Lancer down past the bottom of
   the screen, for 0.5 s; it goes on through the player, who is briefly invulnerable after a hit anyway).
@@ -60,6 +60,6 @@ Besides plain shots (pink, 0.03), enemies use:
 
 The catalog is split by section so each can be read on its own:
 
-- `02-enemies-catalog.md` — Enemy catalog: Drone, Weaver, Diver, Gunship, Turret, Flak Cannon, Tank, Rocket Truck, Swarmer, Sniper, Mine Layer, Shield Carrier, Splitter, Rocketeer, Hunter, Missile Silo, Bomber, Lancer, Serpent, Buckshot
+- `02-enemies-catalog.md` — Enemy catalog: Drone, Weaver, Diver, Gunship, Turret, Flak Cannon, Swarmer, Sniper, Mine Layer, Shield Carrier, Splitter, Rocketeer, Hunter, Bomber, Lancer, Serpent, Buckshot
 - `02-enemies-fleet.md` — The second fleet: Albatross, Dart, Brawler, Manta, Hornet, Mite, Outrider, Condor, Needle, Kestrel, Javelin, Tick, Warhawk, Catamaran, Harrier, Behemoth, Wisp, Rampart, Imp, Howitzer, Stalker, Spark, Broadside, Rapier, Freighter, Scrapper, Brood, Stormcrow, Pincer
 - `02-enemies-bosses.md` — Bosses (general rules, the mini bosses one by one, then the final bosses): Sentinel, Prowler, Rockbreaker, Siege Pod, Twin Fang, Relay Array, Mine Carrier, Warden, Thresher, Picket, Bulwark, Turbine, Silo Hauler, Hive Carrier, Tugmaster, Harvester, Clamp Barge, Pulsar, Frigate, Delta Raider, Cryo Fortress, Grappler, Dreadnought, Tidebreaker, Breacher, Cyclone, Borer, Bastion, Foundry, Scavenger, Magma Rig, Colossus, Patrol Drone, Enforcer, Hover Tank, Spire, Sentry Grid, Gunship Prime, Executor, Overmind

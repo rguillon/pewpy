@@ -5,16 +5,11 @@
 The game shall have a global state machine for each possible state to easily transition between states:
 
 The states are:
-- Main menu: start (to the ship selection), or quit
-- Only with the dev tools (`make dev`, see `04-ui-audio.md`), screens opening from the main menu and going back to
-  it:
-  - Models: every ship and pickup model on show, for working on them
-  - Bosses: every boss on show, a world per page
-  - Enemy candidates, Player candidates, Boss candidates, Prop candidates: numbered candidates for new enemies,
-    player ships and props (10 per page) and bosses (4 per page), to pick from
-  - AI learning, AI rating, AI playing: the AI learning to play while one of its brains plays on screen, the
-    levels' ratings for each ship, and the trained AI playing the game (see `07-ai.md`); Escape goes back to the
-    main menu
+- Main menu: start (to the ship selection), the Dev menu, or quit
+- AI playing (from the Dev menu): the AI plays from the ship and level picked with the ship, world and level
+  selections (see `07-ai.md`); Escape goes back to the level selection
+- Dev menu: Players, Enemies, Bosses, each opening the model browser on those models, to make new ones in their place;
+  Music, the music browser; AI playing; Screenshots (see `04-ui-audio.md`, "Dev menu")
 - World selection: select one of the worlds (see `03-levels.md`)
 - Level selection: select one of the world's levels to play
 - The actual game
@@ -66,10 +61,16 @@ The player picks a ship before the world (see 04-ui-audio.md). It is kept for ev
 | Vanguard   | 5      | 1.0   | 0.12          | 0.3                       | Balanced                                        |
 | Juggernaut | 8      | 0.8   | 0.14          | 0.2                       | Heavy armor, a bit slower (and a bigger target) |
 | Phantom    | 3      | 1.3   | 0.10          | 0.5                       | Fast, light armor, the best repairs             |
+| Tester     | 99999  | 1.2   | as Vanguard   | none                      | For testing: unkillable, every weapon at its top level from the start |
 
 *(numbers are a placeholder; in `data/ships.json`, the first one the default)* Every ship repairs itself *(the user's
 choice: the balanced one medium repairs, the big one little, the small one the best)*: once it hasn't fired for
 1.5 s, at its own rate, up to its own full health. Weapons, lives and repair pickups work the same for every ship.
+
+The Tester is a ship for testing the game *(the user's choice)*, not a real one (`"test": true` in `ships.json`): a
+ridiculous amount of health, and every weapon at its top level at the start of every level and every Continue
+(`"full_arsenal": true`; pickups then add nothing). The ship select doesn't compare it with the others (its bars are
+full where it's at least as good as the best of them), and the AI never flies it (see `07-ai.md`).
 
 ## Weapons
 

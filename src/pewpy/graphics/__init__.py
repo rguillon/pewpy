@@ -1,1 +1,1 @@
-"""Models (voxel drawings, MagicaVoxel files), lighting, sprites and particle effects."""
+"""Models (voxel drawings), lighting, sprites and particle effects."""

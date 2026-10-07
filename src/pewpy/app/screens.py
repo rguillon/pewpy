@@ -3,6 +3,7 @@
 Also starting levels and going from one to the next.
 """
 
+import random
 from collections.abc import Callable
 from enum import Enum
 from functools import partial
@@ -10,6 +11,7 @@ from functools import partial
 from pewpy import config
 from pewpy.app.drawing import Drawing
 from pewpy.app.entity_models import fitted_model
+from pewpy.app.window import BACKGROUND_COLOR
 from pewpy.game.level import Level, LevelWorld
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State, StateMachine
@@ -38,6 +40,8 @@ class Screens(Drawing):
     camera_view: CameraView
     menu_view: MenuView
     level_preview: LevelPreview  # the level select's window on the highlighted level
+    menu_level: Level | None  # the level whose ground scrolls behind the menus (None: a level is played)
+    menu_rng: random.Random  # draws it
 
     def _go(self, target: Enum) -> Callable[[], None]:
         return lambda: self.states.transition(target)
@@ -82,9 +86,13 @@ class Screens(Drawing):
             self.states.transition(State.WORLD_SELECT)
 
         items = [MenuItem(spec.name.title(), partial(pick, key)) for key, spec in SHIPS.items()]
-        back = MenuItem("Back", lambda: self.states.transition(State.MAIN_MENU))
+        back = MenuItem("Back", self._leave_ship_select)
         # Starts on the ship played last.
         return Menu("SELECT SHIP", [*items, back], back=back.action, selected=list(SHIPS).index(self.ship_key))
+
+    def _leave_ship_select(self) -> None:
+        """Go back from the ship select: to the main menu."""
+        self.states.transition(State.MAIN_MENU)
 
     def _show_ship_select(self) -> None:
         """Every ship side by side under the menu, with bars comparing them."""
@@ -167,22 +175,34 @@ class Screens(Drawing):
         self.states.transition(State.PLAYING)
 
     def _show_background(self, level: Level | None = None) -> None:
-        """Show a level's scenery (none: space, behind the menus)."""
-        self.background.destroy()
+        """Show a level's scenery; without one, the menus': a level's ground drawn at random, scrolling by."""
         if level is None:
-            scenery = Scenery("space", self.camera_view)
-            time_of_day = "day"
-        else:
-            scenery = Scenery(
-                level.scenery_params(),
-                self.camera_view,
-                seed=level.background_seed,
-                clouds=level.clouds,
-            )
-            time_of_day = level.time_of_day
-        self.background = BackgroundView(scenery, self.render, time_of_day)
+            self._show_menu_ground(self.menu_rng.choice(self.levels))
+            return
+        self._show_scenery(level)
+        self.menu_level = None
+
+    def _show_menu_ground(self, level: Level) -> None:
+        """Show a level's ground behind the menus, scrolling by."""
+        self._show_scenery(level)
+        self.menu_level = level
+
+    def _show_scenery(self, level: Level) -> None:
+        self.background.destroy()
+        scenery = Scenery(level.scenery_params(), self.camera_view, seed=level.background_seed, clouds=level.clouds)
+        self.background = BackgroundView(scenery, self.render, level.time_of_day)
         # The sky shows through gaps, like between clouds.
-        self.camNode.getDisplayRegion(0).setClearColor(sky_color(scenery.params, time_of_day))
+        self.sky = sky_color(scenery.params, level.time_of_day)
+        self.camNode.getDisplayRegion(0).setClearColor(self.sky)
+
+    def _plain_background(self, plain: bool) -> None:
+        """Hide the scenery behind a plain dark background (to look at models), or show it again."""
+        if plain:
+            self.background.root.hide()
+            self.camNode.getDisplayRegion(0).setClearColor(BACKGROUND_COLOR)
+        else:
+            self.background.root.show()
+            self.camNode.getDisplayRegion(0).setClearColor(self.sky)
 
     def _continue(self) -> None:
         # Continue restarts the level with full lives, a score of 0 and weapons back to level 1.
@@ -198,7 +218,7 @@ class Screens(Drawing):
     def _is_last_level(self) -> bool:
         return self.level_index >= len(self.levels) - 1
 
-    def _on_state_change(self, previous: Enum, current: Enum) -> None:  # noqa: ARG002 - the dev app uses it
+    def _on_state_change(self, previous: Enum, current: Enum) -> None:  # noqa: ARG002 - the layers above use it
         menu = self._menu(current)
         self.menu_view.show(menu)
         if self.ship_select is not None:
@@ -213,6 +233,6 @@ class Screens(Drawing):
         if current is State.MAIN_MENU:
             self.world = None
             self.effects.clear()
-            if self.background.scenery.kind != "space":
+            if self.menu_level is None:
                 self._show_background()
         self._show_hud(self.world is not None)

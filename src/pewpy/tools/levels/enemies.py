@@ -6,7 +6,7 @@ The easy ones first, the ones on the ground, the difficulty each one comes at, a
 from typing import Any
 
 WARM_UP = ("drone", "weaver", "dart", "mite")  # easy first waves
-GROUND = frozenset({"turret", "flak_cannon", "tank", "rocket_truck", "missile_silo"})  # roll on the ground
+GROUND = frozenset({"turret", "flak_cannon"})  # roll on the ground
 # The difficulty each enemy first comes at.
 UNLOCK = {
     "dart": 1,
@@ -34,16 +34,13 @@ UNLOCK = {
     "hunter": 5,
     "kestrel": 5,
     "stalker": 5,
-    "missile_silo": 6,
     "rapier": 6,
     "scrapper": 6,
     "outrider": 6,
-    "tank": 6,
     "bomber": 7,
     "needle": 7,
     "wisp": 7,
     "freighter": 7,
-    "rocket_truck": 7,
     "lancer": 9,
     "manta": 9,
     "broadside": 10,
@@ -210,14 +207,6 @@ SHAPES: dict[str, tuple[dict[str, Any], ...]] = {
         {"formation": "column", "side": "left", "y": 0.4, "count": 0.34},
         {"formation": "column", "side": "right", "y": 0.7, "count": 0.36},
     ),
-    "missile_silo": (
-        {"formation": "column", "x": 0.12, "count": 0.73},
-        {"formation": "column", "x": 0.08, "count": 0.66},
-        {"formation": "column", "x": 0.22, "count": 0.62},
-        {"formation": "column", "x": -0.6, "count": 0.38},
-        {"formation": "column", "x": 0.07, "count": 0.36},
-        {"formation": "column", "x": 0.6, "count": 0.31},
-    ),
     "mite": (
         {"formation": "line", "spacing": 0.75, "x": 0.0, "count": 2.85},
         {"formation": "line", "spacing": 0.67, "x": 0.0, "count": 1.75},
@@ -240,11 +229,6 @@ SHAPES: dict[str, tuple[dict[str, Any], ...]] = {
         {"formation": "column", "interval": 1.0, "x": 0.5, "count": 1.47},
         {"formation": "column", "interval": 0.8, "x": -0.5, "count": 1.85},
         {"formation": "column", "interval": 0.8, "x": 0.5, "count": 0.96},
-    ),
-    "rocket_truck": (
-        {"formation": "column", "interval": 1.2, "x": 0.0, "count": 0.99},
-        {"formation": "column", "interval": 1.2, "x": 0.58, "count": 0.9},
-        {"formation": "column", "interval": 1.2, "x": -0.58, "count": 0.93},
     ),
     "rocketeer": ({"formation": "line", "spacing": 1.17, "x": 0.0, "count": 1.11},),
     "scrapper": ({"formation": "line", "spacing": 0.83, "x": 0.0, "count": 1.64},),
@@ -303,10 +287,6 @@ SHAPES: dict[str, tuple[dict[str, Any], ...]] = {
         {"formation": "column", "interval": 0.2, "side": "right", "y": 0.3, "count": 5.34},
         {"formation": "column", "interval": 0.2, "side": "left", "y": 0.5, "count": 5.16},
         {"formation": "column", "interval": 0.2, "side": "right", "y": 0.5, "count": 5.16},
-    ),
-    "tank": (
-        {"formation": "column", "interval": 3.0, "x": -0.75, "count": 0.53},
-        {"formation": "column", "interval": 3.0, "x": 0.75, "count": 0.7},
     ),
     "tick": (
         {"formation": "line", "spacing": 0.83, "x": 0.0, "count": 2.71},

@@ -2,12 +2,11 @@
 
 It holds the rules, ships, weapons, enemies, bosses, levels, models, music and the font. The models are in
 `models/<group>/<name>.json` (MODEL_GROUPS: the enemies', the bosses', the player's ships and missile, the items: the
-pickups), the props in `models/props/`, the tools' candidates in `models/candidates/` (not in the game). A model's
-name is unique across the groups, so the game data names a model without its group. A model with destructible parts
-has their drawings in its own file, under "parts": the part "a" of the model "avalanche" is named "avalanche:a". An
-installed wheel carries it inside the `pewpy` package (`pewpy/data`, see pyproject.toml). In a packaged build (Panda3D's
-build_apps, see `make package`) the code is frozen into the executable, and the data files are copied to a `data`
-folder next to it.
+pickups), the props in `models/props/`. A model's name is unique across the groups, so the game data names a model
+without its group. A model with destructible parts has their drawings in its own file, under "parts": the part "a" of
+the model "avalanche" is named "avalanche:a". An installed wheel carries it inside the `pewpy` package (`pewpy/data`,
+see pyproject.toml). In a packaged build (Panda3D's build_apps, see `make package`) the code is frozen into the
+executable, and the data files are copied to a `data` folder next to it.
 """
 
 import json
@@ -43,21 +42,19 @@ def split_model_name(name: str) -> tuple[str, str]:
 
 
 def model_folder(name: str) -> str:
-    """Return the folder of a model, within models/: its group for a name alone, else the folder in its name.
+    """Return the group of a model, its folder within models/: "drone" is in "enemies", "avalanche:a" in "bosses".
 
-    "drone" is in "enemies"; "candidates/bosses/007:a" in "candidates/bosses". A name in no group: "".
+    A name in no group: "".
     """
     name = split_model_name(name)[0]
-    if "/" in name:
-        return name.rsplit("/", 1)[0]
     return _groups(str(data_folder())).get(name, "")
 
 
 def model_path(name: str) -> "Traversable":
-    """Return the file of a model (see `model_folder`): models/<folder>/<name>.json; a part's is its model's."""
+    """Return the file of a model (see `model_folder`): models/<group>/<name>.json; a part's is its model's."""
     folder = data_folder() / MODELS_FOLDER
     group = model_folder(name)
-    file = f"{split_model_name(name)[0].rsplit('/', 1)[-1]}.json"
+    file = f"{split_model_name(name)[0]}.json"
     return folder / group / file if group else folder / file
 
 

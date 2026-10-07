@@ -15,12 +15,12 @@ from pewpy.game.level import Level
 from pewpy.graphics import lighting
 from pewpy.scenery.background import Scenery
 from pewpy.scenery.background.view import BackgroundView, CameraView, sky_color
+from pewpy.ui import panel
 
 Color = tuple[float, float, float, float]
 
 # Where the window is, in aspect2d units: to the right of the level select's list (the screen is wide).
 FRAME = (0.4, 1.2, -0.62, 0.02)  # left, right, bottom, top
-FRAME_COLOR: Color = (0.55, 0.57, 0.65, 1)  # the menus' dim color
 FRAME_WIDTH = 0.006
 FIELD_OF_VIEW = 26.0  # vertical, degrees: the middle of what the game's camera sees
 REGION_SORT = 5  # after the game's 3D view (0)
@@ -116,7 +116,7 @@ class LevelPreview:
             maker = CardMaker("edge")
             maker.setFrame(x0, x1, y0, y1)
             edge = frame.attachNewNode(maker.generate())
-            edge.setColor(FRAME_COLOR)
+            edge.setColor(panel.HIGHLIGHT)  # steel, like the menus' plates
         return frame
 
 

@@ -41,7 +41,7 @@
   "gunship": {
     "note": "Slow, fires three-shot spreads.",
     "drawing": "gunship",
-    "size": [0.2, 0.14],
+    "size": [0.268, 0.188],
     "health": 8.0,
     "points": 300,
     "drop_chance": 0.2,
@@ -70,7 +70,7 @@
   "swarmer": {
     "note": "Comes in from a side, curving down.",
     "drawing": "swarmer",
-    "size": [0.06, 0.06],
+    "size": [0.089, 0.089],
     "health": 1.0,
     "points": 50,
     "side_entry": true,
@@ -186,45 +186,10 @@
       }
     ]
   },
-  "tank": {
-    "note": "Crawls sideways over the ground (turning back at the screen's edges) and aims its turret at the player.",
-    "drawing": "tank",
-    "size": [0.16, 0.12],
-    "health": 8.0,
-    "points": 300,
-    "drop_chance": 0.15,
-    "ground": true,
-    "facing": "player",
-    "states": [
-      {
-        "name": "fly",
-        "motions": [{"type": "scroll"}, {"type": "patrol", "speed": 0.1}, {"type": "bounce"}],
-        "guns": [{"pattern": "aimed", "interval": 2.0, "speed": 0.65, "staggered": true}]
-      }
-    ]
-  },
-  "rocket_truck": {
-    "note": "Drives down the road, faster than the ground scrolls, firing big rockets straight down the screen.",
-    "drawing": "rocket_truck",
-    "size": [0.1, 0.16],
-    "health": 4.0,
-    "points": 250,
-    "drop_chance": 0.1,
-    "ground": true,
-    "states": [
-      {
-        "name": "fly",
-        "motions": [{"type": "scroll", "plus": -0.15}],
-        "guns": [
-          {"pattern": "fan", "interval": 1.8, "speed": 0.5, "staggered": true, "style": "heavy", "origins": [[0, "-0.5h"]]}
-        ]
-      }
-    ]
-  },
   "rocketeer": {
     "note": "Flies down slowly, firing pairs of rockets that speed up.",
     "drawing": "rocketeer",
-    "size": [0.12, 0.12],
+    "size": [0.161, 0.161],
     "health": 5.0,
     "points": 250,
     "drop_chance": 0.1,
@@ -278,28 +243,10 @@
       {"name": "leave"}
     ]
   },
-  "missile_silo": {
-    "note": "A silo in the ground: launches homing missiles upwards, which then turn round to chase the player.",
-    "drawing": "missile_silo",
-    "size": [0.12, 0.12],
-    "health": 7.0,
-    "points": 350,
-    "drop_chance": 0.15,
-    "ground": true,
-    "states": [
-      {
-        "name": "fly",
-        "motions": [{"type": "scroll"}],
-        "guns": [
-          {"pattern": "fan", "interval": 3.5, "speed": 0.0, "staggered": true, "spawn": "homing_missile", "spawn_heading": 90.0}
-        ]
-      }
-    ]
-  },
   "bomber": {
     "note": "Crosses the screen, dropping cluster bombs.",
     "drawing": "bomber",
-    "size": [0.22, 0.12],
+    "size": [0.358, 0.196],
     "health": 7.0,
     "points": 400,
     "drop_chance": 0.2,
@@ -324,7 +271,7 @@
   "lancer": {
     "note": "Hovers near the top, sliding towards the player's side; glows while charging, then fires a laser beam straight down for a moment, holding still. Leaves after a while.",
     "drawing": "lancer",
-    "size": [0.1, 0.14],
+    "size": [0.155, 0.217],
     "health": 5.0,
     "points": 350,
     "drop_chance": 0.15,
@@ -355,7 +302,7 @@
   "serpent": {
     "note": "Flies down, firing aimed shots that snake from side to side.",
     "drawing": "serpent",
-    "size": [0.12, 0.14],
+    "size": [0.177, 0.207],
     "health": 4.0,
     "points": 200,
     "drop_chance": 0.05,
@@ -372,7 +319,7 @@
   "buckshot": {
     "note": "Comes down to the middle of the screen, fires two shotgun blasts of small pellets at the player, then dives away.",
     "drawing": "buckshot",
-    "size": [0.12, 0.12],
+    "size": [0.186, 0.186],
     "health": 4.0,
     "points": 250,
     "drop_chance": 0.1,

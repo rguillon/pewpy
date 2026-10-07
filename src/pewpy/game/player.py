@@ -21,6 +21,8 @@ class ShipSpec:
     size: float  # the hitbox, a square; the model is about as big
     regeneration: float = 0.0  # health repaired per second while not firing (after `regeneration_delay`)
     regeneration_delay: float = 0.0  # seconds without firing before repairs start
+    full_arsenal: bool = False  # starts every level (and every Continue) with each weapon at its top level
+    test: bool = False  # a ship for testing the game: not compared with the others, not flown by the AI
 
 
 def load_ships() -> dict[str, ShipSpec]:
@@ -31,6 +33,9 @@ def load_ships() -> dict[str, ShipSpec]:
 
 SHIPS = load_ships()
 DEFAULT_SHIP = next(iter(SHIPS))  # the first one
+REGULAR_SHIPS = {
+    key: ship for key, ship in SHIPS.items() if not ship.test
+}  # compared on the ship select, flown by the AI
 
 
 @dataclass(eq=False)

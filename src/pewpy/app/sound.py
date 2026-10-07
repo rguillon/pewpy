@@ -1,7 +1,7 @@
 """The sounds and the music: songs rendered in the background, the music following the game."""
 
 from pewpy.app.keys import MUSIC_KEY, Keys
-from pewpy.audio.cues import music
+from pewpy.audio.cues import Music, music
 from pewpy.audio.library import Library, cache_folder
 from pewpy.audio.sound import Audio
 from pewpy.data import data_folder
@@ -27,6 +27,11 @@ class Sound(Keys):
     def _update_audio(self, dt: float) -> None:
         world, state = self.world, self.states.state
         self.audio.set_laser(world is not None and state is State.PLAYING and world.laser is not None)
-        boss = world is not None and (world.boss is not None or world.boss_beaten)
-        self.audio.set_music(music(state, self.places[self.level_index][0], boss), quiet=state is State.PAUSED)
+        self.audio.set_music(self._music(), quiet=state is State.PAUSED)
         self.audio.update(dt)
+
+    def _music(self) -> Music:
+        """Return the song the screen plays."""
+        world = self.world
+        boss = world is not None and (world.boss is not None or world.boss_beaten)
+        return music(self.states.state, self.places[self.level_index][0], boss)

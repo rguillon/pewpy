@@ -1,6 +1,6 @@
 """What to hear when: the sound for each game event, the song for each screen. No Panda3D.
 
-Songs are named after their files in music/ (see pewpy/tools/songs/): "title" on the menus, "world_1"... for each
+Songs are named after their files in music/ (see pewpy/makers/songs/): "title" on the menus, "world_1"... for each
 world's levels, "boss" while a boss is fought (from when it comes until the level ends), and two jingles, played
 once: "level_complete" and "game_over".
 """
@@ -92,6 +92,6 @@ def music(state: Enum, world: int, boss: bool) -> Music:
         return Music("level_complete", loop=False)
     if state is State.GAME_OVER:
         return Music("game_over", loop=False)
-    if state in (State.PLAYING, State.PAUSED):
+    if state in (State.PLAYING, State.PAUSED, State.AI_PLAYING):
         return Music("boss") if boss else Music(f"world_{world + 1}")
     return MENU_MUSIC

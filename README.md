@@ -21,7 +21,7 @@ gives the flat, arcade-style gameplay some depth.
 - **3 weapons**, switched at any time: spreading bullets, a continuous laser and homing missiles, each upgraded
   up to level 5 by the capsules enemies drop. Some drops also add a secondary weapon (a turret or a lightning gun)
   that fires on its own.
-- Synthwave music, generated, and an AI player that learns to play the levels to rate their difficulty.
+- Synthwave music, generated, and an AI player that learns to play the levels, to watch from the Dev menu.
 
 ## Screenshots
 
@@ -55,9 +55,13 @@ The game design lives in [`docs/specs/`](docs/specs/), and the milestones in
 [`docs/specs/roadmap.md`](docs/specs/roadmap.md).
 
 - `make check`: lint and type-check; `make test`: run the tests.
-- `make dev`: the game with the dev screens (models, bosses, AI learning and rating).
-- `make screenshots`: retake the screenshots above.
-- `make help`: every other tool (levels, models, songs, the AI...).
+- Main menu > Dev (in `make run` too): browse the player's ships, the enemies and the bosses; Left/Right pick a
+  model, Up/Down its size, Space makes a new one of that size, Enter saves it in place of the model. Music browses
+  the songs the same way: Left/Right pick one (it plays), Space composes a new one, Enter saves it.
+- Main menu > Dev > AI playing: pick a ship and a level, then watch the AI play them (it learns with `make learn`).
+- Main menu > Dev > Screenshots: pick a world, Space plays one of its levels to a moment drawn at random, Enter
+  saves that as the world's screenshot above.
+- `make help`: every other tool (levels, the AI...).
 
 - **Github repository**: <https://github.com/rguillon/pewpy/>
 

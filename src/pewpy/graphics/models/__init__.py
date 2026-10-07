@@ -4,7 +4,7 @@ Ships are voxel models, like pixel art extruded into blocks: each one is drawn a
 palette gives every character a color and a thickness (in voxels, centered on the ship's depth), so the hull,
 cockpit and wings stand out at different depths. The drawings are JSON files in `data/models/`, in one of
 several forms (drawings/); mesh/ turns them into meshes, drawn.py into models (flames.py adds their engine flames).
-The shapes that aren't drawings are built in code, each in its own module: built/ (turrets, pickups, shields,
+The shapes that aren't drawings are built in code, each in its own module: built/ (the turret, pickups, shields,
 lasers...) and background/ (asteroids, planets, clouds, mist).
 
 Model space: X is right, Z is up the screen, Y is depth (negative Y faces the camera, so it is the "top"
@@ -23,7 +23,6 @@ from pewpy.graphics.models.built.laser_beam import laser_beam_model
 from pewpy.graphics.models.built.lightning_coil import lightning_coil_model
 from pewpy.graphics.models.built.pickups import extra_life_model, pickup_model, repair_model
 from pewpy.graphics.models.built.shield_bubble import shield_bubble_model
-from pewpy.graphics.models.built.tank import tank_model
 from pewpy.graphics.models.built.turret import turret_model
 from pewpy.graphics.models.colors import METAL, main_colors, mottle, shade, tint
 from pewpy.graphics.models.drawings.engines import (
@@ -37,16 +36,14 @@ from pewpy.graphics.models.drawings.engines import (
 from pewpy.graphics.models.drawings.errors import VoxelDrawingError
 from pewpy.graphics.models.drawings.files import (
     DRAWINGS_FOLDER,
+    drawing_size,
     load_drawing,
-    load_engines,
-    load_voxels,
     parse_voxels,
 )
 from pewpy.graphics.models.drawings.flat import DRAWING_KEYS, PALETTE_KEYS, parse_drawing
 from pewpy.graphics.models.drawings.layered import LAYERED_KEYS
-from pewpy.graphics.models.drawings.magica import VOX_KEYS, voxels_from_vox, voxels_to_vox
 from pewpy.graphics.models.drawings.voxels import EMPTY, OPTIONAL_DRAWING_KEYS, Voxels, thickest, voxel_cells
-from pewpy.graphics.models.drawn import BUILT_MODELS, drawing_model, model, voxel_model
+from pewpy.graphics.models.drawn import BUILT_MODELS, drawing_model, drawn_model, model, voxel_model
 from pewpy.graphics.models.facing import facing_roll
 from pewpy.graphics.models.flames import FLAME_CORE_COLOR, FLAME_CORE_SIZE, FLAME_TEXTURE_SIZE, add_flame
 from pewpy.graphics.models.mesh.builder import (
@@ -103,7 +100,6 @@ __all__ = [
     "PALETTE_KEYS",
     "QUAD_UVS",
     "UV",
-    "VOX_KEYS",
     "WATER_UV",
     "BoolArray",
     "Cell",
@@ -122,6 +118,8 @@ __all__ = [
     "cloud_model",
     "distant_planet_model",
     "drawing_model",
+    "drawing_size",
+    "drawn_model",
     "extra_life_model",
     "face_axes",
     "facing_roll",
@@ -129,8 +127,6 @@ __all__ = [
     "laser_beam_model",
     "lightning_coil_model",
     "load_drawing",
-    "load_engines",
-    "load_voxels",
     "main_colors",
     "make_cube",
     "merged_faces",
@@ -145,12 +141,9 @@ __all__ = [
     "repair_model",
     "shade",
     "shield_bubble_model",
-    "tank_model",
     "thickest",
     "tint",
     "turret_model",
     "voxel_cells",
     "voxel_model",
-    "voxels_from_vox",
-    "voxels_to_vox",
 ]

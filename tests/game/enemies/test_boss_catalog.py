@@ -6,6 +6,12 @@ from pewpy.game.enemies.screen import HALF_WIDTH
 from pewpy.game.enemies.spec import EnemySpec, State
 from pewpy.game.level import load_levels
 from pewpy.graphics import models
+from pewpy.graphics.models.drawings.files import read_drawing
+
+
+def voxels_of(drawing: str) -> models.Voxels:
+    """Read a drawing's cubes from its file."""
+    return models.parse_voxels(*read_drawing(drawing))
 
 
 @pytest.mark.parametrize("kind", BOSSES)
@@ -19,7 +25,7 @@ def test_every_boss_fits_the_screen_and_its_parts_and_guns_exist(kind: str) -> N
         conditions = [condition for way_out in state.exits for condition in way_out.conditions]
         assert all(set(condition.names) <= names for condition in conditions if isinstance(condition, Parts))
     for drawing in {spec.drawing} | {part.spec.drawing for part in spec.parts}:
-        assert models.load_voxels(drawing).cells
+        assert voxels_of(drawing).cells
 
 
 @pytest.mark.parametrize("kind", BOSSES)
@@ -29,7 +35,7 @@ def test_every_hitbox_has_the_size_of_its_drawing(kind: str) -> None:
     for drawing, width, height in [(spec.drawing, spec.width, spec.height)] + [
         (part.spec.drawing, part.spec.width, part.spec.height) for part in spec.parts
     ]:
-        voxels = models.load_voxels(drawing)
+        voxels = voxels_of(drawing)
         assert voxels.width * voxels.size == pytest.approx(width, rel=0.12), drawing
         assert voxels.height * voxels.size == pytest.approx(height, rel=0.12), drawing
 

@@ -11,6 +11,7 @@ from pewpy.game.enemies.kinds import BOSSES, ENEMIES, drawings
 from pewpy.game.enemies.roster import ENEMY_TYPES
 from pewpy.game.enemies.spec import EnemySpec, load_enemy_specs
 from pewpy.game.weapons.guns import PROJECTILES, Gun
+from pewpy.graphics.models import parse_voxels
 
 
 def guns_of(spec: EnemySpec) -> list[Gun]:
@@ -31,9 +32,9 @@ def test_every_enemy_launched_or_released_exists(spec: EnemySpec) -> None:
 @pytest.mark.parametrize("spec", load_enemy_specs("enemies/fleet.json").values(), ids=lambda spec: spec.kind)
 def test_every_fleet_hitbox_is_its_drawing_and_every_drawing_has_engines(spec: EnemySpec) -> None:
     drawing = json.loads(model_path(spec.drawing).read_text())
-    rows = drawing["rows"]
-    assert spec.width == pytest.approx(len(rows[0]) * config.MODEL_VOXEL)
-    assert spec.height == pytest.approx(len(rows) * config.MODEL_VOXEL)
+    voxels = parse_voxels(drawing)  # a flat drawing, or a 3D one (the Dev menu's)
+    assert spec.width == pytest.approx(voxels.width * config.MODEL_VOXEL)
+    assert spec.height == pytest.approx(voxels.height * config.MODEL_VOXEL)
     assert drawing["engines"]
 
 
@@ -42,6 +43,6 @@ def test_the_levels_place_enemies_not_what_they_launch() -> None:
 
 
 def test_an_enemy_needs_its_models_its_parts_and_those_of_what_it_launches() -> None:
-    assert drawings("rockbreaker") == {"rockbreaker", "rockbreaker:drill"}
+    assert drawings("avalanche") == {"avalanche", "avalanche:cannon", "avalanche:cannon2", "avalanche:cannon3"}
     assert drawings("splitter") == {"splitter", "swarmer"}  # what it releases when shot down
-    assert drawings("missile_silo") == {"missile_silo", "homing_missile"}  # what its guns launch
+    assert drawings("hunter") == {"hunter", "homing_missile"}  # what its guns launch

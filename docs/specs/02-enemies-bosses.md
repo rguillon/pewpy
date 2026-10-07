@@ -8,7 +8,7 @@
 
 > Placeholders chosen by Claude: a boss is an enemy like any other, only described differently (see
 > `06-technical.md`): the mini bosses in `data/bosses/mini_bosses.json`, the final bosses in
-> `data/bosses/final_bosses.json` (made from plans by `make final-bosses`, see below). Every level has two bosses
+> `data/bosses/final_bosses.json` (made from plans, see below). Every level has two bosses
 > of its own (see `03-levels.md`): a mini boss halfway (the "Boss: ..." sections below) and a bigger, harder final
 > boss at the end (see "Final bosses"), harder through each world.
 
@@ -22,8 +22,9 @@ General rules for every boss:
   command tower with windows and a glowing reactor, ribbed engine nacelles at the back, the boss's color as
   markings; parts are machines (turrets, cannons, launchers, clamps, generators...). One voxel model per boss in
   `data/models/bosses/`, its core's drawing with its kinds of part's drawings in it (see `05-visuals.md`), with the
-  same cubes as every other model; each drawing is about as big as its hitbox. The newest bosses (Reaper, Leviathan, Flare Rig, Crucible, Interdictor, Nightwatch,
-  Arc Tower, Apex) are boss candidates (`make boss-candidates`) in real 3D, their parts standing on the hull.
+  same cubes as every other model; each drawing is about as big as its hitbox. The newest bosses (Reaper, Leviathan,
+  Flare Rig, Crucible, Interdictor, Nightwatch, Arc Tower, Apex) are made by the makers (`src/pewpy/makers/bosses/`)
+  in real 3D, their parts standing on the hull.
 - Entry: comes down from above the screen at 0.25 and stops at y = 0.55, then sways left and right between the
   screen edges. It doesn't leave the screen and doesn't shoot before it stops; until then, it and its parts can't be
   hurt (shots and the laser stop at them, harmlessly).
@@ -930,14 +931,14 @@ General rules for every boss:
 
 ## Final bosses
 
-> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `src/pewpy/tools/final_bosses/plans.json` by
-> `src/pewpy/tools/final_bosses/` (`make final-bosses`).
+> Placeholders chosen by Claude, not playtested: `data/bosses/final_bosses.json`, made from the plans in `data/bosses/final_plans.json` by
+> `src/pewpy/makers/final_bosses/` (when a new model is saved in the Dev menu's browser, see `04-ui-audio.md`).
 
 Each level ends with a final boss, after its mini boss (see `03-levels.md`): bigger (0.5 to 0.77 wide, about half
 the screen for the last ones) and harder, with more parts and four phases. Same general rules as every boss (see
 "Bosses" above).
 
-- Looks: boss candidates (`make boss-candidates`, see `04-ui-audio.md`) in real 3D, among the biggest, the bigger
+- Looks: made by the makers (`src/pewpy/makers/bosses/`, see `04-ui-audio.md`) in real 3D, among the biggest, the bigger
   for the later levels: their core in `data/models/bosses/<name>.json`, their parts' drawings in
   `<name>_a.json`, `<name>_b.json`... Each hitbox is its drawing's size.
 - Health, for a level of difficulty d (1 to 20): the core 110 + 14 (d - 1), each part 16 + 1.6 (d - 1) (rounded).

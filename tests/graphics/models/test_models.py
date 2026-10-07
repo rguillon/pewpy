@@ -1,21 +1,21 @@
+import json
 import math
 from collections.abc import Callable
 from functools import partial
-from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pytest
 from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
-from pewpy import config, data
+from pewpy import config
 from pewpy.data import MODEL_GROUPS, data_folder
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.player import Player
 from pewpy.game.weapons.bullets import Missile
 from pewpy.graphics import models
-from pewpy.graphics.models.drawings import files, vox
+from pewpy.graphics.models.drawings.files import read_drawing
 from pewpy.graphics.models.types import Palette
 
 SHIP_MODELS = [
@@ -35,6 +35,11 @@ SHIP_MODELS = [
     models.repair_model,
     lambda: models.pickup_model("B", (1, 1, 0, 1)),
 ]
+
+
+def voxels_of(drawing: str) -> models.Voxels:
+    """Read a drawing's cubes from its file."""
+    return models.parse_voxels(*read_drawing(drawing))
 
 
 def triangles_of(node: GeomNode) -> list[tuple[list[Vec3], Vec3]]:
@@ -154,7 +159,7 @@ def test_merged_faces_cover_exactly_the_faces_of_the_cubes() -> None:
         for corners, normal in triangles_of(node):
             key = (round(normal.x), round(normal.y), round(normal.z))
             area[key] = area.get(key, 0.0) + (corners[1] - corners[0]).cross(corners[2] - corners[0]).length() / 2
-        voxels = models.load_voxels(drawing)
+        voxels = voxels_of(drawing)
         cells = voxels.cells
         voxel = voxels.size
         for direction in models.FACE_DIRECTIONS:
@@ -224,25 +229,32 @@ def test_ship_models_are_more_than_a_cube(build: Callable[[], NodePath]) -> None
 
 
 @pytest.mark.parametrize("kind", ["Player", "Missile", *ENEMIES])
-def test_ship_models_are_about_the_size_of_their_hitbox(kind: str) -> None:
-    """Every cube is config.MODEL_VOXEL (the Swarmer's).
+def test_ship_models_are_meant_to_be_about_the_size_of_their_hitbox(kind: str) -> None:
+    """A model's "size" (what new models of it are made to, see pewpy.makers.sized) must fit its hitbox.
 
-    A model's drawing gives its size, which must fit its hitbox.
+    The model built in code (the turret) is drawn to it. An enemy sized by its model's cubes ("voxels") is
+    its drawing whatever its "size" (see test_kinds).
     """
+    if "voxels" in json.loads((data_folder() / "enemies" / "fleet.json").read_text()).get(kind, {}):
+        return
     entity = {"Player": Player, "Missile": Missile}.get(kind, partial(Enemy.of_kind, kind))()
     drawing = entity.ship.drawing if isinstance(entity, Player) else entity.drawing
-    points = all_points(models.model(drawing))
-    width = max(point.x for point in points) - min(point.x for point in points)
-    height = max(point.z for point in points) - min(point.z for point in points)
+    if drawing in models.BUILT_MODELS:
+        points = all_points(models.model(drawing))
+        width = max(point.x for point in points) - min(point.x for point in points)
+        height = max(point.z for point in points) - min(point.z for point in points)
+    else:
+        data, _ = read_drawing(drawing)
+        width, height = models.drawing_size(data, models.parse_voxels(data))
     assert width == pytest.approx(entity.width, rel=0.2)
     assert height <= entity.height * 1.2
     assert max(width, height) == pytest.approx(max(entity.width, entity.height), rel=0.2)
 
 
 def test_every_drawing_has_the_same_cubes() -> None:
-    """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL (or its finer cube), whatever its size."""
+    """Models aren't stretched: a drawing's voxel is config.MODEL_VOXEL, whatever its size."""
     for drawing in ("swarmer", "player", "player_light", "gunship"):
-        cube = models.load_voxels(drawing).size  # config.MODEL_VOXEL / the drawing's scale
+        cube = voxels_of(drawing).size  # config.MODEL_VOXEL
         points = all_points(models.model(drawing))
         xs = sorted({round(point.x / cube, 3) for point in points})
         assert all(abs(x - round(x * 2) / 2) < 1e-3 for x in xs)  # corners on the half-cube grid
@@ -278,32 +290,46 @@ def test_every_drawing_file_loads() -> None:
         names += [file.name.removesuffix(".json") for file in folder.iterdir() if file.name.endswith(".json")]
     assert "player" in names
     assert len(names) == len(set(names))  # unique across the groups: the game names a model without its group
-    parts = [f"{name}:{part}" for name in names for part in data.read_model(name)[0].get("parts", {})]
-    assert "rockbreaker:drill" in parts
+    parts = [f"{name}:{part}" for name in names for part in read_drawing(name)[0].get("parts", {})]
+    assert "avalanche:cannon" in parts
     for name in names + parts:
-        assert models.load_voxels(name).cells
+        assert voxels_of(name).cells
 
 
-def test_a_finer_model_is_the_same_size_in_the_world() -> None:
+def test_every_model_has_the_same_cubes() -> None:
     flat = {"rows": ["aa", "aa"], "palette": {"a": {"color": [1, 1, 1], "height": 1}}}
-    fine = {"layers": [["aaaa"] * 4, ["aaaa"] * 4, ["aaaa"] * 4], "palette": {"a": {"color": [1, 1, 1]}}, "scale": 2}
-    coarse_voxels, fine_voxels = models.parse_voxels(flat), models.parse_voxels(fine)
-    assert fine_voxels.scale == 2
-    assert fine_voxels.size == config.MODEL_VOXEL / 2
-    assert fine_voxels.width * fine_voxels.size == coarse_voxels.width * coarse_voxels.size
+    layered = {"layers": [["aaaa"] * 4], "palette": {"a": {"color": [1, 1, 1]}}}
+    assert models.parse_voxels(flat).size == models.parse_voxels(layered).size == config.MODEL_VOXEL
 
 
-@pytest.mark.parametrize("scale", [0, 1.5, "2"])
-def test_a_scale_must_be_a_whole_number(scale: object) -> None:
-    data = {"layers": [["a"]], "palette": {"a": {"color": [1, 1, 1]}}, "scale": scale}
-    with pytest.raises(models.VoxelDrawingError, match="'scale' must be a whole number"):
+def test_a_scale_is_no_longer_read() -> None:
+    data = {"layers": [["a"]], "palette": {"a": {"color": [1, 1, 1]}}, "scale": 2}
+    with pytest.raises(models.VoxelDrawingError, match="expected the keys"):
         models.parse_voxels(data)
 
 
-def test_only_3d_drawings_have_a_scale() -> None:
-    data = {"rows": ["a"], "palette": {"a": {"color": [1, 1, 1], "height": 1}}, "scale": 2}
-    with pytest.raises(models.VoxelDrawingError, match="only 3D drawings"):
-        models.parse_voxels(data)
+def test_a_model_says_the_size_it_is_meant_to_be() -> None:
+    data = {"layers": [["aa", "aa", "aa"]], "palette": {"a": {"color": [1, 1, 1]}}}
+    voxels = models.parse_voxels(data)
+    assert models.drawing_size(data, voxels) == (2 * config.MODEL_VOXEL, 3 * config.MODEL_VOXEL)
+    sized = {**data, "size": [0.1, 0.2]}
+    assert models.drawing_size(sized, models.parse_voxels(sized)) == (0.1, 0.2)
+
+
+@pytest.mark.parametrize("size", [[0.1], [0.1, 0], [0.1, "big"], [True, 0.1], 0.1])
+def test_a_size_is_two_numbers_more_than_0(size: object) -> None:
+    data = {"layers": [["a"]], "palette": {"a": {"color": [1, 1, 1]}}, "size": size}
+    with pytest.raises(models.VoxelDrawingError, match="'size' must be 2 numbers"):
+        models.drawing_size(data, models.parse_voxels(data))
+
+
+def test_a_model_is_built_from_its_data_too() -> None:
+    data = {"layers": [["a"]], "palette": {"a": {"color": [1, 1, 1]}}, "engines": [
+        {"x": 0, "y": 0, "width": 1, "length": 2, "towards": "top"}
+    ]}  # fmt: skip
+    model = models.drawn_model("new", data)
+    assert model.getName() == "new"
+    assert not model.find("**/flame").isEmpty()
 
 
 def test_a_drawing_gives_rows_and_a_palette_of_colors_and_heights() -> None:
@@ -418,23 +444,7 @@ def test_flat_drawings_still_read_as_before() -> None:
     voxels = models.parse_voxels(data)
     rows, palette = models.parse_drawing(data)
     assert voxels.cells == models.voxel_cells(rows, palette)
-    assert (voxels.width, voxels.height, voxels.scale) == (3, 2, 1)
-
-
-def test_a_vox_model_lies_on_the_ground_seen_from_above() -> None:
-    # MagicaVoxel's y goes up the screen, its z up towards the camera.
-    model = vox.VoxModel((2, 2, 3), [(0, 1, 2, 1), (1, 0, 0, 1)], [(255, 0, 0, 255)])
-    voxels = models.voxels_from_vox(model)
-    assert (0, 0, -1) in voxels.cells  # at the back (top of the screen), on top (towards the camera)
-    assert (1, 1, 1) in voxels.cells  # at the front, underneath
-    assert models.voxels_from_vox(models.voxels_to_vox(voxels)).cells == voxels.cells
-
-
-def test_every_model_converts_to_vox_and_back_unchanged() -> None:
-    for name in ("drone", "player", "warhawk"):
-        original = models.load_voxels(name)
-        back = models.voxels_from_vox(vox.read(vox.write(models.voxels_to_vox(original))))
-        assert set(back.cells) == set(original.cells)
+    assert (voxels.width, voxels.height) == (3, 2)
 
 
 def test_an_engine_can_sit_above_the_middle_plane() -> None:
@@ -470,30 +480,6 @@ def test_main_colors_skip_see_through_parts_and_look_under_empty_nodes() -> None
     assert models.main_colors(holder) == models.main_colors(models.model("drone"))
 
 
-def test_a_drawings_engines_are_read_from_its_file() -> None:
-    engines = models.load_engines("drone")
-    assert engines
-    assert all(isinstance(engine, models.Engine) for engine in engines)
-
-
-def test_a_model_can_be_a_magicavoxel_file(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    folder = tmp_path / models.DRAWINGS_FOLDER / "ships"
-    folder.mkdir(parents=True)
-    (folder / "box.vox").write_bytes(vox.write(vox.VoxModel((1, 1, 1), [(0, 0, 0, 1)], [(255, 0, 0, 255)])))
-    (folder / "box.json").write_text('{"vox": "box.vox", "scale": 2}')
-    (folder / "lost.json").write_text('{"vox": "nowhere.vox"}')
-    (folder / "odd.json").write_text('{"vox": 3}')
-    monkeypatch.setattr(files, "data_folder", lambda: tmp_path)
-    monkeypatch.setattr(data, "data_folder", lambda: tmp_path)
-    voxels = models.load_voxels("ships/box")
-    assert voxels.cells == {(0, 0, 0): (1.0, 0.0, 0.0, 1.0)}
-    assert voxels.scale == 2
-    with pytest.raises(models.VoxelDrawingError, match=r"nowhere\.vox"):
-        models.load_voxels("ships/lost")
-    with pytest.raises(models.VoxelDrawingError, match="file name"):
-        models.load_voxels("ships/odd")
-
-
 @pytest.mark.parametrize(
     ("data", "problem"),
     [
@@ -517,9 +503,3 @@ def test_an_engine_height_must_be_a_number() -> None:
     engine = {"x": 0, "y": 0, "width": 1, "length": 1, "towards": "top", "z": "up"}
     with pytest.raises(models.VoxelDrawingError, match="'z' must be a number"):
         models.parse_engines({"rows": ["a"], "engines": [engine]}, "ship.json")
-
-
-def test_magicavoxel_takes_at_most_255_colors() -> None:
-    cells = {(index, 0, 0): (index % 256 / 255, float(index // 256), 0.0, 1.0) for index in range(300)}
-    with pytest.raises(models.VoxelDrawingError, match="255 colors"):
-        models.voxels_to_vox(models.Voxels(cells, 300, 1))

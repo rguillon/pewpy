@@ -1,0 +1,4382 @@
+{
+  "avalanche": {
+    "note": "1-1: boss candidate #167.",
+    "name": "AVALANCHE",
+    "drawing": "avalanche",
+    "width": 0.5,
+    "height": 0.3,
+    "difficulty": 1,
+    "attacks": {
+      "front": "fan",
+      "back": "aimed",
+      "core": "laser",
+      "rage": "ring"
+    },
+    "parts": [
+      {
+        "drawing": "avalanche:cannon",
+        "x": -0.08,
+        "y": 0.02,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "avalanche:cannon",
+        "x": 0.08,
+        "y": 0.02,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "avalanche:cannon2",
+        "x": -0.033,
+        "y": -0.093,
+        "width": 0.047,
+        "height": 0.1
+      },
+      {
+        "drawing": "avalanche:cannon2",
+        "x": 0.033,
+        "y": -0.093,
+        "width": 0.047,
+        "height": 0.1
+      },
+      {
+        "drawing": "avalanche:cannon3",
+        "x": -0.24,
+        "y": 0.007,
+        "width": 0.047,
+        "height": 0.1
+      },
+      {
+        "drawing": "avalanche:cannon3",
+        "x": 0.24,
+        "y": 0.007,
+        "width": 0.047,
+        "height": 0.1
+      }
+    ]
+  },
+  "frostjaw": {
+    "note": "1-2: boss candidate #187.",
+    "name": "FROSTJAW",
+    "drawing": "frostjaw",
+    "width": 0.513,
+    "height": 0.28,
+    "difficulty": 2,
+    "attacks": {
+      "front": "pellets",
+      "back": "fan",
+      "core": "wave",
+      "rage": "ring"
+    },
+    "parts": [
+      {
+        "drawing": "frostjaw:launcher",
+        "x": -0.093,
+        "y": 0.083,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "frostjaw:launcher",
+        "x": 0.093,
+        "y": 0.083,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "frostjaw:launcher2",
+        "x": -0.1,
+        "y": -0.07,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "frostjaw:launcher2",
+        "x": 0.1,
+        "y": -0.07,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "frostjaw:launcher3",
+        "x": -0.12,
+        "y": 0.017,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "frostjaw:launcher3",
+        "x": 0.12,
+        "y": 0.017,
+        "width": 0.06,
+        "height": 0.067
+      }
+    ]
+  },
+  "iron_summit": {
+    "note": "1-3: boss candidate #070.",
+    "name": "IRON SUMMIT",
+    "drawing": "iron_summit",
+    "width": 0.58,
+    "height": 0.333,
+    "difficulty": 3,
+    "attacks": {
+      "front": "aimed",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "fan"
+    },
+    "parts": [
+      {
+        "drawing": "iron_summit:turret",
+        "x": -0.207,
+        "y": 0.063,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "iron_summit:reactor",
+        "x": -0.173,
+        "y": -0.03,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "iron_summit:reactor",
+        "x": 0.173,
+        "y": -0.03,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "iron_summit:turret2",
+        "x": -0.073,
+        "y": -0.123,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "iron_summit:turret2",
+        "x": 0.073,
+        "y": -0.123,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "iron_summit:cannon",
+        "x": -0.093,
+        "y": 0.063,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "iron_summit:cannon2",
+        "x": -0.073,
+        "y": 0.137,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "iron_summit:cannon3",
+        "x": -0.167,
+        "y": -0.11,
+        "width": 0.073,
+        "height": 0.167
+      }
+    ]
+  },
+  "stormpeak": {
+    "note": "1-4: boss candidate #179.",
+    "name": "STORMPEAK",
+    "drawing": "stormpeak",
+    "width": 0.54,
+    "height": 0.327,
+    "difficulty": 4,
+    "attacks": {
+      "front": "wave",
+      "back": "ring",
+      "core": "curve",
+      "rage": "spiral"
+    },
+    "parts": [
+      {
+        "drawing": "stormpeak:emitter",
+        "x": -0.22,
+        "y": -0.033,
+        "width": 0.073,
+        "height": 0.147
+      },
+      {
+        "drawing": "stormpeak:emitter",
+        "x": 0.22,
+        "y": -0.033,
+        "width": 0.073,
+        "height": 0.147
+      },
+      {
+        "drawing": "stormpeak:emitter2",
+        "x": -0.26,
+        "y": 0.04,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "stormpeak:emitter2",
+        "x": 0.26,
+        "y": 0.04,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "stormpeak:emitter3",
+        "x": -0.127,
+        "y": 0.027,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "stormpeak:emitter3",
+        "x": 0.127,
+        "y": 0.027,
+        "width": 0.06,
+        "height": 0.12
+      }
+    ]
+  },
+  "ridgebreaker": {
+    "note": "1-5: boss candidate #064.",
+    "name": "RIDGEBREAKER",
+    "drawing": "ridgebreaker",
+    "width": 0.673,
+    "height": 0.493,
+    "difficulty": 5,
+    "attacks": {
+      "front": "rockets",
+      "back": "pellets",
+      "core": "laser",
+      "rage": "fan"
+    },
+    "parts": [
+      {
+        "drawing": "ridgebreaker:flak",
+        "x": -0.2,
+        "y": 0.203,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak",
+        "x": 0.2,
+        "y": 0.203,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak2",
+        "x": -0.193,
+        "y": -0.143,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "ridgebreaker:flak2",
+        "x": 0.193,
+        "y": -0.143,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "ridgebreaker:flak3",
+        "x": -0.033,
+        "y": 0.003,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "ridgebreaker:flak4",
+        "x": -0.22,
+        "y": -0.03,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak4",
+        "x": 0.22,
+        "y": -0.03,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak5",
+        "x": -0.313,
+        "y": 0.09,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak5",
+        "x": 0.313,
+        "y": 0.09,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak6",
+        "x": -0.033,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak6",
+        "x": 0.033,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "ridgebreaker:flak7",
+        "x": -0.153,
+        "y": 0.117,
+        "width": 0.06,
+        "height": 0.087
+      }
+    ]
+  },
+  "highlord": {
+    "note": "1-6: boss candidate #068.",
+    "name": "HIGHLORD",
+    "drawing": "highlord",
+    "width": 0.567,
+    "height": 0.333,
+    "difficulty": 6,
+    "attacks": {
+      "front": "aimed",
+      "back": "cluster",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "highlord:cannon",
+        "x": -0.087,
+        "y": 0.07,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "highlord:cannon",
+        "x": 0.087,
+        "y": 0.07,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "highlord:cannon2",
+        "x": -0.147,
+        "y": -0.07,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "highlord:cannon2",
+        "x": 0.147,
+        "y": -0.07,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "highlord:flak",
+        "x": -0.187,
+        "y": 0.11,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "highlord:flak",
+        "x": 0.187,
+        "y": 0.11,
+        "width": 0.073,
+        "height": 0.107
+      }
+    ]
+  },
+  "ironbark": {
+    "note": "2-1: boss candidate #063.",
+    "name": "IRONBARK",
+    "drawing": "ironbark",
+    "width": 0.593,
+    "height": 0.453,
+    "difficulty": 3,
+    "attacks": {
+      "front": "fan",
+      "back": "accel",
+      "core": "ring",
+      "rage": "pellets"
+    },
+    "parts": [
+      {
+        "drawing": "ironbark:reactor",
+        "x": -0.033,
+        "y": 0.117,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "ironbark:reactor",
+        "x": 0.033,
+        "y": 0.117,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "ironbark:launcher",
+        "x": -0.22,
+        "y": 0.077,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "ironbark:launcher",
+        "x": 0.22,
+        "y": 0.077,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "ironbark:launcher2",
+        "x": -0.12,
+        "y": -0.083,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "ironbark:launcher2",
+        "x": 0.12,
+        "y": -0.083,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "ironbark:launcher3",
+        "x": -0.14,
+        "y": 0.137,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "ironbark:launcher3",
+        "x": 0.14,
+        "y": 0.137,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "ironbark:reactor2",
+        "x": -0.027,
+        "y": -0.203,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "ironbark:reactor2",
+        "x": 0.027,
+        "y": -0.203,
+        "width": 0.087,
+        "height": 0.087
+      }
+    ]
+  },
+  "thornback": {
+    "note": "2-2: boss candidate #163.",
+    "name": "THORNBACK",
+    "drawing": "thornback",
+    "width": 0.513,
+    "height": 0.393,
+    "difficulty": 4,
+    "attacks": {
+      "front": "pellets",
+      "back": "curve",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "thornback:flak",
+        "x": -0.187,
+        "y": -0.1,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "thornback:flak",
+        "x": 0.187,
+        "y": -0.1,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "thornback:flak2",
+        "x": -0.213,
+        "y": 0.14,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "thornback:flak2",
+        "x": 0.213,
+        "y": 0.14,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "thornback:flak3",
+        "x": -0.053,
+        "y": 0.1,
+        "width": 0.047,
+        "height": 0.067
+      },
+      {
+        "drawing": "thornback:flak3",
+        "x": 0.053,
+        "y": 0.1,
+        "width": 0.047,
+        "height": 0.067
+      },
+      {
+        "drawing": "thornback:flak4",
+        "x": -0.213,
+        "y": 0.027,
+        "width": 0.047,
+        "height": 0.067
+      },
+      {
+        "drawing": "thornback:flak4",
+        "x": 0.213,
+        "y": 0.027,
+        "width": 0.047,
+        "height": 0.067
+      }
+    ]
+  },
+  "rootmaw": {
+    "note": "2-3: boss candidate #040.",
+    "name": "ROOTMAW",
+    "drawing": "rootmaw",
+    "width": 0.967,
+    "height": 0.427,
+    "difficulty": 5,
+    "attacks": {
+      "front": "rockets",
+      "back": "wave",
+      "core": "accel",
+      "rage": "spiral"
+    },
+    "parts": [
+      {
+        "drawing": "rootmaw:turret",
+        "x": -0.1,
+        "y": -0.157,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret",
+        "x": 0.1,
+        "y": -0.157,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret2",
+        "x": -0.173,
+        "y": 0.01,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret2",
+        "x": 0.173,
+        "y": 0.01,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret3",
+        "x": -0.473,
+        "y": 0.043,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "rootmaw:turret3",
+        "x": 0.473,
+        "y": 0.043,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "rootmaw:turret4",
+        "x": -0.307,
+        "y": 0.13,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret4",
+        "x": 0.307,
+        "y": 0.13,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret5",
+        "x": -0.073,
+        "y": 0.19,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret6",
+        "x": -0.313,
+        "y": -0.017,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "rootmaw:turret7",
+        "x": -0.04,
+        "y": -0.03,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "rootmaw:turret8",
+        "x": 0.0,
+        "y": 0.01,
+        "width": 0.087,
+        "height": 0.127
+      }
+    ]
+  },
+  "wildfire": {
+    "note": "2-4: boss candidate #034.",
+    "name": "WILDFIRE",
+    "drawing": "wildfire",
+    "width": 0.74,
+    "height": 0.493,
+    "difficulty": 6,
+    "attacks": {
+      "front": "accel",
+      "back": "fan",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "wildfire:launcher",
+        "x": -0.173,
+        "y": -0.03,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher",
+        "x": 0.173,
+        "y": -0.03,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher2",
+        "x": -0.033,
+        "y": 0.143,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher3",
+        "x": -0.207,
+        "y": 0.077,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "wildfire:launcher3",
+        "x": 0.207,
+        "y": 0.077,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "wildfire:launcher4",
+        "x": -0.3,
+        "y": 0.103,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher4",
+        "x": 0.3,
+        "y": 0.103,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher5",
+        "x": -0.06,
+        "y": -0.137,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "wildfire:launcher6",
+        "x": -0.053,
+        "y": 0.05,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher6",
+        "x": 0.053,
+        "y": 0.05,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "wildfire:launcher7",
+        "x": -0.3,
+        "y": 0.01,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "wildfire:launcher7",
+        "x": 0.3,
+        "y": 0.01,
+        "width": 0.073,
+        "height": 0.08
+      }
+    ]
+  },
+  "grovekeeper": {
+    "note": "2-5: boss candidate #002.",
+    "name": "GROVEKEEPER",
+    "drawing": "grovekeeper",
+    "width": 0.633,
+    "height": 0.427,
+    "difficulty": 7,
+    "attacks": {
+      "front": "curve",
+      "back": "missiles",
+      "core": "ring",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "grovekeeper:flak",
+        "x": -0.113,
+        "y": -0.123,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "grovekeeper:flak",
+        "x": 0.113,
+        "y": -0.123,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "grovekeeper:flak2",
+        "x": -0.287,
+        "y": -0.09,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "grovekeeper:flak2",
+        "x": 0.287,
+        "y": -0.09,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "grovekeeper:flak3",
+        "x": -0.1,
+        "y": 0.203,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "grovekeeper:flak3",
+        "x": 0.1,
+        "y": 0.203,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "grovekeeper:flak4",
+        "x": -0.193,
+        "y": -0.083,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "grovekeeper:flak4",
+        "x": 0.193,
+        "y": -0.083,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "grovekeeper:flak5",
+        "x": -0.14,
+        "y": 0.023,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "grovekeeper:flak5",
+        "x": 0.14,
+        "y": 0.023,
+        "width": 0.073,
+        "height": 0.107
+      }
+    ]
+  },
+  "old_growth": {
+    "note": "2-6: boss candidate #131.",
+    "name": "OLD GROWTH",
+    "drawing": "old_growth",
+    "width": 0.673,
+    "height": 0.433,
+    "difficulty": 8,
+    "attacks": {
+      "front": "wave",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "accel"
+    },
+    "parts": [
+      {
+        "drawing": "old_growth:emitter",
+        "x": -0.12,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "old_growth:emitter",
+        "x": 0.12,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "old_growth:emitter2",
+        "x": -0.2,
+        "y": 0.18,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "old_growth:emitter2",
+        "x": 0.2,
+        "y": 0.18,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "old_growth:radar",
+        "x": -0.047,
+        "y": -0.027,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "old_growth:radar",
+        "x": 0.047,
+        "y": -0.027,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "old_growth:radar2",
+        "x": -0.187,
+        "y": -0.107,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "old_growth:radar2",
+        "x": 0.187,
+        "y": -0.107,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "old_growth:radar3",
+        "x": -0.273,
+        "y": -0.12,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "old_growth:radar3",
+        "x": 0.273,
+        "y": -0.12,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "old_growth:emitter3",
+        "x": -0.093,
+        "y": -0.12,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "old_growth:emitter3",
+        "x": 0.093,
+        "y": -0.12,
+        "width": 0.06,
+        "height": 0.12
+      }
+    ]
+  },
+  "bogmaw": {
+    "note": "3-1: boss candidate #099.",
+    "name": "BOGMAW",
+    "drawing": "bogmaw",
+    "width": 0.527,
+    "height": 0.38,
+    "difficulty": 5,
+    "attacks": {
+      "front": "wave",
+      "back": "pellets",
+      "core": "curve",
+      "rage": "ring"
+    },
+    "parts": [
+      {
+        "drawing": "bogmaw:launcher",
+        "x": -0.073,
+        "y": 0.16,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "bogmaw:launcher",
+        "x": 0.073,
+        "y": 0.16,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "bogmaw:radar",
+        "x": -0.1,
+        "y": 0.033,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "bogmaw:radar",
+        "x": 0.1,
+        "y": 0.033,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "bogmaw:launcher2",
+        "x": -0.033,
+        "y": -0.007,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "bogmaw:launcher2",
+        "x": 0.033,
+        "y": -0.007,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "bogmaw:radar2",
+        "x": -0.173,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "bogmaw:radar2",
+        "x": 0.173,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.06
+      }
+    ]
+  },
+  "mirelord": {
+    "note": "3-2: boss candidate #085.",
+    "name": "MIRELORD",
+    "drawing": "mirelord",
+    "width": 0.933,
+    "height": 0.727,
+    "difficulty": 6,
+    "attacks": {
+      "front": "missiles",
+      "back": "fan",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "mirelord:flak",
+        "x": -0.297,
+        "y": -0.047,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak2",
+        "x": -0.197,
+        "y": 0.153,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak2",
+        "x": 0.197,
+        "y": 0.153,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak3",
+        "x": -0.157,
+        "y": 0.033,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mirelord:flak4",
+        "x": -0.45,
+        "y": 0.02,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak4",
+        "x": 0.45,
+        "y": 0.02,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak5",
+        "x": -0.21,
+        "y": 0.273,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak6",
+        "x": -0.083,
+        "y": 0.28,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mirelord:flak7",
+        "x": -0.063,
+        "y": -0.173,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mirelord:flak7",
+        "x": 0.063,
+        "y": -0.173,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mirelord:flak8",
+        "x": -0.257,
+        "y": -0.167,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mirelord:flak9",
+        "x": -0.383,
+        "y": 0.187,
+        "width": 0.073,
+        "height": 0.107
+      }
+    ]
+  },
+  "fenwraith": {
+    "note": "3-3: boss candidate #165.",
+    "name": "FENWRAITH",
+    "drawing": "fenwraith",
+    "width": 0.46,
+    "height": 0.427,
+    "difficulty": 7,
+    "attacks": {
+      "front": "curve",
+      "back": "accel",
+      "core": "wave",
+      "rage": "spiral"
+    },
+    "parts": [
+      {
+        "drawing": "fenwraith:flak",
+        "x": -0.187,
+        "y": 0.017,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "fenwraith:flak",
+        "x": 0.187,
+        "y": 0.017,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "fenwraith:reactor",
+        "x": -0.033,
+        "y": 0.043,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "fenwraith:reactor",
+        "x": 0.033,
+        "y": 0.043,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "fenwraith:flak2",
+        "x": -0.027,
+        "y": 0.21,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "fenwraith:flak2",
+        "x": 0.027,
+        "y": 0.21,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "fenwraith:flak3",
+        "x": -0.093,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "fenwraith:flak3",
+        "x": 0.093,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.087
+      }
+    ]
+  },
+  "hydra": {
+    "note": "3-4: boss candidate #138.",
+    "name": "HYDRA",
+    "drawing": "hydra",
+    "width": 0.573,
+    "height": 0.373,
+    "difficulty": 8,
+    "attacks": {
+      "front": "wave",
+      "back": "cluster",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "hydra:flak",
+        "x": -0.023,
+        "y": -0.023,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "hydra:launcher",
+        "x": -0.243,
+        "y": 0.05,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "hydra:launcher2",
+        "x": -0.103,
+        "y": -0.07,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "hydra:launcher2",
+        "x": 0.103,
+        "y": -0.07,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "hydra:launcher3",
+        "x": -0.143,
+        "y": 0.043,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "hydra:cannon",
+        "x": -0.063,
+        "y": 0.15,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "hydra:cannon",
+        "x": 0.063,
+        "y": 0.15,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "hydra:flak2",
+        "x": -0.15,
+        "y": 0.157,
+        "width": 0.073,
+        "height": 0.107
+      }
+    ]
+  },
+  "marsh_titan": {
+    "note": "3-5: boss candidate #028.",
+    "name": "MARSH TITAN",
+    "drawing": "marsh_titan",
+    "width": 1.073,
+    "height": 0.653,
+    "difficulty": 9,
+    "attacks": {
+      "front": "pellets",
+      "back": "missiles",
+      "core": "accel",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "marsh_titan:radar",
+        "x": -0.06,
+        "y": 0.217,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar",
+        "x": 0.06,
+        "y": 0.217,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar2",
+        "x": -0.4,
+        "y": -0.07,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "marsh_titan:radar2",
+        "x": 0.4,
+        "y": -0.07,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "marsh_titan:radar3",
+        "x": -0.24,
+        "y": -0.03,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar3",
+        "x": 0.24,
+        "y": -0.03,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar4",
+        "x": -0.1,
+        "y": -0.157,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "marsh_titan:radar4",
+        "x": 0.1,
+        "y": -0.157,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "marsh_titan:radar5",
+        "x": -0.207,
+        "y": 0.123,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar5",
+        "x": 0.207,
+        "y": 0.123,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar6",
+        "x": -0.373,
+        "y": 0.117,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "marsh_titan:radar6",
+        "x": 0.373,
+        "y": 0.117,
+        "width": 0.087,
+        "height": 0.087
+      }
+    ]
+  },
+  "drowned_king": {
+    "note": "3-6: boss candidate #109.",
+    "name": "DROWNED KING",
+    "drawing": "drowned_king",
+    "width": 0.567,
+    "height": 0.433,
+    "difficulty": 10,
+    "attacks": {
+      "front": "curve",
+      "back": "wave",
+      "core": "laser",
+      "rage": "missiles"
+    },
+    "parts": [
+      {
+        "drawing": "drowned_king:gatling",
+        "x": -0.087,
+        "y": -0.047,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "drowned_king:gatling",
+        "x": 0.087,
+        "y": -0.047,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "drowned_king:radar",
+        "x": -0.14,
+        "y": -0.16,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "drowned_king:radar",
+        "x": 0.14,
+        "y": -0.16,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "drowned_king:radar2",
+        "x": -0.087,
+        "y": 0.073,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "drowned_king:radar2",
+        "x": 0.087,
+        "y": 0.073,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "drowned_king:radar3",
+        "x": -0.187,
+        "y": 0.007,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "drowned_king:radar3",
+        "x": 0.187,
+        "y": 0.007,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "drowned_king:radar4",
+        "x": -0.227,
+        "y": -0.193,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "drowned_king:radar4",
+        "x": 0.227,
+        "y": -0.193,
+        "width": 0.073,
+        "height": 0.073
+      }
+    ]
+  },
+  "scarecrow": {
+    "note": "4-1: boss candidate #042.",
+    "name": "SCARECROW",
+    "drawing": "scarecrow",
+    "width": 0.633,
+    "height": 0.387,
+    "difficulty": 7,
+    "attacks": {
+      "front": "pellets",
+      "back": "rockets",
+      "core": "fan",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "scarecrow:reactor",
+        "x": -0.227,
+        "y": 0.103,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor2",
+        "x": -0.047,
+        "y": 0.15,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "scarecrow:reactor3",
+        "x": -0.033,
+        "y": -0.07,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "scarecrow:reactor4",
+        "x": -0.12,
+        "y": 0.023,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor4",
+        "x": 0.12,
+        "y": 0.023,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor5",
+        "x": -0.127,
+        "y": 0.13,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor6",
+        "x": -0.04,
+        "y": 0.01,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor6",
+        "x": 0.04,
+        "y": 0.01,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor7",
+        "x": -0.133,
+        "y": -0.07,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "scarecrow:reactor8",
+        "x": -0.307,
+        "y": 0.077,
+        "width": 0.073,
+        "height": 0.073
+      }
+    ]
+  },
+  "combine": {
+    "note": "4-2: boss candidate #074.",
+    "name": "COMBINE",
+    "drawing": "combine",
+    "width": 0.673,
+    "height": 0.387,
+    "difficulty": 8,
+    "attacks": {
+      "front": "fan",
+      "back": "accel",
+      "core": "laser",
+      "rage": "cluster"
+    },
+    "parts": [
+      {
+        "drawing": "combine:reactor",
+        "x": -0.187,
+        "y": -0.003,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "combine:reactor",
+        "x": 0.187,
+        "y": -0.003,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "combine:reactor2",
+        "x": -0.053,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:reactor2",
+        "x": 0.053,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:reactor3",
+        "x": -0.313,
+        "y": 0.05,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:reactor3",
+        "x": 0.313,
+        "y": 0.05,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:reactor4",
+        "x": -0.12,
+        "y": 0.117,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:reactor4",
+        "x": 0.12,
+        "y": 0.117,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:reactor5",
+        "x": -0.233,
+        "y": 0.163,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "combine:reactor5",
+        "x": 0.233,
+        "y": 0.163,
+        "width": 0.073,
+        "height": 0.073
+      }
+    ]
+  },
+  "locust": {
+    "note": "4-3: boss candidate #083.",
+    "name": "LOCUST",
+    "drawing": "locust",
+    "width": 1.073,
+    "height": 0.6,
+    "difficulty": 9,
+    "attacks": {
+      "front": "missiles",
+      "back": "pellets",
+      "core": "curve",
+      "rage": "spiral"
+    },
+    "parts": [
+      {
+        "drawing": "locust:radar",
+        "x": -0.227,
+        "y": -0.11,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "locust:radar",
+        "x": 0.227,
+        "y": -0.11,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "locust:launcher",
+        "x": -0.513,
+        "y": -0.09,
+        "width": 0.1,
+        "height": 0.107
+      },
+      {
+        "drawing": "locust:launcher",
+        "x": 0.513,
+        "y": -0.09,
+        "width": 0.1,
+        "height": 0.107
+      },
+      {
+        "drawing": "locust:reactor",
+        "x": -0.153,
+        "y": 0.077,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "locust:reactor",
+        "x": 0.153,
+        "y": 0.077,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "locust:reactor2",
+        "x": -0.18,
+        "y": 0.23,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "locust:reactor2",
+        "x": 0.18,
+        "y": 0.23,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "locust:reactor3",
+        "x": -0.373,
+        "y": 0.163,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "locust:reactor3",
+        "x": 0.373,
+        "y": 0.163,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "locust:reactor4",
+        "x": -0.027,
+        "y": -0.163,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "locust:reactor4",
+        "x": 0.027,
+        "y": -0.163,
+        "width": 0.1,
+        "height": 0.1
+      }
+    ]
+  },
+  "granary": {
+    "note": "4-4: boss candidate #066.",
+    "name": "GRANARY",
+    "drawing": "granary",
+    "width": 0.873,
+    "height": 0.613,
+    "difficulty": 10,
+    "attacks": {
+      "front": "cluster",
+      "back": "aimed",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "granary:radar",
+        "x": -0.16,
+        "y": -0.057,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "granary:radar",
+        "x": 0.16,
+        "y": -0.057,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "granary:emitter",
+        "x": -0.033,
+        "y": 0.103,
+        "width": 0.087,
+        "height": 0.173
+      },
+      {
+        "drawing": "granary:emitter",
+        "x": 0.033,
+        "y": 0.103,
+        "width": 0.087,
+        "height": 0.173
+      },
+      {
+        "drawing": "granary:reactor",
+        "x": -0.22,
+        "y": 0.177,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "granary:reactor",
+        "x": 0.22,
+        "y": 0.177,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "granary:radar2",
+        "x": -0.233,
+        "y": 0.297,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "granary:radar2",
+        "x": 0.233,
+        "y": 0.297,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "granary:reactor2",
+        "x": -0.2,
+        "y": -0.203,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "granary:reactor2",
+        "x": 0.2,
+        "y": -0.203,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "granary:emitter2",
+        "x": -0.387,
+        "y": 0.077,
+        "width": 0.073,
+        "height": 0.147
+      },
+      {
+        "drawing": "granary:emitter2",
+        "x": 0.387,
+        "y": 0.077,
+        "width": 0.073,
+        "height": 0.147
+      }
+    ]
+  },
+  "harrowmaster": {
+    "note": "4-5: boss candidate #010.",
+    "name": "HARROWMASTER",
+    "drawing": "harrowmaster",
+    "width": 0.687,
+    "height": 0.42,
+    "difficulty": 11,
+    "attacks": {
+      "front": "accel",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "harrowmaster:turret",
+        "x": -0.073,
+        "y": 0.167,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "harrowmaster:turret2",
+        "x": -0.187,
+        "y": -0.033,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "harrowmaster:turret3",
+        "x": -0.073,
+        "y": 0.0,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "harrowmaster:turret3",
+        "x": 0.073,
+        "y": 0.0,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "harrowmaster:turret4",
+        "x": -0.073,
+        "y": -0.14,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "harrowmaster:turret4",
+        "x": 0.073,
+        "y": -0.14,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "harrowmaster:turret5",
+        "x": -0.213,
+        "y": 0.067,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "harrowmaster:turret5",
+        "x": 0.213,
+        "y": 0.067,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "harrowmaster:cannon",
+        "x": -0.3,
+        "y": -0.08,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "harrowmaster:turret6",
+        "x": -0.16,
+        "y": 0.153,
+        "width": 0.073,
+        "height": 0.107
+      }
+    ]
+  },
+  "black_harvest": {
+    "note": "4-6: boss candidate #103.",
+    "name": "BLACK HARVEST",
+    "drawing": "black_harvest",
+    "width": 0.78,
+    "height": 0.38,
+    "difficulty": 12,
+    "attacks": {
+      "front": "curve",
+      "back": "missiles",
+      "core": "laser",
+      "rage": "accel"
+    },
+    "parts": [
+      {
+        "drawing": "black_harvest:reactor",
+        "x": -0.04,
+        "y": 0.16,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "black_harvest:reactor",
+        "x": 0.04,
+        "y": 0.16,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "black_harvest:reactor2",
+        "x": -0.347,
+        "y": 0.147,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor2",
+        "x": 0.347,
+        "y": 0.147,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor3",
+        "x": -0.127,
+        "y": -0.073,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor3",
+        "x": 0.127,
+        "y": -0.073,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor4",
+        "x": -0.153,
+        "y": 0.167,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "black_harvest:reactor4",
+        "x": 0.153,
+        "y": 0.167,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "black_harvest:reactor5",
+        "x": -0.207,
+        "y": 0.04,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor5",
+        "x": 0.207,
+        "y": 0.04,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor6",
+        "x": -0.067,
+        "y": 0.047,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "black_harvest:reactor6",
+        "x": 0.067,
+        "y": 0.047,
+        "width": 0.073,
+        "height": 0.073
+      }
+    ]
+  },
+  "maelstrom": {
+    "note": "5-1: boss candidate #024.",
+    "name": "MAELSTROM",
+    "drawing": "maelstrom",
+    "width": 0.833,
+    "height": 0.54,
+    "difficulty": 9,
+    "attacks": {
+      "front": "wave",
+      "back": "curve",
+      "core": "ring",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "maelstrom:gatling",
+        "x": -0.32,
+        "y": -0.133,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "maelstrom:gatling",
+        "x": 0.32,
+        "y": -0.133,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "maelstrom:reactor",
+        "x": -0.04,
+        "y": 0.0,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "maelstrom:reactor",
+        "x": 0.04,
+        "y": 0.0,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "maelstrom:gatling2",
+        "x": -0.2,
+        "y": 0.02,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "maelstrom:gatling2",
+        "x": 0.2,
+        "y": 0.02,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "maelstrom:reactor2",
+        "x": -0.087,
+        "y": -0.16,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "maelstrom:reactor2",
+        "x": 0.087,
+        "y": -0.16,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "maelstrom:gatling3",
+        "x": -0.06,
+        "y": 0.12,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "maelstrom:gatling3",
+        "x": 0.06,
+        "y": 0.12,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "maelstrom:reactor3",
+        "x": -0.193,
+        "y": -0.14,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "maelstrom:reactor3",
+        "x": 0.193,
+        "y": -0.14,
+        "width": 0.1,
+        "height": 0.1
+      }
+    ]
+  },
+  "man_o_war": {
+    "note": "5-2: boss candidate #039.",
+    "name": "MAN O' WAR",
+    "drawing": "man_o_war",
+    "width": 0.633,
+    "height": 0.447,
+    "difficulty": 10,
+    "attacks": {
+      "front": "missiles",
+      "back": "wave",
+      "core": "laser",
+      "rage": "pellets"
+    },
+    "parts": [
+      {
+        "drawing": "man_o_war:emitter",
+        "x": -0.053,
+        "y": -0.08,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "man_o_war:emitter",
+        "x": 0.053,
+        "y": -0.08,
+        "width": 0.06,
+        "height": 0.12
+      },
+      {
+        "drawing": "man_o_war:cannon",
+        "x": -0.247,
+        "y": -0.08,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "man_o_war:cannon",
+        "x": 0.247,
+        "y": -0.08,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "man_o_war:cannon2",
+        "x": -0.187,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "man_o_war:cannon2",
+        "x": 0.187,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "man_o_war:cannon3",
+        "x": -0.14,
+        "y": 0.18,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "man_o_war:cannon3",
+        "x": 0.14,
+        "y": 0.18,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "man_o_war:emitter2",
+        "x": -0.04,
+        "y": 0.18,
+        "width": 0.073,
+        "height": 0.147
+      },
+      {
+        "drawing": "man_o_war:emitter2",
+        "x": 0.04,
+        "y": 0.18,
+        "width": 0.073,
+        "height": 0.147
+      }
+    ]
+  },
+  "typhoon": {
+    "note": "5-3: boss candidate #003.",
+    "name": "TYPHOON",
+    "drawing": "typhoon",
+    "width": 1.007,
+    "height": 0.613,
+    "difficulty": 11,
+    "attacks": {
+      "front": "curve",
+      "back": "accel",
+      "core": "wave",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "typhoon:cannon",
+        "x": -0.373,
+        "y": 0.257,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "typhoon:cannon",
+        "x": 0.373,
+        "y": 0.257,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "typhoon:turret",
+        "x": -0.22,
+        "y": -0.03,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "typhoon:turret",
+        "x": 0.22,
+        "y": -0.03,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "typhoon:cannon2",
+        "x": -0.28,
+        "y": -0.27,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "typhoon:cannon2",
+        "x": 0.28,
+        "y": -0.27,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "typhoon:cannon3",
+        "x": -0.073,
+        "y": -0.083,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "typhoon:cannon3",
+        "x": 0.073,
+        "y": -0.083,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "typhoon:cannon4",
+        "x": -0.08,
+        "y": 0.07,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "typhoon:cannon4",
+        "x": 0.08,
+        "y": 0.07,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "typhoon:cannon5",
+        "x": -0.213,
+        "y": 0.143,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "typhoon:cannon5",
+        "x": 0.213,
+        "y": 0.143,
+        "width": 0.087,
+        "height": 0.2
+      }
+    ]
+  },
+  "tsunami": {
+    "note": "5-4: boss candidate #096.",
+    "name": "TSUNAMI",
+    "drawing": "tsunami",
+    "width": 0.767,
+    "height": 0.74,
+    "difficulty": 12,
+    "attacks": {
+      "front": "wave",
+      "back": "cluster",
+      "core": "laser",
+      "rage": "spiral"
+    },
+    "parts": [
+      {
+        "drawing": "tsunami:reactor",
+        "x": -0.12,
+        "y": -0.24,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "tsunami:gatling",
+        "x": -0.093,
+        "y": 0.113,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "tsunami:reactor2",
+        "x": -0.373,
+        "y": -0.133,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "tsunami:reactor2",
+        "x": 0.373,
+        "y": -0.133,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "tsunami:reactor3",
+        "x": -0.22,
+        "y": -0.267,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "tsunami:reactor3",
+        "x": 0.22,
+        "y": -0.267,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "tsunami:reactor4",
+        "x": -0.04,
+        "y": -0.02,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "tsunami:reactor4",
+        "x": 0.04,
+        "y": -0.02,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "tsunami:gatling2",
+        "x": -0.173,
+        "y": -0.113,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "tsunami:reactor5",
+        "x": -0.227,
+        "y": 0.08,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "tsunami:reactor6",
+        "x": -0.027,
+        "y": 0.3,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "tsunami:gatling3",
+        "x": -0.073,
+        "y": -0.347,
+        "width": 0.047,
+        "height": 0.087
+      }
+    ]
+  },
+  "abyssal": {
+    "note": "5-5: boss candidate #058.",
+    "name": "ABYSSAL",
+    "drawing": "abyssal",
+    "width": 1.147,
+    "height": 0.88,
+    "difficulty": 13,
+    "attacks": {
+      "front": "sniper",
+      "back": "missiles",
+      "core": "curve",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "abyssal:gatling",
+        "x": -0.497,
+        "y": -0.05,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "abyssal:gatling",
+        "x": 0.497,
+        "y": -0.05,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "abyssal:gatling2",
+        "x": -0.423,
+        "y": 0.13,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "abyssal:gatling2",
+        "x": 0.423,
+        "y": 0.13,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "abyssal:radar",
+        "x": -0.143,
+        "y": 0.01,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "abyssal:radar",
+        "x": 0.143,
+        "y": 0.01,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "abyssal:gatling3",
+        "x": -0.177,
+        "y": 0.31,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "abyssal:gatling3",
+        "x": 0.177,
+        "y": 0.31,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "abyssal:radar2",
+        "x": -0.257,
+        "y": -0.163,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "abyssal:radar2",
+        "x": 0.257,
+        "y": -0.163,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "abyssal:radar3",
+        "x": -0.143,
+        "y": -0.41,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "abyssal:radar3",
+        "x": 0.143,
+        "y": -0.41,
+        "width": 0.1,
+        "height": 0.1
+      }
+    ]
+  },
+  "kraken": {
+    "note": "5-6: boss candidate #102.",
+    "name": "KRAKEN",
+    "drawing": "kraken",
+    "width": 0.667,
+    "height": 0.807,
+    "difficulty": 14,
+    "attacks": {
+      "front": "wave",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "kraken:launcher",
+        "x": -0.077,
+        "y": -0.2,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "kraken:radar",
+        "x": -0.137,
+        "y": 0.107,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "kraken:launcher2",
+        "x": -0.21,
+        "y": -0.193,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "kraken:launcher2",
+        "x": 0.21,
+        "y": -0.193,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "kraken:radar2",
+        "x": -0.157,
+        "y": -0.04,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:radar3",
+        "x": -0.243,
+        "y": 0.013,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:radar4",
+        "x": -0.183,
+        "y": 0.267,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:launcher3",
+        "x": -0.27,
+        "y": 0.107,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "kraken:launcher3",
+        "x": 0.27,
+        "y": 0.107,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "kraken:radar5",
+        "x": -0.037,
+        "y": -0.08,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:reactor",
+        "x": -0.29,
+        "y": -0.073,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "kraken:reactor",
+        "x": 0.29,
+        "y": -0.073,
+        "width": 0.087,
+        "height": 0.087
+      }
+    ]
+  },
+  "mesa": {
+    "note": "6-1: boss candidate #152.",
+    "name": "MESA",
+    "drawing": "mesa",
+    "width": 0.913,
+    "height": 0.547,
+    "difficulty": 11,
+    "attacks": {
+      "front": "rockets",
+      "back": "sniper",
+      "core": "laser",
+      "rage": "fan"
+    },
+    "parts": [
+      {
+        "drawing": "mesa:flak",
+        "x": -0.067,
+        "y": 0.037,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mesa:flak",
+        "x": 0.067,
+        "y": 0.037,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mesa:flak2",
+        "x": -0.293,
+        "y": 0.23,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mesa:flak2",
+        "x": 0.293,
+        "y": 0.23,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "mesa:cannon",
+        "x": -0.073,
+        "y": -0.17,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "mesa:cannon",
+        "x": 0.073,
+        "y": -0.17,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "mesa:flak3",
+        "x": -0.22,
+        "y": -0.223,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mesa:flak3",
+        "x": 0.22,
+        "y": -0.223,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mesa:flak4",
+        "x": -0.14,
+        "y": 0.197,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mesa:flak4",
+        "x": 0.14,
+        "y": 0.197,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mesa:flak5",
+        "x": -0.26,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "mesa:flak5",
+        "x": 0.26,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.127
+      }
+    ]
+  },
+  "dust_devil": {
+    "note": "6-2: boss candidate #191.",
+    "name": "DUST DEVIL",
+    "drawing": "dust_devil",
+    "width": 0.62,
+    "height": 0.4,
+    "difficulty": 12,
+    "attacks": {
+      "front": "curve",
+      "back": "pellets",
+      "core": "spiral",
+      "rage": "accel"
+    },
+    "parts": [
+      {
+        "drawing": "dust_devil:reactor",
+        "x": -0.26,
+        "y": 0.077,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor",
+        "x": 0.26,
+        "y": 0.077,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor2",
+        "x": -0.227,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor2",
+        "x": 0.227,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor3",
+        "x": -0.133,
+        "y": 0.083,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "dust_devil:reactor4",
+        "x": -0.067,
+        "y": -0.043,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor4",
+        "x": 0.067,
+        "y": -0.043,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor5",
+        "x": -0.033,
+        "y": 0.15,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor5",
+        "x": 0.033,
+        "y": 0.15,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:reactor6",
+        "x": -0.293,
+        "y": -0.13,
+        "width": 0.073,
+        "height": 0.073
+      }
+    ]
+  },
+  "landslide": {
+    "note": "6-3: boss candidate #183.",
+    "name": "LANDSLIDE",
+    "drawing": "landslide",
+    "width": 0.687,
+    "height": 0.453,
+    "difficulty": 13,
+    "attacks": {
+      "front": "cluster",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "landslide:launcher",
+        "x": -0.287,
+        "y": 0.017,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "landslide:launcher",
+        "x": 0.287,
+        "y": 0.017,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "landslide:launcher2",
+        "x": -0.047,
+        "y": -0.11,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher2",
+        "x": 0.047,
+        "y": -0.11,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher3",
+        "x": -0.193,
+        "y": 0.143,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher3",
+        "x": 0.193,
+        "y": 0.143,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher4",
+        "x": -0.067,
+        "y": 0.17,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher4",
+        "x": 0.067,
+        "y": 0.17,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher5",
+        "x": -0.027,
+        "y": -0.203,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher5",
+        "x": 0.027,
+        "y": -0.203,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher6",
+        "x": -0.12,
+        "y": 0.023,
+        "width": 0.06,
+        "height": 0.067
+      },
+      {
+        "drawing": "landslide:launcher6",
+        "x": 0.12,
+        "y": 0.023,
+        "width": 0.06,
+        "height": 0.067
+      }
+    ]
+  },
+  "basilisk": {
+    "note": "6-4: boss candidate #048.",
+    "name": "BASILISK",
+    "drawing": "basilisk",
+    "width": 0.713,
+    "height": 0.773,
+    "difficulty": 14,
+    "attacks": {
+      "front": "accel",
+      "back": "sniper",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "basilisk:flak",
+        "x": -0.173,
+        "y": 0.003,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:reactor",
+        "x": -0.067,
+        "y": 0.17,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "basilisk:flak2",
+        "x": -0.22,
+        "y": -0.13,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "basilisk:flak3",
+        "x": -0.16,
+        "y": 0.117,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:flak3",
+        "x": 0.16,
+        "y": 0.117,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:turret",
+        "x": -0.127,
+        "y": -0.33,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:turret",
+        "x": 0.127,
+        "y": -0.33,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:turret2",
+        "x": -0.293,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "basilisk:turret2",
+        "x": 0.293,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "basilisk:reactor2",
+        "x": -0.173,
+        "y": 0.35,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:flak4",
+        "x": -0.067,
+        "y": -0.143,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "basilisk:flak4",
+        "x": 0.067,
+        "y": -0.143,
+        "width": 0.06,
+        "height": 0.087
+      }
+    ]
+  },
+  "sandworm": {
+    "note": "6-5: boss candidate #094.",
+    "name": "SANDWORM",
+    "drawing": "sandworm",
+    "width": 0.593,
+    "height": 0.58,
+    "difficulty": 15,
+    "attacks": {
+      "front": "missiles",
+      "back": "wave",
+      "core": "curve",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "sandworm:cannon",
+        "x": -0.16,
+        "y": -0.047,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "sandworm:cannon",
+        "x": 0.16,
+        "y": -0.047,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "sandworm:cannon2",
+        "x": -0.12,
+        "y": 0.093,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "sandworm:cannon2",
+        "x": 0.12,
+        "y": 0.093,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "sandworm:cannon3",
+        "x": -0.207,
+        "y": 0.08,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "sandworm:cannon3",
+        "x": 0.207,
+        "y": 0.08,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "sandworm:cannon4",
+        "x": -0.08,
+        "y": -0.2,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "sandworm:cannon4",
+        "x": 0.08,
+        "y": -0.2,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "sandworm:cannon5",
+        "x": -0.2,
+        "y": -0.153,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "sandworm:cannon5",
+        "x": 0.2,
+        "y": -0.153,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "sandworm:cannon6",
+        "x": -0.133,
+        "y": 0.267,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "sandworm:cannon6",
+        "x": 0.133,
+        "y": 0.267,
+        "width": 0.06,
+        "height": 0.133
+      }
+    ]
+  },
+  "monolith": {
+    "note": "6-6: boss candidate #031.",
+    "name": "MONOLITH",
+    "drawing": "monolith",
+    "width": 0.753,
+    "height": 0.84,
+    "difficulty": 16,
+    "attacks": {
+      "front": "sniper",
+      "back": "cluster",
+      "core": "laser",
+      "rage": "accel"
+    },
+    "parts": [
+      {
+        "drawing": "monolith:turret",
+        "x": -0.053,
+        "y": -0.163,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret",
+        "x": 0.053,
+        "y": -0.163,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret2",
+        "x": -0.193,
+        "y": -0.057,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret2",
+        "x": 0.193,
+        "y": -0.057,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret3",
+        "x": -0.36,
+        "y": -0.03,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret3",
+        "x": 0.36,
+        "y": -0.03,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret4",
+        "x": -0.12,
+        "y": 0.237,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "monolith:turret4",
+        "x": 0.12,
+        "y": 0.237,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "monolith:turret5",
+        "x": -0.207,
+        "y": 0.117,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret5",
+        "x": 0.207,
+        "y": 0.117,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret6",
+        "x": -0.087,
+        "y": 0.13,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "monolith:turret6",
+        "x": 0.087,
+        "y": 0.13,
+        "width": 0.06,
+        "height": 0.087
+      }
+    ]
+  },
+  "furnace": {
+    "note": "7-1: boss candidate #158.",
+    "name": "FURNACE",
+    "drawing": "furnace",
+    "width": 1.207,
+    "height": 0.773,
+    "difficulty": 13,
+    "attacks": {
+      "front": "fan",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "pellets"
+    },
+    "parts": [
+      {
+        "drawing": "furnace:cannon",
+        "x": -0.42,
+        "y": 0.217,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "furnace:cannon2",
+        "x": -0.127,
+        "y": 0.363,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon2",
+        "x": 0.127,
+        "y": 0.363,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon3",
+        "x": -0.347,
+        "y": -0.203,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "furnace:cannon4",
+        "x": -0.173,
+        "y": -0.103,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon4",
+        "x": 0.173,
+        "y": -0.103,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon5",
+        "x": -0.08,
+        "y": -0.363,
+        "width": 0.087,
+        "height": 0.2
+      },
+      {
+        "drawing": "furnace:cannon6",
+        "x": -0.26,
+        "y": 0.19,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon7",
+        "x": -0.373,
+        "y": 0.017,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon7",
+        "x": 0.373,
+        "y": 0.017,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon8",
+        "x": -0.1,
+        "y": 0.057,
+        "width": 0.1,
+        "height": 0.233
+      },
+      {
+        "drawing": "furnace:cannon8",
+        "x": 0.1,
+        "y": 0.057,
+        "width": 0.1,
+        "height": 0.233
+      }
+    ]
+  },
+  "smokestack": {
+    "note": "7-2: boss candidate #156.",
+    "name": "SMOKESTACK",
+    "drawing": "smokestack",
+    "width": 0.793,
+    "height": 0.64,
+    "difficulty": 14,
+    "attacks": {
+      "front": "cluster",
+      "back": "accel",
+      "core": "curve",
+      "rage": "laser"
+    },
+    "parts": [
+      {
+        "drawing": "smokestack:reactor",
+        "x": -0.28,
+        "y": 0.023,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "smokestack:reactor",
+        "x": 0.28,
+        "y": 0.023,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "smokestack:cannon",
+        "x": -0.253,
+        "y": -0.123,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "smokestack:cannon",
+        "x": 0.253,
+        "y": -0.123,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "smokestack:reactor2",
+        "x": -0.16,
+        "y": 0.197,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "smokestack:reactor2",
+        "x": 0.16,
+        "y": 0.197,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "smokestack:cannon2",
+        "x": -0.38,
+        "y": 0.15,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "smokestack:cannon2",
+        "x": 0.38,
+        "y": 0.15,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "smokestack:cannon3",
+        "x": -0.353,
+        "y": -0.09,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "smokestack:cannon3",
+        "x": 0.353,
+        "y": -0.09,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "smokestack:reactor3",
+        "x": -0.133,
+        "y": -0.123,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "smokestack:reactor3",
+        "x": 0.133,
+        "y": -0.123,
+        "width": 0.087,
+        "height": 0.087
+      }
+    ]
+  },
+  "slag_king": {
+    "note": "7-3: boss candidate #047.",
+    "name": "SLAG KING",
+    "drawing": "slag_king",
+    "width": 0.58,
+    "height": 0.607,
+    "difficulty": 15,
+    "attacks": {
+      "front": "pellets",
+      "back": "missiles",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "slag_king:cannon",
+        "x": -0.253,
+        "y": -0.193,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "slag_king:cannon",
+        "x": 0.253,
+        "y": -0.193,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "slag_king:cannon2",
+        "x": -0.053,
+        "y": 0.033,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "slag_king:cannon2",
+        "x": 0.053,
+        "y": 0.033,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "slag_king:cannon3",
+        "x": -0.04,
+        "y": -0.2,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "slag_king:cannon3",
+        "x": 0.04,
+        "y": -0.2,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "slag_king:cannon4",
+        "x": -0.213,
+        "y": -0.033,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "slag_king:cannon4",
+        "x": 0.213,
+        "y": -0.033,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "slag_king:cannon5",
+        "x": -0.087,
+        "y": 0.12,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "slag_king:cannon5",
+        "x": 0.087,
+        "y": 0.12,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "slag_king:cannon6",
+        "x": -0.047,
+        "y": -0.04,
+        "width": 0.073,
+        "height": 0.167
+      },
+      {
+        "drawing": "slag_king:cannon6",
+        "x": 0.047,
+        "y": -0.04,
+        "width": 0.073,
+        "height": 0.167
+      }
+    ]
+  },
+  "forgemaster": {
+    "note": "7-4: boss candidate #084.",
+    "name": "FORGEMASTER",
+    "drawing": "forgemaster",
+    "width": 0.673,
+    "height": 0.547,
+    "difficulty": 16,
+    "attacks": {
+      "front": "rockets",
+      "back": "sniper",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "forgemaster:flak",
+        "x": -0.127,
+        "y": 0.223,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak",
+        "x": 0.127,
+        "y": 0.223,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak2",
+        "x": -0.147,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak2",
+        "x": 0.147,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak3",
+        "x": -0.253,
+        "y": -0.103,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "forgemaster:flak3",
+        "x": 0.253,
+        "y": -0.103,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "forgemaster:flak4",
+        "x": -0.053,
+        "y": -0.15,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak4",
+        "x": 0.053,
+        "y": -0.15,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak5",
+        "x": -0.16,
+        "y": -0.163,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak5",
+        "x": 0.16,
+        "y": -0.163,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak6",
+        "x": -0.167,
+        "y": -0.063,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "forgemaster:flak6",
+        "x": 0.167,
+        "y": -0.063,
+        "width": 0.073,
+        "height": 0.107
+      }
+    ]
+  },
+  "inferno": {
+    "note": "7-5: boss candidate #043.",
+    "name": "INFERNO",
+    "drawing": "inferno",
+    "width": 0.607,
+    "height": 0.607,
+    "difficulty": 17,
+    "attacks": {
+      "front": "curve",
+      "back": "cluster",
+      "core": "laser",
+      "rage": "accel"
+    },
+    "parts": [
+      {
+        "drawing": "inferno:turret",
+        "x": -0.113,
+        "y": -0.213,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "inferno:turret",
+        "x": 0.113,
+        "y": -0.213,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "inferno:turret2",
+        "x": -0.027,
+        "y": -0.007,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "inferno:turret2",
+        "x": 0.027,
+        "y": -0.007,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "inferno:cannon",
+        "x": -0.16,
+        "y": -0.127,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "inferno:cannon",
+        "x": 0.16,
+        "y": -0.127,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "inferno:turret3",
+        "x": -0.033,
+        "y": 0.1,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "inferno:turret3",
+        "x": 0.033,
+        "y": 0.1,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "inferno:cannon2",
+        "x": -0.193,
+        "y": 0.253,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "inferno:cannon2",
+        "x": 0.193,
+        "y": 0.253,
+        "width": 0.06,
+        "height": 0.133
+      },
+      {
+        "drawing": "inferno:turret4",
+        "x": -0.18,
+        "y": 0.093,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "inferno:turret4",
+        "x": 0.18,
+        "y": 0.093,
+        "width": 0.06,
+        "height": 0.087
+      }
+    ]
+  },
+  "reactor": {
+    "note": "7-6: boss candidate #049.",
+    "name": "REACTOR",
+    "drawing": "reactor",
+    "width": 1.1,
+    "height": 1.013,
+    "difficulty": 18,
+    "attacks": {
+      "front": "accel",
+      "back": "missiles",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "reactor:reactor",
+        "x": -0.213,
+        "y": 0.057,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "reactor:reactor",
+        "x": 0.213,
+        "y": 0.057,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "reactor:reactor2",
+        "x": -0.027,
+        "y": 0.21,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "reactor:reactor2",
+        "x": 0.027,
+        "y": 0.21,
+        "width": 0.113,
+        "height": 0.113
+      },
+      {
+        "drawing": "reactor:gatling",
+        "x": -0.253,
+        "y": -0.183,
+        "width": 0.087,
+        "height": 0.147
+      },
+      {
+        "drawing": "reactor:gatling",
+        "x": 0.253,
+        "y": -0.183,
+        "width": 0.087,
+        "height": 0.147
+      },
+      {
+        "drawing": "reactor:flak",
+        "x": -0.047,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "reactor:flak",
+        "x": 0.047,
+        "y": -0.037,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "reactor:reactor3",
+        "x": -0.2,
+        "y": -0.33,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "reactor:reactor3",
+        "x": 0.2,
+        "y": -0.33,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "reactor:flak2",
+        "x": -0.407,
+        "y": -0.17,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "reactor:flak2",
+        "x": 0.407,
+        "y": -0.17,
+        "width": 0.087,
+        "height": 0.127
+      }
+    ]
+  },
+  "neon_tyrant": {
+    "note": "8-1: boss candidate #110.",
+    "name": "NEON TYRANT",
+    "drawing": "neon_tyrant",
+    "width": 0.833,
+    "height": 0.727,
+    "difficulty": 15,
+    "attacks": {
+      "front": "sniper",
+      "back": "accel",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "neon_tyrant:reactor",
+        "x": -0.093,
+        "y": -0.093,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "neon_tyrant:reactor",
+        "x": 0.093,
+        "y": -0.093,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "neon_tyrant:reactor2",
+        "x": -0.333,
+        "y": -0.047,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "neon_tyrant:reactor2",
+        "x": 0.333,
+        "y": -0.047,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "neon_tyrant:reactor3",
+        "x": -0.253,
+        "y": -0.187,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "neon_tyrant:reactor3",
+        "x": 0.253,
+        "y": -0.187,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "neon_tyrant:reactor4",
+        "x": -0.073,
+        "y": 0.147,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "neon_tyrant:reactor5",
+        "x": -0.093,
+        "y": -0.22,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "neon_tyrant:reactor5",
+        "x": 0.093,
+        "y": -0.22,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "neon_tyrant:reactor6",
+        "x": -0.06,
+        "y": 0.307,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "neon_tyrant:reactor7",
+        "x": -0.227,
+        "y": -0.08,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "neon_tyrant:reactor8",
+        "x": -0.12,
+        "y": 0.02,
+        "width": 0.087,
+        "height": 0.087
+      }
+    ]
+  },
+  "gridlock": {
+    "note": "8-2: boss candidate #186.",
+    "name": "GRIDLOCK",
+    "drawing": "gridlock",
+    "width": 0.887,
+    "height": 0.82,
+    "difficulty": 16,
+    "attacks": {
+      "front": "missiles",
+      "back": "pellets",
+      "core": "laser",
+      "rage": "wave"
+    },
+    "parts": [
+      {
+        "drawing": "gridlock:launcher",
+        "x": -0.073,
+        "y": -0.287,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "gridlock:launcher",
+        "x": 0.073,
+        "y": -0.287,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "gridlock:launcher2",
+        "x": -0.3,
+        "y": -0.067,
+        "width": 0.087,
+        "height": 0.093
+      },
+      {
+        "drawing": "gridlock:launcher2",
+        "x": 0.3,
+        "y": -0.067,
+        "width": 0.087,
+        "height": 0.093
+      },
+      {
+        "drawing": "gridlock:launcher3",
+        "x": -0.267,
+        "y": 0.12,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "gridlock:launcher3",
+        "x": 0.267,
+        "y": 0.12,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "gridlock:radar",
+        "x": -0.113,
+        "y": 0.087,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "gridlock:radar",
+        "x": 0.113,
+        "y": 0.087,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "gridlock:radar2",
+        "x": -0.027,
+        "y": 0.3,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "gridlock:radar2",
+        "x": 0.027,
+        "y": 0.3,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "gridlock:launcher4",
+        "x": -0.027,
+        "y": -0.173,
+        "width": 0.087,
+        "height": 0.093
+      },
+      {
+        "drawing": "gridlock:launcher4",
+        "x": 0.027,
+        "y": -0.173,
+        "width": 0.087,
+        "height": 0.093
+      }
+    ]
+  },
+  "blackout": {
+    "note": "8-3: boss candidate #081.",
+    "name": "BLACKOUT",
+    "drawing": "blackout",
+    "width": 1.06,
+    "height": 0.873,
+    "difficulty": 17,
+    "attacks": {
+      "front": "curve",
+      "back": "rockets",
+      "core": "laser",
+      "rage": "accel"
+    },
+    "parts": [
+      {
+        "drawing": "blackout:radar",
+        "x": -0.073,
+        "y": 0.293,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar2",
+        "x": -0.287,
+        "y": -0.067,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar2",
+        "x": 0.287,
+        "y": -0.067,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar3",
+        "x": -0.167,
+        "y": -0.207,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "blackout:radar3",
+        "x": 0.167,
+        "y": -0.207,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "blackout:radar4",
+        "x": -0.393,
+        "y": 0.147,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar4",
+        "x": 0.393,
+        "y": 0.147,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar5",
+        "x": -0.08,
+        "y": -0.38,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar6",
+        "x": -0.193,
+        "y": 0.087,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "blackout:radar6",
+        "x": 0.193,
+        "y": 0.087,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "blackout:radar7",
+        "x": -0.04,
+        "y": 0.427,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "blackout:radar8",
+        "x": -0.047,
+        "y": 0.087,
+        "width": 0.073,
+        "height": 0.073
+      }
+    ]
+  },
+  "skybreaker": {
+    "note": "8-4: boss candidate #072.",
+    "name": "SKYBREAKER",
+    "drawing": "skybreaker",
+    "width": 0.727,
+    "height": 0.62,
+    "difficulty": 18,
+    "attacks": {
+      "front": "wave",
+      "back": "sniper",
+      "core": "laser",
+      "rage": "cluster"
+    },
+    "parts": [
+      {
+        "drawing": "skybreaker:flak",
+        "x": -0.053,
+        "y": -0.12,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "skybreaker:flak",
+        "x": 0.053,
+        "y": -0.12,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "skybreaker:reactor",
+        "x": -0.24,
+        "y": -0.02,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:reactor",
+        "x": 0.24,
+        "y": -0.02,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:flak2",
+        "x": -0.28,
+        "y": -0.26,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:flak2",
+        "x": 0.28,
+        "y": -0.26,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:reactor2",
+        "x": -0.14,
+        "y": 0.067,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "skybreaker:reactor2",
+        "x": 0.14,
+        "y": 0.067,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "skybreaker:reactor3",
+        "x": -0.08,
+        "y": 0.167,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:reactor3",
+        "x": 0.08,
+        "y": 0.167,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:reactor4",
+        "x": -0.34,
+        "y": -0.033,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "skybreaker:reactor4",
+        "x": 0.34,
+        "y": -0.033,
+        "width": 0.087,
+        "height": 0.087
+      }
+    ]
+  },
+  "sovereign": {
+    "note": "8-5: boss candidate #121.",
+    "name": "SOVEREIGN",
+    "drawing": "sovereign",
+    "width": 0.86,
+    "height": 0.707,
+    "difficulty": 19,
+    "attacks": {
+      "front": "accel",
+      "back": "missiles",
+      "core": "laser",
+      "rage": "curve"
+    },
+    "parts": [
+      {
+        "drawing": "sovereign:flak",
+        "x": -0.04,
+        "y": 0.223,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "sovereign:flak",
+        "x": 0.04,
+        "y": 0.223,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "sovereign:gatling",
+        "x": -0.24,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:gatling",
+        "x": 0.24,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:flak2",
+        "x": -0.133,
+        "y": -0.257,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:flak2",
+        "x": 0.133,
+        "y": -0.257,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:gatling2",
+        "x": -0.327,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "sovereign:gatling2",
+        "x": 0.327,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.127
+      },
+      {
+        "drawing": "sovereign:gatling3",
+        "x": -0.067,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:gatling3",
+        "x": 0.067,
+        "y": -0.097,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:gatling4",
+        "x": -0.387,
+        "y": -0.083,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "sovereign:gatling4",
+        "x": 0.387,
+        "y": -0.083,
+        "width": 0.06,
+        "height": 0.107
+      }
+    ]
+  },
+  "singularity": {
+    "note": "8-6: boss candidate #155.",
+    "name": "SINGULARITY",
+    "drawing": "singularity",
+    "width": 0.833,
+    "height": 0.673,
+    "difficulty": 20,
+    "attacks": {
+      "front": "curve",
+      "back": "cluster",
+      "core": "laser",
+      "rage": "spiral"
+    },
+    "parts": [
+      {
+        "drawing": "singularity:turret",
+        "x": -0.047,
+        "y": -0.073,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "singularity:turret",
+        "x": 0.047,
+        "y": -0.073,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "singularity:turret2",
+        "x": -0.053,
+        "y": 0.113,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "singularity:turret2",
+        "x": 0.053,
+        "y": 0.113,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "singularity:turret3",
+        "x": -0.187,
+        "y": 0.2,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "singularity:turret3",
+        "x": 0.187,
+        "y": 0.2,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "singularity:turret4",
+        "x": -0.04,
+        "y": 0.3,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "singularity:turret4",
+        "x": 0.04,
+        "y": 0.3,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "singularity:turret5",
+        "x": -0.393,
+        "y": 0.333,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "singularity:turret5",
+        "x": 0.393,
+        "y": 0.333,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "singularity:turret6",
+        "x": -0.38,
+        "y": 0.193,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "singularity:turret6",
+        "x": 0.38,
+        "y": 0.193,
+        "width": 0.087,
+        "height": 0.127
+      }
+    ]
+  }
+}
