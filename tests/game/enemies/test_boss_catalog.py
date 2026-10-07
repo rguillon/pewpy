@@ -52,14 +52,14 @@ def test_every_level_has_its_own_mini_boss_halfway_and_final_boss_at_the_end() -
         assert sum(mini.time < wave.time < final.time for wave in level.waves) > 5
 
 
-def test_a_final_boss_is_bigger_and_tougher_than_its_levels_mini_boss() -> None:
+def test_a_final_boss_is_wider_and_tougher_than_its_levels_mini_boss() -> None:
     for level in load_levels():
         mini, final = (BOSSES[wave.enemy] for wave in level.waves if wave.enemy in BOSSES)
 
         def toughness(spec: EnemySpec) -> float:
             return spec.health + sum(part.spec.health for part in spec.parts)
 
-        assert final.width * final.height > mini.width * mini.height
+        assert final.width > mini.width
         assert toughness(final) > toughness(mini)
         assert len(phases(final)) >= len(phases(mini))
 

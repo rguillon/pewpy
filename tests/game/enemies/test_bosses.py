@@ -12,7 +12,9 @@ from pewpy.game.weapons.guns import LASER_WARNING
 
 DT = 1 / 60
 BELOW = Entity(x=0.0, y=-0.8)  # a target straight down the screen
-PHASE_PAUSE = BOSSES["harvester"].states[1].warmup  # every phase starts with a pause
+PHASE_PAUSE = BOSSES["sentinel"].states[1].warmup  # every phase starts with a pause
+
+pytestmark = pytest.mark.usefixtures("test_bosses")  # the tests' own bosses (see conftest.py)
 
 
 def make_boss(name: str, x: float, top: float = 1.1) -> Enemy:
@@ -42,7 +44,7 @@ def destroy(*parts: Enemy) -> None:
 
 
 def test_a_boss_starts_above_the_screen_and_comes_down_to_hold() -> None:
-    boss = make_boss("harvester", 0.0, top=1.6)
+    boss = make_boss("test_harvester", 0.0, top=1.6)
     assert all(part.y - part.height / 2 > 1.6 for part in boss.parts)
     arrive(boss)
     (hold,) = boss.spec.states[0].exits[0].conditions
@@ -52,7 +54,7 @@ def test_a_boss_starts_above_the_screen_and_comes_down_to_hold() -> None:
 
 
 def test_parts_join_the_world_and_follow_the_core() -> None:
-    boss = make_boss("harvester", 0.0)
+    boss = make_boss("test_harvester", 0.0)
     created = boss.update(DT, BELOW, 0.2)
     assert [entity for entity in created if isinstance(entity, Enemy)] == boss.parts
     fight(boss, 3.0)
@@ -63,7 +65,7 @@ def test_parts_join_the_world_and_follow_the_core() -> None:
 
 
 def test_a_living_part_covers_the_columns_under_it() -> None:
-    boss = make_boss("reaper", 0.0)
+    boss = make_boss("test_reaper", 0.0)
     boss.update(DT, BELOW, 0.2)
     cutter = next(part for part in boss.parts if part.part_name == "cutter")
     assert boss.covered(cutter.x)
@@ -73,7 +75,7 @@ def test_a_living_part_covers_the_columns_under_it() -> None:
 
 
 def test_a_boss_and_its_parts_cannot_be_hurt_until_they_come_to_their_place() -> None:
-    boss = make_boss("harvester", 0.0)
+    boss = make_boss("test_harvester", 0.0)
     boss.update(DT, BELOW, 0.2)
     destroy(boss, *boss.parts)
     assert boss.alive
@@ -92,7 +94,7 @@ def test_no_shots_while_coming_down_or_during_a_phase_pause() -> None:
 
 
 def test_the_boss_sways_but_stays_on_screen() -> None:
-    boss = make_boss("colossus", 0.0)
+    boss = make_boss("test_colossus", 0.0)
     arrive(boss)
     xs = []
     for _ in range(round(20 / DT)):
@@ -104,13 +106,13 @@ def test_the_boss_sways_but_stays_on_screen() -> None:
 
 
 def test_an_armored_core_ignores_shots_until_its_parts_are_destroyed() -> None:
-    boss = make_boss("harvester", 0.0)
+    boss = make_boss("test_harvester", 0.0)
     arrive(boss)
     assert boss.appearance() != "armored"  # flashing: the phase starts
     fight(boss, PHASE_PAUSE)
     assert boss.appearance() == "armored"
     boss.hit(10)
-    assert boss.health == BOSSES["harvester"].health
+    assert boss.health == BOSSES["test_harvester"].health
     destroy(boss.parts[0])
     fight(boss, DT)
     assert boss.state.name == "phase 1"  # one cannon left
@@ -118,11 +120,11 @@ def test_an_armored_core_ignores_shots_until_its_parts_are_destroyed() -> None:
     fight(boss, DT)
     assert boss.state.name == "phase 2"
     boss.hit(10)
-    assert boss.health == BOSSES["harvester"].health - 10
+    assert boss.health == BOSSES["test_harvester"].health - 10
 
 
 def test_a_new_phase_changes_the_guns() -> None:
-    boss = make_boss("harvester", 0.0)
+    boss = make_boss("test_harvester", 0.0)
     arrive(boss)
     first = fight(boss, 4.0)
     assert {bullet.style for bullet in first if isinstance(bullet, Bullet)} == {
@@ -149,7 +151,7 @@ def test_phases_can_end_on_the_core_health() -> None:
 
 
 def test_destroyed_parts_stop_firing() -> None:
-    boss = make_boss("colossus", 0.0)
+    boss = make_boss("test_colossus", 0.0)
     arrive(boss)
     left_outer = boss.parts[0]
     destroy(left_outer)
@@ -159,7 +161,7 @@ def test_destroyed_parts_stop_firing() -> None:
 
 
 def test_health_bar_counts_the_core_and_its_parts() -> None:
-    boss = make_boss("harvester", 0.0)
+    boss = make_boss("test_harvester", 0.0)
     assert boss.health_fraction == 1.0
     arrive(boss)
     destroy(boss.parts[0])
@@ -167,7 +169,7 @@ def test_health_bar_counts_the_core_and_its_parts() -> None:
 
 
 def test_volleys_fire_several_times_in_a_row() -> None:
-    boss = make_boss("harvester", 0.0)
+    boss = make_boss("test_harvester", 0.0)
     arrive(boss)
     shots = fight(boss, PHASE_PAUSE + 0.5)  # the left cannon's first volley of 3, the others wait
     assert len(shots) == 3

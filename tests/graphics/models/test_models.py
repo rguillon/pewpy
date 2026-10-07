@@ -10,6 +10,7 @@ from panda3d.core import GeomNode, GeomVertexReader, NodePath, Vec3
 
 from pewpy import config
 from pewpy.data import MODEL_GROUPS, data_folder
+from pewpy.data import read_model as model_file
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import ENEMIES
 from pewpy.game.player import Player
@@ -407,8 +408,10 @@ def test_a_flame_leaves_the_nozzle_voxel_towards_its_side() -> None:
 
 
 def test_ships_with_engines_have_flames() -> None:
-    assert len(models.model("player").findAllMatches("**/flame")) == 2
-    assert len(models.model("missile").findAllMatches("**/flame")) == 1
+    for name in ("player", "missile"):
+        engines = model_file(name)[0]["engines"]
+        assert engines
+        assert len(models.model(name).findAllMatches("**/flame")) == len(engines)
     assert models.turret_model().findAllMatches("**/flame").getNumPaths() == 0  # fixed to the ground
 
 
