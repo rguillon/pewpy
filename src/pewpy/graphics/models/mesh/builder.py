@@ -7,17 +7,38 @@ from panda3d.core import Geom, GeomNode, GeomTriangles, GeomVertexData, GeomVert
 
 from pewpy.graphics.models.colors import shade
 from pewpy.graphics.models.drawings.voxels import Voxels, voxel_cells
+from pewpy.graphics.models.mesh.slopes import (
+    CUT_SIDES,
+    FACING_QUARTER,
+    OPPOSITE,
+    SLANT_NORMALS,
+    cuts,
+    face_quarters,
+    slant,
+)
 from pewpy.graphics.models.mesh.voxel_faces import (
+    CONTEXT,
     FACE_AXES,
-    FACE_CORNERS,
     FACE_DIRECTIONS,
     OCCLUSION_BRIGHTNESS,
     Occupancy,
+    corner_levels,
+    face_corners,
     merged_faces,
     model_axes,
-    occlusion_level,
 )
-from pewpy.graphics.models.types import UV, Cell, Color, Direction, FloatArray, IntArray, Outline, Palette, Vertex
+from pewpy.graphics.models.types import (
+    UV,
+    BoolArray,
+    Cell,
+    Color,
+    Direction,
+    FloatArray,
+    IntArray,
+    Outline,
+    Palette,
+    Vertex,
+)
 
 NO_BEVEL: UV = (0.5, 0.5)  # texture coordinate of shapes that aren't voxels: the shader bevels no edge
 # Voxel faces: texture coordinates count cubes from 0 across the face (a merged face covers several cubes, see
@@ -174,8 +195,10 @@ class MeshBuilder:
         like the others, but aren't drawn. Cells in `glowing` light up on their own as a pane (see GLOW_UVS), cells
         in `burning` all over (BURN_UVS).
 
-        Works on every cube at once (numpy): which faces show, how dark their corners are, then faces that look
-        alike are merged into rectangles (fewer triangles, same look, see `merged_faces`).
+        Works on every cube at once (numpy): which cubes are cut into 45° slopes (see `slopes`), which faces show, how
+        dark their corners are, then whole faces that look alike are merged into rectangles (fewer triangles, same
+        look, see `merged_faces`). Faces only partly there (cut, or partly covered by a cut neighbor) are drawn a
+        quarter at a time.
         """
         if not cells:
             return
@@ -188,37 +211,52 @@ class MeshBuilder:
         if glowing or burning:
             special = np.array([2 if cell in burning else 1 if cell in glowing else 0 for cell in cells])
         occupancy = Occupancy(positions, model_axes(np.array(list(context), dtype=np.int64).reshape(-1, 3)))
+        cut = cuts(positions, occupancy, special == 0)  # glowing and burning cubes stay whole
+        quarters = face_quarters(cut)
         origin_array = np.array(origin, dtype=np.float64)
-        for direction in FACE_DIRECTIONS:
+        for index, direction in enumerate(FACE_DIRECTIONS):
             normal, u, w = FACE_AXES[direction]
-            shown = ~occupancy.filled(positions + normal)
-            face_positions, face_colors, face_special = positions[shown], color_of[shown], special[shown]
+            neighbor = occupancy.at(positions + normal)
+            covered = np.zeros((len(positions), 4), dtype=bool)  # by the neighbor's face, looking back
+            drawn = neighbor >= 0
+            covered[drawn] = quarters[neighbor[drawn], OPPOSITE[index]][:, FACING_QUARTER[index]]
+            covered[neighbor == CONTEXT] = True
+            exposed = quarters[:, index] & ~covered
+            whole = exposed.all(axis=1)
+            partial = exposed.any(axis=1) & ~whole
             for kind, uvs in ((1, GLOW_UVS), (2, BURN_UVS)):
-                picked = face_special == kind
+                picked = whole & (special == kind)
                 if picked.any():
-                    self._single_faces(
-                        face_positions[picked], colors[face_colors[picked]], uvs, direction, size, origin_array
-                    )
-            plain = face_special == 0
-            face_positions, face_colors = face_positions[plain], face_colors[plain]
-            if not len(face_positions):
-                continue
-            ahead = face_positions + normal  # the cells just in front of each face
-            levels = np.stack(
-                [
-                    occlusion_level(
-                        occupancy.filled(ahead + u * su),
-                        occupancy.filled(ahead + w * sw),
-                        occupancy.filled(ahead + u * su + w * sw),
-                    )
-                    for su, sw in FACE_CORNERS
-                ],
-                axis=1,
-            )
-            rectangles = merged_faces(
-                face_positions @ normal, face_positions @ u, face_positions @ w, face_colors, levels
-            )
-            self._rectangles(rectangles, colors, direction, size, origin_array)
+                    self._single_faces(positions[picked], colors[color_of[picked]], uvs, direction, size, origin_array)
+            plain = whole & (special == 0)
+            if plain.any():
+                face_positions, face_colors = positions[plain], color_of[plain]
+                rectangles = merged_faces(
+                    face_positions @ normal,
+                    face_positions @ u,
+                    face_positions @ w,
+                    face_colors,
+                    corner_levels(face_positions, direction, occupancy),
+                )
+                self._rectangles(rectangles, colors, direction, size, origin_array)
+            if partial.any():
+                kinds = special[partial]
+                brightness = np.ones((len(kinds), 4))
+                lit = kinds == 0
+                levels = corner_levels(positions[partial][lit], direction, occupancy)
+                brightness[lit] = np.array(OCCLUSION_BRIGHTNESS)[levels]
+                uvs = np.array([QUAD_UVS, GLOW_UVS, BURN_UVS], dtype=np.float64)[kinds]
+                self._quarters(
+                    positions[partial],
+                    exposed[partial],
+                    colors[color_of[partial]],
+                    brightness,
+                    uvs,
+                    direction,
+                    size,
+                    origin_array,
+                )
+        self._slants(positions, cut, colors[color_of], size, origin_array)
 
     def _rectangles(
         self, rectangles: IntArray, colors: FloatArray, direction: Direction, size: float, origin: FloatArray
@@ -255,12 +293,77 @@ class MeshBuilder:
         origin: FloatArray,
     ) -> None:
         """Add a face per cube, not merged nor shaded (glowing and burning faces: the shader draws each as a pane)."""
-        normal, u, w = FACE_AXES[direction]
-        face = origin + positions * size + normal * (size / 2)
-        corners = np.stack([face + (u * su + w * sw) * (size / 2) for su, sw in FACE_CORNERS], axis=1)
         count = len(positions)
         corner_uvs = np.broadcast_to(np.array(uvs, dtype=np.float64), (count, 4, 2))
-        self._faces(corners, colors, np.ones((count, 4)), corner_uvs, normal)
+        corners = face_corners(positions, direction, size, origin)
+        self._faces(corners, colors, np.ones((count, 4)), corner_uvs, FACE_AXES[direction][0])
+
+    def _quarters(
+        self,
+        positions: IntArray,
+        exposed: BoolArray,
+        colors: FloatArray,
+        brightness: FloatArray,
+        uvs: FloatArray,
+        direction: Direction,
+        size: float,
+        origin: FloatArray,
+    ) -> None:
+        """Add the `exposed` quarters of the faces of cubes looking along `direction` (see `slopes`).
+
+        Two quarters side by side make a triangle (half the face); others are drawn each as a triangle to the face's
+        middle, which gets the average of its corners' shading and texture coordinates.
+        """
+        normal = FACE_AXES[direction][0]
+        corners = face_corners(positions, direction, size, origin)
+        # Corners 0 to 3, then the middle (4).
+        points = np.concatenate([corners, corners.mean(axis=1, keepdims=True)], axis=1)
+        lights = np.concatenate([brightness, brightness.mean(axis=1, keepdims=True)], axis=1)
+        coordinates = np.concatenate([uvs, uvs.mean(axis=1, keepdims=True)], axis=1)
+        halves = (exposed.sum(axis=1) == 2) & (exposed & np.roll(exposed, -1, axis=1)).any(axis=1)
+        faces, picks = [], []
+        for quarter in range(4):
+            half = np.flatnonzero(halves & exposed[:, quarter] & exposed[:, (quarter + 1) % 4])
+            alone = np.flatnonzero(~halves & exposed[:, quarter])
+            after, next_after = (quarter + 1) % 4, (quarter + 2) % 4
+            for chosen, triangle in ((half, (quarter, after, next_after)), (alone, (quarter, after, 4))):
+                faces.append(chosen)
+                picks.append(np.broadcast_to(np.array(triangle), (len(chosen), 3)))
+        face = np.concatenate(faces)
+        pick = np.concatenate(picks)
+        self._add(
+            points[face[:, None], pick],
+            np.broadcast_to(normal.astype(np.float64), (len(face), 3)),
+            colors[face],
+            lights[face[:, None], pick],
+            coordinates[face[:, None], pick],
+        )
+
+    def _slants(self, positions: IntArray, cut: BoolArray, colors: FloatArray, size: float, origin: FloatArray) -> None:
+        """Add the slanted faces of the cubes cut into slopes (`colors`: each cube's), a triangle fan each."""
+        corners, normals, triangle_colors, uvs = [], [], [], []
+        for cube in np.flatnonzero(cut.any(axis=1)).tolist():
+            for index in np.flatnonzero(cut[cube]).tolist():
+                polygon = slant(cut[cube], index)
+                if len(polygon) < 3:
+                    continue
+                a, b = CUT_SIDES[index]
+                across, along = a - b, np.cross(a, b)
+                coordinates = np.stack([(polygon @ across + 1) / 2, polygon @ along + 0.5], axis=1)
+                points = origin + (positions[cube] + polygon) * size
+                for second in range(1, len(polygon) - 1):
+                    corners.append(points[[0, second, second + 1]])
+                    uvs.append(coordinates[[0, second, second + 1]])
+                    normals.append(SLANT_NORMALS[index])
+                    triangle_colors.append(colors[cube])
+        if corners:
+            self._add(
+                np.array(corners),
+                np.array(normals),
+                np.array(triangle_colors),
+                np.ones((len(corners), 3)),
+                np.array(uvs),
+            )
 
     def _faces(
         self, corners: FloatArray, colors: FloatArray, brightness: FloatArray, uvs: FloatArray, normal: IntArray
@@ -274,16 +377,25 @@ class MeshBuilder:
         # Which corners make each face's two triangles: (a, b, d) and (b, c, d), or (a, b, c) and (a, c, d).
         picks = np.where(crease[:, None, None], [[0, 1, 3], [1, 2, 3]], [[0, 1, 2], [0, 2, 3]]).reshape(-1, 3)
         faces = np.repeat(np.arange(len(corners)), 2)  # the face of each triangle
-        base = colors[faces]
-        rgb = np.minimum(base[:, None, :3] * brightness[faces[:, None], picks][..., None], 1.0)  # like `shade`
-        alpha = np.broadcast_to(base[:, None, 3:], (len(picks), 3, 1))
-        normals = np.broadcast_to(normal.astype(np.float64), (len(picks), 3))
-        self._blocks.append((
+        self._add(
             corners[faces[:, None], picks],
-            normals,
-            np.concatenate([rgb, alpha], axis=2),
+            np.broadcast_to(normal.astype(np.float64), (len(picks), 3)),
+            colors[faces],
+            brightness[faces[:, None], picks],
             uvs[faces[:, None], picks],
-        ))
+        )
+
+    def _add(
+        self, corners: FloatArray, normals: FloatArray, colors: FloatArray, brightness: FloatArray, uvs: FloatArray
+    ) -> None:
+        """Add triangles, each with its own color darkened at each corner by `brightness` (like `shade`).
+
+        Corners (n, 3, 3) wind counter-clockwise seen from outside; normals (n, 3), colors (n, 4), brightness (n, 3),
+        corner texture coordinates (n, 3, 2).
+        """
+        rgb = np.minimum(colors[:, None, :3] * brightness[..., None], 1.0)
+        alpha = np.broadcast_to(colors[:, None, 3:], (len(colors), 3, 1))
+        self._blocks.append((corners, normals, np.concatenate([rgb, alpha], axis=2), uvs))
 
     def build(self, name: str) -> GeomNode:
         """Build the mesh as a node."""
