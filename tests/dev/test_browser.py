@@ -27,13 +27,13 @@ def test_left_and_right_go_round_the_models(data_copy: Path) -> None:  # noqa: A
     assert browser.entry.key == "vanguard"
 
 
-def test_up_and_down_change_the_size_keeping_its_proportions(data_copy: Path) -> None:  # noqa: ARG001 - its data
+def test_the_width_and_the_height_change_on_their_own_for_another_shape(data_copy: Path) -> None:  # noqa: ARG001
     browser = ModelBrowser("enemies", random.Random(1))
     width, height = browser.size
-    browser.resize(1)
-    assert browser.size == pytest.approx((width * SIZE_STEP, height * SIZE_STEP))
-    browser.resize(-2)
-    assert browser.size == pytest.approx((width / SIZE_STEP, height / SIZE_STEP))
+    browser.stretch(1, 0)
+    assert browser.size == pytest.approx((width * SIZE_STEP, height))
+    browser.stretch(0, -2)
+    assert browser.size == pytest.approx((width * SIZE_STEP, height / SIZE_STEP**2))
 
 
 def test_a_new_ship_shows_until_it_is_saved_or_dropped(data_copy: Path) -> None:
@@ -45,7 +45,7 @@ def test_a_new_ship_shows_until_it_is_saved_or_dropped(data_copy: Path) -> None:
     browser.move(1)
     browser.move(-1)
     assert browser.new is None  # dropped
-    browser.resize(1)
+    browser.stretch(1, 1)
     browser.generate()
     new = browser.new
     browser.save()
@@ -57,13 +57,13 @@ def test_a_new_ship_shows_until_it_is_saved_or_dropped(data_copy: Path) -> None:
 def test_enter_without_a_new_model_saves_the_size(data_copy: Path) -> None:  # noqa: ARG001 - its data
     browser = ModelBrowser("players", random.Random(1))
     hitbox = read_data("ships.json")["vanguard"]["size"]
-    browser.resize(1)
+    browser.stretch(1, 1)
     size = browser.size
     browser.save()
     assert model_size(read_model("player")) == pytest.approx(size, abs=1e-4)
     assert read_data("ships.json")["vanguard"]["size"] == pytest.approx(hitbox * SIZE_STEP, abs=1e-3)
     assert browser.saved
-    browser.resize(1)
+    browser.stretch(0, 1)
     assert not browser.saved
 
 
@@ -82,7 +82,7 @@ def test_a_new_boss_shows_with_its_parts_and_saves_them(data_copy: Path) -> None
 
 def test_enter_on_a_boss_without_a_new_one_saves_its_size(data_copy: Path) -> None:  # noqa: ARG001 - its data
     browser = ModelBrowser("bosses", random.Random(1))
-    browser.resize(-1)
+    browser.stretch(-1, 0)
     size = browser.size
     browser.save()
     assert model_size(read_model(browser.entry.drawing)) == pytest.approx(size, abs=1e-4)

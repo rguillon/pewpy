@@ -1,8 +1,9 @@
 """The Dev menu, from the main menu: browsing the player's ships', the enemies' and the bosses' models, and the songs
 (pewpy.dev).
 
-Each category opens the model browser: Left/Right go from one model to the next, Up/Down change the size new models are
-made to, Space makes a new one, Enter saves it in place of the model, Escape goes back to the Dev menu. Music opens the
+Each category opens the model browser: Left/Right go from one model to the next, Z/S make the size new models are
+made to taller or shorter and D/Q wider or narrower (its shape), Space makes a new one, Enter saves it in place of the
+model, Escape goes back to the Dev menu. Music opens the
 music browser: Left/Right go from one song to the next (it plays), Space composes a new one, Enter saves it in place of
 the song.
 """  # noqa: D205 - the summary needs two lines
@@ -26,7 +27,8 @@ from pewpy.ui.model_browser_view import ModelBrowserView
 from pewpy.ui.music_browser_view import MusicBrowserView
 
 BROWSER_MOVES = {"arrow_left": -1, "arrow_right": 1}  # the model on show
-BROWSER_SIZES = {"arrow_up": 1, "arrow_down": -1}  # its size
+# The size new models are made to, its shape: (wider, taller) steps. Z up, S down, Q left, D right (on AZERTY).
+SHAPE_KEYS = {"z": (0, 1), "s": (0, -1), "q": (-1, 0), "d": (1, 0)}
 GENERATE_KEY = "space"
 MUSIC = "music"  # the Dev menu's entry after the model categories
 
@@ -100,10 +102,23 @@ class DevMenu(Sound):
         if key == GENERATE_KEY:  # else an arrow (the keys sent here: see keys.py)
             self._generate(browser, view)
             return
-        if key in BROWSER_MOVES:
-            browser.move(BROWSER_MOVES[key])
-        else:
-            browser.resize(BROWSER_SIZES[key])
+        if key not in BROWSER_MOVES:  # Up and Down: nothing to change (the shape keys change the size)
+            return
+        browser.move(BROWSER_MOVES[key])
+        self.audio.play("menu_move")
+        self._show_browser(browser, view)
+
+    def _setup_keys(self) -> None:
+        super()._setup_keys()
+        for key in SHAPE_KEYS:
+            self.accept(key, self._on_shape_key, [key])
+
+    def _on_shape_key(self, key: str) -> None:
+        """Make the size new models are made to wider, narrower, taller or shorter: the model's shape."""
+        browser, view = self.model_browser, self.browser_view
+        if browser is None or view is None:
+            return
+        browser.stretch(*SHAPE_KEYS[key])
         self.audio.play("menu_move")
         self._show_browser(browser, view)
 

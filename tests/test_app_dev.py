@@ -10,7 +10,7 @@ from pewpy import data
 from pewpy.app import PewPewApp, keys
 from pewpy.audio.cues import MENU_MUSIC
 from pewpy.dev import music
-from pewpy.dev.browser import ModelBrowser
+from pewpy.dev.browser import SIZE_STEP, ModelBrowser
 from pewpy.dev.music import MusicBrowser
 from pewpy.game.enemies.kinds import MINI_BOSSES
 from pewpy.game.states import State
@@ -72,18 +72,25 @@ def test_the_dev_menu_opens_each_category_and_goes_back(app: PewPewApp) -> None:
     assert app.states.state is State.MAIN_MENU
 
 
-def test_the_keys_browse_resize_make_and_save_models(app: PewPewApp, data_copy: Path) -> None:
+def test_the_keys_browse_reshape_make_and_save_models(app: PewPewApp, data_copy: Path) -> None:
     choose(app, "Dev")
+    press(app, "z")  # no model on show: nothing to reshape
+    assert app.states.state is State.DEV_MENU
     choose(app, "Players")
     press(app, "arrow_right")
     assert browser(app).entry.key == "juggernaut"
     assert texts(app)[0] == f"Juggernaut  (2/{len(browser(app).models)})"
     assert texts(app)[1] == "Heavy armor, a bit slower"
-    width = browser(app).size[0]
-    press(app, "arrow_up")
-    assert browser(app).size[0] > width
-    press(app, "arrow_down")
-    assert browser(app).size[0] == pytest.approx(width)
+    width, height = browser(app).size
+    press(app, "arrow_up")  # Up and Down: nothing to change
+    assert browser(app).size == (width, height)
+    press(app, "z")  # taller
+    assert browser(app).size == pytest.approx((width, height * SIZE_STEP))
+    press(app, "d")  # wider
+    assert browser(app).size == pytest.approx((width * SIZE_STEP, height * SIZE_STEP))
+    press(app, "s")
+    press(app, "q")
+    assert browser(app).size == pytest.approx((width, height))
     assert texts(app)[2].startswith(f"Size {width:.3f}")
     press(app, keys.FIRE_KEY)
     assert browser(app).new is not None
