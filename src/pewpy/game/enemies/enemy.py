@@ -265,6 +265,11 @@ class Enemy(Body):
         """Enemies destroyed along with this one (its parts left), without points."""
         return [part for part in self.parts if part.alive]
 
+    @property
+    def see_through(self) -> bool:
+        """Whether the player's shots, missiles, laser and secondary weapons pass through it: an armored core."""
+        return not self.state.vulnerable and not self.arriving and any(part.alive for part in self.parts)
+
     def covered(self, x: float) -> bool:
         """Whether a living part is mounted over the column at `x`: there, shots fly over the core up to the part."""
         return any(part.alive and abs(x - part.x) < part.width / 2 for part in self.parts)
