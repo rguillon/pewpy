@@ -6,7 +6,8 @@
     "points": 100,
     "drop_chance": 0.05,
     "velocity": [0.0, -0.3],
-    "states": [{"name": "fly", "guns": [{"pattern": "aimed", "interval": 1.5, "speed": 0.6, "staggered": true}]}]
+    "states": [{"name": "fly", "guns": [{"pattern": "aimed", "interval": 1.5, "speed": 0.6, "staggered": true}]}],
+    "size": [0.1, 0.1]
   },
   "weaver": {
     "note": "Snakes down around its column, never shoots.",

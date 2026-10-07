@@ -8,6 +8,12 @@ Units: see `00-vision.md`.
   Every model shall be built with the same cubes, 0.06 / 9 wu across (≈ 0.00667), never stretched nor scaled; a
   model's size comes from its drawing and shall be about its hitbox (bigger ships have more cubes; a boss is up to about
   70 cubes wide).
+- **VSL-32** Where a model's cubes form a staircase, along any of the three axes (the outline of the drawing, or a
+  thicker part stepping down to a thinner one), the stair shall read as a straight 45° slope: the cube on the outer
+  corner of each step is cut in half along the diagonal through its middle. A cube is cut across an edge when its two
+  sides there are open, the two opposite ones touch other cubes and the stair goes on (a cube one step further along
+  it, past either side). Flat sides, the square corners of a rectangle and lone spikes stay square; glowing and burning
+  cubes are never cut.
 - **VSL-2** Ships shall look industrial sci-fi rather than cartoonish: grey metal hulls (lighter on top), recessed panel
   seams, dark engine nacelles with vents, dark glass cockpits and small orange or red lights; each kind of ship keeps
   its color as paint markings (bluish grey for the player's ships, red for the Drone...).

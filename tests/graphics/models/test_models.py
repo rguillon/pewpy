@@ -151,22 +151,69 @@ def test_flat_runs_of_alike_faces_become_one_rectangle_counting_its_cubes() -> N
     assert (3.0, 2.0) in uvs  # the front: 3 cubes across, 2 up, so the shader bevels each cube
 
 
+def surface(mesh: models.MeshBuilder) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Every triangle's corners (n, 3, 3), stored normal (n, 3) and area times its winding's direction (n, 3)."""
+    corners, normals, _, _ = mesh._arrays()
+    return corners, normals, np.cross(corners[:, 1] - corners[:, 0], corners[:, 2] - corners[:, 0]) / 2
+
+
+def volume(mesh: models.MeshBuilder) -> float:
+    """Return the volume a closed mesh holds (divergence theorem)."""
+    corners, _, areas = surface(mesh)
+    return float(np.einsum("ij,ij->", corners.mean(axis=1), areas) / 3)
+
+
 def test_merged_faces_cover_exactly_the_faces_of_the_cubes() -> None:
     """Merging changes the triangles, not the surface: per direction, the area is the number of visible cube faces."""
-    for drawing in ("player", "gunship", "drone"):
-        node = models.model(drawing).node()
-        assert isinstance(node, GeomNode)
-        area: dict[tuple[int, int, int], float] = {}
-        for corners, normal in triangles_of(node):
-            key = (round(normal.x), round(normal.y), round(normal.z))
-            area[key] = area.get(key, 0.0) + (corners[1] - corners[0]).cross(corners[2] - corners[0]).length() / 2
-        voxels = voxels_of(drawing)
-        cells = voxels.cells
-        voxel = voxels.size
-        for direction in models.FACE_DIRECTIONS:
-            dx, dy, dz = direction
-            visible = sum((column + dx, row - dz, layer + dy) not in cells for column, row, layer in cells)
-            assert area.get(direction, 0.0) == pytest.approx(visible * voxel * voxel, rel=1e-4)
+    rows = ["x.x.x", "xxxxx", "xxxxx", "x...x"]  # no staircase: nothing sloped
+    palette: Palette = {"x": (WHITE, 3)}
+    mesh = models.MeshBuilder()
+    mesh.voxels(rows, palette, 1.0)
+    _, normals, areas = surface(mesh)
+    cells = models.voxel_cells(rows, palette)
+    for direction in models.FACE_DIRECTIONS:
+        dx, dy, dz = direction
+        visible = sum((column + dx, row - dz, layer + dy) not in cells for column, row, layer in cells)
+        facing = (np.round(normals) == direction).all(axis=1)
+        assert np.linalg.norm(areas[facing], axis=1).sum() == pytest.approx(visible)
+
+
+def test_staircases_become_45_degree_slopes() -> None:
+    mesh = models.MeshBuilder()
+    mesh.voxels(["..##", ".###", "####"], {"#": (WHITE, 1)}, 1.0)
+    _, normals, _ = surface(mesh)
+    slanted = normals[np.abs(normals).max(axis=1) < 0.9]
+    assert len(slanted)
+    assert np.allclose(slanted, [-math.sqrt(0.5), 0, math.sqrt(0.5)])  # up and left: the stair goes up to the right
+    assert volume(mesh) == pytest.approx(9 - 2 * 0.5)  # the outer corner of each of the 2 steps is cut in half
+
+
+def test_a_thicker_part_slopes_down_to_a_thinner_one() -> None:
+    mesh = models.MeshBuilder()
+    mesh.voxels(["xxxxx", "xcccx", "xcccx", "xxxxx"], {"x": (WHITE, 1), "c": (WHITE, 3)}, 1.0)
+    _, normals, _ = surface(mesh)
+    assert np.isclose(np.abs(normals[:, 1]), math.sqrt(0.5)).any()  # sloped towards the camera and away
+
+
+@pytest.mark.parametrize("rows", [["##", "##"], [".#.", "###"], ["#..", "###"], ["#.#", "###"]])
+def test_square_corners_and_spikes_stay_square(rows: list[str]) -> None:
+    mesh = models.MeshBuilder()
+    mesh.voxels(rows, {"#": (WHITE, 1)}, 1.0)
+    _, normals, _ = surface(mesh)
+    assert (np.abs(normals).max(axis=1) == 1).all()
+    assert volume(mesh) == pytest.approx(sum(row.count("#") for row in rows))
+
+
+@pytest.mark.parametrize("build", [*SHIP_MODELS[:6], partial(models.distant_planet_model, ((0.2, 0.2, 0.2, 1.0),))])
+def test_every_model_is_a_closed_surface_facing_out(build: Callable[[], NodePath]) -> None:
+    """Slopes leave no hole: the faces add up to nothing (closed), every triangle wound the way its normal says."""
+    node = build().node()
+    assert isinstance(node, GeomNode)
+    triangles = triangles_of(node)
+    areas = [(b - a).cross(c - a) for (a, b, c), _ in triangles]
+    assert sum(areas, Vec3()).length() < 1e-5 * sum(area.length() for area in areas)  # corners are stored as float32
+    for (a, b, c), normal in triangles:
+        assert (b - a).cross(c - a).dot(normal) > 0
 
 
 def test_faces_only_merge_where_their_shading_stays_the_same() -> None:
