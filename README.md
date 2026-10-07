@@ -37,8 +37,7 @@ gives the flat, arcade-style gameplay some depth.
 You need [uv](https://docs.astral.sh/uv/) and Python 3.12 or newer.
 
 ```bash
-make install   # set up the environment
-make run       # play
+uv run python -m pewpy
 ```
 
 | Action        | Key                                                 |
