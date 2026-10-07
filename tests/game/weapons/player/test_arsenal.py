@@ -115,3 +115,9 @@ def test_the_weapons_share_their_wait_and_it_doesnt_build_up_while_not_firing() 
     for _ in range(120):
         arsenal.fire(DT, firing=False, ship=SHIP)
     assert arsenal.cooldown == 0.0
+
+
+def test_a_full_arsenal_has_every_weapon_at_its_top_level() -> None:
+    arsenal = Arsenal.full()
+    assert arsenal.levels == dict.fromkeys(WEAPONS, MAX_LEVEL)
+    assert not arsenal.upgrade(WEAPONS[0])

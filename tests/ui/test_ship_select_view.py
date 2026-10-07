@@ -3,7 +3,7 @@ from dataclasses import replace
 import pytest
 
 from pewpy.game.player import SHIPS
-from pewpy.ui.ship_select_view import characteristics, details
+from pewpy.ui.ship_select_view import BAR_WIDTH, COLUMN_SPACING, LABEL_WIDTH, characteristics, column_spacing, details
 
 SHIP_LIST = list(SHIPS.values())
 
@@ -30,3 +30,16 @@ def test_details_give_the_numbers_and_the_repair_only_when_there_is_one() -> Non
     assert "Health 8" in details(SHIPS["juggernaut"])
     assert "Repairs 0.5 health a second" in details(SHIPS["phantom"])
     assert "Repairs" not in details(replace(SHIPS["juggernaut"], regeneration=0.0))
+
+
+def test_a_test_ship_is_not_compared_with_the_others() -> None:
+    regular = [replace(SHIP_LIST[0], health=4.0, test=False), replace(SHIP_LIST[0], health=8.0, test=False)]
+    tester = replace(SHIP_LIST[0], health=99999.0, test=True)
+    bars = characteristics([*regular, tester])
+    assert [ship[0][1] for ship in bars] == [0.5, 1.0, 1.0]  # the regular ships' armor as without it; its own, full
+
+
+def test_the_columns_fit_the_screen() -> None:
+    assert column_spacing(3, 2.0) == COLUMN_SPACING  # a wide screen: the usual room
+    assert column_spacing(4, 1.25) < COLUMN_SPACING
+    assert 1.5 * column_spacing(4, 1.25) + (LABEL_WIDTH + BAR_WIDTH) / 2 < 1.25  # the outer columns stay on screen

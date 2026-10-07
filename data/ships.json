@@ -6,7 +6,7 @@
     "drawing": "player",
     "health": 5.0,
     "speed": 1.0,
-    "size": 0.12,
+    "size": 0.196,
     "regeneration": 0.3,
     "regeneration_delay": 1.5
   },
@@ -16,7 +16,7 @@
     "drawing": "player_heavy",
     "health": 8.0,
     "speed": 0.8,
-    "size": 0.14,
+    "size": 0.188,
     "regeneration": 0.2,
     "regeneration_delay": 1.5
   },
@@ -26,8 +26,19 @@
     "drawing": "player_light",
     "health": 3.0,
     "speed": 1.3,
-    "size": 0.1,
+    "size": 0.141,
     "regeneration": 0.5,
     "regeneration_delay": 1.5
+  },
+  "tester": {
+    "note": "A ship for testing the game: almost indestructible, every weapon at its top level from the start.",
+    "name": "TESTER",
+    "description": "For testing: unkillable, fully upgraded",
+    "drawing": "player_test",
+    "health": 99999.0,
+    "speed": 1.2,
+    "size": 0.196,
+    "full_arsenal": true,
+    "test": true
   }
 }

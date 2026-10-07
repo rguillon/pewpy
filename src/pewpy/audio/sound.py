@@ -101,6 +101,12 @@ class Audio:
             self.library.request(music.song, music.loop)
         self._apply_volume()
 
+    def forget_song(self, name: str) -> None:
+        """Let go of a song's file whose MIDI changed: the next time, it's rendered again (the old file is kept)."""
+        self.library.changed(name)
+        for key in [key for key in self.song_files if key[0] == name]:
+            del self.song_files[key]
+
     def toggle_music(self) -> None:
         """Turn the music on or off."""
         self.music_on = not self.music_on

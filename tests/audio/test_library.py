@@ -117,3 +117,17 @@ def test_requests_wait_their_turn_unless_wanted_first(songs: Path, monkeypatch: 
     library.request("other")  # wanted now: first in line
     assert list(library._queue) == [("other", True), ("tune", True)]
     assert not library.wait(timeout=0.1)  # still waiting: it gives up
+
+
+def test_a_song_that_failed_is_tried_again_once_it_changed(songs: Path) -> None:
+    library = Library(songs, None)
+    (songs / "bad.mid").write_bytes(b"not midi")
+    library.request("bad")
+    assert library.wait()
+    assert "bad" in library.failed
+    library.request("tune")
+    assert library.wait()
+    library.changed("bad")
+    library.changed("tune")
+    assert "bad" not in library.failed
+    assert not library.ready

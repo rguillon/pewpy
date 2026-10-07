@@ -41,11 +41,14 @@ def render_wav(data: bytes, loop: bool) -> bytes:
 
 
 class Library:
-    """The songs in `folder` (name.mid), rendered on request, one at a time in a background thread."""
+    """The songs in `folder` (name.mid), and songs added in memory (`add`), rendered on request, one at a time in a
+    background thread."""  # noqa: D205, D209 - the summary needs two lines
 
     def __init__(self, folder: "Traversable", cache: Path | None) -> None:
         self.folder = folder
         self.cache = cache
+        self.added: dict[str, bytes] = {}  # songs not in the folder: their MIDI files
+        self.changed_now: set[str] = set()  # songs changed while the game runs: their old files may be playing
         self.ready: dict[tuple[str, bool], bytes] = {}
         self.failed: set[str] = set()
         self._queue: deque[tuple[str, bool]] = deque()
@@ -61,7 +64,26 @@ class Library:
 
     def has(self, name: str) -> bool:
         """Tell whether there is a song called `name`."""
-        return self.folder.joinpath(f"{name}.mid").is_file()
+        return name in self.added or self.folder.joinpath(f"{name}.mid").is_file()
+
+    def add(self, name: str, data: bytes) -> None:
+        """Add a song that isn't in the folder (a new one, not saved), from its MIDI file."""
+        self.added[name] = data
+
+    def changed(self, name: str) -> None:
+        """Forget what was rendered of a song whose file changed (and that it failed): it's rendered again.
+
+        Its old file in the cache is kept until the game runs again (it may still be playing).
+        """
+        with self._lock:
+            self.changed_now.add(name)
+            self.failed.discard(name)
+            for key in [key for key in self.ready if key[0] == name]:
+                del self.ready[key]
+
+    def _midi(self, name: str) -> bytes:
+        added = self.added.get(name)
+        return added if added is not None else self.folder.joinpath(f"{name}.mid").read_bytes()
 
     def _cache_path(self, data: bytes, name: str, loop: bool) -> Path | None:
         if self.cache is None:
@@ -71,7 +93,7 @@ class Library:
 
     def wav(self, name: str, loop: bool = True) -> bytes:
         """Return the song as a WAV file, from the cache or rendered now (and cached)."""
-        data = self.folder.joinpath(f"{name}.mid").read_bytes()
+        data = self._midi(name)
         path = self._cache_path(data, name, loop)
         if path is not None and path.is_file():
             return path.read_bytes()
@@ -79,8 +101,9 @@ class Library:
         if path is not None:
             try:
                 path.parent.mkdir(parents=True, exist_ok=True)
-                for old in path.parent.glob(f"{name}-*.wav"):  # what an older version of the song left
-                    old.unlink()
+                if name not in self.changed_now:
+                    for old in path.parent.glob(f"{name}-*.wav"):  # what an older version of the song left
+                        old.unlink()
                 path.write_bytes(wav)
             except OSError:
                 pass  # no cache: rendered again next time
@@ -92,7 +115,7 @@ class Library:
         Each version of a song has its own file: a file is never rewritten while something may be reading it.
         """
         try:
-            data = self.folder.joinpath(f"{name}.mid").read_bytes()
+            data = self._midi(name)
         except OSError:
             return None
         path = self._cache_path(data, name, loop)

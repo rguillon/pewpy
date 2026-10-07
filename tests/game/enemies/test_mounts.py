@@ -55,10 +55,9 @@ def test_a_weapon_fires_from_its_barrels_tip_facing_down_the_screen() -> None:
     flat = {
         "rows": ["...", "..."],
         "palette": {},
-        "scale": 2,
         "weapons": [{"number": 3, "kind": "gun", "x": 1, "y": 1}],
     }
-    assert parse_mounts(flat, "flat.json") == {3: Mount(3, "gun", 0.0, -V / 2)}
+    assert parse_mounts(flat, "flat.json") == {3: Mount(3, "gun", 0.0, -V)}
     assert parse_mounts({"layers": [["."]], "palette": {}}, "none.json") == {}
 
 
@@ -82,7 +81,7 @@ def test_wrong_weapons_are_refused(weapons: object) -> None:
 
 def test_only_drawings_that_give_their_size_can_have_weapons() -> None:
     with pytest.raises(ValueError, match="only a flat or 3D drawing"):
-        parse_mounts({"vox": "ship.vox", "weapons": GUNNER["weapons"]}, "ship.json")
+        parse_mounts({"weapons": GUNNER["weapons"]}, "ship.json")
 
 
 def test_a_models_weapons_are_read_from_its_file(models: Path) -> None:

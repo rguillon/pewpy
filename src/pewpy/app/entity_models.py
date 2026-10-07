@@ -94,7 +94,7 @@ class EntityModels(Window):
 def fitted_model(model: NodePath, size: float) -> NodePath:
     """Make a copy of a world-sized model, `size` across, fitted in a 1 x 1 x 1 box.
 
-    For the ship select, and the dev tools' Models screen.
+    For the ship select.
     """
     box = NodePath("fitted")
     inner = box.attachNewNode("scaled")

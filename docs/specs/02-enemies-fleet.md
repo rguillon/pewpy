@@ -6,7 +6,7 @@
 
 ## The second fleet
 
-Picked by the user from the model candidates (see `04-ui-audio.md`, "Candidates"; `data/enemies/fleet.json`). Their
+Picked by the user from the model candidates (`data/enemies/fleet.json`). Their
 models are the chosen drawings, renamed (`data/models/<group>/<name>.json`); their hitbox is the drawing's size. Each
 level has two waves of them, in its two biggest gaps; the heavies (Behemoth, Warhawk, Pincer, Stormcrow, Condor,
 Rampart) at least 22 s before the boss, so the fights don't overlap. *(placeholder: every number)*

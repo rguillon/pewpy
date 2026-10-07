@@ -92,8 +92,9 @@ ignore = [  "COM812",   # cause incompatibility with the formatter
 "src/pewpy/game/enemies/exits/*" = ["ARG002"]
 "src/pewpy/game/enemies/actions/*" = ["ARG002"]
 "src/pewpy/scenery/ground/kinds/*" = ["ARG002"]
-# The dev tools' command lines talk to the user with print.
+# The dev tools' command lines talk to the user with print, and so does the AI's training.
 "src/pewpy/tools/*" = ["T201"]
+"src/pewpy/ai/training/__main__.py" = ["T201"]
 "tests/*" = [ "S101",     # Allow assert in tests
               "D100",     # No docstring in tests
               "D101",     # No docstring in tests

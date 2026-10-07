@@ -32,7 +32,7 @@
   effects, background layers...), a package holds one module per implementation and its `__init__.py` gathers them
   (a registry, or the names it re-exports).
   - `pewpy/`: `app/` (the window, input, drawing: `PewPewApp` built in layers, one module each: `window.py`,
-    `entity_models.py`, `hud.py`, `drawing.py` (and `bullets.py`), `screens.py`, `keys.py`, `sound.py`);
+    `entity_models.py`, `hud.py`, `drawing.py` (and `bullets.py`), `screens.py`, `keys.py`, `sound.py`, `dev.py`, `ai_playing.py`);
     `config.py` (the technical constants, and the game's rules read from `rules.json`); `data.py`.
   - `game/` (the rules, no Panda3D): entities, controls, events, player, world, states, levels; `weapons/`
     (`guns/`: the guns everyone fires (`gun.py`, `state.py`, `patterns.py`, `styles.py`, `launch.py`, `laser.py`,
@@ -43,23 +43,30 @@
   - `scenery/`: `params/` (the scenery's parameters), `background/` (stars, drifting layers in `layers/`, `view.py`
     drawing them), `ground/` (terrain, relief, the bases of `landscapes.py` and `settlement.py`, `kinds/` of ground,
     `props/` (the one `PropModel` building every prop from its JSON in `data/models/props/`), and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
-  - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered, MagicaVoxel), `built/` and `background/` models
+  - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered), `built/` and `background/` models
     built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
-  - `ui/` (menus, the ship select, the level preview), `audio/` (`midi/`, `synth/`, `sfx/`: one module per sound).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, the props and the candidates: see `05-visuals.md`), `music/` and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools live in the game's package, never imported by the game, in
+  - `ui/` (menus, the ship select, the level preview, the model browser, the AI playing screen's text), `audio/` (`midi/`, `synth/`, `sfx/`: one
+    module per sound).
+  - `makers/` (making content, no Panda3D, used by the Dev menu and the tools' command lines) *(the user's choice)*:
+    `components/` (the built-in parts, one module each: guns, an engine, details), `ships/` (the enemies' and the
+    player's ships, assembled from a kit of hardcoded parts, `kit/`, one module per family of parts, the kinds of ship
+    in `archetypes.py`), `bosses/` (sculpted from plans, one module per family and appendage, covered in built-in
+    parts, their destroyable parts built-in parts too), `final_bosses/` (a final boss's behaviour from its plan), `songs/` (the songs composed
+    as MIDI from their plans: `plans.py`, `harmony.py`, `band.py`, `writer.py`, `compose.py`, `tracks/`: one module
+    per part), `backgrounds/` (background candidates from themes: `themes.py`, `candidate.py`), `common/` (the 3D drawing and
+    its numbered weapons, the colors), `sized.py` (a ship or a boss of a given size) and
+    `compact_json.py`.
+  - `dev/` (the Dev menu's screens, no Panda3D: `catalog.py` the models by category, `browser.py`, `saving.py`;
+    `music.py`, the songs; `backgrounds.py`, the background candidates; `screenshots.py`, the README's screenshots;
+    shown by `app/dev.py`, `app/backgrounds.py`, `app/screenshots.py`,
+    `ui/model_browser_view.py`, `ui/music_browser_view.py` and `ui/screenshot_view.py`).
+  - `ai/` (the AI player flying a ship, no Panda3D: `sensors.py`, `brain.py`, `pilot.py`, `files.py`; watched on the
+    AI playing screen, `app/ai_playing.py`) and `ai/training/` (teaching it, no Panda3D, tested like the rest of the
+    game *(the user's choice)*: `episode.py`, `evolution.py`, `learning.py`, `winrate.py` and its command line,
+    `python -m pewpy.ai.training`: `make learn`, `make winrate`; see `07-ai.md`).
+  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, and the props: see `05-visuals.md`), `music/`, `brain/` (the AI's, see `07-ai.md`) and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools live in the game's package, never imported by the game, in
   `pewpy/tools/` *(the user's choice)*, one package per tool run with `python -m`, each with its own make target:
-  `levels/` (`make levels`; `worlds/`: one module per world), `models/` (`make models`; `recipes/`: one module per
-  model), `songs/` (`make songs`; `tracks/`: one module per part), `voxels.py` (`make voxels`), `dev/` (the game with
-  the dev screens, `make dev`: `app/` with `model_screens.py`, `background_screens.py` and `ai_screens.py`, its own `states.py`,
-  `candidates.py` and `ui/`), `paths.py` (where the tools write), `generate_props.py` (prop candidates,
-  `make props`), `player_candidates/` (player ship candidates, `make players`, from the same kit as the enemies'),
-  `candidates/` (enemy candidates, `make candidates`: assembled from a kit of hardcoded parts, `kit/`,
-  one module per family of parts, the kinds of ship in `archetypes.py`), `boss_candidates/` (`make boss-candidates`:
-  made like the enemies, from the same kit, bigger: the cores' recipes in `archetypes.py`, the parts' in `parts.py`), `final_bosses/` (`make final-bosses`: the
-  final bosses' behaviour from plans), `background_candidates/` (`make backgrounds`: the presets changed by themes,
-  `themes.py`), `ai/` (the AI player, no Panda3D, see `07-ai.md`; `make learn`, `make rate`), `screenshots/` (`make screenshots`: one screenshot of every world for the README, offscreen) and `compact_json.py`. What the candidates share is in `common/`: the batch
-  command line (`--seed`, `--out`, `--append`), the 3D drawing and its numbered weapons, the colors, keeping the
-  most different
+  `levels/` (`make levels`; `worlds/`: one module per world), `paths.py` (where the tools write) and `compact_json.py` (tidying hand-edited JSON)
 - Enemies as data *(the user's choice)*: every enemy, boss, part and projectile is one class, `Enemy`, running
   its description, and every description is read and made the same way, bosses included *(the user's choice)*: a
   body (size, health, points, drops, entry, ground...), destructible parts (any enemy can have some), what it
@@ -80,8 +87,8 @@
   fired by each of them in turn, their first shots spread over its interval. A gun fires from the numbered weapons drawn on
   the model of what fires it (`weapon`/`weapons`, checked when the enemies are read; see `02-enemies.md`, "Enemy
   weapons", and `game/enemies/mounts.py`, which reads them from the model file: the game logic never loads the
-  models themselves). The final bosses are made by a
-  dev tool from short plans (`make final-bosses`, `pewpy/tools/final_bosses/`). The enemies' and bosses' JSON
+  models themselves). The final bosses are made from
+  short plans (`data/bosses/final_plans.json`, by `pewpy/makers/final_bosses/`, when the Dev menu's browser saves one). The enemies' and bosses' JSON
   is written compactly, each list or object on one line when it fits in 130 columns
   (`python -m pewpy.tools.compact_json <files>`; the pre-commit JSON formatter leaves these folders alone). A new
   behaviour is a new motion, exit condition, action (a subclass of `Motion`, `Condition` or `Action`, with only the
@@ -101,8 +108,8 @@
 
 - What must be unit tested: the game logic (movement, collisions, scoring, wave spawning), kept separate from
   rendering: `app/` only handles window, input and drawing, so the logic is tested without opening a window.
-  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpy/tools`: the AI, the content
-  tools, the dev screens) have none, only the linters and the type checker.
+  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpy/tools`: the content
+  tools) have none, only the linters and the type checker.
 - Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
   fails below it. Code that can't happen is removed rather than tested. Content (levels, bosses, model drawings) is
   data in JSON files loaded by the game, not declarations in Python, so it needs no tests of its own *(the user's

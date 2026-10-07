@@ -4,7 +4,10 @@ from dataclasses import replace
 import pytest
 
 from pewpy import config
-from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
+from pewpy.game.level import Level
+from pewpy.game.player import DEFAULT_SHIP, REGULAR_SHIPS, SHIPS, Player
+from pewpy.game.weapons.player.arsenal import MAX_LEVEL, WEAPONS
+from pewpy.game.world import World
 
 DT = 1 / 60
 
@@ -75,7 +78,7 @@ def test_a_ship_moves_at_its_own_speed() -> None:
     assert light.vx == pytest.approx(SHIPS["phantom"].speed, rel=0.01)
 
 
-@pytest.mark.parametrize("key", list(SHIPS))
+@pytest.mark.parametrize("key", [key for key, ship in SHIPS.items() if ship.regeneration])
 def test_a_ship_repairs_itself_only_once_it_stopped_firing_for_a_while(key: str) -> None:
     ship = SHIPS[key]
     player = Player(ship=ship)
@@ -98,3 +101,13 @@ def test_ships_without_regeneration_never_repair() -> None:
     player.health = 1.0
     player.update(100.0, 0.0, 0.0)
     assert player.health == 1.0
+
+
+def test_a_test_ship_starts_fully_armed_and_isnt_a_regular_ship() -> None:
+    tester = replace(SHIPS[DEFAULT_SHIP], health=99999.0, full_arsenal=True, test=True)
+    world = World(Level(name="test", scroll_speed=0.2, waves=()), ship=tester)
+    assert world.arsenal.levels == dict.fromkeys(WEAPONS, MAX_LEVEL)
+    assert world.player.health == 99999.0
+    assert World(Level(name="test", scroll_speed=0.2, waves=())).arsenal.levels == dict.fromkeys(WEAPONS, 1)
+    assert all(not ship.test for ship in REGULAR_SHIPS.values())
+    assert set(REGULAR_SHIPS) == {key for key, ship in SHIPS.items() if not ship.test}

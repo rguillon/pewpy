@@ -15,19 +15,38 @@ class State(Enum):
     PAUSED = auto()
     GAME_OVER = auto()
     LEVEL_COMPLETE = auto()
+    DEV_MENU = auto()  # the Dev menu: which models to browse
+    MODEL_BROWSER = auto()  # browsing a category's models, making new ones (see pewpy.dev)
+    MUSIC_BROWSER = auto()  # browsing the songs, making new ones (see pewpy.dev.music)
+    BACKGROUND_BROWSER = auto()  # background candidates, one theme at a time, to make new ones (pewpy.dev.backgrounds)
+    SCREENSHOTS = auto()  # a moment of a level, drawn at random, to save as its world's screenshot (pewpy.dev)
+    AI_PLAYING = auto()  # watching the AI play from the ship and level picked in the Dev menu (see pewpy.ai)
 
 
-# Where each state can go. The states are any Enum's members: the dev tools (pewpy.tools.dev) add screens of their own.
+# Where each state can go.
 Transitions = Mapping[Enum, frozenset[Enum]]
 TRANSITIONS: Transitions = {
-    State.MAIN_MENU: frozenset({State.SHIP_SELECT}),
-    State.SHIP_SELECT: frozenset({State.WORLD_SELECT, State.MAIN_MENU}),
+    State.MAIN_MENU: frozenset({State.SHIP_SELECT, State.DEV_MENU}),
+    State.SHIP_SELECT: frozenset({State.WORLD_SELECT, State.MAIN_MENU, State.DEV_MENU}),  # Dev: picking for the AI
     State.WORLD_SELECT: frozenset({State.LEVEL_SELECT, State.SHIP_SELECT}),
-    State.LEVEL_SELECT: frozenset({State.PLAYING, State.WORLD_SELECT}),
+    State.LEVEL_SELECT: frozenset({State.PLAYING, State.AI_PLAYING, State.WORLD_SELECT}),
     State.PLAYING: frozenset({State.PAUSED, State.GAME_OVER, State.LEVEL_COMPLETE}),
     State.PAUSED: frozenset({State.PLAYING, State.MAIN_MENU}),
     State.GAME_OVER: frozenset({State.PLAYING, State.MAIN_MENU}),
     State.LEVEL_COMPLETE: frozenset({State.PLAYING, State.MAIN_MENU}),
+    State.DEV_MENU: frozenset({
+        State.MAIN_MENU,
+        State.MODEL_BROWSER,
+        State.MUSIC_BROWSER,
+        State.BACKGROUND_BROWSER,
+        State.SHIP_SELECT,
+        State.SCREENSHOTS,
+    }),
+    State.SCREENSHOTS: frozenset({State.DEV_MENU}),
+    State.MODEL_BROWSER: frozenset({State.DEV_MENU}),
+    State.MUSIC_BROWSER: frozenset({State.DEV_MENU}),
+    State.BACKGROUND_BROWSER: frozenset({State.DEV_MENU}),
+    State.AI_PLAYING: frozenset({State.LEVEL_SELECT}),  # Escape: pick another level
 }
 
 

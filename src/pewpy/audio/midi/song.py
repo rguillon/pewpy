@@ -27,6 +27,7 @@ class Song:
     volumes: dict[int, int] = field(default_factory=dict)  # channel -> volume (0 to 127, 100 when unset)
     tempo_changes: list[tuple[float, float]] = field(default_factory=list)  # (beat, bpm) after the start
     length: float = 0.0  # beats; the song loops from here (0: the end of its last note)
+    title: str = ""  # its first track's name
 
     @property
     def beats(self) -> float:

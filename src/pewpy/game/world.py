@@ -54,7 +54,8 @@ class World:
         self.level = level
         self.level_start_score = score
         self.lives = lives
-        self.arsenal = arsenal or Arsenal()  # kept when a life is lost
+        # Kept when a life is lost; a test ship's starts with every weapon at its top level.
+        self.arsenal = arsenal or (Arsenal.full() if self.ship.full_arsenal else Arsenal())
         self.events: list[Event] = []  # what happened during the last update, for the effects
         self.start_life()
 

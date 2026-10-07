@@ -44,6 +44,11 @@ class Arsenal:
     secondary: SecondaryWeapon | None = None
     states: dict[str, GunState] = field(default_factory=dict)  # each weapon's (missiles take turns from side to side)
 
+    @classmethod
+    def full(cls) -> "Arsenal":
+        """Return an arsenal with every weapon at its top level (a test ship's, see ShipSpec.full_arsenal)."""
+        return cls(levels=dict.fromkeys(WEAPONS, MAX_LEVEL))
+
     @property
     def level(self) -> int:
         """The selected weapon's level."""

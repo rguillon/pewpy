@@ -15,7 +15,7 @@ from pewpy.game.weapons.player.arsenal import LETTERS, MAX_LEVEL, WEAPONS, Arsen
 from pewpy.game.weapons.player.secondary import SECONDARY_LETTERS
 from pewpy.game.world import World
 from pewpy.ui import panel
-from pewpy.ui.panel import TextAlign
+from pewpy.ui.panel import AMBER, AMBER_GHOST, TextAlign
 
 HUD_DIM_COLOR: Color = (0.5, 0.5, 0.55, 1)
 HUD_MARGIN = 0.025  # space between the frames per second and the edges of the game area (aspect2d units)
@@ -31,8 +31,6 @@ CENTER_PANEL_WIDTH = 0.8
 PANEL_PADDING = 0.05  # from a plate's sides to what's on it (its screws are in the corners)
 READOUT_SCALE = 0.042
 SCORE_DIGITS = 7
-AMBER: Color = (1.0, 0.72, 0.22, 1)  # the readouts' digits...
-AMBER_GHOST: Color = (0.3, 0.19, 0.05, 1)  # ...and the unlit segments behind them
 LAMP_ON: Color = (0.35, 1.0, 0.45, 1)  # a life
 LAMP_OFF: Color = (0.06, 0.12, 0.07, 1)
 LAMP_SIZE = 0.02

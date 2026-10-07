@@ -42,10 +42,4 @@ def test_side_entry_from_the_left_moves_right() -> None:
 
 
 def test_only_ground_enemies_are_marked_as_on_the_ground() -> None:
-    assert {kind for kind, enemy in ENEMY_TYPES.items() if enemy.ground} == {
-        "turret",
-        "flak_cannon",
-        "tank",
-        "rocket_truck",
-        "missile_silo",
-    }
+    assert {kind for kind, enemy in ENEMY_TYPES.items() if enemy.ground} == {"turret", "flak_cannon"}

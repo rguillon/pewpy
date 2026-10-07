@@ -10,7 +10,16 @@ import random
 
 from panda3d.core import LineSegs, NodePath
 
-from pewpy.app.bullets import BULLET_BODY, MAX_BULLETS, bullet_sprite, is_beam, is_round_bullet
+from pewpy.app.bullets import (
+    BULLET_BODY,
+    MAX_BULLETS,
+    WARNING_BEAM_COLOR,
+    WARNING_SCALE,
+    bullet_sprite,
+    is_beam,
+    is_round_bullet,
+    is_warning,
+)
 from pewpy.app.entity_models import SECONDARY_COLORS, shielded
 from pewpy.app.hud import Hud
 from pewpy.app.window import Color
@@ -68,7 +77,8 @@ class Drawing(Hud):
         self.laser_node.reparentTo(self.render)
         self.laser_node.hide()
         self.enemy_laser_model = models.laser_beam_model(ENEMY_LASER_CORE)
-        self.beam_nodes: dict[Bullet, NodePath] = {}  # the enemies' laser beams
+        self.warning_model = models.laser_beam_model(WARNING_BEAM_COLOR)
+        self.beam_nodes: dict[Bullet, NodePath] = {}  # the enemies' laser beams and their warnings
         self.bolt_node = self.render.attachNewNode("bolt")
         self.bolt_rng = random.Random()
 
@@ -95,7 +105,9 @@ class Drawing(Hud):
         world = self.world
         entities = world.entities() if world else []
         self.bullet_sprites.show([bullet_sprite(entity) for entity in entities if is_round_bullet(entity)])
-        self._show_beams([entity for entity in entities if isinstance(entity, Bullet) and is_beam(entity)])
+        self._show_beams([
+            entity for entity in entities if isinstance(entity, Bullet) and (is_beam(entity) or is_warning(entity))
+        ])
         entities = [entity for entity in entities if not isinstance(entity, Bullet) or isinstance(entity, Missile)]
         alive = set(entities)
         for entity in [entity for entity in self.nodes if entity not in alive]:
@@ -184,17 +196,23 @@ class Drawing(Hud):
         return glows
 
     def _show_beams(self, beams: list[Bullet]) -> None:
-        """Show the enemies' laser beams' cores, flickering like the player's laser (their light is an effect)."""
+        """Show the enemies' laser beams' cores, flickering like the player's laser (their light is an effect).
+
+        And their warnings: thin red lines, on the play plane like the beams, so a beam fires right where its warning
+        was (the camera's perspective bends both the same way).
+        """
         for gone in [beam for beam in self.beam_nodes if beam not in beams]:
             self.beam_nodes.pop(gone).removeNode()
         flicker = 1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * 53.0)
         for beam in beams:
             node = self.beam_nodes.get(beam)
+            warning = is_warning(beam)
             if node is None:
                 node = self.beam_nodes[beam] = self.render.attachNewNode("beam")
-                self.enemy_laser_model.copyTo(node)
+                (self.warning_model if warning else self.enemy_laser_model).copyTo(node)
+            width = beam.width * (WARNING_SCALE if warning else flicker)
             node.setPos(beam.x, 0, beam.y)
-            node.setScale(beam.width * flicker, beam.width * flicker, max(beam.height, 0.001))
+            node.setScale(width, width, max(beam.height, 0.001))
 
     def _show_laser(self) -> None:
         beam = self.world.laser if self.world else None

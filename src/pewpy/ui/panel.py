@@ -19,6 +19,9 @@ SCREW: Color = (0.42, 0.44, 0.46, 1)
 SCREW_SLOT: Color = (0.1, 0.11, 0.12, 1)
 DISPLAY: Color = (0.02, 0.035, 0.03, 1)  # a display's glass, unlit
 LABEL: Color = (0.68, 0.71, 0.74, 1)  # the stencilled words on a plate
+AMBER: Color = (1.0, 0.72, 0.22, 1)  # a display's readouts...
+AMBER_GHOST: Color = (0.3, 0.19, 0.05, 1)  # ...and their unlit segments
+SCANLINE: Color = (0.0, 0.0, 0.0, 0.18)  # the dark lines across an old screen
 BEVEL = 0.006  # width of a plate's bevel and rim
 SCREW_SIZE = 0.014
 LABEL_SCALE = 0.026
@@ -70,6 +73,14 @@ def display(parent: NodePath, left: float, right: float, bottom: float, top: flo
     card(root, left, right, bottom, top, DISPLAY)
     card(root, left, right, top - (top - bottom) * 0.3, top, (1, 1, 1, 0.035))
     return root
+
+
+def scanlines(parent: NodePath, left: float, right: float, bottom: float, top: float, step: float) -> None:
+    """Draw dark lines across a display, `step` apart, like an old screen's."""
+    z = top - step / 2
+    while z > bottom:
+        card(parent, left, right, z - step / 4, z, SCANLINE)
+        z -= step
 
 
 def text(

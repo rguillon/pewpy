@@ -19,73 +19,25 @@ check: ## Run code quality tools.
 run: ## Run the game (under WSL, on the GPU through Mesa's d3d12 driver rather than the much slower CPU renderer)
 	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpy; else uv run python -m pewpy; fi
 
-.PHONY: dev
-dev: ## Run the game with the dev screens: models, bosses, candidates, AI learning and rating (src/pewpy/tools/dev)
-	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpy.tools.dev; else uv run python -m pewpy.tools.dev; fi
-
-.PHONY: candidates
-candidates: ## Generate enemy model candidates for the Enemy candidates screen (options: ARGS="--kind fighter --count 50", see --help)
-	@uv run python -m pewpy.tools.candidates $(ARGS)
-
-.PHONY: players
-players: ## Generate player ship candidates for the Player candidates screen (options: ARGS="--kind phantom --count 20", see --help)
-	@uv run python -m pewpy.tools.player_candidates $(ARGS)
-
-.PHONY: boss-candidates
-boss-candidates: ## Generate boss model candidates for the Boss candidates screen (options: ARGS="--count 20", see --help)
-	@uv run python -m pewpy.tools.boss_candidates $(ARGS)
-
-.PHONY: backgrounds
-backgrounds: ## Generate background candidates for the Background candidates screen, one per theme (see --help)
-	@uv run python -m pewpy.tools.background_candidates $(ARGS)
-
-.PHONY: props
-props: ## Generate prop candidates in data/models/candidates/props/ (options: ARGS="20 --seed 7 --append", see --help)
-	@uv run python -m pewpy.tools.generate_props $(or $(ARGS),100)
-
 .PHONY: levels
 levels: ## Generate the game's levels from the worlds' plans in src/pewpy/tools/levels/worlds/ (options: ARGS="--seed 1234", see --help)
 	@uv run python -m pewpy.tools.levels $(ARGS)
 
-.PHONY: final-bosses
-final-bosses: ## Make the final bosses (data/bosses/final_bosses.json) from their plans in src/pewpy/tools/final_bosses/plans.json
-	@uv run python -m pewpy.tools.final_bosses $(ARGS)
-
 .PHONY: learn
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
-	@uv run python -u -m pewpy.tools.ai learn $(ARGS)
+	@uv run python -u -m pewpy.ai.training learn $(ARGS)
 
 .PHONY: learn-level1
 learn-level1: ## Teach the AI to play level 1-1 only, every ship (options: ARGS="--generations 300 --new", see --help)
-	@uv run python -u -m pewpy.tools.ai learn --levels 1-1 $(ARGS)
+	@uv run python -u -m pewpy.ai.training learn --levels 1-1 $(ARGS)
 
 .PHONY: learn-random
 learn-random: ## Teach the AI on levels drawn at random among them all, no curriculum (options: ARGS="--generations 300")
-	@uv run python -u -m pewpy.tools.ai learn --levels all $(ARGS)
-
-.PHONY: rate
-rate: ## Rate every level for every ship from how the trained AI fares: its clear rate (options: ARGS="--runs 20", see --help)
-	@uv run python -u -m pewpy.tools.ai rate $(ARGS)
+	@uv run python -u -m pewpy.ai.training learn --levels all $(ARGS)
 
 .PHONY: winrate
 winrate: ## Play every level with the current brain and show its win rates, saving nothing (options: ARGS="--runs 20 --lives 3")
-	@uv run python -u -m pewpy.tools.ai winrate $(ARGS)
-
-.PHONY: songs
-songs: ## Generate the game's synthwave songs as MIDI files (options: ARGS="--seed 1234", "--only boss", "--wav", see --help)
-	@uv run python -m pewpy.tools.songs $(ARGS)
-
-.PHONY: models
-models: ## Remodel ships in real 3D from their recipes in src/pewpy/tools/models/recipes/ (ARGS="player drone": just these)
-	@uv run python -m pewpy.tools.models $(ARGS)
-
-.PHONY: voxels
-voxels: ## Move a model between flat, 3D (layered) and MagicaVoxel forms (ARGS="export drone", "use drone", "layers drone")
-	@uv run python -m pewpy.tools.voxels $(ARGS)
-
-.PHONY: screenshots
-screenshots: ## Save a screenshot of every world in docs/screenshots/ (how each is shot: SHOTS in src/pewpy/tools/screenshots/), without a window
-	@uv run python -m pewpy.tools.screenshots $(ARGS)
+	@uv run python -u -m pewpy.ai.training winrate $(ARGS)
 
 .PHONY: test
 test: ## Test the code with pytest

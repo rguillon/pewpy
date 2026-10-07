@@ -2,10 +2,12 @@
 
 PewPewApp is built in layers, each adding one concern in its own module, each layer on top of the one before:
 window.py (the window, camera and lights), entity_models.py (the models of what's in play), hud.py, drawing.py
-(what's in play, each frame; bullets.py: how bullets look), screens.py (the menus and screens), keys.py and
-sound.py. This module puts them together and runs the frames.
+(what's in play, each frame; bullets.py: how bullets look), screens.py (the menus and screens), keys.py, sound.py,
+dev.py (the Dev menu's model and music browsers), backgrounds.py (its backgrounds browser), ai_playing.py (the AI
+playing screen) and screenshots.py (the Dev menu's screenshots). This module puts them together and runs the frames.
 """
 
+import random
 from enum import Enum
 from typing import TYPE_CHECKING
 
@@ -14,18 +16,19 @@ from panda3d.core import NodePath, loadPrcFileData
 
 from pewpy import config
 from pewpy.app.entity_models import fitted_model
-from pewpy.app.sound import Sound
+from pewpy.app.screenshots import Screenshots
 from pewpy.app.window import GAME_ASPECT, letterbox
 from pewpy.audio.cues import event_sounds
 from pewpy.game.controls import Controls
 from pewpy.game.level import load_worlds
 from pewpy.game.player import DEFAULT_SHIP
-from pewpy.game.states import TRANSITIONS, State, StateMachine, Transitions
+from pewpy.game.states import State, StateMachine
 from pewpy.game.world import World
 from pewpy.graphics.effects.system import ParticleSystem
 from pewpy.graphics.effects.view import EffectsView
 from pewpy.scenery.background import Scenery
 from pewpy.scenery.background.view import BackgroundView, CameraView
+from pewpy.ui.ai_panel import AIPanel
 from pewpy.ui.level_preview import LevelPreview
 from pewpy.ui.menu_view import MenuView
 
@@ -34,18 +37,11 @@ if TYPE_CHECKING:
     from pewpy.ui.ship_select_view import ShipSelectView
 
 # Particles keep moving after the last explosion of a level or a life (not in pause or the menus).
-EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE})
+EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE, State.AI_PLAYING})
 
 
-class PewPewApp(Sound):
-    """The game.
-
-    The dev tools (pewpy.tools.dev.app) add screens of their own through `state_transitions`, `effects_run_in`,
-    `_main_menu_items`, `_setup_screens` and the methods they override.
-    """
-
-    state_transitions: Transitions = TRANSITIONS
-    effects_run_in: frozenset[Enum] = EFFECTS_RUN_IN
+class PewPewApp(Screenshots):
+    """The game."""
 
     def __init__(self) -> None:
         loadPrcFileData(
@@ -81,7 +77,9 @@ class PewPewApp(Sound):
         self.nodes: dict[Entity, NodePath] = {}
         self.flames: dict[Entity, list[tuple[NodePath, float]]] = {}  # engine flames and their steady length
         self.camera_view = CameraView(self.cam, self.cam.node().getLens(), self.render)
-        self.background = BackgroundView(Scenery("space", self.camera_view), self.render)  # behind the menus
+        self.background = BackgroundView(Scenery("space", self.camera_view), self.render)  # until the menus' ground
+        self.menu_level = None
+        self.menu_rng = random.Random()
         self.effects = ParticleSystem()
         self.effects_view = EffectsView(self.effects, self.render, self.cam.node().getLens())
 
@@ -92,14 +90,11 @@ class PewPewApp(Sound):
         self._setup_hud()
         # The level select's window on the highlighted level.
         self.level_preview = LevelPreview(self.scene_buffer, self.cam, self.render, self.aspect2d)
-        self._setup_screens()
+        self.ai_panel = AIPanel(self.aspect2d)
 
-        self.states = StateMachine(on_change=self._on_state_change, transitions=self.state_transitions)
+        self.states = StateMachine(on_change=self._on_state_change)
         self._on_state_change(self.states.state, self.states.state)
         self.taskMgr.add(self._update, "update")
-
-    def _setup_screens(self) -> None:
-        """Set up more screens before the first one shows (the dev tools' screens)."""
 
     def _frame_time(self) -> float:
         """Seconds since the last frame (at most 0.1: no huge steps after a stall)."""
@@ -114,10 +109,18 @@ class PewPewApp(Sound):
                 self.states.transition(State.GAME_OVER)
             elif world.completed:
                 self.states.transition(State.LEVEL_COMPLETE)
-        if self.states.state in self.effects_run_in:
+        elif world is not None and self.states.state is State.AI_PLAYING:
+            self._play(world, self.pilot.fly(world), dt)
+            self._follow_ai(world)
+        if self.states.state in EFFECTS_RUN_IN:
             self.effects.update(dt)
         if self.ship_select:
             self.ship_select.update(dt)
+        if self.browser_view:
+            self.browser_view.update(dt)
+        if world is None and self.menu_level is not None:  # the menus' ground scrolls by
+            self.background.scenery.update(dt, self.menu_level.scroll_speed)
+        self._update_music_view()
         self.level_preview.update(dt)
         self._update_audio(dt)
         self._sync_nodes()

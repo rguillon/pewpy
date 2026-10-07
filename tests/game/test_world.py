@@ -637,9 +637,9 @@ def test_the_waves_wait_while_a_boss_is_fought() -> None:
     world = World(TWO_BOSS_LEVEL, seed=0)
     run(world, 5.0)
     assert world.wave_time < 0.1
-    assert [enemy.is_boss for enemy in world.enemies] == [True]
     boss = world.boss
     assert boss is not None
+    assert [enemy for enemy in world.enemies if not enemy.part_name] == [boss]  # the boss, its parts: no drone yet
     world._damage(boss, boss.health)
     run(world, 2.1)
     assert any(enemy.kind == "drone" for enemy in world.enemies)

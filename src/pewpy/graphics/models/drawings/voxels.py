@@ -8,8 +8,8 @@ from pewpy.graphics.models.types import Cell, Color, Palette
 
 EMPTY = ".", " "
 # weapons: read by the game (pewpy.game.enemies.mounts); parts: the drawings of the model's destructible parts, each
-# named "<model>:<part>" (see pewpy.data.read_model); layout: where they go, for the tools' candidates
-OPTIONAL_DRAWING_KEYS = {"engines", "scale", "weapons", "parts", "layout"}
+# named "<model>:<part>" (see pewpy.data.read_model)
+OPTIONAL_DRAWING_KEYS = {"engines", "size", "weapons", "parts"}
 
 
 def voxel_cells(rows: list[str], palette: Palette) -> dict[tuple[int, int, int], Color]:
@@ -45,9 +45,8 @@ class Voxels:
     cells: dict[Cell, Color]
     width: int
     height: int
-    scale: int = 1  # cubes per config.MODEL_VOXEL: a finer model, the same size in the world
 
     @property
     def size(self) -> float:
-        """A cube's size in the world."""
-        return config.MODEL_VOXEL / self.scale
+        """A cube's size in the world: the same on every model, config.MODEL_VOXEL."""
+        return config.MODEL_VOXEL

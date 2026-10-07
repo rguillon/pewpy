@@ -7,8 +7,12 @@
   seams, dark engine nacelles with vents, dark glass cockpits and small orange or red lights; each kind of ship
   keeps its color as paint markings (blue for the player, red for the Drone...). Ships, missiles and pickups are drawn as rows of characters; each character has a color and a
   thickness in voxels, so cockpits and domes stick out and wings are thin. Every model is built with the same
-  cubes, the Swarmer's (0.06 / 9 world units, `MODEL_VOXEL` in `config.py`), never stretched: a model's size comes
-  from its drawing, about its hitbox (bigger ships have more cubes; a boss is up to about 70 cubes wide). Shiny look: per-pixel lighting,
+  cubes, the Swarmer's (0.06 / 9 world units, `MODEL_VOXEL` in `config.py`), never stretched nor scaled (no finer
+  models) *(the user's choice)*: a model's size comes from its drawing, about its hitbox (bigger ships have more
+  cubes; a boss is up to about 70 cubes wide). Every model the makers build is one piece: each cube touches the
+  others through a face, nothing floats on its own *(the user's choice)*; a piece left apart is joined to the nearest
+  one by the shortest strut (`makers/common/connect.py`: on a boss's plan, 3 cubes wide, so the hull is sculpted
+  over it; on a ship, in 3D; mirrored on a symmetric model). Shiny look: per-pixel lighting,
   specular highlights, reflections of a made-up space environment, bevelled voxel edges and ambient occlusion
   (`graphics/lighting.py`, `graphics/models/`). The shield bubble is a smooth see-through effect; the laser is light (see "Laser" below); bullets
   are balls of energy facing the camera: a white-hot core in a solid body of the bullet's color, about its hitbox,
@@ -24,14 +28,22 @@
   (`src/pewpy/graphics/models/`), no 3D files. The voxel drawings (rows of characters, and each character's color and
   height in voxels) are JSON files in `data/models/`, one per model (an enemy's parts in its file)
 - Model file forms: a model file (`data/models/<group>/<name>.json`) is a flat drawing (rows of characters, each
-  color a thickness), a 3D drawing (`"layers"`: slices from the top down, with a palette), or a MagicaVoxel model
-  (`"vox"`: a `.vox` file next to it). Engines can be placed above the middle plane (`"z"`). A flat or 3D drawing
+  color a thickness), or a 3D drawing (`"layers"`: slices from the top down, with a palette). Engines can be placed above the middle plane (`"z"`). A flat or 3D drawing
   can list its `"weapons"`: {"number", "kind", "x", "y"}, the column and row of each barrel's tip (see
   `02-enemies.md`, "Enemy weapons"). A model with destructible parts (a boss's, or any enemy's) has their drawings in
-  its own file *(the user's choice)*: `"parts"`, each kind of part's drawing by its name (any of the three forms, with
-  its own weapons and engines), named `<model>:<part>` by the game data (`"avalanche:a"`); a boss candidate also has
-  its `"layout"`, where its parts go (`[{"part", "x", "y"}]`, in cubes from the core's middle) *(placeholder)*. `make voxels` moves
-  a model (or a part, `avalanche:a`) between the three forms; `make models` remodels ships from their recipes in `pewpy/tools/models/recipes/`.
+  its own file *(the user's choice)*: `"parts"`, each kind of part's drawing by its name (either form, with its own
+  weapons, engines and size), named `<model>:<part>` by the game data (`"avalanche:cannon"`). Every model of the
+  game lists its `"size"`: [across, up] in world units, the
+  size it's meant to be, which new models of it are made to (the Dev menu's model browser, see `04-ui-audio.md`;
+  without one, the size its cubes cover). The player's ships, drawn finer before, are twice their size until new
+  models replace them.
+- Built-in parts (`src/pewpy/makers/components/`, one module each): small 3D pieces of machinery, symmetric, made
+  to any size, that the makers stamp on models: guns (a turret, a twin cannon, a gatling, a missile rack, a flak gun,
+  a beam emitter: their barrels' tips are the model's weapons), an engine (its nozzle a flame), and details (a
+  reactor, a radar, an antenna, a sensor dome, a vent, a radiator, exhaust stacks, a fuel tank). Housings are plated:
+  a lighter rim, seams across, a light in the front corners. Bosses are covered in them, and their destroyable parts
+  are built-in parts; the enemies carry a few small ones (one or two on their hull, 60% of them *(placeholder)*), and
+  their turrets and gatlings are built-in parts.
 - Props (the things standing on the grounds: buildings, tanks, trees, hangars...) are JSON files in `data/models/props/`,
   one per prop: its `kind` (what the grounds ask for), the box it was drawn in (`size`), and its parts, each a shape
   (box, cylinder, disc, ellipsoid, gabled, ridge_roof, face, quad, lathe) with fixed geometry, fixed colors and a
@@ -39,17 +51,10 @@
   randomness. A kind with variants has several files; each prop on the ground picks one by its seed and is stretched
   to its lot (turned a quarter first if its longer side lies the other way). Only the lights the shader paints
   (lit and unlit windows, furnace glow) come from the scenery (`props` in `sceneries.json`).
-  `make props` (`python -m pewpy.tools.generate_props <count>`) writes random prop candidates (assemblies of
-  shapes, fixed size and colors) to `data/models/candidates/props/`, shown by the Prop candidates screen of `make dev`
-  (ten a page, all at the same scale, leaning to show their roofs); a candidate joins the game when it's moved to
-  `data/models/props/` with a name and a kind of its own.
 - File formats (Panda3D supports `.egg`, `.bam`, `.gltf` via panda3d-gltf, `.png` textures…): TBD
 - Asset folder layout: `data/models/` holds the voxel drawings by group, `enemies/` (projectiles included), `bosses/`
   (one file per boss, its parts in it), `player/` (the ships and the player's missile) and `items/` (the pickups), each named once across
-  the groups (the game data names a model without its group); `props/` the props (`<name>.json`); `candidates/` what
-  the tools make, not in the game: `enemies/`, `player/`, `bosses/`, `props/` *(the user's choice)*, `backgrounds/`
-  (level backgrounds, see `04-ui-audio.md`) *(placeholder: with the other candidates, though not models)*; other assets
-  TBD
+  the groups (the game data names a model without its group); `props/` the props (`<name>.json`); other assets TBD
 
 > Until real assets exist, Claude should use simple placeholder shapes generated in code.
 

@@ -4,7 +4,7 @@
     "name": "SENTINEL",
     "boss": true,
     "drawing": "sentinel",
-    "size": [0.26, 0.2],
+    "size": [0.287, 0.227],
     "health": 60.0,
     "points": 1500,
     "phases": [
@@ -20,6 +20,26 @@
           {"pattern": "ring", "interval": 3.0, "speed": 0.35, "count": 8, "turn": 22, "delay": 1.0}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "reactor 1",
+        "x": -0.113,
+        "y": 0.077,
+        "drawing": "sentinel:reactor",
+        "size": [0.06, 0.06],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 2",
+        "x": 0.113,
+        "y": 0.077,
+        "drawing": "sentinel:reactor",
+        "size": [0.06, 0.06],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "thresher": {
@@ -27,7 +47,7 @@
     "name": "THRESHER",
     "boss": true,
     "drawing": "thresher",
-    "size": [0.3, 0.22],
+    "size": [0.327, 0.247],
     "health": 70.0,
     "points": 1800,
     "phases": [
@@ -42,6 +62,44 @@
           {"pattern": "aimed", "interval": 1.5, "speed": 0.55, "count": 3, "spread": 10},
           {"pattern": "fan", "interval": 3.0, "speed": 0.35, "count": 7, "spread": 12, "delay": 0.8}
         ]
+      }
+    ],
+    "parts": [
+      {
+        "name": "turret 1",
+        "x": -0.027,
+        "y": 0.0,
+        "drawing": "thresher:turret",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 2",
+        "x": 0.027,
+        "y": 0.0,
+        "drawing": "thresher:turret",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 3",
+        "x": -0.027,
+        "y": 0.1,
+        "drawing": "thresher:turret2",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 4",
+        "x": 0.027,
+        "y": 0.1,
+        "drawing": "thresher:turret2",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 400
       }
     ]
   },
@@ -66,6 +124,18 @@
           {"pattern": "aimed", "interval": 1.2, "speed": 0.6, "delay": 0.6}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "flak 1",
+        "x": -0.12,
+        "y": -0.003,
+        "drawing": "prowler:flak",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {"name": "flak 2", "x": 0.12, "y": -0.003, "drawing": "prowler:flak", "size": [0.06, 0.087], "health": 25.0, "points": 400}
     ]
   },
   "pulsar": {
@@ -89,6 +159,26 @@
           {"pattern": "ring", "interval": 3.0, "speed": 0.3, "count": 16, "delay": 1.5}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "gatling 1",
+        "x": -0.08,
+        "y": 0.12,
+        "drawing": "pulsar:gatling",
+        "size": [0.02, 0.047],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "gatling 2",
+        "x": 0.08,
+        "y": 0.12,
+        "drawing": "pulsar:gatling",
+        "size": [0.02, 0.047],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "rockbreaker": {
@@ -96,25 +186,43 @@
     "name": "ROCKBREAKER",
     "boss": true,
     "drawing": "rockbreaker",
-    "size": [0.26, 0.22],
+    "size": [0.327, 0.273],
     "health": 60.0,
     "points": 2000,
     "parts": [
       {
-        "name": "left drill",
-        "x": -0.2,
-        "y": -0.04,
-        "drawing": "rockbreaker:drill",
-        "size": [0.1, 0.16],
+        "name": "reactor 1",
+        "x": -0.16,
+        "y": 0.047,
+        "drawing": "rockbreaker:reactor",
+        "size": [0.06, 0.06],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "right drill",
-        "x": 0.2,
-        "y": -0.04,
-        "drawing": "rockbreaker:drill",
-        "size": [0.1, 0.16],
+        "name": "reactor 2",
+        "x": 0.16,
+        "y": 0.047,
+        "drawing": "rockbreaker:reactor",
+        "size": [0.06, 0.06],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 3",
+        "x": -0.087,
+        "y": 0.113,
+        "drawing": "rockbreaker:reactor2",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 4",
+        "x": 0.087,
+        "y": 0.113,
+        "drawing": "rockbreaker:reactor2",
+        "size": [0.073, 0.073],
         "health": 25.0,
         "points": 400
       }
@@ -123,10 +231,23 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left drill", "right drill"]},
+        "until": {"parts": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"]},
         "guns": [
-          {"from": "left drill", "pattern": "aimed", "interval": 1.8, "speed": 0.55, "volley": 2},
-          {"from": "right drill", "pattern": "aimed", "interval": 1.8, "speed": 0.55, "volley": 2, "delay": 0.9}
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.55,
+            "volley": 2
+          },
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.55,
+            "volley": 2,
+            "delay": 0.9
+          }
         ]
       },
       {
@@ -162,6 +283,62 @@
           {"pattern": "aimed", "interval": 1.8, "speed": 0.6, "delay": 0.5, "style": "heavy"}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "reactor 1",
+        "x": -0.027,
+        "y": 0.147,
+        "drawing": "warden:reactor",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 2",
+        "x": 0.027,
+        "y": 0.147,
+        "drawing": "warden:reactor",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "flak 3",
+        "x": -0.113,
+        "y": -0.013,
+        "drawing": "warden:flak",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "flak 4",
+        "x": 0.113,
+        "y": -0.013,
+        "drawing": "warden:flak",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.053,
+        "y": 0.047,
+        "drawing": "warden:emitter",
+        "size": [0.06, 0.12],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "emitter 6",
+        "x": 0.053,
+        "y": 0.047,
+        "drawing": "warden:emitter",
+        "size": [0.06, 0.12],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "patrol_drone": {
@@ -169,7 +346,7 @@
     "name": "PATROL DRONE",
     "boss": true,
     "drawing": "patrol_drone",
-    "size": [0.3, 0.2],
+    "size": [0.3, 0.193],
     "health": 80.0,
     "points": 2000,
     "phases": [
@@ -185,6 +362,26 @@
           {"pattern": "aimed", "interval": 2.2, "speed": 0.65, "volley": 3, "delay": 0.8}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "gatling 1",
+        "x": -0.053,
+        "y": 0.027,
+        "drawing": "patrol_drone:gatling",
+        "size": [0.033, 0.067],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "gatling 2",
+        "x": 0.053,
+        "y": 0.027,
+        "drawing": "patrol_drone:gatling",
+        "size": [0.033, 0.067],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "cyclone": {
@@ -192,7 +389,7 @@
     "name": "CYCLONE",
     "boss": true,
     "drawing": "cyclone",
-    "size": [0.28, 0.28],
+    "size": [0.3, 0.28],
     "health": 100.0,
     "points": 2500,
     "phases": [
@@ -215,6 +412,44 @@
           {"pattern": "ring", "interval": 0.16, "speed": 0.42, "count": 4, "turn": 9},
           {"pattern": "ring", "interval": 2.2, "speed": 0.35, "count": 12, "delay": 1.1}
         ]
+      }
+    ],
+    "parts": [
+      {
+        "name": "turret 1",
+        "x": -0.133,
+        "y": 0.037,
+        "drawing": "cyclone:turret",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 2",
+        "x": 0.133,
+        "y": 0.037,
+        "drawing": "cyclone:turret",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 3",
+        "x": -0.04,
+        "y": -0.097,
+        "drawing": "cyclone:turret2",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 4",
+        "x": 0.04,
+        "y": -0.097,
+        "drawing": "cyclone:turret2",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
       }
     ]
   },
@@ -240,6 +475,44 @@
           {"pattern": "aimed", "interval": 2.2, "speed": 0.55, "delay": 0.8, "style": "heavy"}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "reactor 1",
+        "x": -0.087,
+        "y": -0.08,
+        "drawing": "siege_pod:reactor",
+        "size": [0.06, 0.06],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 2",
+        "x": 0.087,
+        "y": -0.08,
+        "drawing": "siege_pod:reactor",
+        "size": [0.06, 0.06],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 3",
+        "x": -0.027,
+        "y": 0.1,
+        "drawing": "siege_pod:reactor2",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 4",
+        "x": 0.027,
+        "y": 0.1,
+        "drawing": "siege_pod:reactor2",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "delta_raider": {
@@ -247,7 +520,7 @@
     "name": "DELTA RAIDER",
     "boss": true,
     "drawing": "delta_raider",
-    "size": [0.4, 0.23],
+    "size": [0.407, 0.24],
     "health": 110.0,
     "points": 2600,
     "phases": [
@@ -271,6 +544,44 @@
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 5, "spread": 18, "delay": 1.0, "style": "heavy"}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "flak 1",
+        "x": -0.053,
+        "y": 0.097,
+        "drawing": "delta_raider:flak",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "flak 2",
+        "x": 0.053,
+        "y": 0.097,
+        "drawing": "delta_raider:flak",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.033,
+        "y": 0.01,
+        "drawing": "delta_raider:cannon",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.033,
+        "y": 0.01,
+        "drawing": "delta_raider:cannon",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "breacher": {
@@ -278,25 +589,61 @@
     "name": "BREACHER",
     "boss": true,
     "drawing": "breacher",
-    "size": [0.24, 0.24],
+    "size": [0.38, 0.393],
     "health": 70.0,
     "points": 2000,
     "parts": [
       {
-        "name": "left clamp",
-        "x": -0.17,
-        "y": -0.12,
-        "drawing": "breacher:clamp",
-        "size": [0.1, 0.16],
+        "name": "launcher 1",
+        "x": -0.173,
+        "y": 0.107,
+        "drawing": "breacher:launcher",
+        "size": [0.047, 0.053],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "right clamp",
-        "x": 0.17,
-        "y": -0.12,
-        "drawing": "breacher:clamp",
-        "size": [0.1, 0.16],
+        "name": "launcher 2",
+        "x": 0.173,
+        "y": 0.107,
+        "drawing": "breacher:launcher",
+        "size": [0.047, 0.053],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 3",
+        "x": -0.087,
+        "y": 0.027,
+        "drawing": "breacher:launcher2",
+        "size": [0.047, 0.053],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 4",
+        "x": 0.087,
+        "y": 0.027,
+        "drawing": "breacher:launcher2",
+        "size": [0.047, 0.053],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "gatling 5",
+        "x": -0.087,
+        "y": -0.047,
+        "drawing": "breacher:gatling",
+        "size": [0.033, 0.067],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "gatling 6",
+        "x": 0.087,
+        "y": -0.047,
+        "drawing": "breacher:gatling",
+        "size": [0.033, 0.067],
         "health": 25.0,
         "points": 400
       }
@@ -305,10 +652,23 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left clamp", "right clamp"]},
+        "until": {"parts": ["gatling 5", "gatling 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"]},
         "guns": [
-          {"from": "left clamp", "pattern": "aimed", "interval": 1.6, "speed": 0.55, "volley": 2},
-          {"from": "right clamp", "pattern": "aimed", "interval": 1.6, "speed": 0.55, "volley": 2, "delay": 0.8},
+          {
+            "from": ["gatling 5", "gatling 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.55,
+            "volley": 2
+          },
+          {
+            "from": ["gatling 5", "gatling 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.55,
+            "volley": 2,
+            "delay": 0.8
+          },
           {"pattern": "fan", "interval": 2.2, "speed": 0.45, "count": 3, "spread": 18, "delay": 1.1}
         ]
       },
@@ -326,25 +686,97 @@
     "name": "HARVESTER",
     "boss": true,
     "drawing": "harvester",
-    "size": [0.34, 0.26],
+    "size": [0.567, 0.447],
     "health": 100.0,
     "points": 6000,
     "parts": [
       {
-        "name": "left cannon",
-        "x": -0.26,
-        "y": 0.02,
+        "name": "cannon 1",
+        "x": -0.027,
+        "y": 0.04,
         "drawing": "harvester:cannon",
-        "size": [0.14, 0.18],
+        "size": [0.06, 0.133],
         "health": 40.0,
         "points": 800
       },
       {
-        "name": "right cannon",
-        "x": 0.26,
-        "y": 0.02,
+        "name": "cannon 2",
+        "x": 0.027,
+        "y": 0.04,
         "drawing": "harvester:cannon",
-        "size": [0.14, 0.18],
+        "size": [0.06, 0.133],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "turret 3",
+        "x": -0.133,
+        "y": 0.173,
+        "drawing": "harvester:turret",
+        "size": [0.073, 0.107],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "turret 4",
+        "x": 0.133,
+        "y": 0.173,
+        "drawing": "harvester:turret",
+        "size": [0.073, 0.107],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "turret 5",
+        "x": -0.06,
+        "y": 0.213,
+        "drawing": "harvester:turret2",
+        "size": [0.073, 0.107],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "turret 6",
+        "x": 0.06,
+        "y": 0.213,
+        "drawing": "harvester:turret2",
+        "size": [0.073, 0.107],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "cannon 7",
+        "x": -0.253,
+        "y": 0.16,
+        "drawing": "harvester:cannon2",
+        "size": [0.073, 0.167],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "cannon 8",
+        "x": 0.253,
+        "y": 0.16,
+        "drawing": "harvester:cannon2",
+        "size": [0.073, 0.167],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "cannon 9",
+        "x": -0.253,
+        "y": 0.073,
+        "drawing": "harvester:cannon3",
+        "size": [0.073, 0.167],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "cannon 10",
+        "x": 0.253,
+        "y": 0.073,
+        "drawing": "harvester:cannon3",
+        "size": [0.073, 0.167],
         "health": 40.0,
         "points": 800
       }
@@ -353,10 +785,58 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left cannon", "right cannon"]},
+        "until": {
+          "parts": [
+            "cannon 1",
+            "cannon 2",
+            "cannon 9",
+            "cannon 10",
+            "cannon 7",
+            "cannon 8",
+            "turret 3",
+            "turret 4",
+            "turret 5",
+            "turret 6"
+          ]
+        },
         "guns": [
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
+          {
+            "from": [
+              "cannon 1",
+              "cannon 2",
+              "cannon 9",
+              "cannon 10",
+              "cannon 7",
+              "cannon 8",
+              "turret 3",
+              "turret 4",
+              "turret 5",
+              "turret 6"
+            ],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.65,
+            "volley": 3
+          },
+          {
+            "from": [
+              "cannon 1",
+              "cannon 2",
+              "cannon 9",
+              "cannon 10",
+              "cannon 7",
+              "cannon 8",
+              "turret 3",
+              "turret 4",
+              "turret 5",
+              "turret 6"
+            ],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.65,
+            "volley": 3,
+            "delay": 0.9
+          },
           {"pattern": "fan", "interval": 2.5, "speed": 0.4, "count": 3, "spread": 25, "delay": 1.2, "style": "heavy"}
         ]
       },
@@ -374,7 +854,7 @@
     "name": "TURBINE",
     "boss": true,
     "drawing": "turbine",
-    "size": [0.3, 0.3],
+    "size": [0.3, 0.293],
     "health": 110.0,
     "points": 2600,
     "phases": [
@@ -395,6 +875,44 @@
           {"pattern": "aimed", "interval": 2.0, "speed": 0.55, "delay": 0.7, "style": "heavy"}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "reactor 1",
+        "x": -0.027,
+        "y": -0.017,
+        "drawing": "turbine:reactor",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "reactor 2",
+        "x": 0.027,
+        "y": -0.017,
+        "drawing": "turbine:reactor",
+        "size": [0.073, 0.073],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 3",
+        "x": -0.093,
+        "y": -0.023,
+        "drawing": "turbine:launcher",
+        "size": [0.047, 0.053],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 4",
+        "x": 0.093,
+        "y": -0.023,
+        "drawing": "turbine:launcher",
+        "size": [0.047, 0.053],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "clamp_barge": {
@@ -402,25 +920,61 @@
     "name": "CLAMP BARGE",
     "boss": true,
     "drawing": "clamp_barge",
-    "size": [0.26, 0.2],
+    "size": [0.42, 0.313],
     "health": 70.0,
     "points": 2000,
     "parts": [
       {
-        "name": "left clamp",
-        "x": -0.2,
-        "y": -0.08,
-        "drawing": "clamp_barge:clamp",
-        "size": [0.12, 0.14],
+        "name": "cannon 1",
+        "x": -0.087,
+        "y": 0.06,
+        "drawing": "clamp_barge:cannon",
+        "size": [0.06, 0.133],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "right clamp",
-        "x": 0.2,
-        "y": -0.08,
-        "drawing": "clamp_barge:clamp",
-        "size": [0.12, 0.14],
+        "name": "cannon 2",
+        "x": 0.087,
+        "y": 0.06,
+        "drawing": "clamp_barge:cannon",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "flak 3",
+        "x": -0.107,
+        "y": 0.12,
+        "drawing": "clamp_barge:flak",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "flak 4",
+        "x": 0.107,
+        "y": 0.12,
+        "drawing": "clamp_barge:flak",
+        "size": [0.06, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.06,
+        "y": -0.013,
+        "drawing": "clamp_barge:launcher",
+        "size": [0.047, 0.053],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.06,
+        "y": -0.013,
+        "drawing": "clamp_barge:launcher",
+        "size": [0.047, 0.053],
         "health": 25.0,
         "points": 400
       }
@@ -429,10 +983,25 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left clamp", "right clamp"]},
+        "until": {"parts": ["launcher 5", "launcher 6", "cannon 1", "cannon 2", "flak 3", "flak 4"]},
         "guns": [
-          {"from": "left clamp", "pattern": "aimed", "interval": 1.6, "speed": 0.55, "count": 2, "spread": 10},
-          {"from": "right clamp", "pattern": "aimed", "interval": 1.6, "speed": 0.55, "count": 2, "spread": 10, "delay": 0.8},
+          {
+            "from": ["launcher 5", "launcher 6", "cannon 1", "cannon 2", "flak 3", "flak 4"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.55,
+            "count": 2,
+            "spread": 10
+          },
+          {
+            "from": ["launcher 5", "launcher 6", "cannon 1", "cannon 2", "flak 3", "flak 4"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.55,
+            "count": 2,
+            "spread": 10,
+            "delay": 0.8
+          },
           {"pattern": "fan", "interval": 2.2, "speed": 0.4, "count": 3, "spread": 20, "delay": 1.1}
         ]
       },
@@ -450,7 +1019,7 @@
     "name": "SPIRE",
     "boss": true,
     "drawing": "spire",
-    "size": [0.22, 0.36],
+    "size": [0.353, 0.56],
     "health": 120.0,
     "points": 2800,
     "phases": [
@@ -474,6 +1043,80 @@
           {"pattern": "ring", "interval": 0.16, "speed": 0.42, "count": 3, "turn": -12, "delay": 0.5}
         ]
       }
+    ],
+    "parts": [
+      {
+        "name": "cannon 1",
+        "x": -0.04,
+        "y": -0.157,
+        "drawing": "spire:cannon",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 2",
+        "x": 0.04,
+        "y": -0.157,
+        "drawing": "spire:cannon",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.073,
+        "y": 0.063,
+        "drawing": "spire:cannon2",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.073,
+        "y": 0.063,
+        "drawing": "spire:cannon2",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 5",
+        "x": -0.04,
+        "y": -0.097,
+        "drawing": "spire:cannon3",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 6",
+        "x": 0.04,
+        "y": -0.097,
+        "drawing": "spire:cannon3",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 7",
+        "x": -0.16,
+        "y": -0.01,
+        "drawing": "spire:cannon4",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 8",
+        "x": 0.16,
+        "y": -0.01,
+        "drawing": "spire:cannon4",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "twin_fang": {
@@ -481,25 +1124,79 @@
     "name": "TWIN FANG",
     "boss": true,
     "drawing": "twin_fang",
-    "size": [0.24, 0.26],
+    "size": [0.42, 0.467],
     "health": 90.0,
     "points": 2600,
     "parts": [
       {
-        "name": "left gun",
-        "x": -0.19,
-        "y": -0.02,
-        "drawing": "twin_fang:cannon",
-        "size": [0.1, 0.2],
+        "name": "flak 1",
+        "x": -0.107,
+        "y": 0.09,
+        "drawing": "twin_fang:flak",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right gun",
-        "x": 0.19,
-        "y": -0.02,
-        "drawing": "twin_fang:cannon",
-        "size": [0.1, 0.2],
+        "name": "flak 2",
+        "x": 0.107,
+        "y": 0.09,
+        "drawing": "twin_fang:flak",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 3",
+        "x": -0.093,
+        "y": -0.037,
+        "drawing": "twin_fang:flak2",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 4",
+        "x": 0.093,
+        "y": -0.037,
+        "drawing": "twin_fang:flak2",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 5",
+        "x": -0.193,
+        "y": 0.063,
+        "drawing": "twin_fang:flak3",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 6",
+        "x": 0.193,
+        "y": 0.063,
+        "drawing": "twin_fang:flak3",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 7",
+        "x": -0.06,
+        "y": -0.137,
+        "drawing": "twin_fang:flak4",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 8",
+        "x": 0.06,
+        "y": -0.137,
+        "drawing": "twin_fang:flak4",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       }
@@ -509,8 +1206,21 @@
         "sway": 0.12,
         "until": {"health_below": 0.5},
         "guns": [
-          {"from": "left gun", "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2},
-          {"from": "right gun", "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2, "delay": 0.8},
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.6,
+            "volley": 2
+          },
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.6,
+            "volley": 2,
+            "delay": 0.8
+          },
           {"pattern": "fan", "interval": 2.2, "speed": 0.45, "count": 3, "spread": 25, "delay": 1.1}
         ]
       },
@@ -518,8 +1228,21 @@
         "sway": 0.16,
         "guns": [
           {"pattern": "ring", "interval": 0.15, "speed": 0.42, "count": 3, "turn": 12},
-          {"from": "left gun", "pattern": "fan", "interval": 2.0, "speed": 0.5, "count": 3},
-          {"from": "right gun", "pattern": "fan", "interval": 2.0, "speed": 0.5, "count": 3, "delay": 1.0}
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.5,
+            "count": 3
+          },
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.5,
+            "count": 3,
+            "delay": 1.0
+          }
         ]
       }
     ]
@@ -529,21 +1252,104 @@
     "name": "FRIGATE",
     "boss": true,
     "drawing": "frigate",
-    "size": [0.22, 0.36],
+    "size": [0.34, 0.567],
     "health": 90.0,
     "points": 2400,
     "parts": [
-      {"name": "left gun", "x": -0.17, "y": 0.02, "drawing": "frigate:turret", "size": [0.1, 0.1], "health": 30.0, "points": 500},
-      {"name": "right gun", "x": 0.17, "y": 0.02, "drawing": "frigate:turret", "size": [0.1, 0.1], "health": 30.0, "points": 500}
+      {
+        "name": "turret 1",
+        "x": -0.107,
+        "y": 0.107,
+        "drawing": "frigate:turret",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 2",
+        "x": 0.107,
+        "y": 0.107,
+        "drawing": "frigate:turret",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 3",
+        "x": -0.053,
+        "y": 0.187,
+        "drawing": "frigate:flak",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 4",
+        "x": 0.053,
+        "y": 0.187,
+        "drawing": "frigate:flak",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 5",
+        "x": -0.033,
+        "y": -0.16,
+        "drawing": "frigate:turret2",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 6",
+        "x": 0.033,
+        "y": -0.16,
+        "drawing": "frigate:turret2",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 7",
+        "x": -0.067,
+        "y": -0.067,
+        "drawing": "frigate:turret3",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 8",
+        "x": 0.067,
+        "y": -0.067,
+        "drawing": "frigate:turret3",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      }
     ],
     "phases": [
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left gun", "right gun"]},
+        "until": {"parts": ["turret 5", "turret 6", "turret 7", "turret 8", "turret 1", "turret 2", "flak 3", "flak 4"]},
         "guns": [
-          {"from": "left gun", "pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3},
-          {"from": "right gun", "pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3, "delay": 1.0},
+          {
+            "from": ["turret 5", "turret 6", "turret 7", "turret 8", "turret 1", "turret 2", "flak 3", "flak 4"],
+            "pattern": "aimed",
+            "interval": 2.0,
+            "speed": 0.6,
+            "volley": 3
+          },
+          {
+            "from": ["turret 5", "turret 6", "turret 7", "turret 8", "turret 1", "turret 2", "flak 3", "flak 4"],
+            "pattern": "aimed",
+            "interval": 2.0,
+            "speed": 0.6,
+            "volley": 3,
+            "delay": 1.0
+          },
           {"pattern": "fan", "interval": 2.4, "speed": 0.45, "count": 5, "spread": 12, "delay": 0.5}
         ]
       },
@@ -557,29 +1363,101 @@
     ]
   },
   "tidebreaker": {
-    "note": "3-6, Lush Veld's boss: two missile batteries, then two phases of the core alone.",
+    "note": "3-6, Lush Veld' boss: two missile batteries, then two phases of the core alone.",
     "name": "TIDEBREAKER",
     "boss": true,
     "drawing": "tidebreaker",
-    "size": [0.3, 0.36],
+    "size": [0.46, 0.547],
     "health": 120.0,
     "points": 7000,
     "parts": [
       {
-        "name": "left battery",
-        "x": -0.24,
-        "y": 0.04,
-        "drawing": "tidebreaker:launcher",
-        "size": [0.16, 0.22],
+        "name": "cannon 1",
+        "x": -0.04,
+        "y": 0.257,
+        "drawing": "tidebreaker:cannon",
+        "size": [0.06, 0.133],
         "health": 45.0,
         "points": 900
       },
       {
-        "name": "right battery",
-        "x": 0.24,
-        "y": 0.04,
-        "drawing": "tidebreaker:launcher",
-        "size": [0.16, 0.22],
+        "name": "cannon 2",
+        "x": 0.04,
+        "y": 0.257,
+        "drawing": "tidebreaker:cannon",
+        "size": [0.06, 0.133],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "flak 3",
+        "x": -0.147,
+        "y": 0.197,
+        "drawing": "tidebreaker:flak",
+        "size": [0.047, 0.067],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "flak 4",
+        "x": 0.147,
+        "y": 0.197,
+        "drawing": "tidebreaker:flak",
+        "size": [0.047, 0.067],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "flak 5",
+        "x": -0.067,
+        "y": 0.043,
+        "drawing": "tidebreaker:flak2",
+        "size": [0.06, 0.087],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "flak 6",
+        "x": 0.067,
+        "y": 0.043,
+        "drawing": "tidebreaker:flak2",
+        "size": [0.06, 0.087],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "flak 7",
+        "x": -0.067,
+        "y": -0.057,
+        "drawing": "tidebreaker:flak3",
+        "size": [0.047, 0.067],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "flak 8",
+        "x": 0.067,
+        "y": -0.057,
+        "drawing": "tidebreaker:flak3",
+        "size": [0.047, 0.067],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "cannon 9",
+        "x": -0.2,
+        "y": -0.017,
+        "drawing": "tidebreaker:cannon2",
+        "size": [0.047, 0.1],
+        "health": 45.0,
+        "points": 900
+      },
+      {
+        "name": "cannon 10",
+        "x": 0.2,
+        "y": -0.017,
+        "drawing": "tidebreaker:cannon2",
+        "size": [0.047, 0.1],
         "health": 45.0,
         "points": 900
       }
@@ -588,11 +1466,21 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left battery", "right battery"]},
+        "until": {
+          "parts": ["flak 7", "flak 8", "cannon 9", "cannon 10", "flak 5", "flak 6", "flak 3", "flak 4", "cannon 1", "cannon 2"]
+        },
         "guns": [
-          {"from": "left battery", "pattern": "fan", "interval": 1.1, "speed": 0.5, "count": 4, "spread": 12, "sweep": 30},
           {
-            "from": "right battery",
+            "from": ["flak 7", "flak 8", "cannon 9", "cannon 10", "flak 5", "flak 6", "flak 3", "flak 4", "cannon 1", "cannon 2"],
+            "pattern": "fan",
+            "interval": 1.1,
+            "speed": 0.5,
+            "count": 4,
+            "spread": 12,
+            "sweep": 30
+          },
+          {
+            "from": ["flak 7", "flak 8", "cannon 9", "cannon 10", "flak 5", "flak 6", "flak 3", "flak 4", "cannon 1", "cannon 2"],
             "pattern": "fan",
             "interval": 1.1,
             "speed": 0.5,
@@ -626,25 +1514,43 @@
     "name": "PICKET",
     "boss": true,
     "drawing": "picket",
-    "size": [0.2, 0.26],
+    "size": [0.327, 0.407],
     "health": 80.0,
     "points": 2200,
     "parts": [
       {
-        "name": "left gun pod",
-        "x": -0.19,
-        "y": 0.04,
+        "name": "cannon 1",
+        "x": -0.12,
+        "y": 0.147,
         "drawing": "picket:cannon",
-        "size": [0.16, 0.09],
+        "size": [0.047, 0.1],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "right gun pod",
-        "x": 0.19,
-        "y": 0.04,
+        "name": "cannon 2",
+        "x": 0.12,
+        "y": 0.147,
         "drawing": "picket:cannon",
-        "size": [0.16, 0.09],
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.04,
+        "y": 0.02,
+        "drawing": "picket:cannon2",
+        "size": [0.06, 0.133],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.04,
+        "y": 0.02,
+        "drawing": "picket:cannon2",
+        "size": [0.06, 0.133],
         "health": 25.0,
         "points": 400
       }
@@ -653,10 +1559,25 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left gun pod", "right gun pod"]},
+        "until": {"parts": ["cannon 3", "cannon 4", "cannon 1", "cannon 2"]},
         "guns": [
-          {"from": "left gun pod", "pattern": "fan", "interval": 1.7, "speed": 0.45, "count": 3, "spread": 18},
-          {"from": "right gun pod", "pattern": "fan", "interval": 1.7, "speed": 0.45, "count": 3, "spread": 18, "delay": 0.85},
+          {
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2"],
+            "pattern": "fan",
+            "interval": 1.7,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 18
+          },
+          {
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2"],
+            "pattern": "fan",
+            "interval": 1.7,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 18,
+            "delay": 0.85
+          },
           {"pattern": "aimed", "interval": 2.0, "speed": 0.55, "delay": 0.5}
         ]
       },
@@ -674,21 +1595,86 @@
     "name": "BULWARK",
     "boss": true,
     "drawing": "bulwark",
-    "size": [0.28, 0.3],
+    "size": [0.367, 0.373],
     "health": 90.0,
     "points": 2400,
     "parts": [
-      {"name": "left ram", "x": -0.07, "y": -0.2, "drawing": "bulwark:ram", "size": [0.08, 0.14], "health": 30.0, "points": 500},
-      {"name": "right ram", "x": 0.07, "y": -0.2, "drawing": "bulwark:ram", "size": [0.08, 0.14], "health": 30.0, "points": 500}
+      {
+        "name": "launcher 1",
+        "x": -0.1,
+        "y": 0.083,
+        "drawing": "bulwark:launcher",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 2",
+        "x": 0.1,
+        "y": 0.083,
+        "drawing": "bulwark:launcher",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 3",
+        "x": -0.027,
+        "y": 0.003,
+        "drawing": "bulwark:launcher2",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 4",
+        "x": 0.027,
+        "y": 0.003,
+        "drawing": "bulwark:launcher2",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.093,
+        "y": -0.123,
+        "drawing": "bulwark:launcher3",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.093,
+        "y": -0.123,
+        "drawing": "bulwark:launcher3",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      }
     ],
     "phases": [
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left ram", "right ram"]},
+        "until": {"parts": ["launcher 5", "launcher 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"]},
         "guns": [
-          {"from": "left ram", "pattern": "aimed", "interval": 1.5, "speed": 0.6, "volley": 2},
-          {"from": "right ram", "pattern": "aimed", "interval": 1.5, "speed": 0.6, "volley": 2, "delay": 0.75},
+          {
+            "from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.6,
+            "volley": 2
+          },
+          {
+            "from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.6,
+            "volley": 2,
+            "delay": 0.75
+          },
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 5, "spread": 18, "delay": 1.2}
         ]
       },
@@ -706,25 +1692,61 @@
     "name": "BORER",
     "boss": true,
     "drawing": "borer",
-    "size": [0.24, 0.24],
+    "size": [0.393, 0.407],
     "health": 90.0,
     "points": 2400,
     "parts": [
       {
-        "name": "left generator",
-        "x": -0.2,
-        "y": 0.08,
-        "drawing": "borer:generator",
-        "size": [0.14, 0.14],
+        "name": "emitter 1",
+        "x": -0.14,
+        "y": 0.06,
+        "drawing": "borer:emitter",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right generator",
-        "x": 0.2,
-        "y": 0.08,
-        "drawing": "borer:generator",
-        "size": [0.14, 0.14],
+        "name": "emitter 2",
+        "x": 0.14,
+        "y": 0.06,
+        "drawing": "borer:emitter",
+        "size": [0.06, 0.12],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 3",
+        "x": -0.093,
+        "y": -0.04,
+        "drawing": "borer:emitter2",
+        "size": [0.06, 0.12],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 4",
+        "x": 0.093,
+        "y": -0.04,
+        "drawing": "borer:emitter2",
+        "size": [0.06, 0.12],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.08,
+        "y": -0.14,
+        "drawing": "borer:emitter3",
+        "size": [0.047, 0.093],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 6",
+        "x": 0.08,
+        "y": -0.14,
+        "drawing": "borer:emitter3",
+        "size": [0.047, 0.093],
         "health": 30.0,
         "points": 500
       }
@@ -733,10 +1755,25 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left generator", "right generator"]},
+        "until": {"parts": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"]},
         "guns": [
-          {"from": "left generator", "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": 20},
-          {"from": "right generator", "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": -20, "delay": 1.0},
+          {
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.38,
+            "count": 8,
+            "turn": 20
+          },
+          {
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.38,
+            "count": 8,
+            "turn": -20,
+            "delay": 1.0
+          },
           {"pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3, "delay": 0.5}
         ]
       },
@@ -754,25 +1791,61 @@
     "name": "SILO HAULER",
     "boss": true,
     "drawing": "silo_hauler",
-    "size": [0.26, 0.24],
+    "size": [0.433, 0.4],
     "health": 100.0,
     "points": 2800,
     "parts": [
       {
-        "name": "left tank",
-        "x": -0.21,
-        "y": 0.04,
-        "drawing": "silo_hauler:tank",
-        "size": [0.12, 0.19],
+        "name": "radar 1",
+        "x": -0.047,
+        "y": 0.03,
+        "drawing": "silo_hauler:radar",
+        "size": [0.047, 0.047],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "right tank",
-        "x": 0.21,
-        "y": 0.04,
-        "drawing": "silo_hauler:tank",
-        "size": [0.12, 0.19],
+        "name": "radar 2",
+        "x": 0.047,
+        "y": 0.03,
+        "drawing": "silo_hauler:radar",
+        "size": [0.047, 0.047],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 3",
+        "x": -0.093,
+        "y": -0.097,
+        "drawing": "silo_hauler:gatling",
+        "size": [0.033, 0.067],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 4",
+        "x": 0.093,
+        "y": -0.097,
+        "drawing": "silo_hauler:gatling",
+        "size": [0.033, 0.067],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 5",
+        "x": -0.073,
+        "y": 0.103,
+        "drawing": "silo_hauler:gatling2",
+        "size": [0.047, 0.087],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 6",
+        "x": 0.073,
+        "y": 0.103,
+        "drawing": "silo_hauler:gatling2",
+        "size": [0.047, 0.087],
         "health": 35.0,
         "points": 600
       }
@@ -781,10 +1854,25 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left tank", "right tank"]},
+        "until": {"parts": ["gatling 3", "gatling 4", "radar 1", "radar 2", "gatling 5", "gatling 6"]},
         "guns": [
-          {"from": "left tank", "pattern": "ring", "interval": 1.8, "speed": 0.4, "count": 6, "turn": 15},
-          {"from": "right tank", "pattern": "ring", "interval": 1.8, "speed": 0.4, "count": 6, "turn": -15, "delay": 0.9},
+          {
+            "from": ["gatling 3", "gatling 4", "radar 1", "radar 2", "gatling 5", "gatling 6"],
+            "pattern": "ring",
+            "interval": 1.8,
+            "speed": 0.4,
+            "count": 6,
+            "turn": 15
+          },
+          {
+            "from": ["gatling 3", "gatling 4", "radar 1", "radar 2", "gatling 5", "gatling 6"],
+            "pattern": "ring",
+            "interval": 1.8,
+            "speed": 0.4,
+            "count": 6,
+            "turn": -15,
+            "delay": 0.9
+          },
           {"pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 2, "delay": 0.5}
         ]
       },
@@ -802,25 +1890,45 @@
     "name": "BASTION",
     "boss": true,
     "drawing": "bastion",
-    "size": [0.32, 0.23],
+    "size": [0.5, 0.347],
     "health": 110.0,
     "points": 2800,
     "parts": [
+      {"name": "flak 1", "x": -0.04, "y": 0.03, "drawing": "bastion:flak", "size": [0.047, 0.067], "health": 30.0, "points": 500},
+      {"name": "flak 2", "x": 0.04, "y": 0.03, "drawing": "bastion:flak", "size": [0.047, 0.067], "health": 30.0, "points": 500},
       {
-        "name": "left turret",
-        "x": -0.25,
-        "y": -0.06,
-        "drawing": "bastion:turret",
-        "size": [0.12, 0.12],
+        "name": "flak 3",
+        "x": -0.08,
+        "y": -0.083,
+        "drawing": "bastion:flak2",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right turret",
-        "x": 0.25,
-        "y": -0.06,
-        "drawing": "bastion:turret",
-        "size": [0.12, 0.12],
+        "name": "flak 4",
+        "x": 0.08,
+        "y": -0.083,
+        "drawing": "bastion:flak2",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 5",
+        "x": -0.093,
+        "y": 0.103,
+        "drawing": "bastion:flak3",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 6",
+        "x": 0.093,
+        "y": 0.103,
+        "drawing": "bastion:flak3",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       }
@@ -829,10 +1937,25 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left turret", "right turret"]},
+        "until": {"parts": ["flak 3", "flak 4", "flak 1", "flak 2", "flak 5", "flak 6"]},
         "guns": [
-          {"from": "left turret", "pattern": "aimed", "interval": 1.5, "speed": 0.6, "count": 2, "spread": 10},
-          {"from": "right turret", "pattern": "aimed", "interval": 1.5, "speed": 0.6, "count": 2, "spread": 10, "delay": 0.75},
+          {
+            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "flak 5", "flak 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.6,
+            "count": 2,
+            "spread": 10
+          },
+          {
+            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "flak 5", "flak 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.6,
+            "count": 2,
+            "spread": 10,
+            "delay": 0.75
+          },
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 3, "spread": 25, "delay": 1.2, "style": "heavy"}
         ]
       },
@@ -850,66 +1973,98 @@
     "name": "REAPER",
     "boss": true,
     "drawing": "reaper",
-    "size": [0.407, 0.327],
+    "size": [0.487, 0.387],
     "health": 120.0,
     "points": 7500,
     "parts": [
       {
-        "name": "left auger",
-        "x": -0.067,
-        "y": -0.033,
-        "drawing": "reaper:auger",
-        "size": [0.047, 0.093],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "right auger",
-        "x": 0.067,
-        "y": -0.033,
-        "drawing": "reaper:auger",
-        "size": [0.047, 0.093],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "cutter",
-        "x": 0.0,
-        "y": -0.027,
-        "drawing": "reaper:cutter",
-        "size": [0.113, 0.147],
-        "health": 30.0,
-        "points": 600
-      },
-      {
-        "name": "left drill",
+        "name": "flak 1",
         "x": -0.113,
-        "y": 0.153,
-        "drawing": "reaper:drill",
-        "size": [0.1, 0.16],
+        "y": 0.003,
+        "drawing": "reaper:flak",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 500
+      },
+      {"name": "flak 2", "x": 0.113, "y": 0.003, "drawing": "reaper:flak", "size": [0.047, 0.067], "health": 25.0, "points": 500},
+      {
+        "name": "launcher 3",
+        "x": -0.107,
+        "y": 0.117,
+        "drawing": "reaper:launcher",
+        "size": [0.06, 0.067],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "right drill",
-        "x": 0.113,
-        "y": 0.153,
-        "drawing": "reaper:drill",
-        "size": [0.1, 0.16],
+        "name": "launcher 4",
+        "x": 0.107,
+        "y": 0.117,
+        "drawing": "reaper:launcher",
+        "size": [0.06, 0.067],
         "health": 25.0,
         "points": 500
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.193,
+        "y": -0.01,
+        "drawing": "reaper:launcher2",
+        "size": [0.06, 0.067],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.193,
+        "y": -0.01,
+        "drawing": "reaper:launcher2",
+        "size": [0.06, 0.067],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 7",
+        "x": -0.047,
+        "y": -0.09,
+        "drawing": "reaper:launcher3",
+        "size": [0.06, 0.067],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 8",
+        "x": 0.047,
+        "y": -0.09,
+        "drawing": "reaper:launcher3",
+        "size": [0.06, 0.067],
+        "health": 20.0,
+        "points": 400
       }
     ],
     "phases": [
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left auger", "right auger", "cutter"]},
+        "until": {"parts": ["launcher 7", "launcher 8", "launcher 5", "launcher 6"]},
         "guns": [
-          {"from": "left auger", "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2},
-          {"from": "right auger", "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2, "delay": 0.8},
           {
-            "from": "cutter",
+            "from": ["launcher 7", "launcher 8", "launcher 5", "launcher 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.6,
+            "volley": 2
+          },
+          {
+            "from": ["launcher 7", "launcher 8", "launcher 5", "launcher 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.6,
+            "volley": 2,
+            "delay": 0.8
+          },
+          {
+            "from": ["launcher 7", "launcher 8", "launcher 5", "launcher 6"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.45,
@@ -923,10 +2078,25 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left drill", "right drill"]},
+        "until": {"parts": ["flak 1", "flak 2", "launcher 3", "launcher 4"]},
         "guns": [
-          {"from": "left drill", "pattern": "ring", "interval": 2.2, "speed": 0.38, "count": 10, "turn": 18},
-          {"from": "right drill", "pattern": "ring", "interval": 2.2, "speed": 0.38, "count": 10, "turn": -18, "delay": 1.1},
+          {
+            "from": ["flak 1", "flak 2", "launcher 3", "launcher 4"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.38,
+            "count": 10,
+            "turn": 18
+          },
+          {
+            "from": ["flak 1", "flak 2", "launcher 3", "launcher 4"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.38,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.1
+          },
           {"pattern": "aimed", "interval": 2.0, "speed": 0.55, "volley": 2, "delay": 0.6, "style": "heavy"}
         ]
       },
@@ -944,25 +2114,43 @@
     "name": "ENFORCER",
     "boss": true,
     "drawing": "enforcer",
-    "size": [0.22, 0.26],
+    "size": [0.313, 0.36],
     "health": 90.0,
     "points": 2400,
     "parts": [
       {
-        "name": "left shield",
-        "x": -0.18,
-        "y": -0.06,
-        "drawing": "enforcer:shield",
-        "size": [0.12, 0.19],
+        "name": "flak 1",
+        "x": -0.087,
+        "y": -0.01,
+        "drawing": "enforcer:flak",
+        "size": [0.06, 0.087],
         "health": 35.0,
         "points": 500
       },
       {
-        "name": "right shield",
-        "x": 0.18,
-        "y": -0.06,
-        "drawing": "enforcer:shield",
-        "size": [0.12, 0.19],
+        "name": "flak 2",
+        "x": 0.087,
+        "y": -0.01,
+        "drawing": "enforcer:flak",
+        "size": [0.06, 0.087],
+        "health": 35.0,
+        "points": 500
+      },
+      {
+        "name": "radar 3",
+        "x": -0.027,
+        "y": -0.063,
+        "drawing": "enforcer:radar",
+        "size": [0.06, 0.06],
+        "health": 35.0,
+        "points": 500
+      },
+      {
+        "name": "radar 4",
+        "x": 0.027,
+        "y": -0.063,
+        "drawing": "enforcer:radar",
+        "size": [0.06, 0.06],
         "health": 35.0,
         "points": 500
       }
@@ -971,7 +2159,7 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left shield", "right shield"]},
+        "until": {"parts": ["radar 3", "radar 4", "flak 1", "flak 2"]},
         "guns": [
           {"pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2},
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 3, "spread": 25, "delay": 1.2}
@@ -991,25 +2179,61 @@
     "name": "HIVE CARRIER",
     "boss": true,
     "drawing": "hive_carrier",
-    "size": [0.22, 0.3],
+    "size": [0.313, 0.44],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "left hangar",
-        "x": -0.19,
-        "y": 0.06,
-        "drawing": "hive_carrier:launcher",
-        "size": [0.16, 0.18],
+        "name": "radar 1",
+        "x": -0.08,
+        "y": 0.023,
+        "drawing": "hive_carrier:radar",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right hangar",
-        "x": 0.19,
-        "y": 0.06,
-        "drawing": "hive_carrier:launcher",
-        "size": [0.16, 0.18],
+        "name": "radar 2",
+        "x": 0.08,
+        "y": 0.023,
+        "drawing": "hive_carrier:radar",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "radar 3",
+        "x": -0.133,
+        "y": 0.163,
+        "drawing": "hive_carrier:radar2",
+        "size": [0.047, 0.047],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "radar 4",
+        "x": 0.133,
+        "y": 0.163,
+        "drawing": "hive_carrier:radar2",
+        "size": [0.047, 0.047],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "radar 5",
+        "x": -0.027,
+        "y": -0.09,
+        "drawing": "hive_carrier:radar3",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "radar 6",
+        "x": 0.027,
+        "y": -0.09,
+        "drawing": "hive_carrier:radar3",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       }
@@ -1018,11 +2242,19 @@
       {
         "sway": 0.14,
         "armored": true,
-        "until": {"parts": ["left hangar", "right hangar"]},
+        "until": {"parts": ["radar 5", "radar 6", "radar 1", "radar 2", "radar 3", "radar 4"]},
         "guns": [
-          {"from": "left hangar", "pattern": "fan", "interval": 1.2, "speed": 0.5, "count": 3, "spread": 12, "sweep": 25},
           {
-            "from": "right hangar",
+            "from": ["radar 5", "radar 6", "radar 1", "radar 2", "radar 3", "radar 4"],
+            "pattern": "fan",
+            "interval": 1.2,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 12,
+            "sweep": 25
+          },
+          {
+            "from": ["radar 5", "radar 6", "radar 1", "radar 2", "radar 3", "radar 4"],
             "pattern": "fan",
             "interval": 1.2,
             "speed": 0.5,
@@ -1053,25 +2285,79 @@
     "name": "HOVER TANK",
     "boss": true,
     "drawing": "hover_tank",
-    "size": [0.3, 0.3],
+    "size": [0.447, 0.453],
     "health": 110.0,
     "points": 2800,
     "parts": [
       {
-        "name": "left turret",
-        "x": -0.22,
-        "y": -0.02,
-        "drawing": "hover_tank:turret",
-        "size": [0.12, 0.15],
+        "name": "reactor 1",
+        "x": -0.147,
+        "y": -0.143,
+        "drawing": "hover_tank:reactor",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right turret",
-        "x": 0.22,
-        "y": -0.02,
-        "drawing": "hover_tank:turret",
-        "size": [0.12, 0.15],
+        "name": "reactor 2",
+        "x": 0.147,
+        "y": -0.143,
+        "drawing": "hover_tank:reactor",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "gatling 3",
+        "x": -0.187,
+        "y": -0.037,
+        "drawing": "hover_tank:gatling",
+        "size": [0.047, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "gatling 4",
+        "x": 0.187,
+        "y": -0.037,
+        "drawing": "hover_tank:gatling",
+        "size": [0.047, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "gatling 5",
+        "x": -0.033,
+        "y": -0.03,
+        "drawing": "hover_tank:gatling2",
+        "size": [0.047, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "gatling 6",
+        "x": 0.033,
+        "y": -0.03,
+        "drawing": "hover_tank:gatling2",
+        "size": [0.047, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "gatling 7",
+        "x": -0.047,
+        "y": 0.083,
+        "drawing": "hover_tank:gatling3",
+        "size": [0.047, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "gatling 8",
+        "x": 0.047,
+        "y": 0.083,
+        "drawing": "hover_tank:gatling3",
+        "size": [0.047, 0.087],
         "health": 30.0,
         "points": 500
       }
@@ -1080,10 +2366,25 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left turret", "right turret"]},
+        "until": {
+          "parts": ["reactor 1", "reactor 2", "gatling 3", "gatling 4", "gatling 5", "gatling 6", "gatling 7", "gatling 8"]
+        },
         "guns": [
-          {"from": "left turret", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
-          {"from": "right turret", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
+          {
+            "from": ["reactor 1", "reactor 2", "gatling 3", "gatling 4", "gatling 5", "gatling 6", "gatling 7", "gatling 8"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.65,
+            "volley": 3
+          },
+          {
+            "from": ["reactor 1", "reactor 2", "gatling 3", "gatling 4", "gatling 5", "gatling 6", "gatling 7", "gatling 8"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.65,
+            "volley": 3,
+            "delay": 0.9
+          },
           {"pattern": "ring", "interval": 2.4, "speed": 0.38, "count": 8, "turn": 22, "delay": 0.5}
         ]
       },
@@ -1101,25 +2402,79 @@
     "name": "CRYO FORTRESS",
     "boss": true,
     "drawing": "cryo_fortress",
-    "size": [0.3, 0.26],
+    "size": [0.46, 0.407],
     "health": 110.0,
     "points": 2800,
     "parts": [
       {
-        "name": "left cannon",
-        "x": -0.23,
-        "y": 0.02,
-        "drawing": "cryo_fortress:cannon",
-        "size": [0.12, 0.15],
+        "name": "gatling 1",
+        "x": -0.153,
+        "y": 0.093,
+        "drawing": "cryo_fortress:gatling",
+        "size": [0.047, 0.087],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "right cannon",
-        "x": 0.23,
-        "y": 0.02,
-        "drawing": "cryo_fortress:cannon",
-        "size": [0.12, 0.15],
+        "name": "gatling 2",
+        "x": 0.153,
+        "y": 0.093,
+        "drawing": "cryo_fortress:gatling",
+        "size": [0.047, 0.087],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 3",
+        "x": -0.127,
+        "y": -0.04,
+        "drawing": "cryo_fortress:gatling2",
+        "size": [0.047, 0.087],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 4",
+        "x": 0.127,
+        "y": -0.04,
+        "drawing": "cryo_fortress:gatling2",
+        "size": [0.047, 0.087],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "reactor 5",
+        "x": -0.093,
+        "y": 0.06,
+        "drawing": "cryo_fortress:reactor",
+        "size": [0.06, 0.06],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "reactor 6",
+        "x": 0.093,
+        "y": 0.06,
+        "drawing": "cryo_fortress:reactor",
+        "size": [0.06, 0.06],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "reactor 7",
+        "x": -0.047,
+        "y": 0.147,
+        "drawing": "cryo_fortress:reactor2",
+        "size": [0.073, 0.073],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "reactor 8",
+        "x": 0.047,
+        "y": 0.147,
+        "drawing": "cryo_fortress:reactor2",
+        "size": [0.073, 0.073],
         "health": 35.0,
         "points": 600
       }
@@ -1128,10 +2483,27 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left cannon", "right cannon"]},
+        "until": {
+          "parts": ["gatling 3", "gatling 4", "reactor 5", "reactor 6", "gatling 1", "gatling 2", "reactor 7", "reactor 8"]
+        },
         "guns": [
-          {"from": "left cannon", "pattern": "ring", "interval": 1.6, "speed": 0.42, "count": 6, "turn": 10},
-          {"from": "right cannon", "pattern": "ring", "interval": 1.6, "speed": 0.42, "count": 6, "turn": -10, "delay": 0.8},
+          {
+            "from": ["gatling 3", "gatling 4", "reactor 5", "reactor 6", "gatling 1", "gatling 2", "reactor 7", "reactor 8"],
+            "pattern": "ring",
+            "interval": 1.6,
+            "speed": 0.42,
+            "count": 6,
+            "turn": 10
+          },
+          {
+            "from": ["gatling 3", "gatling 4", "reactor 5", "reactor 6", "gatling 1", "gatling 2", "reactor 7", "reactor 8"],
+            "pattern": "ring",
+            "interval": 1.6,
+            "speed": 0.42,
+            "count": 6,
+            "turn": -10,
+            "delay": 0.8
+          },
           {"pattern": "aimed", "interval": 2.2, "speed": 0.5, "delay": 1.1, "style": "heavy"}
         ]
       },
@@ -1149,43 +2521,61 @@
     "name": "SENTRY GRID",
     "boss": true,
     "drawing": "sentry_grid",
-    "size": [0.24, 0.24],
+    "size": [0.38, 0.36],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "left outer node",
-        "x": -0.3,
-        "y": 0.06,
-        "drawing": "sentry_grid:generator",
-        "size": [0.1, 0.1],
+        "name": "launcher 1",
+        "x": -0.113,
+        "y": 0.103,
+        "drawing": "sentry_grid:launcher",
+        "size": [0.06, 0.067],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "right outer node",
-        "x": 0.3,
-        "y": 0.06,
-        "drawing": "sentry_grid:generator",
-        "size": [0.1, 0.1],
+        "name": "launcher 2",
+        "x": 0.113,
+        "y": 0.103,
+        "drawing": "sentry_grid:launcher",
+        "size": [0.06, 0.067],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "left inner node",
-        "x": -0.18,
-        "y": -0.13,
-        "drawing": "sentry_grid:generator",
-        "size": [0.1, 0.1],
+        "name": "launcher 3",
+        "x": -0.1,
+        "y": -0.097,
+        "drawing": "sentry_grid:launcher2",
+        "size": [0.06, 0.067],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "right inner node",
-        "x": 0.18,
-        "y": -0.13,
-        "drawing": "sentry_grid:generator",
-        "size": [0.1, 0.1],
+        "name": "launcher 4",
+        "x": 0.1,
+        "y": -0.097,
+        "drawing": "sentry_grid:launcher2",
+        "size": [0.06, 0.067],
+        "health": 22.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.033,
+        "y": -0.11,
+        "drawing": "sentry_grid:launcher3",
+        "size": [0.06, 0.067],
+        "health": 22.0,
+        "points": 400
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.033,
+        "y": -0.11,
+        "drawing": "sentry_grid:launcher3",
+        "size": [0.06, 0.067],
         "health": 22.0,
         "points": 400
       }
@@ -1194,21 +2584,43 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left outer node", "right outer node"]},
+        "until": {"parts": ["launcher 5", "launcher 6", "launcher 3", "launcher 4"]},
         "guns": [
-          {"from": "left outer node", "pattern": "aimed", "interval": 1.4, "speed": 0.65},
-          {"from": "right outer node", "pattern": "aimed", "interval": 1.4, "speed": 0.65, "delay": 0.7},
-          {"from": "left inner node", "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 6, "turn": 20, "delay": 0.3},
-          {"from": "right inner node", "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 6, "turn": -20, "delay": 1.3}
+          {"from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.4, "speed": 0.65},
+          {
+            "from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4"],
+            "pattern": "aimed",
+            "interval": 1.4,
+            "speed": 0.65,
+            "delay": 0.7
+          },
+          {
+            "from": ["launcher 1", "launcher 2"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.4,
+            "count": 6,
+            "turn": 20,
+            "delay": 0.3
+          },
+          {
+            "from": ["launcher 1", "launcher 2"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.4,
+            "count": 6,
+            "turn": -20,
+            "delay": 1.3
+          }
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left inner node", "right inner node"]},
+        "until": {"parts": ["launcher 1", "launcher 2"]},
         "guns": [
-          {"from": "left inner node", "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2},
-          {"from": "right inner node", "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2, "delay": 0.7},
+          {"from": ["launcher 1", "launcher 2"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2},
+          {"from": ["launcher 1", "launcher 2"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2, "delay": 0.7},
           {"pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 5, "delay": 1.0}
         ]
       },
@@ -1226,61 +2638,97 @@
     "name": "LEVIATHAN",
     "boss": true,
     "drawing": "leviathan",
-    "size": [0.447, 0.593],
+    "size": [0.42, 0.587],
     "health": 130.0,
     "points": 8500,
     "parts": [
       {
-        "name": "left turret",
-        "x": -0.12,
-        "y": -0.08,
+        "name": "turret 1",
+        "x": -0.153,
+        "y": 0.023,
         "drawing": "leviathan:turret",
-        "size": [0.127, 0.153],
+        "size": [0.06, 0.087],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "right turret",
-        "x": 0.12,
-        "y": -0.08,
+        "name": "turret 2",
+        "x": 0.153,
+        "y": 0.023,
         "drawing": "leviathan:turret",
-        "size": [0.127, 0.153],
+        "size": [0.06, 0.087],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "left node",
-        "x": -0.213,
-        "y": -0.033,
-        "drawing": "leviathan:node",
-        "size": [0.073, 0.08],
-        "health": 20.0,
-        "points": 400
+        "name": "turret 3",
+        "x": -0.093,
+        "y": 0.117,
+        "drawing": "leviathan:turret2",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 500
       },
       {
-        "name": "right node",
-        "x": 0.213,
-        "y": -0.033,
-        "drawing": "leviathan:node",
-        "size": [0.073, 0.08],
-        "health": 20.0,
-        "points": 400
+        "name": "turret 4",
+        "x": 0.093,
+        "y": 0.117,
+        "drawing": "leviathan:turret2",
+        "size": [0.047, 0.067],
+        "health": 25.0,
+        "points": 500
       },
       {
-        "name": "left reactor",
-        "x": -0.047,
-        "y": 0.2,
-        "drawing": "leviathan:reactor",
-        "size": [0.1, 0.12],
+        "name": "turret 5",
+        "x": -0.153,
+        "y": 0.29,
+        "drawing": "leviathan:turret3",
+        "size": [0.06, 0.087],
         "health": 20.0,
         "points": 500
       },
       {
-        "name": "right reactor",
-        "x": 0.047,
-        "y": 0.2,
-        "drawing": "leviathan:reactor",
-        "size": [0.1, 0.12],
+        "name": "turret 6",
+        "x": 0.153,
+        "y": 0.29,
+        "drawing": "leviathan:turret3",
+        "size": [0.06, 0.087],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "turret 7",
+        "x": -0.187,
+        "y": 0.23,
+        "drawing": "leviathan:turret4",
+        "size": [0.047, 0.067],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "turret 8",
+        "x": 0.187,
+        "y": 0.23,
+        "drawing": "leviathan:turret4",
+        "size": [0.047, 0.067],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "turret 9",
+        "x": -0.053,
+        "y": 0.25,
+        "drawing": "leviathan:turret5",
+        "size": [0.047, 0.067],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "turret 10",
+        "x": 0.053,
+        "y": 0.25,
+        "drawing": "leviathan:turret5",
+        "size": [0.047, 0.067],
         "health": 20.0,
         "points": 500
       }
@@ -1289,21 +2737,65 @@
       {
         "sway": 0.07,
         "armored": true,
-        "until": {"parts": ["left turret", "right turret", "left node", "right node"]},
+        "until": {"parts": ["turret 1", "turret 2", "turret 3", "turret 4"]},
         "guns": [
-          {"from": "left turret", "pattern": "aimed", "interval": 1.7, "speed": 0.65, "volley": 3},
-          {"from": "right turret", "pattern": "aimed", "interval": 1.7, "speed": 0.65, "volley": 3, "delay": 0.85},
-          {"from": "left node", "pattern": "fan", "interval": 2.2, "speed": 0.45, "count": 3, "spread": 18, "delay": 0.4},
-          {"from": "right node", "pattern": "fan", "interval": 2.2, "speed": 0.45, "count": 3, "spread": 18, "delay": 1.5}
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "aimed",
+            "interval": 1.7,
+            "speed": 0.65,
+            "volley": 3
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "aimed",
+            "interval": 1.7,
+            "speed": 0.65,
+            "volley": 3,
+            "delay": 0.85
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "fan",
+            "interval": 2.2,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 18,
+            "delay": 0.4
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "fan",
+            "interval": 2.2,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 18,
+            "delay": 1.5
+          }
         ]
       },
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left reactor", "right reactor"]},
+        "until": {"parts": ["turret 7", "turret 8", "turret 9", "turret 10", "turret 5", "turret 6"]},
         "guns": [
-          {"from": "left reactor", "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 12, "turn": 15},
-          {"from": "right reactor", "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 12, "turn": -15, "delay": 1.0},
+          {
+            "from": ["turret 7", "turret 8", "turret 9", "turret 10", "turret 5", "turret 6"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.4,
+            "count": 12,
+            "turn": 15
+          },
+          {
+            "from": ["turret 7", "turret 8", "turret 9", "turret 10", "turret 5", "turret 6"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.4,
+            "count": 12,
+            "turn": -15,
+            "delay": 1.0
+          },
           {"pattern": "aimed", "interval": 1.8, "speed": 0.6, "volley": 2, "delay": 0.5, "style": "heavy"}
         ]
       },
@@ -1321,25 +2813,61 @@
     "name": "RELAY ARRAY",
     "boss": true,
     "drawing": "relay_array",
-    "size": [0.3, 0.24],
+    "size": [0.473, 0.373],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "left dish",
-        "x": -0.26,
-        "y": 0.06,
-        "drawing": "relay_array:dish",
-        "size": [0.14, 0.14],
+        "name": "emitter 1",
+        "x": -0.027,
+        "y": -0.103,
+        "drawing": "relay_array:emitter",
+        "size": [0.06, 0.12],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "right dish",
-        "x": 0.26,
-        "y": 0.06,
-        "drawing": "relay_array:dish",
-        "size": [0.14, 0.14],
+        "name": "emitter 2",
+        "x": 0.027,
+        "y": -0.103,
+        "drawing": "relay_array:emitter",
+        "size": [0.06, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 3",
+        "x": -0.1,
+        "y": -0.063,
+        "drawing": "relay_array:emitter2",
+        "size": [0.06, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 4",
+        "x": 0.1,
+        "y": -0.063,
+        "drawing": "relay_array:emitter2",
+        "size": [0.06, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 5",
+        "x": -0.093,
+        "y": 0.177,
+        "drawing": "relay_array:gatling",
+        "size": [0.033, 0.067],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "gatling 6",
+        "x": 0.093,
+        "y": 0.177,
+        "drawing": "relay_array:gatling",
+        "size": [0.033, 0.067],
         "health": 35.0,
         "points": 600
       }
@@ -1348,10 +2876,25 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left dish", "right dish"]},
+        "until": {"parts": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "gatling 5", "gatling 6"]},
         "guns": [
-          {"from": "left dish", "pattern": "ring", "interval": 2.2, "speed": 0.38, "count": 8, "turn": 20},
-          {"from": "right dish", "pattern": "ring", "interval": 2.2, "speed": 0.38, "count": 8, "turn": -20, "delay": 1.1},
+          {
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "gatling 5", "gatling 6"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.38,
+            "count": 8,
+            "turn": 20
+          },
+          {
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "gatling 5", "gatling 6"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.38,
+            "count": 8,
+            "turn": -20,
+            "delay": 1.1
+          },
           {"pattern": "aimed", "interval": 1.6, "speed": 0.6, "delay": 0.5}
         ]
       },
@@ -1369,25 +2912,61 @@
     "name": "SCAVENGER",
     "boss": true,
     "drawing": "scavenger",
-    "size": [0.2, 0.27],
+    "size": [0.38, 0.5],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "left battery",
-        "x": -0.21,
-        "y": 0.05,
-        "drawing": "scavenger:launcher",
-        "size": [0.2, 0.13],
+        "name": "emitter 1",
+        "x": -0.06,
+        "y": 0.187,
+        "drawing": "scavenger:emitter",
+        "size": [0.047, 0.093],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "right battery",
-        "x": 0.21,
-        "y": 0.05,
-        "drawing": "scavenger:launcher",
-        "size": [0.2, 0.13],
+        "name": "emitter 2",
+        "x": 0.06,
+        "y": 0.187,
+        "drawing": "scavenger:emitter",
+        "size": [0.047, 0.093],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 3",
+        "x": -0.14,
+        "y": 0.1,
+        "drawing": "scavenger:emitter2",
+        "size": [0.06, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 4",
+        "x": 0.14,
+        "y": 0.1,
+        "drawing": "scavenger:emitter2",
+        "size": [0.06, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.12,
+        "y": -0.013,
+        "drawing": "scavenger:emitter3",
+        "size": [0.06, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 6",
+        "x": 0.12,
+        "y": -0.013,
+        "drawing": "scavenger:emitter3",
+        "size": [0.06, 0.12],
         "health": 35.0,
         "points": 600
       }
@@ -1396,11 +2975,19 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left battery", "right battery"]},
+        "until": {"parts": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"]},
         "guns": [
-          {"from": "left battery", "pattern": "fan", "interval": 1.3, "speed": 0.5, "count": 4, "spread": 12, "sweep": 25},
           {
-            "from": "right battery",
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "pattern": "fan",
+            "interval": 1.3,
+            "speed": 0.5,
+            "count": 4,
+            "spread": 12,
+            "sweep": 25
+          },
+          {
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
             "pattern": "fan",
             "interval": 1.3,
             "speed": 0.5,
@@ -1434,25 +3021,79 @@
     "name": "MINE CARRIER",
     "boss": true,
     "drawing": "mine_carrier",
-    "size": [0.34, 0.28],
+    "size": [0.487, 0.4],
     "health": 130.0,
     "points": 3500,
     "parts": [
       {
-        "name": "left launcher",
-        "x": -0.27,
-        "y": -0.08,
-        "drawing": "mine_carrier:launcher",
-        "size": [0.12, 0.12],
+        "name": "emitter 1",
+        "x": -0.047,
+        "y": -0.023,
+        "drawing": "mine_carrier:emitter",
+        "size": [0.047, 0.093],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "right launcher",
-        "x": 0.27,
-        "y": -0.08,
-        "drawing": "mine_carrier:launcher",
-        "size": [0.12, 0.12],
+        "name": "emitter 2",
+        "x": 0.047,
+        "y": -0.023,
+        "drawing": "mine_carrier:emitter",
+        "size": [0.047, 0.093],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "turret 3",
+        "x": -0.167,
+        "y": -0.03,
+        "drawing": "mine_carrier:turret",
+        "size": [0.06, 0.087],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "turret 4",
+        "x": 0.167,
+        "y": -0.03,
+        "drawing": "mine_carrier:turret",
+        "size": [0.06, 0.087],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "radar 5",
+        "x": -0.133,
+        "y": 0.063,
+        "drawing": "mine_carrier:radar",
+        "size": [0.047, 0.047],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "radar 6",
+        "x": 0.133,
+        "y": 0.063,
+        "drawing": "mine_carrier:radar",
+        "size": [0.047, 0.047],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "radar 7",
+        "x": -0.113,
+        "y": -0.103,
+        "drawing": "mine_carrier:radar2",
+        "size": [0.06, 0.06],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "radar 8",
+        "x": 0.113,
+        "y": -0.103,
+        "drawing": "mine_carrier:radar2",
+        "size": [0.06, 0.06],
         "health": 35.0,
         "points": 600
       }
@@ -1461,10 +3102,25 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left launcher", "right launcher"]},
+        "until": {"parts": ["radar 7", "radar 8", "turret 3", "turret 4", "emitter 1", "emitter 2", "radar 5", "radar 6"]},
         "guns": [
-          {"from": "left launcher", "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 20},
-          {"from": "right launcher", "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 20, "delay": 0.9},
+          {
+            "from": ["radar 7", "radar 8", "turret 3", "turret 4", "emitter 1", "emitter 2", "radar 5", "radar 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 20
+          },
+          {
+            "from": ["radar 7", "radar 8", "turret 3", "turret 4", "emitter 1", "emitter 2", "radar 5", "radar 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 20,
+            "delay": 0.9
+          },
           {"pattern": "aimed", "interval": 2.4, "speed": 0.5, "delay": 1.2, "style": "heavy"}
         ]
       },
@@ -1490,25 +3146,79 @@
     "name": "FOUNDRY",
     "boss": true,
     "drawing": "foundry",
-    "size": [0.28, 0.3],
+    "size": [0.42, 0.44],
     "health": 140.0,
     "points": 3400,
     "parts": [
       {
-        "name": "left press",
-        "x": -0.22,
-        "y": -0.1,
-        "drawing": "foundry:piston",
-        "size": [0.12, 0.14],
+        "name": "cannon 1",
+        "x": -0.04,
+        "y": 0.163,
+        "drawing": "foundry:cannon",
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "right press",
-        "x": 0.22,
-        "y": -0.1,
-        "drawing": "foundry:piston",
-        "size": [0.12, 0.14],
+        "name": "cannon 2",
+        "x": 0.04,
+        "y": 0.163,
+        "drawing": "foundry:cannon",
+        "size": [0.047, 0.1],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.127,
+        "y": -0.01,
+        "drawing": "foundry:cannon2",
+        "size": [0.06, 0.133],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.127,
+        "y": -0.01,
+        "drawing": "foundry:cannon2",
+        "size": [0.06, 0.133],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.027,
+        "y": 0.077,
+        "drawing": "foundry:emitter",
+        "size": [0.047, 0.093],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "emitter 6",
+        "x": 0.027,
+        "y": 0.077,
+        "drawing": "foundry:emitter",
+        "size": [0.047, 0.093],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "cannon 7",
+        "x": -0.187,
+        "y": -0.01,
+        "drawing": "foundry:cannon3",
+        "size": [0.047, 0.1],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "cannon 8",
+        "x": 0.187,
+        "y": -0.01,
+        "drawing": "foundry:cannon3",
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 600
       }
@@ -1517,11 +3227,19 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left press", "right press"]},
+        "until": {"parts": ["cannon 3", "cannon 4", "cannon 7", "cannon 8", "emitter 5", "emitter 6", "cannon 1", "cannon 2"]},
         "guns": [
-          {"from": "left press", "pattern": "fan", "interval": 2.0, "speed": 0.42, "count": 3, "spread": 20, "style": "heavy"},
           {
-            "from": "right press",
+            "from": ["cannon 3", "cannon 4", "cannon 7", "cannon 8", "emitter 5", "emitter 6", "cannon 1", "cannon 2"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.42,
+            "count": 3,
+            "spread": 20,
+            "style": "heavy"
+          },
+          {
+            "from": ["cannon 3", "cannon 4", "cannon 7", "cannon 8", "emitter 5", "emitter 6", "cannon 1", "cannon 2"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.42,
@@ -1555,43 +3273,79 @@
     "name": "GUNSHIP PRIME",
     "boss": true,
     "drawing": "gunship_prime",
-    "size": [0.24, 0.33],
+    "size": [0.367, 0.52],
     "health": 140.0,
     "points": 3600,
     "parts": [
       {
-        "name": "left cannon",
-        "x": -0.18,
-        "y": -0.08,
-        "drawing": "gunship_prime:cannon",
-        "size": [0.1, 0.18],
+        "name": "emitter 1",
+        "x": -0.027,
+        "y": -0.003,
+        "drawing": "gunship_prime:emitter",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right cannon",
-        "x": 0.18,
-        "y": -0.08,
-        "drawing": "gunship_prime:cannon",
-        "size": [0.1, 0.18],
+        "name": "emitter 2",
+        "x": 0.027,
+        "y": -0.003,
+        "drawing": "gunship_prime:emitter",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left engine",
-        "x": -0.3,
-        "y": 0.1,
-        "drawing": "gunship_prime:engine",
-        "size": [0.12, 0.12],
+        "name": "emitter 3",
+        "x": -0.14,
+        "y": 0.177,
+        "drawing": "gunship_prime:emitter2",
+        "size": [0.047, 0.093],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right engine",
-        "x": 0.3,
-        "y": 0.1,
-        "drawing": "gunship_prime:engine",
-        "size": [0.12, 0.12],
+        "name": "emitter 4",
+        "x": 0.14,
+        "y": 0.177,
+        "drawing": "gunship_prime:emitter2",
+        "size": [0.047, 0.093],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.093,
+        "y": -0.183,
+        "drawing": "gunship_prime:emitter3",
+        "size": [0.047, 0.093],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 6",
+        "x": 0.093,
+        "y": -0.183,
+        "drawing": "gunship_prime:emitter3",
+        "size": [0.047, 0.093],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 7",
+        "x": -0.073,
+        "y": -0.11,
+        "drawing": "gunship_prime:emitter4",
+        "size": [0.06, 0.12],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 8",
+        "x": 0.073,
+        "y": -0.11,
+        "drawing": "gunship_prime:emitter4",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       }
@@ -1600,21 +3354,65 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left cannon", "right cannon"]},
+        "until": {"parts": ["emitter 5", "emitter 6", "emitter 7", "emitter 8"]},
         "guns": [
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
-          {"from": "left engine", "pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 3, "spread": 20, "delay": 0.4},
-          {"from": "right engine", "pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 3, "spread": 20, "delay": 1.4}
+          {
+            "from": ["emitter 5", "emitter 6", "emitter 7", "emitter 8"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.65,
+            "volley": 3
+          },
+          {
+            "from": ["emitter 5", "emitter 6", "emitter 7", "emitter 8"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.65,
+            "volley": 3,
+            "delay": 0.9
+          },
+          {
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 20,
+            "delay": 0.4
+          },
+          {
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 20,
+            "delay": 1.4
+          }
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left engine", "right engine"]},
+        "until": {"parts": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"]},
         "guns": [
-          {"from": "left engine", "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 10, "turn": 18},
-          {"from": "right engine", "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 10, "turn": -18, "delay": 1.0},
+          {
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.4,
+            "count": 10,
+            "turn": 18
+          },
+          {
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.4,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.0
+          },
           {"pattern": "aimed", "interval": 2.0, "speed": 0.55, "volley": 2, "delay": 0.5, "style": "heavy"}
         ]
       },
@@ -1628,47 +3426,83 @@
     ]
   },
   "colossus": {
-    "note": "6-6, Bright Ridges' boss: four turrets, the outer pair first, then the inner pair, then the core.",
+    "note": "6-6, Bright Ridges's boss: four turrets, the outer pair first, then the inner pair, then the core.",
     "name": "COLOSSUS",
     "boss": true,
     "drawing": "colossus",
-    "size": [0.34, 0.3],
+    "size": [0.473, 0.407],
     "health": 150.0,
     "points": 8000,
     "parts": [
       {
-        "name": "left outer",
-        "x": -0.3,
-        "y": -0.02,
-        "drawing": "colossus:turret",
-        "size": [0.12, 0.12],
+        "name": "flak 1",
+        "x": -0.04,
+        "y": -0.04,
+        "drawing": "colossus:flak",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "right outer",
-        "x": 0.3,
-        "y": -0.02,
-        "drawing": "colossus:turret",
-        "size": [0.12, 0.12],
+        "name": "flak 2",
+        "x": 0.04,
+        "y": -0.04,
+        "drawing": "colossus:flak",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "left inner",
-        "x": -0.1,
-        "y": -0.2,
-        "drawing": "colossus:turret",
-        "size": [0.12, 0.12],
+        "name": "launcher 3",
+        "x": -0.167,
+        "y": -0.127,
+        "drawing": "colossus:launcher",
+        "size": [0.06, 0.067],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "right inner",
-        "x": 0.1,
-        "y": -0.2,
-        "drawing": "colossus:turret",
-        "size": [0.12, 0.12],
+        "name": "launcher 4",
+        "x": 0.167,
+        "y": -0.127,
+        "drawing": "colossus:launcher",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.04,
+        "y": 0.12,
+        "drawing": "colossus:launcher2",
+        "size": [0.047, 0.053],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.04,
+        "y": 0.12,
+        "drawing": "colossus:launcher2",
+        "size": [0.047, 0.053],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "flak 7",
+        "x": -0.08,
+        "y": 0.04,
+        "drawing": "colossus:flak2",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "flak 8",
+        "x": 0.08,
+        "y": 0.04,
+        "drawing": "colossus:flak2",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 600
       }
@@ -1677,21 +3511,63 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left outer", "right outer"]},
+        "until": {"parts": ["launcher 3", "launcher 4", "flak 1", "flak 2"]},
         "guns": [
-          {"from": "left outer", "pattern": "aimed", "interval": 2.0, "speed": 0.7, "volley": 3},
-          {"from": "right outer", "pattern": "aimed", "interval": 2.0, "speed": 0.7, "volley": 3, "delay": 1.0},
-          {"from": "left inner", "pattern": "fan", "interval": 1.6, "speed": 0.5, "count": 3, "delay": 0.5},
-          {"from": "right inner", "pattern": "fan", "interval": 1.6, "speed": 0.5, "count": 3, "delay": 1.3}
+          {
+            "from": ["launcher 3", "launcher 4", "flak 1", "flak 2"],
+            "pattern": "aimed",
+            "interval": 2.0,
+            "speed": 0.7,
+            "volley": 3
+          },
+          {
+            "from": ["launcher 3", "launcher 4", "flak 1", "flak 2"],
+            "pattern": "aimed",
+            "interval": 2.0,
+            "speed": 0.7,
+            "volley": 3,
+            "delay": 1.0
+          },
+          {
+            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
+            "pattern": "fan",
+            "interval": 1.6,
+            "speed": 0.5,
+            "count": 3,
+            "delay": 0.5
+          },
+          {
+            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
+            "pattern": "fan",
+            "interval": 1.6,
+            "speed": 0.5,
+            "count": 3,
+            "delay": 1.3
+          }
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left inner", "right inner"]},
+        "until": {"parts": ["flak 7", "flak 8", "launcher 5", "launcher 6"]},
         "guns": [
-          {"from": "left inner", "pattern": "ring", "interval": 1.3, "speed": 0.45, "count": 8, "turn": 22},
-          {"from": "right inner", "pattern": "ring", "interval": 1.3, "speed": 0.45, "count": 8, "turn": -22, "delay": 0.65},
+          {
+            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
+            "pattern": "ring",
+            "interval": 1.3,
+            "speed": 0.45,
+            "count": 8,
+            "turn": 22
+          },
+          {
+            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
+            "pattern": "ring",
+            "interval": 1.3,
+            "speed": 0.45,
+            "count": 8,
+            "turn": -22,
+            "delay": 0.65
+          },
           {"pattern": "fan", "interval": 2.6, "speed": 0.4, "count": 5, "spread": 20, "delay": 1.0, "style": "heavy"}
         ]
       },
@@ -1709,43 +3585,61 @@
     "name": "GRAPPLER",
     "boss": true,
     "drawing": "grappler",
-    "size": [0.26, 0.26],
+    "size": [0.367, 0.373],
     "health": 130.0,
     "points": 3200,
     "parts": [
       {
-        "name": "left grapple",
-        "x": -0.2,
-        "y": -0.13,
-        "drawing": "grappler:clamp",
-        "size": [0.08, 0.21],
+        "name": "cannon 1",
+        "x": -0.073,
+        "y": -0.07,
+        "drawing": "grappler:cannon",
+        "size": [0.06, 0.133],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "right grapple",
-        "x": 0.2,
-        "y": -0.13,
-        "drawing": "grappler:clamp",
-        "size": [0.08, 0.21],
+        "name": "cannon 2",
+        "x": 0.073,
+        "y": -0.07,
+        "drawing": "grappler:cannon",
+        "size": [0.06, 0.133],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "left inner grapple",
-        "x": -0.09,
-        "y": -0.21,
-        "drawing": "grappler:clamp",
-        "size": [0.08, 0.21],
+        "name": "cannon 3",
+        "x": -0.12,
+        "y": -0.003,
+        "drawing": "grappler:cannon2",
+        "size": [0.047, 0.1],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "right inner grapple",
-        "x": 0.09,
-        "y": -0.21,
-        "drawing": "grappler:clamp",
-        "size": [0.08, 0.21],
+        "name": "cannon 4",
+        "x": 0.12,
+        "y": -0.003,
+        "drawing": "grappler:cannon2",
+        "size": [0.047, 0.1],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 5",
+        "x": -0.053,
+        "y": 0.07,
+        "drawing": "grappler:cannon3",
+        "size": [0.06, 0.133],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "cannon 6",
+        "x": 0.053,
+        "y": 0.07,
+        "drawing": "grappler:cannon3",
+        "size": [0.06, 0.133],
         "health": 20.0,
         "points": 400
       }
@@ -1754,12 +3648,37 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left grapple", "right grapple", "left inner grapple", "right inner grapple"]},
+        "until": {"parts": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"]},
         "guns": [
-          {"from": "left grapple", "pattern": "fan", "interval": 1.6, "speed": 0.5, "count": 3},
-          {"from": "right grapple", "pattern": "fan", "interval": 1.6, "speed": 0.5, "count": 3, "delay": 0.8},
-          {"from": "left inner grapple", "pattern": "aimed", "interval": 1.4, "speed": 0.6, "delay": 0.4},
-          {"from": "right inner grapple", "pattern": "aimed", "interval": 1.4, "speed": 0.6, "delay": 1.1}
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "pattern": "fan",
+            "interval": 1.6,
+            "speed": 0.5,
+            "count": 3
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "pattern": "fan",
+            "interval": 1.6,
+            "speed": 0.5,
+            "count": 3,
+            "delay": 0.8
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "pattern": "aimed",
+            "interval": 1.4,
+            "speed": 0.6,
+            "delay": 0.4
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "pattern": "aimed",
+            "interval": 1.4,
+            "speed": 0.6,
+            "delay": 1.1
+          }
         ]
       },
       {
@@ -1784,55 +3703,95 @@
     "name": "TUGMASTER",
     "boss": true,
     "drawing": "tugmaster",
-    "size": [0.3, 0.28],
+    "size": [0.407, 0.373],
     "health": 130.0,
     "points": 3500,
     "parts": [
       {
-        "name": "left thruster",
-        "x": -0.23,
-        "y": 0.0,
-        "drawing": "tugmaster:engine",
-        "size": [0.12, 0.19],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "right thruster",
-        "x": 0.23,
-        "y": 0.0,
-        "drawing": "tugmaster:engine",
-        "size": [0.12, 0.19],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "ram plate",
-        "x": 0.0,
-        "y": -0.19,
-        "drawing": "tugmaster:plate",
-        "size": [0.22, 0.08],
+        "name": "radar 1",
+        "x": -0.18,
+        "y": 0.11,
+        "drawing": "tugmaster:radar",
+        "size": [0.06, 0.06],
         "health": 40.0,
         "points": 700
+      },
+      {
+        "name": "radar 2",
+        "x": 0.18,
+        "y": 0.11,
+        "drawing": "tugmaster:radar",
+        "size": [0.06, 0.06],
+        "health": 40.0,
+        "points": 700
+      },
+      {
+        "name": "radar 3",
+        "x": -0.133,
+        "y": -0.003,
+        "drawing": "tugmaster:radar2",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "radar 4",
+        "x": 0.133,
+        "y": -0.003,
+        "drawing": "tugmaster:radar2",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "reactor 5",
+        "x": -0.027,
+        "y": -0.103,
+        "drawing": "tugmaster:reactor",
+        "size": [0.073, 0.073],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "reactor 6",
+        "x": 0.027,
+        "y": -0.103,
+        "drawing": "tugmaster:reactor",
+        "size": [0.073, 0.073],
+        "health": 30.0,
+        "points": 500
       }
     ],
     "phases": [
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left thruster", "right thruster"]},
+        "until": {"parts": ["reactor 5", "reactor 6", "radar 3", "radar 4"]},
         "guns": [
-          {"from": "left thruster", "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2},
-          {"from": "right thruster", "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2, "delay": 0.8},
-          {"from": "ram plate", "pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 5, "delay": 0.4}
+          {
+            "from": ["reactor 5", "reactor 6", "radar 3", "radar 4"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.6,
+            "volley": 2
+          },
+          {
+            "from": ["reactor 5", "reactor 6", "radar 3", "radar 4"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.6,
+            "volley": 2,
+            "delay": 0.8
+          },
+          {"from": ["radar 1", "radar 2"], "pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 5, "delay": 0.4}
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["ram plate"]},
+        "until": {"parts": ["radar 1", "radar 2"]},
         "guns": [
-          {"from": "ram plate", "pattern": "ring", "interval": 1.6, "speed": 0.4, "count": 10, "turn": 18},
+          {"from": ["radar 1", "radar 2"], "pattern": "ring", "interval": 1.6, "speed": 0.4, "count": 10, "turn": 18},
           {"pattern": "fan", "interval": 2.2, "speed": 0.4, "count": 3, "spread": 30, "delay": 0.8, "style": "heavy"}
         ]
       },
@@ -1850,43 +3809,43 @@
     "name": "MAGMA RIG",
     "boss": true,
     "drawing": "magma_rig",
-    "size": [0.3, 0.28],
+    "size": [0.367, 0.347],
     "health": 150.0,
     "points": 4000,
     "parts": [
       {
-        "name": "left furnace",
-        "x": -0.24,
-        "y": 0.1,
-        "drawing": "magma_rig:generator",
-        "size": [0.12, 0.14],
+        "name": "emitter 1",
+        "x": -0.107,
+        "y": 0.09,
+        "drawing": "magma_rig:emitter",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right furnace",
-        "x": 0.24,
-        "y": 0.1,
-        "drawing": "magma_rig:generator",
-        "size": [0.12, 0.14],
+        "name": "emitter 2",
+        "x": 0.107,
+        "y": 0.09,
+        "drawing": "magma_rig:emitter",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left cannon",
-        "x": -0.36,
-        "y": -0.06,
-        "drawing": "magma_rig:cannon",
-        "size": [0.1, 0.16],
+        "name": "emitter 3",
+        "x": -0.12,
+        "y": -0.023,
+        "drawing": "magma_rig:emitter2",
+        "size": [0.047, 0.093],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right cannon",
-        "x": 0.36,
-        "y": -0.06,
-        "drawing": "magma_rig:cannon",
-        "size": [0.1, 0.16],
+        "name": "emitter 4",
+        "x": 0.12,
+        "y": -0.023,
+        "drawing": "magma_rig:emitter2",
+        "size": [0.047, 0.093],
         "health": 30.0,
         "points": 500
       }
@@ -1895,21 +3854,29 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left furnace", "right furnace"]},
+        "until": {"parts": ["emitter 3", "emitter 4"]},
         "guns": [
-          {"from": "left furnace", "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": 15},
-          {"from": "right furnace", "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": -15, "delay": 1.0},
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 0.5},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 1.3}
+          {"from": ["emitter 3", "emitter 4"], "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": 15},
+          {
+            "from": ["emitter 3", "emitter 4"],
+            "pattern": "ring",
+            "interval": 2.0,
+            "speed": 0.38,
+            "count": 8,
+            "turn": -15,
+            "delay": 1.0
+          },
+          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 0.5},
+          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 1.3}
         ]
       },
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left cannon", "right cannon"]},
+        "until": {"parts": ["emitter 1", "emitter 2"]},
         "guns": [
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
+          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
+          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 5, "spread": 18, "delay": 0.5, "style": "heavy"}
         ]
       },
@@ -1928,52 +3895,61 @@
     "name": "DREADNOUGHT",
     "boss": true,
     "drawing": "dreadnought",
-    "size": [0.24, 0.37],
+    "size": [0.313, 0.513],
     "health": 150.0,
     "points": 4000,
     "parts": [
       {
-        "name": "left front turret",
-        "x": -0.18,
-        "y": -0.1,
-        "drawing": "dreadnought:turret",
-        "size": [0.12, 0.12],
-        "health": 25.0,
-        "points": 500
-      },
-      {
-        "name": "right front turret",
-        "x": 0.18,
-        "y": -0.1,
-        "drawing": "dreadnought:turret",
-        "size": [0.12, 0.12],
-        "health": 25.0,
-        "points": 500
-      },
-      {
-        "name": "left rear turret",
-        "x": -0.26,
-        "y": 0.1,
-        "drawing": "dreadnought:turret",
-        "size": [0.12, 0.12],
-        "health": 25.0,
-        "points": 500
-      },
-      {
-        "name": "right rear turret",
-        "x": 0.26,
-        "y": 0.1,
-        "drawing": "dreadnought:turret",
-        "size": [0.12, 0.12],
-        "health": 25.0,
-        "points": 500
-      },
-      {
-        "name": "bow gun",
-        "x": 0.0,
-        "y": -0.24,
+        "name": "cannon 1",
+        "x": -0.06,
+        "y": -0.22,
         "drawing": "dreadnought:cannon",
-        "size": [0.08, 0.11],
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 2",
+        "x": 0.06,
+        "y": -0.22,
+        "drawing": "dreadnought:cannon",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.1,
+        "y": -0.02,
+        "drawing": "dreadnought:cannon2",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.1,
+        "y": -0.02,
+        "drawing": "dreadnought:cannon2",
+        "size": [0.047, 0.1],
+        "health": 25.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 5",
+        "x": -0.04,
+        "y": 0.12,
+        "drawing": "dreadnought:cannon3",
+        "size": [0.06, 0.133],
+        "health": 35.0,
+        "points": 700
+      },
+      {
+        "name": "cannon 6",
+        "x": 0.04,
+        "y": 0.12,
+        "drawing": "dreadnought:cannon3",
+        "size": [0.06, 0.133],
         "health": 35.0,
         "points": 700
       }
@@ -1982,21 +3958,58 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["left front turret", "right front turret", "left rear turret", "right rear turret"]},
+        "until": {"parts": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"]},
         "guns": [
-          {"from": "left front turret", "pattern": "aimed", "interval": 1.8, "speed": 0.6, "volley": 2},
-          {"from": "right front turret", "pattern": "aimed", "interval": 1.8, "speed": 0.6, "volley": 2, "delay": 0.9},
-          {"from": "left rear turret", "pattern": "fan", "interval": 2.2, "speed": 0.45, "count": 3, "spread": 20, "delay": 0.4},
-          {"from": "right rear turret", "pattern": "fan", "interval": 2.2, "speed": 0.45, "count": 3, "spread": 20, "delay": 1.5},
-          {"from": "bow gun", "pattern": "aimed", "interval": 2.6, "speed": 0.5, "delay": 1.2, "style": "heavy"}
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.6,
+            "volley": 2
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.6,
+            "volley": 2,
+            "delay": 0.9
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "pattern": "fan",
+            "interval": 2.2,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 20,
+            "delay": 0.4
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "pattern": "fan",
+            "interval": 2.2,
+            "speed": 0.45,
+            "count": 3,
+            "spread": 20,
+            "delay": 1.5
+          },
+          {"from": ["cannon 5", "cannon 6"], "pattern": "aimed", "interval": 2.6, "speed": 0.5, "delay": 1.2, "style": "heavy"}
         ]
       },
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["bow gun"]},
+        "until": {"parts": ["cannon 5", "cannon 6"]},
         "guns": [
-          {"from": "bow gun", "pattern": "fan", "interval": 1.0, "speed": 0.5, "count": 5, "spread": 12, "sweep": 30},
+          {
+            "from": ["cannon 5", "cannon 6"],
+            "pattern": "fan",
+            "interval": 1.0,
+            "speed": 0.5,
+            "count": 5,
+            "spread": 12,
+            "sweep": 30
+          },
           {"pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 10, "turn": 18, "delay": 0.5}
         ]
       },
@@ -2014,61 +4027,43 @@
     "name": "FLARE RIG",
     "boss": true,
     "drawing": "flare_rig",
-    "size": [0.38, 0.347],
+    "size": [0.38, 0.353],
     "health": 165.0,
     "points": 4300,
     "parts": [
       {
-        "name": "left gun",
-        "x": -0.08,
-        "y": -0.077,
-        "drawing": "flare_rig:gun",
-        "size": [0.113, 0.107],
+        "name": "turret 1",
+        "x": -0.06,
+        "y": 0.0,
+        "drawing": "flare_rig:turret",
+        "size": [0.047, 0.067],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "right gun",
-        "x": 0.08,
-        "y": -0.077,
-        "drawing": "flare_rig:gun",
-        "size": [0.113, 0.107],
+        "name": "turret 2",
+        "x": 0.06,
+        "y": 0.0,
+        "drawing": "flare_rig:turret",
+        "size": [0.047, 0.067],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "left launcher",
-        "x": -0.1,
-        "y": 0.017,
-        "drawing": "flare_rig:launcher",
-        "size": [0.087, 0.127],
+        "name": "turret 3",
+        "x": -0.06,
+        "y": 0.107,
+        "drawing": "flare_rig:turret2",
+        "size": [0.047, 0.067],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "right launcher",
-        "x": 0.1,
-        "y": 0.017,
-        "drawing": "flare_rig:launcher",
-        "size": [0.087, 0.127],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "left flak",
-        "x": -0.16,
-        "y": 0.07,
-        "drawing": "flare_rig:flak",
-        "size": [0.113, 0.1],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "right flak",
-        "x": 0.16,
-        "y": 0.07,
-        "drawing": "flare_rig:flak",
-        "size": [0.113, 0.1],
+        "name": "turret 4",
+        "x": 0.06,
+        "y": 0.107,
+        "drawing": "flare_rig:turret2",
+        "size": [0.047, 0.067],
         "health": 20.0,
         "points": 400
       }
@@ -2077,22 +4072,38 @@
       {
         "sway": 0.09,
         "armored": true,
-        "until": {"parts": ["left gun", "right gun"]},
+        "until": {"parts": ["turret 1", "turret 2"]},
         "guns": [
-          {"from": "left gun", "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2},
-          {"from": "right gun", "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2, "delay": 0.75},
-          {"from": "left flak", "pattern": "fan", "interval": 2.0, "speed": 0.5, "count": 3, "spread": 20, "delay": 0.4},
-          {"from": "right flak", "pattern": "fan", "interval": 2.0, "speed": 0.5, "count": 3, "spread": 20, "delay": 1.4}
+          {"from": ["turret 1", "turret 2"], "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2},
+          {"from": ["turret 1", "turret 2"], "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2, "delay": 0.75},
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 20,
+            "delay": 0.4
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 20,
+            "delay": 1.4
+          }
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left launcher", "right launcher"]},
+        "until": {"parts": ["turret 3", "turret 4"]},
         "guns": [
-          {"from": "left launcher", "pattern": "aimed", "interval": 2.0, "speed": 0.55, "volley": 2, "style": "heavy"},
+          {"from": ["turret 3", "turret 4"], "pattern": "aimed", "interval": 2.0, "speed": 0.55, "volley": 2, "style": "heavy"},
           {
-            "from": "right launcher",
+            "from": ["turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 2.0,
             "speed": 0.55,
@@ -2100,8 +4111,23 @@
             "delay": 1.0,
             "style": "heavy"
           },
-          {"from": "left flak", "pattern": "ring", "interval": 2.4, "speed": 0.4, "count": 10, "turn": 18},
-          {"from": "right flak", "pattern": "ring", "interval": 2.4, "speed": 0.4, "count": 10, "turn": -18, "delay": 1.2}
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "ring",
+            "interval": 2.4,
+            "speed": 0.4,
+            "count": 10,
+            "turn": 18
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "pattern": "ring",
+            "interval": 2.4,
+            "speed": 0.4,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.2
+          }
         ]
       },
       {
@@ -2118,43 +4144,61 @@
     "name": "CRUCIBLE",
     "boss": true,
     "drawing": "crucible",
-    "size": [0.367, 0.453],
+    "size": [0.38, 0.447],
     "health": 170.0,
     "points": 9000,
     "parts": [
       {
-        "name": "left beacon",
-        "x": -0.033,
-        "y": -0.143,
-        "drawing": "crucible:beacon",
+        "name": "launcher 1",
+        "x": -0.087,
+        "y": 0.153,
+        "drawing": "crucible:launcher",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 2",
+        "x": 0.087,
+        "y": 0.153,
+        "drawing": "crucible:launcher",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "radar 3",
+        "x": -0.067,
+        "y": 0.08,
+        "drawing": "crucible:radar",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "radar 4",
+        "x": 0.067,
+        "y": 0.08,
+        "drawing": "crucible:radar",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 600
+      },
+      {
+        "name": "reactor 5",
+        "x": -0.153,
+        "y": 0.127,
+        "drawing": "crucible:reactor",
         "size": [0.073, 0.073],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "right beacon",
-        "x": 0.033,
-        "y": -0.143,
-        "drawing": "crucible:beacon",
+        "name": "reactor 6",
+        "x": 0.153,
+        "y": 0.127,
+        "drawing": "crucible:reactor",
         "size": [0.073, 0.073],
-        "health": 30.0,
-        "points": 600
-      },
-      {
-        "name": "left furnace",
-        "x": -0.08,
-        "y": -0.017,
-        "drawing": "crucible:dish",
-        "size": [0.1, 0.087],
-        "health": 30.0,
-        "points": 600
-      },
-      {
-        "name": "right furnace",
-        "x": 0.08,
-        "y": -0.017,
-        "drawing": "crucible:dish",
-        "size": [0.1, 0.087],
         "health": 30.0,
         "points": 600
       }
@@ -2163,12 +4207,40 @@
       {
         "sway": 0.09,
         "armored": true,
-        "until": {"parts": ["left furnace", "right furnace"]},
+        "until": {"parts": ["radar 3", "radar 4", "reactor 5", "reactor 6", "launcher 1", "launcher 2"]},
         "guns": [
-          {"from": "left beacon", "pattern": "aimed", "interval": 1.5, "speed": 0.7, "volley": 2},
-          {"from": "right beacon", "pattern": "aimed", "interval": 1.5, "speed": 0.7, "volley": 2, "delay": 0.75},
-          {"from": "left furnace", "pattern": "ring", "interval": 2.3, "speed": 0.38, "count": 12, "turn": 16},
-          {"from": "right furnace", "pattern": "ring", "interval": 2.3, "speed": 0.38, "count": 12, "turn": -16, "delay": 1.15}
+          {
+            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.7,
+            "volley": 2
+          },
+          {
+            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.7,
+            "volley": 2,
+            "delay": 0.75
+          },
+          {
+            "from": ["radar 3", "radar 4", "reactor 5", "reactor 6", "launcher 1", "launcher 2"],
+            "pattern": "ring",
+            "interval": 2.3,
+            "speed": 0.38,
+            "count": 12,
+            "turn": 16
+          },
+          {
+            "from": ["radar 3", "radar 4", "reactor 5", "reactor 6", "launcher 1", "launcher 2"],
+            "pattern": "ring",
+            "interval": 2.3,
+            "speed": 0.38,
+            "count": 12,
+            "turn": -16,
+            "delay": 1.15
+          }
         ]
       },
       {
@@ -2176,8 +4248,23 @@
         "until": {"health_below": 0.5},
         "guns": [
           {"pattern": "ring", "interval": 0.15, "speed": 0.46, "count": 3, "turn": 13},
-          {"from": "left beacon", "pattern": "fan", "interval": 1.8, "speed": 0.55, "count": 3, "spread": 18},
-          {"from": "right beacon", "pattern": "fan", "interval": 1.8, "speed": 0.55, "count": 3, "spread": 18, "delay": 0.9}
+          {
+            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.55,
+            "count": 3,
+            "spread": 18
+          },
+          {
+            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.55,
+            "count": 3,
+            "spread": 18,
+            "delay": 0.9
+          }
         ]
       },
       {
@@ -2185,8 +4272,19 @@
         "guns": [
           {"pattern": "ring", "interval": 1.4, "speed": 0.4, "count": 16, "turn": 10},
           {"pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3, "gap": 0.2, "delay": 0.7, "style": "heavy"},
-          {"from": "left beacon", "pattern": "aimed", "interval": 1.6, "speed": 0.7},
-          {"from": "right beacon", "pattern": "aimed", "interval": 1.6, "speed": 0.7, "delay": 0.8}
+          {
+            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7
+          },
+          {
+            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7,
+            "delay": 0.8
+          }
         ]
       }
     ]
@@ -2196,43 +4294,61 @@
     "name": "EXECUTOR",
     "boss": true,
     "drawing": "executor",
-    "size": [0.28, 0.3],
+    "size": [0.393, 0.413],
     "health": 160.0,
     "points": 4500,
     "parts": [
       {
-        "name": "left generator",
-        "x": -0.32,
-        "y": 0.08,
-        "drawing": "executor:generator",
-        "size": [0.12, 0.12],
+        "name": "gatling 1",
+        "x": -0.18,
+        "y": 0.03,
+        "drawing": "executor:gatling",
+        "size": [0.033, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right generator",
-        "x": 0.32,
-        "y": 0.08,
-        "drawing": "executor:generator",
-        "size": [0.12, 0.12],
+        "name": "gatling 2",
+        "x": 0.18,
+        "y": 0.03,
+        "drawing": "executor:gatling",
+        "size": [0.033, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left blade",
-        "x": -0.2,
-        "y": -0.1,
-        "drawing": "executor:blade",
-        "size": [0.1, 0.22],
+        "name": "gatling 3",
+        "x": -0.027,
+        "y": -0.057,
+        "drawing": "executor:gatling2",
+        "size": [0.033, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right blade",
-        "x": 0.2,
-        "y": -0.1,
-        "drawing": "executor:blade",
-        "size": [0.1, 0.22],
+        "name": "gatling 4",
+        "x": 0.027,
+        "y": -0.057,
+        "drawing": "executor:gatling2",
+        "size": [0.033, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 5",
+        "x": -0.033,
+        "y": -0.123,
+        "drawing": "executor:turret",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 6",
+        "x": 0.033,
+        "y": -0.123,
+        "drawing": "executor:turret",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 500
       }
@@ -2241,12 +4357,41 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left generator", "right generator"]},
+        "until": {"parts": ["turret 5", "turret 6", "gatling 3", "gatling 4", "gatling 1", "gatling 2"]},
         "guns": [
-          {"from": "left generator", "pattern": "ring", "interval": 2.2, "speed": 0.38, "count": 10, "turn": 18},
-          {"from": "right generator", "pattern": "ring", "interval": 2.2, "speed": 0.38, "count": 10, "turn": -18, "delay": 1.1},
-          {"from": "left blade", "pattern": "aimed", "interval": 1.6, "speed": 0.65, "volley": 2, "delay": 0.5},
-          {"from": "right blade", "pattern": "aimed", "interval": 1.6, "speed": 0.65, "volley": 2, "delay": 1.3}
+          {
+            "from": ["turret 5", "turret 6", "gatling 3", "gatling 4", "gatling 1", "gatling 2"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.38,
+            "count": 10,
+            "turn": 18
+          },
+          {
+            "from": ["turret 5", "turret 6", "gatling 3", "gatling 4", "gatling 1", "gatling 2"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.38,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.1
+          },
+          {
+            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.65,
+            "volley": 2,
+            "delay": 0.5
+          },
+          {
+            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.65,
+            "volley": 2,
+            "delay": 1.3
+          }
         ]
       },
       {
@@ -2254,8 +4399,23 @@
         "until": {"health_below": 0.5},
         "guns": [
           {"pattern": "ring", "interval": 0.14, "speed": 0.45, "count": 3, "turn": 12},
-          {"from": "left blade", "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 18},
-          {"from": "right blade", "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 18, "delay": 0.9}
+          {
+            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 18
+          },
+          {
+            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 18,
+            "delay": 0.9
+          }
         ]
       },
       {
@@ -2263,8 +4423,19 @@
         "guns": [
           {"pattern": "ring", "interval": 1.5, "speed": 0.4, "count": 14, "turn": 11},
           {"pattern": "aimed", "interval": 2.2, "speed": 0.55, "volley": 3, "delay": 0.7, "style": "heavy"},
-          {"from": "left blade", "pattern": "aimed", "interval": 1.5, "speed": 0.7},
-          {"from": "right blade", "pattern": "aimed", "interval": 1.5, "speed": 0.7, "delay": 0.75}
+          {
+            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.7
+          },
+          {
+            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.7,
+            "delay": 0.75
+          }
         ]
       }
     ]
@@ -2274,43 +4445,61 @@
     "name": "INTERDICTOR",
     "boss": true,
     "drawing": "interdictor",
-    "size": [0.287, 0.333],
+    "size": [0.353, 0.4],
     "health": 160.0,
     "points": 4200,
     "parts": [
       {
-        "name": "left cannon",
-        "x": -0.093,
-        "y": -0.123,
-        "drawing": "interdictor:cannon",
-        "size": [0.047, 0.08],
+        "name": "turret 1",
+        "x": -0.107,
+        "y": -0.117,
+        "drawing": "interdictor:turret",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right cannon",
-        "x": 0.093,
-        "y": -0.123,
-        "drawing": "interdictor:cannon",
-        "size": [0.047, 0.08],
+        "name": "turret 2",
+        "x": 0.107,
+        "y": -0.117,
+        "drawing": "interdictor:turret",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left dish",
-        "x": -0.133,
-        "y": 0.057,
-        "drawing": "interdictor:dish",
-        "size": [0.073, 0.1],
+        "name": "turret 3",
+        "x": -0.033,
+        "y": 0.037,
+        "drawing": "interdictor:turret2",
+        "size": [0.06, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right dish",
-        "x": 0.133,
-        "y": 0.057,
-        "drawing": "interdictor:dish",
-        "size": [0.073, 0.1],
+        "name": "turret 4",
+        "x": 0.033,
+        "y": 0.037,
+        "drawing": "interdictor:turret2",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 5",
+        "x": -0.16,
+        "y": 0.09,
+        "drawing": "interdictor:turret3",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "turret 6",
+        "x": 0.16,
+        "y": 0.09,
+        "drawing": "interdictor:turret3",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 500
       }
@@ -2319,13 +4508,34 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left dish", "right dish"]},
+        "until": {"parts": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"]},
         "guns": [
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.4, "speed": 0.7, "volley": 2},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.4, "speed": 0.7, "volley": 2, "delay": 0.7},
-          {"from": "left dish", "pattern": "fan", "interval": 2.0, "speed": 0.5, "count": 5, "spread": 12, "sweep": 20},
           {
-            "from": "right dish",
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.4,
+            "speed": 0.7,
+            "volley": 2
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.4,
+            "speed": 0.7,
+            "volley": 2,
+            "delay": 0.7
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "pattern": "fan",
+            "interval": 2.0,
+            "speed": 0.5,
+            "count": 5,
+            "spread": 12,
+            "sweep": 20
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
@@ -2340,8 +4550,19 @@
         "sway": 0.16,
         "guns": [
           {"pattern": "ring", "interval": 0.14, "speed": 0.45, "count": 3, "turn": -12},
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.7},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.7, "delay": 0.8}
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7
+          },
+          {
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7,
+            "delay": 0.8
+          }
         ]
       }
     ]
@@ -2351,43 +4572,61 @@
     "name": "NIGHTWATCH",
     "boss": true,
     "drawing": "nightwatch",
-    "size": [0.247, 0.333],
+    "size": [0.34, 0.513],
     "health": 165.0,
     "points": 4400,
     "parts": [
       {
-        "name": "left gun",
-        "x": -0.113,
-        "y": -0.07,
-        "drawing": "nightwatch:gun",
-        "size": [0.06, 0.067],
+        "name": "gatling 1",
+        "x": -0.08,
+        "y": -0.047,
+        "drawing": "nightwatch:gatling",
+        "size": [0.047, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right gun",
-        "x": 0.113,
-        "y": -0.07,
-        "drawing": "nightwatch:gun",
-        "size": [0.06, 0.067],
+        "name": "gatling 2",
+        "x": 0.08,
+        "y": -0.047,
+        "drawing": "nightwatch:gatling",
+        "size": [0.047, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left turret",
-        "x": -0.06,
-        "y": 0.003,
-        "drawing": "nightwatch:turret",
-        "size": [0.06, 0.087],
+        "name": "gatling 3",
+        "x": -0.087,
+        "y": 0.127,
+        "drawing": "nightwatch:gatling2",
+        "size": [0.047, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right turret",
-        "x": 0.06,
-        "y": 0.003,
-        "drawing": "nightwatch:turret",
-        "size": [0.06, 0.087],
+        "name": "gatling 4",
+        "x": 0.087,
+        "y": 0.127,
+        "drawing": "nightwatch:gatling2",
+        "size": [0.047, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.08,
+        "y": 0.067,
+        "drawing": "nightwatch:launcher",
+        "size": [0.047, 0.053],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.08,
+        "y": 0.067,
+        "drawing": "nightwatch:launcher",
+        "size": [0.047, 0.053],
         "health": 30.0,
         "points": 500
       }
@@ -2396,11 +4635,18 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["left turret", "right turret"]},
+        "until": {"parts": ["gatling 1", "gatling 2", "launcher 5", "launcher 6"]},
         "guns": [
-          {"from": "left turret", "pattern": "aimed", "interval": 1.3, "speed": 0.72, "volley": 2, "style": "sniper"},
           {
-            "from": "right turret",
+            "from": ["gatling 1", "gatling 2", "launcher 5", "launcher 6"],
+            "pattern": "aimed",
+            "interval": 1.3,
+            "speed": 0.72,
+            "volley": 2,
+            "style": "sniper"
+          },
+          {
+            "from": ["gatling 1", "gatling 2", "launcher 5", "launcher 6"],
             "pattern": "aimed",
             "interval": 1.3,
             "speed": 0.72,
@@ -2408,17 +4654,33 @@
             "delay": 0.65,
             "style": "sniper"
           },
-          {"from": "left gun", "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 16},
-          {"from": "right gun", "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 16, "delay": 0.9}
+          {"from": ["gatling 3", "gatling 4"], "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 16},
+          {
+            "from": ["gatling 3", "gatling 4"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.5,
+            "count": 3,
+            "spread": 16,
+            "delay": 0.9
+          }
         ]
       },
       {
         "sway": 0.15,
         "armored": true,
-        "until": {"parts": ["left gun", "right gun"]},
+        "until": {"parts": ["gatling 3", "gatling 4"]},
         "guns": [
-          {"from": "left gun", "pattern": "ring", "interval": 2.2, "speed": 0.42, "count": 10, "turn": 18},
-          {"from": "right gun", "pattern": "ring", "interval": 2.2, "speed": 0.42, "count": 10, "turn": -18, "delay": 1.1},
+          {"from": ["gatling 3", "gatling 4"], "pattern": "ring", "interval": 2.2, "speed": 0.42, "count": 10, "turn": 18},
+          {
+            "from": ["gatling 3", "gatling 4"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.42,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.1
+          },
           {"pattern": "aimed", "interval": 1.8, "speed": 0.6, "volley": 2, "delay": 0.5, "style": "heavy"}
         ]
       },
@@ -2436,43 +4698,79 @@
     "name": "ARC TOWER",
     "boss": true,
     "drawing": "arc_tower",
-    "size": [0.393, 0.293],
+    "size": [0.527, 0.387],
     "health": 170.0,
     "points": 4600,
     "parts": [
       {
-        "name": "left emitter",
-        "x": -0.14,
-        "y": -0.117,
-        "drawing": "arc_tower:emitter",
-        "size": [0.127, 0.113],
+        "name": "flak 1",
+        "x": -0.153,
+        "y": -0.003,
+        "drawing": "arc_tower:flak",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right emitter",
-        "x": 0.14,
-        "y": -0.117,
-        "drawing": "arc_tower:emitter",
-        "size": [0.127, 0.113],
+        "name": "flak 2",
+        "x": 0.153,
+        "y": -0.003,
+        "drawing": "arc_tower:flak",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left node",
+        "name": "flak 3",
         "x": -0.053,
-        "y": 0.03,
-        "drawing": "arc_tower:node",
-        "size": [0.113, 0.1],
+        "y": -0.037,
+        "drawing": "arc_tower:flak2",
+        "size": [0.047, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right node",
+        "name": "flak 4",
         "x": 0.053,
+        "y": -0.037,
+        "drawing": "arc_tower:flak2",
+        "size": [0.047, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 5",
+        "x": -0.08,
+        "y": 0.097,
+        "drawing": "arc_tower:flak3",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "flak 6",
+        "x": 0.08,
+        "y": 0.097,
+        "drawing": "arc_tower:flak3",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 7",
+        "x": -0.24,
         "y": 0.03,
-        "drawing": "arc_tower:node",
-        "size": [0.113, 0.1],
+        "drawing": "arc_tower:emitter",
+        "size": [0.06, 0.12],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 8",
+        "x": 0.24,
+        "y": 0.03,
+        "drawing": "arc_tower:emitter",
+        "size": [0.06, 0.12],
         "health": 30.0,
         "points": 500
       }
@@ -2481,11 +4779,19 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left node", "right node"]},
+        "until": {"parts": ["flak 3", "flak 4", "flak 1", "flak 2", "emitter 7", "emitter 8", "flak 5", "flak 6"]},
         "guns": [
-          {"from": "left emitter", "pattern": "fan", "interval": 1.6, "speed": 0.55, "count": 5, "spread": 12, "sweep": 25},
           {
-            "from": "right emitter",
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "pattern": "fan",
+            "interval": 1.6,
+            "speed": 0.55,
+            "count": 5,
+            "spread": 12,
+            "sweep": 25
+          },
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
             "pattern": "fan",
             "interval": 1.6,
             "speed": 0.55,
@@ -2494,8 +4800,23 @@
             "sweep": 25,
             "delay": 0.8
           },
-          {"from": "left node", "pattern": "ring", "interval": 2.4, "speed": 0.38, "count": 10, "turn": 18},
-          {"from": "right node", "pattern": "ring", "interval": 2.4, "speed": 0.38, "count": 10, "turn": -18, "delay": 1.2}
+          {
+            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "emitter 7", "emitter 8", "flak 5", "flak 6"],
+            "pattern": "ring",
+            "interval": 2.4,
+            "speed": 0.38,
+            "count": 10,
+            "turn": 18
+          },
+          {
+            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "emitter 7", "emitter 8", "flak 5", "flak 6"],
+            "pattern": "ring",
+            "interval": 2.4,
+            "speed": 0.38,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.2
+          }
         ]
       },
       {
@@ -2503,8 +4824,21 @@
         "until": {"health_below": 0.5},
         "guns": [
           {"pattern": "ring", "interval": 0.13, "speed": 0.46, "count": 3, "turn": 14},
-          {"from": "left emitter", "pattern": "aimed", "interval": 1.6, "speed": 0.7, "volley": 2},
-          {"from": "right emitter", "pattern": "aimed", "interval": 1.6, "speed": 0.7, "volley": 2, "delay": 0.8}
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7,
+            "volley": 2
+          },
+          {
+            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7,
+            "volley": 2,
+            "delay": 0.8
+          }
         ]
       },
       {
@@ -2526,38 +4860,38 @@
     "points": 4800,
     "parts": [
       {
-        "name": "left cannon",
-        "x": -0.16,
-        "y": -0.127,
-        "drawing": "apex:cannon",
-        "size": [0.113, 0.18],
+        "name": "reactor 1",
+        "x": -0.073,
+        "y": -0.013,
+        "drawing": "apex:reactor",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right cannon",
-        "x": 0.16,
-        "y": -0.127,
-        "drawing": "apex:cannon",
-        "size": [0.113, 0.18],
+        "name": "reactor 2",
+        "x": 0.073,
+        "y": -0.013,
+        "drawing": "apex:reactor",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "left emitter",
-        "x": -0.093,
-        "y": 0.107,
-        "drawing": "apex:emitter",
-        "size": [0.087, 0.093],
+        "name": "reactor 3",
+        "x": -0.053,
+        "y": 0.06,
+        "drawing": "apex:reactor2",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "right emitter",
-        "x": 0.093,
-        "y": 0.107,
-        "drawing": "apex:emitter",
-        "size": [0.087, 0.093],
+        "name": "reactor 4",
+        "x": 0.053,
+        "y": 0.06,
+        "drawing": "apex:reactor2",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       }
@@ -2566,11 +4900,18 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left emitter", "right emitter"]},
+        "until": {"parts": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"]},
         "guns": [
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.8, "speed": 0.6, "volley": 3, "style": "heavy"},
           {
-            "from": "right cannon",
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "aimed",
+            "interval": 1.8,
+            "speed": 0.6,
+            "volley": 3,
+            "style": "heavy"
+          },
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.6,
@@ -2578,8 +4919,23 @@
             "delay": 0.9,
             "style": "heavy"
           },
-          {"from": "left emitter", "pattern": "ring", "interval": 2.2, "speed": 0.4, "count": 12, "turn": 16},
-          {"from": "right emitter", "pattern": "ring", "interval": 2.2, "speed": 0.4, "count": 12, "turn": -16, "delay": 1.1}
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.4,
+            "count": 12,
+            "turn": 16
+          },
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "ring",
+            "interval": 2.2,
+            "speed": 0.4,
+            "count": 12,
+            "turn": -16,
+            "delay": 1.1
+          }
         ]
       },
       {
@@ -2587,9 +4943,17 @@
         "until": {"health_below": 0.5},
         "guns": [
           {"pattern": "ring", "interval": 0.14, "speed": 0.46, "count": 3, "turn": 13},
-          {"from": "left cannon", "pattern": "fan", "interval": 1.7, "speed": 0.55, "count": 5, "spread": 12, "sweep": 25},
           {
-            "from": "right cannon",
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "fan",
+            "interval": 1.7,
+            "speed": 0.55,
+            "count": 5,
+            "spread": 12,
+            "sweep": 25
+          },
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
             "pattern": "fan",
             "interval": 1.7,
             "speed": 0.55,
@@ -2605,8 +4969,14 @@
         "guns": [
           {"pattern": "ring", "interval": 1.4, "speed": 0.42, "count": 16, "turn": -10},
           {"pattern": "aimed", "interval": 1.9, "speed": 0.65, "volley": 3, "gap": 0.2, "delay": 0.7, "style": "heavy"},
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.7},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.7, "delay": 0.8}
+          {"from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.7},
+          {
+            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7,
+            "delay": 0.8
+          }
         ]
       }
     ]
@@ -2616,43 +4986,61 @@
     "name": "OVERMIND",
     "boss": true,
     "drawing": "overmind",
-    "size": [0.3, 0.3],
+    "size": [0.42, 0.413],
     "health": 160.0,
     "points": 10000,
     "parts": [
       {
-        "name": "left generator",
-        "x": -0.24,
-        "y": 0.14,
-        "drawing": "overmind:generator",
-        "size": [0.12, 0.12],
-        "health": 35.0,
-        "points": 700
-      },
-      {
-        "name": "right generator",
-        "x": 0.24,
-        "y": 0.14,
-        "drawing": "overmind:generator",
-        "size": [0.12, 0.12],
-        "health": 35.0,
-        "points": 700
-      },
-      {
-        "name": "left cannon",
-        "x": -0.37,
-        "y": -0.08,
+        "name": "cannon 1",
+        "x": -0.107,
+        "y": 0.097,
         "drawing": "overmind:cannon",
-        "size": [0.1, 0.16],
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 700
       },
       {
-        "name": "right cannon",
-        "x": 0.37,
-        "y": -0.08,
+        "name": "cannon 2",
+        "x": 0.107,
+        "y": 0.097,
         "drawing": "overmind:cannon",
-        "size": [0.1, 0.16],
+        "size": [0.047, 0.1],
+        "health": 35.0,
+        "points": 700
+      },
+      {
+        "name": "turret 3",
+        "x": -0.16,
+        "y": 0.183,
+        "drawing": "overmind:turret",
+        "size": [0.047, 0.067],
+        "health": 35.0,
+        "points": 700
+      },
+      {
+        "name": "turret 4",
+        "x": 0.16,
+        "y": 0.183,
+        "drawing": "overmind:turret",
+        "size": [0.047, 0.067],
+        "health": 35.0,
+        "points": 700
+      },
+      {
+        "name": "gatling 5",
+        "x": -0.18,
+        "y": 0.063,
+        "drawing": "overmind:gatling",
+        "size": [0.047, 0.087],
+        "health": 35.0,
+        "points": 700
+      },
+      {
+        "name": "gatling 6",
+        "x": 0.18,
+        "y": 0.063,
+        "drawing": "overmind:gatling",
+        "size": [0.047, 0.087],
         "health": 35.0,
         "points": 700
       }
@@ -2661,12 +5049,40 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["left generator", "right generator"]},
+        "until": {"parts": ["gatling 5", "gatling 6", "cannon 1", "cannon 2", "turret 3", "turret 4"]},
         "guns": [
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.5, "speed": 0.7, "volley": 2},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.5, "speed": 0.7, "volley": 2, "delay": 0.75},
-          {"from": "left generator", "pattern": "ring", "interval": 2.4, "speed": 0.38, "count": 10, "turn": 18},
-          {"from": "right generator", "pattern": "ring", "interval": 2.4, "speed": 0.38, "count": 10, "turn": -18, "delay": 1.2}
+          {
+            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.7,
+            "volley": 2
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "pattern": "aimed",
+            "interval": 1.5,
+            "speed": 0.7,
+            "volley": 2,
+            "delay": 0.75
+          },
+          {
+            "from": ["gatling 5", "gatling 6", "cannon 1", "cannon 2", "turret 3", "turret 4"],
+            "pattern": "ring",
+            "interval": 2.4,
+            "speed": 0.38,
+            "count": 10,
+            "turn": 18
+          },
+          {
+            "from": ["gatling 5", "gatling 6", "cannon 1", "cannon 2", "turret 3", "turret 4"],
+            "pattern": "ring",
+            "interval": 2.4,
+            "speed": 0.38,
+            "count": 10,
+            "turn": -18,
+            "delay": 1.2
+          }
         ]
       },
       {
@@ -2674,8 +5090,23 @@
         "until": {"health_below": 0.5},
         "guns": [
           {"pattern": "ring", "interval": 0.16, "speed": 0.45, "count": 3, "turn": 14},
-          {"from": "left cannon", "pattern": "fan", "interval": 1.8, "speed": 0.55, "count": 3, "spread": 20},
-          {"from": "right cannon", "pattern": "fan", "interval": 1.8, "speed": 0.55, "count": 3, "spread": 20, "delay": 0.9}
+          {
+            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.55,
+            "count": 3,
+            "spread": 20
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "pattern": "fan",
+            "interval": 1.8,
+            "speed": 0.55,
+            "count": 3,
+            "spread": 20,
+            "delay": 0.9
+          }
         ]
       },
       {
@@ -2683,8 +5114,19 @@
         "guns": [
           {"pattern": "ring", "interval": 1.4, "speed": 0.4, "count": 18, "turn": 10},
           {"pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3, "gap": 0.2, "delay": 0.7, "style": "heavy"},
-          {"from": "left cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.7},
-          {"from": "right cannon", "pattern": "aimed", "interval": 1.6, "speed": 0.7, "delay": 0.8}
+          {
+            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7
+          },
+          {
+            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "pattern": "aimed",
+            "interval": 1.6,
+            "speed": 0.7,
+            "delay": 0.8
+          }
         ]
       }
     ]
