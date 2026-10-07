@@ -5,7 +5,7 @@ Which show, how dark their corners are (ambient occlusion), and merging faces th
 
 import numpy as np
 
-from pewpy.graphics.models.types import BoolArray, Direction, IntArray
+from pewpy.graphics.models.types import BoolArray, Direction, FloatArray, IntArray
 
 FACE_DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
 # Ambient occlusion: brightness of a voxel face corner touched by 0, 1, 2 or 3 neighbor voxels in front of the face.
@@ -33,18 +33,27 @@ def model_axes(cells: IntArray) -> IntArray:
     return np.stack([cells[:, 0], cells[:, 2], -cells[:, 1]], axis=1) if len(cells) else np.zeros((0, 3), np.int64)
 
 
+EMPTY = -1  # Occupancy.at: no voxel there
+CONTEXT = -2  # Occupancy.at: a context voxel (drawn elsewhere)
+
+
 class Occupancy:
     """Which cube positions hold a voxel (drawn or context), as a 3D grid: one lookup for many positions at once."""
 
     def __init__(self, drawn: IntArray, context: IntArray) -> None:
         everything = np.concatenate([drawn, context])
         self.low = everything.min(axis=0) - 1  # neighbors are at most one cube away along each axis
-        self.grid = np.zeros(everything.max(axis=0) - self.low + 2, dtype=bool)
-        self.grid[tuple((everything - self.low).T)] = True
+        self.grid = np.full(everything.max(axis=0) - self.low + 2, EMPTY, dtype=np.int64)
+        self.grid[tuple((context - self.low).T)] = CONTEXT
+        self.grid[tuple((drawn - self.low).T)] = np.arange(len(drawn))
+
+    def at(self, positions: IntArray) -> IntArray:
+        """Tell, for each position, which drawn voxel is there (its index), or EMPTY, or CONTEXT."""
+        return self.grid[tuple((positions - self.low).T)]
 
     def filled(self, positions: IntArray) -> BoolArray:
         """Tell, for each position, whether a voxel is there."""
-        return self.grid[tuple((positions - self.low).T)]
+        return self.at(positions) != EMPTY
 
 
 def occlusion_level(side_a: BoolArray, side_b: BoolArray, corner: BoolArray) -> IntArray:
@@ -55,6 +64,33 @@ def occlusion_level(side_a: BoolArray, side_b: BoolArray, corner: BoolArray) -> 
     each level.
     """
     return np.where(side_a & side_b, 3, side_a.astype(np.int64) + side_b + corner)
+
+
+def corner_levels(positions: IntArray, direction: Direction, occupancy: Occupancy) -> IntArray:
+    """Count how occluded the 4 corners (FACE_CORNERS) of the faces of cubes at `positions` along `direction` are."""
+    normal, u, w = FACE_AXES[direction]
+    ahead = positions + normal  # the cells just in front of each face
+    return np.stack(
+        [
+            occlusion_level(
+                occupancy.filled(ahead + u * su),
+                occupancy.filled(ahead + w * sw),
+                occupancy.filled(ahead + u * su + w * sw),
+            )
+            for su, sw in FACE_CORNERS
+        ],
+        axis=1,
+    ).reshape(-1, 4)
+
+
+def face_corners(positions: IntArray, direction: Direction, size: float, origin: FloatArray) -> FloatArray:
+    """Return the 4 corners (FACE_CORNERS) of the faces of cubes at `positions` along `direction`: (n, 4, 3).
+
+    Cubes are of `size`, positions in cubes from `origin`; the corners wind counter-clockwise seen from outside.
+    """
+    normal, u, w = FACE_AXES[direction]
+    face = origin + positions * size + normal * (size / 2)
+    return np.stack([face + (u * su + w * sw) * (size / 2) for su, sw in FACE_CORNERS], axis=1)
 
 
 def merged_faces(depth: IntArray, along_u: IntArray, along_w: IntArray, colors: IntArray, levels: IntArray) -> IntArray:
