@@ -1,223 +1,193 @@
 # 02 — Enemies: catalog
 
-> Part of `02-enemies.md` (general rules and enemy weapons are there).
-> Units: speed in world units per second (the play area is 2.5 wide and 2.0 tall, the player moves at 1.0),
-> health in damage points (the starting weapon does 1.0 per bullet).
+Part of `02-enemies.md` (the rules every enemy follows are there). Units: see `00-vision.md`.
 
-## Enemy catalog
+Each entry is a requirement: the enemy shall look, measure, move, attack and come in groups as its lines state.
 
-### Enemy: Drone
+How to read an entry:
 
-- Look: grey armored drone with red markings, side vents and a red sensor eye, 0.1 x 0.1
-- Health: 3
-- Speed: 0.3
-- Movement pattern: straight down
-- Attack: one aimed shot at the player every 1.5 s, speed 0.6
-- Points: 100
-- Drops: 5%
-- First appears in level: 1-1 (High Peaks)
-- Notes: the basic enemy, used for most waves
+- **Body**: hitbox, health, points, chance to drop a pickup when shot down.
+- **Moves** and **Attack**: what it does, in order. Unless stated otherwise it comes from the top (ENM-1), fires only
+  on the play area (ENM-6), its guns are staggered (ENM-7) and its shots are plain (ENM-8). "Leaves" means it flies
+  off the screen and disappears (ENM-3).
+- **Groups**: the shapes its waves come in. The number in brackets is the group's base size: a level of difficulty
+  d sends max(1, round(base × 1.073^(d−1))) of them, a line being cut down to fit 2.1 wu across (1.0 wu tall from a
+  side). A column sends them one after another at the same place, a line side by side at the same time
+  (see `03-levels.md`).
+- **Unlock**: the difficulty from which the levels may send it, and the first level that does.
 
-### Enemy: Weaver
+### Enemy: Drone (CAT-1)
 
-- Look: grey diamond-shaped interceptor with yellow wing stripes, 0.1 x 0.1
-- Health: 2
-- Speed: 0.35 down
-- Movement pattern: sine wave, 0.25 amplitude left/right, one full wave every 2 s
-- Attack: none
-- Points: 80
-- Drops: 5%
-- First appears in level: 1-1 (High Peaks)
-- Notes: comes in columns so the group snakes down the screen
+- Look: a grey armored drone with red markings, side vents and a red sensor eye.
+- Body: 0.1 × 0.1; 3 health; 100 points; drops 5%.
+- Moves: straight down at 0.3.
+- Attack: an aimed shot every 1.5 s, speed 0.6.
+- Groups: a column at x −0.67 or 0.67, 0.5 s apart (5); a line at x 0, 0.2 apart (5.04); a line, 0.5 apart (4); a
+  column at x −0.67 or 0.67, 0.45 s apart (3.39); a line, 0.33 apart (4.27); a column at x 0, 0.5 s apart (3.04).
+- Unlock: difficulty 1; level 1-1. A warm-up enemy (see LVL-19).
 
-### Enemy: Diver
+### Enemy: Weaver (CAT-2)
 
-- Look: grey arrowhead pointing down with orange markings, two rear engines and a red nose light, 0.1 x 0.12
-- Health: 2
-- Speed: 0.5 on entry, 1.2 when diving
-- Movement pattern: comes down to y = 0.5 (upper quarter of the screen), waits 0.8 s, then dives in a straight
-  line toward where the player was when it started diving, and keeps going off screen
-- Attack: none, it tries to ram the player
-- Points: 150
-- Drops: 5%
-- First appears in level: 1-1 (High Peaks)
-- Notes: blinks during the 0.8 s wait to warn the player
+- Look: a grey diamond-shaped interceptor with yellow wing stripes.
+- Body: 0.1 × 0.1; 2 health; 80 points; drops 5%.
+- Moves: down at 0.35, snaking from side to side around the column it came down: x = its starting x + 0.25 (×W) ×
+  sin(2π × age / 2 s).
+- Attack: none.
+- Groups: columns 0.35 to 0.4 s apart at x 0, ±0.58 or ±0.67 (3.8 to 8), so the group snakes down the screen.
+- Unlock: difficulty 1; level 1-1. A warm-up enemy.
 
-### Enemy: Gunship
+### Enemy: Diver (CAT-3)
 
-- Look: wide grey armored gunship with dark red markings, two big engine nacelles and three cannons, 0.2 x 0.14
-- Health: 8
-- Speed: 0.15
-- Movement pattern: straight down
-- Attack: 3-shot spread straight down (-20°, 0°, +20°) every 2 s, speed 0.5
-- Points: 300
-- Drops: 20%
-- First appears in level: 1-1 (High Peaks)
-- Notes: slow and tough, the first "take it down before it reaches you" enemy
+- Look: a grey arrowhead pointing down with orange markings, two rear engines and a red nose light.
+- Body: 0.1 × 0.12; 2 health; 150 points; drops 5%.
+- Moves: down at 0.5 to y = 0.5, then stops and waits 0.8 s, blinking (hidden every other 0.1 s) as a warning; then
+  dives at 1.2 in a straight line towards where the player is when it starts diving, pointing the way it flies, and
+  keeps going until it leaves.
+- Attack: none; it tries to ram the player.
+- Groups: a line at x 0, 0.83, 0.58 or 0.5 apart (3, 2.63, 3.87).
+- Unlock: difficulty 1; level 1-1.
 
-### Enemy: Turret
+### Enemy: Gunship (CAT-4)
 
-- Look: grey gun emplacement with a dark dome, a red light and a barrel that turns to aim at the player, 0.12 x
-  0.12
-- Health: 6
-- Speed: the ground's scroll speed, 30% of the level's (it is fixed to the ground, see 03-levels.md)
-- Movement pattern: scrolls down with the background
-- Attack: burst of 3 aimed shots, 0.15 s apart, every 2.5 s, speed 0.7
-- Points: 250
-- Drops: 10%
-- First appears in level: 1-5 (Dusk Peaks)
-- Notes: often placed in pairs on each side of the screen; ground levels only
+- Look: a wide grey armored gunship with dark red markings, two big engine nacelles and three cannons.
+- Body: 0.268 × 0.188; 8 health; 300 points; drops 20%.
+- Moves: straight down at 0.15.
+- Attack: every 2 s, 3 shots straight down and 20° to each side, speed 0.5.
+- Groups: one at x 0 (0.85); a line 1.33 apart (0.85).
+- Unlock: difficulty 1; level 1-1.
 
-### Enemy: Flak Cannon
+### Enemy: Turret (CAT-5)
 
-- Look: grey octagonal gun emplacement with a dark gun housing, orange stripes and two barrels pointing down the
-  screen, 0.12 x 0.12
-- Health: 5
-- Speed: the ground's scroll speed, 30% of the level's (it is fixed to the ground, see 03-levels.md)
-- Movement pattern: scrolls down with the background
-- Attack: every 1.8 s, 2 pairs of parallel shots (one per barrel, 0.05 apart), 0.2 s apart, straight down the
-  screen (not aimed), speed 0.55
-- Points: 200
-- Drops: 10%
-- First appears in level: 1-5 (Dusk Peaks)
-- Notes: usually a pair, one on each side of the screen; ground levels only
+- Look: a grey gun emplacement with a dark dome, a red light and a barrel that turns to aim at the player.
+- Body: 0.12 × 0.12; 6 health; 250 points; drops 10%.
+- Moves: fixed to the ground (ENM-5).
+- Attack: every 2.5 s, a burst of 3 aimed shots 0.15 s apart, speed 0.7.
+- Groups: a line at x 0, 1.67, 1.0 or 0.83 apart (1.42, 1.13, 1.11): usually one on each side of the screen.
+- Unlock: difficulty 5; level 1-5. Ground enemy: never sent in worlds without ground enemies (see `03-levels.md`).
 
-### Enemy: Swarmer
+### Enemy: Flak Cannon (CAT-6)
 
-- Look: small grey dart with green markings, pointing where it flies, 0.06 x 0.06
-- Health: 1
-- Speed: 0.6
-- Movement pattern: enters from the left or right edge at the top third of the screen, flies straight in to the
-  play area's edge, then follows a curve that bends down toward the bottom of the screen
-- Attack: none
-- Points: 50
-- Drops: none
-- First appears in level: 1-2 (Pine Ridge)
-- Notes: always in groups of 6 to 10, spaced 0.2 s apart along the same path
+- Look: a grey octagonal gun emplacement with a dark gun housing, orange stripes and two barrels pointing down the
+  screen.
+- Body: 0.12 × 0.12; 5 health; 200 points; drops 10%.
+- Moves: fixed to the ground (ENM-5).
+- Attack: every 1.8 s, 2 pairs of parallel shots 0.2 s apart, one shot from each barrel (0.025 either side of its
+  middle), straight down the screen (not aimed), speed 0.55.
+- Groups: a line at x 0, 1.05 to 1.48 apart (0.56 to 1.47): usually one on each side of the screen.
+- Unlock: difficulty 5; level 1-5. Ground enemy.
 
-### Enemy: Sniper
+### Enemy: Swarmer (CAT-7)
 
-- Look: thin grey ship with blue markings and a long gun barrel, 0.08 x 0.14
-- Health: 5
-- Speed: 0.3 on entry, then 0.15 sideways
-- Movement pattern: comes down to y = 0.7 and stays there, sliding left and right between the screen edges
-- Attack: every 3 s, glows white for 0.5 s (warning), then fires one fast aimed shot, speed 0.9, blue
-- Points: 350
-- Drops: 15%
-- First appears in level: 1-2 (Pine Ridge)
-- Notes: leaves after 12 s by flying back up
+- Look: a small grey dart with green markings, pointing where it flies.
+- Body: 0.089 × 0.089; 1 health; 50 points; never drops.
+- Moves: comes in from a side (ENM-2), flying straight in at 0.6; once inside the screen it turns towards straight
+  down at up to 0.9 rad/s (÷W, about 31° per second) at the same speed, following a curve that bends down to the
+  bottom of the screen.
+- Attack: none.
+- Groups: a column from the left or the right at y 0.3, 0.4, 0.5 or 0.6, 0.2 s apart (4.78 to 5.34), all following
+  the same path.
+- Unlock: difficulty 2; level 1-6. Also released by the Splitter.
 
-### Enemy: Mine Layer
+### Enemy: Sniper (CAT-8)
 
-- Look: wide grey hauler with a purple mine bay and two engines, 0.18 x 0.08
-- Health: 4
-- Speed: 0.35 sideways
-- Movement pattern: crosses the screen horizontally (left to right or right to left) at a fixed height
-- Attack: drops a mine every 1 s. Mines are grey and purple spiked balls (0.06), 1 health, 20 points when shot, scroll down
-  with the background (they spin), and do 2 damage on contact. Mines count as enemies: a level only ends once its
-  mines are gone
-- Points: 300
-- Drops: 10%
-- First appears in level: 2-6 (Moonlit Woods)
-- Notes: mines fill the lower part of the screen, forcing the player to shoot a path through
+- Look: a thin grey ship with blue markings and a long gun barrel.
+- Body: 0.08 × 0.14; 5 health; 350 points; drops 15%.
+- Moves: down at 0.3 to y = 0.7; there it stops and slides sideways at 0.15, towards the middle first, turning back
+  at the screen's edges; after 12 s there it leaves by flying back up at 0.3.
+- Attack: 3 s after each shot (the first one staggered), it glows white for 0.5 s as a warning, then fires one fast
+  aimed sniper shot (blue), speed 0.9.
+- Groups: a line 1.67 apart (0.93); one at x 0 (0.77).
+- Unlock: difficulty 2; level 1-2.
 
-### Enemy: Shield Carrier
+### Enemy: Mine Layer (CAT-9)
 
-- Look: large square grey carrier with teal shield emitters and two engines, 0.2 x 0.2, inside a see-through
-  light blue bubble while the shield is up
-- Health: 10
-- Speed: 0.12
-- Movement pattern: straight down
-- Attack: shield up for 2 s (cannot be damaged), then shield down for 1.5 s, during which it fires a ring of
-  8 bullets in all directions, speed 0.45. Shots hitting the shield are absorbed without damage; the shield
-  also stops the laser
-- Points: 500
-- Drops: 30%
-- First appears in level: 1-5 (Dusk Peaks)
-- Notes: teaches the player to time their shots
+- Look: a wide grey hauler with a purple mine bay and two engines.
+- Body: 0.18 × 0.08; 4 health; 300 points; drops 10%.
+- Moves: comes in from a side and crosses the screen at 0.35 (×W) at a fixed height.
+- Attack: drops a mine (ENM-14) from the middle of its bottom edge every 1 s. Mines fill the lower part of the screen,
+  forcing the player to shoot a path through.
+- Groups: one from the left or the right at y 0.3 to 0.7 (0.34 to 0.54).
+- Unlock: difficulty 5; level 1-5.
 
-### Enemy: Splitter
+### Enemy: Shield Carrier (CAT-10)
 
-- Look: grey hub with three magenta-marked pods, 0.14 x 0.14
-- Health: 6
-- Speed: 0.25
-- Movement pattern: straight down
-- Attack: one aimed shot every 2 s, speed 0.5. When destroyed, it splits into 3 Swarmers that fly outward
-  (left-down, straight down, right-down) at 0.6
-- Points: 200 (the Swarmers give their own points)
-- Drops: 10%
-- First appears in level: 1-6 (Summit)
-- Notes: destroying it close to the player is dangerous
+- Look: a large square grey carrier with teal shield emitters and two engines, inside a see-through light blue bubble
+  while its shield is up.
+- Body: 0.2 × 0.2; 10 health; 500 points; drops 30%.
+- Moves: straight down at 0.12.
+- Attack: in a cycle of 3.5 s counted from its arrival: shield up for 2 s (it cannot be hurt; shots hitting it are
+  absorbed without damage; it stops the laser), then shield down for 1.5 s. Each time the shield drops it fires a
+  ring of 8 shots, one straight down, speed 0.45.
+- Groups: one at x 0 (0.79); a line 1.33 apart (0.84).
+- Unlock: difficulty 5; level 2-3. It teaches the player to time their shots.
 
-### Enemy: Rocketeer
+### Enemy: Splitter (CAT-11)
 
-- Look: grey ship with a rocket pod on each side (red-tipped rockets) and red-orange markings, 0.12 x 0.12
-- Health: 5
-- Speed: 0.2
-- Movement pattern: straight down
-- Attack: every 2.5 s, a pair of rockets (one per pod, 0.09 apart) straight down (see "Enemy weapons")
-- Points: 250
-- Drops: 10%
-- First appears in level: 1-2 (Pine Ridge)
-- Notes: usually two side by side
+- Look: a grey hub with three magenta-marked pods.
+- Body: 0.14 × 0.14; 6 health; 200 points; drops 10%.
+- Moves: straight down at 0.25.
+- Attack: an aimed shot every 2 s, speed 0.5. When shot down (not when rammed), it releases 3 Swarmers at its middle,
+  heading left-down, straight down and right-down (−135°, −90°, −45° from the right); each then behaves as a Swarmer
+  (giving its own points).
+- Groups: a line 1.33 or 0.83 apart (1.57, 1.6); a column at x 0, 1.5 s apart (2.36).
+- Unlock: difficulty 5; level 1-5. Destroying it close to the player is dangerous.
 
-### Enemy: Hunter
+### Enemy: Rocketeer (CAT-12)
 
-- Look: grey delta-winged ship with missile rails under its wings and teal markings, 0.14 x 0.12
-- Health: 6
-- Speed: 0.3 on entry, then 0.12 sideways
-- Movement pattern: comes down to y = 0.65 and stays there, sliding left and right between the screen edges; leaves
-  after 10 s by flying back up
-- Attack: a homing missile every 3.2 s (see "Enemy weapons")
-- Points: 350
-- Drops: 15%
-- First appears in level: 1-5 (Dusk Peaks)
+- Look: a grey ship with a rocket pod on each side (red-tipped rockets) and red-orange markings.
+- Body: 0.161 × 0.161; 5 health; 250 points; drops 10%.
+- Moves: straight down at 0.2.
+- Attack: every 2.5 s, a pair of rockets (ENM-14) from its bottom edge, 0.045 either side of its middle.
+- Groups: a line at x 0, 1.17 apart (1.11): usually two side by side.
+- Unlock: difficulty 2; level 1-2.
 
-### Enemy: Bomber
+### Enemy: Hunter (CAT-13)
 
-- Look: wide grey flying wing with four engines, a dark bomb bay in the middle and green markings, 0.22 x 0.12
-- Health: 7
-- Speed: 0.2 sideways
-- Movement pattern: enters from the left or right edge and crosses the screen at a fixed height
-- Attack: drops a cluster bomb every 1.6 s (see "Enemy weapons")
-- Points: 400
-- Drops: 20%
-- First appears in level: 2-5 (Twilight Grove)
+- Look: a grey delta-winged ship with missile rails under its wings and teal markings.
+- Body: 0.14 × 0.12; 6 health; 350 points; drops 15%.
+- Moves: down at 0.3 to y = 0.65; there it slides sideways at 0.12, towards the middle first, turning back at the
+  screen's edges; after 10 s there it leaves by flying back up at 0.3.
+- Attack: a homing missile (ENM-14) from the middle of its bottom edge every 3.2 s.
+- Groups: one at x between −0.58 and 0.35 (0.29 to 0.76).
+- Unlock: difficulty 5; level 1-5.
 
-### Enemy: Lancer
+### Enemy: Bomber (CAT-14)
 
-- Look: narrow grey ship with a long glowing lance pointing down and red markings, 0.1 x 0.14
-- Health: 5
-- Speed: 0.35 on entry, then up to 0.2 sideways
-- Movement pattern: comes down to y = 0.6, then slides towards the player's side (holding still while it charges
-  and fires); leaves after 12 s by flying back up
-- Attack: every 3.5 s, glows white for 0.8 s (warning), then fires its laser beam straight down for 0.5 s (see
-  "Enemy weapons")
-- Points: 350
-- Drops: 15%
-- First appears in level: 3-5 (Long Grass)
+- Look: a wide grey flying wing with four engines, a dark bomb bay in the middle and green markings.
+- Body: 0.358 × 0.196; 7 health; 400 points; drops 20%.
+- Moves: comes in from a side and crosses the screen at 0.2 (×W) at a fixed height.
+- Attack: drops a cluster bomb (ENM-14) from the middle of its bottom edge every 1.6 s.
+- Groups: one from the left or the right at y 0.58 to 0.74 (0.26 to 0.68).
+- Unlock: difficulty 7; level 2-5.
 
-### Enemy: Serpent
+### Enemy: Lancer (CAT-15)
 
-- Look: grey ship with a wavy ribbed body, fins along its sides and violet markings, 0.12 x 0.14
-- Health: 4
-- Speed: 0.25
-- Movement pattern: straight down
-- Attack: every 1.6 s, 3 snaking shots aimed at the player, 18° apart, speed 0.45 (see "Enemy weapons")
-- Points: 200
-- Drops: 5%
-- First appears in level: 1-3 (Glacier Pass)
-- Notes: in columns of three
+- Look: a narrow grey ship with a long glowing lance pointing down and red markings.
+- Body: 0.155 × 0.217; 5 health; 350 points; drops 15%.
+- Moves: down at 0.35 to y = 0.6; there it slides sideways at 0.2 towards the player's column (still once within 0.02
+  of it), holding still while it charges and fires; after 12 s there, as soon as it is not charging or firing, it
+  leaves by flying back up at 0.35.
+- Attack: every 3.5 s, it glows white for 0.8 s (a warning), then fires a red laser beam (ENM-12) 0.035 wide from the
+  middle of its bottom edge, for 0.5 s.
+- Groups: one at x between −0.7 and 0.58 (0.3 to 0.58).
+- Unlock: difficulty 9; level 3-5.
 
-### Enemy: Buckshot
+### Enemy: Serpent (CAT-16)
 
-- Look: stubby square grey ship with a wide multi-barrelled gun and orange markings, 0.12 x 0.12
-- Health: 4
-- Speed: 0.45 on entry, 0.6 when leaving
-- Movement pattern: comes down to y = 0.45, stops to fire, then dives off the bottom of the screen
-- Attack: 2 shotgun blasts 0.8 s apart, each 7 small pellets aimed at the player, spread over 50°, at uneven speeds
-  from 0.4 to 0.65 (see "Enemy weapons")
-- Points: 250
-- Drops: 10%
-- First appears in level: 1-4 (Stormcrest)
-- Notes: usually two side by side
+- Look: a grey ship with a wavy ribbed body, fins along its sides and violet markings.
+- Body: 0.177 × 0.207; 4 health; 200 points; drops 5%.
+- Moves: straight down at 0.25.
+- Attack: every 1.6 s, 3 snaking shots (ENM-11) aimed at the player, 18° apart, speed 0.45.
+- Groups: a column 0.8 s apart at x between −0.75 and 0.7 (0.78 to 2.71).
+- Unlock: difficulty 3; level 1-3.
+
+### Enemy: Buckshot (CAT-17)
+
+- Look: a stubby square grey ship with a wide multi-barrelled gun and orange markings.
+- Body: 0.186 × 0.186; 4 health; 250 points; drops 10%.
+- Moves: down at 0.45 to y = 0.45, stops to fire, then dives down at 0.6 off the bottom of the screen.
+- Attack: once stopped, 2 shotgun blasts, the first 0.3 s after it stops, the second 0.8 s later (fired even off the
+  play area). Each blast is 7 pellets (ENM-11) aimed at the player, spread evenly over 50° (from −25° to +25°), at
+  speeds 0.4, 0.525, 0.65, 0.483, 0.608, 0.442 and 0.567 in that order. After the second blast it dives.
+- Groups: a line at x 0, 1.33 apart (0.93): usually two side by side.
+- Unlock: difficulty 4; level 1-4.

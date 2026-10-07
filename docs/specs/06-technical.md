@@ -1,139 +1,70 @@
 # 06 — Technical
 
-## Platform and versions
+## Platform
 
-- Python: 3.10+ (from `pyproject.toml`)
-- Panda3D version: TBD (1.10.x is currently installed)
-- Extra libraries allowed (e.g. panda3d-gltf, numpy): `types-panda3d` (dev only, so `ty` can type-check
-  Panda3D); `numpy` (building the voxel meshes, the AI's neural networks: no machine learning library, see `07-ai.md`);
-  others: TBD
+- **TEC-1** The game shall be written in Python (3.12 or later) with Panda3D (1.10.16 or later).
+- **TEC-2** The game shall use no machine learning library: the AI's neural network and its training are written with
+  numpy alone (see `07-ai.md`). The game shall need no other library than Panda3D and numpy.
 
-## Performance
+## Window and performance
 
-- Target frame rate: TBD (e.g. 60 FPS)
-- Max simultaneous bullets on screen: TBD
-- Minimum hardware: TBD
-- Under WSL, `make run` uses the GPU through Mesa's d3d12 driver (`GALLIUM_DRIVER=d3d12`) when `/dev/dxg` exists;
-  the CPU renderer (llvmpipe) is much slower
-- Window: 1280x1024 (the user's choice); resizable, the game keeps its 5:4 shape with black bars
-  around it; fullscreen toggle: TBD
-- The 3D view is drawn into an offscreen buffer at most 1440 pixels tall *(placeholder,
-  `config.SCENE_MAX_HEIGHT`)*, then stretched over the game area; the HUD and menus are drawn at the window's
-  own resolution, so text stays sharp. On a big screen (4K) this keeps the per-pixel ground shader within reach
-  of a small GPU. Open: a graphics option in the menus to pick it?
+- **TEC-3** The window shall open at 1280 × 1024, titled "pewpy", resizable; the game area shall keep its 5:4 shape
+  with black bars around it. There shall be no fullscreen mode.
+- **TEC-4** The 3D view shall be drawn at most 1440 pixels tall, then stretched over the game area; the HUD and menus
+  shall be drawn at the window's own resolution, so text stays sharp *(placeholder; open: a graphics option?)*.
+- **TEC-5** The game shall sync to the screen's refresh rate. A frame's time step shall be capped at 0.1 s, so a stall
+  does not make a huge jump. The frame rate is the screen's (no other cap).
+- **TEC-19** At most 512 round bullets shall be drawn at once (beyond that the game logic goes on, the extra ones
+  are not drawn).
+- **TEC-20** The game shall run on any computer with an OpenGL graphics driver, a software renderer included
+  (much slower); it shall not check the hardware.
+- **TEC-6** Under WSL, the game shall use the GPU (through Mesa's d3d12 driver) when it is available, and shall close
+  at once when quit.
 
-## Architecture preferences
+## Game rules and data
 
-> Leave `TBD` to let Claude propose something, or write your own preferences.
-
-- Overall structure (states/scenes, entity classes, ECS…): grouped by domain, the game's rules kept apart from
-  Panda3D *(placeholder)*. Hierarchical packages: where there are several implementations of one thing (motions,
-  actions, exits, bullets, timings of a gun, models built in code, kinds of ground, props, shader painters, sound
-  effects, background layers...), a package holds one module per implementation and its `__init__.py` gathers them
-  (a registry, or the names it re-exports).
-  - `pewpy/`: `app/` (the window, input, drawing: `PewPewApp` built in layers, one module each: `window.py`,
-    `entity_models.py`, `hud.py`, `drawing.py` (and `bullets.py`), `screens.py`, `keys.py`, `sound.py`, `dev.py`, `ai_playing.py`);
-    `config.py` (the technical constants, and the game's rules read from `rules.json`); `data.py`.
-  - `game/` (the rules, no Panda3D): entities, controls, events, player, world, states, levels; `weapons/`
-    (`guns/`: the guns everyone fires (`gun.py`, `state.py`, `patterns.py`, `styles.py`, `launch.py`, `laser.py`,
-    `chain.py`, `timing/`: one module per way of timing shots); `bullets/`: one module per kind of shot; `player/`:
-    the arsenal and the secondary weapon); `enemies/` (the one Enemy class for enemies and bosses, its descriptions
-    `spec.py`, `motions/`, `actions/` and `exits/` (one class per module, each acting on the enemy's `Body`,
-    `body.py`, never on `Enemy` itself), the kinds and the roster).
-  - `scenery/`: `params/` (the scenery's parameters), `background/` (stars, drifting layers in `layers/`, `view.py`
-    drawing them), `ground/` (terrain, relief, the bases of `landscapes.py` and `settlement.py`, `kinds/` of ground,
-    `props/` (the one `PropModel` building every prop from its JSON in `data/models/props/`), and `shader/` with its GLSL in `glsl/`, one painter per kind of ground).
-  - `graphics/`: `models/` (`mesh/`, `drawings/` (flat, layered), `built/` and `background/` models
-    built in code, flames), lighting, sprites, `effects/` (one module per effect, `system.py`, `view.py`).
-  - `ui/` (menus, the ship select, the level preview, the model browser, the AI playing screen's text), `audio/` (`midi/`, `synth/`, `sfx/`: one
-    module per sound).
-  - `makers/` (making content, no Panda3D, used by the Dev menu and the tools' command lines) *(the user's choice)*:
-    `components/` (the built-in parts, one module each: guns, an engine, details), `ships/` (the enemies' and the
-    player's ships, assembled from a kit of hardcoded parts, `kit/`, one module per family of parts, the kinds of ship
-    in `archetypes.py`), `bosses/` (sculpted from plans, one module per family and appendage, covered in built-in
-    parts, their destroyable parts built-in parts too), `final_bosses/` (a final boss's behaviour from its plan), `songs/` (the songs composed
-    as MIDI from their plans: `plans.py`, `harmony.py`, `band.py`, `writer.py`, `compose.py`, `tracks/`: one module
-    per part), `backgrounds/` (background candidates from themes: `themes.py`, `candidate.py`), `common/` (the 3D drawing and
-    its numbered weapons, the colors), `sized.py` (a ship or a boss of a given size) and
-    `compact_json.py`.
-  - `dev/` (the Dev menu's screens, no Panda3D: `catalog.py` the models by category, `browser.py`, `saving.py`;
-    `music.py`, the songs; `backgrounds.py`, the background candidates; `screenshots.py`, the README's screenshots;
-    shown by `app/dev.py`, `app/backgrounds.py`, `app/screenshots.py`,
-    `ui/model_browser_view.py`, `ui/music_browser_view.py` and `ui/screenshot_view.py`).
-  - `ai/` (the AI player flying a ship, no Panda3D: `sensors.py`, `brain.py`, `pilot.py`, `files.py`; watched on the
-    AI playing screen, `app/ai_playing.py`) and `ai/training/` (teaching it, no Panda3D, tested like the rest of the
-    game *(the user's choice)*: `episode.py`, `evolution.py`, `learning.py`, `winrate.py` and its command line,
-    `python -m pewpy.ai.training`: `make learn`, `make winrate`; see `07-ai.md`).
-  The data, apart from the code, in `data/` at the top of the project: `rules.json`, `ships.json`, `weapons/`, `enemies/`, `bosses/`, `levels/`, `models/` (by group, and the props: see `05-visuals.md`), `music/`, `brain/` (the AI's, see `07-ai.md`) and `fonts/` (an installed wheel carries it inside the package, a packaged build next to the executable; see `pewpy/data.py`). The dev tools live in the game's package, never imported by the game, in
-  `pewpy/tools/` *(the user's choice)*, one package per tool run with `python -m`, each with its own make target:
-  `levels/` (`make levels`; `worlds/`: one module per world), `paths.py` (where the tools write) and `compact_json.py` (tidying hand-edited JSON)
-- Enemies as data *(the user's choice)*: every enemy, boss, part and projectile is one class, `Enemy`, running
-  its description, and every description is read and made the same way, bosses included *(the user's choice)*: a
-  body (size, health, points, drops, entry, ground...), destructible parts (any enemy can have some), what it
-  releases when shot down, and states. Each state has motions (`game/enemies/motions/`), guns (`game/weapons/guns/`),
-  a look, whether it can be hurt, and exits to other states (`game/enemies/exits/`: a timer, a height, lined up with the player, a cycle of
-  its age, visits, parts destroyed, health lost, volleys fired...), each doing actions on the way (`game/enemies/actions/`: set a speed, aim,
-  relocate, fire, die). The enemies are in `data/enemies/*.json`, the bosses in `data/bosses/*.json`
-  (`game/enemies/spec.py` reads them; the files only sort them): a boss is an enemy with `"boss": true` (a health
-  bar, the level waits for it), usually with parts. Any enemy can be written shortly with `phases` instead of
-  `states` (`game/enemies/phases.py` makes them into states): it comes down at its speed to `hold_y` (0.55 unless
-  given; neither it nor its parts can be hurt until then), then each phase is a state starting with
-  `phase_pause` seconds without shooting (1.2 unless given), written as a `sway` speed, `armored` or not, its guns
-  and `until` (the exit conditions ending it: parts destroyed, health below a share). A preset fills in a kind of
-  enemy's usual fields unless given, for its body, its parts and its guns: any enemy's parts aren't placed by the
-  levels and go with their enemy; a boss's body isn't rammable, always drops a pickup, comes down at 0.25 and
-  explodes several times, its parts drop a pickup 30% of the time, its guns carry their reload and fire off screen.
-  Every boss comes down and fights the same way, so each is written with phases. A gun `from` a list of parts is
-  fired by each of them in turn, their first shots spread over its interval. A gun fires from the numbered weapons drawn on
-  the model of what fires it (`weapon`/`weapons`, checked when the enemies are read; see `02-enemies.md`, "Enemy
-  weapons", and `game/enemies/mounts.py`, which reads them from the model file: the game logic never loads the
-  models themselves). The final bosses are made from
-  short plans (`data/bosses/final_plans.json`, by `pewpy/makers/final_bosses/`, when the Dev menu's browser saves one). The enemies' and bosses' JSON
-  is written compactly, each list or object on one line when it fits in 130 columns
-  (`python -m pewpy.tools.compact_json <files>`; the pre-commit JSON formatter leaves these folders alone). A new
-  behaviour is a new motion, exit condition, action (a subclass of `Motion`, `Condition` or `Action`, with only the
-  fields it uses, registered by its name in its package) or gun option in code, tested; the descriptions are data and need no
-  tests of their own.
-- Weapons as data *(the user's choice)*: the player's weapons and the enemies' are the same guns
-  (`game/weapons/guns/`): a pattern (aimed, fan, ring, beams, the player's laser "ray", the lightning "chain"),
-  timing (interval or rate, volleys, charging, reloading), and what they fire (bullets of a style and size, missiles,
-  enemies). The player's are in `data/weapons/` (`player.json`: one gun per level of each weapon;
-  `secondary.json`), the enemies' in their own descriptions. Only how they look is in code (`app/`, `graphics/`).
-- Game loop timing (variable dt / fixed timestep): TBD
-- Collision detection (Panda3D CollisionTraverser / custom simple circles-boxes): TBD
-- Configuration (constants in code / TOML file for tunable values): TBD
-- Use Panda3D's `DirectGUI` for menus, or custom: TBD
+- **TEC-7** The game rules (movement, collisions, scoring, waves, enemies, weapons, the AI player) shall run without a
+  window, so they can be tested and the AI can train without one.
+- **TEC-8** Collisions shall be axis-aligned rectangle overlaps of hitboxes; moves shall use the frame's time step
+  (variable time step) *(placeholder)*.
+- **TEC-9** Content shall be data loaded by the game, editable without changing code: the rules' numbers (lives,
+  pickups, damages), the ships, the player's weapons, every enemy, boss and projectile (their bodies, states, moves,
+  guns and parts), the levels, the backgrounds' values, the models' drawings and props, the songs and the AI's brain.
+  The same gun description shall serve the player's weapons and the enemies'.
+- **TEC-10** Content data shall be checked when loaded: a typo or an unknown value shall be reported with the file and
+  the place in it (the wave's number, the enemy's name, the gun's weapon number...).
+- **TEC-11** The game logic shall never need to load a 3D model; it shall only read where a model's weapons are.
 
 ## Testing
 
-- What must be unit tested: the game logic (movement, collisions, scoring, wave spawning), kept separate from
-  rendering: `app/` only handles window, input and drawing, so the logic is tested without opening a window.
-  Only the game (`src/pewpy`) has unit tests: the dev tools (`src/pewpy/tools`: the content
-  tools) have none, only the linters and the type checker.
-- Coverage: every line and branch of the game (`src/pewpy`) is tested, 100% *(the user's choice)*; `make test`
-  fails below it. Code that can't happen is removed rather than tested. Content (levels, bosses, model drawings) is
-  data in JSON files loaded by the game, not declarations in Python, so it needs no tests of its own *(the user's
-  choice)*: the tests cover the code loading and building it.
-- The app itself (screens, drawing, HUD) is tested too, without a display: one app for the whole test session,
-  drawing into an offscreen buffer through EGL (`load-display p3headlessgl`), silent, its songs not rendered
-  (`tests/conftest.py`). CI installs the EGL and Mesa libraries for it.
+- **TEC-12** Every line and branch of the game shall be covered by unit tests (100%); the test run shall fail below it.
+  Code that cannot happen shall be removed rather than tested. Content (levels, bosses, drawings) needs no tests of its
+  own: the tests cover the code loading and building it.
+- **TEC-13** The app itself (screens, drawing, HUD) shall be tested too, without a display (an offscreen buffer),
+  silent, without rendering songs.
+- **TEC-14** The development tools (making the levels, tidying data) shall get no unit tests, but shall be linted and
+  type-checked like the game.
 
 ## Crash reports
 
-- An uncaught exception (game loop, event handler, background thread) prints its full stack trace on stderr and
-  writes a fuller report (time, versions, platform, thread, every frame's local variables) to `crash.log`
-  (`~/.local/state/pewpy/` on Linux, `%LOCALAPPDATA%\pewpy\` on Windows); the game then exits with code 1.
-  A native crash prints every thread's Python stack (faulthandler). See `pewpy.crash`.
+- **TEC-15** An uncaught error (game loop, event handler, background thread) shall print its full stack trace and write
+  a fuller report (time, versions, platform, thread, every frame's local variables) to a crash log in the user's state
+  folder (`~/.local/state/pewpy/` on Linux, `%LOCALAPPDATA%\pewpy\` on Windows); the game shall then exit with code 1.
+  A native crash shall print every thread's Python stack.
 
-## Packaging and distribution
+## Caches and files
 
-- How players run it (`uv run`, pip install, standalone build with Panda3D's `build_apps`): a standalone build with
-  Panda3D's `build_apps`: `make package` makes `dist/pewpy-<version>_win_amd64.zip`, holding `pewpy.exe` with the
-  data files next to it; developers still use `uv run` (`make run`)
-- Target OSes for builds: Windows (64-bit) for now; the same setup can also build Linux and macOS
+- **TEC-16** Rendered songs shall be kept in the user's cache folder (`~/.cache/pewpy/music`, `%LOCALAPPDATA%\pewpy\music`
+  on Windows).
+
+## Packaging
+
+- **TEC-17** On Linux the game shall run from its source in a virtual environment. On Windows a launcher to
+  double-click shall create a virtual environment the first time, install the libraries in it, then run the game from
+  its source. There shall be no standalone build. The game can also be installed as a Python package carrying its
+  data.
 
 ## Coding style
 
-- Type hints everywhere? TBD
-- Docstring style: TBD
-- Anything else: TBD
+- **TEC-18** Every function shall have type hints, checked by a type checker, and a docstring; the code shall pass
+  every lint rule but a listed few, with lines of at most 120 characters.
