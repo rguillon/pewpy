@@ -4,9 +4,9 @@ The first enemies (`enemies/catalog.json`, 02-enemies-catalog.md), the second fl
 02-enemies-fleet.md), the projectiles and mines other enemies launch (`enemies/projectiles.json`, 02-enemies.md), and
 the bosses (02-enemies-bosses.md): the mini bosses, one halfway through each level (`bosses/mini_bosses.json`), and
 the final bosses, one at the end of each level (`bosses/final_bosses.json`, made from their plans by
-pewpy.makers.final_bosses).
-They're all enemies, read the same way: the files only sort them. The Dev menu's model browser (pewpy.dev) changes
-some of them: `reload_kinds` reads them again.
+pewpy.generators.models.final_bosses).
+They're all enemies, read the same way: the files only sort them. The Dev menu's model browser (pewpy.generators.models)
+changes some of them: `reload_kinds` reads them again.
 """
 
 from pewpy.game.enemies.mounts import model_mounts

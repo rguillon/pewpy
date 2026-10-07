@@ -1,5 +1,5 @@
 """The Dev menu, from the main menu: browsing the player's ships', the enemies' and the bosses' models, and the songs
-(pewpy.dev).
+(pewpy.generators).
 
 Each category opens the model browser: Left/Right go from one model to the next, Z/S make the size new models are
 made to taller or shorter and D/Q wider or narrower (its shape), Space makes a new one, Enter saves it in place of the
@@ -15,13 +15,13 @@ from functools import partial
 from pewpy import config
 from pewpy.app.sound import Sound
 from pewpy.audio.cues import Music
-from pewpy.dev.browser import ModelBrowser
-from pewpy.dev.catalog import CATEGORIES
-from pewpy.dev.music import MusicBrowser
 from pewpy.game.enemies.kinds import reload_kinds
 from pewpy.game.states import State
+from pewpy.generators.models.browser import ModelBrowser
+from pewpy.generators.models.catalog import CATEGORIES
+from pewpy.generators.music.browser import MusicBrowser
+from pewpy.generators.music.plans import PLANS
 from pewpy.graphics import models
-from pewpy.makers.songs.plans import PLANS
 from pewpy.ui.menu import Menu, MenuItem
 from pewpy.ui.model_browser_view import ModelBrowserView
 from pewpy.ui.music_browser_view import MusicBrowserView

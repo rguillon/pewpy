@@ -278,7 +278,7 @@ def test_ship_models_are_more_than_a_cube(build: Callable[[], NodePath]) -> None
 
 @pytest.mark.parametrize("kind", ["Player", "Missile", *ENEMIES])
 def test_ship_models_are_meant_to_be_about_the_size_of_their_hitbox(kind: str) -> None:
-    """A model's "size" (what new models of it are made to, see pewpy.makers.sized) must fit its hitbox.
+    """A model's "size" (what new models of it are made to, see pewpy.generators.models.sized) must fit its hitbox.
 
     The model built in code (the turret) is drawn to it. An enemy sized by its model's cubes ("voxels") is
     its drawing whatever its "size" (see test_kinds).

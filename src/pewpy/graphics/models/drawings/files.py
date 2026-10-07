@@ -45,7 +45,7 @@ def parse_voxels(data: Any, source: str = "drawing") -> Voxels:  # noqa: ANN401 
 def drawing_size(data: dict[str, Any], voxels: Voxels, source: str = "drawing") -> tuple[float, float]:
     """Return the size a model is meant to be, in world units, across and up the screen: its "size".
 
-    New models of it are made this size (see pewpy.makers.sized); without one, the size its cubes cover.
+    New models of it are made this size (see pewpy.generators.models.sized); without one, the size its cubes cover.
     """
     if "size" not in data:
         return voxels.width * voxels.size, voxels.height * voxels.size

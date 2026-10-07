@@ -20,24 +20,24 @@ run: ## Run the game (under WSL, on the GPU through Mesa's d3d12 driver rather t
 	@if [ -e /dev/dxg ]; then GALLIUM_DRIVER=d3d12 uv run python -m pewpy; else uv run python -m pewpy; fi
 
 .PHONY: levels
-levels: ## Generate the game's levels from the worlds' plans in src/pewpy/tools/levels/worlds/ (options: ARGS="--seed 1234", see --help)
-	@uv run python -m pewpy.tools.levels $(ARGS)
+levels: ## Generate the game's levels from the worlds' plans in src/pewpy/generators/levels/worlds/ (options: ARGS="--seed 1234", see --help)
+	@uv run python -m pewpy.generators.levels $(ARGS)
 
 .PHONY: learn
 learn: ## Teach the AI to play, every ship on every level, without a window (options: ARGS="--generations 300 --ships vanguard", see --help)
-	@uv run python -u -m pewpy.ai.training learn $(ARGS)
+	@uv run python -u -m pewpy.generators.ai_training learn $(ARGS)
 
 .PHONY: learn-level1
 learn-level1: ## Teach the AI to play level 1-1 only, every ship (options: ARGS="--generations 300 --new", see --help)
-	@uv run python -u -m pewpy.ai.training learn --levels 1-1 $(ARGS)
+	@uv run python -u -m pewpy.generators.ai_training learn --levels 1-1 $(ARGS)
 
 .PHONY: learn-random
 learn-random: ## Teach the AI on levels drawn at random among them all, no curriculum (options: ARGS="--generations 300")
-	@uv run python -u -m pewpy.ai.training learn --levels all $(ARGS)
+	@uv run python -u -m pewpy.generators.ai_training learn --levels all $(ARGS)
 
 .PHONY: winrate
 winrate: ## Play every level with the current brain and show its win rates, saving nothing (options: ARGS="--runs 20 --lives 3")
-	@uv run python -u -m pewpy.ai.training winrate $(ARGS)
+	@uv run python -u -m pewpy.generators.ai_training winrate $(ARGS)
 
 .PHONY: test
 test: ## Test the code with pytest
