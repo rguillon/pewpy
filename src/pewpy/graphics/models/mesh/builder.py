@@ -344,9 +344,7 @@ class MeshBuilder:
         corners, normals, triangle_colors, uvs = [], [], [], []
         for cube in np.flatnonzero(cut.any(axis=1)).tolist():
             for index in np.flatnonzero(cut[cube]).tolist():
-                polygon = slant(cut[cube], index)
-                if len(polygon) < 3:
-                    continue
+                polygon = slant(cut[cube], index)  # at least a triangle: no cuts a cube can have trim a slant away
                 a, b = CUT_SIDES[index]
                 across, along = a - b, np.cross(a, b)
                 coordinates = np.stack([(polygon @ across + 1) / 2, polygon @ along + 0.5], axis=1)

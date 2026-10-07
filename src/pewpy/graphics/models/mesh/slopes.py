@@ -83,10 +83,7 @@ def slant_rectangle(index: int) -> FloatArray:
     """
     a, b = CUT_SIDES[index]
     across, along = (a - b) / 2, np.cross(a, b) / 2  # across: from one kept edge to the other
-    corners = np.array([across * s + along * t for s, t in ((1, -1), (1, 1), (-1, 1), (-1, -1))])
-    if np.cross(corners[1] - corners[0], corners[2] - corners[0]) @ (a + b) < 0:
-        corners = corners[::-1]
-    return corners
+    return np.array([across * s + along * t for s, t in ((-1, -1), (-1, 1), (1, 1), (1, -1))])
 
 
 CUT_NORMALS = CUT_SIDES.sum(axis=1)  # (12, 3), outwards, not normalized
