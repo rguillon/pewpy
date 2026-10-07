@@ -125,6 +125,5 @@ branch = true
 source = ["src/pewpy"]
 
 [tool.mutmut]
-paths_to_mutate = ["src/pewpy/"]
-tests_dir = ["tests/"]
+source_paths = ["src/pewpy/"]
 also_copy = ["data/"]  # the game's data files, found two folders up from src/pewpy/data.py (see pewpy/data.py)

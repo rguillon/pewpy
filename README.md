@@ -53,7 +53,7 @@ uv run python -m pewpy
 The game design lives in [`docs/specs/`](docs/specs/), and the milestones in
 [`docs/specs/roadmap.md`](docs/specs/roadmap.md).
 
-- `make check`: lint and type-check; `make test`: run the tests.
+- `make check`: lint and type-check; `make test`: run the tests; `make mutate`: test the tests with mutmut (slow; narrow it with e.g. `ARGS="pewpy.game.entities*"`).
 - Main menu > Dev (in `make run` too): browse the player's ships, the enemies and the bosses; Left/Right pick a
   model, Up/Down its size, Space makes a new one of that size, Enter saves it in place of the model. Music browses
   the songs the same way: Left/Right pick one (it plays), Space composes a new one, Enter saves it.
