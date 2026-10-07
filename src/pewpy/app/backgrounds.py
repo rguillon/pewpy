@@ -1,4 +1,4 @@
-"""The Dev menu's backgrounds browser: background candidates, one theme at a time (pewpy.dev.backgrounds).
+"""The Dev menu's backgrounds browser: background candidates, one theme at a time (pewpy.generators.backgrounds).
 
 The candidate on show scrolls by on the whole screen, as in the game, under a panel saying what it is; Left/Right go
 from one theme to the next, Space makes a new candidate of the theme, Escape goes back to the Dev menu.
@@ -8,8 +8,8 @@ import random
 from enum import Enum
 
 from pewpy.app.dev import BROWSER_MOVES, GENERATE_KEY, DevMenu
-from pewpy.dev.backgrounds import BackgroundBrowser
 from pewpy.game.states import State
+from pewpy.generators.backgrounds.browser import BackgroundBrowser
 from pewpy.ui.menu import Menu, MenuItem
 from pewpy.ui.screenshot_view import BACKGROUND_KEYS, ScreenshotView
 

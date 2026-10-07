@@ -9,12 +9,12 @@ import pytest
 from pewpy import data
 from pewpy.app import PewPewApp, keys
 from pewpy.audio.cues import MENU_MUSIC
-from pewpy.dev import music
-from pewpy.dev.browser import SIZE_STEP, ModelBrowser
-from pewpy.dev.music import MusicBrowser
 from pewpy.game.enemies.kinds import MINI_BOSSES
 from pewpy.game.states import State
-from pewpy.makers.backgrounds.themes import THEMES
+from pewpy.generators.backgrounds.themes import THEMES
+from pewpy.generators.models.browser import SIZE_STEP, ModelBrowser
+from pewpy.generators.music import browser as music
+from pewpy.generators.music.browser import MusicBrowser
 from pewpy.ui.menu import Menu
 from pewpy.ui.model_browser_view import ROOM, VIEW_SIZE, fit_scale
 
@@ -185,7 +185,7 @@ def test_the_music_browser_plays_makes_and_saves_songs(
 def test_the_screenshots_take_and_save_a_moment_of_each_world(
     app: PewPewApp, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from pewpy.dev import screenshots  # noqa: PLC0415 - the module whose folder is changed
+    from pewpy.generators import screenshots  # noqa: PLC0415 - the module whose folder is changed
 
     monkeypatch.setattr(screenshots, "SCREENSHOTS", tmp_path)
     monkeypatch.setattr(screenshots, "TIMES", (0.5, 0.5))  # short shots

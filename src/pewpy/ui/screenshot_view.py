@@ -1,4 +1,4 @@
-"""The Dev menu's screenshots on screen (see pewpy.dev.screenshots): their texts, on a console at the top.
+"""The Dev menu's screenshots on screen (see pewpy.generators.screenshots): their texts, on a console at the top.
 
 Hidden while a screenshot is saved, so only the game is in it. The backgrounds browser shows its texts the same way.
 """

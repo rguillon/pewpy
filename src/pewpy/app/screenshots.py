@@ -1,4 +1,4 @@
-"""The Dev menu's screenshots: one per world, a moment of one of its levels drawn at random (pewpy.dev.screenshots).
+"""The Dev menu's screenshots: one per world, a moment of a level drawn at random (pewpy.generators.screenshots).
 
 Left/Right go from one world to the next, Space plays one of its levels, drawn at random, to a new moment (in an
 instant, nothing drawn in between) and shows it, frozen, with the HUD; Enter saves the game area as the world's
@@ -13,11 +13,11 @@ from panda3d.core import Filename, PNMImage
 from pewpy.app.ai_playing import AIPlaying
 from pewpy.app.dev import BROWSER_MOVES, GENERATE_KEY
 from pewpy.app.window import letterbox
-from pewpy.dev.screenshots import Shot, game_area, play, random_shot, screenshot_path
 from pewpy.game.controls import Controls
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State
 from pewpy.game.world import World
+from pewpy.generators.screenshots import Shot, game_area, play, random_shot, screenshot_path
 from pewpy.ui.menu import MenuItem
 from pewpy.ui.screenshot_view import ScreenshotView
 

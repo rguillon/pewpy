@@ -16,10 +16,10 @@ class State(Enum):
     GAME_OVER = auto()
     LEVEL_COMPLETE = auto()
     DEV_MENU = auto()  # the Dev menu: which models to browse
-    MODEL_BROWSER = auto()  # browsing a category's models, making new ones (see pewpy.dev)
-    MUSIC_BROWSER = auto()  # browsing the songs, making new ones (see pewpy.dev.music)
-    BACKGROUND_BROWSER = auto()  # background candidates, one theme at a time, to make new ones (pewpy.dev.backgrounds)
-    SCREENSHOTS = auto()  # a moment of a level, drawn at random, to save as its world's screenshot (pewpy.dev)
+    MODEL_BROWSER = auto()  # browsing a category's models, making new ones (see pewpy.generators.models)
+    MUSIC_BROWSER = auto()  # browsing the songs, making new ones (see pewpy.generators.music.browser)
+    BACKGROUND_BROWSER = auto()  # background candidates, one theme at a time (see pewpy.generators.backgrounds)
+    SCREENSHOTS = auto()  # a level's moment, to save as its world's screenshot (see pewpy.generators.screenshots)
     AI_PLAYING = auto()  # watching the AI play from the ship and level picked in the Dev menu (see pewpy.ai)
 
 

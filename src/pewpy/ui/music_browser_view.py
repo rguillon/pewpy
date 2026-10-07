@@ -1,4 +1,4 @@
-"""The Dev menu's music browser on screen (see pewpy.dev.music): a console (see menu_view.py), over the menus' ground.
+"""The Dev menu's music browser on screen (pewpy.generators.music): a console (menu_view.py), over the menus' ground.
 
 Above: which song (what it plays for) and what it is; in the middle: whether it's playing; below: what's going on,
 and the keys.

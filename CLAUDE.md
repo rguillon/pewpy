@@ -37,11 +37,12 @@ Rules:
 
 ## Project conventions
 
-- Package layout: the game in `src/pewpy/`, its data files (JSON, drawings, props, music, the AI's brain) in `data/`; the dev tools in `src/pewpy/tools/` (the tool
-  making levels), never imported by the game and left out of the coverage; tests in `tests/`, for the game only: the dev
-  tools get no unit tests (they are still linted and type-checked). The AI player that flies a ship (`src/pewpy/ai/`) and
-  its training (`src/pewpy/ai/training/`, `make learn`) are game code, tested. What the game's Dev menu uses to make
-  ships, bosses, final bosses, songs and backgrounds is game code, tested: `src/pewpy/makers/` (the compact_json tool uses it too).
+- Package layout: the game in `src/pewpy/`, its data files (JSON, drawings, props, music, the AI's brain) in `data/`;
+  tests in `tests/`, mirroring `src/pewpy/`. The AI player that flies a ship is `src/pewpy/ai/`. Everything that makes
+  the game's data is in `src/pewpy/generators/`, one subpackage per kind of data: `models/` (ships, bosses, final
+  bosses, and the Dev menu's model browser), `music/` (songs, music browser), `backgrounds/` (background candidates,
+  backgrounds browser), `levels/` (`make levels`), `ai_training/` (`make learn`), `compact_json/`, plus
+  `screenshots.py` (the README's screenshots); their tests in `tests/generators/`.
   Tooling: `uv`, `ruff`, `ty`, `pytest` (see `Makefile`).
 - Install: `make install`. Checks: `make check`. Tests: `make test`.
 - Run the game: `make run` (same as `uv run python -m pewpy`; its main menu has a Dev menu: the model, music and

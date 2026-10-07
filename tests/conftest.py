@@ -14,10 +14,10 @@ from panda3d.core import loadPrcFileData
 from pewpy import data
 from pewpy.app import PewPewApp
 from pewpy.audio.library import Library
-from pewpy.dev import catalog, saving
 from pewpy.game.enemies import spec
 from pewpy.game.enemies.kinds import reload_kinds
 from pewpy.game.states import State
+from pewpy.generators.models import catalog, saving
 
 
 @pytest.fixture(scope="session")

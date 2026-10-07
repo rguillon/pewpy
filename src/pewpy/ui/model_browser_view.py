@@ -1,4 +1,4 @@
-"""The Dev menu's model browser on screen (see pewpy.dev.browser).
+"""The Dev menu's model browser on screen (see pewpy.generators.models.browser).
 
 The model in the middle (a boss with its parts in place, the parts blinking slowly so they stand out), swaying a
 little to show its depth, inside a frame: the size
