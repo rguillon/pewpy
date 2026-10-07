@@ -213,3 +213,6 @@ __marimo__/
 
 # The brain being saved (see pewpy.ai.files): replaced by data/brain/brain.npz once written
 data/brain/*.tmp.npz
+
+# Mutmut generated mutation test files
+mutants/

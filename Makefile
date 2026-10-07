@@ -44,6 +44,11 @@ test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"
 	@uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml
 
+.PHONY: mutate
+mutate: ## Test the tests: mutate the code with mutmut and report the mutants the tests let survive (options: ARGS="pewpy.game.score*")
+	@echo "🚀 Testing the tests: Running mutmut"
+	@uv run mutmut run $(ARGS) && uv run mutmut results
+
 .PHONY: docs-test
 docs-test: ## Test if documentation can be built without warnings or errors
 	@uv run mkdocs build -s
