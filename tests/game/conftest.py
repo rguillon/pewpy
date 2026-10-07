@@ -4,7 +4,6 @@ The game's bosses are data the Dev menu remakes (their parts, sizes and guns cha
 them. Built in code (no model): their guns fire from where their descriptions say, not from a model's weapons.
 """
 
-from collections.abc import Iterator
 from typing import Any
 
 import pytest
@@ -114,7 +113,7 @@ TEST_BOSSES: dict[str, EnemySpec] = {
 
 
 @pytest.fixture
-def test_bosses(monkeypatch: pytest.MonkeyPatch) -> Iterator[dict[str, EnemySpec]]:
+def test_bosses(monkeypatch: pytest.MonkeyPatch) -> dict[str, EnemySpec]:
     """Make the tests' bosses kinds of enemy for a test, so levels can send them and make_enemy can make them."""
     for kind, spec in TEST_BOSSES.items():
         monkeypatch.setitem(KINDS, kind, spec)
