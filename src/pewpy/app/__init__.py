@@ -4,7 +4,8 @@ PewPewApp is built in layers, each adding one concern in its own module, each la
 window.py (the window, camera and lights), entity_models.py (the models of what's in play), hud.py, drawing.py
 (what's in play, each frame; bullets.py: how bullets look), screens.py (the menus and screens), keys.py, sound.py,
 dev.py (the Dev menu's model and music browsers), backgrounds.py (its backgrounds browser), ai_playing.py (the AI
-playing screen) and screenshots.py (the Dev menu's screenshots). This module puts them together and runs the frames.
+playing screen), screenshots.py (the Dev menu's screenshots) and parts.py (its parts browser). This module puts them
+together and runs the frames.
 """
 
 import random
@@ -16,7 +17,7 @@ from panda3d.core import NodePath, loadPrcFileData
 
 from pewpy import config
 from pewpy.app.entity_models import fitted_model
-from pewpy.app.screenshots import Screenshots
+from pewpy.app.parts import Parts
 from pewpy.app.window import GAME_ASPECT, letterbox
 from pewpy.audio.cues import event_sounds
 from pewpy.game.controls import Controls
@@ -40,7 +41,7 @@ if TYPE_CHECKING:
 EFFECTS_RUN_IN: frozenset[Enum] = frozenset({State.PLAYING, State.GAME_OVER, State.LEVEL_COMPLETE, State.AI_PLAYING})
 
 
-class PewPewApp(Screenshots):
+class PewPewApp(Parts):
     """The game."""
 
     def __init__(self) -> None:
