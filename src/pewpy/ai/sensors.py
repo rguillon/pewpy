@@ -17,7 +17,7 @@
 """
 
 import math
-from typing import Protocol, TypeVar
+from typing import Protocol
 
 import numpy as np
 
@@ -33,8 +33,6 @@ class Placed(Protocol):
     x: float
     y: float
 
-
-EntityT = TypeVar("EntityT", bound=Placed)
 
 MOVES = ((0.0, 0.0), *((math.cos(a * math.pi / 4), math.sin(a * math.pi / 4)) for a in range(8)))
 FIRST = 0.25  # seconds of the first move of a plan, then the second until HORIZON
@@ -102,12 +100,12 @@ def _rows(entities: list) -> np.ndarray:
     return np.array(rows, dtype=float) if rows else NO_THREATS
 
 
-def nearest(entities: list[EntityT], x: float, y: float, count: int = 1) -> list[EntityT]:
+def nearest[T: Placed](entities: list[T], x: float, y: float, count: int = 1) -> list[T]:
     """Return the `count` entities nearest to (x, y), nearest first (fewer when there are fewer)."""
     return sorted(entities, key=lambda entity: math.hypot(entity.x - x, entity.y - y))[:count]
 
 
-def nearest_one(entities: list[EntityT], x: float, y: float) -> EntityT | None:
+def nearest_one[T: Placed](entities: list[T], x: float, y: float) -> T | None:
     """Return the entity nearest to (x, y), or None when there is none."""
     return next(iter(nearest(entities, x, y)), None)
 

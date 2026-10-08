@@ -80,12 +80,12 @@ class BrowserScreen(DevMenu):
         return super()._menu(state)
 
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
-        if previous is self.BROWSER_STATE:  # leaving it (for the menus or another screen): close the browser
-            self._close_browser()
         super()._on_state_change(previous, current)
         if current is self.BROWSER_STATE:
             self._browser, self._view = self._open_browser()
             self._show_browsed(self._browser, self._view)
+        else:
+            self._close_browser()  # the browser goes down with its screen (nothing to do when it isn't up)
 
     def _on_key(self, key: str) -> None:
         super()._on_key(key)
@@ -125,7 +125,7 @@ class BrowserScreen(DevMenu):
         self.states.transition(State.DEV_MENU)
 
     def _close_browser(self) -> None:
-        """Take the browser and its view away."""
+        """Take the browser and its view away, if they are there."""
         if self._view is not None:
             self._view.destroy()
         self._browser, self._view = None, None

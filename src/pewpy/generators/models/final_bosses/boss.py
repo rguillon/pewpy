@@ -6,7 +6,6 @@ from pewpy.game.weapons.guns import Gun
 from pewpy.generators.models.final_bosses.attacks import attack_guns
 
 CORE = "core"  # the gun source that is the boss itself
-DIFFICULTIES = 20  # how many difficulties there are, so a level's difficulty scales from 1 to here
 DIFFICULTY_FROM = 19  # the last difficulty, for turning a difficulty into a share from 0 to 1
 PART_HEALTH = 16.0  # a part's health at difficulty 1...
 PART_HEALTH_STEP = 1.6  # ...and how much more each difficulty adds
@@ -21,7 +20,8 @@ SWAY_STEP = 0.004  # ...and how much faster each difficulty sways
 RAGE_SWAY = 0.03  # ...plus this in the first phase of its rage
 LAST_SWAY = 0.06  # ...and this in the one after that
 ARMORED_FROM = 8  # from this difficulty, the core aims while its front parts are up
-# The core's guns in the phases where it fires on its own: (attack, delay) — the first, only from ARMORED_FROM.
+# How long the core waits before each of its own guns fires, in the phases where it fires beside the parts' and in
+# its rage; AIMED_DELAY is the gun it fires while its front parts are up (only from ARMORED_FROM).
 AIMED_DELAY = 0.8
 CORE_DELAY = 0.6
 RAGE_DELAY = 0.9

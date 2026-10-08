@@ -13,24 +13,17 @@ from pewpy.ui.menu_view import SHADOW_OFFSET, TEXT_SHADOW
 Color = tuple[float, float, float, float]
 
 
-def centered(
-    parent: NodePath,
-    z: float,
-    scale: float,
-    color: Color,
-    shadow: Color | None = TEXT_SHADOW,
-    wordwrap: float | None = None,
-) -> OnscreenText:
+def centered(parent: NodePath, z: float, scale: float, color: Color, wordwrap: float | None = None) -> OnscreenText:
     """Return a text centred on the screen, `z` up from its middle, empty until it's told what to say.
 
-    `shadow` is the colour of the shadow behind it, or None for none.
+    It has a drop shadow, so it reads against whatever scrolls behind it.
     """
     return OnscreenText(
         text="",
         pos=(0, z),
         scale=scale,
         fg=color,
-        shadow=shadow if shadow is not None else (0.0, 0.0, 0.0, 0.0),
+        shadow=TEXT_SHADOW,
         shadowOffset=SHADOW_OFFSET,
         align=TextNode.ACenter,
         wordwrap=wordwrap,

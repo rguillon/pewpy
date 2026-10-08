@@ -45,11 +45,13 @@ class Screenshots(AIPlaying):
 
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
         if previous is State.SCREENSHOTS:  # back to the menus: no shot, and their ground behind them
-            self._close_shot()
+            self._drop_shot()
             self._show_background()
         super()._on_state_change(previous, current)
         if current is State.SCREENSHOTS:
             self._open_shot()
+        else:
+            self._close_shot()  # the texts go down with the screen (nothing to do when it isn't up)
 
     def _open_shot(self) -> None:
         """Open the screen: the texts, and the world whose levels it shoots (its ground behind them)."""
@@ -60,11 +62,10 @@ class Screenshots(AIPlaying):
         self._describe_shot(self.screenshot_view, "Space: take a screenshot")
 
     def _close_shot(self) -> None:
-        """Close the screen: take the texts away, and the shot's level with them."""
+        """Take the texts away. A shot taken stays: `_drop_shot` is what takes that away."""
         if self.screenshot_view is not None:
             self.screenshot_view.destroy()
             self.screenshot_view = None
-        self._drop_shot()
 
     def _on_key(self, key: str) -> None:
         super()._on_key(key)
