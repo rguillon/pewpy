@@ -3,7 +3,6 @@
 import json
 import math
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
 
 from pewpy import config
 from pewpy.data import data_folder
@@ -26,17 +25,18 @@ class ShipSpec:
     test: bool = False  # a ship for testing the game: not compared with the others, not flown by the AI
 
 
-def load_ships() -> Dict[str, ShipSpec]:
+def load_ships() -> dict[str, ShipSpec]:
     """Load the ships from `ships.json`, by name, in the file's order.
 
     Each ship specification in the JSON file is converted into a ShipSpec dataclass instance.
-    
+
     Returns:
         A dictionary mapping ship names to their specifications.
-        
+
     Raises:
         json.JSONDecodeError: If the ships.json file contains invalid JSON.
         FileNotFoundError: If the ships.json file does not exist at the expected path.
+
     """
     data = json.loads((data_folder() / "ships.json").read_text())
     return {key: ShipSpec(**{k: v for k, v in ship.items() if k != "note"}) for key, ship in data.items()}
@@ -75,6 +75,7 @@ class Player(Entity):
 
         Raises:
             ValueError: If dt is negative.
+
         """
         self.invulnerable_time = max(0.0, self.invulnerable_time - dt)
         self.since_fired = 0.0 if firing else self.since_fired + dt
