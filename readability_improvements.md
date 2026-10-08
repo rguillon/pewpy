@@ -8,7 +8,7 @@ After analyzing the pewpy codebase, several areas for readability improvement ha
 
 ### 1. Documentation Consistency
 **Issue**: Inconsistent docstring conventions across modules
-**Example**: 
+**Example**:
 - `src/pewpy/app/window.py` has good multi-line docstrings for classes and major methods (lines 1-43, 164-167)
 - Some functions lack clear type annotations in docstrings
 
@@ -40,7 +40,7 @@ def _play_area_visible(self, margin: float = 1.04) -> bool:
 ### 4. Length of Functions
 **Issue**: Several functions in `src/pewpy/app/entity_models.py` are moderately long (20+ lines each)
 
-**Improvement**: 
+**Improvement**:
 - Break down large methods when possible while maintaining readability
 - Add more inline comments to explain complex logic blocks
 
@@ -76,7 +76,7 @@ def _play_area_visible(self, margin: float = 1.04) -> bool:
 
 1. **Implement consistent docstring style** using Google or NumPy style for better tool compatibility
 2. **Add more inline documentation** and comments for complex algorithms
-3. **Extract nested logic blocks** into their own methods when possible 
+3. **Extract nested logic blocks** into their own methods when possible
 4. **Update type annotations consistently** across all function signatures
 5. **Improve exception handling documentation** in existing docstrings
 6. **Standardize on naming conventions** for constants, variables, and functions
