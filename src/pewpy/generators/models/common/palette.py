@@ -70,6 +70,7 @@ PART_GREYS: dict[str, Color] = {  # a boss's parts
     "H": (0.5, 0.51, 0.54),
     "k": (0.17, 0.18, 0.2),
     "r": (0.13, 0.13, 0.15),  # barrels, tubes
+    "w": (0.32, 0.33, 0.36),  # wings
     "W": (0.45, 0.46, 0.49),
     "o": (0.08, 0.08, 0.09),  # engine nozzles
 }

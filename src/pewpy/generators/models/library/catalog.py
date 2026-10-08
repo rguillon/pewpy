@@ -646,7 +646,7 @@ register("panel", _panel, tags=[PLATING])
 # ---- Convenience ----
 
 
-def get_part(name: str, rng: object, size: int) -> Part:
+def get_part(name: str, rng: object, size: int = 3) -> Part:
     """Build a part by name `size` big, using `rng` for randomness."""
     if name not in PARTS:
         msg = f"unknown part: {name}"
