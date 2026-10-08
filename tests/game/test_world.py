@@ -14,7 +14,7 @@ from pewpy.game.level import Level, Wave
 from pewpy.game.player import DEFAULT_SHIP, SHIPS
 from pewpy.game.weapons.bullets import BossBeam, Bullet, Missile
 from pewpy.game.weapons.player.arsenal import LEVELS, MAX_LEVEL, Arsenal
-from pewpy.game.world import World
+from pewpy.game.world import View, World
 from pewpy.scenery.ground.terrain import GROUND_SPEED
 
 DT = 1 / 60
@@ -266,7 +266,7 @@ def test_ramming_an_enemy_blows_it_up_too() -> None:
 
 def test_shots_fly_until_they_are_off_the_screen() -> None:
     # The tilted camera shows more than the play area at the top: shots stay until they pass the screen's edges.
-    world = World(QUIET_LEVEL, seed=0, view_top=1.6, view_side=1.1)
+    world = World(QUIET_LEVEL, seed=0, view=View(top=1.6, side=1.1))
     in_the_band = Bullet(x=0.0, y=1.4, vy=0.0)
     in_a_top_corner = Bullet(x=1.0, y=1.5, vy=0.0)
     gone_up, gone_sideways = Bullet(x=0.0, y=1.7, vy=0.0), Bullet(x=1.2, y=1.0, vy=0.0)
@@ -282,7 +282,7 @@ def test_enemies_appear_off_screen_and_fly_in() -> None:
         scroll_speed=0.2,
         waves=(Wave(time=0.0, enemy="drone"), Wave(time=0.0, enemy="swarmer", side="left", y=0.5), Wave(time=1000.0)),
     )
-    world = World(level, seed=0, view_top=1.6, view_side=1.1)
+    world = World(level, seed=0, view=View(top=1.6, side=1.1))
     world.update(DT, Controls())
     drone, swarmer = sorted(world.enemies, key=lambda enemy: enemy.y, reverse=True)
     assert drone.y - drone.height / 2 > 1.6 - 0.01  # just above the top of the screen (one frame in), not removed
@@ -455,7 +455,7 @@ def test_piercing_laser_hits_every_enemy_in_the_beam() -> None:
 
 def test_laser_reaches_the_top_of_the_screen_but_not_beyond() -> None:
     # The tilted camera shows more than the play area at the top: the beam goes up to the screen's edge.
-    world = World(QUIET_LEVEL, seed=0, arsenal=arsenal_with("laser", 3), view_top=1.6)
+    world = World(QUIET_LEVEL, seed=0, arsenal=arsenal_with("laser", 3), view=View(top=1.6))
     in_the_band, above_the_screen = still_enemy(x=0.0, y=1.3), still_enemy(x=0.0, y=1.8)
     world.enemies += [in_the_band, above_the_screen]
     world.update(0.1, Controls(fire=True))
@@ -712,7 +712,7 @@ def test_a_lasers_warning_beam_never_hurts() -> None:
 
 
 def test_homing_missiles_and_the_turret_aim_at_enemies_above_the_play_area_still_on_screen() -> None:
-    world = World(QUIET_LEVEL, seed=0, view_top=1.6, view_side=1.8)
+    world = World(QUIET_LEVEL, seed=0, view=View(top=1.6, side=1.8))
     high = still_enemy(x=1.5, y=1.4)  # above and beside the play area, but on screen
     gone = still_enemy(x=0.0, y=1.7)  # above the screen
     world.enemies += [high, gone]
@@ -734,7 +734,7 @@ def test_an_enemy_already_destroyed_takes_no_more_damage() -> None:
 
 def test_with_cutscenes_the_ship_flies_in_from_the_bottom_before_the_waves() -> None:
     level = Level(name="one", scroll_speed=0.2, waves=(Wave(time=0.0),))
-    world = World(level, seed=0, cutscenes=True, view_bottom=-1.1)
+    world = World(level, seed=0, cutscenes=True, view=View(bottom=-1.1))
     assert world.player.y < -1.1
     run(world, config.ARRIVAL_TIME / 2, Controls(move_x=1.0, fire=True))
     assert world.arriving
@@ -750,7 +750,7 @@ def test_with_cutscenes_the_ship_flies_in_from_the_bottom_before_the_waves() -> 
 
 @pytest.mark.usefixtures("test_bosses")
 def test_with_cutscenes_the_ship_flies_away_through_the_top_once_the_level_is_over() -> None:
-    world = World(BOSS_LEVEL, seed=0, cutscenes=True, view_top=1.6)
+    world = World(BOSS_LEVEL, seed=0, cutscenes=True, view=View(top=1.6))
     world.arrival_time = 0.0
     run(world, 0.1)
     boss = world.boss

@@ -20,7 +20,8 @@ from pewpy.app.bullets import (
     is_round_bullet,
     is_warning,
 )
-from pewpy.app.entity_models import SECONDARY_COLORS, shielded
+from pewpy.app.entity_models import shielded
+from pewpy.app.event_effects import event_effect
 from pewpy.app.hud import Hud
 from pewpy.app.window import Color
 from pewpy.game.enemies.enemy import Enemy
@@ -31,17 +32,13 @@ from pewpy.game.weapons.bullets import Bullet, Missile
 from pewpy.game.weapons.player.secondary import SECONDARY_WEAPONS
 from pewpy.game.world import World
 from pewpy.graphics import models
-from pewpy.graphics.effects.blast import Blast
-from pewpy.graphics.effects.burn import Burn
-from pewpy.graphics.effects.explosion import Explosion
-from pewpy.graphics.effects.impact import Impact
 from pewpy.graphics.effects.laser import LaserGlow
 from pewpy.graphics.effects.system import ParticleSystem
 from pewpy.graphics.effects.view import EffectsView
 from pewpy.graphics.sprites import SpriteBatch
 from pewpy.scenery.background.view import BackgroundView
 
-DISARMED_EXPLOSION_SIZE = 0.08
+LASER_FIRE_RATE = 53.0  # radians a second: how fast a laser's width flickers (the player's and the enemies')
 BOLT_COLOR: Color = (0.85, 0.75, 1.0, 1)
 BOLT_THICKNESS = 3.0  # pixels
 BOLT_STEP = 0.05  # a lightning bolt zigzags every this many world units...
@@ -56,6 +53,9 @@ HIT_SHADE: Color = (1.6, 1.6, 1.6, 1)  # bosses light up when hit (white would h
 PLAYER_BANK_ANGLE = 25.0  # degrees of roll at full sideways speed
 FLAME_FLICKER = (0.12, 0.08)  # how much engine flames waver in length: a slow wave and a fast one
 FLAME_THRUST = 0.35  # the player's flames: this much longer flying up at full speed, shorter flying down
+FLAME_PHASES = 97  # the flames' waver phases: one entity's among these, so neighbouring ones don't wave alike
+FLAME_PHASE_STEP = 1.7  # ...and this far apart, along an entity's own flames
+THINNEST = 0.001  # the least a beam is drawn this wide: Panda3D complains about a zero scale
 
 
 class Drawing(Hud):
@@ -83,20 +83,11 @@ class Drawing(Hud):
         self.bolt_rng = random.Random()
 
     def _show_events(self, events: list[Event], dt: float) -> None:
+        """Play the effect of each event that has one (see event_effects.py, beside the sounds in audio/cues.py)."""
         for event in events:
-            if event.kind == "impact":
-                # Sparks fly back the way the shot came: down from enemies, up from the player.
-                self.effects.play(Impact(event.x, event.y, towards=-1.0 if event.source == "enemy" else 1.0))
-            elif event.kind == "explosion":
-                colors = self.debris_colors.get(event.source, (models.METAL,))
-                self.effects.play(Explosion(event.x, event.y, event.size, colors))
-            elif event.kind == "blast":
-                self.effects.play(Blast(event.x, event.y, event.size))
-            elif event.kind == "burn":
-                self.effects.play(Burn(event.x, event.y, dt))
-            elif event.kind == "disarmed":  # the secondary weapon blew up on the ship
-                colors = (SECONDARY_COLORS[event.source], models.METAL)
-                self.effects.play(Explosion(event.x, event.y, DISARMED_EXPLOSION_SIZE, colors))
+            effect = event_effect(event, dt, self.debris_colors)
+            if effect is not None:
+                self.effects.play(effect)
 
     def _sync_nodes(self) -> None:
         self.effects_view.sync()
@@ -177,7 +168,7 @@ class Drawing(Hud):
         thrust = entity.vy / entity.ship.speed if isinstance(entity, Player) else 0.0
         time = self.clock.getFrameTime()
         for index, (flame, length) in enumerate(self.flames.get(entity, ())):
-            flame.setSz(length * flame_scale(time, id(entity) % 97 + index * 1.7, thrust))
+            flame.setSz(length * flame_scale(time, id(entity) % FLAME_PHASES + index * FLAME_PHASE_STEP, thrust))
 
     @staticmethod
     def _laser_glows(world: World) -> list[LaserGlow]:
@@ -203,7 +194,7 @@ class Drawing(Hud):
         """
         for gone in [beam for beam in self.beam_nodes if beam not in beams]:
             self.beam_nodes.pop(gone).removeNode()
-        flicker = 1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * 53.0)
+        flicker = 1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * LASER_FIRE_RATE)
         for beam in beams:
             node = self.beam_nodes.get(beam)
             warning = is_warning(beam)
@@ -212,7 +203,7 @@ class Drawing(Hud):
                 (self.warning_model if warning else self.enemy_laser_model).copyTo(node)
             width = beam.width * (WARNING_SCALE if warning else flicker)
             node.setPos(beam.x, 0, beam.y)
-            node.setScale(width, width, max(beam.height, 0.001))
+            node.setScale(width, width, max(beam.height, THINNEST))
 
     def _show_laser(self) -> None:
         beam = self.world.laser if self.world else None
@@ -221,8 +212,8 @@ class Drawing(Hud):
             return
         self.laser_node.show()
         self.laser_node.setPos(beam.x, 0, (beam.bottom + beam.top) / 2)
-        width = beam.width * (1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * 53.0))
-        self.laser_node.setScale(width, width, max(beam.top - beam.bottom, 0.001))
+        width = beam.width * (1.0 + LASER_FLICKER * math.sin(self.clock.getFrameTime() * LASER_FIRE_RATE))
+        self.laser_node.setScale(width, width, max(beam.top - beam.bottom, THINNEST))
 
     def _show_enemy_appearance(self, enemy: Enemy, node: NodePath) -> None:
         appearance = enemy.appearance()

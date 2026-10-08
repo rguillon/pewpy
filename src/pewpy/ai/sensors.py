@@ -17,6 +17,7 @@
 """
 
 import math
+from typing import Protocol, TypeVar
 
 import numpy as np
 
@@ -24,6 +25,16 @@ from pewpy import config
 from pewpy.game.player import REGULAR_SHIPS
 from pewpy.game.weapons.player.arsenal import MAX_LEVEL, WEAPONS
 from pewpy.game.world import World
+
+
+class Placed(Protocol):
+    """Something with a place on the play plane: what the AI looks at (a pickup, an enemy)."""
+
+    x: float
+    y: float
+
+
+EntityT = TypeVar("EntityT", bound=Placed)
 
 MOVES = ((0.0, 0.0), *((math.cos(a * math.pi / 4), math.sin(a * math.pi / 4)) for a in range(8)))
 FIRST = 0.25  # seconds of the first move of a plan, then the second until HORIZON
@@ -36,6 +47,7 @@ UNHIT = 1.5  # a plan's score without a hit (one with a hit scores its time befo
 TOLERANCE = 0.1  # how much less than the safest a move can score and still be safe to aim with
 HOME = 0.0  # the height the ship aims from (the middle of the screen: room to dodge all around)...
 HOME_WEIGHT = 0.3  # ...minding it this much less than being under its target
+ABOVE_WEIGHT = 0.3  # how much a target's height above the ship counts beside its distance across
 CEILING = 0.0  # the highest it goes for a pickup: above, it waits under the pickup for it to drift down
 NEAREST_SHOTS = 6
 SHOT_RANGE = 0.6  # where the shots are, in this unit
@@ -43,27 +55,33 @@ LANES = 8
 TARGETS = 3
 REACH = 1.0  # targets are seen this far away (world units) at most
 FAST_REPAIR = 0.5  # health a second: a repair rate seen as 1
+LANE_FULL = 4  # how many things fill a lane, at most (one crowded lane must not drown the others)
+SHIP_SIZE = 0.12  # a regular ship's size: the unit ship sizes are seen in, like their speed is their own
+NO_THINGS = [0.0, 0.0, 0.0]  # where nothing is: seen as three zeros (no x, no y, and not there)
+
+# Where each block of the view starts, so the network's inputs can be reached by name (see `sense` and brain.py).
+SAFEST = 2 * len(MOVES)  # the safest move's direction (x, y), after the times and the rooms
+AIM = SAFEST + 2  # the move to aim's direction (x, y)
+SHOTS = AIM + 2  # the NEAREST_SHOTS nearest shots, four numbers each
+LANE_SHOTS = SHOTS + 4 * NEAREST_SHOTS  # the lanes' shots, then their enemies
+LANE_ENEMIES = LANE_SHOTS + LANES
+SHIP = LANE_ENEMIES + LANES  # the ship itself, then which ship it is
+WHICH_SHIP = SHIP + 8
+WEAPONS_SEEN = WHICH_SHIP + len(REGULAR_SHIPS)  # the selected weapon, then every weapon's level
+LEVELS = WEAPONS_SEEN + len(WEAPONS)
+TARGETS_SEEN = LEVELS + len(WEAPONS)  # the nearest enemies, the pickup and the boss
+PICKUP = TARGETS_SEEN + 3 * TARGETS
+BOSS = PICKUP + 3
+REPAIRS = BOSS + 3  # whether something can be hurt, how long since it fired, how fast it repairs
+SHOOTABLE = REPAIRS  # "something on screen can be hurt" is the first of the three (1, else 0)
+SIZE = REPAIRS + 3  # the view is this many numbers
 
 HALF_WIDTH = config.PLAY_WIDTH / 2
 HALF_HEIGHT = config.PLAY_HEIGHT / 2
-SIZE = (
-    2 * len(MOVES)
-    + 2
-    + 2
-    + 4 * NEAREST_SHOTS
-    + 2 * LANES
-    + 8
-    + len(REGULAR_SHIPS)
-    + 2 * len(WEAPONS)
-    + 3 * TARGETS
-    + 3
-    + 3
-    + 3
-)
-SAFEST = 2 * len(MOVES)  # where the safest move's direction (x, y) is in the view
-AIM = SAFEST + 2  # where the move to aim's direction (x, y) is
-SHOOTABLE = SIZE - 3  # where "something on screen can be hurt" is (1, else 0)
-NO_THREATS = np.zeros((0, 6))
+NO_THREATS = np.zeros((0, 6))  # nothing threatens: the shape _rows returns when nothing is alive
+
+# A threat as _rows sees it: its position, its velocity and its size, so the radar can foresee a meeting.
+X, Y, VX, VY, WIDTH, HEIGHT = range(6)
 TIMES = np.linspace(HORIZON / STEPS, HORIZON, STEPS)  # when the radar looks
 _FIRSTS = np.repeat(np.arange(len(MOVES)), len(MOVES))  # every plan: its first move...
 _SECONDS = np.tile(np.arange(len(MOVES)), len(MOVES))  # ...and its second
@@ -71,7 +89,7 @@ _AIM_STEP = int(np.searchsorted(TIMES, FIRST))  # where the ship is told to be w
 
 
 def _rows(entities: list) -> np.ndarray:
-    """Return living entities as rows of (x, y, vx, vy, width, height).
+    """Return living entities as rows of (X, Y, VX, VY, WIDTH, HEIGHT).
 
     A shot snaking across its line of flight (an `amplitude`) is as wide as its snaking, so flying straight is all the
     radar needs to foresee.
@@ -82,6 +100,16 @@ def _rows(entities: list) -> np.ndarray:
             sway = 2 * getattr(e, "amplitude", 0.0)
             rows.append((e.x, e.y, e.vx, e.vy, e.width + sway, e.height + sway))
     return np.array(rows, dtype=float) if rows else NO_THREATS
+
+
+def nearest(entities: list[EntityT], x: float, y: float, count: int = 1) -> list[EntityT]:
+    """Return the `count` entities nearest to (x, y), nearest first (fewer when there are fewer)."""
+    return sorted(entities, key=lambda entity: math.hypot(entity.x - x, entity.y - y))[:count]
+
+
+def nearest_one(entities: list[EntityT], x: float, y: float) -> EntityT | None:
+    """Return the entity nearest to (x, y), or None when there is none."""
+    return next(iter(nearest(entities, x, y)), None)
 
 
 def _glide(position: np.ndarray, velocity: np.ndarray, target: np.ndarray, times: np.ndarray) -> np.ndarray:
@@ -126,16 +154,16 @@ def radar(world: World, threats: np.ndarray) -> tuple[np.ndarray, ...]:
     player = world.player
     ship_x, ship_y = plans(world)
     if len(threats):
-        near = (np.abs(threats[:, 0] - player.x) < NEAR + threats[:, 4] / 2) & (
-            np.abs(threats[:, 1] - player.y) < NEAR + threats[:, 5] / 2
+        near = (np.abs(threats[:, X] - player.x) < NEAR + threats[:, WIDTH] / 2) & (
+            np.abs(threats[:, Y] - player.y) < NEAR + threats[:, HEIGHT] / 2
         )
         threats = threats[near]
     count = len(MOVES)
     if len(threats):
-        threat_x = threats[:, 0] + threats[:, 2] * TIMES[:, None]  # (steps, threats)
-        threat_y = threats[:, 1] + threats[:, 3] * TIMES[:, None]
-        gap_x = np.abs(threat_x[None] - ship_x[:, :, None]) - (threats[:, 4] + player.width) / 2  # (plans, ...)
-        gap_y = np.abs(threat_y[None] - ship_y[:, :, None]) - (threats[:, 5] + player.height) / 2
+        threat_x = threats[:, X] + threats[:, VX] * TIMES[:, None]  # (steps, threats)
+        threat_y = threats[:, Y] + threats[:, VY] * TIMES[:, None]
+        gap_x = np.abs(threat_x[None] - ship_x[:, :, None]) - (threats[:, WIDTH] + player.width) / 2  # (plans, ...)
+        gap_y = np.abs(threat_y[None] - ship_y[:, :, None]) - (threats[:, HEIGHT] + player.height) / 2
         gap = np.maximum(gap_x, gap_y).min(axis=2)  # (plans, steps)
         hit = gap < MARGIN
         first_hit = np.where(hit.any(axis=1), hit.argmax(axis=1), STEPS)
@@ -158,7 +186,7 @@ def target(world: World) -> tuple[float, float | None] | None:
     under the nearest enemy above it.
     """
     player = world.player
-    pickup = min(world.pickups, key=lambda p: math.hypot(p.x - player.x, p.y - player.y), default=None)
+    pickup = nearest_one(world.pickups, player.x, player.y)
     if pickup is not None:
         return pickup.x, min(pickup.y + pickup.vy * FIRST, CEILING)
     boss = world.boss
@@ -174,7 +202,7 @@ def target(world: World) -> tuple[float, float | None] | None:
     ]
     if not above:
         return None
-    return min(above, key=lambda enemy: abs(enemy.x - player.x) + 0.3 * (enemy.y - player.y)).x, None
+    return min(above, key=lambda enemy: abs(enemy.x - player.x) + ABOVE_WEIGHT * (enemy.y - player.y)).x, None
 
 
 def shootable(world: World) -> bool:
@@ -214,72 +242,119 @@ def aim(
 
 
 def _nearest_shots(shots: np.ndarray, x: float, y: float) -> np.ndarray:
+    """Return the NEAREST_SHOTS shots nearest to (x, y): where they are from the ship and how fast they go."""
     out = np.zeros((NEAREST_SHOTS, 4))
     if len(shots):
-        nearest = shots[np.argsort(np.hypot(shots[:, 0] - x, shots[:, 1] - y))[:NEAREST_SHOTS]]
-        out[: len(nearest), 0] = np.clip((nearest[:, 0] - x) / SHOT_RANGE, -1.0, 1.0)
-        out[: len(nearest), 1] = np.clip((nearest[:, 1] - y) / SHOT_RANGE, -1.0, 1.0)
-        out[: len(nearest), 2:] = np.clip(nearest[:, 2:4], -1.0, 1.0)
+        close = shots[np.argsort(np.hypot(shots[:, X] - x, shots[:, Y] - y))[:NEAREST_SHOTS]]
+        out[: len(close), X] = np.clip((close[:, X] - x) / SHOT_RANGE, -1.0, 1.0)
+        out[: len(close), Y] = np.clip((close[:, Y] - y) / SHOT_RANGE, -1.0, 1.0)
+        out[: len(close), VX:] = np.clip(close[:, VX : VX + 2], -1.0, 1.0)
     return out.ravel()
 
 
 def _lanes(things: np.ndarray, above: float) -> np.ndarray:
-    """How many of the things are in each lane of the screen, above `above` (each lane's count, at most 4)."""
+    """How many of the things are in each lane of the screen, above `above`, as a share of LANE_FULL."""
     lanes = np.zeros(LANES)
     if len(things):
-        up = things[things[:, 1] > above]
-        index = np.clip(((up[:, 0] + HALF_WIDTH) / config.PLAY_WIDTH * LANES).astype(int), 0, LANES - 1)
+        up = things[things[:, Y] > above]
+        index = np.clip(((up[:, X] + HALF_WIDTH) / config.PLAY_WIDTH * LANES).astype(int), 0, LANES - 1)
         np.add.at(lanes, index, 1.0)
-    return np.minimum(lanes, 4.0) / 4.0
+    return np.minimum(lanes, LANE_FULL) / LANE_FULL
 
 
 def _towards(dx: float, dy: float) -> tuple[float, float]:
+    """Return a direction, each way from -1 to 1: how far off something is, as a share of REACH."""
     return max(-1.0, min(1.0, dx / REACH)), max(-1.0, min(1.0, dy / REACH))
 
 
+def _seen_thing(entity: Placed | None, x: float, y: float) -> list[float]:
+    """Return a thing as the AI sees it: where from the ship, and 1 (it is there) or 0 (no thing)."""
+    if entity is None:
+        return list(NO_THINGS)
+    return [*_towards(entity.x - x, entity.y - y), 1.0]
+
+
+def _radar(world: World, threats: np.ndarray) -> np.ndarray:
+    """Return the radar's answer: each move's time before a hit and the room left, the safest move, the move to aim."""
+    time, room, score, reach_x, reach_y = radar(world, threats)
+    return np.concatenate([time, room, safest(score), aim(score, reach_x, reach_y, target(world))])
+
+
+def _lanes_seen(shots: np.ndarray, enemies: np.ndarray, above: float) -> np.ndarray:
+    """Return the lanes across the whole screen: the shots' above the ship, and the enemies'."""
+    return np.concatenate([_lanes(shots, above), _lanes(enemies, above)])
+
+
+def _the_ship(world: World) -> list[float]:
+    """Return the player's ship: where it is on the screen, how it's moving and how it is."""
+    player, ship = world.player, world.player.ship
+    return [
+        player.x / HALF_WIDTH,
+        player.y / HALF_HEIGHT,
+        player.vx / ship.speed,
+        player.vy / ship.speed,
+        max(player.health, 0.0) / ship.health,
+        1.0 if player.invulnerable else 0.0,
+        ship.speed - 1.0,
+        ship.size / SHIP_SIZE - 1.0,
+    ]
+
+
+def _its_ship(world: World) -> list[float]:
+    """Return which of REGULAR_SHIPS the player's ship is (one brain flies them all)."""
+    return [1.0 if spec is world.player.ship else 0.0 for spec in REGULAR_SHIPS.values()]
+
+
+def _the_weapons(world: World) -> list[float]:
+    """Return the arsenal: which weapon is selected, then every weapon's level."""
+    arsenal = world.arsenal
+    return [
+        *[1.0 if weapon == arsenal.selected else 0.0 for weapon in WEAPONS],
+        *[arsenal.levels[weapon] / MAX_LEVEL for weapon in WEAPONS],
+    ]
+
+
+def _the_targets(world: World) -> list[float]:
+    """Return the TARGETS enemies nearest the ship, each as where from it and that it's there."""
+    player = world.player
+    close = nearest([enemy for enemy in world.enemies if enemy.alive], player.x, player.y, TARGETS)
+    seen = [number for enemy in close for number in _seen_thing(enemy, player.x, player.y)]
+    return [*seen, *NO_THINGS * (TARGETS - len(close))]
+
+
+def _the_pickup(world: World) -> list[float]:
+    """Return the nearest pickup: where it is from the ship, and 1 that it's there (no pickup: three zeros)."""
+    player = world.player
+    return _seen_thing(nearest_one(world.pickups, player.x, player.y), player.x, player.y)
+
+
+def _the_boss(world: World) -> list[float]:
+    """Return the boss: where it is from the ship, and how much of its health is left (no boss: three zeros)."""
+    player, boss = world.player, world.boss
+    if boss is None:
+        return list(NO_THINGS)
+    x, y, _there = _seen_thing(boss, player.x, player.y)
+    return [x, y, boss.health_fraction]
+
+
 def sense(world: World) -> np.ndarray:
-    """Return the AI's view of `world`, SIZE numbers."""
+    """Return the AI's view of `world`, one block per thing the module docstring lists, in that order.
+
+    The blocks are named, so their offsets in the view are named too (AIM, SHOOTABLE...); a block's size follows from
+    what it describes, and SIZE is their sum.
+    """
     player = world.player
     shots = _rows([shot for shot in world.enemy_bullets if not shot.harmless])
     enemies = _rows(world.enemies)
-    arsenal = world.arsenal
-    ship = player.ship
-    nearest = sorted(
-        (enemy for enemy in world.enemies if enemy.alive),
-        key=lambda enemy: math.hypot(enemy.x - player.x, enemy.y - player.y),
-    )[:TARGETS]
-    targets = []
-    for index in range(TARGETS):
-        if index < len(nearest):
-            targets += [*_towards(nearest[index].x - player.x, nearest[index].y - player.y), 1.0]
-        else:
-            targets += [0.0, 0.0, 0.0]
-    pickup = min(world.pickups, key=lambda p: math.hypot(p.x - player.x, p.y - player.y), default=None)
-    boss = world.boss
-    time, room, score, reach_x, reach_y = radar(world, np.concatenate([shots, enemies]))
     return np.concatenate([
-        time,
-        room,
-        safest(score),
-        aim(score, reach_x, reach_y, target(world)),
+        _radar(world, np.concatenate([shots, enemies])),  # time and room per move, then the safest and the aim
         _nearest_shots(shots, player.x, player.y),
-        _lanes(shots, player.y),
-        _lanes(enemies, player.y),
-        [
-            player.x / HALF_WIDTH,
-            player.y / HALF_HEIGHT,
-            player.vx / ship.speed,
-            player.vy / ship.speed,
-            max(player.health, 0.0) / ship.health,
-            1.0 if player.invulnerable else 0.0,
-            ship.speed - 1.0,
-            ship.size / 0.12 - 1.0,
-        ],
-        [1.0 if spec is ship else 0.0 for spec in REGULAR_SHIPS.values()],
-        [1.0 if weapon == arsenal.selected else 0.0 for weapon in WEAPONS],
-        [arsenal.levels[weapon] / MAX_LEVEL for weapon in WEAPONS],
-        targets,
-        [*_towards(pickup.x - player.x, pickup.y - player.y), 1.0] if pickup else [0.0, 0.0, 0.0],
-        [*_towards(boss.x - player.x, boss.y - player.y), boss.health_fraction] if boss else [0.0, 0.0, 0.0],
+        _lanes_seen(shots, enemies, player.y),
+        _the_ship(world),
+        _its_ship(world),
+        _the_weapons(world),
+        _the_targets(world),
+        _the_pickup(world),
+        _the_boss(world),
         repairs(world),
     ])

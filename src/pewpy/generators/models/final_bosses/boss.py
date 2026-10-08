@@ -6,6 +6,31 @@ from pewpy.game.weapons.guns import Gun
 from pewpy.generators.models.final_bosses.attacks import attack_guns
 
 CORE = "core"  # the gun source that is the boss itself
+DIFFICULTIES = 20  # how many difficulties there are, so a level's difficulty scales from 1 to here
+DIFFICULTY_FROM = 19  # the last difficulty, for turning a difficulty into a share from 0 to 1
+PART_HEALTH = 16.0  # a part's health at difficulty 1...
+PART_HEALTH_STEP = 1.6  # ...and how much more each difficulty adds
+PART_POINTS = 300  # a part's points at difficulty 1...
+PART_POINTS_STEP = 30  # ...and how many more each difficulty adds
+HEALTH = 110.0  # the core's health at difficulty 1...
+HEALTH_STEP = 14.0  # ...and how much more each difficulty adds
+POINTS = 4000  # the boss's points at difficulty 1...
+POINTS_STEP = 400  # ...and how many more each difficulty adds
+SWAY = 0.08  # how fast the boss sways at difficulty 1...
+SWAY_STEP = 0.004  # ...and how much faster each difficulty sways
+RAGE_SWAY = 0.03  # ...plus this in the first phase of its rage
+LAST_SWAY = 0.06  # ...and this in the one after that
+ARMORED_FROM = 8  # from this difficulty, the core aims while its front parts are up
+# The core's guns in the phases where it fires on its own: (attack, delay) — the first, only from ARMORED_FROM.
+AIMED_DELAY = 0.8
+CORE_DELAY = 0.6
+RAGE_DELAY = 0.9
+RAGE_FRONT_DELAY = 0.5
+RAGE_WAVE_DELAY = 1.0
+SPIRAL_FROM = 6  # from this difficulty its rage spirals, else it rings
+RAGE_AT = 0.5  # the share of its health left that the core's rage starts at
+LASER_BEAMS = (-0.25, 0.25)  # the core's laser fires two beams this far from its middle, as a share of its width
+GUNS_IN_TURN = 2  # a phase's parts fire in turn as often in all as about this many parts would
 
 
 @dataclass(frozen=True)
@@ -54,6 +79,106 @@ class BossSpec:
 PartPlan = tuple[str, float, float, float, float]  # drawing, x, y, width, height (from the core's middle)
 
 
+def part_health(difficulty: int) -> float:
+    """Return a part's health at `difficulty`."""
+    return round(PART_HEALTH + PART_HEALTH_STEP * (difficulty - 1))
+
+
+def part_points(difficulty: int) -> int:
+    """Return a part's points at `difficulty`."""
+    return PART_POINTS + PART_POINTS_STEP * difficulty
+
+
+def _part_specs(parts: tuple[PartPlan, ...], difficulty: int) -> tuple[PartSpec, ...]:
+    """Return the specs of every part, numbered by kind and place: "cannon 3", "turret 2"..."""
+    health, points = part_health(difficulty), part_points(difficulty)
+    return tuple(
+        PartSpec(f"{drawing.rsplit(':', 1)[-1]} {index + 1}", drawing, x, y, width, height, health, points)
+        for index, (drawing, x, y, width, height) in enumerate(parts)
+    )
+
+
+def _front_kinds(parts: tuple[PartPlan, ...]) -> set[str]:
+    """Return the drawings of the front parts: those nearest the bottom of the screen, ties by name.
+
+    The same parts are in front every time, so the player learns where to shoot.
+    """
+    kinds = sorted(  # ties by name, so the same parts are in front every time
+        {plan[0] for plan in parts}, key=lambda kind: (sum(plan[2] for plan in parts if plan[0] == kind), kind)
+    )
+    return set(kinds[: (len(kinds) + 1) // 2])
+
+
+def _from_parts(names: tuple[str, ...], attack: str, guns: dict[str, Gun]) -> tuple[tuple[tuple[str, ...], Gun], ...]:
+    """Return every part of `names` firing `attack` in turn (as often in all as about two parts would)."""
+    interval = guns[attack].interval * max(1.0, len(names) / GUNS_IN_TURN) ** 0.5
+    return ((names, replace(guns[attack], interval=interval)),)
+
+
+def _from_core(attack: str, guns: dict[str, Gun], width: float, delay: float = 0.0) -> tuple[str, Gun]:
+    """Return the core firing `attack`: a laser fires two beams apart, everything else from its middle."""
+    offsets = (width * LASER_BEAMS[0], width * LASER_BEAMS[1]) if attack == "laser" else (0.0,)
+    return CORE, replace(guns[attack], delay=delay, offsets=offsets)
+
+
+def _front_phase(
+    front: tuple[str, ...], guns: dict[str, Gun], width: float, sway: float, difficulty: int, front_attack: str
+) -> Phase:
+    """Return the first phase: the front parts firing, the core aiming beside them once it's mean enough."""
+    core_guns = (_from_core("aimed", guns, width, AIMED_DELAY),) if difficulty >= ARMORED_FROM else ()
+    return Phase((*_from_parts(front, front_attack, guns), *core_guns), sway, armored=True, until_destroyed=front)
+
+
+def _back_phase(
+    back: tuple[str, ...], guns: dict[str, Gun], width: float, sway: float, back_attack: str, core_attack: str
+) -> Phase:
+    """Return the second phase: the back parts firing, the core on its own attack beside them."""
+    return Phase(
+        (*_from_parts(back, back_attack, guns), _from_core(core_attack, guns, width, CORE_DELAY)),
+        sway,
+        armored=True,
+        until_destroyed=back,
+    )
+
+
+def _phases(
+    front: tuple[str, ...],
+    back: tuple[str, ...],
+    guns: dict[str, Gun],
+    width: float,
+    sway: float,
+    difficulty: int,
+    front_attack: str,
+    back_attack: str,
+    core_attack: str,
+    rage_attack: str,
+) -> tuple[Phase, ...]:
+    """Return the boss's phases: its parts' turn, then the core's, then its rage."""
+    phases = []
+    if front:
+        phases.append(_front_phase(front, guns, width, sway, difficulty, front_attack))
+    if back:
+        phases.append(_back_phase(back, guns, width, sway, back_attack, core_attack))
+    phases.append(
+        Phase(
+            (_from_core(core_attack, guns, width), _from_core(rage_attack, guns, width, RAGE_DELAY)),
+            sway + RAGE_SWAY,
+            until_below=RAGE_AT,
+        )
+    )
+    phases.append(
+        Phase(
+            (
+                _from_core(rage_attack, guns, width),
+                _from_core(front_attack, guns, width, RAGE_FRONT_DELAY),
+                _from_core("spiral" if difficulty >= SPIRAL_FROM else "ring", guns, width, RAGE_WAVE_DELAY),
+            ),
+            sway + LAST_SWAY,
+        )
+    )
+    return tuple(phases)
+
+
 def final_boss(
     name: str,
     drawing: str,
@@ -69,63 +194,31 @@ def final_boss(
     front parts are the drawings nearest the bottom of the screen (half of the kinds of parts), the back ones the
     others. A "laser" on the core fires two beams apart.
     """
-    p = (difficulty - 1) / 19
+    p = (difficulty - 1) / DIFFICULTY_FROM
     guns = attack_guns(p)
     front_attack, back_attack, core_attack, rage_attack = attacks
-    kinds = sorted(  # ties by name, so the same parts are in front every time
-        {plan[0] for plan in parts}, key=lambda kind: (sum(plan[2] for plan in parts if plan[0] == kind), kind)
-    )
-    front_kinds = set(kinds[: (len(kinds) + 1) // 2])
-    specs = tuple(
-        PartSpec(
-            f"{part_drawing.rsplit(':', 1)[-1]} {index + 1}",
-            part_drawing,
-            x,
-            y,
-            part_width,
-            part_height,
-            round(16 + 1.6 * (difficulty - 1)),
-            300 + 30 * difficulty,
-        )
-        for index, (part_drawing, x, y, part_width, part_height) in enumerate(parts)
-    )
+    specs = _part_specs(parts, difficulty)
+    front_kinds = _front_kinds(parts)
     front = tuple(spec.name for spec in specs if spec.drawing in front_kinds)
     back = tuple(spec.name for spec in specs if spec.drawing not in front_kinds)
-
-    def from_parts(names: tuple[str, ...], attack: str) -> tuple[tuple[tuple[str, ...], Gun], ...]:
-        """Every part of `names` firing `attack` in turn (as often in all as about two parts would)."""
-        interval = guns[attack].interval * max(1.0, len(names) / 2) ** 0.5
-        return ((names, replace(guns[attack], interval=interval)),)
-
-    def from_core(attack: str, delay: float = 0.0) -> tuple[str, Gun]:
-        offsets = (-width / 4, width / 4) if attack == "laser" else (0.0,)
-        return CORE, replace(guns[attack], delay=delay, offsets=offsets)
-
-    sway = 0.08 + 0.004 * difficulty
-    phases = []
-    if front:
-        core_guns = (from_core("aimed", 0.8),) if difficulty >= 8 else ()
-        phases.append(Phase(from_parts(front, front_attack) + core_guns, sway, armored=True, until_destroyed=front))
-    if back:
-        phases.append(
-            Phase(
-                (*from_parts(back, back_attack), from_core(core_attack, 0.6)), sway, armored=True, until_destroyed=back
-            )
-        )
-    phases.append(Phase((from_core(core_attack), from_core(rage_attack, 0.9)), sway + 0.03, until_below=0.5))
-    rage = (
-        from_core(rage_attack),
-        from_core(front_attack, 0.5),
-        from_core("spiral" if difficulty >= 6 else "ring", 1.0),
-    )
-    phases.append(Phase(rage, sway + 0.06))
     return BossSpec(
         name=name,
         drawing=drawing,
         width=width,
         height=height,
-        health=float(110 + 14 * (difficulty - 1)),
-        points=4000 + 400 * difficulty,
-        phases=tuple(phases),
+        health=HEALTH + HEALTH_STEP * (difficulty - 1),
+        points=POINTS + POINTS_STEP * difficulty,
+        phases=_phases(
+            front,
+            back,
+            guns,
+            width,
+            SWAY + SWAY_STEP * difficulty,
+            difficulty,
+            front_attack,
+            back_attack,
+            core_attack,
+            rage_attack,
+        ),
         parts=specs,
     )

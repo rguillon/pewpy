@@ -16,7 +16,6 @@ from pewpy.app.window import letterbox
 from pewpy.game.controls import Controls
 from pewpy.game.player import SHIPS
 from pewpy.game.states import State
-from pewpy.game.world import World
 from pewpy.generators.screenshots import Shot, game_area, play, random_shot, screenshot_path
 from pewpy.ui.menu import MenuItem
 from pewpy.ui.screenshot_view import ScreenshotView
@@ -25,7 +24,11 @@ SCREENSHOTS = "screenshots"  # the Dev menu's entry (see DevMenu.browsing)
 
 
 class Screenshots(AIPlaying):
-    """The screenshots screen."""
+    """The screenshots screen.
+
+    Its own screen rather than a BrowserScreen (see browsers.py): what Space takes is a moment of a level played out
+    (see `random_shot`), not a candidate the browser keeps, and Left/Right go from one world to the next.
+    """
 
     screenshot_view: ScreenshotView | None = None
     shot: Shot | None = None  # the one on show
@@ -41,19 +44,27 @@ class Screenshots(AIPlaying):
         self.states.transition(State.SCREENSHOTS)
 
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
-        if previous is State.SCREENSHOTS:  # back to the menus: their ground behind them
-            self._drop_shot()
+        if previous is State.SCREENSHOTS:  # back to the menus: no shot, and their ground behind them
+            self._close_shot()
             self._show_background()
         super()._on_state_change(previous, current)
         if current is State.SCREENSHOTS:
-            self.screenshot_view = ScreenshotView(self.aspect2d)
-            self.shot_world = self.places[self.level_index][0]
-            self._show_world_ground()
-            self.shot_rng = random.Random()
-            self._describe_shot(self.screenshot_view, "Space: take a screenshot")
-        elif self.screenshot_view is not None:
+            self._open_shot()
+
+    def _open_shot(self) -> None:
+        """Open the screen: the texts, and the world whose levels it shoots (its ground behind them)."""
+        self.screenshot_view = ScreenshotView(self.aspect2d)
+        self.shot_world = self.places[self.level_index][0]
+        self._show_world_ground()
+        self.shot_rng = random.Random()
+        self._describe_shot(self.screenshot_view, "Space: take a screenshot")
+
+    def _close_shot(self) -> None:
+        """Close the screen: take the texts away, and the shot's level with them."""
+        if self.screenshot_view is not None:
             self.screenshot_view.destroy()
             self.screenshot_view = None
+        self._drop_shot()
 
     def _on_key(self, key: str) -> None:
         super()._on_key(key)
@@ -63,12 +74,13 @@ class Screenshots(AIPlaying):
             self.audio.play("menu_choose")
             self._take_shot(self.screenshot_view)
         elif key in BROWSER_MOVES:
+            view = self.screenshot_view
             self.audio.play("menu_move")
             self.shot_world = (self.shot_world + BROWSER_MOVES[key]) % len(self.worlds)
-            self._drop_shot()
+            self._drop_shot()  # the texts stay: only the shot's level goes
             self._show_world_ground()
             self._show_hud(visible=False)
-            self._describe_shot(self.screenshot_view, "Space: take a screenshot")
+            self._describe_shot(view, "Space: take a screenshot")
 
     def _on_choose(self) -> None:
         if self.screenshot_view is None:
@@ -91,19 +103,8 @@ class Screenshots(AIPlaying):
         first = self.places.index((self.shot_world, 1))
         self.shot_level = first + self.shot_rng.randrange(len(self.worlds[self.shot_world].levels))
         level = self.levels[self.shot_level]
-        screen = self.camera_view.area(0.0)
-        world = World(
-            level,
-            arsenal=shot.arsenal(),
-            view_top=screen.top,
-            view_side=screen.right,
-            view_bottom=screen.bottom,
-            ship=SHIPS[shot.ship],
-        )
-        self.world, self.shot = world, shot
-        self._show_background(level)
-        self._prepare_level(level)
-        self.effects.clear()
+        world = self._begin_level(level, arsenal=shot.arsenal(), ship=SHIPS[shot.ship])
+        self.shot = shot
 
         def step(controls: Controls, dt: float) -> None:
             world.update(dt, controls)
@@ -138,7 +139,7 @@ class Screenshots(AIPlaying):
         self._describe_shot(view, f"Saved to {path.parent.name}/{path.name}")
 
     def _drop_shot(self) -> None:
-        """Take the shot's level away."""
+        """Take the shot's level away, leaving the texts."""
         self.world, self.shot = None, None
         self.effects.clear()
 

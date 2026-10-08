@@ -2,6 +2,7 @@
 
 import math
 import random
+from dataclasses import dataclass
 from typing import cast
 
 from pewpy import config
@@ -17,11 +18,33 @@ from pewpy.game.weapons.bullets import Bullet, Missile
 from pewpy.game.weapons.guns import Gun
 from pewpy.game.weapons.player.arsenal import WEAPONS, Arsenal, Beam
 from pewpy.game.weapons.player.secondary import SECONDARY_WEAPONS, SecondaryWeapon
-from pewpy.scenery.ground.terrain import GROUND_SPEED
+from pewpy.scenery.ground.terrain import GROUND_SPEED, Area
 
 SHOT_MARGIN = 0.05  # shots are removed once this far past the edge of the screen (they're smaller than this)
 PLAYER_EXPLOSION_SIZE = 0.2
 MISSILE_BLAST_SIZE = 0.05  # a missile without splash damage still explodes, smaller
+
+
+@dataclass(frozen=True)
+class View:
+    """Where the screen really ends on the play plane, in world units (the app measures it with the camera).
+
+    The tilted camera shows more than the play area at the top (higher and wider), so the app passes where the screen
+    really ends: the laser goes up to there, shots fly until they are off screen, and enemies appear off screen. The
+    default is the play area itself, right for a headless world (the tests, the AI).
+    """
+
+    top: float = config.PLAY_HEIGHT / 2
+    side: float = config.PLAY_WIDTH / 2
+    bottom: float = -config.PLAY_HEIGHT / 2
+
+    @classmethod
+    def of(cls, area: Area) -> "View":
+        """Return the view of an `Area` of a background layer (see pewpy.scenery.background.view.CameraView.area)."""
+        return cls(top=area.top, side=area.right, bottom=area.bottom)
+
+
+PLAY_AREA = View()  # the view a world has when nothing says otherwise: the play area
 
 
 class World:
@@ -34,10 +57,8 @@ class World:
         lives: int = config.PLAYER_LIVES,
         seed: int | None = None,
         arsenal: Arsenal | None = None,
-        view_top: float = config.PLAY_HEIGHT / 2,
         ship: ShipSpec | None = None,
-        view_side: float = config.PLAY_WIDTH / 2,
-        view_bottom: float = -config.PLAY_HEIGHT / 2,
+        view: View = PLAY_AREA,
         cutscenes: bool = False,
     ) -> None:
         """Set up the level `level`, its player (a new one, or the `arsenal` and `ship` given) and its scenery."""
@@ -46,12 +67,7 @@ class World:
         self.cutscenes = cutscenes
         self.ship = ship or SHIPS[DEFAULT_SHIP]  # the player's ship, for every life
         self.rng = random.Random(seed)
-        # Top and sides of the screen on the play plane. The tilted camera shows more than the play area at the
-        # top (higher and wider), so the app passes where the screen really ends: the laser goes up to there,
-        # shots fly until they are off screen, and enemies appear off screen.
-        self.view_top = view_top
-        self.view_side = view_side
-        self.view_bottom = view_bottom
+        self.view = view
         self.level = level
         self.level_start_score = score
         self.lives = lives
@@ -59,6 +75,21 @@ class World:
         self.arsenal = arsenal or (Arsenal.full() if self.ship.full_arsenal else Arsenal())
         self.events: list[Event] = []  # what happened during the last update, for the effects
         self.start_life()
+
+    @property
+    def view_top(self) -> float:
+        """Where the screen ends above the play area (see View)."""
+        return self.view.top
+
+    @property
+    def view_side(self) -> float:
+        """Where the screen ends to the sides of the play area (see View)."""
+        return self.view.side
+
+    @property
+    def view_bottom(self) -> float:
+        """Where the screen ends below the play area (see View)."""
+        return self.view.bottom
 
     def start_life(self) -> None:
         """(Re)start the level from the beginning with full health and the score it started with."""

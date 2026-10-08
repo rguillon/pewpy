@@ -13,10 +13,10 @@ from pewpy.app.drawing import Drawing
 from pewpy.app.entity_models import fitted_model
 from pewpy.app.window import BACKGROUND_COLOR
 from pewpy.game.level import Level, LevelWorld
-from pewpy.game.player import SHIPS
+from pewpy.game.player import SHIPS, ShipSpec
 from pewpy.game.states import State, StateMachine
 from pewpy.game.weapons.player.arsenal import Arsenal
-from pewpy.game.world import World
+from pewpy.game.world import View, World
 from pewpy.scenery.background import Scenery
 from pewpy.scenery.background.view import BackgroundView, CameraView, sky_color
 from pewpy.ui.level_preview import LevelPreview
@@ -156,23 +156,34 @@ class Screens(Drawing):
         self, index: int, score: int = 0, lives: int = config.PLAYER_LIVES, arsenal: Arsenal | None = None
     ) -> None:
         self.level_index = index
-        screen = self.camera_view.area(0.0)  # the edges of the screen, on the play plane
+        self._begin_level(
+            self.levels[index], score=score, lives=lives, arsenal=arsenal, ship=SHIPS[self.ship_key], cutscenes=True
+        )
+        self.states.transition(State.PLAYING)
+
+    def _begin_level(
+        self,
+        level: Level,
+        score: int = 0,
+        lives: int = config.PLAYER_LIVES,
+        arsenal: Arsenal | None = None,
+        ship: ShipSpec | None = None,
+        cutscenes: bool = False,
+    ) -> World:
+        """Build the world for `level` and show its scenery, ready to be played (by the player or the AI)."""
         self.world = World(
-            self.levels[index],
+            level,
             score=score,
             lives=lives,
             arsenal=arsenal,
-            view_top=screen.top,
-            view_side=screen.right,
-            view_bottom=screen.bottom,
-            ship=SHIPS[self.ship_key],
-            cutscenes=True,
+            ship=ship,
+            view=View.of(self.camera_view.area(0.0)),  # where the screen ends, on the play plane
+            cutscenes=cutscenes,
         )
-        level = self.levels[index]
         self._show_background(level)
         self._prepare_level(level)
         self.effects.clear()
-        self.states.transition(State.PLAYING)
+        return self.world
 
     def _show_background(self, level: Level | None = None) -> None:
         """Show a level's scenery; without one, the menus': a level's ground drawn at random, scrolling by."""

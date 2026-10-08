@@ -6,21 +6,21 @@ from one theme to the next, Space makes a new candidate of the theme, Escape goe
 
 import random
 from enum import Enum
+from typing import cast
 
-from pewpy.app.dev import BROWSER_MOVES, GENERATE_KEY, DevMenu
+from pewpy.app.browsers import BrowserScreen
 from pewpy.game.states import State
 from pewpy.generators.backgrounds.browser import BackgroundBrowser
-from pewpy.ui.menu import Menu, MenuItem
+from pewpy.ui.menu import MenuItem
 from pewpy.ui.screenshot_view import BACKGROUND_KEYS, ScreenshotView
 
 BACKGROUNDS = "backgrounds"  # the Dev menu's entry (see DevMenu.browsing)
 
 
-class Backgrounds(DevMenu):
+class Backgrounds(BrowserScreen):
     """The backgrounds browser."""
 
-    background_browser: BackgroundBrowser | None = None
-    background_view: ScreenshotView | None = None
+    BROWSER_STATE = State.BACKGROUND_BROWSER
 
     def _dev_entries(self) -> list[tuple[str, MenuItem]]:
         return [*super()._dev_entries(), (BACKGROUNDS, MenuItem("Backgrounds", self._browse_backgrounds))]
@@ -29,47 +29,29 @@ class Backgrounds(DevMenu):
         self.browsing = BACKGROUNDS
         self.states.transition(State.BACKGROUND_BROWSER)
 
-    def _menu(self, state: Enum) -> Menu | None:
-        if state is State.BACKGROUND_BROWSER:
-            return None
-        return super()._menu(state)
-
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
         if previous is State.BACKGROUND_BROWSER:  # back to the menus: their ground behind them
             self._show_background()
         super()._on_state_change(previous, current)
-        if current is State.BACKGROUND_BROWSER:
-            self.background_browser = BackgroundBrowser(random.Random())
-            self.background_view = ScreenshotView(self.aspect2d, BACKGROUND_KEYS)
-            self._show_candidate(self.background_browser, self.background_view)
-        elif self.background_view is not None:
-            self.background_view.destroy()
-            self.background_view = None
-            self.background_browser = None
 
-    def _on_key(self, key: str) -> None:
-        super()._on_key(key)
-        browser, view = self.background_browser, self.background_view
-        if browser is None or view is None:
-            return
-        if key == GENERATE_KEY:
-            self.audio.play("menu_choose")
-            browser.generate()
-        elif key in BROWSER_MOVES:
-            self.audio.play("menu_move")
-            browser.move(BROWSER_MOVES[key])
-        else:
-            return
-        self._show_candidate(browser, view)
+    # The browser and its view, under the names the rest of the app (and the tests) reach them by.
+    @property
+    def background_browser(self) -> BackgroundBrowser | None:
+        """Return the background browser on show, or None while none is."""
+        return cast("BackgroundBrowser | None", self.browser)
 
-    def _on_back(self) -> None:
-        if self.background_view is not None:
-            self.audio.play("menu_back")
-            self.states.transition(State.DEV_MENU)
-            return
-        super()._on_back()
+    @property
+    def background_view(self) -> ScreenshotView | None:
+        """Return the view drawing the background browser, or None while none is."""
+        return cast("ScreenshotView | None", self.view)
 
-    def _show_candidate(self, browser: BackgroundBrowser, view: ScreenshotView) -> None:
-        """Show the candidate's background scrolling by, and say what it is."""
+    def _open_browser(self) -> tuple[BackgroundBrowser, ScreenshotView]:
+        return BackgroundBrowser(random.Random()), ScreenshotView(self.aspect2d, BACKGROUND_KEYS)
+
+    def _show_browsed(self, browser: BackgroundBrowser, view: ScreenshotView, problem: str = "") -> None:
+        """Show the candidate's background scrolling by, and say what it is (or why there is none)."""
         self._show_menu_ground(browser.level())
-        view.describe(browser.title(), browser.details(), browser.made["note"])
+        view.describe(browser.title(), browser.details(), problem or browser.made["note"])
+
+    def _save_browsed(self, browser: BackgroundBrowser) -> None:
+        """Nothing to save: a background is generated and read from `data/` (see BackgroundBrowser)."""

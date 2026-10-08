@@ -29,16 +29,28 @@ PANEL_HEIGHT = 0.13
 SIDE_PANEL_WIDTH = 0.48
 CENTER_PANEL_WIDTH = 0.8
 PANEL_PADDING = 0.05  # from a plate's sides to what's on it (its screws are in the corners)
+LABEL_GAP = 0.04  # from a plate's top to its label under it
 READOUT_SCALE = 0.042
 SCORE_DIGITS = 7
+READOUT_INSET = 0.012  # from a display's edge to its readout, and from a readout's to the lamps
+READOUT_BOTTOM, READOUT_TOP = 0.022, 0.072  # the display a readout sits in
+READOUT_TEXT_Z = 0.033  # where the readout's own text sits in it
+LIVES_DIGITS = 9  # the most lives shown as a number (past it the lamps alone count)
 LAMP_ON: Color = (0.35, 1.0, 0.45, 1)  # a life
 LAMP_OFF: Color = (0.06, 0.12, 0.07, 1)
 LAMP_SIZE = 0.02
 LAMP_STEP = 0.032
+LAMP_BOTTOM = 0.037
 TILE_WIDTH = 0.15  # a weapon's annunciator: its letter, its level beside it, lit when it's the selected weapon
 TILE_GAP = 0.025
+TILE_COUNT = len(WEAPONS) + 1  # a tile per weapon, then the secondary weapon's
 TILE_BOTTOM, TILE_TOP = 0.055, 0.11
 TILE_LETTER = 0.042
+TILE_LETTER_OFFSET = 0.36  # of the letter's own scale, from the tile's middle down to the letter's middle
+TILE_LIT_ALPHA = 0.22  # how transparent a selected weapon's tile's light is
+AUX_SCALE = 0.024  # the "AUX" word beside the secondary weapon's letter
+AUX_DROP = 0.008  # from the tile's middle down to the "AUX" word's middle
+AUX_GAP = 0.002  # from the hull label to the gauge under it
 PIP_WIDTH, PIP_GAP = 0.011, 0.006  # a weapon's level: MAX_LEVEL pips...
 PIP_HEIGHT = 0.022
 PIPS_LEFT = -0.02  # ...from here (from the tile's middle); the letter on their left
@@ -46,12 +58,22 @@ PIP_OFF: Color = (0.12, 0.13, 0.14, 1)
 TILE_DIM: Color = (0.45, 0.48, 0.5, 1)  # a weapon not selected: its letter, and its level's pips
 HULL_SEGMENTS = 20  # the health gauge
 HULL_BOTTOM, HULL_TOP = 0.02, 0.04
+HULL_INSET = 0.003  # how far the lit segments are kept inside the gauge
+HULL_INSET_SHARE = 0.2  # the dark gap between them, as a share of the gauge's step
+HULL_INNER = 0.115  # how far the gauge runs from the tiles' left edge
 HULL_GOOD: Color = (0.3, 1.0, 0.4, 1)  # over half...
 HULL_LOW: Color = (1.0, 0.75, 0.2, 1)  # ...over a quarter...
 HULL_CRITICAL: Color = (1.0, 0.25, 0.2, 1)  # ...and under
 HULL_OFF: Color = (0.08, 0.1, 0.08, 1)
+HULL_EPSILON = 1e-9  # keeps a fraction of exactly 0.5 or 0.25 off the segment below it
+HULL_LOW_AT = 0.5  # over this share of health the gauge is green...
+HULL_CRITICAL_AT = 0.25  # ...over this one amber, and under it red
 BOSS_BAR_WIDTH = 1.1  # at the top edge, with the boss's name under it
 BOSS_BAR_HEIGHT = 0.025
+BOSS_FILL_MIN = 0.001  # the least the bar is filled: a zero scale makes Panda3D print warnings
+BOSS_NAME: Color = (1, 0.75, 0.6, 1)
+BOSS_BAR_FILL: Color = (1.0, 0.4, 0.15, 1)
+TILE_LIGHT: Color = (1, 1, 1, 0.22)  # a selected weapon's tile, lit in its own color
 
 
 class Hud(EntityModels):
@@ -85,10 +107,10 @@ class Hud(EntityModels):
         self.boss_hud = self.a2dTopCenter.attachNewNode("hud_boss")
         bar_left, bar_top = -BOSS_BAR_WIDTH / 2, -HUD_MARGIN
         panel.display(self.boss_hud, bar_left, -bar_left, bar_top - BOSS_BAR_HEIGHT, bar_top)
-        self.boss_fill = panel.card(self.boss_hud, 0, BOSS_BAR_WIDTH, -BOSS_BAR_HEIGHT, 0, (1.0, 0.4, 0.15, 1))
+        self.boss_fill = panel.card(self.boss_hud, 0, BOSS_BAR_WIDTH, -BOSS_BAR_HEIGHT, 0, BOSS_BAR_FILL)
         self.boss_fill.setPos(bar_left, 0, bar_top)
         below_bar = bar_top - BOSS_BAR_HEIGHT - HUD_SMALL
-        self.boss_name = self._hud_text(self.boss_hud, 0.0, below_bar, TextNode.ACenter, HUD_SMALL, (1, 0.75, 0.6, 1))
+        self.boss_name = self._hud_text(self.boss_hud, 0.0, below_bar, TextNode.ACenter, HUD_SMALL, BOSS_NAME)
         self.boss_hud.hide()
         # What's currently shown, so _update_hud only touches a text (Panda3D rebuilds its geometry each time)
         # or recolors lamps when its value actually changed, instead of every single frame.
@@ -104,24 +126,26 @@ class Hud(EntityModels):
         """Show the score on an amber readout."""
         width, pad = SIDE_PANEL_WIDTH, PANEL_PADDING
         panel.plate(parent, 0, width, 0, PANEL_HEIGHT)
-        panel.label(parent, pad, PANEL_HEIGHT - 0.04, "SCORE")
-        panel.display(parent, pad, width - pad, 0.022, 0.072)
-        digits_right = width - pad - 0.012
-        panel.text(parent, digits_right, 0.033, READOUT_SCALE, AMBER_GHOST, TextNode.ARight, "8" * SCORE_DIGITS)
-        self.score_text = panel.text(parent, digits_right, 0.033, READOUT_SCALE, AMBER, TextNode.ARight)
+        panel.label(parent, pad, PANEL_HEIGHT - LABEL_GAP, "SCORE")
+        panel.display(parent, pad, width - pad, READOUT_BOTTOM, READOUT_TOP)
+        digits_right = width - pad - READOUT_INSET
+        panel.text(
+            parent, digits_right, READOUT_TEXT_Z, READOUT_SCALE, AMBER_GHOST, TextNode.ARight, "8" * SCORE_DIGITS
+        )
+        self.score_text = panel.text(parent, digits_right, READOUT_TEXT_Z, READOUT_SCALE, AMBER, TextNode.ARight)
 
     def _setup_lives_panel(self, parent: NodePath) -> None:
         """Show the lives: a readout, and a lamp for each up to the most the ship can have."""
         width, pad = SIDE_PANEL_WIDTH, PANEL_PADDING
         panel.plate(parent, -width, 0, 0, PANEL_HEIGHT)
-        panel.label(parent, -width + pad, PANEL_HEIGHT - 0.04, "LIVES")
-        panel.display(parent, -width + pad, -pad, 0.022, 0.072)
-        digit_left = -width + pad + 0.014
-        panel.text(parent, digit_left, 0.033, READOUT_SCALE, AMBER_GHOST, TextNode.ALeft, "8")
-        self.lives_text = panel.text(parent, digit_left, 0.033, READOUT_SCALE, AMBER)
-        first = -pad - 0.012 - LAMP_STEP * (config.MAX_LIVES - 1) - LAMP_SIZE
+        panel.label(parent, -width + pad, PANEL_HEIGHT - LABEL_GAP, "LIVES")
+        panel.display(parent, -width + pad, -pad, READOUT_BOTTOM, READOUT_TOP)
+        digit_left = -width + pad + READOUT_INSET
+        panel.text(parent, digit_left, READOUT_TEXT_Z, READOUT_SCALE, AMBER_GHOST, TextNode.ALeft, str(LIVES_DIGITS))
+        self.lives_text = panel.text(parent, digit_left, READOUT_TEXT_Z, READOUT_SCALE, AMBER)
+        first = -pad - READOUT_INSET - LAMP_STEP * (config.MAX_LIVES - 1) - LAMP_SIZE
         self.life_lamps = [
-            panel.card(parent, x, x + LAMP_SIZE, 0.037, 0.037 + LAMP_SIZE, LAMP_OFF)
+            panel.card(parent, x, x + LAMP_SIZE, LAMP_BOTTOM, LAMP_BOTTOM + LAMP_SIZE, LAMP_OFF)
             for x in (first + i * LAMP_STEP for i in range(config.MAX_LIVES))
         ]
 
@@ -129,16 +153,16 @@ class Hud(EntityModels):
         """Show a tile per weapon with its level, the secondary weapon's tile, and the hull gauge under them."""
         half = CENTER_PANEL_WIDTH / 2
         panel.plate(parent, -half, half, 0, PANEL_HEIGHT)
-        tiles_left = -(4 * TILE_WIDTH + 3 * TILE_GAP) / 2
-        centers = [tiles_left + TILE_WIDTH / 2 + i * (TILE_WIDTH + TILE_GAP) for i in range(4)]
+        tiles_left = -(TILE_COUNT * TILE_WIDTH + (TILE_COUNT - 1) * TILE_GAP) / 2
+        centers = [tiles_left + TILE_WIDTH / 2 + i * (TILE_WIDTH + TILE_GAP) for i in range(TILE_COUNT)]
         self.weapon_texts: dict[str, OnscreenText] = {}
         self.weapon_tiles: dict[str, NodePath] = {}  # lit in the weapon's color while selected
         self.weapon_pips: dict[str, list[NodePath]] = {}
         middle = (TILE_BOTTOM + TILE_TOP) / 2
-        letter_z = middle - TILE_LETTER * 0.36  # the letter's middle on the tile's
+        letter_z = middle - TILE_LETTER * TILE_LETTER_OFFSET  # the letter's middle on the tile's
         letter_x = (-TILE_WIDTH / 2 + PIPS_LEFT) / 2  # between the tile's left side and the pips
         pip_bottom = middle - PIP_HEIGHT / 2
-        for weapon, x in zip(WEAPONS, centers[:3], strict=True):
+        for weapon, x in zip(WEAPONS, centers[:-1], strict=True):
             self.weapon_tiles[weapon] = self._tile(parent, x)
             self.weapon_texts[weapon] = panel.text(
                 parent, x + letter_x, letter_z, TILE_LETTER, TILE_DIM, TextNode.ACenter
@@ -148,18 +172,25 @@ class Hud(EntityModels):
                 for left in (x + PIPS_LEFT + i * (PIP_WIDTH + PIP_GAP) for i in range(MAX_LEVEL))
             ]
         # The secondary weapon, if the ship carries one: "T" or "Z" in its color.
-        x = centers[3]
+        x = centers[-1]
         self.secondary_tile = self._tile(parent, x)
         self.secondary_text = panel.text(parent, x + letter_x, letter_z, TILE_LETTER, TILE_DIM, TextNode.ACenter)
-        panel.text(parent, x + PIPS_LEFT, middle - 0.008, 0.024, TILE_DIM, TextNode.ALeft, "AUX")
+        panel.text(parent, x + PIPS_LEFT, middle - AUX_DROP, AUX_SCALE, TILE_DIM, TextNode.ALeft, "AUX")
 
-        panel.label(parent, tiles_left, HULL_BOTTOM + 0.002, "HULL")
-        bar_left, bar_right = tiles_left + 0.115, -tiles_left
+        panel.label(parent, tiles_left, HULL_BOTTOM + AUX_GAP, "HULL")
+        bar_left, bar_right = tiles_left + HULL_INNER, -tiles_left
         panel.display(parent, bar_left, bar_right, HULL_BOTTOM, HULL_TOP)
         step = (bar_right - bar_left) / HULL_SEGMENTS
-        gap = step * 0.2
+        gap = step * HULL_INSET_SHARE
         self.hull_segments = [
-            panel.card(parent, left + gap / 2, left + step - gap / 2, HULL_BOTTOM + 0.003, HULL_TOP - 0.003, HULL_OFF)
+            panel.card(
+                parent,
+                left + gap / 2,
+                left + step - gap / 2,
+                HULL_BOTTOM + HULL_INSET,
+                HULL_TOP - HULL_INSET,
+                HULL_OFF,
+            )
             for left in (bar_left + i * step for i in range(HULL_SEGMENTS))
         ]
 
@@ -167,7 +198,7 @@ class Hud(EntityModels):
         """Make an annunciator tile centered on `x`: a display, and return its light (hidden while off)."""
         left, right = x - TILE_WIDTH / 2, x + TILE_WIDTH / 2
         panel.display(parent, left, right, TILE_BOTTOM, TILE_TOP)
-        light = panel.card(parent, left, right, TILE_BOTTOM, TILE_TOP, (1, 1, 1, 0.22))
+        light = panel.card(parent, left, right, TILE_BOTTOM, TILE_TOP, TILE_LIGHT)
         light.hide()
         return light
 
@@ -207,7 +238,7 @@ class Hud(EntityModels):
             self.score_text.setText(f"{self.world.score:0{SCORE_DIGITS}d}"[-SCORE_DIGITS:])
         if self.world.lives != self._hud_lives:
             self._hud_lives = self.world.lives
-            self.lives_text.setText(str(min(self.world.lives, 9)))
+            self.lives_text.setText(str(min(self.world.lives, LIVES_DIGITS)))
             for index, lamp in enumerate(self.life_lamps):
                 lamp.setColor(LAMP_ON if index < self.world.lives else LAMP_OFF)
         self._update_hull(max(self.world.player.health, 0) / self.world.ship.health)
@@ -224,15 +255,15 @@ class Hud(EntityModels):
         if boss.spec.name != self._hud_boss_name:
             self._hud_boss_name = boss.spec.name
             self.boss_name.setText(boss.spec.name)
-        self.boss_fill.setSx(max(boss.health_fraction, 0.001))  # a zero scale makes Panda3D print warnings
+        self.boss_fill.setSx(max(boss.health_fraction, BOSS_FILL_MIN))  # a zero scale makes Panda3D print warnings
 
     def _update_hull(self, fraction: float) -> None:
         """Light the hull gauge's segments: green, amber under half, red under a quarter."""
-        lit = math.ceil(fraction * HULL_SEGMENTS - 1e-9)
+        lit = math.ceil(fraction * HULL_SEGMENTS - HULL_EPSILON)
         if lit == self._hud_hull:
             return
         self._hud_hull = lit
-        color = HULL_GOOD if fraction > 0.5 else HULL_LOW if fraction > 0.25 else HULL_CRITICAL
+        color = HULL_GOOD if fraction > HULL_LOW_AT else HULL_LOW if fraction > HULL_CRITICAL_AT else HULL_CRITICAL
         for index, segment in enumerate(self.hull_segments):
             segment.setColor(color if index < lit else HULL_OFF)
 
@@ -247,7 +278,7 @@ class Hud(EntityModels):
             text.setText(LETTERS[weapon])
             text.setFg(color if selected else TILE_DIM)
             tile = self.weapon_tiles[weapon]
-            tile.setColor(*color[:3], 0.22)
+            tile.setColor(*color[:3], TILE_LIT_ALPHA)
             tile.show() if selected else tile.hide()
             lit = color if selected else TILE_DIM
             for index, pip in enumerate(self.weapon_pips[weapon]):
@@ -259,7 +290,7 @@ class Hud(EntityModels):
             if secondary:
                 color = SECONDARY_COLORS[secondary]
                 self.secondary_text.setFg(color)
-                self.secondary_tile.setColor(*color[:3], 0.22)
+                self.secondary_tile.setColor(*color[:3], TILE_LIT_ALPHA)
                 self.secondary_tile.show()
             else:
                 self.secondary_tile.hide()
