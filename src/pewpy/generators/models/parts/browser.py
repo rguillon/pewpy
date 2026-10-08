@@ -17,7 +17,7 @@ class PartBrowser:
 
     rng: random.Random = field(default_factory=random.Random)
     index: int = 0
-    size: int = 1  # the size parts are made to
+    size: int = 10  # the size parts are made to
 
     @property
     def name(self) -> str:
