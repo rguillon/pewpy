@@ -1,10 +1,13 @@
 """The models of everything in play, built once (an enemy's when first needed), copied for each entity."""
 
+from functools import cache
+
 from panda3d.core import NodePath
 
 from pewpy.app.window import Color, Window
 from pewpy.game.enemies.enemy import Enemy
 from pewpy.game.enemies.kinds import drawings
+from pewpy.game.enemies.spec import EnemySpec
 from pewpy.game.entities import Entity, Pickup
 from pewpy.game.level import Level
 from pewpy.game.player import DEFAULT_SHIP, SHIPS, Player
@@ -110,9 +113,18 @@ def fitted_model(model: NodePath, size: float) -> NodePath:
     return box
 
 
+@cache
+def _shielded(spec: EnemySpec) -> bool:
+    """Whether a kind of enemy has a shield (a state looking "shield"): its model gets a bubble, shown while up.
+
+    A kind's states never change, and this is asked for every enemy every frame, so it is worked out once per kind.
+    """
+    return any(state.look == "shield" for state in spec.states)
+
+
 def shielded(enemy: Enemy) -> bool:
-    """Whether it has a shield (a state looking "shield"): its model has a bubble, shown while it's up."""
-    return any(state.look == "shield" for state in enemy.spec.states)
+    """Whether it has a shield: its model has a bubble, shown while its shield is up."""
+    return _shielded(enemy.spec)
 
 
 def drawing_of(entity: Entity) -> str:

@@ -7,6 +7,7 @@ happened.
 import itertools
 import math
 import random
+from dataclasses import dataclass, field
 
 from panda3d.core import LineSegs, NodePath
 
@@ -17,7 +18,6 @@ from pewpy.app.bullets import (
     WARNING_SCALE,
     bullet_sprite,
     is_beam,
-    is_round_bullet,
     is_warning,
 )
 from pewpy.app.entity_models import shielded
@@ -50,12 +50,26 @@ LASER_FLICKER = 0.12  # the player's laser beam's width flickers by this share
 ENEMY_LASER_CORE: Color = (1.0, 0.82, 0.78, 0.95)  # enemies' laser beams: a white-hot core in a red light
 ARMORED_SHADE: Color = (0.55, 0.55, 0.62, 1)  # a boss's core, darker while shots bounce off it
 HIT_SHADE: Color = (1.6, 1.6, 1.6, 1)  # bosses light up when hit (white would hide them: they're shot all the time)
+ARMORED_SHADES: dict[str, Color] = {"armored": ARMORED_SHADE, "hit": HIT_SHADE}  # the looks that tint a model
 PLAYER_BANK_ANGLE = 25.0  # degrees of roll at full sideways speed
 FLAME_FLICKER = (0.12, 0.08)  # how much engine flames waver in length: a slow wave and a fast one
 FLAME_THRUST = 0.35  # the player's flames: this much longer flying up at full speed, shorter flying down
 FLAME_PHASES = 97  # the flames' waver phases: one entity's among these, so neighbouring ones don't wave alike
 FLAME_PHASE_STEP = 1.7  # ...and this far apart, along an entity's own flames
 THINNEST = 0.001  # the least a beam is drawn this wide: Panda3D complains about a zero scale
+
+
+@dataclass(frozen=True, slots=True)
+class ModelParts:
+    """The parts of one entity's model that turn on their own, looked up once when the model is made.
+
+    Looking them up walks the model (see Drawing._show_entities), which is wasted work every frame.
+    """
+
+    barrel: NodePath  # a turret's, aiming at the player
+    shield: NodePath  # the bubble a shielded enemy shows
+    flames: list[tuple[NodePath, float]]  # its engine flames and their steady length
+    mounts: dict[str, NodePath] = field(default_factory=dict)  # the player's secondary weapons, by kind
 
 
 class Drawing(Hud):
@@ -67,9 +81,13 @@ class Drawing(Hud):
     effects_view: EffectsView
     nodes: dict[Entity, NodePath]  # the models of what's in play
     flames: dict[Entity, list[tuple[NodePath, float]]]  # engine flames and their steady length
+    parts: dict[Entity, ModelParts]  # what turns on its own, per model
+    looks: dict[Entity, tuple[str, bool]]  # the look last drawn for each enemy, and whether its shield was up
 
     def _setup_drawing(self) -> None:
         # Bullets are balls of energy (missiles have a model): solid in the middle, in a glowing halo.
+        self.parts: dict[Entity, ModelParts] = {}  # the parts of each model that turn on their own
+        self.looks: dict[Entity, tuple[str, bool]] = {}  # the last look and shield state drawn for each enemy
         self.bullet_sprites = SpriteBatch(
             self.render, self.cam.node().getLens(), MAX_BULLETS, glow=False, core=BULLET_BODY, hot=0.35
         )
@@ -94,35 +112,64 @@ class Drawing(Hud):
         self.background.sync()
 
         world = self.world
-        entities = world.entities() if world else []
-        self.bullet_sprites.show([bullet_sprite(entity) for entity in entities if is_round_bullet(entity)])
-        self._show_beams([
-            entity for entity in entities if isinstance(entity, Bullet) and (is_beam(entity) or is_warning(entity))
-        ])
-        entities = [entity for entity in entities if not isinstance(entity, Bullet) or isinstance(entity, Missile)]
-        alive = set(entities)
+        # Every entity is looked at once, and only once: what it is drawn as, and whether it gets a model at all.
+        sprites: list[Bullet] = []
+        beams: list[Bullet] = []
+        modelled: list[Entity] = []
+        for entity in world.entities() if world else ():
+            if isinstance(entity, Bullet):
+                if is_beam(entity) or is_warning(entity):
+                    beams.append(entity)
+                elif not isinstance(entity, Missile):
+                    sprites.append(entity)
+                else:
+                    modelled.append(entity)
+            else:
+                modelled.append(entity)
+        self.bullet_sprites.show([bullet_sprite(bullet) for bullet in sprites])
+        self._show_beams(beams)
+        alive = set(modelled)
         for entity in [entity for entity in self.nodes if entity not in alive]:
             self.nodes.pop(entity).removeNode()
             self.flames.pop(entity, None)
+            self.parts.pop(entity, None)
+            self.looks.pop(entity, None)
         if world is not None:
-            self._show_entities(world, entities)
+            self._show_entities(world, modelled)
         self._show_laser()
         self._show_bolt()
 
     def _show_entities(self, world: World, entities: list[Entity]) -> None:
         """Place the models of what's on screen (all but the round bullets), each turned and shaded as it is now."""
+        time = self.clock.getFrameTime()
         for entity in entities:
             node = self.nodes.get(entity)
             if node is None:
                 node = self.nodes[entity] = self._make_block(entity)
                 self.flames[entity] = [(flame, flame.getSz()) for flame in node.findAllMatches("**/flame")]
+                # The parts of the model that turn on their own, looked up once: a per-frame search walks the whole
+                # model, and enemies are small but have several nodes each.
+                mounts = (
+                    {
+                        **{kind: node.find(f"secondary_{kind}") for kind in SECONDARY_WEAPONS},
+                        "turret_barrel": node.find("secondary_turret/**/barrel"),
+                    }
+                    if isinstance(entity, Player)
+                    else {}
+                )
+                self.parts[entity] = ModelParts(
+                    barrel=node.find("**/barrel"),
+                    shield=node.find("**/shield"),
+                    flames=self.flames[entity],
+                    mounts=mounts,
+                )
             node.setPos(entity.x, 0, entity.y)
-            self._flicker(entity)
+            self._flicker(entity, time)
             if isinstance(entity, Player):
                 blink_off = entity.invulnerable and int(entity.invulnerable_time * 10) % 2 == 1
                 node.hide() if blink_off else node.show()
                 node.setH(-entity.vx / entity.ship.speed * PLAYER_BANK_ANGLE)  # roll around the nose axis
-                self._show_secondary(node)
+                self._show_secondary(entity)
             elif isinstance(entity, Enemy):
                 self._show_enemy_appearance(entity, node)
                 self._orient_enemy(entity, node, world.player)
@@ -131,13 +178,14 @@ class Drawing(Hud):
             else:  # a pickup
                 node.setH(world.time * PICKUP_SPIN_SPEED)
 
-    def _show_secondary(self, ship: NodePath) -> None:
+    def _show_secondary(self, ship: Player) -> None:
         secondary = self.world.arsenal.secondary if self.world else None
+        mounts = self.parts[ship].mounts
         for kind in SECONDARY_WEAPONS:
-            mount = ship.find(f"secondary_{kind}")
+            mount = mounts[kind]
             mount.show() if secondary is not None and secondary.kind == kind else mount.hide()
         if secondary is not None and secondary.kind == "turret":
-            ship.find("secondary_turret/**/barrel").setR(models.facing_roll(secondary.aim_x, secondary.aim_y))
+            mounts["turret_barrel"].setR(models.facing_roll(secondary.aim_x, secondary.aim_y))
 
     def _show_bolt(self) -> None:
         """Show the lightning gun's last strike, while it shows: a zigzag line, redrawn every frame so it crackles."""
@@ -164,9 +212,9 @@ class Drawing(Hud):
         bolt.setDepthTest(False)
         bolt.setDepthWrite(False)
 
-    def _flicker(self, entity: Entity) -> None:
+    def _flicker(self, entity: Entity, time: float) -> None:
+        """Waver the engine flames. `time` is the frame's time, read once for all of them."""
         thrust = entity.vy / entity.ship.speed if isinstance(entity, Player) else 0.0
-        time = self.clock.getFrameTime()
         for index, (flame, length) in enumerate(self.flames.get(entity, ())):
             flame.setSz(length * flame_scale(time, id(entity) % FLAME_PHASES + index * FLAME_PHASE_STEP, thrust))
 
@@ -217,6 +265,13 @@ class Drawing(Hud):
 
     def _show_enemy_appearance(self, enemy: Enemy, node: NodePath) -> None:
         appearance = enemy.appearance()
+        # The colors and the shield only change a few times a second (a flash, a hit), not every frame: Panda3D
+        # records each one on the scene graph, so an unchanged look is left alone.
+        shield = appearance == "shield"
+        if self.looks.get(enemy) == (appearance, shield):
+            node.hide() if appearance == "hidden" else node.show()
+            return
+        self.looks[enemy] = (appearance, shield)
         if appearance == "hidden":
             node.hide()
             return
@@ -225,19 +280,19 @@ class Drawing(Hud):
             node.setColor(*FLASH_COLOR)
         else:
             node.clearColor()  # show the model's own colors
-        shade = {"armored": ARMORED_SHADE, "hit": HIT_SHADE}.get(appearance)
+        shade = ARMORED_SHADES.get(appearance)
         if shade:
             node.setColorScale(*shade)
         else:
             node.clearColorScale()
         if shielded(enemy):
-            bubble = node.find("**/shield")
-            bubble.show() if appearance == "shield" else bubble.hide()
+            bubble = self.parts[enemy].shield
+            bubble.show() if shield else bubble.hide()
 
     def _orient_enemy(self, enemy: Enemy, node: NodePath, player: Player) -> None:
         facing = enemy.facing
         if facing == "player":
-            node.find("**/barrel").setR(models.facing_roll(player.x - enemy.x, player.y - enemy.y))
+            self.parts[enemy].barrel.setR(models.facing_roll(player.x - enemy.x, player.y - enemy.y))
         elif facing == "travel" and (enemy.vx or enemy.vy):
             node.setR(models.facing_roll(enemy.vx, enemy.vy))  # point where it's flying
         elif facing == "spin":

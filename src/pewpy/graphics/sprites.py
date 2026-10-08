@@ -91,9 +91,12 @@ void main() {
 """
 
 
-@dataclass(frozen=True)
+@dataclass(slots=True)
 class Sprite:
-    """A flat shape facing the camera: where, how big, what color."""
+    """A flat shape facing the camera: where, how big, what color.
+
+    Not frozen: a batch of these is built and thrown away every frame, and building them must stay cheap.
+    """
 
     x: float  # world X
     y: float  # world Z (up the screen, like the game's y)
@@ -148,31 +151,49 @@ class SpriteBatch:
         self.data.setMinfilter(Texture.FT_nearest)
         self.data.setMagfilter(Texture.FT_nearest)
         self.node.setShaderInput("sprites", self.data)
+        # The texture's data, kept between frames: the unused columns stay at zero (packed once, here) so that
+        # `show` only ever writes the sprites it is given, instead of rebuilding the whole buffer every frame.
+        self.buffer = array("f", bytes(4 * 4 * 3 * capacity))
+        self.row = 4 * capacity  # where the colors row starts
         self.show([])
 
     def show(self, sprites: list[Sprite]) -> None:
         """Show these sprites (up to the batch's capacity), instead of the last ones."""
-        sprites = sprites[: self.capacity]
-        self.data.setRamImage(pack(sprites, self.capacity))
-        self.node.setInstanceCount(len(sprites))
-        if sprites:
+        count = min(len(sprites), self.capacity)
+        pack(self.buffer, self.row, sprites, count)
+        self.data.setRamImage(memoryview(self.buffer))
+        self.node.setInstanceCount(count)
+        if count:
             self.node.show()
         else:
             self.node.hide()
 
 
-def pack(sprites: list[Sprite], capacity: int) -> bytes:
-    """Pack the sprites as the float texture's data: rows of positions and widths, colors and heights, energies.
+def pack(buffer: array, row: int, sprites: list[Sprite], count: int) -> None:
+    """Write `count` of `sprites` into `buffer` (see SpriteBatch), as the float texture's data.
+
+    Three rows: positions and widths, colors and heights, energies.
 
     The energy row holds each sprite's energy and phase. Panda3D keeps RGBA textures in memory as blue, green, red,
     alpha: each texel is written in that order, so the shader reads .rgba = (x, depth, y, width), (red, green, blue,
-    height) and (energy, phase, 0, 0).
+    height) and (energy, phase, 0, 0). `row` is where the second row starts (the first is four floats per sprite).
+
+    The columns past `count` keep whatever was in `buffer`: the unused ones are zero, and a sprite's column is
+    rewritten whole every frame it is shown.
     """
-    padding = [0.0] * (4 * (capacity - len(sprites)))
-    places, looks, energies = [], [], []
-    for sprite in sprites:
-        places += (sprite.y, sprite.depth, sprite.x, sprite.width)
+    at = 0
+    for index in range(count):
+        sprite = sprites[index]
+        buffer[at] = sprite.y
+        buffer[at + 1] = sprite.depth
+        buffer[at + 2] = sprite.x
+        buffer[at + 3] = sprite.width
         red, green, blue, _ = sprite.color
-        looks += (blue, green, red, sprite.height)
-        energies += (0.0, sprite.phase, sprite.energy, 0.0)
-    return array("f", places + padding + looks + padding + energies + padding).tobytes()
+        buffer[row + at] = blue
+        buffer[row + at + 1] = green
+        buffer[row + at + 2] = red
+        buffer[row + at + 3] = sprite.height
+        buffer[2 * row + at] = 0.0
+        buffer[2 * row + at + 1] = sprite.phase
+        buffer[2 * row + at + 2] = sprite.energy
+        at += 4

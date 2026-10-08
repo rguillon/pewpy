@@ -12,6 +12,7 @@ from array import array
 from panda3d.core import Lens, NodePath, OmniBoundingVolume, Shader, Texture, Vec3
 
 from pewpy.graphics import models
+from pewpy.graphics.effects import Particle
 from pewpy.graphics.effects.laser import PHOTON_STRETCH
 from pewpy.graphics.effects.system import MAX_PARTICLES, ParticleSystem
 from pewpy.graphics.sprites import Sprite, SpriteBatch
@@ -105,6 +106,9 @@ class EffectsView:
         self.data.setMinfilter(Texture.FT_nearest)
         self.data.setMagfilter(Texture.FT_nearest)
         self.node.setShaderInput("particles", self.data)
+        # The texture's data, kept between frames (see SpriteBatch): the unused columns stay at zero.
+        self.buffer = array("f", bytes(4 * 4 * 3 * MAX_PARTICLES))
+        self.row = 4 * MAX_PARTICLES  # where the colors row starts
         self.sync()
 
     def sync(self) -> None:
@@ -118,22 +122,36 @@ class EffectsView:
             ),
             *self._laser_sprites(),
         ])
-        padding = [0.0] * (4 * (MAX_PARTICLES - len(particles)))
-        places, colors, spins = [], [], []
-        # Panda3D keeps RGBA textures in memory as blue, green, red, alpha: each texel is written in that order
-        # so the shader reads .rgba = (x, depth, y, size), (red, green, blue, unused), (axis x, y, z, angle).
-        for particle in particles:
-            places += (particle.y, particle.z, particle.x, particle.current_size)
-            red, green, blue, _ = particle.color
-            colors += (blue, green, red, 0.0)
-            axis_x, axis_y, axis_z = particle.axis
-            spins += (axis_z, axis_y, axis_x, particle.angle)
-        self.data.setRamImage(array("f", places + padding + colors + padding + spins + padding).tobytes())
+        self.pack(particles)
         self.node.setInstanceCount(len(particles))
         if particles:
             self.node.show()
         else:
             self.node.hide()
+
+    def pack(self, particles: list[Particle]) -> None:
+        """Write the particles' positions, colors and rotations into the texture's data (see SpriteBatch.pack).
+
+        Panda3D keeps RGBA textures in memory as blue, green, red, alpha: each texel is written in that order so the
+        shader reads .rgba = (x, depth, y, size), (red, green, blue, unused), (axis x, y, z, angle).
+        """
+        buffer, row, at = self.buffer, self.row, 0
+        for particle in particles:
+            buffer[at] = particle.y
+            buffer[at + 1] = particle.z
+            buffer[at + 2] = particle.x
+            buffer[at + 3] = particle.current_size
+            red, green, blue, _ = particle.color
+            buffer[row + at] = blue
+            buffer[row + at + 1] = green
+            buffer[row + at + 2] = red
+            axis_x, axis_y, axis_z = particle.axis
+            buffer[2 * row + at] = axis_z
+            buffer[2 * row + at + 1] = axis_y
+            buffer[2 * row + at + 2] = axis_x
+            buffer[2 * row + at + 3] = particle.angle
+            at += 4
+        self.data.setRamImage(memoryview(buffer))
 
     def _laser_sprites(self) -> list[Sprite]:
         """Make the lasers' light: streaks of light shooting along the lasers, a soft halo around each.
