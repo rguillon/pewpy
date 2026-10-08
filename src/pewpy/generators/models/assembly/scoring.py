@@ -13,6 +13,8 @@ in different orders, and keeps the one with the best score. The score combines:
 Lower score = better.
 """
 
+from pewpy.generators.models.assembly.frame import Frame
+
 # Score weights (tune these for the best variety)
 WEIGHT_ONE_PIECE = 3.0  # if model is not one piece, this is a huge penalty
 WEIGHT_SIZE = 2.0  # how close the model is to the target size
@@ -21,14 +23,14 @@ WEIGHT_WEAPONS = 1.5  # how many weapon kinds are present
 WEIGHT_FLOATING = 2.0  # if any part floats free
 
 
-def _score_one_piece(frame: object) -> float:
+def _score_one_piece(frame: Frame) -> float:
     """Score penalty for not being one piece."""
     if not frame.is_one_piece():
         return WEIGHT_ONE_PIECE * 100.0  # massive penalty
     return 0.0
 
 
-def _score_size(frame: object, target_size: tuple[int, int] | None) -> float:
+def _score_size(frame: Frame, target_size: tuple[int, int] | None) -> float:
     """Score penalty for size difference from target."""
     if not target_size:
         return 0.0
@@ -43,13 +45,13 @@ def _score_size(frame: object, target_size: tuple[int, int] | None) -> float:
     return score
 
 
-def _score_diversity(frame: object) -> float:
+def _score_diversity(frame: Frame) -> float:
     """Score based on part diversity (more unique chars = lower score)."""
     chars = set(frame.cells.values())
     return WEIGHT_DIVERSITY * (1.0 / max(1, len(chars)))
 
 
-def _score_weapons(frame: object) -> float:
+def _score_weapons(frame: Frame) -> float:
     """Score based on weapon coverage (more weapons = lower score)."""
     weapon_count = sum(1 for c in frame.cells.values() if c == "r")
     if weapon_count > 0:
@@ -57,9 +59,9 @@ def _score_weapons(frame: object) -> float:
     return 0.0
 
 
-def _score_floating(frame: object) -> float:
+def _score_floating(frame: Frame) -> float:
     """Score penalty for very sparse (floating) parts."""
-    if not (hasattr(frame, "cells") and frame.cells):
+    if not frame.cells:
         return 0.0
     span = frame.span()
     length = frame.length()
@@ -72,7 +74,7 @@ def _score_floating(frame: object) -> float:
     return 0.0
 
 
-def _score_symmetry(frame: object) -> float:
+def _score_symmetry(frame: Frame) -> float:
     """Return a penalty for each cell missing its mirror image across x=0."""
     penalty = 0.0
     for x, y, z in frame.cells:
@@ -82,7 +84,7 @@ def _score_symmetry(frame: object) -> float:
 
 
 def score_assembly(
-    frame: object, target_size: tuple[int, int] | None = None, *, require_symmetry: bool = False
+    frame: Frame, target_size: tuple[int, int] | None = None, *, require_symmetry: bool = False
 ) -> float:
     """Return a score for `frame`: lower is better.
 
@@ -101,8 +103,8 @@ def score_assembly(
 
 
 def pick_best(
-    frames: list[object], target_size: tuple[int, int] | None = None, *, require_symmetry: bool = False
-) -> object:
+    frames: list[Frame], target_size: tuple[int, int] | None = None, *, require_symmetry: bool = False
+) -> Frame | None:
     """Return the frame with the best score from `frames`."""
     if not frames:
         return None

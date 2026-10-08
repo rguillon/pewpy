@@ -5,6 +5,7 @@ and in what order. They use the part library to stamp parts into the frame.
 """
 
 from dataclasses import dataclass, field
+from random import Random
 
 from pewpy.generators.models.assembly.assembler import Assembler
 from pewpy.generators.models.assembly.frame import Frame
@@ -39,7 +40,7 @@ class ShipBlueprint:
     min_parts: dict[str, int] = field(default_factory=lambda: {"engine": 1, "weapon": 1})
     max_parts: dict[str, int] | None = field(default_factory=lambda: None)
 
-    def fill(self, frame: Frame, rng: object) -> None:
+    def fill(self, frame: Frame, rng: Random) -> None:
         """Fill the frame's slots with parts from the library.
 
         Tries to fill slots in priority order, using random parts from the library.
@@ -74,7 +75,7 @@ class ShipBlueprint:
                 # No part fit in this slot after 8 tries; leave it empty
                 pass
 
-    def assemble(self, frame: Frame, rng: object) -> Frame:
+    def assemble(self, frame: Frame, rng: Random) -> Frame:
         """Assemble the full model: fill slots then score and pick best."""
         self.fill(frame, rng)
         assembler = Assembler(PARTS, rng, target_size=self.target_size)

@@ -127,7 +127,7 @@ class Frame:
 
         # Nozzles
         for nx, ny, nz, _width in part.nozzles:
-            self.cells[(x0 + nx, y0 + ny, z0 + nz)] = "o"
+            self.cells[(x0 + nx, y0 + ny, int(z0 + nz))] = "o"
 
         return True
 

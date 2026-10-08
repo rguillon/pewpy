@@ -9,6 +9,7 @@ the same engine.
 """
 
 import random
+from collections.abc import Callable
 
 from pewpy.generators.models.assembly.frame import Frame
 from pewpy.generators.models.assembly.scoring import pick_best
@@ -17,13 +18,15 @@ from pewpy.generators.models.library.part import Part
 # How many assemblies to try before picking the best (tune for performance vs variety)
 ASSEMBLY_TRIES = 32
 
+PartBuilder = Callable[[random.Random, int], Part]
+
 
 class Assembler:
     """Assemble a model by filling its slots with parts from the library."""
 
     def __init__(
         self,
-        library: dict[str, Part],  # name -> Part
+        library: dict[str, PartBuilder],  # name -> (rng, size) -> Part
         rng: random.Random,
         target_size: tuple[int, int] | None = None,
         require_symmetry: bool = True,
@@ -44,7 +47,10 @@ class Assembler:
             self._fill_slots(trial)
             # Score and keep
             frames.append(trial)
-        return pick_best(frames, self.target_size, require_symmetry=self.require_symmetry)
+        best = pick_best(frames, self.target_size, require_symmetry=self.require_symmetry)
+        if best is None:
+            return frames[0]
+        return best
 
     def _fill_slots(self, frame: Frame) -> None:
         """Fill all of frame's slots with random parts from the library."""

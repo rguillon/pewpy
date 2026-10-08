@@ -230,7 +230,7 @@ class Part:
         return Part(
             {move(x, y, z): char for (x, y, z), char in self.cells.items()},
             [(kind, *move(x, y, z)) for kind, x, y, z in self.weapons],
-            [(*move(x, y, z), width) for x, y, z, width in self.nozzles],
+            [(x, y, move(x, y, int(z))[2], width) for x, y, z, width in self.nozzles],
             self.tags,
         )
 

@@ -7,12 +7,12 @@ Each slot has a name, a position (where the part's anchor goes), a face (which w
 capacity (max part half-width).
 """
 
-from pewpy.generators.models.assembly.frame import Slot
+from pewpy.generators.models.assembly.frame import Frame, Slot
 
 ZERO = 0
 
 
-def derive_slots(frame: object) -> dict[str, Slot]:
+def derive_slots(frame: Frame) -> dict[str, Slot]:
     """Derive slots from a frame's cells, so the assembler knows where parts may be stamped.
 
     Look for natural places:

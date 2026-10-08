@@ -80,6 +80,7 @@ ignore = [  "COM812",   # cause incompatibility with the formatter
             "FBT001",   # Boolean-typed positional argument
             "FBT002",   # Boolean default positional argument
             "S311",     # We want pseudo-random, non cryptographic is ok
+            "CPY001",   # No copyright headers in this project
             ]
 
 [tool.ruff.lint.per-file-ignores]
