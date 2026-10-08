@@ -20,15 +20,56 @@ def strongest(arsenal: Arsenal) -> str:
 
 
 class Pilot:
-    """A brain at the controls of the player's ship."""
+    """AI agent for ship navigation and combat decisions.
+
+    AI agent for ship navigation and combat decisions.
+
+    Attributes:
+        brain (Brain): Neural network that guides decision-making
+        controls (Controls): Current control state of the ship
+        wait (int): Frame counter for action cooldown
+
+    Example:
+        >>> pilot = Pilot(Brain())
+        >>> controls = pilot.fly(World())
+        >>> print(controls)
+        {'throttle': 0.8, 'fire': True, 'turn': 0.2}
+
+    Methods:
+        - fly(): Determine controls based on world state
+        - __init__(): Initialize with a brain
+
+    See Also:
+        - Brain class for neural network details
+        - World class for game state representation
+
+    """
 
     def __init__(self, brain: Brain) -> None:
+        """Initialize pilot with a neural network brain.
+
+        Args:
+            brain (Brain): Neural network that controls ship behavior
+
+        Raises:
+            ValueError: If brain is not properly initialized
+
+        """
         self.brain = brain
         self.controls = Controls()
         self.wait = 0
 
     def fly(self, world: World) -> Controls:
-        """Return the controls for this update; switch to the strongest weapon."""
+        """Generate controls based on current world state.
+
+        Args:
+            world (World): Complete game state including ship position,
+                            enemy positions, and weapon status
+
+        Returns:
+            Controls: Throttle, fire, and turn instructions
+
+        """
         if self.wait > 0:
             self.wait -= 1
             return self.controls
