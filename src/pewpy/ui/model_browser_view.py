@@ -8,13 +8,11 @@ compared with its size. Above: what the model is; below: its size, what's going 
 
 import math
 
-from direct.gui.OnscreenText import OnscreenText
-from panda3d.core import LineSegs, NodePath, TextNode
+from panda3d.core import LineSegs, NodePath
 
 from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR, TITLE_COLOR
 from pewpy.ui.showcase import DISTANCE
-
-Color = tuple[float, float, float, float]
+from pewpy.ui.text_label import Color, TextsView
 
 VIEW_SIZE = 1.6  # world units, DISTANCE from the camera: the bigger of the model and its frame is drawn this big
 VIEW_HEIGHT = -0.08  # where its middle is, up from the screen's
@@ -50,12 +48,12 @@ class ModelBrowserView:
         self.root.setPos(0, DISTANCE, VIEW_HEIGHT)
         self.scaled = self.root.attachNewNode("scaled")
         self.model = self.scaled.attachNewNode("model")
-        self.texts_root = aspect2d.attachNewNode("model_browser_texts")
-        self.title = self._text(TITLE_HEIGHT, TITLE_SCALE, TITLE_COLOR)
-        self.details = self._text(DETAILS_HEIGHT, DETAILS_SCALE, ITEM_COLOR, wordwrap=DETAILS_WRAP)
-        self.info = self._text(INFO_HEIGHT, INFO_SCALE, TITLE_COLOR)
-        self.status = self._text(STATUS_HEIGHT, INFO_SCALE, SELECTED_COLOR)
-        self.keys = self._text(KEYS_HEIGHT, INFO_SCALE, ITEM_COLOR)
+        self.texts = TextsView(aspect2d, "model_browser_texts")
+        self.title = self.texts.centered_text(TITLE_HEIGHT, TITLE_SCALE, TITLE_COLOR)
+        self.details = self.texts.centered_text(DETAILS_HEIGHT, DETAILS_SCALE, ITEM_COLOR, wordwrap=DETAILS_WRAP)
+        self.info = self.texts.centered_text(INFO_HEIGHT, INFO_SCALE, TITLE_COLOR)
+        self.status = self.texts.centered_text(STATUS_HEIGHT, INFO_SCALE, SELECTED_COLOR)
+        self.keys = self.texts.centered_text(KEYS_HEIGHT, INFO_SCALE, ITEM_COLOR)
         self.keys.setText(KEYS)
         self.time = 0.0
         self.parts: list[NodePath] = []  # a boss's destroyable parts on show, blinking
@@ -110,21 +108,7 @@ class ModelBrowserView:
     def destroy(self) -> None:
         """Remove the view's nodes."""
         self.root.removeNode()
-        for text in (self.title, self.details, self.info, self.status, self.keys):
-            text.destroy()
-        self.texts_root.removeNode()
-
-    def _text(self, z: float, scale: float, color: Color, wordwrap: float | None = None) -> OnscreenText:
-        return OnscreenText(
-            text="",
-            pos=(0, z),
-            scale=scale,
-            fg=color,
-            align=TextNode.ACenter,
-            wordwrap=wordwrap,
-            mayChange=True,
-            parent=self.texts_root,
-        )
+        self.texts.destroy()
 
 
 def _frame(size: tuple[float, float]) -> NodePath:

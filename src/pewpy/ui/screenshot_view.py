@@ -3,12 +3,10 @@
 Hidden while a screenshot is saved, so only the game is in it. The backgrounds browser shows its texts the same way.
 """
 
-from direct.gui.OnscreenText import OnscreenText
-from panda3d.core import NodePath, TextNode
+from panda3d.core import NodePath
 
-from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR, SHADOW_OFFSET, TEXT_SHADOW, TITLE_COLOR, console
-
-Color = tuple[float, float, float, float]
+from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR, TITLE_COLOR, console
+from pewpy.ui.text_label import TextsView
 
 PANEL = (-1.15, 1.15, 0.58, 0.97)  # left, right, bottom, top (aspect2d units)
 DISPLAY_TOP = 0.84  # the title stencilled on the plate above it
@@ -22,17 +20,17 @@ KEYS = "Left/Right: world   Space: new screenshot   Enter: save   Escape: back"
 BACKGROUND_KEYS = "Left/Right: theme   Space: new background   Escape: back"
 
 
-class ScreenshotView:
+class ScreenshotView(TextsView):
     """The screenshots' texts."""
 
     def __init__(self, aspect2d: NodePath, keys: str = KEYS) -> None:
         """Make the view, with its `keys`: nothing else written until `describe`."""
-        self.root = aspect2d.attachNewNode("screenshots")
+        super().__init__(aspect2d, "screenshots")
         console(self.root, PANEL, DISPLAY_TOP)  # first: under the texts
-        self.title = self._text(TITLE_HEIGHT, TITLE_SCALE, TITLE_COLOR)
-        self.details = self._text(DETAILS_HEIGHT, SCALE, ITEM_COLOR)
-        self.status = self._text(STATUS_HEIGHT, SCALE, SELECTED_COLOR)
-        self.keys = self._text(KEYS_HEIGHT, SCALE, ITEM_COLOR)
+        self.title = self.centered_text(TITLE_HEIGHT, TITLE_SCALE, TITLE_COLOR)
+        self.details = self.centered_text(DETAILS_HEIGHT, SCALE, ITEM_COLOR)
+        self.status = self.centered_text(STATUS_HEIGHT, SCALE, SELECTED_COLOR)
+        self.keys = self.centered_text(KEYS_HEIGHT, SCALE, ITEM_COLOR)
         self.keys.setText(keys)
 
     def describe(self, title: str, details: str, status: str) -> None:
@@ -40,22 +38,3 @@ class ScreenshotView:
         self.title.setText(title)
         self.details.setText(details)
         self.status.setText(status)
-
-    def destroy(self) -> None:
-        """Remove the view's nodes."""
-        for text in (self.title, self.details, self.status, self.keys):
-            text.destroy()
-        self.root.removeNode()
-
-    def _text(self, z: float, scale: float, color: Color, shadow: Color = TEXT_SHADOW) -> OnscreenText:
-        return OnscreenText(
-            text="",
-            pos=(0, z),
-            scale=scale,
-            fg=color,
-            shadow=shadow,
-            shadowOffset=SHADOW_OFFSET,
-            align=TextNode.ACenter,
-            mayChange=True,
-            parent=self.root,
-        )

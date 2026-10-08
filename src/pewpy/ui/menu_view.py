@@ -48,6 +48,7 @@ class MenuView:
     """The menu on screen (or none)."""
 
     def __init__(self, parent: NodePath) -> None:
+        """Make the menu's nodes under `parent`, with no menu on show."""
         self.root = parent.attachNewNode("menu")
         self.panel = self.root.attachNewNode("panel")  # first: drawn under the texts
         self.row = panel.card(self.root, -1, 1, -1, 1, ROW_LIGHT)  # the highlighted item's lit row

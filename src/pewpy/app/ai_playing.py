@@ -112,22 +112,9 @@ class AIPlaying(Backgrounds):
         """
         ship = self.ai_game.ship
         level = self.levels[index]
-        screen = self.camera_view.area(0.0)
         self.level_index = index
-        self.world = World(
-            level,
-            score=score,
-            lives=lives,
-            arsenal=arsenal,
-            view_top=screen.top,
-            view_side=screen.right,
-            view_bottom=screen.bottom,
-            ship=SHIPS[ship],
-        )
+        self._begin_level(level, score=score, lives=lives, arsenal=arsenal, ship=SHIPS[ship])
         self.ai_watching = f"{SHIPS[ship].name} on {self._label(index)} {level.name}"
-        self._show_background(level)
-        self._prepare_level(level)
-        self.effects.clear()
         self._show_hud(visible=True)
 
     def _follow_ai(self, world: World) -> None:

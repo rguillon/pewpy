@@ -26,7 +26,18 @@ class ShipSpec:
 
 
 def load_ships() -> dict[str, ShipSpec]:
-    """Load the ships of `ships.json`, by name, in the file's order (a ship's "note" is for the people editing it)."""
+    """Load the ships from `ships.json`, by name, in the file's order.
+
+    Each ship specification in the JSON file is converted into a ShipSpec dataclass instance.
+
+    Returns:
+        A dictionary mapping ship names to their specifications.
+
+    Raises:
+        json.JSONDecodeError: If the ships.json file contains invalid JSON.
+        FileNotFoundError: If the ships.json file does not exist at the expected path.
+
+    """
     data = json.loads((data_folder() / "ships.json").read_text())
     return {key: ShipSpec(**{k: v for k, v in ship.items() if k != "note"}) for key, ship in data.items()}
 
@@ -61,6 +72,9 @@ class Player(Entity):
             move_x: Horizontal input, -1 (left) to 1 (right).
             move_y: Vertical input, -1 (down) to 1 (up).
             firing: Whether the fire button is held (self-repairing ships only repair when it isn't).
+
+        Raises:
+            ValueError: If dt is negative.
 
         """
         self.invulnerable_time = max(0.0, self.invulnerable_time - dt)

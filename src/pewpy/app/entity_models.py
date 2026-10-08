@@ -68,8 +68,15 @@ class EntityModels(Window):
     def _make_model(self, entity: Entity) -> NodePath:
         """Make a copy of the entity's model.
 
-        Models are in world units, all with the same cubes, their size from their drawing (about their hitbox). Copied,
-        not instanced, so each Turret can aim its own barrel.
+        Models are in world units, all with the same cubes, their size from their drawing (about their hitbox).
+        Copied, not instanced, so each Turret can aim its own barrel.
+
+        Args:
+            entity: The game entity to create a model for.
+
+        Returns:
+            A NodePath object representing the cloned entity model.
+
         """
         node = NodePath("entity")
         if isinstance(entity, Player):

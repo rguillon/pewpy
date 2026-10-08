@@ -54,6 +54,7 @@ class InvalidTransitionError(Exception):
     """The game can't go from one screen to the other."""
 
     def __init__(self, current: Enum, target: Enum) -> None:
+        """Say the game can't go from the screen `current` to the screen `target`."""
         super().__init__(f"cannot go from {current.name} to {target.name}")
 
 
@@ -66,6 +67,7 @@ class StateMachine:
         on_change: Callable[[Enum, Enum], None] | None = None,
         transitions: Transitions = TRANSITIONS,
     ) -> None:
+        """Start on `initial`, calling `on_change` at every move (going through `transitions`)."""
         self.state = initial
         self.on_change = on_change
         self.transitions = transitions

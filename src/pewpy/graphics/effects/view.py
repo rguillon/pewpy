@@ -90,6 +90,7 @@ class EffectsView:
     """Debris are small lit cubes, tumbling; glowing particles (sparks, fireballs) are soft circles adding light."""
 
     def __init__(self, effects: ParticleSystem, render: NodePath, lens: Lens) -> None:
+        """Draw `effects` in `render`, sized by `lens`."""
         self.effects = effects
         self.glows = SpriteBatch(render, lens, MAX_PARTICLES + LASER_SPRITES, glow=True, core=0.25, hot=0.6)
         mesh = models.MeshBuilder()

@@ -45,6 +45,7 @@ class Library:
     background thread."""  # noqa: D205, D209 - the summary needs two lines
 
     def __init__(self, folder: "Traversable", cache: Path | None) -> None:
+        """Read the songs in `folder`, keeping the rendered files in `cache` (if it's given)."""
         self.folder = folder
         self.cache = cache
         self.added: dict[str, bytes] = {}  # songs not in the folder: their MIDI files

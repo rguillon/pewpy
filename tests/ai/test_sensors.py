@@ -40,6 +40,19 @@ def boss_world() -> World:
     return world
 
 
+def test_the_view_is_the_blocks_the_module_docstring_lists() -> None:
+    """The named offsets say where each block starts, so they must be the sum of the ones before."""
+    world = quiet_world()
+    view = sensors.sense(world)
+    assert view.shape == (sensors.SIZE,)
+    assert sensors.AIM == sensors.SAFEST + 2  # the radar: the times, the rooms, the safest, the aim
+    assert sensors.SHOTS == sensors.AIM + 2
+    assert sensors.SIZE - len(sensors.repairs(world)) == sensors.SHOOTABLE  # the last block is the repairs'
+    for start, end in ((sensors.LANE_SHOTS, sensors.LANE_ENEMIES), (sensors.LANE_ENEMIES, sensors.SHIP)):
+        assert end - start == sensors.LANES
+    assert sensors.PICKUP == sensors.TARGETS_SEEN + 3 * sensors.TARGETS
+
+
 def test_the_view_has_its_size_and_sees_nothing_in_an_empty_sky() -> None:
     world = quiet_world()
     view = sensors.sense(world)
@@ -79,7 +92,7 @@ def test_dead_things_and_harmless_beams_are_not_seen_and_snaking_shots_are_as_wi
     assert len(rows) == 1
     assert rows[0, 4] == pytest.approx(snaking.width + 2 * snaking.amplitude)
     view = sensors.sense(world)
-    shots = sensors.SAFEST + 4
+    shots = sensors.SHOTS
     assert np.count_nonzero(view[shots : shots + 4 * sensors.NEAREST_SHOTS]) <= 4  # only the snaking one
 
 
@@ -119,8 +132,8 @@ def test_the_view_sees_the_boss_the_targets_and_the_pickup() -> None:
     view = sensors.sense(world)
     boss = world.boss
     assert boss is not None
-    assert view[sensors.SHOOTABLE - 4] == pytest.approx(boss.health_fraction)  # the boss's health
-    assert view[sensors.SHOOTABLE - 7] == 1.0  # a pickup
+    assert view[sensors.BOSS + 2] == pytest.approx(boss.health_fraction)  # the boss's health
+    assert view[sensors.PICKUP + 2] == 1.0  # a pickup
     assert view[sensors.SHOOTABLE] == 1.0  # the drone can be hurt
 
 

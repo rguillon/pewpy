@@ -92,6 +92,7 @@ class Canvas:
     def __init__(
         self, rng: random.Random, width: float, loop: float, background: Surface, tree_size: tuple[float, float]
     ) -> None:
+        """Paint a ground `width` wide whose loop is `loop` long, starting at the `background` surface."""
         self.rng = rng
         self.tree_size = tree_size  # crown diameters
         self.width = width

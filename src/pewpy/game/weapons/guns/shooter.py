@@ -17,6 +17,7 @@ class NoMakerError(Exception):
     """A gun tried to launch an enemy with nothing to make it."""
 
     def __init__(self, kind: str) -> None:
+        """Say no enemy of the kind `kind` can be made."""
         super().__init__(f"this gun can't launch a {kind!r}: nothing to make it")
 
 

@@ -42,6 +42,7 @@ dev = [
     "types-panda3d>=0.4.1",
     "setuptools>=84.0.0",
     "pip>=26.2.1",
+    "mutmut>=3.8.0",
 ]
 
 [build-system]
@@ -73,11 +74,6 @@ ignore = [  "COM812",   # cause incompatibility with the formatter
             "ISC001",   # cause incompatibility with the formatter
             "D203",     # conflict with another rule
             "D213",     # conflict with another rule
-            "D107",     # ok to not document the constructors
-            "TRY400",   # ok to not log exceptions
-            "CPY001",   # No copyright
-            "DOC201",   # Ok to not document returns
-            "DOC501",   # Ok to not document exceptions
             "PLR2004",  # Magic values
             "PLR0913",  # Too many arguments: builders and generators take many parameters
             "PLR0917",  # Too many positional arguments: same
@@ -122,3 +118,7 @@ skip_covered = true
 [tool.coverage.run]
 branch = true
 source = ["src/pewpy"]
+
+[tool.mutmut]
+source_paths = ["src/pewpy/"]
+also_copy = ["data/"]  # the game's data files, found two folders up from src/pewpy/data.py (see pewpy/data.py)

@@ -4,12 +4,10 @@ Above: which song (what it plays for) and what it is; in the middle: whether it'
 and the keys.
 """
 
-from direct.gui.OnscreenText import OnscreenText
-from panda3d.core import NodePath, TextNode
+from panda3d.core import NodePath
 
-from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR, SHADOW_OFFSET, TEXT_SHADOW, TITLE_COLOR, console
-
-Color = tuple[float, float, float, float]
+from pewpy.ui.menu_view import ITEM_COLOR, SELECTED_COLOR, TITLE_COLOR, console
+from pewpy.ui.text_label import TextsView
 
 TITLE_HEIGHT = 0.5  # the texts (aspect2d units)
 TITLE_SCALE = 0.08
@@ -27,18 +25,18 @@ DISPLAY_TOP = 0.44  # the title stencilled on the plate above it
 KEYS = "Left/Right: song   Space: new song   Enter: save   M: music on/off   Escape: back"
 
 
-class MusicBrowserView:
+class MusicBrowserView(TextsView):
     """The music browser's texts."""
 
     def __init__(self, aspect2d: NodePath) -> None:
         """Make the view: nothing written until `describe`."""
-        self.root = aspect2d.attachNewNode("music_browser")
+        super().__init__(aspect2d, "music_browser")
         console(self.root, PANEL, DISPLAY_TOP)  # first: under the texts
-        self.title = self._text(TITLE_HEIGHT, TITLE_SCALE, TITLE_COLOR)
-        self.details = self._text(DETAILS_HEIGHT, DETAILS_SCALE, ITEM_COLOR, wordwrap=DETAILS_WRAP)
-        self.playing = self._text(PLAYING_HEIGHT, PLAYING_SCALE, SELECTED_COLOR)
-        self.status = self._text(STATUS_HEIGHT, STATUS_SCALE, SELECTED_COLOR)
-        self.keys = self._text(KEYS_HEIGHT, KEYS_SCALE, ITEM_COLOR)
+        self.title = self.centered_text(TITLE_HEIGHT, TITLE_SCALE, TITLE_COLOR)
+        self.details = self.centered_text(DETAILS_HEIGHT, DETAILS_SCALE, ITEM_COLOR, wordwrap=DETAILS_WRAP)
+        self.playing = self.centered_text(PLAYING_HEIGHT, PLAYING_SCALE, SELECTED_COLOR)
+        self.status = self.centered_text(STATUS_HEIGHT, STATUS_SCALE, SELECTED_COLOR)
+        self.keys = self.centered_text(KEYS_HEIGHT, KEYS_SCALE, ITEM_COLOR)
         self.keys.setText(KEYS)
 
     def describe(self, title: str, details: str, status: str) -> None:
@@ -51,25 +49,3 @@ class MusicBrowserView:
         """Write whether the song plays (only when it changed: Panda3D remakes a text's geometry each time)."""
         if self.playing.getText() != text:
             self.playing.setText(text)
-
-    def destroy(self) -> None:
-        """Remove the view's nodes."""
-        for text in (self.title, self.details, self.playing, self.status, self.keys):
-            text.destroy()
-        self.root.removeNode()
-
-    def _text(
-        self, z: float, scale: float, color: Color, shadow: Color = TEXT_SHADOW, wordwrap: float | None = None
-    ) -> OnscreenText:
-        return OnscreenText(
-            text="",
-            pos=(0, z),
-            scale=scale,
-            fg=color,
-            shadow=shadow,
-            shadowOffset=SHADOW_OFFSET,
-            align=TextNode.ACenter,
-            wordwrap=wordwrap,
-            mayChange=True,
-            parent=self.root,
-        )

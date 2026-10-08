@@ -54,6 +54,7 @@ class PropModel:
     """A prop's description, built once in its own box, ready to be stretched into any number of lots."""
 
     def __init__(self, name: str, description: dict[str, Any]) -> None:
+        """Read the prop `name` from `description`, saying what's wrong with it if it can't be read."""
         self.name = name
         if extra := set(description) - {"kind", "size", "parts"}:
             msg = f"{name}: unknown keys {sorted(extra)}"

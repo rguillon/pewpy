@@ -30,6 +30,7 @@ class LevelPreview:
     """The level select's preview: the highlighted level's scenery, drawn in a window over the menu."""
 
     def __init__(self, scene: GraphicsOutput, main_camera: NodePath, render: NodePath, aspect2d: NodePath) -> None:
+        """Draw the preview's window over `aspect2d`, with the `main_camera`'s view of the scenery."""
         self.root = NodePath("preview")
         lighting.light(self.root)
         left, right, bottom, top = FRAME

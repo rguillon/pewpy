@@ -100,7 +100,7 @@ class DevMenu(Sound):
         if browser is None or view is None:
             return
         if key == GENERATE_KEY:  # else an arrow (the keys sent here: see keys.py)
-            self._generate(browser, view)
+            self._generate_model(browser, view)
             return
         if key not in BROWSER_MOVES:  # Up and Down: nothing to change (the shape keys change the size)
             return
@@ -122,7 +122,8 @@ class DevMenu(Sound):
         self.audio.play("menu_move")
         self._show_browser(browser, view)
 
-    def _generate(self, browser: ModelBrowser, view: ModelBrowserView) -> None:
+    def _generate_model(self, browser: ModelBrowser, view: ModelBrowserView) -> None:
+        """Make a new model of what's on show; if none can be that size, the view says why instead."""
         self.audio.play("menu_choose")
         try:
             browser.generate()

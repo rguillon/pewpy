@@ -26,6 +26,7 @@ class Surface:
     """The core's cubes and heights, changed column by column (and the mirror column, on a symmetric boss)."""
 
     def __init__(self, cv: Canvas, cells: Cells, heights: Heights, symmetric: bool, level: int, plating: str) -> None:
+        """Build the core on `cv`, from its `cells`, with `heights` per column, plating from `level` up."""
         self.cv, self.cells, self.heights, self.symmetric, self.plating = cv, cells, heights, symmetric, plating
         last = (cv.w - 1) // 2 if symmetric else cv.w - 1
         self.plateau = {

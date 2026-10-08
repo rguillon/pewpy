@@ -22,6 +22,7 @@ class LevelError(Exception):
     """A level's file is wrong."""
 
     def __init__(self, source: str, problem: str) -> None:
+        """Say which level's file (`source`) is wrong, and how (`problem`)."""
         super().__init__(f"{source}: {problem}")
 
 

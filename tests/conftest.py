@@ -9,7 +9,7 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
-from panda3d.core import loadPrcFileData
+from panda3d.core import FontPool, loadPrcFileData
 
 from pewpy import data
 from pewpy.app import PewPewApp
@@ -29,6 +29,7 @@ def game_app(tmp_path_factory: pytest.TempPathFactory) -> Iterator:
         app = PewPewApp()
         yield app
     app.destroy()
+    FontPool.releaseAllFonts()  # a later session in the same process (mutmut runs pytest twice) loads the font afresh
 
 
 @pytest.fixture

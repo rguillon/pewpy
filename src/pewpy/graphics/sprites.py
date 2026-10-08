@@ -113,6 +113,7 @@ class SpriteBatch:
     """
 
     def __init__(self, render: NodePath, lens: Lens, capacity: int, glow: bool, core: float, hot: float) -> None:
+        """Make room for `capacity` sprites in `render`, sized by `lens`, glowing if `glow`."""
         self.capacity = capacity
         mesh = models.MeshBuilder()
         mesh.quad(

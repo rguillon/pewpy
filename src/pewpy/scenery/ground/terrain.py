@@ -53,6 +53,7 @@ class Terrain:
     """
 
     def __init__(self, area: Area, speed_factor: float, scenery: SceneryParams, seed: int | None = None) -> None:
+        """Lay out the ground of `scenery` (it must have one), over `area`, scrolling at `speed_factor`."""
         ground = scenery.ground
         if ground is None:
             msg = f"{scenery.name}: no ground"

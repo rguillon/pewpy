@@ -34,6 +34,7 @@ class CameraView:
     """How much of each background layer the camera sees (implements background.View)."""
 
     def __init__(self, camera: NodePath, lens: Lens, render: NodePath) -> None:
+        """Work out what the camera sees through `lens`, in the `render` coordinates."""
         self.camera = camera
         self.lens = lens
         self.render = render
@@ -68,6 +69,7 @@ class BackgroundView:
     """Nodes for one Scenery, under their own root so switching levels removes them all at once."""
 
     def __init__(self, scenery: Scenery, render: NodePath, time_of_day: str = "day") -> None:
+        """Make the nodes drawing `scenery` in `render`, lit as `time_of_day`."""
         self.scenery = scenery
         self.root = render.attachNewNode(f"background_{scenery.kind}")
         look = scenery.params
