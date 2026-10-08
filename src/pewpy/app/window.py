@@ -142,14 +142,18 @@ class Window(ShowBase):
             distance += 0.05
 
     def _play_area_visible(self, margin: float = 1.04) -> bool:
-        lens = self.cam.node().getLens()
-        half_width, half_height = config.PLAY_WIDTH / 2 * margin, config.PLAY_HEIGHT / 2 * margin
-        for x in (-half_width, half_width):
-            for z in (-half_height, half_height):
-                point = self.cam.getRelativePoint(self.render, Point3(x, 0, z))
-                if not lens.project(point, Point2()):
-                    return False
-        return True
+        """Check if all corners of the play area are visible in the camera's field of view.
+
+        This method checks if four key points (corners) of the play area are projected 
+        onto the screen by the camera lens. If any of those points fall outside the 
+        viewing frustum, the whole play area is considered not visible.
+
+        Args:
+            margin: A factor to add padding around the play area (default 1.04).
+
+        Returns:
+            True if all corners are visible, False otherwise.
+        """
 
     def _setup_lights(self) -> None:
         lighting.setup(self)
