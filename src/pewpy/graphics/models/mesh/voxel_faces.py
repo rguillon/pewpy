@@ -41,6 +41,7 @@ class Occupancy:
     """Which cube positions hold a voxel (drawn or context), as a 3D grid: one lookup for many positions at once."""
 
     def __init__(self, drawn: IntArray, context: IntArray) -> None:
+        """Put the `drawn` voxels (indexed from zero) and the `context` ones in a grid around them."""
         everything = np.concatenate([drawn, context])
         self.low = everything.min(axis=0) - 1  # neighbors are at most one cube away along each axis
         self.grid = np.full(everything.max(axis=0) - self.low + 2, EMPTY, dtype=np.int64)

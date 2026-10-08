@@ -44,6 +44,7 @@ class PewPewApp(Screenshots):
     """The game."""
 
     def __init__(self) -> None:
+        """Set the window up, then build the camera, the lights, the drawings, the models and the levels."""
         loadPrcFileData(
             "",
             f"""

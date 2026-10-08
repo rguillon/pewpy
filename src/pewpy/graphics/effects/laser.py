@@ -75,6 +75,7 @@ class LaserLight:
     """The lasers' light: the streaks shooting along every laser that's on."""
 
     def __init__(self) -> None:
+        """Start with no light: no photons, and no beam lit up."""
         self.photons: list[Photon] = []
         self.lasers: dict[int, LaserGlow] = {}
 

@@ -40,6 +40,7 @@ class World:
         view_bottom: float = -config.PLAY_HEIGHT / 2,
         cutscenes: bool = False,
     ) -> None:
+        """Set up the level `level`, its player (a new one, or the `arsenal` and `ship` given) and its scenery."""
         # With `cutscenes` (the game, not the tests or the AI), the ship flies in from the bottom at the start of
         # each life, and away through the top once the level is over, before it counts as completed.
         self.cutscenes = cutscenes

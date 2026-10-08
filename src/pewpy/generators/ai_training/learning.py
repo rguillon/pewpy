@@ -123,6 +123,7 @@ class Learner:
         levels: tuple[int, ...] | None = None,
         new: bool = False,
     ) -> None:
+        """Train the `ships` given on the `levels` given, resuming the brain saved in `folder`."""
         self.ships = list(ships)
         self.folder = folder
         self.executor = executor

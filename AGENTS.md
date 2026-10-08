@@ -1,110 +1,42 @@
-# pewpy Development Guide
+# AGENTS.md
 
-This guide helps agents understand how to work with the pewpy codebase effectively.
+Vertical-scrolling shoot 'em up, Python 3.12+/Panda3D. Layout: game in `src/pewpy/`, **game content in `data/` (300+ JSON/NPZ files)**, tests in `tests/` mirroring `src/pewpy/`, specs in `docs/specs/`.
 
-## Project Overview
+## Source of truth: specs, not this file
 
-pewpy is a vertical-scrolling shoot 'em up game written in Python with Panda3D. It consists of:
-- Game logic in `src/pewpy/`
-- Data files in `data/` directory
-- Tests in `tests/`
-- Documentation in `docs/`
+`docs/specs/` defines the game. Read relevant specs before writing code; specs describe behavior, not history. If chat and spec conflict, ask.
 
-## Key Commands
+## Architecture constraints
+- Game logic must run **headless** (no window, no 3D models) for testability.
+- Content is data-loaded with validation; same gun description used for weapons/enemies.
+- App (screens, HUD) tested offscreen with one Panda3D `ShowBase` instance.
 
-### Setup & Development
+## Commands
 ```bash
-make install    # Install virtual environment and pre-commit hooks
-make check      # Run linting, type-checking, and dependency checks
-make run        # Run the game (requires WSL + Mesa d3d12 driver or regular setup)
-make test       # Run tests with coverage
-make help       # Show all available Makefile commands
+make install   # uv sync + pre-commit install
+make check     # uv lock -> pre-commit -> ty -> deptry (run before finishing)
+make test      # pytest with 100% line/branch coverage
+make run       # game (sets GALLIUM_DRIVER=d3d12 under WSL if /dev/dxg exists)
 ```
 
-### Game Generation & AI Training
+Generation/AI:
+`make levels`, `make learn`, `make learn-level1`, `make winrate`, `make mutate`, `make docs-test`.
+
+## Focused test runs
 ```bash
-make levels     # Generate game levels from world plans
-make learn      # Train AI to play the game (default: all ships, all levels)
-make learn-level1  # Train on level 1-1 only
-make learn-random  # Train with random selection of levels
-make winrate     # Test current AI performance on all levels
+uv run python -m pytest tests/test_app.py                    # one module
+uv run python -m pytest tests/game/test_world.py::TestX::test_y
+uv run python -m pytest tests --no-cov                        # skip coverage gate
 ```
 
-## Development Environment
-
-- Requires Python 3.12 or newer
-- Uses `uv` for package management (install with `pip install uv`)
-- Uses pre-commit hooks (`make install` sets them up)
-- Game uses Panda3D rendering engine (version > 1.10.16)
-
-## Important Directory Structure
-
-- `src/pewpy/`: Main game code
-  - `app/`: Application framework and main entrypoint
-  - `game/`: Game logic, entities, levels, player controls
-  - `generators/`: Level and AI data generation tools
-  - `ui/`: User interface components
-  - `audio/`: Audio handling
-- `data/`: Game assets (ships, enemies, music, etc.)
-- `tests/`: Test suite
-- `docs/specs/`: Game design documents
-
-## Key Code Areas
-
-### Entry Points
-- `src/pewpy/__main__.py`: Application entry point
-- `src/pewpy/app/__init__.py`: Main game application class (`PewPewApp`)
-
-### Testing Patterns
-- Tests are located in `tests/` with organized modules
-- Test files use pytest fixtures and conventions
-- Some code intentionally uses `print()` for command-line tools (see pyproject.toml ruff ignore rules)
-
-### Special Considerations
-- The game is designed for Windows/WDDM 12 GPU driver (`/dev/dxg`) via WSL, but fallbacks to CPU rendering exist
-- AI training uses genetic algorithms with multiple ships and levels
-- Many files include special ruff ignores because they make legitimate use of `print()` statements or intentional magic values
-
-## Framework/Toolchain Quirks
-
-- Uses `uv` for package management instead of pip/virtualenv
-- Uses pre-commit hooks for code quality
-- Uses `ty` (static type checker) with `ruff` linter
-- Uses `pytest` and `coverage` for testing
-- Uses `mkdocs` for documentation generation
-- Uses `mutmut` for mutation testing
-- Game data is generated via Python scripts in `src/pewpy/generators/`
-- AI training uses genetic algorithms with evolutionary computation
-
-## Testing
-
-### Running Specific Tests
-```bash
-# Run specific test module
-uv run python -m pytest tests/test_app.py
-
-# Run tests with coverage
-make test
-
-# Run a single test class or method
-uv run python -m pytest tests/test_app.py::TestClassName::test_method_name
-```
-
-## Code Style & Conventions
-
-The project uses ruff for linting and formatting. Key conventions:
-- Uses `print()` in generator scripts as appropriate for command-line interaction
-- Intentionally ignores `S101` assertions (allowed in tests)
-- Intentionally ignores documentation requirements (`D100`, `D101`, etc.) in test files
-- Uses `ty` for static type checking
-
-## Code Readability Improvements Made
-
-This branch implements several readability enhancements:
-
-1. **Enhanced docstrings**: Added more descriptive docstrings with parameter and return information
-2. **Improved type hints**: Added comprehensive typing annotations for better IDE support
-3. **Better documentation of complex methods**: Added detailed explanations for methods like `_play_area_visible`
-4. **Consistent function signatures**: Improved clarity of function interfaces
-
-These changes improve maintainability without altering core functionality.
+## Gotchas
+- **Coverage gate**: 100% lines/branches in `src/pewpy` (`fail_under = 100`, `branch = true`).
+- **Tests**: Use `app`/`data_copy` fixtures; never create a second Panda3D `ShowBase` instance.
+- **`make check`**: Mutates files (runs `ruff fix`).
+- **Ruff**: `select = ['ALL']`, 120-char lines, `print()` allowed only in `generators/`.
+- **`ty`**: Type checker (not mypy), runs against `./.venv` at Python 3.12.
+- **`data/`**: Generated but committed. Don't hand-format JSON; use `python -m pewpy.generators.compact_json`.
+- **Model paths**: Resolved at runtime via `src/pewpy/data.py`, never hardcoded.
+- **`mutants/`**: Gitignored scratch dir for `make mutate`; don't edit manually.
+- **New features**: Add to README's feature list (repo convention).
+- **No standalone build**: Linux runs from source; Windows uses `pewpy.bat` to create venv.

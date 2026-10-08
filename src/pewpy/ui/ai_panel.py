@@ -26,6 +26,7 @@ class AIPanel:
     """The AI playing screen's text, drawn over the game."""
 
     def __init__(self, parent: NodePath) -> None:
+        """Make the text over the game, hidden until `show`."""
         self.text = OnscreenText(
             text="", pos=POSITION, align=TextNode.ALeft, scale=SCALE, fg=TEXT_COLOR, mayChange=True, parent=parent
         )

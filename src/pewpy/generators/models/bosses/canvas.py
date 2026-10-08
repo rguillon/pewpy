@@ -9,6 +9,7 @@ class Canvas:
     """A drawing being made: rows of characters, "." for nothing. Row 0 is the back (top of the screen)."""
 
     def __init__(self, width: int, height: int) -> None:
+        """Start a `width` x `height` canvas, all empty."""
         self.w, self.h = width, height
         self.cells = [["."] * width for _ in range(height)]
 

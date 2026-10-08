@@ -18,6 +18,7 @@ class ParticleSystem:
     """The particles in play and the lasers' light."""
 
     def __init__(self, seed: int | None = None) -> None:
+        """Start with no particles, at time zero, with `seed` making the randomness (None: the clock)."""
         self.rng = random.Random(seed)
         self.particles: list[Particle] = []
         self.light = LaserLight()

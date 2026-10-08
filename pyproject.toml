@@ -74,11 +74,6 @@ ignore = [  "COM812",   # cause incompatibility with the formatter
             "ISC001",   # cause incompatibility with the formatter
             "D203",     # conflict with another rule
             "D213",     # conflict with another rule
-            "D107",     # ok to not document the constructors
-            "TRY400",   # ok to not log exceptions
-            "CPY001",   # No copyright
-            "DOC201",   # Ok to not document returns
-            "DOC501",   # Ok to not document exceptions
             "PLR2004",  # Magic values
             "PLR0913",  # Too many arguments: builders and generators take many parameters
             "PLR0917",  # Too many positional arguments: same

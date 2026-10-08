@@ -65,6 +65,7 @@ class MeshBuilder:
     """
 
     def __init__(self) -> None:
+        """Start with nothing collected."""
         self._triangles: list[tuple[Vertex, Vertex, Vertex]] = []
         # Voxel triangles, a block per `cells` call: corner positions (n, 3, 3), normals (n, 3), corner colors
         # (n, 3, 4) and corner texture coordinates (n, 3, 2).

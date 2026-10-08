@@ -31,6 +31,7 @@ class PropMesh:
     """The props' vertices and triangles, as they're built."""
 
     def __init__(self) -> None:
+        """Start with no vertices, no triangles, and no prop being built."""
         self.vertices: list[FloatArray] = []
         self.indices: list[IndexArray] = []
         self.count = 0
