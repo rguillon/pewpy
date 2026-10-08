@@ -6,6 +6,21 @@ Vertical-scrolling shoot 'em up, Python 3.12+/Panda3D. Layout: game in `src/pewp
 
 `docs/specs/` defines the game. Read relevant specs before writing code; specs describe behavior, not history. If chat and spec conflict, ask.
 
+| Spec | Covers |
+| --- | --- |
+| `docs/specs/00-vision.md` | Vision, pillars, scope |
+| `docs/specs/01-gameplay.md` | Player, weapons, powerups, scoring, loop |
+| `docs/specs/02-enemies.md` | Enemy design overview |
+| `docs/specs/02-enemies-catalog.md` | Enemy roster/catalog |
+| `docs/specs/02-enemies-fleet.md` | The second fleet |
+| `docs/specs/02-enemies-bosses.md` | Bosses |
+| `docs/specs/03-levels.md` | Level structure, waves, difficulty curve |
+| `docs/specs/04-ui-audio.md` | Screens, HUD, game flow, audio |
+| `docs/specs/05-visuals.md` | Art direction, effects |
+| `docs/specs/06-technical.md` | Architecture, data format, tooling |
+| `docs/specs/07-ai.md` | AI player (learning, winrate, mutate) |
+| `docs/specs/roadmap.md` | Roadmap and planned work |
+
 ## Architecture constraints
 - Game logic must run **headless** (no window, no 3D models) for testability.
 - Content is data-loaded with validation; same gun description used for weapons/enemies.
