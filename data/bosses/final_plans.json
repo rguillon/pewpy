@@ -4,7 +4,7 @@
     "name": "AVALANCHE",
     "drawing": "avalanche",
     "width": 0.5,
-    "height": 0.3,
+    "height": 0.267,
     "difficulty": 1,
     "attacks": {
       "front": "fan",
@@ -14,46 +14,46 @@
     },
     "parts": [
       {
-        "drawing": "avalanche:cannon",
-        "x": -0.08,
-        "y": 0.02,
-        "width": 0.06,
-        "height": 0.133
+        "drawing": "avalanche:tank",
+        "x": -0.133,
+        "y": 0.04,
+        "width": 0.033,
+        "height": 0.08
       },
       {
-        "drawing": "avalanche:cannon",
-        "x": 0.08,
-        "y": 0.02,
-        "width": 0.06,
-        "height": 0.133
+        "drawing": "avalanche:tank",
+        "x": 0.133,
+        "y": 0.04,
+        "width": 0.033,
+        "height": 0.08
       },
       {
-        "drawing": "avalanche:cannon2",
-        "x": -0.033,
-        "y": -0.093,
-        "width": 0.047,
-        "height": 0.1
+        "drawing": "avalanche:tank2",
+        "x": -0.067,
+        "y": -0.033,
+        "width": 0.127,
+        "height": 0.107
       },
       {
-        "drawing": "avalanche:cannon2",
-        "x": 0.033,
-        "y": -0.093,
-        "width": 0.047,
-        "height": 0.1
+        "drawing": "avalanche:tank2",
+        "x": 0.067,
+        "y": -0.033,
+        "width": 0.127,
+        "height": 0.107
       },
       {
-        "drawing": "avalanche:cannon3",
-        "x": -0.24,
-        "y": 0.007,
-        "width": 0.047,
-        "height": 0.1
+        "drawing": "avalanche:tank3",
+        "x": -0.14,
+        "y": -0.077,
+        "width": 0.127,
+        "height": 0.113
       },
       {
-        "drawing": "avalanche:cannon3",
-        "x": 0.24,
-        "y": 0.007,
-        "width": 0.047,
-        "height": 0.1
+        "drawing": "avalanche:tank3",
+        "x": 0.14,
+        "y": -0.077,
+        "width": 0.127,
+        "height": 0.113
       }
     ]
   },
@@ -62,7 +62,7 @@
     "name": "FROSTJAW",
     "drawing": "frostjaw",
     "width": 0.513,
-    "height": 0.28,
+    "height": 0.267,
     "difficulty": 2,
     "attacks": {
       "front": "pellets",
@@ -72,46 +72,46 @@
     },
     "parts": [
       {
-        "drawing": "frostjaw:launcher",
-        "x": -0.093,
-        "y": 0.083,
+        "drawing": "frostjaw:turret",
+        "x": -0.04,
+        "y": 0.05,
         "width": 0.047,
-        "height": 0.053
+        "height": 0.14
       },
       {
-        "drawing": "frostjaw:launcher",
-        "x": 0.093,
-        "y": 0.083,
+        "drawing": "frostjaw:turret",
+        "x": 0.04,
+        "y": 0.05,
         "width": 0.047,
-        "height": 0.053
+        "height": 0.14
       },
       {
-        "drawing": "frostjaw:launcher2",
-        "x": -0.1,
-        "y": -0.07,
-        "width": 0.047,
-        "height": 0.053
+        "drawing": "frostjaw:turret2",
+        "x": -0.173,
+        "y": 0.047,
+        "width": 0.06,
+        "height": 0.107
       },
       {
-        "drawing": "frostjaw:launcher2",
-        "x": 0.1,
-        "y": -0.07,
-        "width": 0.047,
-        "height": 0.053
+        "drawing": "frostjaw:turret2",
+        "x": 0.173,
+        "y": 0.047,
+        "width": 0.06,
+        "height": 0.107
       },
       {
-        "drawing": "frostjaw:launcher3",
+        "drawing": "frostjaw:turret3",
         "x": -0.12,
-        "y": 0.017,
-        "width": 0.06,
-        "height": 0.067
+        "y": 0.043,
+        "width": 0.047,
+        "height": 0.1
       },
       {
-        "drawing": "frostjaw:launcher3",
+        "drawing": "frostjaw:turret3",
         "x": 0.12,
-        "y": 0.017,
-        "width": 0.06,
-        "height": 0.067
+        "y": 0.043,
+        "width": 0.047,
+        "height": 0.1
       }
     ]
   },
@@ -120,7 +120,7 @@
     "name": "IRON SUMMIT",
     "drawing": "iron_summit",
     "width": 0.58,
-    "height": 0.333,
+    "height": 0.313,
     "difficulty": 3,
     "attacks": {
       "front": "aimed",
@@ -130,60 +130,46 @@
     },
     "parts": [
       {
-        "drawing": "iron_summit:turret",
-        "x": -0.207,
-        "y": 0.063,
+        "drawing": "iron_summit:cannon",
+        "x": -0.047,
+        "y": 0.047,
         "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "iron_summit:reactor",
-        "x": -0.173,
-        "y": -0.03,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "iron_summit:reactor",
-        "x": 0.173,
-        "y": -0.03,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "iron_summit:turret2",
-        "x": -0.073,
-        "y": -0.123,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "iron_summit:turret2",
-        "x": 0.073,
-        "y": -0.123,
-        "width": 0.073,
-        "height": 0.107
+        "height": 0.14
       },
       {
         "drawing": "iron_summit:cannon",
-        "x": -0.093,
-        "y": 0.063,
-        "width": 0.073,
-        "height": 0.167
+        "x": 0.047,
+        "y": 0.047,
+        "width": 0.06,
+        "height": 0.14
+      },
+      {
+        "drawing": "iron_summit:emitter",
+        "x": -0.013,
+        "y": -0.06,
+        "width": 0.06,
+        "height": 0.06
       },
       {
         "drawing": "iron_summit:cannon2",
-        "x": -0.073,
-        "y": 0.137,
-        "width": 0.073,
-        "height": 0.167
+        "x": -0.24,
+        "y": -0.023,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "iron_summit:cannon2",
+        "x": 0.24,
+        "y": -0.023,
+        "width": 0.1,
+        "height": 0.16
       },
       {
         "drawing": "iron_summit:cannon3",
-        "x": -0.167,
-        "y": -0.11,
-        "width": 0.073,
-        "height": 0.167
+        "x": 0.0,
+        "y": -0.117,
+        "width": 0.047,
+        "height": 0.08
       }
     ]
   },
@@ -192,7 +178,7 @@
     "name": "STORMPEAK",
     "drawing": "stormpeak",
     "width": 0.54,
-    "height": 0.327,
+    "height": 0.307,
     "difficulty": 4,
     "attacks": {
       "front": "wave",
@@ -204,44 +190,44 @@
       {
         "drawing": "stormpeak:emitter",
         "x": -0.22,
-        "y": -0.033,
+        "y": -0.113,
         "width": 0.073,
-        "height": 0.147
+        "height": 0.053
       },
       {
         "drawing": "stormpeak:emitter",
         "x": 0.22,
-        "y": -0.033,
+        "y": -0.113,
         "width": 0.073,
-        "height": 0.147
+        "height": 0.053
       },
       {
         "drawing": "stormpeak:emitter2",
-        "x": -0.26,
-        "y": 0.04,
-        "width": 0.06,
-        "height": 0.12
+        "x": -0.073,
+        "y": 0.023,
+        "width": 0.073,
+        "height": 0.06
       },
       {
         "drawing": "stormpeak:emitter2",
-        "x": 0.26,
-        "y": 0.04,
-        "width": 0.06,
-        "height": 0.12
+        "x": 0.073,
+        "y": 0.023,
+        "width": 0.073,
+        "height": 0.06
       },
       {
         "drawing": "stormpeak:emitter3",
-        "x": -0.127,
-        "y": 0.027,
-        "width": 0.06,
-        "height": 0.12
+        "x": -0.067,
+        "y": -0.053,
+        "width": 0.033,
+        "height": 0.093
       },
       {
         "drawing": "stormpeak:emitter3",
-        "x": 0.127,
-        "y": 0.027,
-        "width": 0.06,
-        "height": 0.12
+        "x": 0.067,
+        "y": -0.053,
+        "width": 0.033,
+        "height": 0.093
       }
     ]
   },
@@ -249,8 +235,8 @@
     "note": "1-5: A broad mining crawler with a ridge-splitting prow and a field of flak guns.",
     "name": "RIDGEBREAKER",
     "drawing": "ridgebreaker",
-    "width": 0.673,
-    "height": 0.493,
+    "width": 0.66,
+    "height": 0.467,
     "difficulty": 5,
     "attacks": {
       "front": "rockets",
@@ -260,88 +246,74 @@
     },
     "parts": [
       {
-        "drawing": "ridgebreaker:flak",
+        "drawing": "ridgebreaker:launcher",
+        "x": 0.007,
+        "y": 0.057,
+        "width": 0.1,
+        "height": 0.18
+      },
+      {
+        "drawing": "ridgebreaker:cannon",
+        "x": 0.067,
+        "y": -0.113,
+        "width": 0.06,
+        "height": 0.16
+      },
+      {
+        "drawing": "ridgebreaker:cannon2",
+        "x": -0.12,
+        "y": -0.047,
+        "width": 0.113,
+        "height": 0.213
+      },
+      {
+        "drawing": "ridgebreaker:cannon2",
+        "x": 0.133,
+        "y": -0.047,
+        "width": 0.113,
+        "height": 0.213
+      },
+      {
+        "drawing": "ridgebreaker:cannon3",
+        "x": -0.24,
+        "y": 0.053,
+        "width": 0.073,
+        "height": 0.16
+      },
+      {
+        "drawing": "ridgebreaker:cannon3",
+        "x": 0.253,
+        "y": 0.053,
+        "width": 0.073,
+        "height": 0.16
+      },
+      {
+        "drawing": "ridgebreaker:cannon4",
         "x": -0.2,
-        "y": 0.203,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak",
-        "x": 0.2,
-        "y": 0.203,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak2",
-        "x": -0.193,
-        "y": -0.143,
+        "y": -0.157,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.127
       },
       {
-        "drawing": "ridgebreaker:flak2",
-        "x": 0.193,
-        "y": -0.143,
+        "drawing": "ridgebreaker:cannon4",
+        "x": 0.213,
+        "y": -0.157,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.127
       },
       {
-        "drawing": "ridgebreaker:flak3",
-        "x": -0.033,
-        "y": 0.003,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "ridgebreaker:launcher2",
+        "x": -0.16,
+        "y": 0.08,
+        "width": 0.087,
+        "height": 0.12
       },
       {
-        "drawing": "ridgebreaker:flak4",
-        "x": -0.22,
-        "y": -0.03,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak4",
-        "x": 0.22,
-        "y": -0.03,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak5",
-        "x": -0.313,
-        "y": 0.09,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak5",
-        "x": 0.313,
-        "y": 0.09,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak6",
-        "x": -0.033,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak6",
-        "x": 0.033,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "ridgebreaker:flak7",
-        "x": -0.153,
-        "y": 0.117,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "ridgebreaker:launcher2",
+        "x": 0.173,
+        "y": 0.08,
+        "width": 0.087,
+        "height": 0.12
       }
     ]
   },
@@ -350,7 +322,7 @@
     "name": "HIGHLORD",
     "drawing": "highlord",
     "width": 0.567,
-    "height": 0.333,
+    "height": 0.313,
     "difficulty": 6,
     "attacks": {
       "front": "aimed",
@@ -360,46 +332,46 @@
     },
     "parts": [
       {
-        "drawing": "highlord:cannon",
-        "x": -0.087,
-        "y": 0.07,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "highlord:cannon",
-        "x": 0.087,
-        "y": 0.07,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "highlord:cannon2",
-        "x": -0.147,
-        "y": -0.07,
+        "drawing": "highlord:emitter",
+        "x": -0.107,
+        "y": -0.073,
         "width": 0.06,
-        "height": 0.133
+        "height": 0.06
       },
       {
-        "drawing": "highlord:cannon2",
-        "x": 0.147,
-        "y": -0.07,
+        "drawing": "highlord:emitter",
+        "x": 0.107,
+        "y": -0.073,
         "width": 0.06,
-        "height": 0.133
+        "height": 0.06
       },
       {
-        "drawing": "highlord:flak",
-        "x": -0.187,
-        "y": 0.11,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "highlord:emitter2",
+        "x": -0.02,
+        "y": 0.007,
+        "width": 0.033,
+        "height": 0.06
       },
       {
-        "drawing": "highlord:flak",
-        "x": 0.187,
-        "y": 0.11,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "highlord:emitter2",
+        "x": 0.02,
+        "y": 0.007,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "highlord:emitter3",
+        "x": -0.247,
+        "y": -0.033,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "highlord:emitter3",
+        "x": 0.247,
+        "y": -0.033,
+        "width": 0.06,
+        "height": 0.06
       }
     ]
   },
@@ -407,8 +379,8 @@
     "note": "2-1: A gnarled armored hulk like an iron-barked tree, reactors at its roots, missile racks in its branches.",
     "name": "IRONBARK",
     "drawing": "ironbark",
-    "width": 0.593,
-    "height": 0.453,
+    "width": 0.607,
+    "height": 0.447,
     "difficulty": 3,
     "attacks": {
       "front": "fan",
@@ -418,74 +390,74 @@
     },
     "parts": [
       {
-        "drawing": "ironbark:reactor",
-        "x": -0.033,
-        "y": 0.117,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "ironbark:cannon",
+        "x": -0.087,
+        "y": 0.027,
+        "width": 0.06,
+        "height": 0.14
       },
       {
-        "drawing": "ironbark:reactor",
-        "x": 0.033,
-        "y": 0.117,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "ironbark:cannon",
+        "x": 0.087,
+        "y": 0.027,
+        "width": 0.06,
+        "height": 0.14
       },
       {
         "drawing": "ironbark:launcher",
-        "x": -0.22,
-        "y": 0.077,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "ironbark:launcher",
-        "x": 0.22,
-        "y": 0.077,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "ironbark:launcher2",
-        "x": -0.12,
-        "y": -0.083,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "ironbark:launcher2",
-        "x": 0.12,
-        "y": -0.083,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "ironbark:launcher3",
         "x": -0.14,
-        "y": 0.137,
-        "width": 0.073,
-        "height": 0.08
+        "y": -0.017,
+        "width": 0.127,
+        "height": 0.093
       },
       {
-        "drawing": "ironbark:launcher3",
+        "drawing": "ironbark:launcher",
         "x": 0.14,
-        "y": 0.137,
-        "width": 0.073,
-        "height": 0.08
+        "y": -0.017,
+        "width": 0.127,
+        "height": 0.093
       },
       {
-        "drawing": "ironbark:reactor2",
+        "drawing": "ironbark:cannon2",
+        "x": -0.213,
+        "y": 0.05,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "ironbark:cannon2",
+        "x": 0.213,
+        "y": 0.05,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "ironbark:cannon3",
+        "x": -0.24,
+        "y": -0.107,
+        "width": 0.06,
+        "height": 0.14
+      },
+      {
+        "drawing": "ironbark:cannon3",
+        "x": 0.24,
+        "y": -0.107,
+        "width": 0.06,
+        "height": 0.14
+      },
+      {
+        "drawing": "ironbark:cannon4",
         "x": -0.027,
-        "y": -0.203,
-        "width": 0.087,
-        "height": 0.087
+        "y": -0.077,
+        "width": 0.033,
+        "height": 0.04
       },
       {
-        "drawing": "ironbark:reactor2",
+        "drawing": "ironbark:cannon4",
         "x": 0.027,
-        "y": -0.203,
-        "width": 0.087,
-        "height": 0.087
+        "y": -0.077,
+        "width": 0.033,
+        "height": 0.04
       }
     ]
   },
@@ -493,8 +465,8 @@
     "note": "2-2: A spiny cruiser whose back bristles with flak guns like thorns.",
     "name": "THORNBACK",
     "drawing": "thornback",
-    "width": 0.513,
-    "height": 0.393,
+    "width": 0.5,
+    "height": 0.373,
     "difficulty": 4,
     "attacks": {
       "front": "pellets",
@@ -504,60 +476,60 @@
     },
     "parts": [
       {
-        "drawing": "thornback:flak",
-        "x": -0.187,
-        "y": -0.1,
+        "drawing": "thornback:cannon",
+        "x": -0.067,
+        "y": -0.03,
+        "width": 0.1,
+        "height": 0.207
+      },
+      {
+        "drawing": "thornback:cannon",
+        "x": 0.067,
+        "y": -0.03,
+        "width": 0.1,
+        "height": 0.207
+      },
+      {
+        "drawing": "thornback:cannon2",
+        "x": -0.18,
+        "y": -0.06,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "thornback:cannon2",
+        "x": 0.18,
+        "y": -0.06,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "thornback:cannon3",
+        "x": -0.08,
+        "y": -0.073,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.16
       },
       {
-        "drawing": "thornback:flak",
-        "x": 0.187,
-        "y": -0.1,
+        "drawing": "thornback:cannon3",
+        "x": 0.08,
+        "y": -0.073,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.16
       },
       {
-        "drawing": "thornback:flak2",
-        "x": -0.213,
-        "y": 0.14,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "thornback:cannon4",
+        "x": -0.093,
+        "y": -0.137,
+        "width": 0.127,
+        "height": 0.047
       },
       {
-        "drawing": "thornback:flak2",
-        "x": 0.213,
-        "y": 0.14,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "thornback:flak3",
-        "x": -0.053,
-        "y": 0.1,
-        "width": 0.047,
-        "height": 0.067
-      },
-      {
-        "drawing": "thornback:flak3",
-        "x": 0.053,
-        "y": 0.1,
-        "width": 0.047,
-        "height": 0.067
-      },
-      {
-        "drawing": "thornback:flak4",
-        "x": -0.213,
-        "y": 0.027,
-        "width": 0.047,
-        "height": 0.067
-      },
-      {
-        "drawing": "thornback:flak4",
-        "x": 0.213,
-        "y": 0.027,
-        "width": 0.047,
-        "height": 0.067
+        "drawing": "thornback:cannon4",
+        "x": 0.093,
+        "y": -0.137,
+        "width": 0.127,
+        "height": 0.047
       }
     ]
   },
@@ -565,8 +537,8 @@
     "note": "2-3: A very wide ship spreading like roots around a gaping maw, turrets all over.",
     "name": "ROOTMAW",
     "drawing": "rootmaw",
-    "width": 0.967,
-    "height": 0.427,
+    "width": 0.953,
+    "height": 0.38,
     "difficulty": 5,
     "attacks": {
       "front": "rockets",
@@ -576,88 +548,88 @@
     },
     "parts": [
       {
-        "drawing": "rootmaw:turret",
-        "x": -0.1,
-        "y": -0.157,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "rootmaw:launcher",
+        "x": 0.007,
+        "y": 0.07,
+        "width": 0.1,
+        "height": 0.133
       },
       {
-        "drawing": "rootmaw:turret",
-        "x": 0.1,
-        "y": -0.157,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "rootmaw:emitter",
+        "x": 0.047,
+        "y": -0.083,
+        "width": 0.047,
+        "height": 0.04
       },
       {
-        "drawing": "rootmaw:turret2",
-        "x": -0.173,
-        "y": 0.01,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "rootmaw:launcher2",
+        "x": -0.333,
+        "y": 0.047,
+        "width": 0.087,
+        "height": 0.1
       },
       {
-        "drawing": "rootmaw:turret2",
-        "x": 0.173,
-        "y": 0.01,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "rootmaw:launcher2",
+        "x": 0.333,
+        "y": 0.047,
+        "width": 0.087,
+        "height": 0.1
       },
       {
-        "drawing": "rootmaw:turret3",
-        "x": -0.473,
+        "drawing": "rootmaw:emitter2",
+        "x": -0.147,
+        "y": 0.063,
+        "width": 0.127,
+        "height": 0.04
+      },
+      {
+        "drawing": "rootmaw:emitter2",
+        "x": 0.147,
+        "y": 0.063,
+        "width": 0.127,
+        "height": 0.04
+      },
+      {
+        "drawing": "rootmaw:launcher3",
+        "x": -0.233,
         "y": 0.043,
-        "width": 0.087,
-        "height": 0.127
+        "width": 0.073,
+        "height": 0.12
       },
       {
-        "drawing": "rootmaw:turret3",
-        "x": 0.473,
+        "drawing": "rootmaw:launcher3",
+        "x": 0.233,
         "y": 0.043,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "rootmaw:turret4",
-        "x": -0.307,
-        "y": 0.13,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.12
       },
       {
-        "drawing": "rootmaw:turret4",
-        "x": 0.307,
-        "y": 0.13,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "rootmaw:launcher4",
+        "x": -0.18,
+        "y": 0.047,
+        "width": 0.047,
+        "height": 0.087
       },
       {
-        "drawing": "rootmaw:turret5",
-        "x": -0.073,
-        "y": 0.19,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "rootmaw:launcher4",
+        "x": 0.18,
+        "y": 0.047,
+        "width": 0.047,
+        "height": 0.087
       },
       {
-        "drawing": "rootmaw:turret6",
-        "x": -0.313,
-        "y": -0.017,
-        "width": 0.087,
-        "height": 0.127
+        "drawing": "rootmaw:launcher5",
+        "x": -0.093,
+        "y": -0.06,
+        "width": 0.06,
+        "height": 0.073
       },
       {
-        "drawing": "rootmaw:turret7",
-        "x": -0.04,
-        "y": -0.03,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "rootmaw:turret8",
-        "x": 0.0,
-        "y": 0.01,
-        "width": 0.087,
-        "height": 0.127
+        "drawing": "rootmaw:launcher5",
+        "x": 0.093,
+        "y": -0.06,
+        "width": 0.06,
+        "height": 0.073
       }
     ]
   },
@@ -665,7 +637,7 @@
     "note": "2-4: A blazing raider wing packed with missile racks.",
     "name": "WILDFIRE",
     "drawing": "wildfire",
-    "width": 0.74,
+    "width": 0.72,
     "height": 0.493,
     "difficulty": 6,
     "attacks": {
@@ -676,88 +648,74 @@
     },
     "parts": [
       {
-        "drawing": "wildfire:launcher",
-        "x": -0.173,
-        "y": -0.03,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher",
-        "x": 0.173,
-        "y": -0.03,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher2",
-        "x": -0.033,
-        "y": 0.143,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher3",
-        "x": -0.207,
-        "y": 0.077,
+        "drawing": "wildfire:emitter",
+        "x": -0.29,
+        "y": 0.037,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.06
       },
       {
-        "drawing": "wildfire:launcher3",
-        "x": 0.207,
-        "y": 0.077,
+        "drawing": "wildfire:emitter2",
+        "x": -0.263,
+        "y": -0.133,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "wildfire:emitter3",
+        "x": -0.277,
+        "y": 0.087,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.04
       },
       {
-        "drawing": "wildfire:launcher4",
-        "x": -0.3,
-        "y": 0.103,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher4",
-        "x": 0.3,
-        "y": 0.103,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher5",
-        "x": -0.06,
-        "y": -0.137,
+        "drawing": "wildfire:emitter3",
+        "x": -0.197,
+        "y": 0.087,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.04
       },
       {
-        "drawing": "wildfire:launcher6",
-        "x": -0.053,
-        "y": 0.05,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher6",
-        "x": 0.053,
-        "y": 0.05,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "wildfire:launcher7",
-        "x": -0.3,
-        "y": 0.01,
+        "drawing": "wildfire:emitter4",
+        "x": -0.303,
+        "y": -0.037,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.073
       },
       {
-        "drawing": "wildfire:launcher7",
-        "x": 0.3,
-        "y": 0.01,
+        "drawing": "wildfire:emitter4",
+        "x": -0.17,
+        "y": -0.037,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.073
+      },
+      {
+        "drawing": "wildfire:emitter5",
+        "x": -0.243,
+        "y": -0.077,
+        "width": 0.047,
+        "height": 0.06
+      },
+      {
+        "drawing": "wildfire:emitter6",
+        "x": -0.223,
+        "y": -0.01,
+        "width": 0.047,
+        "height": 0.06
+      },
+      {
+        "drawing": "wildfire:emitter7",
+        "x": -0.337,
+        "y": -0.12,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "wildfire:emitter7",
+        "x": -0.137,
+        "y": -0.12,
+        "width": 0.047,
+        "height": 0.04
       }
     ]
   },
@@ -765,8 +723,8 @@
     "note": "2-5: A tall guardian ship standing in a grove of flak towers.",
     "name": "GROVEKEEPER",
     "drawing": "grovekeeper",
-    "width": 0.633,
-    "height": 0.427,
+    "width": 0.647,
+    "height": 0.42,
     "difficulty": 7,
     "attacks": {
       "front": "curve",
@@ -776,74 +734,74 @@
     },
     "parts": [
       {
-        "drawing": "grovekeeper:flak",
-        "x": -0.113,
-        "y": -0.123,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "grovekeeper:emitter",
+        "x": -0.127,
+        "y": 0.077,
+        "width": 0.047,
+        "height": 0.04
       },
       {
-        "drawing": "grovekeeper:flak",
-        "x": 0.113,
-        "y": -0.123,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "grovekeeper:emitter",
+        "x": 0.127,
+        "y": 0.077,
+        "width": 0.047,
+        "height": 0.04
       },
       {
-        "drawing": "grovekeeper:flak2",
-        "x": -0.287,
-        "y": -0.09,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "grovekeeper:flak2",
-        "x": 0.287,
-        "y": -0.09,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "grovekeeper:flak3",
-        "x": -0.1,
-        "y": 0.203,
+        "drawing": "grovekeeper:emitter2",
+        "x": -0.04,
+        "y": 0.04,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.06
       },
       {
-        "drawing": "grovekeeper:flak3",
-        "x": 0.1,
-        "y": 0.203,
+        "drawing": "grovekeeper:emitter2",
+        "x": 0.04,
+        "y": 0.04,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.06
       },
       {
-        "drawing": "grovekeeper:flak4",
-        "x": -0.193,
-        "y": -0.083,
+        "drawing": "grovekeeper:emitter3",
+        "x": -0.213,
+        "y": -0.047,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.06
       },
       {
-        "drawing": "grovekeeper:flak4",
-        "x": 0.193,
-        "y": -0.083,
+        "drawing": "grovekeeper:emitter3",
+        "x": 0.213,
+        "y": -0.047,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.06
       },
       {
-        "drawing": "grovekeeper:flak5",
-        "x": -0.14,
-        "y": 0.023,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "grovekeeper:emitter4",
+        "x": -0.033,
+        "y": 0.153,
+        "width": 0.06,
+        "height": 0.06
       },
       {
-        "drawing": "grovekeeper:flak5",
-        "x": 0.14,
-        "y": 0.023,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "grovekeeper:emitter4",
+        "x": 0.033,
+        "y": 0.153,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "grovekeeper:emitter5",
+        "x": -0.16,
+        "y": -0.097,
+        "width": 0.033,
+        "height": 0.04
+      },
+      {
+        "drawing": "grovekeeper:emitter5",
+        "x": 0.16,
+        "y": -0.097,
+        "width": 0.033,
+        "height": 0.04
       }
     ]
   },
@@ -852,7 +810,7 @@
     "name": "OLD GROWTH",
     "drawing": "old_growth",
     "width": 0.673,
-    "height": 0.433,
+    "height": 0.46,
     "difficulty": 8,
     "attacks": {
       "front": "wave",
@@ -862,88 +820,60 @@
     },
     "parts": [
       {
-        "drawing": "old_growth:emitter",
-        "x": -0.12,
-        "y": 0.073,
-        "width": 0.06,
+        "drawing": "old_growth:turret",
+        "x": -0.233,
+        "y": 0.04,
+        "width": 0.113,
+        "height": 0.153
+      },
+      {
+        "drawing": "old_growth:turret",
+        "x": 0.233,
+        "y": 0.04,
+        "width": 0.113,
+        "height": 0.153
+      },
+      {
+        "drawing": "old_growth:turret2",
+        "x": -0.087,
+        "y": 0.017,
+        "width": 0.127,
+        "height": 0.133
+      },
+      {
+        "drawing": "old_growth:turret2",
+        "x": 0.087,
+        "y": 0.017,
+        "width": 0.127,
+        "height": 0.133
+      },
+      {
+        "drawing": "old_growth:turret3",
+        "x": -0.267,
+        "y": -0.083,
+        "width": 0.127,
         "height": 0.12
       },
       {
-        "drawing": "old_growth:emitter",
-        "x": 0.12,
-        "y": 0.073,
-        "width": 0.06,
+        "drawing": "old_growth:turret3",
+        "x": 0.267,
+        "y": -0.083,
+        "width": 0.127,
         "height": 0.12
       },
       {
-        "drawing": "old_growth:emitter2",
-        "x": -0.2,
-        "y": 0.18,
-        "width": 0.06,
-        "height": 0.12
-      },
-      {
-        "drawing": "old_growth:emitter2",
-        "x": 0.2,
-        "y": 0.18,
-        "width": 0.06,
-        "height": 0.12
-      },
-      {
-        "drawing": "old_growth:radar",
+        "drawing": "old_growth:turret4",
         "x": -0.047,
-        "y": -0.027,
+        "y": -0.093,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.127
       },
       {
-        "drawing": "old_growth:radar",
+        "drawing": "old_growth:turret4",
         "x": 0.047,
-        "y": -0.027,
+        "y": -0.093,
         "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "old_growth:radar2",
-        "x": -0.187,
-        "y": -0.107,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "old_growth:radar2",
-        "x": 0.187,
-        "y": -0.107,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "old_growth:radar3",
-        "x": -0.273,
-        "y": -0.12,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "old_growth:radar3",
-        "x": 0.273,
-        "y": -0.12,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "old_growth:emitter3",
-        "x": -0.093,
-        "y": -0.12,
-        "width": 0.06,
-        "height": 0.12
-      },
-      {
-        "drawing": "old_growth:emitter3",
-        "x": 0.093,
-        "y": -0.12,
-        "width": 0.06,
-        "height": 0.12
+        "height": 0.127
       }
     ]
   },
@@ -951,8 +881,8 @@
     "note": "3-1: A squat swamp hulk with a wide maw, missile racks and radars.",
     "name": "BOGMAW",
     "drawing": "bogmaw",
-    "width": 0.527,
-    "height": 0.38,
+    "width": 0.513,
+    "height": 0.367,
     "difficulty": 5,
     "attacks": {
       "front": "wave",
@@ -962,60 +892,60 @@
     },
     "parts": [
       {
-        "drawing": "bogmaw:launcher",
-        "x": -0.073,
-        "y": 0.16,
-        "width": 0.047,
-        "height": 0.053
+        "drawing": "bogmaw:sensor",
+        "x": -0.133,
+        "y": -0.093,
+        "width": 0.087,
+        "height": 0.113
       },
       {
-        "drawing": "bogmaw:launcher",
-        "x": 0.073,
-        "y": 0.16,
-        "width": 0.047,
-        "height": 0.053
+        "drawing": "bogmaw:sensor",
+        "x": 0.133,
+        "y": -0.093,
+        "width": 0.087,
+        "height": 0.113
       },
       {
-        "drawing": "bogmaw:radar",
-        "x": -0.1,
-        "y": 0.033,
+        "drawing": "bogmaw:sensor2",
+        "x": -0.22,
+        "y": 0.09,
         "width": 0.06,
-        "height": 0.06
+        "height": 0.067
       },
       {
-        "drawing": "bogmaw:radar",
-        "x": 0.1,
-        "y": 0.033,
+        "drawing": "bogmaw:sensor2",
+        "x": 0.22,
+        "y": 0.09,
         "width": 0.06,
-        "height": 0.06
+        "height": 0.067
       },
       {
-        "drawing": "bogmaw:launcher2",
+        "drawing": "bogmaw:tank",
+        "x": -0.04,
+        "y": -0.13,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "bogmaw:tank",
+        "x": 0.04,
+        "y": -0.13,
+        "width": 0.06,
+        "height": 0.107
+      },
+      {
+        "drawing": "bogmaw:tank2",
         "x": -0.033,
-        "y": -0.007,
-        "width": 0.06,
-        "height": 0.067
+        "y": 0.013,
+        "width": 0.033,
+        "height": 0.047
       },
       {
-        "drawing": "bogmaw:launcher2",
+        "drawing": "bogmaw:tank2",
         "x": 0.033,
-        "y": -0.007,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "bogmaw:radar2",
-        "x": -0.173,
-        "y": 0.073,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "bogmaw:radar2",
-        "x": 0.173,
-        "y": 0.073,
-        "width": 0.06,
-        "height": 0.06
+        "y": 0.013,
+        "width": 0.033,
+        "height": 0.047
       }
     ]
   },
@@ -1023,8 +953,8 @@
     "note": "3-2: A huge, wide marsh barge, its deck a field of flak guns.",
     "name": "MIRELORD",
     "drawing": "mirelord",
-    "width": 0.933,
-    "height": 0.727,
+    "width": 0.913,
+    "height": 0.72,
     "difficulty": 6,
     "attacks": {
       "front": "missiles",
@@ -1034,88 +964,81 @@
     },
     "parts": [
       {
-        "drawing": "mirelord:flak",
-        "x": -0.297,
-        "y": -0.047,
+        "drawing": "mirelord:turret",
+        "x": 0.06,
+        "y": 0.163,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.153
       },
       {
-        "drawing": "mirelord:flak2",
-        "x": -0.197,
-        "y": 0.153,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "mirelord:turret2",
+        "x": -0.047,
+        "y": 0.143,
+        "width": 0.06,
+        "height": 0.18
       },
       {
-        "drawing": "mirelord:flak2",
-        "x": 0.197,
-        "y": 0.153,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "mirelord:turret3",
+        "x": -0.073,
+        "y": 0.0,
+        "width": 0.1,
+        "height": 0.133
       },
       {
-        "drawing": "mirelord:flak3",
-        "x": -0.157,
-        "y": 0.033,
+        "drawing": "mirelord:tank",
+        "x": -0.007,
+        "y": -0.153,
+        "width": 0.047,
+        "height": 0.053
+      },
+      {
+        "drawing": "mirelord:tank2",
+        "x": 0.013,
+        "y": -0.003,
+        "width": 0.06,
+        "height": 0.047
+      },
+      {
+        "drawing": "mirelord:turret4",
+        "x": 0.093,
+        "y": 0.06,
+        "width": 0.073,
+        "height": 0.093
+      },
+      {
+        "drawing": "mirelord:tank3",
+        "x": -0.007,
+        "y": -0.08,
+        "width": 0.073,
+        "height": 0.08
+      },
+      {
+        "drawing": "mirelord:turret5",
+        "x": -0.393,
+        "y": -0.007,
         "width": 0.087,
-        "height": 0.127
+        "height": 0.24
       },
       {
-        "drawing": "mirelord:flak4",
-        "x": -0.45,
-        "y": 0.02,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "mirelord:flak4",
-        "x": 0.45,
-        "y": 0.02,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "mirelord:flak5",
-        "x": -0.21,
-        "y": 0.273,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "mirelord:flak6",
-        "x": -0.083,
-        "y": 0.28,
+        "drawing": "mirelord:turret5",
+        "x": 0.393,
+        "y": -0.007,
         "width": 0.087,
-        "height": 0.127
+        "height": 0.24
       },
       {
-        "drawing": "mirelord:flak7",
-        "x": -0.063,
-        "y": -0.173,
-        "width": 0.087,
-        "height": 0.127
+        "drawing": "mirelord:tank4",
+        "x": -0.387,
+        "y": 0.14,
+        "width": 0.06,
+        "height": 0.067
       },
       {
-        "drawing": "mirelord:flak7",
-        "x": 0.063,
-        "y": -0.173,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "mirelord:flak8",
-        "x": -0.257,
-        "y": -0.167,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "mirelord:flak9",
-        "x": -0.383,
-        "y": 0.187,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "mirelord:tank4",
+        "x": 0.387,
+        "y": 0.14,
+        "width": 0.06,
+        "height": 0.067
       }
     ]
   },
@@ -1123,8 +1046,8 @@
     "note": "3-3: A pale, ghostly ship drifting low, flak guns around two reactors.",
     "name": "FENWRAITH",
     "drawing": "fenwraith",
-    "width": 0.46,
-    "height": 0.427,
+    "width": 0.513,
+    "height": 0.42,
     "difficulty": 7,
     "attacks": {
       "front": "curve",
@@ -1134,60 +1057,46 @@
     },
     "parts": [
       {
-        "drawing": "fenwraith:flak",
-        "x": -0.187,
-        "y": 0.017,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "fenwraith:cannon",
+        "x": -0.213,
+        "y": 0.1,
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "fenwraith:flak",
-        "x": 0.187,
-        "y": 0.017,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "fenwraith:cannon",
+        "x": 0.213,
+        "y": 0.1,
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "fenwraith:reactor",
-        "x": -0.033,
-        "y": 0.043,
+        "drawing": "fenwraith:launcher",
+        "x": -0.053,
+        "y": 0.077,
         "width": 0.06,
-        "height": 0.06
+        "height": 0.16
       },
       {
-        "drawing": "fenwraith:reactor",
-        "x": 0.033,
-        "y": 0.043,
+        "drawing": "fenwraith:launcher",
+        "x": 0.053,
+        "y": 0.077,
         "width": 0.06,
-        "height": 0.06
+        "height": 0.16
       },
       {
-        "drawing": "fenwraith:flak2",
-        "x": -0.027,
-        "y": 0.21,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "fenwraith:cannon2",
+        "x": -0.133,
+        "y": 0.01,
+        "width": 0.1,
+        "height": 0.16
       },
       {
-        "drawing": "fenwraith:flak2",
-        "x": 0.027,
-        "y": 0.21,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "fenwraith:flak3",
-        "x": -0.093,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "fenwraith:flak3",
-        "x": 0.093,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "fenwraith:cannon2",
+        "x": 0.133,
+        "y": 0.01,
+        "width": 0.1,
+        "height": 0.16
       }
     ]
   },
@@ -1195,8 +1104,8 @@
     "note": "3-4: A many-headed warship: cannon, missile and flak heads on long necks.",
     "name": "HYDRA",
     "drawing": "hydra",
-    "width": 0.573,
-    "height": 0.373,
+    "width": 0.567,
+    "height": 0.38,
     "difficulty": 8,
     "attacks": {
       "front": "wave",
@@ -1206,60 +1115,60 @@
     },
     "parts": [
       {
-        "drawing": "hydra:flak",
-        "x": -0.023,
-        "y": -0.023,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "hydra:emitter",
+        "x": 0.033,
+        "y": -0.073,
+        "width": 0.033,
+        "height": 0.073
       },
       {
-        "drawing": "hydra:launcher",
-        "x": -0.243,
-        "y": 0.05,
-        "width": 0.073,
-        "height": 0.08
+        "drawing": "hydra:emitter2",
+        "x": -0.113,
+        "y": 0.027,
+        "width": 0.047,
+        "height": 0.06
       },
       {
-        "drawing": "hydra:launcher2",
-        "x": -0.103,
-        "y": -0.07,
-        "width": 0.06,
-        "height": 0.067
+        "drawing": "hydra:emitter2",
+        "x": 0.113,
+        "y": 0.027,
+        "width": 0.047,
+        "height": 0.06
       },
       {
-        "drawing": "hydra:launcher2",
-        "x": 0.103,
-        "y": -0.07,
-        "width": 0.06,
-        "height": 0.067
+        "drawing": "hydra:emitter3",
+        "x": 0.02,
+        "y": -0.037,
+        "width": 0.047,
+        "height": 0.04
       },
       {
-        "drawing": "hydra:launcher3",
-        "x": -0.143,
-        "y": 0.043,
-        "width": 0.06,
-        "height": 0.067
+        "drawing": "hydra:emitter4",
+        "x": 0.007,
+        "y": -0.01,
+        "width": 0.02,
+        "height": 0.04
       },
       {
-        "drawing": "hydra:cannon",
-        "x": -0.063,
-        "y": 0.15,
-        "width": 0.06,
-        "height": 0.133
+        "drawing": "hydra:emitter5",
+        "x": -0.08,
+        "y": 0.063,
+        "width": 0.02,
+        "height": 0.04
       },
       {
-        "drawing": "hydra:cannon",
-        "x": 0.063,
-        "y": 0.15,
-        "width": 0.06,
-        "height": 0.133
+        "drawing": "hydra:emitter5",
+        "x": 0.08,
+        "y": 0.063,
+        "width": 0.02,
+        "height": 0.04
       },
       {
-        "drawing": "hydra:flak2",
-        "x": -0.15,
-        "y": 0.157,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "hydra:emitter6",
+        "x": -0.04,
+        "y": -0.067,
+        "width": 0.033,
+        "height": 0.06
       }
     ]
   },
@@ -1267,7 +1176,7 @@
     "note": "3-5: A colossal swamp titan, wider than half the screen, studded with radar dishes.",
     "name": "MARSH TITAN",
     "drawing": "marsh_titan",
-    "width": 1.073,
+    "width": 1.087,
     "height": 0.653,
     "difficulty": 9,
     "attacks": {
@@ -1278,88 +1187,88 @@
     },
     "parts": [
       {
-        "drawing": "marsh_titan:radar",
-        "x": -0.06,
-        "y": 0.217,
+        "drawing": "marsh_titan:sensor",
+        "x": -0.073,
+        "y": 0.02,
+        "width": 0.047,
+        "height": 0.08
+      },
+      {
+        "drawing": "marsh_titan:sensor",
+        "x": 0.073,
+        "y": 0.02,
+        "width": 0.047,
+        "height": 0.08
+      },
+      {
+        "drawing": "marsh_titan:sensor2",
+        "x": -0.047,
+        "y": -0.097,
+        "width": 0.047,
+        "height": 0.127
+      },
+      {
+        "drawing": "marsh_titan:sensor2",
+        "x": 0.047,
+        "y": -0.097,
+        "width": 0.047,
+        "height": 0.127
+      },
+      {
+        "drawing": "marsh_titan:sensor3",
+        "x": -0.147,
+        "y": -0.19,
         "width": 0.087,
-        "height": 0.087
+        "height": 0.127
       },
       {
-        "drawing": "marsh_titan:radar",
-        "x": 0.06,
-        "y": 0.217,
+        "drawing": "marsh_titan:sensor3",
+        "x": 0.147,
+        "y": -0.19,
         "width": 0.087,
-        "height": 0.087
+        "height": 0.127
       },
       {
-        "drawing": "marsh_titan:radar2",
-        "x": -0.4,
-        "y": -0.07,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "marsh_titan:sensor4",
+        "x": -0.367,
+        "y": -0.027,
+        "width": 0.06,
+        "height": 0.067
       },
       {
-        "drawing": "marsh_titan:radar2",
-        "x": 0.4,
-        "y": -0.07,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "marsh_titan:sensor4",
+        "x": 0.367,
+        "y": -0.027,
+        "width": 0.06,
+        "height": 0.067
       },
       {
-        "drawing": "marsh_titan:radar3",
-        "x": -0.24,
-        "y": -0.03,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "marsh_titan:sensor5",
+        "x": -0.027,
+        "y": 0.073,
+        "width": 0.047,
+        "height": 0.107
       },
       {
-        "drawing": "marsh_titan:radar3",
-        "x": 0.24,
-        "y": -0.03,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "marsh_titan:sensor5",
+        "x": 0.027,
+        "y": 0.073,
+        "width": 0.047,
+        "height": 0.107
       },
       {
-        "drawing": "marsh_titan:radar4",
-        "x": -0.1,
-        "y": -0.157,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "marsh_titan:sensor6",
+        "x": -0.273,
+        "y": 0.23,
+        "width": 0.06,
+        "height": 0.06
       },
       {
-        "drawing": "marsh_titan:radar4",
-        "x": 0.1,
-        "y": -0.157,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "marsh_titan:radar5",
-        "x": -0.207,
-        "y": 0.123,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "marsh_titan:radar5",
-        "x": 0.207,
-        "y": 0.123,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "marsh_titan:radar6",
-        "x": -0.373,
-        "y": 0.117,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "marsh_titan:radar6",
-        "x": 0.373,
-        "y": 0.117,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "marsh_titan:sensor6",
+        "x": 0.273,
+        "y": 0.23,
+        "width": 0.06,
+        "height": 0.06
       }
     ]
   },
@@ -1368,7 +1277,7 @@
     "name": "DROWNED KING",
     "drawing": "drowned_king",
     "width": 0.567,
-    "height": 0.433,
+    "height": 0.42,
     "difficulty": 10,
     "attacks": {
       "front": "curve",
@@ -1378,74 +1287,74 @@
     },
     "parts": [
       {
-        "drawing": "drowned_king:gatling",
-        "x": -0.087,
-        "y": -0.047,
-        "width": 0.06,
-        "height": 0.107
-      },
-      {
-        "drawing": "drowned_king:gatling",
-        "x": 0.087,
-        "y": -0.047,
-        "width": 0.06,
-        "height": 0.107
-      },
-      {
-        "drawing": "drowned_king:radar",
-        "x": -0.14,
-        "y": -0.16,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "drowned_king:radar",
-        "x": 0.14,
-        "y": -0.16,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "drowned_king:radar2",
-        "x": -0.087,
-        "y": 0.073,
+        "drawing": "drowned_king:tank",
+        "x": -0.2,
+        "y": -0.133,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.047
       },
       {
-        "drawing": "drowned_king:radar2",
-        "x": 0.087,
-        "y": 0.073,
+        "drawing": "drowned_king:tank",
+        "x": 0.2,
+        "y": -0.133,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.047
       },
       {
-        "drawing": "drowned_king:radar3",
+        "drawing": "drowned_king:turret",
+        "x": -0.053,
+        "y": 0.08,
+        "width": 0.087,
+        "height": 0.207
+      },
+      {
+        "drawing": "drowned_king:turret",
+        "x": 0.053,
+        "y": 0.08,
+        "width": 0.087,
+        "height": 0.207
+      },
+      {
+        "drawing": "drowned_king:tank2",
+        "x": -0.12,
+        "y": -0.08,
+        "width": 0.06,
+        "height": 0.047
+      },
+      {
+        "drawing": "drowned_king:tank2",
+        "x": 0.12,
+        "y": -0.08,
+        "width": 0.06,
+        "height": 0.047
+      },
+      {
+        "drawing": "drowned_king:tank3",
         "x": -0.187,
-        "y": 0.007,
-        "width": 0.073,
-        "height": 0.073
+        "y": 0.127,
+        "width": 0.06,
+        "height": 0.1
       },
       {
-        "drawing": "drowned_king:radar3",
+        "drawing": "drowned_king:tank3",
         "x": 0.187,
-        "y": 0.007,
-        "width": 0.073,
-        "height": 0.073
+        "y": 0.127,
+        "width": 0.06,
+        "height": 0.1
       },
       {
-        "drawing": "drowned_king:radar4",
-        "x": -0.227,
-        "y": -0.193,
+        "drawing": "drowned_king:tank4",
+        "x": -0.053,
+        "y": -0.123,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.053
       },
       {
-        "drawing": "drowned_king:radar4",
-        "x": 0.227,
-        "y": -0.193,
+        "drawing": "drowned_king:tank4",
+        "x": 0.053,
+        "y": -0.123,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.053
       }
     ]
   },
@@ -1453,8 +1362,8 @@
     "note": "4-1: A gaunt cross-shaped ship with ragged wings, reactors glowing like eyes.",
     "name": "SCARECROW",
     "drawing": "scarecrow",
-    "width": 0.633,
-    "height": 0.387,
+    "width": 0.647,
+    "height": 0.4,
     "difficulty": 7,
     "attacks": {
       "front": "pellets",
@@ -1464,74 +1373,60 @@
     },
     "parts": [
       {
-        "drawing": "scarecrow:reactor",
-        "x": -0.227,
-        "y": 0.103,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "scarecrow:sensor",
+        "x": -0.027,
+        "y": -0.1,
+        "width": 0.1,
+        "height": 0.067
       },
       {
-        "drawing": "scarecrow:reactor2",
-        "x": -0.047,
-        "y": 0.15,
+        "drawing": "scarecrow:tank",
+        "x": -0.16,
+        "y": -0.033,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.08
       },
       {
-        "drawing": "scarecrow:reactor3",
-        "x": -0.033,
-        "y": -0.07,
+        "drawing": "scarecrow:tank",
+        "x": 0.16,
+        "y": -0.033,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.08
       },
       {
-        "drawing": "scarecrow:reactor4",
-        "x": -0.12,
-        "y": 0.023,
+        "drawing": "scarecrow:sensor2",
+        "x": 0.06,
+        "y": -0.013,
+        "width": 0.06,
+        "height": 0.04
+      },
+      {
+        "drawing": "scarecrow:tank2",
+        "x": 0.007,
+        "y": 0.043,
         "width": 0.087,
+        "height": 0.1
+      },
+      {
+        "drawing": "scarecrow:sensor3",
+        "x": -0.06,
+        "y": 0.033,
+        "width": 0.033,
+        "height": 0.067
+      },
+      {
+        "drawing": "scarecrow:tank3",
+        "x": -0.24,
+        "y": -0.037,
+        "width": 0.127,
         "height": 0.087
       },
       {
-        "drawing": "scarecrow:reactor4",
-        "x": 0.12,
-        "y": 0.023,
-        "width": 0.087,
+        "drawing": "scarecrow:tank3",
+        "x": 0.24,
+        "y": -0.037,
+        "width": 0.127,
         "height": 0.087
-      },
-      {
-        "drawing": "scarecrow:reactor5",
-        "x": -0.127,
-        "y": 0.13,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "scarecrow:reactor6",
-        "x": -0.04,
-        "y": 0.01,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "scarecrow:reactor6",
-        "x": 0.04,
-        "y": 0.01,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "scarecrow:reactor7",
-        "x": -0.133,
-        "y": -0.07,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "scarecrow:reactor8",
-        "x": -0.307,
-        "y": 0.077,
-        "width": 0.073,
-        "height": 0.073
       }
     ]
   },
@@ -1539,8 +1434,8 @@
     "note": "4-2: A giant harvesting combine with a wide reaper bar and reactors along its body.",
     "name": "COMBINE",
     "drawing": "combine",
-    "width": 0.673,
-    "height": 0.387,
+    "width": 0.687,
+    "height": 0.36,
     "difficulty": 8,
     "attacks": {
       "front": "fan",
@@ -1550,73 +1445,73 @@
     },
     "parts": [
       {
-        "drawing": "combine:reactor",
-        "x": -0.187,
-        "y": -0.003,
-        "width": 0.073,
+        "drawing": "combine:emitter",
+        "x": -0.087,
+        "y": -0.073,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "combine:emitter",
+        "x": 0.087,
+        "y": -0.073,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "combine:turret",
+        "x": -0.273,
+        "y": -0.073,
+        "width": 0.113,
+        "height": 0.173
+      },
+      {
+        "drawing": "combine:turret",
+        "x": 0.273,
+        "y": -0.073,
+        "width": 0.113,
+        "height": 0.173
+      },
+      {
+        "drawing": "combine:turret2",
+        "x": -0.047,
+        "y": 0.017,
+        "width": 0.047,
+        "height": 0.127
+      },
+      {
+        "drawing": "combine:turret2",
+        "x": 0.047,
+        "y": 0.017,
+        "width": 0.047,
+        "height": 0.127
+      },
+      {
+        "drawing": "combine:turret3",
+        "x": -0.227,
+        "y": 0.037,
+        "width": 0.127,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:turret3",
+        "x": 0.227,
+        "y": 0.037,
+        "width": 0.127,
+        "height": 0.087
+      },
+      {
+        "drawing": "combine:tank",
+        "x": -0.04,
+        "y": -0.103,
+        "width": 0.06,
         "height": 0.073
       },
       {
-        "drawing": "combine:reactor",
-        "x": 0.187,
-        "y": -0.003,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "combine:reactor2",
-        "x": -0.053,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "combine:reactor2",
-        "x": 0.053,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "combine:reactor3",
-        "x": -0.313,
-        "y": 0.05,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "combine:reactor3",
-        "x": 0.313,
-        "y": 0.05,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "combine:reactor4",
-        "x": -0.12,
-        "y": 0.117,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "combine:reactor4",
-        "x": 0.12,
-        "y": 0.117,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "combine:reactor5",
-        "x": -0.233,
-        "y": 0.163,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "combine:reactor5",
-        "x": 0.233,
-        "y": 0.163,
-        "width": 0.073,
+        "drawing": "combine:tank",
+        "x": 0.04,
+        "y": -0.103,
+        "width": 0.06,
         "height": 0.073
       }
     ]
@@ -1625,7 +1520,7 @@
     "note": "4-3: A swarm mother with long locust wings, reactors, missile racks and radars.",
     "name": "LOCUST",
     "drawing": "locust",
-    "width": 1.073,
+    "width": 1.1,
     "height": 0.6,
     "difficulty": 9,
     "attacks": {
@@ -1636,88 +1531,88 @@
     },
     "parts": [
       {
-        "drawing": "locust:radar",
-        "x": -0.227,
-        "y": -0.11,
+        "drawing": "locust:turret",
+        "x": -0.193,
+        "y": -0.007,
         "width": 0.1,
-        "height": 0.1
+        "height": 0.2
       },
       {
-        "drawing": "locust:radar",
-        "x": 0.227,
-        "y": -0.11,
+        "drawing": "locust:turret",
+        "x": 0.193,
+        "y": -0.007,
         "width": 0.1,
-        "height": 0.1
+        "height": 0.2
       },
       {
-        "drawing": "locust:launcher",
-        "x": -0.513,
-        "y": -0.09,
-        "width": 0.1,
-        "height": 0.107
-      },
-      {
-        "drawing": "locust:launcher",
-        "x": 0.513,
-        "y": -0.09,
-        "width": 0.1,
-        "height": 0.107
-      },
-      {
-        "drawing": "locust:reactor",
-        "x": -0.153,
-        "y": 0.077,
+        "drawing": "locust:turret2",
+        "x": -0.4,
+        "y": 0.033,
         "width": 0.113,
-        "height": 0.113
+        "height": 0.187
       },
       {
-        "drawing": "locust:reactor",
-        "x": 0.153,
-        "y": 0.077,
+        "drawing": "locust:turret2",
+        "x": 0.4,
+        "y": 0.033,
         "width": 0.113,
-        "height": 0.113
+        "height": 0.187
       },
       {
-        "drawing": "locust:reactor2",
-        "x": -0.18,
-        "y": 0.23,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "locust:tank",
+        "x": -0.3,
+        "y": 0.013,
+        "width": 0.073,
+        "height": 0.08
       },
       {
-        "drawing": "locust:reactor2",
-        "x": 0.18,
-        "y": 0.23,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "locust:tank",
+        "x": 0.3,
+        "y": 0.013,
+        "width": 0.073,
+        "height": 0.08
       },
       {
-        "drawing": "locust:reactor3",
-        "x": -0.373,
-        "y": 0.163,
-        "width": 0.113,
-        "height": 0.113
+        "drawing": "locust:turret3",
+        "x": -0.08,
+        "y": 0.123,
+        "width": 0.127,
+        "height": 0.22
       },
       {
-        "drawing": "locust:reactor3",
-        "x": 0.373,
-        "y": 0.163,
-        "width": 0.113,
-        "height": 0.113
+        "drawing": "locust:turret3",
+        "x": 0.08,
+        "y": 0.123,
+        "width": 0.127,
+        "height": 0.22
       },
       {
-        "drawing": "locust:reactor4",
-        "x": -0.027,
-        "y": -0.163,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "locust:tank2",
+        "x": -0.033,
+        "y": -0.137,
+        "width": 0.06,
+        "height": 0.087
       },
       {
-        "drawing": "locust:reactor4",
-        "x": 0.027,
-        "y": -0.163,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "locust:tank2",
+        "x": 0.033,
+        "y": -0.137,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "locust:turret4",
+        "x": -0.127,
+        "y": -0.077,
+        "width": 0.06,
+        "height": 0.14
+      },
+      {
+        "drawing": "locust:turret4",
+        "x": 0.127,
+        "y": -0.077,
+        "width": 0.06,
+        "height": 0.14
       }
     ]
   },
@@ -1725,8 +1620,8 @@
     "note": "4-4: A flying grain silo complex with radars, beam emitters and reactors.",
     "name": "GRANARY",
     "drawing": "granary",
-    "width": 0.873,
-    "height": 0.613,
+    "width": 0.847,
+    "height": 0.627,
     "difficulty": 10,
     "attacks": {
       "front": "cluster",
@@ -1736,88 +1631,88 @@
     },
     "parts": [
       {
-        "drawing": "granary:radar",
-        "x": -0.16,
+        "drawing": "granary:cannon",
+        "x": -0.213,
         "y": -0.057,
-        "width": 0.073,
-        "height": 0.073
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "granary:radar",
-        "x": 0.16,
+        "drawing": "granary:cannon",
+        "x": 0.213,
         "y": -0.057,
-        "width": 0.073,
-        "height": 0.073
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "granary:emitter",
-        "x": -0.033,
-        "y": 0.103,
+        "drawing": "granary:cannon2",
+        "x": -0.267,
+        "y": 0.07,
+        "width": 0.06,
+        "height": 0.127
+      },
+      {
+        "drawing": "granary:cannon2",
+        "x": 0.267,
+        "y": 0.07,
+        "width": 0.06,
+        "height": 0.127
+      },
+      {
+        "drawing": "granary:cannon3",
+        "x": -0.127,
+        "y": 0.02,
         "width": 0.087,
-        "height": 0.173
+        "height": 0.16
       },
       {
-        "drawing": "granary:emitter",
-        "x": 0.033,
-        "y": 0.103,
+        "drawing": "granary:cannon3",
+        "x": 0.127,
+        "y": 0.02,
         "width": 0.087,
-        "height": 0.173
+        "height": 0.16
       },
       {
-        "drawing": "granary:reactor",
-        "x": -0.22,
-        "y": 0.177,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "granary:cannon4",
+        "x": -0.26,
+        "y": -0.177,
+        "width": 0.1,
+        "height": 0.207
       },
       {
-        "drawing": "granary:reactor",
-        "x": 0.22,
-        "y": 0.177,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "granary:cannon4",
+        "x": 0.26,
+        "y": -0.177,
+        "width": 0.1,
+        "height": 0.207
       },
       {
-        "drawing": "granary:radar2",
-        "x": -0.233,
-        "y": 0.297,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "granary:cannon5",
+        "x": -0.107,
+        "y": -0.09,
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "granary:radar2",
-        "x": 0.233,
-        "y": 0.297,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "granary:cannon5",
+        "x": 0.107,
+        "y": -0.09,
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "granary:reactor2",
-        "x": -0.2,
-        "y": -0.203,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "granary:cannon6",
+        "x": -0.047,
+        "y": 0.163,
+        "width": 0.06,
+        "height": 0.127
       },
       {
-        "drawing": "granary:reactor2",
-        "x": 0.2,
-        "y": -0.203,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "granary:emitter2",
-        "x": -0.387,
-        "y": 0.077,
-        "width": 0.073,
-        "height": 0.147
-      },
-      {
-        "drawing": "granary:emitter2",
-        "x": 0.387,
-        "y": 0.077,
-        "width": 0.073,
-        "height": 0.147
+        "drawing": "granary:cannon6",
+        "x": 0.047,
+        "y": 0.163,
+        "width": 0.06,
+        "height": 0.127
       }
     ]
   },
@@ -1825,8 +1720,8 @@
     "note": "4-5: A wide harrow ship dragging its tines, turrets on its frame and a big cannon.",
     "name": "HARROWMASTER",
     "drawing": "harrowmaster",
-    "width": 0.687,
-    "height": 0.42,
+    "width": 0.647,
+    "height": 0.44,
     "difficulty": 11,
     "attacks": {
       "front": "accel",
@@ -1836,74 +1731,74 @@
     },
     "parts": [
       {
-        "drawing": "harrowmaster:turret",
-        "x": -0.073,
-        "y": 0.167,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "harrowmaster:turret2",
-        "x": -0.187,
-        "y": -0.033,
+        "drawing": "harrowmaster:emitter",
+        "x": -0.08,
+        "y": 0.09,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.06
       },
       {
-        "drawing": "harrowmaster:turret3",
-        "x": -0.073,
-        "y": 0.0,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "harrowmaster:turret3",
-        "x": 0.073,
-        "y": 0.0,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "harrowmaster:turret4",
-        "x": -0.073,
-        "y": -0.14,
+        "drawing": "harrowmaster:emitter",
+        "x": 0.08,
+        "y": 0.09,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.06
       },
       {
-        "drawing": "harrowmaster:turret4",
-        "x": 0.073,
-        "y": -0.14,
+        "drawing": "harrowmaster:sensor",
+        "x": 0.06,
+        "y": 0.007,
+        "width": 0.047,
+        "height": 0.08
+      },
+      {
+        "drawing": "harrowmaster:sensor2",
+        "x": -0.027,
+        "y": 0.133,
+        "width": 0.087,
+        "height": 0.067
+      },
+      {
+        "drawing": "harrowmaster:sensor3",
+        "x": -0.013,
+        "y": 0.023,
+        "width": 0.06,
+        "height": 0.033
+      },
+      {
+        "drawing": "harrowmaster:emitter2",
+        "x": 0.027,
+        "y": -0.113,
+        "width": 0.06,
+        "height": 0.093
+      },
+      {
+        "drawing": "harrowmaster:emitter3",
+        "x": -0.193,
+        "y": 0.02,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "harrowmaster:emitter3",
+        "x": 0.193,
+        "y": 0.02,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "harrowmaster:emitter4",
+        "x": -0.04,
+        "y": -0.063,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.06
       },
       {
-        "drawing": "harrowmaster:turret5",
-        "x": -0.213,
+        "drawing": "harrowmaster:sensor4",
+        "x": -0.007,
         "y": 0.067,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "harrowmaster:turret5",
-        "x": 0.213,
-        "y": 0.067,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "harrowmaster:cannon",
-        "x": -0.3,
-        "y": -0.08,
         "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "harrowmaster:turret6",
-        "x": -0.16,
-        "y": 0.153,
-        "width": 0.073,
-        "height": 0.107
+        "height": 0.053
       }
     ]
   },
@@ -1911,8 +1806,8 @@
     "note": "4-6: A black reaper ship with a long scythe wing and rows of reactors.",
     "name": "BLACK HARVEST",
     "drawing": "black_harvest",
-    "width": 0.78,
-    "height": 0.38,
+    "width": 0.767,
+    "height": 0.367,
     "difficulty": 12,
     "attacks": {
       "front": "curve",
@@ -1922,88 +1817,88 @@
     },
     "parts": [
       {
-        "drawing": "black_harvest:reactor",
-        "x": -0.04,
-        "y": 0.16,
+        "drawing": "black_harvest:cannon",
+        "x": -0.1,
+        "y": -0.053,
+        "width": 0.113,
+        "height": 0.207
+      },
+      {
+        "drawing": "black_harvest:cannon",
+        "x": 0.1,
+        "y": -0.053,
+        "width": 0.113,
+        "height": 0.207
+      },
+      {
+        "drawing": "black_harvest:cannon2",
+        "x": -0.307,
+        "y": -0.023,
+        "width": 0.06,
+        "height": 0.16
+      },
+      {
+        "drawing": "black_harvest:cannon2",
+        "x": 0.307,
+        "y": -0.023,
+        "width": 0.06,
+        "height": 0.16
+      },
+      {
+        "drawing": "black_harvest:cannon3",
+        "x": -0.187,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.207
+      },
+      {
+        "drawing": "black_harvest:cannon3",
+        "x": 0.187,
+        "y": 0.073,
+        "width": 0.06,
+        "height": 0.207
+      },
+      {
+        "drawing": "black_harvest:cannon4",
+        "x": -0.053,
+        "y": 0.053,
         "width": 0.087,
-        "height": 0.087
+        "height": 0.127
       },
       {
-        "drawing": "black_harvest:reactor",
-        "x": 0.04,
-        "y": 0.16,
+        "drawing": "black_harvest:cannon4",
+        "x": 0.053,
+        "y": 0.053,
         "width": 0.087,
-        "height": 0.087
+        "height": 0.127
       },
       {
-        "drawing": "black_harvest:reactor2",
-        "x": -0.347,
-        "y": 0.147,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "black_harvest:cannon5",
+        "x": -0.027,
+        "y": -0.08,
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "black_harvest:reactor2",
-        "x": 0.347,
-        "y": 0.147,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "black_harvest:cannon5",
+        "x": 0.027,
+        "y": -0.08,
+        "width": 0.047,
+        "height": 0.127
       },
       {
-        "drawing": "black_harvest:reactor3",
-        "x": -0.127,
-        "y": -0.073,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "black_harvest:reactor3",
-        "x": 0.127,
-        "y": -0.073,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "black_harvest:reactor4",
-        "x": -0.153,
-        "y": 0.167,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "black_harvest:reactor4",
-        "x": 0.153,
-        "y": 0.167,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "black_harvest:reactor5",
-        "x": -0.207,
-        "y": 0.04,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "black_harvest:reactor5",
-        "x": 0.207,
-        "y": 0.04,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "black_harvest:reactor6",
-        "x": -0.067,
+        "drawing": "black_harvest:cannon6",
+        "x": -0.253,
         "y": 0.047,
-        "width": 0.073,
-        "height": 0.073
+        "width": 0.06,
+        "height": 0.167
       },
       {
-        "drawing": "black_harvest:reactor6",
-        "x": 0.067,
+        "drawing": "black_harvest:cannon6",
+        "x": 0.253,
         "y": 0.047,
-        "width": 0.073,
-        "height": 0.073
+        "width": 0.06,
+        "height": 0.167
       }
     ]
   },
@@ -2011,7 +1906,7 @@
     "note": "5-1: A whirling vortex ship ringed with gatlings and reactors.",
     "name": "MAELSTROM",
     "drawing": "maelstrom",
-    "width": 0.833,
+    "width": 0.86,
     "height": 0.54,
     "difficulty": 9,
     "attacks": {
@@ -2022,88 +1917,88 @@
     },
     "parts": [
       {
-        "drawing": "maelstrom:gatling",
-        "x": -0.32,
-        "y": -0.133,
-        "width": 0.073,
-        "height": 0.127
+        "drawing": "maelstrom:tank",
+        "x": -0.067,
+        "y": 0.073,
+        "width": 0.033,
+        "height": 0.06
       },
       {
-        "drawing": "maelstrom:gatling",
-        "x": 0.32,
-        "y": -0.133,
-        "width": 0.073,
-        "height": 0.127
+        "drawing": "maelstrom:tank",
+        "x": 0.067,
+        "y": 0.073,
+        "width": 0.033,
+        "height": 0.06
       },
       {
-        "drawing": "maelstrom:reactor",
+        "drawing": "maelstrom:turret",
+        "x": -0.347,
+        "y": 0.123,
+        "width": 0.087,
+        "height": 0.133
+      },
+      {
+        "drawing": "maelstrom:turret",
+        "x": 0.347,
+        "y": 0.123,
+        "width": 0.087,
+        "height": 0.133
+      },
+      {
+        "drawing": "maelstrom:launcher",
+        "x": -0.073,
+        "y": -0.17,
+        "width": 0.087,
+        "height": 0.16
+      },
+      {
+        "drawing": "maelstrom:launcher",
+        "x": 0.073,
+        "y": -0.17,
+        "width": 0.087,
+        "height": 0.16
+      },
+      {
+        "drawing": "maelstrom:turret2",
         "x": -0.04,
-        "y": 0.0,
-        "width": 0.087,
-        "height": 0.087
+        "y": -0.043,
+        "width": 0.073,
+        "height": 0.147
       },
       {
-        "drawing": "maelstrom:reactor",
+        "drawing": "maelstrom:turret2",
         "x": 0.04,
-        "y": 0.0,
-        "width": 0.087,
-        "height": 0.087
+        "y": -0.043,
+        "width": 0.073,
+        "height": 0.147
       },
       {
-        "drawing": "maelstrom:gatling2",
-        "x": -0.2,
-        "y": 0.02,
+        "drawing": "maelstrom:tank2",
+        "x": -0.16,
+        "y": 0.013,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "maelstrom:tank2",
+        "x": 0.16,
+        "y": 0.013,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "maelstrom:turret3",
+        "x": -0.133,
+        "y": -0.107,
         "width": 0.073,
         "height": 0.127
       },
       {
-        "drawing": "maelstrom:gatling2",
-        "x": 0.2,
-        "y": 0.02,
+        "drawing": "maelstrom:turret3",
+        "x": 0.133,
+        "y": -0.107,
         "width": 0.073,
         "height": 0.127
-      },
-      {
-        "drawing": "maelstrom:reactor2",
-        "x": -0.087,
-        "y": -0.16,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "maelstrom:reactor2",
-        "x": 0.087,
-        "y": -0.16,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "maelstrom:gatling3",
-        "x": -0.06,
-        "y": 0.12,
-        "width": 0.06,
-        "height": 0.107
-      },
-      {
-        "drawing": "maelstrom:gatling3",
-        "x": 0.06,
-        "y": 0.12,
-        "width": 0.06,
-        "height": 0.107
-      },
-      {
-        "drawing": "maelstrom:reactor3",
-        "x": -0.193,
-        "y": -0.14,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "maelstrom:reactor3",
-        "x": 0.193,
-        "y": -0.14,
-        "width": 0.1,
-        "height": 0.1
       }
     ]
   },
@@ -2112,7 +2007,7 @@
     "name": "MAN O' WAR",
     "drawing": "man_o_war",
     "width": 0.633,
-    "height": 0.447,
+    "height": 0.42,
     "difficulty": 10,
     "attacks": {
       "front": "missiles",
@@ -2122,74 +2017,74 @@
     },
     "parts": [
       {
-        "drawing": "man_o_war:emitter",
-        "x": -0.053,
-        "y": -0.08,
-        "width": 0.06,
-        "height": 0.12
-      },
-      {
-        "drawing": "man_o_war:emitter",
-        "x": 0.053,
-        "y": -0.08,
-        "width": 0.06,
-        "height": 0.12
-      },
-      {
-        "drawing": "man_o_war:cannon",
-        "x": -0.247,
-        "y": -0.08,
+        "drawing": "man_o_war:launcher",
+        "x": -0.253,
+        "y": 0.053,
         "width": 0.073,
-        "height": 0.167
+        "height": 0.153
       },
       {
-        "drawing": "man_o_war:cannon",
-        "x": 0.247,
-        "y": -0.08,
+        "drawing": "man_o_war:launcher",
+        "x": 0.253,
+        "y": 0.053,
         "width": 0.073,
-        "height": 0.167
+        "height": 0.153
       },
       {
-        "drawing": "man_o_war:cannon2",
-        "x": -0.187,
-        "y": 0.073,
+        "drawing": "man_o_war:sensor",
+        "x": -0.073,
+        "y": 0.067,
         "width": 0.06,
-        "height": 0.133
+        "height": 0.047
       },
       {
-        "drawing": "man_o_war:cannon2",
-        "x": 0.187,
-        "y": 0.073,
+        "drawing": "man_o_war:sensor",
+        "x": 0.073,
+        "y": 0.067,
         "width": 0.06,
-        "height": 0.133
+        "height": 0.047
       },
       {
-        "drawing": "man_o_war:cannon3",
-        "x": -0.14,
-        "y": 0.18,
-        "width": 0.073,
-        "height": 0.167
+        "drawing": "man_o_war:turret",
+        "x": -0.12,
+        "y": -0.057,
+        "width": 0.1,
+        "height": 0.173
       },
       {
-        "drawing": "man_o_war:cannon3",
-        "x": 0.14,
-        "y": 0.18,
-        "width": 0.073,
-        "height": 0.167
+        "drawing": "man_o_war:turret",
+        "x": 0.12,
+        "y": -0.057,
+        "width": 0.1,
+        "height": 0.173
       },
       {
-        "drawing": "man_o_war:emitter2",
+        "drawing": "man_o_war:launcher2",
+        "x": -0.147,
+        "y": 0.047,
+        "width": 0.113,
+        "height": 0.153
+      },
+      {
+        "drawing": "man_o_war:launcher2",
+        "x": 0.147,
+        "y": 0.047,
+        "width": 0.113,
+        "height": 0.153
+      },
+      {
+        "drawing": "man_o_war:turret2",
         "x": -0.04,
-        "y": 0.18,
-        "width": 0.073,
-        "height": 0.147
+        "y": -0.05,
+        "width": 0.06,
+        "height": 0.133
       },
       {
-        "drawing": "man_o_war:emitter2",
+        "drawing": "man_o_war:turret2",
         "x": 0.04,
-        "y": 0.18,
-        "width": 0.073,
-        "height": 0.147
+        "y": -0.05,
+        "width": 0.06,
+        "height": 0.133
       }
     ]
   },
@@ -2197,7 +2092,7 @@
     "note": "5-3: A wide storm carrier, a wall of cannons along its front.",
     "name": "TYPHOON",
     "drawing": "typhoon",
-    "width": 1.007,
+    "width": 1.02,
     "height": 0.613,
     "difficulty": 11,
     "attacks": {
@@ -2208,88 +2103,88 @@
     },
     "parts": [
       {
-        "drawing": "typhoon:cannon",
-        "x": -0.373,
-        "y": 0.257,
-        "width": 0.087,
-        "height": 0.2
+        "drawing": "typhoon:launcher",
+        "x": -0.133,
+        "y": -0.057,
+        "width": 0.06,
+        "height": 0.113
       },
       {
-        "drawing": "typhoon:cannon",
-        "x": 0.373,
-        "y": 0.257,
-        "width": 0.087,
-        "height": 0.2
+        "drawing": "typhoon:launcher",
+        "x": 0.133,
+        "y": -0.057,
+        "width": 0.06,
+        "height": 0.113
       },
       {
-        "drawing": "typhoon:turret",
-        "x": -0.22,
-        "y": -0.03,
+        "drawing": "typhoon:sensor",
+        "x": -0.047,
+        "y": 0.007,
+        "width": 0.06,
+        "height": 0.053
+      },
+      {
+        "drawing": "typhoon:sensor",
+        "x": 0.047,
+        "y": 0.007,
+        "width": 0.06,
+        "height": 0.053
+      },
+      {
+        "drawing": "typhoon:sensor2",
+        "x": -0.033,
+        "y": -0.167,
+        "width": 0.06,
+        "height": 0.053
+      },
+      {
+        "drawing": "typhoon:sensor2",
+        "x": 0.033,
+        "y": -0.167,
+        "width": 0.06,
+        "height": 0.053
+      },
+      {
+        "drawing": "typhoon:launcher2",
+        "x": -0.207,
+        "y": 0.043,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.153
       },
       {
-        "drawing": "typhoon:turret",
-        "x": 0.22,
-        "y": -0.03,
+        "drawing": "typhoon:launcher2",
+        "x": 0.207,
+        "y": 0.043,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.153
       },
       {
-        "drawing": "typhoon:cannon2",
-        "x": -0.28,
-        "y": -0.27,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "typhoon:cannon2",
-        "x": 0.28,
-        "y": -0.27,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "typhoon:cannon3",
-        "x": -0.073,
-        "y": -0.083,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "typhoon:cannon3",
-        "x": 0.073,
-        "y": -0.083,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "typhoon:cannon4",
-        "x": -0.08,
-        "y": 0.07,
+        "drawing": "typhoon:launcher3",
+        "x": -0.333,
+        "y": 0.033,
         "width": 0.087,
-        "height": 0.2
+        "height": 0.067
       },
       {
-        "drawing": "typhoon:cannon4",
-        "x": 0.08,
-        "y": 0.07,
+        "drawing": "typhoon:launcher3",
+        "x": 0.333,
+        "y": 0.033,
         "width": 0.087,
-        "height": 0.2
+        "height": 0.067
       },
       {
-        "drawing": "typhoon:cannon5",
-        "x": -0.213,
-        "y": 0.143,
-        "width": 0.087,
-        "height": 0.2
+        "drawing": "typhoon:launcher4",
+        "x": -0.1,
+        "y": 0.12,
+        "width": 0.047,
+        "height": 0.04
       },
       {
-        "drawing": "typhoon:cannon5",
-        "x": 0.213,
-        "y": 0.143,
-        "width": 0.087,
-        "height": 0.2
+        "drawing": "typhoon:launcher4",
+        "x": 0.1,
+        "y": 0.12,
+        "width": 0.047,
+        "height": 0.04
       }
     ]
   },
@@ -2297,8 +2192,8 @@
     "note": "5-4: A towering wave-shaped ship, reactors in its crest and gatlings below.",
     "name": "TSUNAMI",
     "drawing": "tsunami",
-    "width": 0.767,
-    "height": 0.74,
+    "width": 0.7,
+    "height": 0.733,
     "difficulty": 12,
     "attacks": {
       "front": "wave",
@@ -2308,88 +2203,81 @@
     },
     "parts": [
       {
-        "drawing": "tsunami:reactor",
-        "x": -0.12,
-        "y": -0.24,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "tsunami:gatling",
-        "x": -0.093,
-        "y": 0.113,
-        "width": 0.06,
+        "drawing": "tsunami:turret",
+        "x": -0.053,
+        "y": -0.207,
+        "width": 0.073,
         "height": 0.107
       },
       {
-        "drawing": "tsunami:reactor2",
-        "x": -0.373,
-        "y": -0.133,
+        "drawing": "tsunami:turret",
+        "x": 0.053,
+        "y": -0.207,
         "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "tsunami:reactor2",
-        "x": 0.373,
-        "y": -0.133,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "tsunami:reactor3",
-        "x": -0.22,
-        "y": -0.267,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "tsunami:reactor3",
-        "x": 0.22,
-        "y": -0.267,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "tsunami:reactor4",
-        "x": -0.04,
-        "y": -0.02,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "tsunami:reactor4",
-        "x": 0.04,
-        "y": -0.02,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "tsunami:gatling2",
-        "x": -0.173,
-        "y": -0.113,
-        "width": 0.06,
         "height": 0.107
       },
       {
-        "drawing": "tsunami:reactor5",
-        "x": -0.227,
-        "y": 0.08,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "tsunami:tank",
+        "x": -0.047,
+        "y": -0.02,
+        "width": 0.06,
+        "height": 0.08
       },
       {
-        "drawing": "tsunami:reactor6",
-        "x": -0.027,
-        "y": 0.3,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "tsunami:tank",
+        "x": 0.047,
+        "y": -0.02,
+        "width": 0.06,
+        "height": 0.08
       },
       {
-        "drawing": "tsunami:gatling3",
-        "x": -0.073,
-        "y": -0.347,
+        "drawing": "tsunami:tank2",
+        "x": 0.06,
+        "y": -0.1,
+        "width": 0.073,
+        "height": 0.067
+      },
+      {
+        "drawing": "tsunami:tank3",
+        "x": -0.133,
+        "y": -0.107,
+        "width": 0.06,
+        "height": 0.093
+      },
+      {
+        "drawing": "tsunami:tank3",
+        "x": 0.133,
+        "y": -0.107,
+        "width": 0.06,
+        "height": 0.093
+      },
+      {
+        "drawing": "tsunami:turret2",
+        "x": -0.007,
+        "y": -0.107,
         "width": 0.047,
-        "height": 0.087
+        "height": 0.107
+      },
+      {
+        "drawing": "tsunami:tank4",
+        "x": -0.02,
+        "y": 0.177,
+        "width": 0.073,
+        "height": 0.073
+      },
+      {
+        "drawing": "tsunami:turret3",
+        "x": -0.293,
+        "y": 0.08,
+        "width": 0.087,
+        "height": 0.24
+      },
+      {
+        "drawing": "tsunami:turret3",
+        "x": 0.293,
+        "y": 0.08,
+        "width": 0.087,
+        "height": 0.24
       }
     ]
   },
@@ -2397,8 +2285,8 @@
     "note": "5-5: A huge deep-sea leviathan, the biggest of its world, with gatlings and radar dishes.",
     "name": "ABYSSAL",
     "drawing": "abyssal",
-    "width": 1.147,
-    "height": 0.88,
+    "width": 1.087,
+    "height": 0.873,
     "difficulty": 13,
     "attacks": {
       "front": "sniper",
@@ -2408,88 +2296,88 @@
     },
     "parts": [
       {
-        "drawing": "abyssal:gatling",
-        "x": -0.497,
-        "y": -0.05,
+        "drawing": "abyssal:emitter",
+        "x": -0.053,
+        "y": -0.147,
         "width": 0.073,
-        "height": 0.127
+        "height": 0.06
       },
       {
-        "drawing": "abyssal:gatling",
-        "x": 0.497,
-        "y": -0.05,
+        "drawing": "abyssal:emitter",
+        "x": 0.053,
+        "y": -0.147,
         "width": 0.073,
-        "height": 0.127
+        "height": 0.06
       },
       {
-        "drawing": "abyssal:gatling2",
-        "x": -0.423,
-        "y": 0.13,
-        "width": 0.073,
-        "height": 0.127
+        "drawing": "abyssal:launcher",
+        "x": -0.047,
+        "y": -0.143,
+        "width": 0.087,
+        "height": 0.147
       },
       {
-        "drawing": "abyssal:gatling2",
-        "x": 0.423,
-        "y": 0.13,
-        "width": 0.073,
-        "height": 0.127
+        "drawing": "abyssal:launcher",
+        "x": 0.047,
+        "y": -0.143,
+        "width": 0.087,
+        "height": 0.147
       },
       {
-        "drawing": "abyssal:radar",
-        "x": -0.143,
-        "y": 0.01,
-        "width": 0.1,
+        "drawing": "abyssal:launcher2",
+        "x": -0.353,
+        "y": -0.003,
+        "width": 0.087,
+        "height": 0.16
+      },
+      {
+        "drawing": "abyssal:launcher2",
+        "x": 0.353,
+        "y": -0.003,
+        "width": 0.087,
+        "height": 0.16
+      },
+      {
+        "drawing": "abyssal:emitter2",
+        "x": -0.247,
+        "y": -0.017,
+        "width": 0.033,
+        "height": 0.04
+      },
+      {
+        "drawing": "abyssal:emitter2",
+        "x": 0.247,
+        "y": -0.017,
+        "width": 0.033,
+        "height": 0.04
+      },
+      {
+        "drawing": "abyssal:launcher3",
+        "x": -0.113,
+        "y": -0.047,
+        "width": 0.06,
         "height": 0.1
       },
       {
-        "drawing": "abyssal:radar",
-        "x": 0.143,
-        "y": 0.01,
-        "width": 0.1,
+        "drawing": "abyssal:launcher3",
+        "x": 0.113,
+        "y": -0.047,
+        "width": 0.06,
         "height": 0.1
       },
       {
-        "drawing": "abyssal:gatling3",
-        "x": -0.177,
-        "y": 0.31,
-        "width": 0.073,
-        "height": 0.127
+        "drawing": "abyssal:launcher4",
+        "x": -0.18,
+        "y": -0.023,
+        "width": 0.047,
+        "height": 0.067
       },
       {
-        "drawing": "abyssal:gatling3",
-        "x": 0.177,
-        "y": 0.31,
-        "width": 0.073,
-        "height": 0.127
-      },
-      {
-        "drawing": "abyssal:radar2",
-        "x": -0.257,
-        "y": -0.163,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "abyssal:radar2",
-        "x": 0.257,
-        "y": -0.163,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "abyssal:radar3",
-        "x": -0.143,
-        "y": -0.41,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "abyssal:radar3",
-        "x": 0.143,
-        "y": -0.41,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "abyssal:launcher4",
+        "x": 0.18,
+        "y": -0.023,
+        "width": 0.047,
+        "height": 0.067
       }
     ]
   },
@@ -2497,8 +2385,8 @@
     "note": "5-6: A tall tentacled monster ship, missile racks on its arms.",
     "name": "KRAKEN",
     "drawing": "kraken",
-    "width": 0.667,
-    "height": 0.807,
+    "width": 0.66,
+    "height": 0.793,
     "difficulty": 14,
     "attacks": {
       "front": "wave",
@@ -2508,88 +2396,88 @@
     },
     "parts": [
       {
-        "drawing": "kraken:launcher",
-        "x": -0.077,
-        "y": -0.2,
-        "width": 0.06,
-        "height": 0.067
+        "drawing": "kraken:emitter",
+        "x": -0.133,
+        "y": 0.207,
+        "width": 0.033,
+        "height": 0.06
       },
       {
-        "drawing": "kraken:radar",
-        "x": -0.137,
-        "y": 0.107,
+        "drawing": "kraken:emitter",
+        "x": 0.133,
+        "y": 0.207,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:emitter2",
+        "x": -0.04,
+        "y": -0.167,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:emitter2",
+        "x": 0.04,
+        "y": -0.167,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "kraken:emitter3",
+        "x": -0.193,
+        "y": -0.137,
+        "width": 0.06,
+        "height": 0.04
+      },
+      {
+        "drawing": "kraken:emitter3",
+        "x": 0.193,
+        "y": -0.137,
+        "width": 0.06,
+        "height": 0.04
+      },
+      {
+        "drawing": "kraken:emitter4",
+        "x": 0.0,
+        "y": -0.243,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.04
       },
       {
-        "drawing": "kraken:launcher2",
-        "x": -0.21,
-        "y": -0.193,
-        "width": 0.073,
-        "height": 0.08
+        "drawing": "kraken:emitter5",
+        "x": -0.247,
+        "y": 0.157,
+        "width": 0.127,
+        "height": 0.04
       },
       {
-        "drawing": "kraken:launcher2",
-        "x": 0.21,
-        "y": -0.193,
-        "width": 0.073,
-        "height": 0.08
+        "drawing": "kraken:emitter5",
+        "x": 0.247,
+        "y": 0.157,
+        "width": 0.127,
+        "height": 0.04
       },
       {
-        "drawing": "kraken:radar2",
-        "x": -0.157,
-        "y": -0.04,
+        "drawing": "kraken:emitter6",
+        "x": -0.067,
+        "y": 0.103,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "kraken:emitter6",
+        "x": 0.067,
+        "y": 0.103,
+        "width": 0.047,
+        "height": 0.04
+      },
+      {
+        "drawing": "kraken:emitter7",
+        "x": 0.127,
+        "y": -0.207,
         "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "kraken:radar3",
-        "x": -0.243,
-        "y": 0.013,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "kraken:radar4",
-        "x": -0.183,
-        "y": 0.267,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "kraken:launcher3",
-        "x": -0.27,
-        "y": 0.107,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "kraken:launcher3",
-        "x": 0.27,
-        "y": 0.107,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "kraken:radar5",
-        "x": -0.037,
-        "y": -0.08,
-        "width": 0.06,
-        "height": 0.06
-      },
-      {
-        "drawing": "kraken:reactor",
-        "x": -0.29,
-        "y": -0.073,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "kraken:reactor",
-        "x": 0.29,
-        "y": -0.073,
-        "width": 0.087,
-        "height": 0.087
+        "height": 0.1
       }
     ]
   },
@@ -2597,8 +2485,8 @@
     "note": "6-1: A flat-topped table mountain of armor, flak guns and cannons on its plateau.",
     "name": "MESA",
     "drawing": "mesa",
-    "width": 0.913,
-    "height": 0.547,
+    "width": 0.9,
+    "height": 0.553,
     "difficulty": 11,
     "attacks": {
       "front": "rockets",
@@ -2608,88 +2496,60 @@
     },
     "parts": [
       {
-        "drawing": "mesa:flak",
-        "x": -0.067,
-        "y": 0.037,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "mesa:launcher",
+        "x": -0.093,
+        "y": -0.07,
+        "width": 0.06,
+        "height": 0.08
       },
       {
-        "drawing": "mesa:flak",
-        "x": 0.067,
-        "y": 0.037,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "mesa:launcher",
+        "x": 0.093,
+        "y": -0.07,
+        "width": 0.06,
+        "height": 0.08
       },
       {
-        "drawing": "mesa:flak2",
-        "x": -0.293,
-        "y": 0.23,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "mesa:launcher2",
+        "x": -0.38,
+        "y": -0.09,
+        "width": 0.1,
+        "height": 0.16
       },
       {
-        "drawing": "mesa:flak2",
-        "x": 0.293,
-        "y": 0.23,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "mesa:cannon",
-        "x": -0.073,
-        "y": -0.17,
-        "width": 0.087,
-        "height": 0.2
+        "drawing": "mesa:launcher2",
+        "x": 0.38,
+        "y": -0.09,
+        "width": 0.1,
+        "height": 0.16
       },
       {
         "drawing": "mesa:cannon",
-        "x": 0.073,
-        "y": -0.17,
-        "width": 0.087,
-        "height": 0.2
-      },
-      {
-        "drawing": "mesa:flak3",
-        "x": -0.22,
-        "y": -0.223,
+        "x": -0.32,
+        "y": -0.007,
         "width": 0.087,
         "height": 0.127
       },
       {
-        "drawing": "mesa:flak3",
-        "x": 0.22,
-        "y": -0.223,
+        "drawing": "mesa:cannon",
+        "x": 0.32,
+        "y": -0.007,
         "width": 0.087,
         "height": 0.127
       },
       {
-        "drawing": "mesa:flak4",
-        "x": -0.14,
-        "y": 0.197,
+        "drawing": "mesa:cannon2",
+        "x": -0.047,
+        "y": 0.103,
         "width": 0.087,
-        "height": 0.127
+        "height": 0.16
       },
       {
-        "drawing": "mesa:flak4",
-        "x": 0.14,
-        "y": 0.197,
+        "drawing": "mesa:cannon2",
+        "x": 0.047,
+        "y": 0.103,
         "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "mesa:flak5",
-        "x": -0.26,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "mesa:flak5",
-        "x": 0.26,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.127
+        "height": 0.16
       }
     ]
   },
@@ -2697,8 +2557,8 @@
     "note": "6-2: A sand-colored ship whirling around a ring of reactors.",
     "name": "DUST DEVIL",
     "drawing": "dust_devil",
-    "width": 0.62,
-    "height": 0.4,
+    "width": 0.633,
+    "height": 0.38,
     "difficulty": 12,
     "attacks": {
       "front": "curve",
@@ -2708,74 +2568,74 @@
     },
     "parts": [
       {
-        "drawing": "dust_devil:reactor",
-        "x": -0.26,
-        "y": 0.077,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor",
-        "x": 0.26,
-        "y": 0.077,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor2",
-        "x": -0.227,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor2",
-        "x": 0.227,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor3",
-        "x": -0.133,
-        "y": 0.083,
+        "drawing": "dust_devil:tank",
+        "x": -0.173,
+        "y": -0.02,
         "width": 0.073,
         "height": 0.073
       },
       {
-        "drawing": "dust_devil:reactor4",
-        "x": -0.067,
-        "y": -0.043,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor4",
-        "x": 0.067,
-        "y": -0.043,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor5",
-        "x": -0.033,
-        "y": 0.15,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor5",
-        "x": 0.033,
-        "y": 0.15,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "dust_devil:reactor6",
-        "x": -0.293,
-        "y": -0.13,
+        "drawing": "dust_devil:tank",
+        "x": 0.173,
+        "y": -0.02,
         "width": 0.073,
         "height": 0.073
+      },
+      {
+        "drawing": "dust_devil:tank2",
+        "x": -0.06,
+        "y": -0.013,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:tank2",
+        "x": 0.06,
+        "y": -0.013,
+        "width": 0.087,
+        "height": 0.087
+      },
+      {
+        "drawing": "dust_devil:tank3",
+        "x": -0.08,
+        "y": -0.137,
+        "width": 0.047,
+        "height": 0.067
+      },
+      {
+        "drawing": "dust_devil:tank3",
+        "x": 0.08,
+        "y": -0.137,
+        "width": 0.047,
+        "height": 0.067
+      },
+      {
+        "drawing": "dust_devil:tank4",
+        "x": -0.047,
+        "y": 0.103,
+        "width": 0.073,
+        "height": 0.107
+      },
+      {
+        "drawing": "dust_devil:tank5",
+        "x": 0.0,
+        "y": -0.043,
+        "width": 0.06,
+        "height": 0.053
+      },
+      {
+        "drawing": "dust_devil:tank6",
+        "x": -0.14,
+        "y": -0.127,
+        "width": 0.1,
+        "height": 0.1
+      },
+      {
+        "drawing": "dust_devil:tank6",
+        "x": 0.14,
+        "y": -0.127,
+        "width": 0.1,
+        "height": 0.1
       }
     ]
   },
@@ -2783,8 +2643,8 @@
     "note": "6-3: A tumbling slide of armor plates hiding missile racks.",
     "name": "LANDSLIDE",
     "drawing": "landslide",
-    "width": 0.687,
-    "height": 0.453,
+    "width": 0.753,
+    "height": 0.467,
     "difficulty": 13,
     "attacks": {
       "front": "cluster",
@@ -2794,88 +2654,74 @@
     },
     "parts": [
       {
-        "drawing": "landslide:launcher",
-        "x": -0.287,
-        "y": 0.017,
-        "width": 0.073,
-        "height": 0.08
+        "drawing": "landslide:turret",
+        "x": -0.187,
+        "y": -0.053,
+        "width": 0.127,
+        "height": 0.227
+      },
+      {
+        "drawing": "landslide:turret",
+        "x": 0.187,
+        "y": -0.053,
+        "width": 0.127,
+        "height": 0.227
+      },
+      {
+        "drawing": "landslide:turret2",
+        "x": -0.3,
+        "y": -0.01,
+        "width": 0.087,
+        "height": 0.18
+      },
+      {
+        "drawing": "landslide:turret2",
+        "x": 0.3,
+        "y": -0.01,
+        "width": 0.087,
+        "height": 0.18
       },
       {
         "drawing": "landslide:launcher",
-        "x": 0.287,
-        "y": 0.017,
-        "width": 0.073,
-        "height": 0.08
+        "x": -0.053,
+        "y": -0.03,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "landslide:launcher",
+        "x": 0.053,
+        "y": -0.03,
+        "width": 0.087,
+        "height": 0.127
       },
       {
         "drawing": "landslide:launcher2",
+        "x": -0.347,
+        "y": -0.14,
+        "width": 0.047,
+        "height": 0.093
+      },
+      {
+        "drawing": "landslide:launcher2",
+        "x": 0.347,
+        "y": -0.14,
+        "width": 0.047,
+        "height": 0.093
+      },
+      {
+        "drawing": "landslide:launcher3",
         "x": -0.047,
-        "y": -0.11,
-        "width": 0.06,
-        "height": 0.067
+        "y": -0.143,
+        "width": 0.073,
+        "height": 0.1
       },
       {
-        "drawing": "landslide:launcher2",
+        "drawing": "landslide:launcher3",
         "x": 0.047,
-        "y": -0.11,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher3",
-        "x": -0.193,
-        "y": 0.143,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher3",
-        "x": 0.193,
-        "y": 0.143,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher4",
-        "x": -0.067,
-        "y": 0.17,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher4",
-        "x": 0.067,
-        "y": 0.17,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher5",
-        "x": -0.027,
-        "y": -0.203,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher5",
-        "x": 0.027,
-        "y": -0.203,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher6",
-        "x": -0.12,
-        "y": 0.023,
-        "width": 0.06,
-        "height": 0.067
-      },
-      {
-        "drawing": "landslide:launcher6",
-        "x": 0.12,
-        "y": 0.023,
-        "width": 0.06,
-        "height": 0.067
+        "y": -0.143,
+        "width": 0.073,
+        "height": 0.1
       }
     ]
   },
@@ -2884,7 +2730,7 @@
     "name": "BASILISK",
     "drawing": "basilisk",
     "width": 0.713,
-    "height": 0.773,
+    "height": 0.767,
     "difficulty": 14,
     "attacks": {
       "front": "accel",
@@ -2894,88 +2740,81 @@
     },
     "parts": [
       {
-        "drawing": "basilisk:flak",
-        "x": -0.173,
-        "y": 0.003,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "basilisk:reactor",
-        "x": -0.067,
-        "y": 0.17,
+        "drawing": "basilisk:cannon",
+        "x": -0.047,
+        "y": 0.073,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.207
       },
       {
-        "drawing": "basilisk:flak2",
-        "x": -0.22,
+        "drawing": "basilisk:cannon",
+        "x": 0.047,
+        "y": 0.073,
+        "width": 0.073,
+        "height": 0.207
+      },
+      {
+        "drawing": "basilisk:cannon2",
+        "x": 0.02,
         "y": -0.13,
+        "width": 0.06,
+        "height": 0.16
+      },
+      {
+        "drawing": "basilisk:cannon3",
+        "x": 0.013,
+        "y": -0.213,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.047
       },
       {
-        "drawing": "basilisk:flak3",
-        "x": -0.16,
-        "y": 0.117,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "basilisk:flak3",
-        "x": 0.16,
-        "y": 0.117,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "basilisk:turret",
-        "x": -0.127,
-        "y": -0.33,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "basilisk:turret",
-        "x": 0.127,
-        "y": -0.33,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "basilisk:turret2",
-        "x": -0.293,
-        "y": 0.057,
+        "drawing": "basilisk:cannon4",
+        "x": -0.287,
+        "y": 0.043,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.16
       },
       {
-        "drawing": "basilisk:turret2",
-        "x": 0.293,
-        "y": 0.057,
+        "drawing": "basilisk:cannon4",
+        "x": 0.287,
+        "y": 0.043,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.16
       },
       {
-        "drawing": "basilisk:reactor2",
-        "x": -0.173,
-        "y": 0.35,
+        "drawing": "basilisk:cannon5",
+        "x": -0.013,
+        "y": 0.24,
         "width": 0.087,
-        "height": 0.087
+        "height": 0.127
       },
       {
-        "drawing": "basilisk:flak4",
-        "x": -0.067,
-        "y": -0.143,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "basilisk:cannon6",
+        "x": -0.02,
+        "y": -0.25,
+        "width": 0.033,
+        "height": 0.067
       },
       {
-        "drawing": "basilisk:flak4",
-        "x": 0.067,
-        "y": -0.143,
+        "drawing": "basilisk:cannon6",
+        "x": 0.02,
+        "y": -0.25,
+        "width": 0.033,
+        "height": 0.067
+      },
+      {
+        "drawing": "basilisk:cannon7",
+        "x": -0.293,
+        "y": -0.103,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.093
+      },
+      {
+        "drawing": "basilisk:cannon7",
+        "x": 0.293,
+        "y": -0.103,
+        "width": 0.06,
+        "height": 0.093
       }
     ]
   },
@@ -2983,8 +2822,8 @@
     "note": "6-5: A segmented worm ship rising from the sand, cannons along its rings.",
     "name": "SANDWORM",
     "drawing": "sandworm",
-    "width": 0.593,
-    "height": 0.58,
+    "width": 0.607,
+    "height": 0.587,
     "difficulty": 15,
     "attacks": {
       "front": "missiles",
@@ -2994,88 +2833,88 @@
     },
     "parts": [
       {
-        "drawing": "sandworm:cannon",
-        "x": -0.16,
-        "y": -0.047,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "sandworm:cannon",
-        "x": 0.16,
-        "y": -0.047,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "sandworm:cannon2",
-        "x": -0.12,
-        "y": 0.093,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "sandworm:cannon2",
-        "x": 0.12,
-        "y": 0.093,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "sandworm:cannon3",
-        "x": -0.207,
-        "y": 0.08,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "sandworm:cannon3",
-        "x": 0.207,
-        "y": 0.08,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "sandworm:cannon4",
+        "drawing": "sandworm:emitter",
         "x": -0.08,
-        "y": -0.2,
-        "width": 0.073,
-        "height": 0.167
+        "y": 0.147,
+        "width": 0.06,
+        "height": 0.04
       },
       {
-        "drawing": "sandworm:cannon4",
+        "drawing": "sandworm:emitter",
         "x": 0.08,
-        "y": -0.2,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "sandworm:cannon5",
-        "x": -0.2,
-        "y": -0.153,
+        "y": 0.147,
         "width": 0.06,
-        "height": 0.133
+        "height": 0.04
       },
       {
-        "drawing": "sandworm:cannon5",
-        "x": 0.2,
-        "y": -0.153,
+        "drawing": "sandworm:emitter2",
+        "x": -0.147,
+        "y": 0.063,
         "width": 0.06,
-        "height": 0.133
+        "height": 0.06
       },
       {
-        "drawing": "sandworm:cannon6",
+        "drawing": "sandworm:emitter2",
+        "x": 0.147,
+        "y": 0.063,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "sandworm:emitter3",
+        "x": -0.027,
+        "y": 0.003,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "sandworm:emitter3",
+        "x": 0.027,
+        "y": 0.003,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "sandworm:turret",
         "x": -0.133,
-        "y": 0.267,
-        "width": 0.06,
-        "height": 0.133
+        "y": -0.137,
+        "width": 0.1,
+        "height": 0.127
       },
       {
-        "drawing": "sandworm:cannon6",
+        "drawing": "sandworm:turret",
         "x": 0.133,
-        "y": 0.267,
-        "width": 0.06,
-        "height": 0.133
+        "y": -0.137,
+        "width": 0.1,
+        "height": 0.127
+      },
+      {
+        "drawing": "sandworm:emitter4",
+        "x": -0.2,
+        "y": 0.11,
+        "width": 0.127,
+        "height": 0.06
+      },
+      {
+        "drawing": "sandworm:emitter4",
+        "x": 0.2,
+        "y": 0.11,
+        "width": 0.127,
+        "height": 0.06
+      },
+      {
+        "drawing": "sandworm:emitter5",
+        "x": -0.1,
+        "y": -0.007,
+        "width": 0.1,
+        "height": 0.067
+      },
+      {
+        "drawing": "sandworm:emitter5",
+        "x": 0.1,
+        "y": -0.007,
+        "width": 0.1,
+        "height": 0.067
       }
     ]
   },
@@ -3084,7 +2923,7 @@
     "name": "MONOLITH",
     "drawing": "monolith",
     "width": 0.753,
-    "height": 0.84,
+    "height": 0.853,
     "difficulty": 16,
     "attacks": {
       "front": "sniper",
@@ -3094,87 +2933,87 @@
     },
     "parts": [
       {
-        "drawing": "monolith:turret",
-        "x": -0.053,
-        "y": -0.163,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "monolith:sensor",
+        "x": -0.22,
+        "y": 0.037,
+        "width": 0.047,
+        "height": 0.047
       },
       {
-        "drawing": "monolith:turret",
-        "x": 0.053,
-        "y": -0.163,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "monolith:sensor",
+        "x": 0.22,
+        "y": 0.037,
+        "width": 0.047,
+        "height": 0.047
       },
       {
-        "drawing": "monolith:turret2",
-        "x": -0.193,
-        "y": -0.057,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "monolith:sensor2",
+        "x": -0.02,
+        "y": -0.093,
+        "width": 0.033,
+        "height": 0.067
       },
       {
-        "drawing": "monolith:turret2",
-        "x": 0.193,
-        "y": -0.057,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "monolith:sensor2",
+        "x": 0.02,
+        "y": -0.093,
+        "width": 0.033,
+        "height": 0.067
       },
       {
-        "drawing": "monolith:turret3",
-        "x": -0.36,
-        "y": -0.03,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "monolith:turret3",
-        "x": 0.36,
-        "y": -0.03,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "monolith:turret4",
-        "x": -0.12,
-        "y": 0.237,
+        "drawing": "monolith:sensor3",
+        "x": -0.1,
+        "y": 0.197,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.047
       },
       {
-        "drawing": "monolith:turret4",
-        "x": 0.12,
-        "y": 0.237,
+        "drawing": "monolith:sensor3",
+        "x": 0.1,
+        "y": 0.197,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.047
       },
       {
-        "drawing": "monolith:turret5",
-        "x": -0.207,
-        "y": 0.117,
-        "width": 0.06,
+        "drawing": "monolith:sensor4",
+        "x": -0.04,
+        "y": 0.247,
+        "width": 0.073,
+        "height": 0.04
+      },
+      {
+        "drawing": "monolith:sensor4",
+        "x": 0.04,
+        "y": 0.247,
+        "width": 0.073,
+        "height": 0.04
+      },
+      {
+        "drawing": "monolith:sensor5",
+        "x": -0.047,
+        "y": 0.087,
+        "width": 0.073,
+        "height": 0.093
+      },
+      {
+        "drawing": "monolith:sensor5",
+        "x": 0.047,
+        "y": 0.087,
+        "width": 0.073,
+        "height": 0.093
+      },
+      {
+        "drawing": "monolith:sensor6",
+        "x": -0.027,
+        "y": -0.263,
+        "width": 0.033,
         "height": 0.087
       },
       {
-        "drawing": "monolith:turret5",
-        "x": 0.207,
-        "y": 0.117,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "monolith:turret6",
-        "x": -0.087,
-        "y": 0.13,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "monolith:turret6",
-        "x": 0.087,
-        "y": 0.13,
-        "width": 0.06,
+        "drawing": "monolith:sensor6",
+        "x": 0.027,
+        "y": -0.263,
+        "width": 0.033,
         "height": 0.087
       }
     ]
@@ -3183,8 +3022,8 @@
     "note": "7-1: A huge glowing furnace hulk, the widest boss of the game, lined with cannons.",
     "name": "FURNACE",
     "drawing": "furnace",
-    "width": 1.207,
-    "height": 0.773,
+    "width": 1.18,
+    "height": 0.787,
     "difficulty": 13,
     "attacks": {
       "front": "fan",
@@ -3194,88 +3033,88 @@
     },
     "parts": [
       {
-        "drawing": "furnace:cannon",
-        "x": -0.42,
-        "y": 0.217,
+        "drawing": "furnace:turret",
+        "x": -0.073,
+        "y": 0.077,
+        "width": 0.073,
+        "height": 0.18
+      },
+      {
+        "drawing": "furnace:sensor",
+        "x": -0.427,
+        "y": 0.133,
+        "width": 0.073,
+        "height": 0.067
+      },
+      {
+        "drawing": "furnace:sensor",
+        "x": 0.427,
+        "y": 0.133,
+        "width": 0.073,
+        "height": 0.067
+      },
+      {
+        "drawing": "furnace:launcher",
+        "x": -0.153,
+        "y": -0.12,
+        "width": 0.113,
+        "height": 0.147
+      },
+      {
+        "drawing": "furnace:launcher2",
+        "x": 0.113,
+        "y": -0.09,
+        "width": 0.1,
+        "height": 0.153
+      },
+      {
+        "drawing": "furnace:launcher3",
+        "x": -0.253,
+        "y": -0.073,
         "width": 0.087,
-        "height": 0.2
+        "height": 0.107
       },
       {
-        "drawing": "furnace:cannon2",
-        "x": -0.127,
-        "y": 0.363,
-        "width": 0.1,
-        "height": 0.233
-      },
-      {
-        "drawing": "furnace:cannon2",
-        "x": 0.127,
-        "y": 0.363,
-        "width": 0.1,
-        "height": 0.233
-      },
-      {
-        "drawing": "furnace:cannon3",
-        "x": -0.347,
-        "y": -0.203,
+        "drawing": "furnace:launcher3",
+        "x": 0.253,
+        "y": -0.073,
         "width": 0.087,
-        "height": 0.2
+        "height": 0.107
       },
       {
-        "drawing": "furnace:cannon4",
-        "x": -0.173,
-        "y": -0.103,
+        "drawing": "furnace:turret2",
+        "x": -0.533,
+        "y": 0.1,
         "width": 0.1,
+        "height": 0.227
+      },
+      {
+        "drawing": "furnace:turret2",
+        "x": 0.533,
+        "y": 0.1,
+        "width": 0.1,
+        "height": 0.227
+      },
+      {
+        "drawing": "furnace:turret3",
+        "x": 0.0,
+        "y": 0.183,
+        "width": 0.127,
         "height": 0.233
       },
       {
-        "drawing": "furnace:cannon4",
-        "x": 0.173,
-        "y": -0.103,
-        "width": 0.1,
-        "height": 0.233
+        "drawing": "furnace:turret4",
+        "x": -0.333,
+        "y": -0.02,
+        "width": 0.113,
+        "height": 0.213
       },
       {
-        "drawing": "furnace:cannon5",
-        "x": -0.08,
-        "y": -0.363,
-        "width": 0.087,
-        "height": 0.2
-      },
-      {
-        "drawing": "furnace:cannon6",
-        "x": -0.26,
-        "y": 0.19,
-        "width": 0.1,
-        "height": 0.233
-      },
-      {
-        "drawing": "furnace:cannon7",
-        "x": -0.373,
-        "y": 0.017,
-        "width": 0.1,
-        "height": 0.233
-      },
-      {
-        "drawing": "furnace:cannon7",
-        "x": 0.373,
-        "y": 0.017,
-        "width": 0.1,
-        "height": 0.233
-      },
-      {
-        "drawing": "furnace:cannon8",
-        "x": -0.1,
-        "y": 0.057,
-        "width": 0.1,
-        "height": 0.233
-      },
-      {
-        "drawing": "furnace:cannon8",
-        "x": 0.1,
-        "y": 0.057,
-        "width": 0.1,
-        "height": 0.233
+        "drawing": "furnace:turret4",
+        "x": 0.333,
+        "y": -0.02,
+        "width": 0.113,
+        "height": 0.213
       }
     ]
   },
@@ -3284,7 +3123,7 @@
     "name": "SMOKESTACK",
     "drawing": "smokestack",
     "width": 0.793,
-    "height": 0.64,
+    "height": 0.613,
     "difficulty": 14,
     "attacks": {
       "front": "cluster",
@@ -3294,88 +3133,88 @@
     },
     "parts": [
       {
-        "drawing": "smokestack:reactor",
-        "x": -0.28,
-        "y": 0.023,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "smokestack:reactor",
-        "x": 0.28,
-        "y": 0.023,
-        "width": 0.073,
-        "height": 0.073
+        "drawing": "smokestack:cannon",
+        "x": -0.213,
+        "y": -0.17,
+        "width": 0.1,
+        "height": 0.207
       },
       {
         "drawing": "smokestack:cannon",
-        "x": -0.253,
-        "y": -0.123,
-        "width": 0.06,
+        "x": 0.213,
+        "y": -0.17,
+        "width": 0.1,
+        "height": 0.207
+      },
+      {
+        "drawing": "smokestack:cannon2",
+        "x": -0.12,
+        "y": -0.127,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "smokestack:cannon2",
+        "x": 0.12,
+        "y": -0.127,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "smokestack:cannon3",
+        "x": -0.053,
+        "y": 0.08,
+        "width": 0.1,
         "height": 0.133
       },
       {
-        "drawing": "smokestack:cannon",
-        "x": 0.253,
-        "y": -0.123,
-        "width": 0.06,
+        "drawing": "smokestack:cannon3",
+        "x": 0.053,
+        "y": 0.08,
+        "width": 0.1,
         "height": 0.133
       },
       {
-        "drawing": "smokestack:reactor2",
+        "drawing": "smokestack:cannon4",
+        "x": -0.287,
+        "y": 0.17,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "smokestack:cannon4",
+        "x": 0.287,
+        "y": 0.17,
+        "width": 0.087,
+        "height": 0.127
+      },
+      {
+        "drawing": "smokestack:sensor",
         "x": -0.16,
-        "y": 0.197,
+        "y": -0.02,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.053
       },
       {
-        "drawing": "smokestack:reactor2",
+        "drawing": "smokestack:sensor",
         "x": 0.16,
-        "y": 0.197,
+        "y": -0.02,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.053
       },
       {
-        "drawing": "smokestack:cannon2",
-        "x": -0.38,
-        "y": 0.15,
-        "width": 0.073,
-        "height": 0.167
+        "drawing": "smokestack:cannon5",
+        "x": -0.033,
+        "y": -0.007,
+        "width": 0.06,
+        "height": 0.04
       },
       {
-        "drawing": "smokestack:cannon2",
-        "x": 0.38,
-        "y": 0.15,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "smokestack:cannon3",
-        "x": -0.353,
-        "y": -0.09,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "smokestack:cannon3",
-        "x": 0.353,
-        "y": -0.09,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "smokestack:reactor3",
-        "x": -0.133,
-        "y": -0.123,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "smokestack:reactor3",
-        "x": 0.133,
-        "y": -0.123,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "smokestack:cannon5",
+        "x": 0.033,
+        "y": -0.007,
+        "width": 0.06,
+        "height": 0.04
       }
     ]
   },
@@ -3384,7 +3223,7 @@
     "name": "SLAG KING",
     "drawing": "slag_king",
     "width": 0.58,
-    "height": 0.607,
+    "height": 0.593,
     "difficulty": 15,
     "attacks": {
       "front": "pellets",
@@ -3394,88 +3233,74 @@
     },
     "parts": [
       {
+        "drawing": "slag_king:turret",
+        "x": -0.153,
+        "y": -0.03,
+        "width": 0.073,
+        "height": 0.16
+      },
+      {
+        "drawing": "slag_king:turret",
+        "x": 0.153,
+        "y": -0.03,
+        "width": 0.073,
+        "height": 0.16
+      },
+      {
         "drawing": "slag_king:cannon",
+        "x": -0.033,
+        "y": -0.047,
+        "width": 0.06,
+        "height": 0.127
+      },
+      {
+        "drawing": "slag_king:cannon",
+        "x": 0.033,
+        "y": -0.047,
+        "width": 0.06,
+        "height": 0.127
+      },
+      {
+        "drawing": "slag_king:turret2",
         "x": -0.253,
-        "y": -0.193,
-        "width": 0.06,
-        "height": 0.133
+        "y": -0.09,
+        "width": 0.073,
+        "height": 0.173
       },
       {
-        "drawing": "slag_king:cannon",
+        "drawing": "slag_king:turret2",
         "x": 0.253,
-        "y": -0.193,
-        "width": 0.06,
-        "height": 0.133
+        "y": -0.09,
+        "width": 0.073,
+        "height": 0.173
       },
       {
         "drawing": "slag_king:cannon2",
-        "x": -0.053,
-        "y": 0.033,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "slag_king:cannon2",
-        "x": 0.053,
-        "y": 0.033,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "slag_king:cannon3",
-        "x": -0.04,
-        "y": -0.2,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "slag_king:cannon3",
-        "x": 0.04,
-        "y": -0.2,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "slag_king:cannon4",
-        "x": -0.213,
-        "y": -0.033,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "slag_king:cannon4",
-        "x": 0.213,
-        "y": -0.033,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "slag_king:cannon5",
-        "x": -0.087,
-        "y": 0.12,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "slag_king:cannon5",
-        "x": 0.087,
-        "y": 0.12,
-        "width": 0.073,
-        "height": 0.167
-      },
-      {
-        "drawing": "slag_king:cannon6",
         "x": -0.047,
-        "y": -0.04,
+        "y": -0.003,
         "width": 0.073,
-        "height": 0.167
+        "height": 0.053
       },
       {
-        "drawing": "slag_king:cannon6",
+        "drawing": "slag_king:cannon2",
         "x": 0.047,
-        "y": -0.04,
+        "y": -0.003,
         "width": 0.073,
-        "height": 0.167
+        "height": 0.053
+      },
+      {
+        "drawing": "slag_king:turret3",
+        "x": -0.087,
+        "y": 0.097,
+        "width": 0.127,
+        "height": 0.107
+      },
+      {
+        "drawing": "slag_king:turret3",
+        "x": 0.087,
+        "y": 0.097,
+        "width": 0.127,
+        "height": 0.107
       }
     ]
   },
@@ -3483,8 +3308,8 @@
     "note": "7-4: An anvil-shaped forge ship, flak towers for hammers.",
     "name": "FORGEMASTER",
     "drawing": "forgemaster",
-    "width": 0.673,
-    "height": 0.547,
+    "width": 0.687,
+    "height": 0.54,
     "difficulty": 16,
     "attacks": {
       "front": "rockets",
@@ -3494,88 +3319,74 @@
     },
     "parts": [
       {
-        "drawing": "forgemaster:flak",
-        "x": -0.127,
-        "y": 0.223,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "forgemaster:flak",
-        "x": 0.127,
-        "y": 0.223,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "forgemaster:flak2",
-        "x": -0.147,
-        "y": 0.057,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "forgemaster:flak2",
-        "x": 0.147,
-        "y": 0.057,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "forgemaster:flak3",
-        "x": -0.253,
-        "y": -0.103,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "forgemaster:flak3",
-        "x": 0.253,
-        "y": -0.103,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "forgemaster:flak4",
+        "drawing": "forgemaster:tank",
         "x": -0.053,
-        "y": -0.15,
-        "width": 0.073,
-        "height": 0.107
+        "y": -0.067,
+        "width": 0.06,
+        "height": 0.113
       },
       {
-        "drawing": "forgemaster:flak4",
+        "drawing": "forgemaster:tank",
         "x": 0.053,
-        "y": -0.15,
-        "width": 0.073,
-        "height": 0.107
+        "y": -0.067,
+        "width": 0.06,
+        "height": 0.113
       },
       {
-        "drawing": "forgemaster:flak5",
-        "x": -0.16,
-        "y": -0.163,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "forgemaster:turret",
+        "x": -0.227,
+        "y": 0.083,
+        "width": 0.047,
+        "height": 0.12
       },
       {
-        "drawing": "forgemaster:flak5",
-        "x": 0.16,
-        "y": -0.163,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "forgemaster:turret",
+        "x": 0.227,
+        "y": 0.083,
+        "width": 0.047,
+        "height": 0.12
       },
       {
-        "drawing": "forgemaster:flak6",
-        "x": -0.167,
-        "y": -0.063,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "forgemaster:tank2",
+        "x": -0.107,
+        "y": 0.053,
+        "width": 0.127,
+        "height": 0.087
       },
       {
-        "drawing": "forgemaster:flak6",
-        "x": 0.167,
-        "y": -0.063,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "forgemaster:tank2",
+        "x": 0.107,
+        "y": 0.053,
+        "width": 0.127,
+        "height": 0.087
+      },
+      {
+        "drawing": "forgemaster:sensor",
+        "x": -0.047,
+        "y": 0.163,
+        "width": 0.087,
+        "height": 0.093
+      },
+      {
+        "drawing": "forgemaster:sensor",
+        "x": 0.047,
+        "y": 0.163,
+        "width": 0.087,
+        "height": 0.093
+      },
+      {
+        "drawing": "forgemaster:sensor2",
+        "x": -0.04,
+        "y": 0.087,
+        "width": 0.06,
+        "height": 0.033
+      },
+      {
+        "drawing": "forgemaster:sensor2",
+        "x": 0.04,
+        "y": 0.087,
+        "width": 0.06,
+        "height": 0.033
       }
     ]
   },
@@ -3594,88 +3405,88 @@
     },
     "parts": [
       {
-        "drawing": "inferno:turret",
-        "x": -0.113,
-        "y": -0.213,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "inferno:sensor",
+        "x": -0.107,
+        "y": 0.003,
+        "width": 0.127,
+        "height": 0.053
+      },
+      {
+        "drawing": "inferno:sensor",
+        "x": 0.107,
+        "y": 0.003,
+        "width": 0.127,
+        "height": 0.053
+      },
+      {
+        "drawing": "inferno:emitter",
+        "x": -0.1,
+        "y": -0.077,
+        "width": 0.06,
+        "height": 0.04
+      },
+      {
+        "drawing": "inferno:emitter",
+        "x": 0.1,
+        "y": -0.077,
+        "width": 0.06,
+        "height": 0.04
       },
       {
         "drawing": "inferno:turret",
-        "x": 0.113,
-        "y": -0.213,
-        "width": 0.073,
-        "height": 0.107
+        "x": -0.233,
+        "y": -0.143,
+        "width": 0.127,
+        "height": 0.24
+      },
+      {
+        "drawing": "inferno:turret",
+        "x": 0.233,
+        "y": -0.143,
+        "width": 0.127,
+        "height": 0.24
+      },
+      {
+        "drawing": "inferno:emitter2",
+        "x": -0.12,
+        "y": 0.087,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "inferno:emitter2",
+        "x": 0.12,
+        "y": 0.087,
+        "width": 0.06,
+        "height": 0.06
       },
       {
         "drawing": "inferno:turret2",
         "x": -0.027,
-        "y": -0.007,
-        "width": 0.073,
+        "y": 0.11,
+        "width": 0.047,
         "height": 0.107
       },
       {
         "drawing": "inferno:turret2",
         "x": 0.027,
-        "y": -0.007,
-        "width": 0.073,
+        "y": 0.11,
+        "width": 0.047,
         "height": 0.107
       },
       {
-        "drawing": "inferno:cannon",
-        "x": -0.16,
-        "y": -0.127,
-        "width": 0.06,
-        "height": 0.133
+        "drawing": "inferno:emitter3",
+        "x": -0.287,
+        "y": 0.0,
+        "width": 0.033,
+        "height": 0.06
       },
       {
-        "drawing": "inferno:cannon",
-        "x": 0.16,
-        "y": -0.127,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "inferno:turret3",
-        "x": -0.033,
-        "y": 0.1,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "inferno:turret3",
-        "x": 0.033,
-        "y": 0.1,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "inferno:cannon2",
-        "x": -0.193,
-        "y": 0.253,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "inferno:cannon2",
-        "x": 0.193,
-        "y": 0.253,
-        "width": 0.06,
-        "height": 0.133
-      },
-      {
-        "drawing": "inferno:turret4",
-        "x": -0.18,
-        "y": 0.093,
-        "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "inferno:turret4",
-        "x": 0.18,
-        "y": 0.093,
-        "width": 0.06,
-        "height": 0.087
+        "drawing": "inferno:emitter3",
+        "x": 0.287,
+        "y": 0.0,
+        "width": 0.033,
+        "height": 0.06
       }
     ]
   },
@@ -3683,8 +3494,8 @@
     "note": "7-6: A giant power plant in meltdown, flying: reactors, gatlings and flak guns.",
     "name": "REACTOR",
     "drawing": "reactor",
-    "width": 1.1,
-    "height": 1.013,
+    "width": 1.127,
+    "height": 0.987,
     "difficulty": 18,
     "attacks": {
       "front": "accel",
@@ -3694,88 +3505,88 @@
     },
     "parts": [
       {
-        "drawing": "reactor:reactor",
-        "x": -0.213,
-        "y": 0.057,
-        "width": 0.113,
-        "height": 0.113
+        "drawing": "reactor:turret",
+        "x": -0.287,
+        "y": -0.01,
+        "width": 0.06,
+        "height": 0.127
       },
       {
-        "drawing": "reactor:reactor",
-        "x": 0.213,
-        "y": 0.057,
-        "width": 0.113,
-        "height": 0.113
+        "drawing": "reactor:turret",
+        "x": 0.287,
+        "y": -0.01,
+        "width": 0.06,
+        "height": 0.127
       },
       {
-        "drawing": "reactor:reactor2",
-        "x": -0.027,
-        "y": 0.21,
-        "width": 0.113,
-        "height": 0.113
+        "drawing": "reactor:turret2",
+        "x": -0.22,
+        "y": 0.2,
+        "width": 0.06,
+        "height": 0.067
       },
       {
-        "drawing": "reactor:reactor2",
-        "x": 0.027,
-        "y": 0.21,
-        "width": 0.113,
-        "height": 0.113
+        "drawing": "reactor:turret2",
+        "x": 0.22,
+        "y": 0.2,
+        "width": 0.06,
+        "height": 0.067
       },
       {
-        "drawing": "reactor:gatling",
-        "x": -0.253,
-        "y": -0.183,
-        "width": 0.087,
-        "height": 0.147
+        "drawing": "reactor:turret3",
+        "x": -0.113,
+        "y": -0.207,
+        "width": 0.1,
+        "height": 0.133
       },
       {
-        "drawing": "reactor:gatling",
-        "x": 0.253,
-        "y": -0.183,
-        "width": 0.087,
-        "height": 0.147
+        "drawing": "reactor:turret3",
+        "x": 0.113,
+        "y": -0.207,
+        "width": 0.1,
+        "height": 0.133
       },
       {
-        "drawing": "reactor:flak",
+        "drawing": "reactor:turret4",
+        "x": -0.34,
+        "y": -0.367,
+        "width": 0.1,
+        "height": 0.173
+      },
+      {
+        "drawing": "reactor:turret4",
+        "x": 0.34,
+        "y": -0.367,
+        "width": 0.1,
+        "height": 0.173
+      },
+      {
+        "drawing": "reactor:turret5",
+        "x": -0.507,
+        "y": 0.343,
+        "width": 0.1,
+        "height": 0.207
+      },
+      {
+        "drawing": "reactor:turret5",
+        "x": 0.507,
+        "y": 0.343,
+        "width": 0.1,
+        "height": 0.207
+      },
+      {
+        "drawing": "reactor:turret6",
         "x": -0.047,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.127
+        "y": 0.117,
+        "width": 0.047,
+        "height": 0.1
       },
       {
-        "drawing": "reactor:flak",
+        "drawing": "reactor:turret6",
         "x": 0.047,
-        "y": -0.037,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "reactor:reactor3",
-        "x": -0.2,
-        "y": -0.33,
-        "width": 0.1,
+        "y": 0.117,
+        "width": 0.047,
         "height": 0.1
-      },
-      {
-        "drawing": "reactor:reactor3",
-        "x": 0.2,
-        "y": -0.33,
-        "width": 0.1,
-        "height": 0.1
-      },
-      {
-        "drawing": "reactor:flak2",
-        "x": -0.407,
-        "y": -0.17,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "reactor:flak2",
-        "x": 0.407,
-        "y": -0.17,
-        "width": 0.087,
-        "height": 0.127
       }
     ]
   },
@@ -3783,8 +3594,8 @@
     "note": "8-1: A neon-lit tyrant ship blazing with reactors.",
     "name": "NEON TYRANT",
     "drawing": "neon_tyrant",
-    "width": 0.833,
-    "height": 0.727,
+    "width": 0.827,
+    "height": 0.747,
     "difficulty": 15,
     "attacks": {
       "front": "sniper",
@@ -3794,88 +3605,88 @@
     },
     "parts": [
       {
-        "drawing": "neon_tyrant:reactor",
-        "x": -0.093,
-        "y": -0.093,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "neon_tyrant:emitter",
+        "x": -0.33,
+        "y": -0.013,
+        "width": 0.073,
+        "height": 0.053
       },
       {
-        "drawing": "neon_tyrant:reactor",
-        "x": 0.093,
-        "y": -0.093,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "neon_tyrant:emitter",
+        "x": -0.183,
+        "y": -0.013,
+        "width": 0.073,
+        "height": 0.053
       },
       {
-        "drawing": "neon_tyrant:reactor2",
-        "x": -0.333,
-        "y": -0.047,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter2",
+        "x": -0.29,
+        "y": 0.017,
+        "width": 0.06,
+        "height": 0.06
       },
       {
-        "drawing": "neon_tyrant:reactor2",
-        "x": 0.333,
-        "y": -0.047,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter2",
+        "x": -0.223,
+        "y": 0.017,
+        "width": 0.06,
+        "height": 0.06
       },
       {
-        "drawing": "neon_tyrant:reactor3",
-        "x": -0.253,
-        "y": -0.187,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter3",
+        "x": -0.31,
+        "y": -0.143,
+        "width": 0.06,
+        "height": 0.06
       },
       {
-        "drawing": "neon_tyrant:reactor3",
-        "x": 0.253,
-        "y": -0.187,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter3",
+        "x": -0.203,
+        "y": -0.143,
+        "width": 0.06,
+        "height": 0.06
       },
       {
-        "drawing": "neon_tyrant:reactor4",
-        "x": -0.073,
-        "y": 0.147,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter4",
+        "x": -0.137,
+        "y": 0.04,
+        "width": 0.033,
+        "height": 0.04
       },
       {
-        "drawing": "neon_tyrant:reactor5",
-        "x": -0.093,
-        "y": -0.22,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "neon_tyrant:emitter5",
+        "x": -0.35,
+        "y": 0.117,
+        "width": 0.073,
+        "height": 0.047
       },
       {
-        "drawing": "neon_tyrant:reactor5",
-        "x": 0.093,
-        "y": -0.22,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "neon_tyrant:emitter5",
+        "x": -0.163,
+        "y": 0.117,
+        "width": 0.073,
+        "height": 0.047
       },
       {
-        "drawing": "neon_tyrant:reactor6",
-        "x": -0.06,
-        "y": 0.307,
-        "width": 0.1,
-        "height": 0.1
+        "drawing": "neon_tyrant:emitter6",
+        "x": -0.31,
+        "y": 0.237,
+        "width": 0.06,
+        "height": 0.047
       },
       {
-        "drawing": "neon_tyrant:reactor7",
-        "x": -0.227,
-        "y": -0.08,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter7",
+        "x": -0.337,
+        "y": -0.2,
+        "width": 0.073,
+        "height": 0.04
       },
       {
-        "drawing": "neon_tyrant:reactor8",
-        "x": -0.12,
-        "y": 0.02,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "neon_tyrant:emitter7",
+        "x": -0.177,
+        "y": -0.2,
+        "width": 0.073,
+        "height": 0.04
       }
     ]
   },
@@ -3883,8 +3694,8 @@
     "note": "8-2: A flying city block of towers and traffic, missile racks and radars on its roofs.",
     "name": "GRIDLOCK",
     "drawing": "gridlock",
-    "width": 0.887,
-    "height": 0.82,
+    "width": 0.9,
+    "height": 0.813,
     "difficulty": 16,
     "attacks": {
       "front": "missiles",
@@ -3894,88 +3705,88 @@
     },
     "parts": [
       {
-        "drawing": "gridlock:launcher",
-        "x": -0.073,
-        "y": -0.287,
+        "drawing": "gridlock:cannon",
+        "x": -0.153,
+        "y": 0.2,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.16
       },
       {
-        "drawing": "gridlock:launcher",
-        "x": 0.073,
-        "y": -0.287,
+        "drawing": "gridlock:cannon",
+        "x": 0.153,
+        "y": 0.2,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.16
       },
       {
-        "drawing": "gridlock:launcher2",
-        "x": -0.3,
-        "y": -0.067,
-        "width": 0.087,
-        "height": 0.093
+        "drawing": "gridlock:turret",
+        "x": -0.347,
+        "y": -0.107,
+        "width": 0.113,
+        "height": 0.213
       },
       {
-        "drawing": "gridlock:launcher2",
-        "x": 0.3,
-        "y": -0.067,
-        "width": 0.087,
-        "height": 0.093
+        "drawing": "gridlock:turret",
+        "x": 0.347,
+        "y": -0.107,
+        "width": 0.113,
+        "height": 0.213
       },
       {
-        "drawing": "gridlock:launcher3",
-        "x": -0.267,
-        "y": 0.12,
+        "drawing": "gridlock:cannon2",
+        "x": -0.067,
+        "y": -0.153,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "gridlock:cannon2",
+        "x": 0.067,
+        "y": -0.153,
+        "width": 0.1,
+        "height": 0.16
+      },
+      {
+        "drawing": "gridlock:tank",
+        "x": -0.193,
+        "y": -0.04,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.04
       },
       {
-        "drawing": "gridlock:launcher3",
-        "x": 0.267,
-        "y": 0.12,
+        "drawing": "gridlock:tank",
+        "x": 0.193,
+        "y": -0.04,
         "width": 0.073,
-        "height": 0.08
+        "height": 0.04
       },
       {
-        "drawing": "gridlock:radar",
-        "x": -0.113,
-        "y": 0.087,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "gridlock:radar",
-        "x": 0.113,
-        "y": 0.087,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "gridlock:radar2",
-        "x": -0.027,
-        "y": 0.3,
+        "drawing": "gridlock:cannon3",
+        "x": -0.127,
+        "y": 0.05,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.127
       },
       {
-        "drawing": "gridlock:radar2",
-        "x": 0.027,
-        "y": 0.3,
+        "drawing": "gridlock:cannon3",
+        "x": 0.127,
+        "y": 0.05,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.127
       },
       {
-        "drawing": "gridlock:launcher4",
-        "x": -0.027,
-        "y": -0.173,
-        "width": 0.087,
-        "height": 0.093
+        "drawing": "gridlock:cannon4",
+        "x": -0.4,
+        "y": 0.073,
+        "width": 0.1,
+        "height": 0.133
       },
       {
-        "drawing": "gridlock:launcher4",
-        "x": 0.027,
-        "y": -0.173,
-        "width": 0.087,
-        "height": 0.093
+        "drawing": "gridlock:cannon4",
+        "x": 0.4,
+        "y": 0.073,
+        "width": 0.1,
+        "height": 0.133
       }
     ]
   },
@@ -3983,8 +3794,8 @@
     "note": "8-3: A huge dark ship that swallows the city lights, ringed with radar dishes.",
     "name": "BLACKOUT",
     "drawing": "blackout",
-    "width": 1.06,
-    "height": 0.873,
+    "width": 1.047,
+    "height": 0.86,
     "difficulty": 17,
     "attacks": {
       "front": "curve",
@@ -3994,88 +3805,88 @@
     },
     "parts": [
       {
-        "drawing": "blackout:radar",
-        "x": -0.073,
-        "y": 0.293,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "blackout:radar2",
-        "x": -0.287,
-        "y": -0.067,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "blackout:radar2",
-        "x": 0.287,
-        "y": -0.067,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "blackout:radar3",
-        "x": -0.167,
-        "y": -0.207,
+        "drawing": "blackout:emitter",
+        "x": 0.067,
+        "y": -0.1,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.06
       },
       {
-        "drawing": "blackout:radar3",
-        "x": 0.167,
-        "y": -0.207,
+        "drawing": "blackout:emitter2",
+        "x": -0.14,
+        "y": -0.13,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.053
       },
       {
-        "drawing": "blackout:radar4",
-        "x": -0.393,
-        "y": 0.147,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "blackout:radar4",
-        "x": 0.393,
-        "y": 0.147,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "blackout:radar5",
-        "x": -0.08,
-        "y": -0.38,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "blackout:radar6",
-        "x": -0.193,
-        "y": 0.087,
+        "drawing": "blackout:emitter2",
+        "x": 0.14,
+        "y": -0.13,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.053
       },
       {
-        "drawing": "blackout:radar6",
-        "x": 0.193,
-        "y": 0.087,
+        "drawing": "blackout:emitter3",
+        "x": -0.02,
+        "y": -0.2,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.06
       },
       {
-        "drawing": "blackout:radar7",
-        "x": -0.04,
-        "y": 0.427,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "blackout:emitter4",
+        "x": -0.093,
+        "y": -0.28,
+        "width": 0.047,
+        "height": 0.06
       },
       {
-        "drawing": "blackout:radar8",
-        "x": -0.047,
-        "y": 0.087,
+        "drawing": "blackout:emitter5",
+        "x": -0.127,
+        "y": -0.173,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "blackout:emitter5",
+        "x": 0.127,
+        "y": -0.173,
+        "width": 0.033,
+        "height": 0.06
+      },
+      {
+        "drawing": "blackout:emitter6",
+        "x": 0.047,
+        "y": 0.12,
         "width": 0.073,
-        "height": 0.073
+        "height": 0.047
+      },
+      {
+        "drawing": "blackout:emitter7",
+        "x": -0.147,
+        "y": 0.11,
+        "width": 0.073,
+        "height": 0.067
+      },
+      {
+        "drawing": "blackout:emitter7",
+        "x": 0.147,
+        "y": 0.11,
+        "width": 0.073,
+        "height": 0.067
+      },
+      {
+        "drawing": "blackout:emitter8",
+        "x": -0.093,
+        "y": -0.073,
+        "width": 0.073,
+        "height": 0.06
+      },
+      {
+        "drawing": "blackout:emitter9",
+        "x": 0.093,
+        "y": 0.0,
+        "width": 0.073,
+        "height": 0.047
       }
     ]
   },
@@ -4083,8 +3894,8 @@
     "note": "8-4: A skyscraper warship piercing the clouds, reactors and flak guns on its floors.",
     "name": "SKYBREAKER",
     "drawing": "skybreaker",
-    "width": 0.727,
-    "height": 0.62,
+    "width": 0.847,
+    "height": 0.613,
     "difficulty": 18,
     "attacks": {
       "front": "wave",
@@ -4094,88 +3905,74 @@
     },
     "parts": [
       {
-        "drawing": "skybreaker:flak",
-        "x": -0.053,
-        "y": -0.12,
+        "drawing": "skybreaker:launcher",
+        "x": -0.16,
+        "y": -0.08,
+        "width": 0.113,
+        "height": 0.133
+      },
+      {
+        "drawing": "skybreaker:launcher",
+        "x": 0.16,
+        "y": -0.08,
+        "width": 0.113,
+        "height": 0.133
+      },
+      {
+        "drawing": "skybreaker:launcher2",
+        "x": -0.26,
+        "y": -0.03,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.167
       },
       {
-        "drawing": "skybreaker:flak",
-        "x": 0.053,
-        "y": -0.12,
+        "drawing": "skybreaker:launcher2",
+        "x": 0.26,
+        "y": -0.03,
         "width": 0.073,
-        "height": 0.107
+        "height": 0.167
       },
       {
-        "drawing": "skybreaker:reactor",
-        "x": -0.24,
-        "y": -0.02,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "skybreaker:launcher3",
+        "x": -0.027,
+        "y": -0.18,
+        "width": 0.047,
+        "height": 0.093
       },
       {
-        "drawing": "skybreaker:reactor",
-        "x": 0.24,
-        "y": -0.02,
-        "width": 0.087,
-        "height": 0.087
+        "drawing": "skybreaker:launcher3",
+        "x": 0.027,
+        "y": -0.18,
+        "width": 0.047,
+        "height": 0.093
       },
       {
-        "drawing": "skybreaker:flak2",
-        "x": -0.28,
-        "y": -0.26,
+        "drawing": "skybreaker:turret",
+        "x": -0.107,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.113
+      },
+      {
+        "drawing": "skybreaker:turret",
+        "x": 0.107,
+        "y": 0.057,
+        "width": 0.073,
+        "height": 0.113
+      },
+      {
+        "drawing": "skybreaker:launcher4",
+        "x": -0.06,
+        "y": 0.087,
         "width": 0.06,
-        "height": 0.087
+        "height": 0.12
       },
       {
-        "drawing": "skybreaker:flak2",
-        "x": 0.28,
-        "y": -0.26,
+        "drawing": "skybreaker:launcher4",
+        "x": 0.06,
+        "y": 0.087,
         "width": 0.06,
-        "height": 0.087
-      },
-      {
-        "drawing": "skybreaker:reactor2",
-        "x": -0.14,
-        "y": 0.067,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "skybreaker:reactor2",
-        "x": 0.14,
-        "y": 0.067,
-        "width": 0.073,
-        "height": 0.073
-      },
-      {
-        "drawing": "skybreaker:reactor3",
-        "x": -0.08,
-        "y": 0.167,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "skybreaker:reactor3",
-        "x": 0.08,
-        "y": 0.167,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "skybreaker:reactor4",
-        "x": -0.34,
-        "y": -0.033,
-        "width": 0.087,
-        "height": 0.087
-      },
-      {
-        "drawing": "skybreaker:reactor4",
-        "x": 0.34,
-        "y": -0.033,
-        "width": 0.087,
-        "height": 0.087
+        "height": 0.12
       }
     ]
   },
@@ -4183,8 +3980,8 @@
     "note": "8-5: The city's regal flagship, its gold-trimmed hull lined with gatlings and flak guns.",
     "name": "SOVEREIGN",
     "drawing": "sovereign",
-    "width": 0.86,
-    "height": 0.707,
+    "width": 0.887,
+    "height": 0.667,
     "difficulty": 19,
     "attacks": {
       "front": "accel",
@@ -4194,88 +3991,88 @@
     },
     "parts": [
       {
-        "drawing": "sovereign:flak",
-        "x": -0.04,
-        "y": 0.223,
+        "drawing": "sovereign:turret",
+        "x": -0.353,
+        "y": -0.16,
         "width": 0.087,
-        "height": 0.127
+        "height": 0.187
       },
       {
-        "drawing": "sovereign:flak",
-        "x": 0.04,
-        "y": 0.223,
+        "drawing": "sovereign:turret",
+        "x": 0.353,
+        "y": -0.16,
         "width": 0.087,
-        "height": 0.127
+        "height": 0.187
       },
       {
-        "drawing": "sovereign:gatling",
-        "x": -0.24,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.107
-      },
-      {
-        "drawing": "sovereign:gatling",
-        "x": 0.24,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.107
-      },
-      {
-        "drawing": "sovereign:flak2",
-        "x": -0.133,
-        "y": -0.257,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "sovereign:flak2",
-        "x": 0.133,
-        "y": -0.257,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "sovereign:gatling2",
-        "x": -0.327,
-        "y": 0.057,
-        "width": 0.073,
-        "height": 0.127
-      },
-      {
-        "drawing": "sovereign:gatling2",
-        "x": 0.327,
-        "y": 0.057,
-        "width": 0.073,
-        "height": 0.127
-      },
-      {
-        "drawing": "sovereign:gatling3",
+        "drawing": "sovereign:turret2",
         "x": -0.067,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.107
+        "y": -0.143,
+        "width": 0.087,
+        "height": 0.167
       },
       {
-        "drawing": "sovereign:gatling3",
+        "drawing": "sovereign:turret2",
         "x": 0.067,
-        "y": -0.097,
-        "width": 0.06,
-        "height": 0.107
+        "y": -0.143,
+        "width": 0.087,
+        "height": 0.167
       },
       {
-        "drawing": "sovereign:gatling4",
-        "x": -0.387,
-        "y": -0.083,
-        "width": 0.06,
-        "height": 0.107
+        "drawing": "sovereign:launcher",
+        "x": -0.12,
+        "y": 0.123,
+        "width": 0.087,
+        "height": 0.167
       },
       {
-        "drawing": "sovereign:gatling4",
-        "x": 0.387,
-        "y": -0.083,
+        "drawing": "sovereign:launcher",
+        "x": 0.12,
+        "y": 0.123,
+        "width": 0.087,
+        "height": 0.167
+      },
+      {
+        "drawing": "sovereign:tank",
+        "x": -0.047,
+        "y": 0.04,
         "width": 0.06,
-        "height": 0.107
+        "height": 0.093
+      },
+      {
+        "drawing": "sovereign:tank",
+        "x": 0.047,
+        "y": 0.04,
+        "width": 0.06,
+        "height": 0.093
+      },
+      {
+        "drawing": "sovereign:launcher2",
+        "x": -0.247,
+        "y": -0.147,
+        "width": 0.047,
+        "height": 0.08
+      },
+      {
+        "drawing": "sovereign:launcher2",
+        "x": 0.247,
+        "y": -0.147,
+        "width": 0.047,
+        "height": 0.08
+      },
+      {
+        "drawing": "sovereign:tank2",
+        "x": -0.033,
+        "y": 0.143,
+        "width": 0.06,
+        "height": 0.06
+      },
+      {
+        "drawing": "sovereign:tank2",
+        "x": 0.033,
+        "y": 0.143,
+        "width": 0.06,
+        "height": 0.06
       }
     ]
   },
@@ -4283,8 +4080,8 @@
     "note": "8-6: The last boss: a dark core collapsing into itself, turrets orbiting it.",
     "name": "SINGULARITY",
     "drawing": "singularity",
-    "width": 0.847,
-    "height": 0.66,
+    "width": 0.833,
+    "height": 0.653,
     "difficulty": 20,
     "attacks": {
       "front": "curve",
@@ -4295,87 +4092,87 @@
     "parts": [
       {
         "drawing": "singularity:cannon",
-        "x": -0.047,
-        "y": 0.087,
-        "width": 0.087,
-        "height": 0.207
+        "x": -0.053,
+        "y": -0.127,
+        "width": 0.06,
+        "height": 0.16
       },
       {
         "drawing": "singularity:cannon",
-        "x": 0.047,
-        "y": 0.087,
-        "width": 0.087,
-        "height": 0.207
+        "x": 0.053,
+        "y": -0.127,
+        "width": 0.06,
+        "height": 0.16
+      },
+      {
+        "drawing": "singularity:sensor",
+        "x": -0.307,
+        "y": -0.123,
+        "width": 0.06,
+        "height": 0.087
+      },
+      {
+        "drawing": "singularity:sensor",
+        "x": 0.307,
+        "y": -0.123,
+        "width": 0.06,
+        "height": 0.087
       },
       {
         "drawing": "singularity:cannon2",
-        "x": -0.14,
-        "y": 0.1,
-        "width": 0.127,
-        "height": 0.153
-      },
-      {
-        "drawing": "singularity:cannon2",
-        "x": 0.14,
-        "y": 0.1,
-        "width": 0.127,
-        "height": 0.153
-      },
-      {
-        "drawing": "singularity:cannon3",
-        "x": -0.193,
-        "y": 0.007,
-        "width": 0.113,
-        "height": 0.207
-      },
-      {
-        "drawing": "singularity:cannon3",
-        "x": 0.193,
-        "y": 0.007,
-        "width": 0.113,
-        "height": 0.207
-      },
-      {
-        "drawing": "singularity:cannon4",
-        "x": -0.113,
-        "y": -0.09,
+        "x": -0.153,
+        "y": -0.107,
         "width": 0.087,
         "height": 0.16
       },
       {
-        "drawing": "singularity:cannon4",
-        "x": 0.113,
-        "y": -0.09,
+        "drawing": "singularity:cannon2",
+        "x": 0.153,
+        "y": -0.107,
         "width": 0.087,
         "height": 0.16
       },
       {
-        "drawing": "singularity:cannon5",
-        "x": -0.073,
-        "y": -0.18,
-        "width": 0.047,
-        "height": 0.127
-      },
-      {
-        "drawing": "singularity:cannon5",
-        "x": 0.073,
-        "y": -0.18,
-        "width": 0.047,
-        "height": 0.127
-      },
-      {
-        "drawing": "singularity:cannon6",
-        "x": -0.033,
-        "y": 0.07,
+        "drawing": "singularity:sensor2",
+        "x": -0.173,
+        "y": 0.18,
         "width": 0.06,
-        "height": 0.067
+        "height": 0.093
       },
       {
-        "drawing": "singularity:cannon6",
-        "x": 0.033,
-        "y": 0.07,
+        "drawing": "singularity:sensor2",
+        "x": 0.173,
+        "y": 0.18,
         "width": 0.06,
-        "height": 0.067
+        "height": 0.093
+      },
+      {
+        "drawing": "singularity:sensor3",
+        "x": -0.08,
+        "y": 0.16,
+        "width": 0.06,
+        "height": 0.04
+      },
+      {
+        "drawing": "singularity:sensor3",
+        "x": 0.08,
+        "y": 0.16,
+        "width": 0.06,
+        "height": 0.04
+      },
+      {
+        "drawing": "singularity:cannon3",
+        "x": -0.213,
+        "y": -0.19,
+        "width": 0.06,
+        "height": 0.207
+      },
+      {
+        "drawing": "singularity:cannon3",
+        "x": 0.213,
+        "y": -0.19,
+        "width": 0.06,
+        "height": 0.207
       }
     ]
   }

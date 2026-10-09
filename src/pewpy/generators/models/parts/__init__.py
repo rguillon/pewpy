@@ -11,6 +11,7 @@ part.py: what a part is.
 from functools import cache
 
 from pewpy.generators.models.parts.cockpits import cockpits
+from pewpy.generators.models.parts.connectors import connectors
 from pewpy.generators.models.parts.details import details
 from pewpy.generators.models.parts.engines import engines
 from pewpy.generators.models.parts.heavy_weapons import heavy_guns, heavy_missiles
@@ -22,6 +23,7 @@ from pewpy.generators.models.parts.wings import wings
 KINDS = {  # the families of parts, in the catalog's order, and their titles
     "hull": "Hulls",
     "wing": "Wings",
+    "connector": "Connectors",
     "cockpit": "Cockpits",
     "engine": "Engines",
     "gun": "Guns",
@@ -44,6 +46,7 @@ def catalog() -> dict[str, Part]:
     every = [
         *hulls(),
         *wings(),
+        *connectors(),
         *cockpits(),
         *engines(),
         *guns(),

@@ -14,6 +14,7 @@ from pewpy.generators.models.ships.placing import Maker, nose_room
 from pewpy.generators.models.ships.selection import Asked, finish, maker
 
 ATTEMPTS = 4  # tries (each framed twice, see _aimed) for each ship (or boss) kept: the nearest the size *(placeholder)*
+NEAR = 0.04  # a frame this near the size is kept at once, no more tries (see geometry.miss) *(placeholder)*
 MIN_WEAPONS = 5  # a boss's at least, its parts' and its own
 DECIMALS = 4  # a size's, in world units
 PARTS_FROM = 300  # square cubes: a model smaller has no destroyable parts... *(placeholder)*
@@ -69,7 +70,7 @@ def sized_model(
     return {**made, "core": {**made["core"], "size": rounded(size)}}
 
 
-def _aimed(seed: int, wanted: Size, framed: Size, player: bool, asked: Asked) -> Maker:
+def _aimed(seed: int, wanted: Size, framed: Size, *, player: bool, asked: Asked) -> Maker:
     """Frame a ship from a seed, then again from the same seed aimed to make up for how far off the first one came."""
     first = maker(random.Random(seed), wanted, player=player, asked=asked)
     have = first.frame().size()
@@ -80,7 +81,7 @@ def _aimed(seed: int, wanted: Size, framed: Size, player: bool, asked: Asked) ->
 
 
 def _sized(rng: Rng, size: Size, *, player: bool, asked: Asked) -> dict:
-    """Make a ship about `size`: framed a few times, the frame nearest that size finished; return its drawings.
+    """Make a ship about `size`: framed a few times (until one is NEAR it), the frame nearest it finished; its drawings.
 
     Each try is framed, then framed again from the same choices, aimed as much off the size as the first frame came
     out off it the other way (see `_aimed`). A frame has no guns on its nose yet: it's compared with the size less the
@@ -88,6 +89,12 @@ def _sized(rng: Rng, size: Size, *, player: bool, asked: Asked) -> dict:
     """
     wanted = cubes(size)
     framed = (wanted[0], max(1.0, wanted[1] - nose_room(wanted[1])))
-    makers = [_aimed(rng.getrandbits(32), wanted, framed, player, asked) for _ in range(ATTEMPTS)]
-    best = min(makers, key=lambda made: miss(made.ship.size(), framed))
+    best = None
+    for _ in range(ATTEMPTS):  # until one is near enough
+        made = _aimed(rng.getrandbits(32), wanted, framed, player=player, asked=asked)
+        if best is None or miss(made.ship.size(), framed) < miss(best.ship.size(), framed):
+            best = made
+        if miss(best.ship.size(), framed) < NEAR:
+            break
+    assert best is not None  # noqa: S101 - ATTEMPTS > 0
     return finish(rng, best.dress(), player=player)()

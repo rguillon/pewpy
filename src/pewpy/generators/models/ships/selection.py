@@ -20,8 +20,9 @@ class Asked:
     least_armed: int = 1
 
 
-FLAMES = (4, 8)  # an enemy's flames' length, in cubes
-PLAYER_FLAMES = (8, 11)  # a player's ship's
+FLAMES = (4, 8)  # an enemy's flames' length, in cubes...
+PLAYER_FLAMES = (8, 11)  # ...a player's ship's...
+FLAME_ROWS = 25  # ...on a ship up to this many rows long; longer as much as a longer one is *(placeholder)*
 
 
 def build(rng: Rng, wanted: tuple[float, float], *, player: bool = False, asked: Asked | None = None) -> Ship:
@@ -36,9 +37,9 @@ def maker(rng: Rng, wanted: tuple[float, float], *, player: bool = False, asked:
 
 
 def finish(rng: Rng, made: Ship, *, player: bool = False) -> Callable[[], dict]:
-    """Pick a ship's colors and flames: return what makes its drawing."""
+    """Pick a ship's colors and flames (longer on a longer ship): return what makes its drawing."""
     colors = palette(GREYS, pick_player_colors(rng) if player else pick_colors(rng))
-    flame = rng.randint(*(PLAYER_FLAMES if player else FLAMES))
+    flame = round(rng.randint(*(PLAYER_FLAMES if player else FLAMES)) * max(1.0, made.size()[1] / FLAME_ROWS))
 
     def make() -> dict:
         return made.drawing(colors, flame, player=player)

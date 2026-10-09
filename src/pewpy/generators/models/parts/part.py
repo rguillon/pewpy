@@ -22,6 +22,7 @@ MOUNTS = {
     "under": "under a wing or the hull: its middle on x = 0, its back on y = 0, its top on z = 0",
     "side": "on the hull's side: drawn for the left, its inner face on x = 0, its back on y = 0, its middle on z = 0",
     "tip": "on a wing's tip: its middle on x = 0, its back on y = 0, its middle on z = 0",
+    "connector": "between two hulls: its inner end on x = 0 (running out to the left), its middle on y = 0 and z = 0",
 }
 
 

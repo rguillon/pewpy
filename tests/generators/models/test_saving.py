@@ -165,6 +165,7 @@ def test_a_new_enemy_with_parts_gets_them_in_its_model_and_its_file(data_copy: P
     for part in body["parts"]:
         assert part["drawing"].startswith("gunship:")
         assert 0 < part["health"] < body["health"]
+        assert isinstance(part["points"], int)  # a score counts whole points
     model = json.loads((data_copy / "models/enemies/gunship.json").read_text())
     assert set(model["parts"]) == {part["drawing"].removeprefix("gunship:") for part in body["parts"]}
     reload_kinds()  # the game reads it

@@ -32,21 +32,22 @@ Units: see `00-vision.md`.
   assembled from them (VSL-18).
 - **VSL-33** The catalog of built-in parts, which ships are assembled from and bosses are covered in, shall be big
   (over 400 parts), each part drawn once in code, named ("dart hull, large", "twin barrels, short"), never stretched,
-  and one piece. Its kinds: hulls (16 profiles: round, boxy or diamond cross-sections; made to any size, the catalog
-  showing each in 6 sizes, tiny to colossal; a hull at most 8 cubes high on top however wide *(placeholder)*), wings
-  (16 outlines, some rising or drooping, no more than one 12 cubes long *(placeholder)*; made to any size, the catalog
-  showing each in 8 sizes, tiny to titanic), cockpits (bubbles, framed canopies, a tandem and a twin canopy, visors,
-  bridges, one on a deck, glass domes, an armored slit, a command tower off its middle; sensor eyes and a glazed nose
-  on the nose), engines (tail nozzles in 4 sizes, blocks and clusters (giant ones, an engine bank), slot nozzles, an
-  ion engine, afterburners; nacelles), guns (barrels, cannons, gatlings, beam emitters, railguns on the nose; turrets,
-  flak guns on top; a ball turret and gun, cannon, laser pods underneath; tip guns; a side cannon and a sponson),
-  heavy guns (heavy, gigantic and colossal cannons, a siege railgun and a mega gatling on the nose; battleship and
-  dreadnought turrets on top), missiles (under a wing, rocket pods, on the tips, racks and missile batteries on top, a
-  side launcher, a cruise missile), vents, intakes, fins, antennas, sensors, tanks, armor, lights and machinery. Each
-  part says how it mounts: as the hull, on the hull's side (a left wing, mirrored for the right), on top, on the nose,
-  on the tail, as a pod, underneath, on a side, on a wing's tip. Only wings, side parts and the command tower are
-  lopsided; the right side's copy of a part is its mirror image. Guns' barrel tips are the ship's weapons, engines'
-  nozzles its flames.
+  and one piece. Its kinds: connectors (girders, lattice trusses, tubes, pipe bundles, made to any length, running
+  across between two hulls; the catalog showing each in 3 lengths), hulls (16 profiles: round, boxy or diamond
+  cross-sections; made to any size, the catalog showing each in 6 sizes, tiny to colossal; a hull at most 8 cubes high
+  on top however wide *(placeholder)*), wings (16 outlines, some rising or drooping, no more than one 12 cubes long
+  *(placeholder)*; made to any size, the catalog showing each in 8 sizes, tiny to titanic), cockpits (bubbles, framed
+  canopies, a tandem and a twin canopy, visors, bridges, one on a deck, glass domes, an armored slit, a command tower
+  off its middle; sensor eyes and a glazed nose on the nose), engines (tail nozzles in 4 sizes, blocks and clusters
+  (giant ones, an engine bank), slot nozzles, an ion engine, afterburners; nacelles), guns (barrels, cannons,
+  gatlings, beam emitters, railguns on the nose; turrets, flak guns on top; a ball turret and gun, cannon, laser pods
+  underneath; tip guns; a side cannon and a sponson), heavy guns (heavy, gigantic and colossal cannons, a siege
+  railgun and a mega gatling on the nose; battleship and dreadnought turrets on top), missiles (under a wing, rocket
+  pods, on the tips, racks and missile batteries on top, a side launcher, a cruise missile), vents, intakes, fins,
+  antennas, sensors, tanks, armor, lights and machinery. Each part says how it mounts: as the hull, between two hulls,
+  on the hull's side (a left wing, mirrored for the right), on top, on the nose, on the tail, as a pod, underneath, on
+  a side, on a wing's tip. Only wings, connectors, side parts and the command tower are lopsided; the right side's
+  copy of a part is its mirror image. Guns' barrel tips are the ship's weapons, engines' nozzles its flames.
 - **VSL-8** Bullets shall be balls of energy facing the camera: a white-hot core in a solid body of the bullet's color,
   about its hitbox, with a brighter rim and an edge that ripples, the core throbbing, in a halo of light added to what is
   behind; with the halo, about 3.2 times their hitbox. The player's bullets shall be bright green ovals; enemy shots are
@@ -86,39 +87,51 @@ The Dev menu's model browser makes new models (UIA-23).
   *(placeholder shares)*: classic (a hull and a pair of wings, 40%; 50% for the player), flying wing (a short hull,
   wide long-chorded wings, 12%; 15%), pods (wings and a pod beside the hull on each side: an engine nacelle or a small
   hull, 14%; 15%), booms (wings carrying a boom each, sticking out behind them, a fin on its tail, 14%; 20%), wingless
-  (a wide hull, 20%; never for the player). Classic and booms ships get canards or a tailplane 40% of the time.
+  (a wide hull, 20%; never for the player). Classic and booms ships get canards or a tailplane 40% of the time. Bigger
+  ships look less like aircraft and more like flying cities: a ship takes a city-like layout instead with a chance
+  growing with its area, none under 600 square cubes, 75% from 4000 *(placeholder)*: multihull (a narrow main hull and
+  one or two more on each side, parallel, spaced across its width, each joined to the one inside it by one to three
+  beams across, 35%), cluster (a core hull and satellites of other shapes round it, one more for every 3000 square
+  cubes, up to 4, each joined by beams to the core or to a satellite already there, a chain going out, 40%), city (a
+  wide deck, a boxy hull, carrying 3 to 12 buildings: smaller hulls standing on it, 30% of them with a smaller one on
+  top, 25%) *(placeholder shares)*. The beams are connectors of one style a ship (VSL-33); a lopsided ship's other
+  hulls may be on one side only. Satellites and side hulls may carry engines on their tails; details and destructible
+  parts go on any of its hulls.
 - **VSL-34** Parts shall be placed where their mount goes on what is already there: wings on the hull's sides, their
-  root sinking into it; engines on the tail (one, or two side by side), at the booms' tails, under the wings or on
-  their tips, always at least one; a cockpit on top of the hull in its front half, or on the nose (15%); guns and
-  missiles on the nose (or a pair on its cheeks), on top, under the wings or on their tips (under the hull without
-  wings), and on one side for a lopsided ship; details on top of the hull (fins near its tail) or of a wing, on the
-  hull's sides, underneath (drop tanks under the wings). A part only goes where it fits: at most a share of it sinking
-  into what's there (half a wing; nothing for most), on top only where at least 60% of it stands on the ship, never in
-  front of a barrel or behind a nozzle, its own barrels and nozzles clear; else another place or part is tried, 12
-  times *(placeholder)*. Pieces left apart are then joined by struts (VSL-4).
+  root sinking into it; engines in a row across the tail of each of its hulls (the main one, side hulls, satellites;
+  not one with another hull right behind it), about one for every 1000 square cubes of the ship, at most 16, shared
+  out by how wide each tail is (across its back 15%), side by side, as wide as the tail leaves them and at most a
+  quarter of their hull's length long *(placeholder)*; and maybe more at the booms' tails, under the wings or on their
+  tips; always at least one; a cockpit on top of the hull in its front half, or on the nose (15%); guns and missiles
+  on the nose (or a pair on its cheeks), on top, under the wings or on their tips (under the hull without wings), and
+  on one side for a lopsided ship; details on top of the hull (fins near its tail) or of a wing, on the hull's sides,
+  underneath (drop tanks under the wings). A part only goes where it fits: at most a share of it sinking into what's
+  there (half a wing; nothing for most), on top only where at least 60% of it stands on the ship, never in front of a
+  barrel or behind a nozzle, its own barrels and nozzles clear; else another place or part is tried, 12 times
+  *(placeholder)*. Pieces left apart are then joined by struts (VSL-4).
 - **VSL-35** 75% of the enemies' ships and 85% of the player's shall be symmetric, every part off the axis with its
   mirror image *(placeholder)*. The others are lopsided, one or two ways: different wings on each side, a pod or a
   boom on one side only, a side cannon, a sponson or a missile launcher on one side, a command tower off the axis; their
   details and wing parts go on both sides or on one of them.
 - **VSL-36** Armament: an enemy gets 1 to 3 weapons, one more per 900 square cubes *(placeholder)*, always at least
-  one (a barrel out of the nose if nothing fits); the player's ship 1 or 2 (shown, not listed). Details: 1 to 3, one
-  more per 250 square cubes, at most 40, one fin at most *(placeholder)*. Then the bits are painted: none, one or two
-  of a livery stripe across the top, a nose cone in the accent, stripes along the wings; markings on the wing tips 60%
-  of the time.
+  one (if nothing fits, a barrel sunk into the nose, its tip no further ahead than the room left for the nose guns);
+  the player's ship 1 or 2 (shown, not listed). Details: 1 to 3, one more per 250 square cubes, at most 40, one fin at
+  most *(placeholder)*. Then the bits are painted: none, one or two of a livery stripe across the top, a nose cone in
+  the accent, stripes along the wings; markings on the wing tips 60% of the time.
 - **VSL-37** A canopy shall be glass blown round over a dark coaming, highest towards its front, a streak of light
   along its top (a lighter glass color), thin dark frame bows across its top, and a plated fairing behind it running
   down into the hull. A visor is an armored hood, glass wrapping round its front half and sloping to the hull. A bridge
   is an armored cab, windows round its front, a roof glazed along its front edge, a mast with a light. A sensor eye is
   a lens bulging out of a dark rim; a glazed nose is panes of glass in a frame.
 - **VSL-16** A player's ship shall be made like an enemy's, at its class's size. Its main color shall always be a
-  bluish grey, with colored bits (a livery stripe, a nose cone, wing stripes, markings, sensors). It shall point up the
-  screen, flames out of its tail (8 to 11 cubes long; an enemy's 4 to 8), without weapons listed (the player's guns do
-  not fire from the model).
+  bluish grey, with colored bits (a livery stripe, a nose cone, wing stripes, markings, sensors). It shall point up
+  the screen, flames out of its tail (8 to 11 cubes long; an enemy's 4 to 8; on a ship more than 25 rows long, longer
+  as much as it is *(placeholder)*), without weapons listed (the player's guns do not fire from the model).
 - **VSL-17** The player's ships, the enemies and the bosses shall all be made the same way (VSL-15 and VSL-34 to
   VSL-36): only their size differs, and with it the chance of destructible parts (VSL-18). The game's rules add three
   things: the player's ships never have destructible parts, a boss always does, and a boss has at least five weapons,
   its own and its parts' together (anything else one); if the weapons it gets fall short, more are tried, then barrels
-  out of its nose side by side. A lopsided boss stays lopsided, a symmetric one symmetric.
+  sunk into its nose side by side (as VSL-36). A lopsided boss stays lopsided, a symmetric one symmetric.
 - **VSL-18** Any enemy (a boss or not) may have destructible parts, by its size alone: never under 300 square cubes,
   always from 1350 (every boss), the chance growing with its area between *(placeholder)*. They shall be modules
   assembled at random from the catalog's parts, of one to three kinds a model, each kind a main piece from the

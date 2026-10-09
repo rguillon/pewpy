@@ -99,7 +99,7 @@ def save_enemy(entry: Entry, made: dict, old_size: tuple[float, float]) -> None:
             if parts:
                 stats = {
                     "health": round(max(1.0, body.get("health", 1.0) * PART_HEALTH), 1),
-                    "points": round(body.get("points", 0) * PART_POINTS, -1),
+                    "points": int(round(body.get("points", 0) * PART_POINTS, -1)),  # a whole number of points
                 }
                 body["parts"] = [{**part, **stats} for part, _ in parts]
         if drawn:

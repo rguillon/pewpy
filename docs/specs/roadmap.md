@@ -58,3 +58,6 @@
   catalog; gigantic guns, bigger wings, hulls and engines (`05-visuals.md`)
 - [x] Any enemy may have destructible parts, by its size alone, made and saved like a boss's (`05-visuals.md`,
   `04-ui-audio.md`)
+- [x] Bigger ships like flying cities: several hulls joined by beams (multihull, cluster) or a deck carrying buildings,
+  likelier the bigger the ship (`05-visuals.md`)
+- [x] Bigger ships have more engines (a row across every hull's tail) and longer flames (`05-visuals.md`)

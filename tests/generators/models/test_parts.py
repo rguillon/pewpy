@@ -7,6 +7,7 @@ from pewpy.generators.models.common.drawing import WEAPON_KINDS
 from pewpy.generators.models.common.palette import GREYS, LIVERIES, Colors, palette
 from pewpy.generators.models.parts import KINDS, MOUNTS, Part, catalog, of_kind
 from pewpy.generators.models.parts.cockpits import cockpits
+from pewpy.generators.models.parts.connectors import STYLES, connector_at, connectors
 from pewpy.generators.models.parts.details import details
 from pewpy.generators.models.parts.engines import engines
 from pewpy.generators.models.parts.heavy_weapons import heavy_guns, heavy_missiles
@@ -24,6 +25,7 @@ def test_the_catalog_is_huge_and_has_every_kind_of_part_named_once() -> None:
     every = [
         *hulls(),
         *wings(),
+        *connectors(),
         *cockpits(),
         *engines(),
         *guns(),
@@ -59,7 +61,9 @@ def test_every_parts_barrels_and_nozzles_are_clear(part: Part) -> None:
 def test_only_wings_and_side_parts_and_the_command_towers_are_lopsided() -> None:
     lopsided = {part.name for part in PARTS if not part.symmetric}
     assert lopsided == {
-        part.name for part in PARTS if part.mount in ("wing", "side") or part.name.startswith("command tower")
+        part.name
+        for part in PARTS
+        if part.mount in ("wing", "side", "connector") or part.name.startswith("command tower")
     }
 
 
@@ -124,3 +128,11 @@ def test_hulls_and_wings_are_made_to_any_size_once() -> None:
     assert wide.extent()[0] == 61
     assert wide.high[2] <= round(OUTLINES["gull"][1] * RISE_SPAN)  # a long rising wing rises no more than a short one
     assert hull("dart", "huge").name == "dart hull, huge"  # the catalog's sizes keep their names
+
+
+def test_connectors_are_made_to_any_length_running_out_to_the_left() -> None:
+    for style in STYLES:
+        beam = connector_at(style, 30, 2)
+        assert beam.extent()[0] == 30
+        assert beam.high[0] == 0
+        assert len(pieces(beam.cells)) == 1

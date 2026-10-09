@@ -43,8 +43,9 @@ def test_a_boss_gets_the_parts_asked_that_fit_a_group_sharing_its_drawing_and_ki
 def test_a_symmetric_boss_has_its_odd_part_in_the_middle_and_its_pairs_mirrored() -> None:
     for seed in range(5):
         xs = sorted(x for _, x, _ in boss(seed, 3)["parts"])
-        assert xs[0] == pytest.approx(-xs[2])
-        assert xs[1] == pytest.approx(0)
+        assert xs == pytest.approx([-x for x in reversed(xs)])  # each part's mirror image
+        if len(xs) % 2:
+            assert xs[len(xs) // 2] == pytest.approx(0)
 
 
 def test_nothing_else_stands_where_a_destroyable_part_does() -> None:
