@@ -116,7 +116,7 @@ class Ship:
         return len(self.weapons) + len(self._reserved_weapons)
 
     def _add(self, new: dict[Cell, str]) -> None:
-        """Add cubes where there are none (the cubes there stay): `put` for many at once, as fast as it goes."""
+        """Add cubes where there are none (the cubes there stay), as fast as it goes."""
         cells, tops, bottoms, lines = self.cells, self.tops, self.bottoms, self._lines
         for cell, char in new.items():
             if cell in cells:
@@ -135,16 +135,6 @@ class Ship:
                 lines[x, z] = (y, y)
             elif y < line[0] or y > line[1]:
                 lines[x, z] = (min(line[0], y), max(line[1], y))
-
-    def put(self, x: int, y: int, z: int, char: str, *, over: bool = True) -> None:
-        """Set a cube; `over=False` keeps what's there."""
-        if not over and (x, y, z) in self.cells:
-            return
-        self.cells[x, y, z] = char
-        self.tops[x, y] = max(z, self.tops.get((x, y), z))
-        self.bottoms[x, y] = min(z, self.bottoms.get((x, y), z))
-        low, high = self._lines.get((x, z), (y, y))
-        self._lines[x, z] = min(low, y), max(high, y)
 
     def size(self) -> tuple[int, int]:
         """Return how many columns and rows the ship covers."""

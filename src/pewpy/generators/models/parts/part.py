@@ -75,11 +75,7 @@ class Part:
             if y not in halves:
                 halves[y], tops[y], bottoms[y] = abs(x), z, z
                 continue
-            halves[y] = max(halves[y], abs(x))
-            if z > tops[y]:
-                tops[y] = z
-            elif z < bottoms[y]:
-                bottoms[y] = z
+            halves[y], tops[y], bottoms[y] = max(halves[y], abs(x)), max(tops[y], z), min(bottoms[y], z)
         return {y: (halves[y], tops[y], bottoms[y]) for y in halves}
 
 

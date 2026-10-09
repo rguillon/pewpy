@@ -157,12 +157,11 @@ def _paint(x: int, y: int, z: int, top: int, length: int, side: int, *, spine: b
 
 def _along(profile: Profile, share: float) -> tuple[float, float, float, float]:
     """Return the profile at a share of the hull's length, going straight between its points."""
-    for (s0, *a), (s1, *b) in itertools.pairwise(profile):
-        if s0 <= share <= s1:
-            t = (share - s0) / (s1 - s0) if s1 > s0 else 0.0
-            w, top, bottom = (low + (high - low) * t for low, high in zip(a, b, strict=True))
-            return share, w, top, bottom
-    return profile[-1]
+    pairs = list(itertools.pairwise(profile))
+    (s0, *a), (s1, *b) = next((pair for pair in pairs if share <= pair[1][0]), pairs[-1])  # the stretch it's on
+    t = (share - s0) / (s1 - s0) if s1 > s0 else 0.0
+    w, top, bottom = (low + (high - low) * t for low, high in zip(a, b, strict=True))
+    return share, w, top, bottom
 
 
 def hulls() -> list[Part]:

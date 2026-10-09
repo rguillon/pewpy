@@ -87,7 +87,5 @@ def _around(cell: Cell) -> tuple[Cell, ...]:
     if len(cell) == 3:  # a model's (the most of them, and big ones: written out, as fast as it goes)
         x, y, z = cell
         return (x - 1, y, z), (x + 1, y, z), (x, y - 1, z), (x, y + 1, z), (x, y, z - 1), (x, y, z + 1)
-    if len(cell) == 2:
-        x, y = cell
-        return (x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)
-    return tuple((*cell[:axis], cell[axis] + step, *cell[axis + 1 :]) for axis in range(len(cell)) for step in (-1, 1))
+    x, y = cell  # a plan's
+    return (x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)

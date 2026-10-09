@@ -405,9 +405,7 @@ class Maker:
         if not self._put(part, spots, overlap=0.15):
             return
         self.booms = spots
-        fins = self._fitting(of_kind("fin", "top"))
-        if not fins:
-            return
+        fins = self._fitting(of_kind("fin", "top"))  # a tiny one fits any hull
         fin = self._pick(fins, lambda part: part.extent()[1:], (3, 3))
         for boom in spots:
             top = self._on_top(fin, boom.x, boom.y)

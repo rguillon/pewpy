@@ -10,8 +10,7 @@ def layered_drawing(cells: dict[tuple[int, int, int], str], width: int, height: 
     extent = max(abs(layer) for _, _, layer in cells)
     grid = [[["."] * width for _ in range(height)] for _ in range(2 * extent + 1)]
     for (x, y, layer), char in cells.items():
-        if 0 <= x < width and 0 <= y < height:
-            grid[layer + extent][y][x] = char
+        grid[layer + extent][y][x] = char
     layers = [["".join(row) for row in layer] for layer in grid]
     used = set(cells.values())
     return {

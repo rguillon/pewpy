@@ -111,9 +111,7 @@ def _sides(rng: Rng, ship: Ship, platform: Part, parts: list[Part], overlap: flo
     for _ in range(TRIES if parts else 0):
         part = rng.choice(parts)
         back = rng.randint(0, max(0, platform.high[1] - part.extent()[1] + 1))
-        rows = [platform.rows[y] for y in range(back, back + part.extent()[1]) if y in platform.rows]
-        if not rows:
-            continue
+        rows = [platform.rows[y] for y in range(back, back + part.extent()[1]) if y in platform.rows]  # from `back`
         reach = max(half for half, _, _ in rows)
         middle = rows[len(rows) // 2]
         x = -reach - (1 if part.mount == "side" else 0)  # a wing's root sinks into the side
