@@ -5,7 +5,9 @@ can list its "weapons" like its "engines": each {"number", "kind", "x", "y"}, `n
 the enemy's description picks its weapons by number, see pewpy.game.weapons.guns.Gun.weapons), `kind` what it is
 ("gun", "cannon", "missile"...: for whoever writes the descriptions, the game doesn't use it), `x` and `y` the column
 and row of its barrel's tip (row 0 at the top of the drawing). Its shots come out of the tip's edge facing down the
-screen (the way enemies fly).
+screen (the way enemies fly), at the tip's height: on a 3D drawing, the middle of the topmost cubes at the tip that
+nothing stands in front of (a barrel 3 cubes thick at most); on a flat one, the model's middle plane. A boss's laser
+prefers the "laser" weapons, then the "cannon" ones (see pewpy.game.weapons.guns.laser).
 
 Only flat ("rows") and 3D ("layers") drawings can have weapons: the game reads their size from the file. Independent
 from rendering.
@@ -19,16 +21,22 @@ from pewpy import config
 from pewpy.data import model_path, read_model
 
 WEAPON_KEYS = {"number", "kind", "x", "y"}
+EMPTY = ".", " "
+THICKEST_BARREL = 3  # cubes: a muzzle's height is the middle of at most that many cubes, from the top one down
 
 
 @dataclass(frozen=True)
 class Mount:
-    """A weapon on a model: its number, its kind, and where its shots come out (x, y), from the model's middle."""
+    """A weapon on a model: its number, its kind, and where its shots come out (x, y), from the model's middle.
+
+    `depth`: how far from the model's middle plane the muzzle is, away from the camera (negative: nearer it).
+    """
 
     number: int
     kind: str
     x: float
     y: float
+    depth: float = 0.0
 
 
 @cache
@@ -69,8 +77,29 @@ def parse_mounts(data: dict[str, Any], source: str) -> dict[int, Mount]:
             msg = f"{where}: ({x}, {y}) is off the model ({columns} x {rows})"
             raise ValueError(msg)
         # From the middle, y up the screen; the shot leaves from the side of the tip's voxel facing down the screen.
-        mounts[number] = Mount(number, kind, (x - (columns - 1) / 2) * voxel, ((rows - 1) / 2 - (y + 0.5)) * voxel)
+        across, up = (x - (columns - 1) / 2) * voxel, ((rows - 1) / 2 - (y + 0.5)) * voxel
+        mounts[number] = Mount(number, kind, across, up, _tip_layer(data, round(x), round(y)) * voxel)
     return mounts
+
+
+def _tip_layer(data: dict[str, Any], x: int, y: int) -> float:
+    """Return the layer a weapon's muzzle is at, from the middle one (negative: nearer the camera); 0 when flat.
+
+    The middle of the topmost cubes at its tip with nothing in front of them (down the screen), at most
+    THICKEST_BARREL of them; any cube at its tip if they all have something in front.
+    """
+    layers = data.get("layers")
+    if not layers:
+        return 0.0
+    filled = [index for index, layer in enumerate(layers) if layer[y][x] not in EMPTY]
+    clear = [index for index in filled if y + 1 == len(layers[index]) or layers[index][y + 1][x] in EMPTY]
+    candidates = clear or filled
+    if not candidates:
+        return 0.0
+    run = [candidates[0]]
+    while len(run) < THICKEST_BARREL and run[-1] + 1 in candidates:
+        run.append(run[-1] + 1)
+    return (run[0] + run[-1]) / 2 - len(layers) // 2
 
 
 def _size(data: dict[str, Any], source: str) -> tuple[int, int]:

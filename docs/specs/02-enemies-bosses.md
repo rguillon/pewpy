@@ -47,8 +47,10 @@ boss** at the end. *(placeholder: every boss's numbers; not playtested)*
   size around it.
 - **BOS-15** Health bar: while a boss is on screen, its name and its health (core and parts together) shall show at
   the top of the screen (see `04-ui-audio.md`).
-- **BOS-16** Laser guns (final bosses): a laser shall fire red beams (ENM-12) straight down from under its core or
-  part, which follow the boss as it sways. Each beam shall be announced 1 s before by a thin harmless red beam
+- **BOS-16** Laser guns (final bosses): a laser shall fire red beams (ENM-12) straight down from its core or part,
+  which follow the boss as it sways. On a model with weapons drawn, each beam shall come from the weapon nearest where
+  its gun places it (its "laser" weapons first, then its cannons, then any; one beam per weapon); otherwise from
+  under the core or part. Each beam shall be announced 1 s before by a thin harmless red beam
   (0.008 wide, see-through) in the same place; the beam then fires for its duration. A beam and its warning shall
   vanish when their core or part is destroyed.
 - **BOS-17** Projectile guns (final bosses): a gun may launch rockets (starting at 0.25 in its direction), homing
@@ -541,7 +543,7 @@ boss** at the end. *(placeholder: every boss's numbers; not playtested)*
 | accel | 5 accelerating shots 8° apart aimed at the player, every 1.8 → 1.3 s, speed 0.55 → 0.7 |
 | curve | a ring of 8 → 12 curving shots (35° per second), every 1.8 → 1.3 s, speed 0.35 → 0.4 |
 | pellets | 7 → 11 pellets 6° apart aimed at the player, every 1.6 → 1.2 s, speed 0.6 → 0.7 |
-| laser | a laser beam 0.07 wide every 4.5 → 3 s, lasting 1 → 1.4 s after its 1 s warning; from the core: two beams, a quarter of the core's width either side of its middle |
+| laser | a laser beam 0.07 wide every 4.5 → 3 s, lasting 1 → 1.4 s after its 1 s warning; from the core: two beams, a quarter of the core's width either side of its middle (from the cannons nearest there, BOS-16) |
 | missiles | 2 homing missiles 40° apart, aimed at the player, every 3.5 → 2.5 s |
 | rockets | 3 rockets 25° apart around straight down, every 2.6 → 1.8 s |
 | cluster | 2 → 3 cluster bombs 30° apart around straight down, every 3 → 2.2 s |

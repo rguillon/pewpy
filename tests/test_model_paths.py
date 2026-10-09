@@ -17,12 +17,13 @@ def test_a_model_is_found_in_its_group() -> None:
 
 
 def test_a_part_is_drawn_in_its_models_file() -> None:
-    assert model_folder("avalanche:cannon") == "bosses"
-    assert model_path("avalanche:cannon") == model_path("avalanche")
     model, _ = read_model("avalanche")
-    part, source = read_model("avalanche:cannon")
-    assert part == model["parts"]["cannon"]
-    assert source == "avalanche.json: part cannon"
+    name = next(iter(model["parts"]))  # whatever its parts are (the Dev menu remakes them)
+    assert model_folder(f"avalanche:{name}") == "bosses"
+    assert model_path(f"avalanche:{name}") == model_path("avalanche")
+    part, source = read_model(f"avalanche:{name}")
+    assert part == model["parts"][name]
+    assert source == f"avalanche.json: part {name}"
 
 
 def test_a_part_missing_from_its_models_file_is_an_error() -> None:

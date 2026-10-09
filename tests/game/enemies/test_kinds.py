@@ -5,7 +5,7 @@ import json
 import pytest
 
 from pewpy import config
-from pewpy.data import model_path
+from pewpy.data import model_path, read_model
 from pewpy.game.enemies.actions import Fire
 from pewpy.game.enemies.kinds import BOSSES, ENEMIES, drawings
 from pewpy.game.enemies.roster import ENEMY_TYPES
@@ -42,7 +42,13 @@ def test_the_levels_place_enemies_not_what_they_launch() -> None:
     assert set(ENEMIES) - set(ENEMY_TYPES) == {"rocket", "homing_missile", "cluster_bomb", "mine"}
 
 
+def with_parts(model: str) -> set[str]:
+    """Return a model and its parts' drawings, whatever they are (the Dev menu remakes them)."""
+    return {model, *(f"{model}:{part}" for part in read_model(model)[0].get("parts", {}))}
+
+
 def test_an_enemy_needs_its_models_its_parts_and_those_of_what_it_launches() -> None:
-    assert drawings("avalanche") == {"avalanche", "avalanche:cannon", "avalanche:cannon2", "avalanche:cannon3"}
-    assert drawings("splitter") == {"splitter", "swarmer"}  # what it releases when shot down
-    assert drawings("hunter") == {"hunter", "homing_missile"}  # what its guns launch
+    assert with_parts("avalanche") != {"avalanche"}  # a boss has parts
+    assert drawings("avalanche") == with_parts("avalanche")
+    assert drawings("splitter") == with_parts("splitter") | {"swarmer"}  # what it releases when shot down
+    assert drawings("hunter") == with_parts("hunter") | {"homing_missile"}  # what its guns launch

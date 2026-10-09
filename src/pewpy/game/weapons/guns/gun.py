@@ -48,8 +48,9 @@ class Gun:
     `spawn_heading` turns it (degrees, counterclockwise from the right); with `spawn_fuse`, its first timer is set so
     it gets where the player is now.
 
-    A laser fires one beam per `offsets` (x from the gun's middle), `width` wide, for `duration` seconds, each
-    announced by a thin harmless beam LASER_WARNING seconds before; the beams follow the gun as the boss sways.
+    A laser fires one beam per `offsets` (x from the gun's middle; from the weapon nearest each, on a model with
+    weapons, see pewpy.game.weapons.guns.laser), `width` wide, for `duration` seconds, each announced by a thin
+    harmless beam LASER_WARNING seconds before; the beams follow the gun as the boss sways.
 
     When to fire: while its trigger is held (always, for enemies), when `interval` has gone by ("reset": counted again
     from then; "carry": what it was late by is taken off the next wait; "clamp": the wait never goes below 0, so it

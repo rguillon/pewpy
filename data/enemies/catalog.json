@@ -16,7 +16,8 @@
     "points": 80,
     "drop_chance": 0.05,
     "velocity": [0.0, -0.35],
-    "states": [{"name": "fly", "motions": [{"type": "weave", "amplitude": 0.25, "widen": true, "period": 2.0}]}]
+    "states": [{"name": "fly", "motions": [{"type": "weave", "amplitude": 0.25, "widen": true, "period": 2.0}]}],
+    "size": [0.1, 0.1]
   },
   "diver": {
     "note": "Comes down, waits blinking, then dives at the player.",
@@ -49,6 +50,26 @@
     "velocity": [0.0, -0.15],
     "states": [
       {"name": "fly", "guns": [{"pattern": "fan", "interval": 2.0, "speed": 0.5, "staggered": true, "count": 3, "spread": 20}]}
+    ],
+    "parts": [
+      {
+        "name": "emitter 1",
+        "x": -0.073,
+        "y": 0.053,
+        "drawing": "gunship:emitter",
+        "size": [0.06, 0.06],
+        "health": 2.4,
+        "points": 80
+      },
+      {
+        "name": "emitter 2",
+        "x": 0.073,
+        "y": 0.053,
+        "drawing": "gunship:emitter",
+        "size": [0.06, 0.06],
+        "health": 2.4,
+        "points": 80
+      }
     ]
   },
   "turret": {
@@ -144,6 +165,26 @@
         ]
       },
       {"name": "open", "exits": [{"to": "shielded", "cycle": [3.5, 0.0, 2.0]}]}
+    ],
+    "parts": [
+      {
+        "name": "sensor 1",
+        "x": -0.06,
+        "y": 0.0,
+        "drawing": "shield_carrier:sensor",
+        "size": [0.06, 0.053],
+        "health": 3.0,
+        "points": 120
+      },
+      {
+        "name": "sensor 2",
+        "x": 0.06,
+        "y": 0.0,
+        "drawing": "shield_carrier:sensor",
+        "size": [0.06, 0.053],
+        "health": 3.0,
+        "points": 120
+      }
     ]
   },
   "splitter": {
@@ -159,6 +200,26 @@
       {"kind": "swarmer", "heading": -135},
       {"kind": "swarmer", "heading": -90},
       {"kind": "swarmer", "heading": -45}
+    ],
+    "parts": [
+      {
+        "name": "turret 1",
+        "x": -0.04,
+        "y": 0.0,
+        "drawing": "splitter:turret",
+        "size": [0.073, 0.087],
+        "health": 1.8,
+        "points": 50
+      },
+      {
+        "name": "turret 2",
+        "x": 0.04,
+        "y": 0.0,
+        "drawing": "splitter:turret",
+        "size": [0.073, 0.087],
+        "health": 1.8,
+        "points": 50
+      }
     ]
   },
   "flak_cannon": {
@@ -266,6 +327,26 @@
             "origins": [[0, "-0.5h"]]
           }
         ]
+      }
+    ],
+    "parts": [
+      {
+        "name": "sensor 1",
+        "x": -0.073,
+        "y": -0.017,
+        "drawing": "bomber:sensor",
+        "size": [0.087, 0.067],
+        "health": 2.1,
+        "points": 100
+      },
+      {
+        "name": "sensor 2",
+        "x": 0.073,
+        "y": -0.017,
+        "drawing": "bomber:sensor",
+        "size": [0.087, 0.067],
+        "health": 2.1,
+        "points": 100
       }
     ]
   },

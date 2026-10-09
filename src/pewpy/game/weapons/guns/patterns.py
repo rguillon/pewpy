@@ -21,13 +21,13 @@ def fire(gun: Gun, shooter: Shooter, state: GunState | None = None, angle: float
     created: list[Entity] = []
     if gun.pattern in ("ray", "chain"):
         return created  # played out by what carries it (see pewpy.game.weapons.guns)
-    for ox, oy in origins(gun, shooter):
+    for ox, oy, depth in origins(gun, shooter):
         muzzle = piece if ox == 0 and oy == 0 else Entity(x=piece.x + ox, y=piece.y + oy)
         if gun.pattern == "beam":
-            created.append(beam(muzzle.x, muzzle.y, gun.width, gun.duration))
+            created.append(beam(muzzle.x, muzzle.y, gun.width, gun.duration, depth))
             continue
         if gun.velocities:
-            created += [styled_bullet(gun, muzzle, vx, vy, shooter.hostile) for vx, vy in gun.velocities]
+            created += [styled_bullet(gun, muzzle, vx, vy, shooter.hostile, depth) for vx, vy in gun.velocities]
             continue
         target = shooter.target or muzzle
         if angle is not None:
@@ -42,19 +42,27 @@ def fire(gun: Gun, shooter: Shooter, state: GunState | None = None, angle: float
             else:
                 radians = math.radians(direction)
                 vx, vy = math.sin(radians) * speed, shooter.forward * math.cos(radians) * speed
-                created.append(styled_bullet(gun, muzzle, vx, vy, shooter.hostile))
+                created.append(styled_bullet(gun, muzzle, vx, vy, shooter.hostile, depth))
     return created
 
 
-def origins(gun: Gun, shooter: Shooter) -> list[tuple[float, float]]:
-    """Return where a gun's shots come out, from the middle of what carries it (see Gun.origins and Gun.weapons)."""
+def origins(gun: Gun, shooter: Shooter) -> list[tuple[float, float, float]]:
+    """Return where a gun's shots come out: (x, y) from the middle of what carries it, and the muzzle's depth.
+
+    See Gun.origins and Gun.weapons; an origin that isn't a weapon is on the play plane (depth 0).
+    """
     if gun.weapons:
-        return [shooter.mounts[number] for number in gun.weapons]
-    if shooter.mounts and gun.origins == MIDDLE:
+        mounts = [shooter.mounts[number] for number in gun.weapons]
+    elif shooter.mounts and gun.origins == MIDDLE:
         numbers = sorted(shooter.mounts)
-        return [shooter.mounts[numbers[shooter.slot % len(numbers)]]]
-    piece = shooter.piece
-    return [(distance(x, piece.width, piece.height), distance(y, piece.width, piece.height)) for x, y in gun.origins]
+        mounts = [shooter.mounts[numbers[shooter.slot % len(numbers)]]]
+    else:
+        piece = shooter.piece
+        return [
+            (distance(x, piece.width, piece.height), distance(y, piece.width, piece.height), 0.0)
+            for x, y in gun.origins
+        ]
+    return [(mount.x, mount.y, mount.depth) for mount in mounts]
 
 
 def pattern_angles(

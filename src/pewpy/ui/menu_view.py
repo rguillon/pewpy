@@ -21,7 +21,8 @@ SHADOW_OFFSET = (0.05, 0.05)  # in text units
 TITLE_SCALE = 0.075
 ITEM_SCALE = 0.06
 ITEM_SPACING = 0.09
-TOP = 0.42  # height of the title on screen (aspect2d units): the ship select's ships fit under its menu
+TOP = 0.42  # height of the title on screen (aspect2d units): the ship select's ships fit under its menu...
+LOWEST = -0.95  # ...but a long menu goes up as much as it takes for its console to end above this
 ASCENT = 0.8  # of a line above its baseline, and DESCENT under it, in its scale
 DESCENT = 0.3
 PADDING = 0.06  # from the plate's edges to the display (its screws are in the corners)
@@ -69,14 +70,17 @@ class MenuView:
         if menu is None:
             return
         title_lines = menu.title.count("\n") + 1
-        title = self._text(menu.title, TOP, TITLE_SCALE, TITLE_COLOR)
+        below = TITLE_SCALE * (title_lines - 1) + TITLE_SCALE * DESCENT + 2 * DISPLAY_GAP + ITEM_SCALE * ASCENT
+        below += (len(menu.items) - 1) * ITEM_SPACING + ITEM_SCALE * DESCENT + DISPLAY_GAP + PADDING / 2
+        top = max(TOP, LOWEST + below)  # the title's height
+        title = self._text(menu.title, top, TITLE_SCALE, TITLE_COLOR)
         self.texts.append(title)
-        display_top = TOP - TITLE_SCALE * (title_lines - 1) - TITLE_SCALE * DESCENT - DISPLAY_GAP
+        display_top = top - TITLE_SCALE * (title_lines - 1) - TITLE_SCALE * DESCENT - DISPLAY_GAP
         first = display_top - DISPLAY_GAP - ITEM_SCALE * ASCENT
         for index, item in enumerate(menu.items):
             self.texts.append(self._text(item.label, first - index * ITEM_SPACING, ITEM_SCALE, ITEM_COLOR))
         bottom = first - (len(menu.items) - 1) * ITEM_SPACING - ITEM_SCALE * DESCENT - DISPLAY_GAP
-        self._console(title, menu, bottom, display_top)
+        self._console(title, menu, bottom, display_top, top)
         self.refresh()
 
     def refresh(self) -> None:
@@ -93,7 +97,7 @@ class MenuView:
                 self.row.setPos(0, 0, z + ITEM_SCALE * (ASCENT - DESCENT) / 2)
                 self.row.show()
 
-    def _console(self, title: OnscreenText, menu: Menu, bottom: float, display_top: float) -> None:
+    def _console(self, title: OnscreenText, menu: Menu, bottom: float, display_top: float, title_top: float) -> None:
         """Draw the console under the texts: as wide as the widest (highlighted), as tall as them all."""
         widths = [title.textNode.getWidth() * TITLE_SCALE]
         for text, item in zip(self.texts[1:], menu.items, strict=True):
@@ -101,7 +105,7 @@ class MenuView:
             widths.append(text.textNode.getWidth() * ITEM_SCALE)
         self.half_width = max(widths) / 2 + DISPLAY_GAP
         half = self.half_width + PADDING
-        top = TOP + TITLE_SCALE * ASCENT + PADDING / 2
+        top = title_top + TITLE_SCALE * ASCENT + PADDING / 2
         console(self.panel, (-half, half, bottom - PADDING / 2, top), display_top)
 
     def _text(self, text: str, z: float, scale: float, color: Color) -> OnscreenText:

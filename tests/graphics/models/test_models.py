@@ -339,7 +339,7 @@ def test_every_drawing_file_loads() -> None:
     assert "player" in names
     assert len(names) == len(set(names))  # unique across the groups: the game names a model without its group
     parts = [f"{name}:{part}" for name in names for part in read_drawing(name)[0].get("parts", {})]
-    assert "avalanche:cannon" in parts
+    assert any(part.startswith("avalanche:") for part in parts)  # a boss's parts, drawn in its model's file
     for name in names + parts:
         assert voxels_of(name).cells
 

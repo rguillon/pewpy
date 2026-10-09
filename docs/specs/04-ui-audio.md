@@ -85,8 +85,8 @@ Dev menu -> AI playing: Ship select (Back: to the Dev menu) -> World select -> L
 
 ## Dev menu
 
-- **UIA-19** The Dev menu, titled "DEV", shall have: Players, Enemies, Bosses, Music, Backgrounds, AI playing,
-  Screenshots, Back. Coming back to it shall highlight the entry last used.
+- **UIA-19** The Dev menu, titled "DEV", shall have: Players, Enemies, Bosses, Parts, Music, Backgrounds, AI
+  playing, Screenshots, Back. Coming back to it shall highlight the entry last used.
 
 ### Model browser
 
@@ -108,14 +108,29 @@ Dev menu -> AI playing: Ship select (Back: to the Dev menu) -> World select -> L
   Saving shall update the game at once. The keys shall be listed at the bottom of the screen.
 - **UIA-24** Saving a ship (a new model or a new size) shall scale its hitbox as much as its size changed (an
   enemy's width and height each by its own change; a player's square hitbox by the change of the size's area).
-- **UIA-25** Saving a boss shall save its new parts: their places and sizes, named after their kind ("drill 1",
-  "turret 2"...). A final boss is then made again from its plan (BOS-20 to BOS-25). A mini boss keeps its phases, the
-  parts they name replaced by the new ones: the phases waiting for parts to be destroyed each get a share of the new
-  parts, the front ones (nearest the bottom of the screen) to the first, a group sharing a model kept together when
-  there are enough groups; a gun fired from old parts is fired from the parts that took their place (from all of them
-  for old parts no phase waited for); new parts are as strong and worth as much as the old ones of their phase (a mini
-  boss that had none: 25 health, 400 points *(placeholder)*).
+- **UIA-25** Saving an enemy or a boss shall save its new parts (or, an enemy without any, take its old ones away):
+  their places and sizes, named after their kind ("drill 1", "turret 2"...); an enemy's go to every enemy drawn with
+  its model, each with 30% of the enemy's health and worth 25% of its points *(placeholder)*. A final boss is then
+  made again from its plan (BOS-20 to BOS-25). A mini boss keeps its phases, the parts they name replaced by the new
+  ones: the phases waiting for parts to be destroyed each get a share of the new parts, the front ones (nearest the
+  bottom of the screen) to the first, a group sharing a model kept together when there are enough groups; a gun fired
+  from old parts is fired from the parts that took their place (from all of them for old parts no phase waited for);
+  new parts are as strong and worth as much as the old ones of their phase (a mini boss that had none: 25 health, 400
+  points *(placeholder)*).
 - **UIA-26** New models shall be made as described in `05-visuals.md` ("Model makers").
+
+### Parts browser
+
+- **UIA-46** Parts shall open the Parts menu, titled "PARTS": one entry for each kind of built-in part ships are made
+  of (VSL-33), in the catalog's order (Hulls, Wings, Connectors, Cockpits, Engines, Guns, Missiles, Vents, Intakes,
+  Fins, Antennas, Sensors, Tanks, Armor, Lights, Machinery), then Back. Coming back to it shall highlight the kind
+  last browsed. A kind shall open the parts browser on its parts, one part at a time, in the model browser's view
+  (swaying, a frame its size, on a plain dark background), its front up the screen, an engine's flame showing; a part
+  smaller than 12 cubes drawn to the scale fitting 12, so it looks small *(placeholder)*. Above it: its name, its
+  number among its kind ("Bubble, wide  (4/22)"), its kind, what it is and how it mounts on a ship. Below: its size in
+  cubes (across, along, up), how many weapons and nozzles it has, and the keys.
+- **UIA-47** Keys: Left/Right go to the previous or next part of the kind, wrapping around; Up, Down, Space and Enter do
+  nothing (parts are drawn in code, nothing to make or save); Escape goes back to the Parts menu.
 
 ### Music browser
 
