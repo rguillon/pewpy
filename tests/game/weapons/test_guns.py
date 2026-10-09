@@ -253,6 +253,9 @@ def test_a_laser_fires_from_the_cannons_nearest_its_offsets() -> None:
     ]
     one_cannon = {number: mounts[number] for number in (1, 3, 4)}  # each weapon fires one beam
     assert len(guns.laser_beams(laser, Shooter(piece, None, mounts=one_cannon), warning=True)) == 1
+    no_cannon = {number: mounts[number] for number in (1, 4)}  # no laser or cannon: any weapon, the nearest
+    anywhere = guns.laser_beams(laser, Shooter(piece, None, mounts=no_cannon), warning=False)
+    assert [beam.x - piece.x for beam in anywhere] == [pytest.approx(-0.1), pytest.approx(0.0)]
     named = guns.laser_beams(replace(laser, weapons=(4,)), Shooter(piece, None, mounts=mounts), warning=False)
     assert [beam.x - piece.x for beam in named] == [pytest.approx(0.0)]
     under = guns.laser_beams(laser, Shooter(piece, None), warning=False)  # no weapons: under its middle
