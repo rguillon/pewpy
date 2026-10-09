@@ -13,7 +13,7 @@ from pewpy.generators.models.bosses.weapons import CORE_GUNS, MIN_WEAPONS, core_
 from pewpy.generators.models.common.drawing import layered_drawing, numbered_weapons
 from pewpy.generators.models.common.geometry import Rng
 from pewpy.generators.models.common.palette import CORE_GREYS, PART_GREYS, palette, pick_colors
-from pewpy.generators.models.components import Piece
+from pewpy.generators.models.parts import Part
 
 
 def boss(
@@ -38,7 +38,7 @@ def boss(
     markings(rng, cv)
     parts = []  # (piece, x, y, mirrored, group)
     kinds: dict[int, str] = {}  # each group's kind
-    pieces: dict[int, Piece] = {}  # each group's part
+    pieces: dict[int, Part] = {}  # each group's part
     for group, (part_kind, x, y, mirrored) in enumerate(mount(rng, cv, not lopsided, size, parts_wanted)):
         piece = pieces[group] = part(rng, part_kind, cv.w)
         socket(cv, x, y, piece, mirrored)
@@ -77,7 +77,7 @@ def boss(
                 heights.get((px + dx, y + dy - middle), (0, 0))[1]
                 for px, y, spot_group in spots
                 if spot_group == group
-                for dx, dy in piece.footprint()
+                for dx, dy in piece.footprint
             )
             drawings[group] = _part_drawing(piece, lift, part_colors)
         return {
@@ -97,10 +97,10 @@ class Made(NamedTuple):
     size: tuple[int, int]
 
 
-def _part_drawing(piece: Piece, lift: int, colors: dict) -> dict:
-    """Return a destroyable part's 3D drawing: its built-in part `lift` cubes above the middle plane, its weapons."""
-    half = max(abs(x) for x, _ in piece.footprint())
-    length = max(y for _, y in piece.footprint()) + 1
+def _part_drawing(piece: Part, lift: int, colors: dict) -> dict:
+    """Return a destroyable part's 3D drawing: its module `lift` cubes above the middle plane, its weapons."""
+    half = max(abs(x) for x, _ in piece.footprint)
+    length = piece.high[1] + 1
     cells: Cells = {(x + half, y, -z): char for (x, y, z), char in piece.cells.items()}
     drawing = layered_drawing(lifted(cells, lift), 2 * half + 1, length, colors)
     weapons = numbered_weapons([(kind, x + half, y) for kind, x, y, _ in piece.weapons])

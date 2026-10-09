@@ -1,4 +1,4 @@
-"""The wings: outlines of a left wing, each in six sizes (its span and its root's chord).
+"""The wings: outlines of a left wing, each in eight sizes (its span and its root's chord).
 
 An outline is a polygon of (share of the span from the root to the tip, share of the root's chord from its trailing
 edge towards the nose). A wing is one cube thick (two at its root), rises or droops towards its tip, and is painted: a
@@ -7,7 +7,7 @@ image.
 """
 
 from pewpy.generators.models.common.geometry import Point, inside
-from pewpy.generators.models.ships.parts.part import Part, Sketch
+from pewpy.generators.models.parts.part import Part, Sketch
 
 # By name: its outline, how much it rises (cubes up per cube out; below 0 it droops), what it is.
 OUTLINES: dict[str, tuple[list[Point], float, str]] = {
@@ -35,6 +35,8 @@ SIZES = {  # (span, chord)
     "large": (10, 8),
     "huge": (15, 10),
     "giant": (21, 11),
+    "colossal": (28, 13),
+    "titanic": (36, 15),
 }
 
 

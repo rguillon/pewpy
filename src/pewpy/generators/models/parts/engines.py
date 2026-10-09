@@ -3,7 +3,7 @@
 Each flames out of its back (y = 0): the nozzle's mouth is dark ("o"), or glowing for an ion engine.
 """
 
-from pewpy.generators.models.ships.parts.part import Part, Sketch
+from pewpy.generators.models.parts.part import Part, Sketch
 
 # Nozzle cross-sections: (x, z) offsets from the nozzle's middle, by size. "o" is the mouth, "N" the housing round
 # it, "D" its darker underside.
@@ -123,6 +123,9 @@ def engines() -> list[Part]:
         block("triple block", 1, [0, 2], [0], 3, "Three tiny nozzles in a row."),
         block("quad cluster", 1, [1], [-1, 1], 3, "Four tiny nozzles in a square."),
         block("quad cluster, big", 2, [2], [-2, 2], 3, "Four small nozzles in a square."),
+        block("giant block", 4, [4], [0], 6, "Two big nozzles side by side in a heavy housing."),
+        block("giant cluster", 3, [3], [-3, 3], 5, "Four medium nozzles in a square, in a heavy housing."),
+        block("engine bank", 3, [3, 9], [0], 5, "Four medium nozzles in a row: a capital ship's tail."),
         slot("slot nozzle, narrow", 1),
         slot("slot nozzle", 2),
         slot("slot nozzle, wide", 4),

@@ -1,16 +1,18 @@
-"""Making the destroyable parts (built-in parts, see pewpy.generators.models.components) and placing them on sockets."""
+"""Making the destroyable parts (modules of the catalog's parts, see modules.py) and placing them on sockets."""
 
 from pewpy.generators.models.bosses.canvas import Canvas
+from pewpy.generators.models.bosses.modules import KINDS, SIZES, module
 from pewpy.generators.models.common.geometry import Rng
-from pewpy.generators.models.components import COMPONENTS, PART_COMPONENTS, Piece
+from pewpy.generators.models.parts import Part
 
 PARTS_BY_SIZE = {"medium": (0, 4), "large": (2, 7), "huge": (3, 10)}
 PART_WIDTH = 40  # cubes of a core's width for each size step of its parts (one more on wider cores)
 
 
-def part(rng: Rng, kind: str, boss_width: int) -> Piece:
-    """Build a destroyable part: a built-in part of a kind (see PART_COMPONENTS), sized to its boss."""
-    return COMPONENTS[kind](rng, rng.randint(1, 2) + boss_width // PART_WIDTH)
+def part(rng: Rng, kind: str, boss_width: int) -> Part:
+    """Return a destroyable part: a module of the catalog's parts, of a kind (see modules.KINDS), sized to its boss."""
+    size = rng.randint(0, 1) + boss_width // PART_WIDTH
+    return module(rng, kind, min(max(SIZES), max(1, size)))
 
 
 def mount(
@@ -24,7 +26,7 @@ def mount(
     low, high = PARTS_BY_SIZE[size]
     exact = wanted is not None
     wanted = rng.randint(low, high) if wanted is None else wanted
-    kinds = rng.sample(PART_COMPONENTS, rng.randint(1, 3))  # a boss uses a few kinds of parts, not all of them
+    kinds = rng.sample(list(KINDS), rng.randint(1, 3))  # a boss uses a few kinds of parts, not all of them
     spots = [(x, y) for x, y in cv.cells_of("hHNTwL") if x < cv.w // 2 - 3]
     spacing = max(8, cv.w // 8)
     mounts: list[tuple[str, int, int, bool]] = []
@@ -45,19 +47,19 @@ def mount(
     return mounts
 
 
-def socket(cv: Canvas, x: int, y: int, piece: Piece, mirrored: bool) -> None:
+def socket(cv: Canvas, x: int, y: int, piece: Part, mirrored: bool) -> None:
     """Draw a thin plate on the core under the part, its middle at (x, y) (so it stands out over it, not clashing).
 
     It follows the part's outline with a cube to spare, so no flat plate shows round a rounded part.
     """
     middle = middle_row(piece)
-    under = {(px + dx, py - middle + dy) for px, py in piece.footprint() for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
+    under = {(px + dx, py - middle + dy) for px, py in piece.footprint for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
     for sx in [x] + ([cv.w - 1 - x] if mirrored else []):
         for dx, dy in under:
             if cv.filled(sx + dx, y + dy):
                 cv.set(sx + dx, y + dy, "x")
 
 
-def middle_row(piece: Piece) -> int:
-    """Return a built-in part's middle row (its rows from its back, 0)."""
-    return max(y for _, y in piece.footprint()) // 2
+def middle_row(piece: Part) -> int:
+    """Return a part's middle row (its rows from its back, 0)."""
+    return piece.high[1] // 2

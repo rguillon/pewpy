@@ -15,8 +15,8 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 
 from pewpy.generators.models.common.geometry import Rng
+from pewpy.generators.models.parts import Part, of_kind
 from pewpy.generators.models.ships import paint
-from pewpy.generators.models.ships.parts import Part, of_kind
 from pewpy.generators.models.ships.ship import Placed, Ship, Spot
 
 SYMMETRIC = 0.75  # the share of enemies' ships that are symmetric *(placeholder)*
@@ -49,7 +49,6 @@ DETAIL_SHARES = {
 AREA_PER_WEAPON = 900  # square cubes of an enemy for each weapon past the first few
 AREA_PER_DETAIL = 250  # square cubes of the ship for each detail past the first few
 MAX_DETAILS = 12
-EQUIPMENT_CHANCE = 0.6  # of an enemy carrying one or two of the bosses' built-in parts (VSL-7)
 
 
 @dataclass(frozen=True)
@@ -487,10 +486,6 @@ class Maker:
             fitting = self._fitting(of_kind(kind))
             if fitting:
                 self._detail(rng.choice(fitting))
-        if not self.player and rng.random() < EQUIPMENT_CHANCE:
-            small = self._fitting([part for part in of_kind("equipment") if part.name.startswith("small")])
-            for _ in range(rng.randint(1, 2) if small else 0):
-                self._detail(rng.choice(small))
 
     def _detail(self, part: Part) -> bool:
         """Put a detail where its mount goes: on top (of the hull, or a wing), on a side, underneath."""

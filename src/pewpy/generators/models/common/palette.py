@@ -60,6 +60,7 @@ CORE_GREYS: dict[str, Color] = {  # a boss's core
     "w": (0.32, 0.33, 0.36),  # wings, sponsons
     "W": (0.45, 0.46, 0.49),
     "o": (0.08, 0.08, 0.09),  # engine nozzles
+    "t": (0.3, 0.31, 0.33),  # containers, domes
     "x": (0.22, 0.23, 0.25),  # sockets under the parts
 }
 PART_GREYS: dict[str, Color] = {  # a boss's parts
@@ -71,6 +72,7 @@ PART_GREYS: dict[str, Color] = {  # a boss's parts
     "k": (0.17, 0.18, 0.2),
     "r": (0.13, 0.13, 0.15),  # barrels, tubes
     "W": (0.45, 0.46, 0.49),
+    "w": (0.32, 0.33, 0.36),  # stub wings
     "o": (0.08, 0.08, 0.09),  # engine nozzles
 }
 COCKPIT: Color = (0.08, 0.2, 0.28)  # a cockpit's glass, a bridge's windows

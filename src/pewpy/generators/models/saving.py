@@ -26,7 +26,6 @@ from pewpy.graphics.models import parse_voxels
 
 PAIRED = 0.005  # world units: two parts this close to mirroring each other are a pair
 DECIMALS = 3  # of a place or a size in the enemies' and bosses' files
-PART_LABELS = {"twin_cannon": "cannon", "missile_rack": "launcher", "beam": "emitter"}  # a kind, as part names say it
 DEFAULT_PART = {"health": 25.0, "points": 400}  # a new part of a mini boss that had none (placeholder)
 
 
@@ -89,7 +88,7 @@ def new_parts(boss: str, made: dict) -> list[tuple[dict[str, Any], dict]]:
     for number, ((data, x, up), group, kind) in enumerate(
         zip(made["parts"], made["groups"], made["kinds"], strict=True), start=1
     ):
-        label = PART_LABELS.get(kind, kind)
+        label = kind
         if group not in drawings:
             kinds_seen[label] = kinds_seen.get(label, 0) + 1
             drawings[group] = f"{boss}{PART_SEPARATOR}{label}" + (

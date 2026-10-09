@@ -5,7 +5,7 @@ guns on its tips; a cannon or a sponson on one side (lopsided ships). Missiles: 
 top, a launcher on one side.
 """
 
-from pewpy.generators.models.ships.parts.part import Part, Sketch
+from pewpy.generators.models.parts.part import Part, Sketch
 
 
 def barrels(name: str, xs: list[int], long: int) -> Part:

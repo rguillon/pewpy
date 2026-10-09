@@ -27,24 +27,22 @@ Units: see `00-vision.md`.
 - **VSL-6** Models shall list where their engines are (and how big their flames are) and where their weapons' barrel
   tips are (numbered, with their kind: gun, gatling, cannon, turret, flak, missile, laser). The makers' models shall
   always have weapons: at least one on an enemy, at least five on a boss (core and parts together).
-- **VSL-7** Bosses' built-in parts shall be small 3D pieces of machinery, symmetric, made to any size, stamped on
-  models: guns (a turret, a twin cannon, a gatling, a missile rack, a flak gun, a beam emitter: their barrels' tips
-  are the model's weapons), an engine (its nozzle a flame), and details (a reactor, a radar, an antenna, a sensor
-  dome, a vent, a radiator, exhaust stacks, a fuel tank). Housings shall be plated: a lighter rim, seams across, a
-  light in the front corners. Bosses are covered in them and their destructible parts are built-in parts; enemies
-  carry one or two small ones on their hull, 60% of them *(placeholder)*, from the ships' catalog (VSL-33: its
-  equipment, small and medium).
-- **VSL-33** The ships' catalog of built-in parts shall be big (over 300 parts), each part drawn once in code, named
-  ("dart hull, large", "twin barrels, short"), never stretched, and one piece. Its kinds: hulls (16 profiles: round,
-  boxy or diamond cross-sections, each in 5 sizes, tiny to huge), wings (16 outlines, some rising or drooping, each in
-  6 sizes, tiny to giant), cockpits (bubbles, framed canopies, a tandem and a twin canopy, visors, bridges, one on a
-  deck, glass domes, an armored slit, a command tower off its middle; sensor eyes and a glazed nose on the nose),
-  engines (tail nozzles in 4 sizes, blocks and clusters, slot nozzles, an ion engine, afterburners; nacelles), guns
-  (barrels, cannons, gatlings, beam emitters, railguns on the nose; turrets, flak guns on top; a ball turret and gun,
-  cannon, laser pods underneath; tip guns; a side cannon and a sponson), missiles (under a wing, rocket pods, on the
-  tips, racks on top, a side launcher), vents, intakes, fins, antennas, sensors, tanks, armor, lights, machinery, and
-  equipment (the bosses' built-in parts, small and medium). Each part says how it mounts: as the hull, on the hull's
-  side (a left wing, mirrored for the right), on top, on the nose, on the tail, as a pod, underneath, on a side, on a
+- **VSL-7** Housings shall be plated, on every part of the catalog (VSL-33) that has one: a lighter rim, seams across,
+  a light in the front corners. Bosses are covered in the catalog's parts (VSL-17) and their destructible parts are
+  assembled from them (VSL-18).
+- **VSL-33** The catalog of built-in parts, which ships are assembled from and bosses are covered in, shall be big
+  (over 400 parts), each part drawn once in code, named ("dart hull, large", "twin barrels, short"), never stretched,
+  and one piece. Its kinds: hulls (16 profiles: round, boxy or diamond cross-sections, each in 6 sizes, tiny to
+  colossal), wings (16 outlines, some rising or drooping, each in 8 sizes, tiny to titanic), cockpits (bubbles, framed
+  canopies, a tandem and a twin canopy, visors, bridges, one on a deck, glass domes, an armored slit, a command tower
+  off its middle; sensor eyes and a glazed nose on the nose), engines (tail nozzles in 4 sizes, blocks and clusters
+  (giant ones, an engine bank), slot nozzles, an ion engine, afterburners; nacelles), guns (barrels, cannons,
+  gatlings, beam emitters, railguns on the nose; turrets, flak guns on top; a ball turret and gun, cannon, laser pods
+  underneath; tip guns; a side cannon and a sponson), heavy guns (heavy, gigantic and colossal cannons, a siege
+  railgun and a mega gatling on the nose; battleship and dreadnought turrets on top), missiles (under a wing, rocket
+  pods, on the tips, racks and missile batteries on top, a side launcher, a cruise missile), vents, intakes, fins,
+  antennas, sensors, tanks, armor, lights and machinery. Each part says how it mounts: as the hull, on the hull's side
+  (a left wing, mirrored for the right), on top, on the nose, on the tail, as a pod, underneath, on a side, on a
   wing's tip. Only wings, side parts and the command tower are lopsided; the right side's copy of a part is its mirror
   image. Guns' barrel tips are the ship's weapons, engines' nozzles its flames.
 - **VSL-8** Bullets shall be balls of energy facing the camera: a white-hot core in a solid body of the bullet's color,
@@ -99,9 +97,9 @@ The Dev menu's model browser makes new models (UIA-23).
   details and wing parts go on both sides or on one of them.
 - **VSL-36** Armament: an enemy gets 1 to 3 weapons, one more per 900 square cubes *(placeholder)*, always at least
   one (a barrel out of the nose if nothing fits); the player's ship 1 or 2 (shown, not listed). Details: 1 to 3, one
-  more per 250 square cubes, at most 12, one fin at most *(placeholder)*; 60% of the enemies also carry one or two small
-  equipment parts (VSL-7). Then the bits are painted: none, one or two of a livery stripe across the top, a nose cone in
-  the accent, stripes along the wings; markings on the wing tips 60% of the time.
+  more per 250 square cubes, at most 12, one fin at most *(placeholder)*. Then the bits are painted: none, one or two
+  of a livery stripe across the top, a nose cone in the accent, stripes along the wings; markings on the wing tips 60%
+  of the time.
 - **VSL-37** A canopy shall be glass blown round over a dark coaming, highest towards its front, a streak of light
   along its top (a lighter glass color), thin dark frame bows across its top, and a plated fairing behind it running
   down into the hull. A visor is an armored hood, glass wrapping round its front half and sloping to the hull. A bridge
@@ -111,17 +109,26 @@ The Dev menu's model browser makes new models (UIA-23).
   bluish grey, with colored bits (a livery stripe, a nose cone, wing stripes, markings, sensors). It shall point up the
   screen, flames out of its tail (8 to 11 cubes long; an enemy's 4 to 8), without weapons listed (the player's guns do
   not fire from the model).
-- **VSL-17** A boss shall be a real 3D voxel model sculpted from a plan: stepped decks and a superstructure on the hull,
-  the bridge on top, recessed panel lines and hangar bays, 0 to 2 big appendages; then no flat zone left plain: plating
-  panels raised or sunk, and mostly built-in parts on the hull and decks (reactors, radars, antennas, sensor domes,
-  vents, radiators, exhaust stacks, fuel tanks, armed guns, engines near the back with flames going back), with blocks,
-  pipes, lights and lit trenches, ribs and weapon pods on the wings.
-- **VSL-18** A boss's destructible parts shall be built-in parts (turrets, twin cannons, gatlings, missile racks, flak
-  guns, beam emitters, reactors, radars; one to three kinds a boss), each standing on the hull where it is mounted, on a
-  socket following its outline. Their number comes from the core's size: one part for every 600 square cubes of the
-  core, in mirrored pairs (one in the middle for an odd number), 2 to 12 *(placeholder)*; a lopsided boss stays
-  lopsided. Each drawing lists its weapons: the parts' barrels (a missile rack: its middle warhead; a gatling: its
-  spindle), and guns on the core's front edge, enough for at least five on the boss.
+- **VSL-17** A boss shall be a real 3D voxel model sculpted from a plan: stepped decks and a superstructure on the
+  hull, the bridge on top, recessed panel lines and hangar bays, 0 to 2 big appendages; then no flat zone left plain:
+  plating panels raised or sunk, and mostly the catalog's parts standing on the hull and decks, picked at random, at
+  most 9 cubes wide *(placeholder)*: details (vents, antennas, sensors, tanks, lights, machinery), armed guns and
+  missiles (turrets, flak guns, missile racks), tail engines near the back with flames going back; with blocks, pipes,
+  lights and lit trenches, ribs and weapon pods on the wings.
+- **VSL-18** A boss's destructible parts shall be modules assembled at random from the catalog's parts, of one to
+  three kinds a boss, each kind a main piece from the catalog: turret (a turret, a flak gun, a battleship turret),
+  cannon (a cannon, a railgun, a gatling on the nose), launcher (a missile rack or battery), emitter (a beam emitter),
+  sensor, tank. Its size grows with the core's width (0 or 1, one more per 40 cubes of it, at least 1, at most 6), the
+  main piece picked among the 3 nearest 3 + 2 × size cubes wide *(placeholder)*: a platform (a short wide hull cut
+  flat underneath), the main piece on it (a gun on the nose standing a little in from the platform's back, its barrel
+  reaching past its front), and in mirrored pairs (or one in the middle): small guns on the platform's front on an
+  armed module whose main piece leaves its front free (60%), armor plates on its sides (50%), stub wings (25%), 1 to 3
+  details on its deck (vents, sensors, antennas, tanks, lights, machinery) *(placeholder)*, each only where it fits,
+  joined into one symmetric piece, each standing on the hull where it is mounted, on a socket following its outline.
+  Their number comes from the core's size: one part for every 600 square cubes of the core, in mirrored pairs (one in
+  the middle for an odd number), 2 to 12 *(placeholder)*; a lopsided boss stays lopsided. Each drawing lists its
+  weapons: the parts' barrels (a missile rack: its middle warhead; a gatling: its spindle), and guns on the core's
+  front edge, enough for at least five on the boss.
 - **VSL-19** A new model shall be made several times, scaled towards the intended size, and the one nearest that size
   (its width and its height both) kept: 40 tries for a ship, its parts picked for that size; 12 for a boss, made to
   the width and height asked.

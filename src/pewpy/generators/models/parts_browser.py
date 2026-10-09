@@ -1,6 +1,6 @@
 """The parts browser of the Dev menu: the catalog of built-in parts ships are made of, one part at a time.
 
-It shows one kind of part (see pewpy.generators.models.ships.parts.KINDS, picked in the Dev menu's Parts menu); Left
+It shows one kind of part (see pewpy.generators.models.parts.KINDS, picked in the Dev menu's Parts menu); Left
 and Right go from one part to the next. Nothing is made nor saved: the parts are drawn in code. Independent from
 rendering: the app shows `part_drawing`.
 """
@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from pewpy import config
 from pewpy.generators.models.common.drawing import layered_drawing
 from pewpy.generators.models.common.palette import GREYS, LIVERIES, PLAYER_TINT, Colors, palette
-from pewpy.generators.models.ships.parts import KINDS, MOUNTS, Part, of_kind
+from pewpy.generators.models.parts import KINDS, MOUNTS, Part, of_kind
 
 COLORS = Colors(PLAYER_TINT, "orange", LIVERIES[1])  # the parts' colors on show
 FLAME_LENGTH = 6  # an engine's flame on show, in cubes

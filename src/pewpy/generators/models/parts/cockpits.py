@@ -8,7 +8,7 @@ carry it.
 
 import math
 
-from pewpy.generators.models.ships.parts.part import Part, Sketch
+from pewpy.generators.models.parts.part import Part, Sketch
 
 GLASS, GLINT, FRAME, COAMING = "c", "C", "k", "N"  # the frame dark, thin lines across the glass
 

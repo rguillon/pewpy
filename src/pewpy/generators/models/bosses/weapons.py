@@ -1,8 +1,8 @@
 """Guns on the front of a boss's core.
 
-A boss's parts' weapons are their built-in parts' (see pewpy.generators.models.components). The core gets guns on its
-front edge, barrels sticking out towards the nose, enough for the boss to have at least MIN_WEAPONS with its parts (and
-at least a pair); the guns stamped on its hull (see greebles.py) come on top.
+A boss's parts' weapons are their catalog parts' (see modules.py). The core gets guns on its front edge, barrels
+sticking out towards the nose, enough for the boss to have at least MIN_WEAPONS with its parts (and at least a pair);
+the guns stamped on its hull (see greebles.py) come on top.
 """
 
 from pewpy.generators.models.bosses.canvas import Canvas

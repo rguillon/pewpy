@@ -1,14 +1,9 @@
-"""The details: vents, intakes, fins, antennas, sensors, tanks, armor, lights, machinery; and equipment.
-
-Equipment: the bosses' built-in parts (see models.components), as ships carry them.
+"""The details: vents, intakes, fins, antennas, sensors, tanks, armor, lights, machinery.
 
 Most sit on top of a surface; intakes and armor on the hull's sides, drop tanks and ventral fins underneath.
 """
 
-import random
-
-from pewpy.generators.models.components import COMPONENTS
-from pewpy.generators.models.ships.parts.part import Part, Sketch
+from pewpy.generators.models.parts.part import Part, Sketch
 
 
 def slats(name: str, half: int, long: int) -> Part:
@@ -283,35 +278,8 @@ def pipes(name: str, long: int, x: int) -> Part:
     return sketch.part(name, "greeble", "top", f"{'Two pipes' if x else 'A pipe'} along the hull.")
 
 
-EQUIPMENT_SEED = 3  # the built-in parts made at random (a turret's barrels...) are made the same each time
-
-
-def equipment() -> list[Part]:
-    """Return the bosses' built-in parts (see models.components), small and medium, as ships carry them."""
-    parts = []
-    for name, component in COMPONENTS.items():
-        if name == "engine":
-            continue
-        for size, called in ((1, "small"), (2, "medium")):
-            piece = component(random.Random(EQUIPMENT_SEED), size)
-            title = name.replace("_", " ")
-            weapons = tuple(piece.weapons)
-            parts.append(
-                Part(
-                    f"{called} {title}",
-                    "equipment",
-                    "top",
-                    f"A {title}, as bosses carry them, {called}.",
-                    dict(piece.cells),
-                    weapons,
-                    tuple((float(x), y, z, width) for x, y, z, width in piece.nozzles),
-                )
-            )
-    return parts
-
-
 def details() -> list[Part]:
-    """Return every detail (but equipment)."""
+    """Return every detail."""
     return [
         slats("vent, small", 1, 3),
         slats("vent", 1, 5),

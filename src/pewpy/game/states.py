@@ -16,7 +16,7 @@ class State(Enum):
     GAME_OVER = auto()
     LEVEL_COMPLETE = auto()
     DEV_MENU = auto()  # the Dev menu: which models to browse
-    PARTS_MENU = auto()  # which kind of built-in part to browse (see pewpy.generators.models.ships.parts)
+    PARTS_MENU = auto()  # which kind of built-in part to browse (see pewpy.generators.models.parts)
     MODEL_BROWSER = auto()  # browsing a category's models, making new ones (see pewpy.generators.models)
     MUSIC_BROWSER = auto()  # browsing the songs, making new ones (see pewpy.generators.music.browser)
     BACKGROUND_BROWSER = auto()  # background candidates, one theme at a time (see pewpy.generators.backgrounds)

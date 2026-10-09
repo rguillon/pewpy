@@ -112,13 +112,17 @@ class Sketch:
                     self.box(dx, dx, y + dy, y + dy, z0, z1, char, mirror=False)
 
     def housing(self, half: int, y0: int, y1: int, z0: int, z1: int) -> None:
-        """Fill a plated housing `half` cubes each side of the middle: dark sides, a lighter rim, seams across."""
+        """Fill a plated housing `half` cubes each side of the middle.
+
+        Dark sides, a lighter rim, seams across its top, a light in its front corners.
+        """
         self.box(-half, half, y0, y1, z0, z1, "N")
         self.box(-half, half, y0, y1, z1, z1, "H")
         if half > 0:
             self.box(-half + 1, half - 1, y0 + 1, y1 - 1, z1, z1, "h")
         for y in range(y0 + 2, y1 - 1, 3):
             self.box(-half + 1, half - 1, y, y, z1, z1, "k")
+        self.box(half, half, y1, y1, z1, z1, "p")
 
     def weapon(self, kind: str, x: int, y: int, z: int, *, mirror: bool = True) -> None:
         """Add a weapon whose barrel's tip is at (x, y, z) (and its mirror image)."""

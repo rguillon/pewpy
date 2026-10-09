@@ -13,7 +13,7 @@ from pewpy.game.enemies.kinds import MINI_BOSSES
 from pewpy.game.states import State
 from pewpy.generators.backgrounds.themes import THEMES
 from pewpy.generators.models.browser import SIZE_STEP, ModelBrowser
-from pewpy.generators.models.ships.parts import KINDS
+from pewpy.generators.models.parts import KINDS
 from pewpy.generators.music import browser as music
 from pewpy.generators.music.browser import MusicBrowser
 from pewpy.ui.menu import Menu

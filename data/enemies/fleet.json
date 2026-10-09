@@ -2,7 +2,7 @@
   "dart": {
     "drawing": "dart",
     "note": "Tiny and fast: dives down, then swerves at the player once, partway down.",
-    "voxels": [9, 11],
+    "voxels": [9, 10],
     "health": 1.5,
     "points": 80,
     "drop_chance": 0.03,
@@ -16,7 +16,7 @@
   "mite": {
     "drawing": "mite",
     "note": "Spirals down in a small circle, firing a shot at the player now and then.",
-    "voxels": [13, 10],
+    "voxels": [13, 9],
     "health": 1.5,
     "points": 90,
     "drop_chance": 0.03,
@@ -31,7 +31,7 @@
   "tick": {
     "drawing": "tick",
     "note": "Sneaks in from the bottom of the screen, flies up, fires once at the player on the way and leaves at the top.",
-    "voxels": [15, 12],
+    "voxels": [17, 10],
     "health": 1.0,
     "points": 100,
     "drop_chance": 0.05,
@@ -54,7 +54,7 @@
   "spark": {
     "drawing": "spark",
     "note": "A tiny kamikaze: turns towards the player like a homing missile until its fuel runs out.",
-    "voxels": [5, 10],
+    "voxels": [5, 7],
     "health": 1.0,
     "points": 30,
     "facing": "travel",
@@ -71,7 +71,7 @@
   "imp": {
     "drawing": "imp",
     "note": "Fires a cross of 4 shots that turns a little with each volley.",
-    "voxels": [19, 18],
+    "voxels": [17, 19],
     "health": 2.5,
     "points": 120,
     "drop_chance": 0.05,
@@ -83,7 +83,7 @@
   "wisp": {
     "drawing": "wisp",
     "note": "Blinks: shows for a moment (firing once at the player), vanishes (can't be hit) and shows again elsewhere, a bit lower. After a few blinks it drops away.",
-    "voxels": [11, 10],
+    "voxels": [12, 9],
     "health": 2.0,
     "points": 150,
     "drop_chance": 0.08,
@@ -112,7 +112,7 @@
   "hornet": {
     "drawing": "hornet",
     "note": "Zigzags down, turning every 0.6 s, and fires at the player at each turn.",
-    "voxels": [37, 18],
+    "voxels": [37, 16],
     "health": 3.0,
     "points": 180,
     "drop_chance": 0.05,
@@ -128,7 +128,7 @@
   "albatross": {
     "drawing": "albatross",
     "note": "Glides down slowly in wide weaves, firing fans of 5 shots.",
-    "voxels": [41, 24],
+    "voxels": [39, 25],
     "health": 6.0,
     "points": 300,
     "drop_chance": 0.15,
@@ -161,7 +161,7 @@
   "javelin": {
     "drawing": "javelin",
     "note": "Comes down, lines up with the player (glowing: a warning), then dives straight down very fast.",
-    "voxels": [15, 27],
+    "voxels": [15, 28],
     "health": 5.0,
     "points": 250,
     "drop_chance": 0.08,
@@ -184,7 +184,7 @@
   "rapier": {
     "drawing": "rapier",
     "note": "Streaks straight down, firing pairs of shots out to both sides.",
-    "voxels": [15, 31],
+    "voxels": [16, 29],
     "health": 3.0,
     "points": 250,
     "drop_chance": 0.05,
@@ -201,7 +201,7 @@
   "stalker": {
     "drawing": "stalker",
     "note": "Comes down slowly, chasing the player's side, and fires pairs of shots whenever it's lined up.",
-    "voxels": [17, 24],
+    "voxels": [19, 24],
     "health": 4.0,
     "points": 220,
     "drop_chance": 0.1,
@@ -226,7 +226,7 @@
   "scrapper": {
     "drawing": "scrapper",
     "note": "A lopsided junker: drifts jerkily, changing course every half second, and fires from its side turret.",
-    "voxels": [15, 15],
+    "voxels": [15, 14],
     "health": 4.0,
     "points": 200,
     "drop_chance": 0.1,
@@ -242,7 +242,7 @@
   "brawler": {
     "drawing": "brawler",
     "note": "A lopsided gunboat: drifts from side to side on its way down, firing heavy shots at the player from its one big cannon.",
-    "voxels": [45, 33],
+    "voxels": [43, 32],
     "health": 9.0,
     "points": 450,
     "drop_chance": 0.2,
@@ -267,7 +267,7 @@
   "manta": {
     "drawing": "manta",
     "note": "Crosses the screen from a side, dropping shots straight down from one wingtip, then the other.",
-    "voxels": [27, 18],
+    "voxels": [33, 15],
     "health": 7.0,
     "points": 400,
     "drop_chance": 0.2,
@@ -294,7 +294,7 @@
   "broadside": {
     "drawing": "broadside",
     "note": "Crosses the screen from a side, firing wide fans out to both flanks.",
-    "voxels": [25, 15],
+    "voxels": [27, 15],
     "health": 7.0,
     "points": 380,
     "drop_chance": 0.15,
@@ -310,7 +310,7 @@
   "catamaran": {
     "drawing": "catamaran",
     "note": "Its two hulls take turns firing snaking shots straight down.",
-    "voxels": [33, 26],
+    "voxels": [37, 25],
     "health": 7.0,
     "points": 350,
     "drop_chance": 0.15,
@@ -336,7 +336,7 @@
   "outrider": {
     "drawing": "outrider",
     "note": "Stops high up, fires bursts of paired shots straight down from its pods, then dives away.",
-    "voxels": [17, 21],
+    "voxels": [17, 20],
     "health": 4.0,
     "points": 220,
     "drop_chance": 0.1,
@@ -364,7 +364,7 @@
   "needle": {
     "drawing": "needle",
     "note": "Hovers near the top, creeping after the player's side, and fires fast streams of shots straight down.",
-    "voxels": [19, 15],
+    "voxels": [17, 14],
     "health": 4.0,
     "points": 250,
     "drop_chance": 0.1,
@@ -393,7 +393,7 @@
   "harrier": {
     "drawing": "harrier",
     "note": "Hovers, drifting after the player, and fires rapid bursts of 6 shots at them, a little scattered.",
-    "voxels": [25, 16],
+    "voxels": [25, 15],
     "health": 6.0,
     "points": 350,
     "drop_chance": 0.15,
@@ -429,7 +429,7 @@
   "howitzer": {
     "drawing": "howitzer",
     "note": "Stays high up, edging sideways, and lobs shells that burst into a ring of shots where the player was.",
-    "voxels": [29, 22],
+    "voxels": [33, 18],
     "health": 7.0,
     "points": 400,
     "drop_chance": 0.15,
@@ -458,7 +458,7 @@
   "freighter": {
     "drawing": "freighter",
     "note": "A slow cargo ship laying mines behind it. Always drops a pickup when shot down.",
-    "voxels": [47, 30],
+    "voxels": [49, 30],
     "health": 10.0,
     "points": 300,
     "drop_chance": 1.0,
@@ -473,7 +473,7 @@
   "brood": {
     "drawing": "brood",
     "note": "A pod carrier: releases pairs of Sparks from its two pods.",
-    "voxels": [31, 22],
+    "voxels": [31, 23],
     "health": 9.0,
     "points": 450,
     "drop_chance": 0.2,
@@ -497,7 +497,7 @@
   "rampart": {
     "drawing": "rampart",
     "note": "Armored: can't be hurt, except while it opens up to fire a wall of shots straight down.",
-    "voxels": [37, 41],
+    "voxels": [37, 43],
     "health": 12.0,
     "points": 600,
     "drop_chance": 0.3,
@@ -539,7 +539,7 @@
   "condor": {
     "drawing": "condor",
     "note": "A big slow wing: launches homing missiles from its wingtips, then fires a spread at the player, in turn.",
-    "voxels": [47, 29],
+    "voxels": [55, 28],
     "health": 18.0,
     "points": 900,
     "drop_chance": 0.35,
@@ -565,7 +565,7 @@
   "behemoth": {
     "drawing": "behemoth",
     "note": "A huge, slow carrier: launches Darts from its sides and fires rings of shots, in turn.",
-    "voxels": [57, 46],
+    "voxels": [53, 47],
     "health": 30.0,
     "points": 1500,
     "drop_chance": 0.6,
@@ -640,7 +640,7 @@
   "stormcrow": {
     "drawing": "stormcrow",
     "note": "Heavy: stays high up, drifting, and sweeps streams of shots from side to side, with a pause between sweeps.",
-    "voxels": [43, 33],
+    "voxels": [49, 35],
     "health": 15.0,
     "points": 800,
     "drop_chance": 0.35,
@@ -659,7 +659,7 @@
   "pincer": {
     "drawing": "pincer",
     "note": "Heavy: comes down, creeps after the player's side and fires two laser beams from its prongs, holding still (the gap between them is narrower than a ship: get out from under it). Glows while charging.",
-    "voxels": [63, 60],
+    "voxels": [53, 48],
     "health": 22.0,
     "points": 1100,
     "drop_chance": 0.45,

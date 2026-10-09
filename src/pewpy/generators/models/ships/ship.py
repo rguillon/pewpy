@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 
 from pewpy.generators.models.common.connect import bridges
 from pewpy.generators.models.common.drawing import layered_drawing, numbered_weapons
-from pewpy.generators.models.ships.parts import Part
+from pewpy.generators.models.parts import Part
 
 Cell = tuple[int, int, int]  # x across (0 on the ship's axis), y along it (0 at the hull's tail), z up (to the camera)
 STRUT = "N"  # the cubes joining pieces left apart

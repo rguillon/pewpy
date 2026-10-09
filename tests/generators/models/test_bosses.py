@@ -4,8 +4,14 @@ import random
 
 import pytest
 
+from pewpy.generators.models.bosses.greebles import ON_TOP, _on_top
+from pewpy.generators.models.bosses.modules import ARMED, KINDS, module
+from pewpy.generators.models.bosses.mounting import part
 from pewpy.generators.models.bosses.selection import boss
 from pewpy.generators.models.common.connect import pieces
+from pewpy.generators.models.common.palette import CORE_GREYS, PART_GREYS, pick_colors
+from pewpy.generators.models.common.palette import palette as make_palette
+from pewpy.generators.models.parts import of_kind
 from pewpy.graphics import models
 
 MIN_WEAPONS = 5
@@ -66,3 +72,38 @@ def test_a_wide_lopsided_boss_has_no_piece_floating_by_its_side() -> None:
         made = boss(random.Random(seed), lopsided=True, cubes=(111, 77), parts_wanted=6)
         assert made is not None
         assert len(pieces(models.parse_voxels(made.make()["core"]).cells)) == 1
+
+
+def test_the_catalogs_parts_a_boss_carries_are_all_colored_by_its_palettes() -> None:
+    colors = pick_colors(random.Random(0))
+    stamped = [*_on_top(ON_TOP), *_on_top(("gun", "missile")), *of_kind("engine", "tail")]
+    assert {char for piece in stamped for char in piece.cells.values()} <= set(make_palette(CORE_GREYS, colors))
+
+
+def test_a_destroyable_part_is_a_symmetric_module_of_parts_bigger_on_a_wider_boss() -> None:
+    rng = random.Random(3)
+    for kind in KINDS:
+        small, big = part(rng, kind, 10), part(rng, kind, 400)
+        assert small.kind == big.kind == "module"
+        assert small.name.startswith("small")
+        assert kind in small.name
+        assert big.name.startswith("colossal")  # the biggest size
+        assert len(big.cells) > len(small.cells)
+
+
+@pytest.mark.parametrize("kind", list(KINDS))
+def test_a_module_is_one_symmetric_piece_on_its_base_round_its_main_piece(kind: str) -> None:
+    rng = random.Random(kind)
+    for size in (1, 2, 3):
+        made = module(rng, kind, size)
+        assert len(pieces(made.cells)) == 1
+        assert made.symmetric
+        assert made.low[1:] == (0, 0)
+        assert made.extent()[2] <= 14  # standing on a flat platform, its details on the deck
+        assert set(made.cells.values()) <= set(make_palette(PART_GREYS, pick_colors(rng)))
+        assert bool(made.weapons) == (kind in ARMED) or made.weapons  # armed kinds always, others maybe (nose guns)
+
+
+def test_modules_of_a_kind_vary() -> None:
+    rng = random.Random(5)
+    assert len({frozenset(module(rng, "turret", 2).cells.items()) for _ in range(6)}) > 3

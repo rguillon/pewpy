@@ -1,4 +1,4 @@
-"""The hulls: profiles from the tail to the nose, each in five sizes.
+"""The hulls: profiles from the tail to the nose, each in six sizes.
 
 A profile is a list of (share of the way from the tail to the nose, half width, height on top, depth underneath),
 each a share of the hull's; between two points it goes straight. Its cross-section is round (an ellipse), boxy (flat
@@ -9,7 +9,7 @@ across the top, a spine, plates on its sides, the underside darker. Small hulls 
 import itertools
 import math
 
-from pewpy.generators.models.ships.parts.part import Part, Sketch
+from pewpy.generators.models.parts.part import Part, Sketch
 
 Profile = list[tuple[float, float, float, float]]
 
@@ -86,6 +86,7 @@ SIZES = {  # (length, half width, height) of a profile's hull, before its own sh
     "medium": (13, 2.6, 2.0),
     "large": (20, 3.8, 2.6),
     "huge": (29, 5.2, 3.2),
+    "colossal": (40, 7.0, 4.0),
 }
 
 

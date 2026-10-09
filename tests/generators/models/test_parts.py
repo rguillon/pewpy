@@ -5,21 +5,34 @@ import pytest
 from pewpy.generators.models.common.connect import pieces
 from pewpy.generators.models.common.drawing import WEAPON_KINDS
 from pewpy.generators.models.common.palette import GREYS, LIVERIES, Colors, palette
-from pewpy.generators.models.ships.parts import KINDS, MOUNTS, Part, catalog, of_kind
-from pewpy.generators.models.ships.parts.cockpits import cockpits
-from pewpy.generators.models.ships.parts.details import details, equipment
-from pewpy.generators.models.ships.parts.engines import engines
-from pewpy.generators.models.ships.parts.hulls import PROFILES, SIZES, hull, hulls
-from pewpy.generators.models.ships.parts.weapons import guns, missiles
-from pewpy.generators.models.ships.parts.wings import OUTLINES, wing, wings
+from pewpy.generators.models.parts import KINDS, MOUNTS, Part, catalog, of_kind
+from pewpy.generators.models.parts.cockpits import cockpits
+from pewpy.generators.models.parts.details import details
+from pewpy.generators.models.parts.engines import engines
+from pewpy.generators.models.parts.heavy_weapons import heavy_guns, heavy_missiles
+from pewpy.generators.models.parts.hulls import PROFILES, hull, hulls
+from pewpy.generators.models.parts.hulls import SIZES as HULL_SIZES
+from pewpy.generators.models.parts.part import Sketch
+from pewpy.generators.models.parts.weapons import guns, missiles
+from pewpy.generators.models.parts.wings import OUTLINES, wing, wings
 
 PARTS = list(catalog().values())
 COLORS = palette(GREYS, Colors((1.0, 1.0, 1.0), "red", LIVERIES[0]))
 
 
 def test_the_catalog_is_huge_and_has_every_kind_of_part_named_once() -> None:
-    every = [*hulls(), *wings(), *cockpits(), *engines(), *guns(), *missiles(), *details(), *equipment()]
-    assert len(every) >= 300
+    every = [
+        *hulls(),
+        *wings(),
+        *cockpits(),
+        *engines(),
+        *guns(),
+        *heavy_guns(),
+        *missiles(),
+        *heavy_missiles(),
+        *details(),
+    ]
+    assert len(every) >= 400
     assert len(catalog()) == len(every)  # no two parts share a name
     assert {part.kind for part in every} == set(KINDS)
     assert [part.kind for part in PARTS] == sorted((part.kind for part in PARTS), key=list(KINDS).index)
@@ -57,12 +70,12 @@ def test_a_wing_is_a_left_wing_its_root_on_the_axis() -> None:
 
 
 def test_every_hull_and_wing_comes_in_every_size_bigger_and_bigger() -> None:
-    assert len(of_kind("hull")) == len(PROFILES) * len(SIZES)
-    for name in PROFILES:
-        lengths = [hull(name, size).extent()[1] for size in SIZES]
+    assert len(of_kind("hull")) == len(PROFILES) * len(HULL_SIZES)
+    for profile in PROFILES:
+        lengths = [hull(profile, size).extent()[1] for size in HULL_SIZES]
         assert lengths == sorted(lengths)
-    for name in OUTLINES:
-        spans = [part.extent()[0] for part in (wing(name, size) for size in ("tiny", "small", "medium", "huge"))]
+    for outline in OUTLINES:
+        spans = [part.extent()[0] for part in (wing(outline, size) for size in ("tiny", "small", "medium", "huge"))]
         assert spans == sorted(spans)
 
 
@@ -83,3 +96,19 @@ def test_the_rows_of_a_hull_are_its_profile() -> None:
     half, top, bottom = part.rows[part.extent()[1] // 2]
     assert half >= 1
     assert top > 0 > bottom
+
+
+def test_a_housing_is_plated_with_lights_in_its_front_corners() -> None:
+    sketch = Sketch()
+    sketch.housing(2, 0, 4, 0, 1)
+    assert (sketch.cells[2, 4, 1], sketch.cells[-2, 4, 1]) == ("p", "p")
+    assert sketch.cells[0, 2, 1] == "k"  # a seam across its top
+    assert sketch.cells[2, 0, 0] == "N"
+
+
+def test_the_heavy_weapons_and_the_biggest_sizes_dwarf_the_others() -> None:
+    biggest_gun = max(part.extent()[1] for part in guns())
+    assert all(part.extent()[1] > biggest_gun for part in heavy_guns() if part.mount == "nose")
+    assert all(part.weapons for part in [*heavy_guns(), *heavy_missiles()])
+    assert wing("swept", "titanic").extent()[0] > wing("swept", "giant").extent()[0]
+    assert hull("dart", "colossal").extent()[1] > hull("dart", "huge").extent()[1]

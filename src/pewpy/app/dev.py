@@ -21,8 +21,8 @@ from pewpy.game.enemies.kinds import reload_kinds
 from pewpy.game.states import State
 from pewpy.generators.models.browser import ModelBrowser
 from pewpy.generators.models.catalog import CATEGORIES
+from pewpy.generators.models.parts import KINDS
 from pewpy.generators.models.parts_browser import LEAST, PartBrowser, part_drawing
-from pewpy.generators.models.ships.parts import KINDS
 from pewpy.generators.music.browser import MusicBrowser
 from pewpy.generators.music.plans import PLANS
 from pewpy.graphics import models

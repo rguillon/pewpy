@@ -16,7 +16,8 @@
     "points": 80,
     "drop_chance": 0.05,
     "velocity": [0.0, -0.35],
-    "states": [{"name": "fly", "motions": [{"type": "weave", "amplitude": 0.25, "widen": true, "period": 2.0}]}]
+    "states": [{"name": "fly", "motions": [{"type": "weave", "amplitude": 0.25, "widen": true, "period": 2.0}]}],
+    "size": [0.1, 0.1]
   },
   "diver": {
     "note": "Comes down, waits blinking, then dives at the player.",

@@ -7515,114 +7515,114 @@
     "name": "SINGULARITY",
     "boss": true,
     "drawing": "singularity",
-    "size": [0.833, 0.673],
+    "size": [0.847, 0.66],
     "health": 376.0,
     "points": 12000,
     "parts": [
       {
-        "name": "turret 1",
-        "x": -0.047,
-        "y": -0.073,
-        "drawing": "singularity:turret",
+        "name": "flak 1",
+        "x": -0.173,
+        "y": -0.24,
+        "drawing": "singularity:flak",
         "size": [0.087, 0.127],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret 2",
-        "x": 0.047,
-        "y": -0.073,
-        "drawing": "singularity:turret",
+        "name": "flak 2",
+        "x": 0.173,
+        "y": -0.24,
+        "drawing": "singularity:flak",
         "size": [0.087, 0.127],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret2 3",
-        "x": -0.053,
-        "y": 0.113,
-        "drawing": "singularity:turret2",
+        "name": "flak2 3",
+        "x": -0.027,
+        "y": 0.14,
+        "drawing": "singularity:flak2",
         "size": [0.073, 0.107],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret2 4",
-        "x": 0.053,
-        "y": 0.113,
-        "drawing": "singularity:turret2",
+        "name": "flak2 4",
+        "x": 0.027,
+        "y": 0.14,
+        "drawing": "singularity:flak2",
         "size": [0.073, 0.107],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret3 5",
-        "x": -0.187,
-        "y": 0.2,
-        "drawing": "singularity:turret3",
+        "name": "flak3 5",
+        "x": -0.153,
+        "y": -0.08,
+        "drawing": "singularity:flak3",
+        "size": [0.073, 0.107],
+        "health": 46,
+        "points": 900
+      },
+      {
+        "name": "flak3 6",
+        "x": 0.153,
+        "y": -0.08,
+        "drawing": "singularity:flak3",
+        "size": [0.073, 0.107],
+        "health": 46,
+        "points": 900
+      },
+      {
+        "name": "flak4 7",
+        "x": -0.12,
+        "y": 0.027,
+        "drawing": "singularity:flak4",
+        "size": [0.073, 0.107],
+        "health": 46,
+        "points": 900
+      },
+      {
+        "name": "flak4 8",
+        "x": 0.12,
+        "y": 0.027,
+        "drawing": "singularity:flak4",
+        "size": [0.073, 0.107],
+        "health": 46,
+        "points": 900
+      },
+      {
+        "name": "flak5 9",
+        "x": -0.287,
+        "y": 0.207,
+        "drawing": "singularity:flak5",
         "size": [0.087, 0.127],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret3 6",
-        "x": 0.187,
-        "y": 0.2,
-        "drawing": "singularity:turret3",
+        "name": "flak5 10",
+        "x": 0.287,
+        "y": 0.207,
+        "drawing": "singularity:flak5",
         "size": [0.087, 0.127],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret4 7",
-        "x": -0.04,
-        "y": 0.3,
-        "drawing": "singularity:turret4",
-        "size": [0.073, 0.107],
-        "health": 46,
-        "points": 900
-      },
-      {
-        "name": "turret4 8",
-        "x": 0.04,
-        "y": 0.3,
-        "drawing": "singularity:turret4",
-        "size": [0.073, 0.107],
-        "health": 46,
-        "points": 900
-      },
-      {
-        "name": "turret5 9",
-        "x": -0.393,
-        "y": 0.333,
-        "drawing": "singularity:turret5",
-        "size": [0.073, 0.107],
-        "health": 46,
-        "points": 900
-      },
-      {
-        "name": "turret5 10",
-        "x": 0.393,
-        "y": 0.333,
-        "drawing": "singularity:turret5",
-        "size": [0.073, 0.107],
-        "health": 46,
-        "points": 900
-      },
-      {
-        "name": "turret6 11",
-        "x": -0.38,
-        "y": 0.193,
-        "drawing": "singularity:turret6",
+        "name": "flak6 11",
+        "x": -0.173,
+        "y": 0.307,
+        "drawing": "singularity:flak6",
         "size": [0.087, 0.127],
         "health": 46,
         "points": 900
       },
       {
-        "name": "turret6 12",
-        "x": 0.38,
-        "y": 0.193,
-        "drawing": "singularity:turret6",
+        "name": "flak6 12",
+        "x": 0.173,
+        "y": 0.307,
+        "drawing": "singularity:flak6",
         "size": [0.087, 0.127],
         "health": 46,
         "points": 900
@@ -7632,10 +7632,10 @@
       {
         "sway": 0.16,
         "armored": true,
-        "until": {"parts": ["turret 1", "turret 2", "turret2 3", "turret2 4", "turret6 11", "turret6 12"]},
+        "until": {"parts": ["flak 1", "flak 2", "flak3 5", "flak3 6", "flak4 7", "flak4 8"]},
         "guns": [
           {
-            "from": ["turret 1", "turret 2", "turret2 3", "turret2 4", "turret6 11", "turret6 12"],
+            "from": ["flak 1", "flak 2", "flak3 5", "flak3 6", "flak4 7", "flak4 8"],
             "pattern": "ring",
             "interval": 2.252,
             "speed": 0.4,
@@ -7649,10 +7649,10 @@
       {
         "sway": 0.16,
         "armored": true,
-        "until": {"parts": ["turret3 5", "turret3 6", "turret4 7", "turret4 8", "turret5 9", "turret5 10"]},
+        "until": {"parts": ["flak2 3", "flak2 4", "flak5 9", "flak5 10", "flak6 11", "flak6 12"]},
         "guns": [
           {
-            "from": ["turret3 5", "turret3 6", "turret4 7", "turret4 8", "turret5 9", "turret5 10"],
+            "from": ["flak2 3", "flak2 4", "flak5 9", "flak5 10", "flak6 11", "flak6 12"],
             "pattern": "fan",
             "interval": 3.811,
             "speed": 0.0,
@@ -7667,7 +7667,7 @@
             "delay": 0.6,
             "width": 0.07,
             "duration": 1.4,
-            "offsets": [-0.208, 0.208]
+            "offsets": [-0.212, 0.212]
           }
         ]
       },
@@ -7675,7 +7675,7 @@
         "sway": 0.19,
         "until": {"health_below": 0.5},
         "guns": [
-          {"pattern": "laser", "interval": 3.0, "speed": 0.0, "width": 0.07, "duration": 1.4, "offsets": [-0.208, 0.208]},
+          {"pattern": "laser", "interval": 3.0, "speed": 0.0, "width": 0.07, "duration": 1.4, "offsets": [-0.212, 0.212]},
           {"pattern": "ring", "interval": 0.12, "speed": 0.48, "count": 4, "turn": 13, "delay": 0.9}
         ]
       },

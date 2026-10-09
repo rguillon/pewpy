@@ -2,9 +2,10 @@
 
 A big core's hull rises from its outline to its full height a few cubes in, then stays flat. On that plateau:
 - plating: the plateau cut in panels, some raised a cube (framed by the seams left round them), some sunk;
-- machinery, scattered: built-in parts (pewpy.generators.models.components: reactors, radars, antennas, sensor domes,
-  vents, radiators, exhaust stacks, fuel tanks; guns, whose barrels are the core's weapons too; engines near its
-  back, their flames going back), and blocks, pipes with couplings, rows of lights, lit trenches.
+- machinery, scattered: the catalog's parts (pewpy.generators.models.parts) standing on top, picked at random:
+  details (vents, antennas, sensors, tanks, lights, machinery), guns and missiles (turrets, flak guns, missile racks:
+  their barrels are the core's weapons too), tail engines near its back, their flames going back; and blocks, pipes
+  with couplings, rows of lights, lit trenches.
 Only the hull's own plating gets them (not the decks, bridge, seams, sockets under the parts, wings or nozzles), so
 the parts still stand where they were. A symmetric boss gets them on its left half, mirrored.
 """
@@ -15,7 +16,7 @@ from collections.abc import Callable
 
 from pewpy.generators.models.bosses.canvas import Canvas
 from pewpy.generators.models.bosses.sculpting import Cells
-from pewpy.generators.models.components import COMPONENTS, DETAILS, WEAPONS, Piece
+from pewpy.generators.models.parts import Part, of_kind
 
 CORE_PLATING = "hHNLTSk"  # a core column's top where details may go: its hull's plating and seams, its decks
 WING = "wW"  # a core's wings and sponsons: ribs and pods on them
@@ -73,18 +74,18 @@ class Surface:
             self.cells[column, y, -top] = char
             self.heights[column, y] = (bottom, max(bottom, top))
 
-    def stamp(self, piece: Piece, x: int, y: int) -> bool:
-        """Put a built-in part with its middle on column x, its back on row y (and its mirror image), if it fits.
+    def stamp(self, piece: Part, x: int, y: int) -> bool:
+        """Put a part with its middle on column x, its back on row y (and its mirror image), if it fits.
 
         It stands on the highest of the columns under it (the lower ones filled up to there).
         """
-        footprint = [(x + px, y + py) for px, py in piece.footprint()]
+        footprint = [(x + px, y + py) for px, py in piece.footprint]
         if not self.free(footprint):
             return False
-        base = max(self.top(*cell) for cell in footprint) + 1
+        base = max(self.top(*cell) for cell in footprint) + 1 - piece.low[2]
         for cx, cy in footprint:
-            if self.top(cx, cy) < base - 1:
-                self.raise_to(cx, cy, base - 1, "N")
+            if self.top(cx, cy) < base + piece.low[2] - 1:
+                self.raise_to(cx, cy, base + piece.low[2] - 1, "N")
         for (px, py, pz), char in piece.cells.items():
             for column in self._columns(x + px):
                 bottom, top = self.heights[column, y + py]
@@ -93,7 +94,7 @@ class Surface:
         for kind, px, py, _ in piece.weapons:
             self.weapons += [(kind, column, y + py) for column in self._columns(x + px)]
         for px, py, pz, width in piece.nozzles:
-            for column in self._columns(x + px):
+            for column in self._columns(x + round(px)):
                 self.engines.append({
                     "x": column,
                     "y": y + py,
@@ -233,29 +234,39 @@ def _trench(rng: random.Random, s: Surface, x: int, y: int) -> None:
 
 
 def _detail(rng: random.Random, s: Surface, x: int, y: int) -> None:
-    """Put a built-in detail: a reactor, a radar, an antenna, a sensor dome, a vent, a radiator, stacks or a tank."""
-    _built_in(rng, s, x, y, rng.choice(list(DETAILS)))
+    """Put one of the catalog's details standing on top (see ON_TOP): a vent, an antenna, a sensor, a tank..."""
+    _stamp_one(rng, s, x, y, _on_top(ON_TOP))
 
 
 def _gun(rng: random.Random, s: Surface, x: int, y: int) -> None:
-    """Put a built-in gun (a turret, a twin cannon, a gatling, a missile rack, a flak gun, a beam emitter)."""
-    _built_in(rng, s, x, y, rng.choice(list(WEAPONS)))
+    """Put one of the catalog's guns or missiles standing on top: a turret, a flak gun, a missile rack..."""
+    _stamp_one(rng, s, x, y, _on_top(("gun", "missile")))
 
 
 def _engine(rng: random.Random, s: Surface, x: int, y: int) -> None:
-    """Put a built-in engine near the core's back (its flame going back over the hull would look wrong further on)."""
+    """Put one of the catalog's tail engines near the core's back (its flame going back over the hull would look
+    wrong further on).
+    """  # noqa: D205 - the summary needs two lines
     if y < s.cv.h // 3:
-        _built_in(rng, s, x, y, "engine")
+        _stamp_one(rng, s, x, y, [part for part in of_kind("engine", "tail") if part.symmetric])
 
 
-def _built_in(rng: random.Random, s: Surface, x: int, y: int, name: str) -> None:
-    """Put a built-in part there, as big as fits (see SIZES)."""
-    for size in range(rng.choice(SIZES), 0, -1):
-        if s.stamp(COMPONENTS[name](rng, size), x, y):
+def _stamp_one(rng: random.Random, s: Surface, x: int, y: int, parts: list[Part]) -> None:
+    """Put one of the parts no wider than WIDEST there: the first of a few picked at random that fits."""
+    small = [part for part in parts if part.extent()[0] <= WIDEST]
+    for part in rng.sample(small, min(TRIES, len(small))):
+        if s.stamp(part, x, y):
             return
 
 
-SIZES = (1, 1, 2)  # the built-in parts' sizes on a core
+def _on_top(kinds: tuple[str, ...]) -> list[Part]:
+    """Return the catalog's parts of some kinds that stand on top, symmetric (a boss mirrors them itself)."""
+    return [part for kind in kinds for part in of_kind(kind, "top") if part.symmetric]
+
+
+ON_TOP = ("vent", "antenna", "sensor", "tank", "light", "greeble")  # the catalog's details a core gets
+WIDEST = 9  # cubes: the widest part a core's hull gets *(placeholder)*
+TRIES = 4  # parts tried in a place before leaving it
 ENGINE_FLAME = 6  # cubes: a built-in engine's flame
 MACHINERY: list[Callable[[random.Random, Surface, int, int], None]] = [
     _detail,

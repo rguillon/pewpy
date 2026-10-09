@@ -6,7 +6,7 @@ from collections import Counter
 import pytest
 
 from pewpy.generators.models.common.connect import pieces
-from pewpy.generators.models.ships.parts import of_kind
+from pewpy.generators.models.parts import of_kind
 from pewpy.generators.models.ships.placing import (
     COCKPIT_TALL,
     LAYOUTS,

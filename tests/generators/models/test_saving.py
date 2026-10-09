@@ -39,7 +39,7 @@ def test_new_parts_are_named_after_their_kind() -> None:
     made = {
         "parts": [({"layers": [["aa"]]}, -3, 1), ({"layers": [["aa"]]}, 3, 1), ({"layers": [["a"]]}, 0, -2)],
         "groups": [0, 0, 1],
-        "kinds": ["missile_rack", "missile_rack", "missile_rack"],
+        "kinds": ["launcher", "launcher", "launcher"],
     }
     parts = new_parts("boss", made)
     assert [part["name"] for part, _ in parts] == ["launcher 1", "launcher 2", "launcher 3"]

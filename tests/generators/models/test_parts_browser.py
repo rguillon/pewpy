@@ -1,8 +1,8 @@
 """The Dev menu's parts browser."""
 
 from pewpy import config
+from pewpy.generators.models.parts import KINDS, catalog
 from pewpy.generators.models.parts_browser import PartBrowser, part_drawing
-from pewpy.generators.models.ships.parts import KINDS, catalog
 from pewpy.graphics import models
 
 
