@@ -74,6 +74,7 @@ PART_GREYS: dict[str, Color] = {  # a boss's parts
     "o": (0.08, 0.08, 0.09),  # engine nozzles
 }
 COCKPIT: Color = (0.08, 0.2, 0.28)  # a cockpit's glass, a bridge's windows
+GLINT: Color = (0.3, 0.55, 0.66)  # the light on a canopy's glass
 PLAYER_TINT = HULL_TINTS["blue"]  # every player's ship is a bluish grey, like the game's ships *(the user's choice)*
 UNDERSIDE = 0.72  # the hull's underside, this much as bright as its plating
 
@@ -103,13 +104,22 @@ def pick_player_colors(rng: Rng) -> Colors:
 def palette(greys: dict[str, Color], colors: Colors) -> dict:
     """Make a palette: the greys tinted, then the same colors for everyone.
 
-    The cockpit (c), the markings (p, and q on wings), the glowing sensor color (glowing seams g, a part's glowing core
-    G, sensors R), the livery (L) and the underside (D: the hull darker). A drawing keeps only the characters it uses
-    (see drawing.layered_drawing).
+    The cockpit (c) and the light on its glass (C), the markings (p, and q on wings), the glowing sensor color (glowing
+    seams g, a part's glowing core G, sensors R), the livery (L) and the underside (D: the hull darker). A drawing keeps
+    only the characters it uses (see drawing.layered_drawing).
     """
     marking, sensor = ACCENTS[colors.accent]
     entries = {char: _scaled(color, colors.tint) for char, color in greys.items()}
-    entries |= {"c": COCKPIT, "p": marking, "q": marking, "g": sensor, "G": sensor, "R": sensor, "L": colors.livery}
+    entries |= {
+        "c": COCKPIT,
+        "C": GLINT,
+        "p": marking,
+        "q": marking,
+        "g": sensor,
+        "G": sensor,
+        "R": sensor,
+        "L": colors.livery,
+    }
     entries["D"] = _scaled(entries["h"], (UNDERSIDE, UNDERSIDE, UNDERSIDE))
     return {char: {"color": list(color)} for char, color in entries.items()}
 

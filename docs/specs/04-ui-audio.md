@@ -85,8 +85,8 @@ Dev menu -> AI playing: Ship select (Back: to the Dev menu) -> World select -> L
 
 ## Dev menu
 
-- **UIA-19** The Dev menu, titled "DEV", shall have: Players, Enemies, Bosses, Music, Backgrounds, AI playing,
-  Screenshots, Back. Coming back to it shall highlight the entry last used.
+- **UIA-19** The Dev menu, titled "DEV", shall have: Players, Enemies, Bosses, Parts, Music, Backgrounds, AI
+  playing, Screenshots, Back. Coming back to it shall highlight the entry last used.
 
 ### Model browser
 
@@ -116,6 +116,19 @@ Dev menu -> AI playing: Ship select (Back: to the Dev menu) -> World select -> L
   for old parts no phase waited for); new parts are as strong and worth as much as the old ones of their phase (a mini
   boss that had none: 25 health, 400 points *(placeholder)*).
 - **UIA-26** New models shall be made as described in `05-visuals.md` ("Model makers").
+
+### Parts browser
+
+- **UIA-46** Parts shall open the Parts menu, titled "PARTS": one entry for each kind of built-in part ships are made
+  of (VSL-33), in the catalog's order (Hulls, Wings, Cockpits, Engines, Guns, Missiles, Vents, Intakes, Fins,
+  Antennas, Sensors, Tanks, Armor, Lights, Machinery, Equipment), then Back. Coming back to it shall highlight the
+  kind last browsed. A kind shall open the parts browser on its parts, one part at a time, in the model browser's view
+  (swaying, a frame its size, on a plain dark background), its front up the screen, an engine's flame showing; a part
+  smaller than 12 cubes drawn to the scale fitting 12, so it looks small *(placeholder)*. Above it: its name, its
+  number among its kind ("Bubble, wide  (4/22)"), its kind, what it is and how it mounts on a ship. Below: its size in
+  cubes (across, along, up), how many weapons and nozzles it has, and the keys.
+- **UIA-47** Keys: Left/Right go to the previous or next part of the kind, wrapping around; Up, Down, Space and Enter do
+  nothing (parts are drawn in code, nothing to make or save); Escape goes back to the Parts menu.
 
 ### Music browser
 

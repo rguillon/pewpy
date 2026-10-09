@@ -1,21 +1,18 @@
 """One new model of a given size: a ship (an enemy's or the player's), or a whole boss (see pewpy.generators.models).
 
-The size is in world units, across and up the screen (a model's "size", see pewpy.graphics.models.drawing_size). The
-recipes make ships and bosses of their own sizes: each is made several times, scaled towards the size wanted, and the
-one nearest it is kept.
+The size is in world units, across and up the screen (a model's "size", see pewpy.graphics.models.drawing_size). A ship
+is made several times from parts picked for that size, a boss scaled towards it, and the one nearest it is kept.
 """
 
 import math
-import random
 
 from pewpy import config
 from pewpy.generators.models.bosses.selection import boss
 from pewpy.generators.models.common.geometry import Rng
-from pewpy.generators.models.ships.kit import Ship
-from pewpy.generators.models.ships.selection import PLAYER_SHARES, SHARES, build, finish, usual_fit
+from pewpy.generators.models.ships.selection import build, finish
 
 ATTEMPTS = 12  # bosses made for each one kept
-SHIP_ATTEMPTS = 60  # ships made for each one kept: the nearest the size's shape (a ship's kind sets its proportions)
+SHIP_ATTEMPTS = 40  # ships made for each one kept: the nearest the size's shape
 DECIMALS = 4  # a size's, in world units
 AREA_PER_PART = 600  # square cubes of a boss's core for each destroyable part (placeholder)
 MIN_PARTS = 2
@@ -43,19 +40,9 @@ def sized_ship(rng: Rng, size: Size, *, player: bool = False) -> dict:
     """Make a ship's drawing about `size`, of any kind (an enemy's, or the player's), with that "size"."""
     wanted = cubes(size)
     made = min(
-        (_fitted(rng, wanted, player=player) for _ in range(SHIP_ATTEMPTS)), key=lambda ship: miss(ship.size(), wanted)
+        (build(rng, wanted, player=player) for _ in range(SHIP_ATTEMPTS)), key=lambda ship: miss(ship.size(), wanted)
     )
     return {**finish(rng, made, player=player)(), "size": rounded(size)}
-
-
-def _fitted(rng: Rng, wanted: Size, *, player: bool) -> Ship:
-    """Make a ship of any kind, then the same one again, scaled to about `wanted` cubes."""
-    shares = PLAYER_SHARES if player else SHARES
-    kind = rng.choices(list(shares), list(shares.values()))[0]
-    seed = rng.getrandbits(32)
-    width, length = build(random.Random(seed), kind, player=player).size()
-    fit = usual_fit(player=player) * math.sqrt(wanted[0] * wanted[1] / (width * length))
-    return build(random.Random(seed), kind, player=player, fit=fit)
 
 
 def parts_for(size: Size) -> int:

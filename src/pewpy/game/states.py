@@ -16,6 +16,7 @@ class State(Enum):
     GAME_OVER = auto()
     LEVEL_COMPLETE = auto()
     DEV_MENU = auto()  # the Dev menu: which models to browse
+    PARTS_MENU = auto()  # which kind of built-in part to browse (see pewpy.generators.models.ships.parts)
     MODEL_BROWSER = auto()  # browsing a category's models, making new ones (see pewpy.generators.models)
     MUSIC_BROWSER = auto()  # browsing the songs, making new ones (see pewpy.generators.music.browser)
     BACKGROUND_BROWSER = auto()  # background candidates, one theme at a time (see pewpy.generators.backgrounds)
@@ -37,13 +38,15 @@ TRANSITIONS: Transitions = {
     State.DEV_MENU: frozenset({
         State.MAIN_MENU,
         State.MODEL_BROWSER,
+        State.PARTS_MENU,
         State.MUSIC_BROWSER,
         State.BACKGROUND_BROWSER,
         State.SHIP_SELECT,
         State.SCREENSHOTS,
     }),
     State.SCREENSHOTS: frozenset({State.DEV_MENU}),
-    State.MODEL_BROWSER: frozenset({State.DEV_MENU}),
+    State.PARTS_MENU: frozenset({State.MODEL_BROWSER, State.DEV_MENU}),
+    State.MODEL_BROWSER: frozenset({State.DEV_MENU, State.PARTS_MENU}),  # the parts browser goes back to its menu
     State.MUSIC_BROWSER: frozenset({State.DEV_MENU}),
     State.BACKGROUND_BROWSER: frozenset({State.DEV_MENU}),
     State.AI_PLAYING: frozenset({State.LEVEL_SELECT}),  # Escape: pick another level

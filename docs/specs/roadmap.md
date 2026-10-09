@@ -52,3 +52,5 @@
   (`03-levels.md`, `02-enemies-bosses.md`)
 - [x] Dev menu in the game: a model browser for the player's ships, the enemies and the bosses, making new models of
   a size each model registers, every model with the same cubes (`04-ui-audio.md`, `05-visuals.md`)
+- [x] Ships assembled from a catalog of over 300 built-in parts (hulls, wings, cockpits, engines, guns, details) placed
+  where they fit, some ships lopsided; a parts browser in the Dev menu (`05-visuals.md`, `04-ui-audio.md`)

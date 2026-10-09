@@ -1,9 +1,11 @@
-"""The Dev menu, from the main menu: browsing the player's ships', the enemies' and the bosses' models, and the songs
-(pewpy.generators).
+"""The Dev menu, from the main menu: browsing the player's ships', the enemies' and the bosses' models, the built-in
+parts ships are made of, and the songs (pewpy.generators).
 
 Each category opens the model browser: Left/Right go from one model to the next, Z/S make the size new models are
 made to taller or shorter and D/Q wider or narrower (its shape), Space makes a new one, Enter saves it in place of the
-model, Escape goes back to the Dev menu. Music opens the
+model, Escape goes back to the Dev menu. Parts opens the Parts menu, one entry for each kind of part; each opens the
+parts browser on that kind, in the same view: Left/Right go from one part to the next, Escape goes back to the Parts
+menu. Music opens the
 music browser: Left/Right go from one song to the next (it plays), Space composes a new one, Enter saves it in place of
 the song.
 """  # noqa: D205 - the summary needs two lines
@@ -19,28 +21,33 @@ from pewpy.game.enemies.kinds import reload_kinds
 from pewpy.game.states import State
 from pewpy.generators.models.browser import ModelBrowser
 from pewpy.generators.models.catalog import CATEGORIES
+from pewpy.generators.models.parts_browser import LEAST, PartBrowser, part_drawing
+from pewpy.generators.models.ships.parts import KINDS
 from pewpy.generators.music.browser import MusicBrowser
 from pewpy.generators.music.plans import PLANS
 from pewpy.graphics import models
 from pewpy.ui.menu import Menu, MenuItem
-from pewpy.ui.model_browser_view import ModelBrowserView
+from pewpy.ui.model_browser_view import PART_KEYS, ModelBrowserView
 from pewpy.ui.music_browser_view import MusicBrowserView
 
 BROWSER_MOVES = {"arrow_left": -1, "arrow_right": 1}  # the model on show
 # The size new models are made to, its shape: (wider, taller) steps. Z up, S down, Q left, D right (on AZERTY).
 SHAPE_KEYS = {"z": (0, 1), "s": (0, -1), "q": (-1, 0), "d": (1, 0)}
 GENERATE_KEY = "space"
-MUSIC = "music"  # the Dev menu's entry after the model categories
+PARTS = "parts"  # the Dev menu's entry after the model categories
+MUSIC = "music"  # the one after it
 
 
 class DevMenu(Sound):
-    """The Dev menu and its model browser."""
+    """The Dev menu, its model browser and its parts browser."""
 
     model_browser: ModelBrowser | None = None
-    browser_view: ModelBrowserView | None = None
+    part_browser: PartBrowser | None = None
+    browser_view: ModelBrowserView | None = None  # the model browser's, or the parts browser's
     music_browser: MusicBrowser | None = None
     music_view: MusicBrowserView | None = None
     browsing = "players"  # the Dev menu's entry picked last (see `_dev_entries`)
+    parts_kind = 0  # the Parts menu's entry picked last: a kind of part (its index in KINDS)
 
     def _main_menu_items(self) -> list[MenuItem]:
         return [*super()._main_menu_items(), MenuItem("Dev", self._go(State.DEV_MENU))]
@@ -51,6 +58,10 @@ class DevMenu(Sound):
             back = MenuItem("Back", self._go(State.MAIN_MENU))
             selected = [key for key, _ in entries].index(self.browsing)
             return Menu("DEV", [*(item for _, item in entries), back], back=back.action, selected=selected)
+        if state is State.PARTS_MENU:
+            kinds = [MenuItem(title, partial(self._browse_parts, index)) for index, title in enumerate(KINDS.values())]
+            back = MenuItem("Back", self._go(State.DEV_MENU))
+            return Menu("PARTS", [*kinds, back], back=back.action, selected=self.parts_kind)
         if state in (State.MODEL_BROWSER, State.MUSIC_BROWSER):
             return None
         return super()._menu(state)
@@ -60,10 +71,19 @@ class DevMenu(Sound):
         models = [
             (category, MenuItem(title, partial(self._browse, category))) for category, title in CATEGORIES.items()
         ]
-        return [*models, (MUSIC, MenuItem("Music", self._browse_music))]
+        parts = (PARTS, MenuItem("Parts", self._parts_menu))
+        return [*models, parts, (MUSIC, MenuItem("Music", self._browse_music))]
 
     def _browse(self, category: str) -> None:
         self.browsing = category
+        self.states.transition(State.MODEL_BROWSER)
+
+    def _parts_menu(self) -> None:
+        self.browsing = PARTS
+        self.states.transition(State.PARTS_MENU)
+
+    def _browse_parts(self, kind: int) -> None:
+        self.parts_kind = kind
         self.states.transition(State.MODEL_BROWSER)
 
     def _browse_music(self) -> None:
@@ -72,7 +92,12 @@ class DevMenu(Sound):
 
     def _on_state_change(self, previous: Enum, current: Enum) -> None:
         super()._on_state_change(previous, current)
-        if current is State.MODEL_BROWSER:
+        if current is State.MODEL_BROWSER and self.browsing == PARTS:
+            self.part_browser = PartBrowser(self.parts_kind)
+            self.browser_view = ModelBrowserView(self.cam, self.aspect2d, PART_KEYS)
+            self._plain_background(plain=True)  # to look at the parts
+            self._show_part(self.part_browser, self.browser_view)
+        elif current is State.MODEL_BROWSER:
             self.model_browser = ModelBrowser(self.browsing, random.Random())
             self.browser_view = ModelBrowserView(self.cam, self.aspect2d)
             self._plain_background(plain=True)  # to look at the models
@@ -81,6 +106,7 @@ class DevMenu(Sound):
             self.browser_view.destroy()
             self.browser_view = None
             self.model_browser = None
+            self.part_browser = None
             self._plain_background(plain=False)
         if current is State.MUSIC_BROWSER:
             self.music_browser = MusicBrowser(random.Random())
@@ -96,6 +122,9 @@ class DevMenu(Sound):
         if self.music_browser is not None and self.music_view is not None:
             self._on_music_key(self.music_browser, self.music_view, key)
             return
+        if self.part_browser is not None and self.browser_view is not None:
+            self._on_part_key(self.part_browser, self.browser_view, key)
+            return
         browser, view = self.model_browser, self.browser_view
         if browser is None or view is None:
             return
@@ -107,6 +136,14 @@ class DevMenu(Sound):
         browser.move(BROWSER_MOVES[key])
         self.audio.play("menu_move")
         self._show_browser(browser, view)
+
+    def _on_part_key(self, browser: PartBrowser, view: ModelBrowserView, key: str) -> None:
+        """Go from one part of the kind to the next (Left/Right)."""
+        if key not in BROWSER_MOVES:  # Space, Up, Down: nothing to make nor change
+            return
+        browser.move(BROWSER_MOVES[key])
+        self.audio.play("menu_move")
+        self._show_part(browser, view)
 
     def _setup_keys(self) -> None:
         super()._setup_keys()
@@ -168,6 +205,8 @@ class DevMenu(Sound):
             self.audio.forget_song(self.music_browser.plan.name)  # the game plays the new song
             self._show_music(self.music_browser, self.music_view)
             return
+        if self.part_browser is not None:  # nothing to save
+            return
         browser, view = self.model_browser, self.browser_view
         if browser is None or view is None:
             super()._on_choose()
@@ -183,11 +222,11 @@ class DevMenu(Sound):
             self.audio.play("menu_back")
             self.states.transition(State.DEV_MENU)
             return
-        if self.model_browser is None:
+        if self.model_browser is None and self.part_browser is None:
             super()._on_back()
             return
         self.audio.play("menu_back")
-        self.states.transition(State.DEV_MENU)
+        self.states.transition(State.PARTS_MENU if self.part_browser is not None else State.DEV_MENU)
 
     def _show_browser(self, browser: ModelBrowser, view: ModelBrowserView, problem: str = "") -> None:
         """Show the browser's model and what it is."""
@@ -198,6 +237,12 @@ class DevMenu(Sound):
         entry = browser.entry
         title = f"{entry.title}  ({browser.index + 1}/{len(browser.models)})"
         view.describe(title, entry.description, _size_info(browser), problem or _status(browser))
+
+    def _show_part(self, browser: PartBrowser, view: ModelBrowserView) -> None:
+        """Show the part on show and what it is."""
+        part = browser.part
+        view.show([(models.drawn_model(part.name, part_drawing(part), part.name), 0.0, 0.0)], browser.size(), LEAST)
+        view.describe(browser.title(), browser.details(), browser.info(), "")
 
     def _show_music(self, browser: MusicBrowser, view: MusicBrowserView) -> None:
         """Show the song on show and what it is."""
