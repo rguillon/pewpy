@@ -11,13 +11,13 @@ act on its Body (body.py).
 from __future__ import annotations  # an enemy's parts are enemies too
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING
 
 from pewpy import config
 from pewpy.game.enemies.body import Body
 from pewpy.game.enemies.kinds import KINDS
-from pewpy.game.enemies.mounts import model_mounts
+from pewpy.game.enemies.mounts import Mount, model_mounts
 from pewpy.game.enemies.spec import EnemySpec, Part, State
 from pewpy.game.weapons.guns import GunState, Shooter, step
 
@@ -371,15 +371,15 @@ class Enemy(Body):
             slot=slot,
         )
 
-    def mounts(self) -> dict[int, tuple[float, float]]:
-        """Return where its model's weapons fire from, from its middle: turned with its model if it faces its way."""
+    def mounts(self) -> dict[int, Mount]:
+        """Return its model's weapons, (x, y) from its middle: turned with its model if it faces its way."""
         mounts = model_mounts(self.spec.drawing)
         if not (self.faces_travel and (self.vx or self.vy)):
-            return {number: (mount.x, mount.y) for number, mount in mounts.items()}
+            return mounts
         # The model points down the screen; turned to point along its velocity.
         turn = math.atan2(self.vy, self.vx) + math.pi / 2
         cos, sin = math.cos(turn), math.sin(turn)
-        return {number: (m.x * cos - m.y * sin, m.x * sin + m.y * cos) for number, m in mounts.items()}
+        return {number: replace(m, x=m.x * cos - m.y * sin, y=m.x * sin + m.y * cos) for number, m in mounts.items()}
 
     def _stop(self) -> None:
         self.vx = 0.0

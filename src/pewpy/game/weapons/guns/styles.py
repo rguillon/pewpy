@@ -14,8 +14,11 @@ ACCEL_RATE = 0.9  # ...and speed up by this much per second...
 ACCEL_TOP = 1.8  # ...up to this many times their speed
 
 
-def styled_bullet(gun: Gun, source: Entity, vx: float, vy: float, hostile: bool = True) -> Bullet:
-    """Make a bullet of the gun's style (or kind) from `source`, flying at (vx, vy) (an "accel" one starts slower)."""
+def styled_bullet(gun: Gun, source: Entity, vx: float, vy: float, hostile: bool = True, depth: float = 0.0) -> Bullet:
+    """Make a bullet of the gun's style (or kind) from `source`, flying at (vx, vy) (an "accel" one starts slower).
+
+    `depth`: its muzzle's, from the play plane (see Bullet.depth).
+    """
     if gun.bullet == "missile":
         bullet: Bullet = Missile(
             homing=gun.homing > 0,
@@ -38,5 +41,5 @@ def styled_bullet(gun: Gun, source: Entity, vx: float, vy: float, hostile: bool 
     else:
         bullet.width, bullet.height = gun.size
     bullet.damage = config.ENEMY_BULLET_DAMAGE if gun.damage is None else gun.damage
-    bullet.hostile, bullet.style = hostile, gun.style
+    bullet.hostile, bullet.style, bullet.depth = hostile, gun.style, depth
     return bullet

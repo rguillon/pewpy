@@ -5,6 +5,7 @@ import pytest
 
 from pewpy import config
 from pewpy.game.enemies.enemy import Enemy
+from pewpy.game.enemies.mounts import Mount
 from pewpy.game.entities import Entity
 from pewpy.game.weapons import guns
 from pewpy.game.weapons.bullets import Bullet
@@ -234,3 +235,28 @@ def test_distances_can_be_shares_of_the_size_cubes_or_sums() -> None:
 def test_a_gun_cant_launch_enemies_without_something_to_make_them() -> None:
     with pytest.raises(NoMakerError, match="rocket"):
         fire(Gun("fan", 1, speed=0.0, spawn="rocket"), Shooter(SOURCE, None))
+
+
+def test_a_laser_fires_from_the_cannons_nearest_its_offsets() -> None:
+    mounts = {
+        1: Mount(1, "gun", -0.1, -0.05),
+        2: Mount(2, "cannon", -0.06, -0.04, depth=-0.08),
+        3: Mount(3, "cannon", 0.06, -0.04, depth=-0.08),
+        4: Mount(4, "missile", 0.0, -0.02),
+    }
+    laser = Gun("laser", 5.0, speed=0.0, offsets=(-0.1, 0.1))
+    piece = Entity(x=0.2, y=0.5, width=0.4, height=0.2)
+    beams = guns.laser_beams(laser, Shooter(piece, None, mounts=mounts), warning=False)
+    assert [(beam.x - piece.x, beam.y + beam.height / 2 - piece.y, beam.depth) for beam in beams] == [
+        pytest.approx((-0.06, -0.04, -0.08)),
+        pytest.approx((0.06, -0.04, -0.08)),
+    ]
+    one_cannon = {number: mounts[number] for number in (1, 3, 4)}  # each weapon fires one beam
+    assert len(guns.laser_beams(laser, Shooter(piece, None, mounts=one_cannon), warning=True)) == 1
+    named = guns.laser_beams(replace(laser, weapons=(4,)), Shooter(piece, None, mounts=mounts), warning=False)
+    assert [beam.x - piece.x for beam in named] == [pytest.approx(0.0)]
+    under = guns.laser_beams(laser, Shooter(piece, None), warning=False)  # no weapons: under its middle
+    assert [(beam.x - piece.x, beam.y + beam.height / 2, beam.depth) for beam in under] == [
+        pytest.approx((-0.1, 0.4, 0.0)),
+        pytest.approx((0.1, 0.4, 0.0)),
+    ]

@@ -116,7 +116,7 @@ class Drawing(Hud):
             if node is None:
                 node = self.nodes[entity] = self._make_block(entity)
                 self.flames[entity] = [(flame, flame.getSz()) for flame in node.findAllMatches("**/flame")]
-            node.setPos(entity.x, 0, entity.y)
+            node.setPos(entity.x, entity.depth if isinstance(entity, Bullet) else 0, entity.y)
             self._flicker(entity)
             if isinstance(entity, Player):
                 blink_off = entity.invulnerable and int(entity.invulnerable_time * 10) % 2 == 1
@@ -175,7 +175,13 @@ class Drawing(Hud):
         """Return the laser beams this frame, for their light: the player's laser, and the enemies' beams."""
         glows = [
             LaserGlow(
-                shot.x, shot.y - shot.height / 2, shot.y + shot.height / 2, shot.width, hostile=True, key=id(shot)
+                shot.x,
+                shot.y - shot.height / 2,
+                shot.y + shot.height / 2,
+                shot.width,
+                hostile=True,
+                key=id(shot),
+                depth=shot.depth,
             )
             for shot in world.enemy_bullets
             if is_beam(shot)
@@ -189,8 +195,8 @@ class Drawing(Hud):
     def _show_beams(self, beams: list[Bullet]) -> None:
         """Show the enemies' laser beams' cores, flickering like the player's laser (their light is an effect).
 
-        And their warnings: thin red lines, on the play plane like the beams, so a beam fires right where its warning
-        was (the camera's perspective bends both the same way).
+        And their warnings: thin red lines, at their muzzle's depth like the beams, so a beam fires right where its
+        warning was (the camera's perspective bends both the same way).
         """
         for gone in [beam for beam in self.beam_nodes if beam not in beams]:
             self.beam_nodes.pop(gone).removeNode()
@@ -202,7 +208,7 @@ class Drawing(Hud):
                 node = self.beam_nodes[beam] = self.render.attachNewNode("beam")
                 (self.warning_model if warning else self.enemy_laser_model).copyTo(node)
             width = beam.width * (WARNING_SCALE if warning else flicker)
-            node.setPos(beam.x, 0, beam.y)
+            node.setPos(beam.x, beam.depth, beam.y)
             node.setScale(width, width, max(beam.height, THINNEST))
 
     def _show_laser(self) -> None:

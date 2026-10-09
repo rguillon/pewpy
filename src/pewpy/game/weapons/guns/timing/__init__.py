@@ -22,7 +22,7 @@ def step(gun: Gun, state: GunState, shooter: Shooter, dt: float) -> list[Entity]
     if state.charge > 0:
         state.charge -= dt
         if state.charge <= 0:
-            created += laser_beams(state.item or gun, shooter.piece, warning=False)
+            created += laser_beams(state.item or gun, shooter, warning=False)
     if state.beaming > 0 or state.charging > 0:
         return created + charge.step(gun, state, shooter, dt)
     if gun.window:

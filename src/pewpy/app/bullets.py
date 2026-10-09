@@ -42,7 +42,7 @@ def is_beam(bullet: Entity) -> bool:
 
 
 def is_warning(bullet: Entity) -> bool:
-    """Tell whether a bullet is an enemy's laser warning: a thin red line on the play plane, where the beam will be."""
+    """Tell whether a bullet is an enemy's laser warning: a thin red line where the beam will be."""
     return isinstance(bullet, Bullet) and bullet.hostile and bullet.style == "warning"
 
 
@@ -57,5 +57,12 @@ def bullet_sprite(bullet: Entity) -> Sprite:
         color = PLAYER_BULLET_COLOR
     phase = id(bullet) % 628 / 100  # the same for the bullet's whole flight
     return Sprite(
-        bullet.x, bullet.y, bullet.width * BULLET_GLOW, bullet.height * BULLET_GLOW, color, energy=1.0, phase=phase
+        bullet.x,
+        bullet.y,
+        bullet.width * BULLET_GLOW,
+        bullet.height * BULLET_GLOW,
+        color,
+        depth=bullet.depth if isinstance(bullet, Bullet) else 0.0,
+        energy=1.0,
+        phase=phase,
     )

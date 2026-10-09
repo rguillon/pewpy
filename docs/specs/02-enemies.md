@@ -26,7 +26,9 @@ Units: see `00-vision.md`. Each enemy is described in `02-enemies-catalog.md` (t
 - **ENM-8** Unless stated otherwise, enemy shots shall be plain shots: 0.03 × 0.03, pink, 1 damage, flying straight
   at their speed until 0.05 beyond the screen.
 - **ENM-9** Shots shall leave from the weapons drawn on the enemy's model (the tips of its barrels), or from the
-  places the enemy's description gives. A model's weapons shall turn with a model that faces the way it flies.
+  places the enemy's description gives. A model's weapons shall turn with a model that faces the way it flies. A shot
+  shall be drawn leaving its barrel's tip at the tip's height above (or under) the play plane, then go back to the
+  plane at 0.5 per second *(placeholder)*, so it looks fired from the barrel yet hits where it is drawn.
 - **ENM-10** "Aimed" shall mean aimed at the player's middle at the moment of firing. A pattern of several aimed shots
   shall be centred on that direction.
 - **ENM-11** Shot kinds:
@@ -41,8 +43,8 @@ Units: see `00-vision.md`. Each enemy is described in `02-enemies-catalog.md` (t
 | Accelerating ("accel") | Cyan | 0.03 | Starts at 35% of its speed, speeds up by 90% of its speed per second, up to 1.8 times its speed |
 | Curving ("curve") | Yellow | 0.03 | Its path turns by its curve rate (degrees per second, counter-clockwise) for 1.5 s, then it flies straight |
 
-- **ENM-12** A **laser beam** shall go straight down from its muzzle to 0.1 below the bottom of the play area, for
-  its duration, doing 1 damage on contact. It shall go on through the player (the player is invulnerable for a moment
+- **ENM-12** A **laser beam** shall go straight down from its muzzle to 0.1 below the bottom of the play area, drawn
+  at the muzzle's height (its warning too), for its duration, doing 1 damage on contact. It shall go on through the player (the player is invulnerable for a moment
   after a hit anyway) and shall not hurt the player again while the player is invulnerable.
 - **ENM-13** An enemy that "charges" before firing shall glow white for its charge time, then fire; the wait to its
   next shot shall start after it fires. An enemy that "holds" shall stand still while charging and while its beam
