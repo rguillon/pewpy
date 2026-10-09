@@ -19,9 +19,10 @@ from pewpy.generators.models.saving import (
     new_parts,
     remap_phases,
     save_boss,
+    save_enemy,
     save_ship,
 )
-from pewpy.generators.models.sized import parts_for, sized_boss, sized_ship
+from pewpy.generators.models.sized import parts_for, sized_model
 
 
 def entry(category: str, key: str):  # noqa: ANN201 - an Entry
@@ -39,7 +40,7 @@ def test_new_parts_are_named_after_their_kind() -> None:
     made = {
         "parts": [({"layers": [["aa"]]}, -3, 1), ({"layers": [["aa"]]}, 3, 1), ({"layers": [["a"]]}, 0, -2)],
         "groups": [0, 0, 1],
-        "kinds": ["missile_rack", "missile_rack", "missile_rack"],
+        "kinds": ["launcher", "launcher", "launcher"],
     }
     parts = new_parts("boss", made)
     assert [part["name"] for part, _ in parts] == ["launcher 1", "launcher 2", "launcher 3"]
@@ -99,7 +100,7 @@ def test_a_mini_boss_without_parts_gets_some() -> None:
 def test_a_new_ship_replaces_its_model_its_hitbox_following_its_size(data_copy: Path) -> None:
     vanguard = entry("players", "vanguard")
     hitbox = read_data("ships.json")["vanguard"]["size"]
-    drawing = sized_ship(random.Random(1), (0.15, 0.15), player=True)
+    drawing = sized_model(random.Random(1), (0.15, 0.15), player=True)["core"]
     save_ship(vanguard, drawing, (0.1, 0.1))  # half as big again
     assert json.loads((data_copy / "models/player/player.json").read_text()) == drawing
     assert read_data("ships.json")["vanguard"]["size"] == round(hitbox * 1.5, 3)
@@ -108,13 +109,13 @@ def test_a_new_ship_replaces_its_model_its_hitbox_following_its_size(data_copy: 
 def test_an_enemys_hitbox_follows_its_size(data_copy: Path) -> None:  # noqa: ARG001 - its data
     gunship = entry("enemies", "gunship")
     width, height = ENEMIES["gunship"].width, ENEMIES["gunship"].height
-    save_ship(gunship, sized_ship(random.Random(1), (0.3, 0.2)), (0.15, 0.2))
+    save_ship(gunship, sized_model(random.Random(1), (0.3, 0.2))["core"], (0.15, 0.2))
     assert read_data("enemies/catalog.json")["gunship"]["size"] == [round(2 * width, 3), round(height, 3)]
 
 
 def test_an_enemy_sized_by_its_cubes_gets_its_new_ones(data_copy: Path) -> None:  # noqa: ARG001 - its data
     dart = entry("enemies", "dart")
-    drawing = sized_ship(random.Random(1), (0.1, 0.12))
+    drawing = sized_model(random.Random(1), (0.1, 0.12))["core"]
     save_ship(dart, drawing, (0.1, 0.12))
     assert read_data("enemies/fleet.json")["dart"]["voxels"] == [
         len(drawing["layers"][0][0]),
@@ -124,11 +125,11 @@ def test_an_enemy_sized_by_its_cubes_gets_its_new_ones(data_copy: Path) -> None:
 
 def test_a_new_mini_boss_gets_new_parts_and_loses_the_old_ones(data_copy: Path) -> None:
     rockbreaker = entry("bosses", "rockbreaker")
-    made = sized_boss(random.Random(1), (0.4, 0.3))
+    made = sized_model(random.Random(1), (0.4, 0.3), boss=True)
     save_boss(rockbreaker, made)
     body = json.loads((data_copy / "bosses/mini_bosses.json").read_text())["rockbreaker"]
     assert body["size"] == drawn_size(made["core"])
-    assert len(body["parts"]) == parts_for((0.4, 0.3)) == len(made["parts"])
+    assert 1 <= len(body["parts"]) == len(made["parts"]) <= parts_for((0.4, 0.3))
     names = [part["name"] for part in body["parts"]]
     assert set(body["phases"][0]["until"]["parts"]) <= set(names)
     core = json.loads((data_copy / "models/bosses/rockbreaker.json").read_text())
@@ -144,14 +145,40 @@ def test_a_new_mini_boss_gets_new_parts_and_loses_the_old_ones(data_copy: Path) 
 
 def test_a_new_final_boss_is_made_again_from_its_changed_plan(data_copy: Path) -> None:
     avalanche = entry("bosses", "avalanche")
-    made = sized_boss(random.Random(2), (0.5, 0.287))
+    made = sized_model(random.Random(2), (0.5, 0.287), boss=True)
     save_boss(avalanche, made)
     plan = json.loads((data_copy / "bosses/final_plans.json").read_text())["avalanche"]
     body = json.loads((data_copy / "bosses/final_bosses.json").read_text())["avalanche"]
     assert body == json.loads(json.dumps(boss_json(plan_boss(plan), plan["note"])))
     assert [plan["width"], plan["height"]] == body["size"] == drawn_size(made["core"])
-    assert len(plan["parts"]) == len(body["parts"]) == parts_for((0.5, 0.287))
+    assert len(plan["parts"]) == len(body["parts"]) == len(made["parts"]) >= 1
     assert [part["x"] for part in plan["parts"]] == [part["x"] for part in body["parts"]]
+
+
+def test_a_new_enemy_with_parts_gets_them_in_its_model_and_its_file(data_copy: Path) -> None:
+    gunship = entry("enemies", "gunship")
+    made = sized_model(random.Random(1), (0.3, 0.25))  # big enough to always have parts
+    assert made["parts"]
+    save_enemy(gunship, made, (0.15, 0.2))
+    body = read_data("enemies/catalog.json")["gunship"]
+    assert len(body["parts"]) == len(made["parts"])
+    for part in body["parts"]:
+        assert part["drawing"].startswith("gunship:")
+        assert 0 < part["health"] < body["health"]
+        assert isinstance(part["points"], int)  # a score counts whole points
+    model = json.loads((data_copy / "models/enemies/gunship.json").read_text())
+    assert set(model["parts"]) == {part["drawing"].removeprefix("gunship:") for part in body["parts"]}
+    reload_kinds()  # the game reads it
+    assert len(ENEMIES["gunship"].parts) == len(made["parts"])
+
+
+def test_a_new_enemy_without_parts_loses_its_old_ones(data_copy: Path) -> None:  # noqa: ARG001 - its data
+    gunship = entry("enemies", "gunship")
+    save_enemy(gunship, sized_model(random.Random(1), (0.3, 0.25)), (0.15, 0.2))
+    small = sized_model(random.Random(1), (0.05, 0.05))  # too small to have any
+    assert not small["parts"]
+    save_enemy(gunship, small, (0.3, 0.25))
+    assert "parts" not in read_data("enemies/catalog.json")["gunship"]
 
 
 def test_a_flat_drawing_covers_its_rows() -> None:

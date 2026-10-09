@@ -1,7 +1,7 @@
 import pytest
 from panda3d.core import NodePath
 
-from pewpy.ui.model_browser_view import PART_BLINK, PART_LIT, ModelBrowserView, fit_scale
+from pewpy.ui.model_browser_view import KEYS, PART_BLINK, PART_KEYS, PART_LIT, ModelBrowserView, fit_scale
 
 
 def test_with_nothing_to_show_the_frame_fills_the_view() -> None:
@@ -10,6 +10,8 @@ def test_with_nothing_to_show_the_frame_fills_the_view() -> None:
     assert view.scaled.getScale().x == pytest.approx(fit_scale(0.2))
     view.describe("Title", "What it is", "Size", "")
     assert view.title.getText() == "Title"
+    view.show([], (0.02, 0.01), least=0.1)  # a small one looks small
+    assert view.scaled.getScale().x == pytest.approx(fit_scale(0.1))
     view.destroy()
 
 
@@ -25,3 +27,11 @@ def test_a_bosss_parts_blink_slowly_not_its_core() -> None:
     view.update(PART_BLINK * 0.5)
     assert all(part.hasColorScale() for part in parts)  # lit again
     view.destroy()
+
+
+def test_the_view_lists_the_keys_of_its_browser() -> None:
+    models = ModelBrowserView(NodePath("camera"), NodePath("aspect2d"))
+    parts = ModelBrowserView(NodePath("camera"), NodePath("aspect2d"), PART_KEYS)
+    assert (models.keys.getText(), parts.keys.getText()) == (KEYS, PART_KEYS)
+    models.destroy()
+    parts.destroy()

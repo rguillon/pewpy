@@ -4,7 +4,7 @@
     "name": "SENTINEL",
     "boss": true,
     "drawing": "sentinel",
-    "size": [0.287, 0.227],
+    "size": [0.287, 0.2],
     "health": 60.0,
     "points": 1500,
     "phases": [
@@ -23,20 +23,20 @@
     ],
     "parts": [
       {
-        "name": "reactor 1",
-        "x": -0.113,
-        "y": 0.077,
-        "drawing": "sentinel:reactor",
-        "size": [0.06, 0.06],
+        "name": "turret 1",
+        "x": -0.073,
+        "y": -0.007,
+        "drawing": "sentinel:turret",
+        "size": [0.127, 0.107],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 2",
-        "x": 0.113,
-        "y": 0.077,
-        "drawing": "sentinel:reactor",
-        "size": [0.06, 0.06],
+        "name": "turret 2",
+        "x": 0.073,
+        "y": -0.007,
+        "drawing": "sentinel:turret",
+        "size": [0.127, 0.107],
         "health": 25.0,
         "points": 400
       }
@@ -47,7 +47,7 @@
     "name": "THRESHER",
     "boss": true,
     "drawing": "thresher",
-    "size": [0.327, 0.247],
+    "size": [0.34, 0.227],
     "health": 70.0,
     "points": 1800,
     "phases": [
@@ -66,38 +66,38 @@
     ],
     "parts": [
       {
-        "name": "turret 1",
-        "x": -0.027,
-        "y": 0.0,
-        "drawing": "thresher:turret",
-        "size": [0.06, 0.087],
+        "name": "sensor 1",
+        "x": -0.047,
+        "y": 0.013,
+        "drawing": "thresher:sensor",
+        "size": [0.087, 0.067],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "turret 2",
-        "x": 0.027,
-        "y": 0.0,
-        "drawing": "thresher:turret",
-        "size": [0.06, 0.087],
+        "name": "sensor 2",
+        "x": 0.047,
+        "y": 0.013,
+        "drawing": "thresher:sensor",
+        "size": [0.087, 0.067],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "turret 3",
-        "x": -0.027,
-        "y": 0.1,
-        "drawing": "thresher:turret2",
-        "size": [0.047, 0.067],
+        "name": "sensor 3",
+        "x": -0.113,
+        "y": 0.013,
+        "drawing": "thresher:sensor2",
+        "size": [0.06, 0.053],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "turret 4",
-        "x": 0.027,
-        "y": 0.1,
-        "drawing": "thresher:turret2",
-        "size": [0.047, 0.067],
+        "name": "sensor 4",
+        "x": 0.113,
+        "y": 0.013,
+        "drawing": "thresher:sensor2",
+        "size": [0.06, 0.053],
         "health": 25.0,
         "points": 400
       }
@@ -108,7 +108,7 @@
     "name": "PROWLER",
     "boss": true,
     "drawing": "prowler",
-    "size": [0.34, 0.2],
+    "size": [0.34, 0.187],
     "health": 75.0,
     "points": 1800,
     "phases": [
@@ -127,15 +127,23 @@
     ],
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.12,
-        "y": -0.003,
-        "drawing": "prowler:flak",
-        "size": [0.06, 0.087],
+        "name": "launcher 1",
+        "x": -0.04,
+        "y": -0.01,
+        "drawing": "prowler:launcher",
+        "size": [0.073, 0.06],
         "health": 25.0,
         "points": 400
       },
-      {"name": "flak 2", "x": 0.12, "y": -0.003, "drawing": "prowler:flak", "size": [0.06, 0.087], "health": 25.0, "points": 400}
+      {
+        "name": "launcher 2",
+        "x": 0.04,
+        "y": -0.01,
+        "drawing": "prowler:launcher",
+        "size": [0.073, 0.06],
+        "health": 25.0,
+        "points": 400
+      }
     ]
   },
   "pulsar": {
@@ -143,7 +151,7 @@
     "name": "PULSAR",
     "boss": true,
     "drawing": "pulsar",
-    "size": [0.26, 0.3],
+    "size": [0.26, 0.287],
     "health": 90.0,
     "points": 2200,
     "phases": [
@@ -162,20 +170,20 @@
     ],
     "parts": [
       {
-        "name": "gatling 1",
-        "x": -0.08,
-        "y": 0.12,
-        "drawing": "pulsar:gatling",
-        "size": [0.02, 0.047],
+        "name": "launcher 1",
+        "x": -0.06,
+        "y": -0.01,
+        "drawing": "pulsar:launcher",
+        "size": [0.073, 0.12],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "gatling 2",
-        "x": 0.08,
-        "y": 0.12,
-        "drawing": "pulsar:gatling",
-        "size": [0.02, 0.047],
+        "name": "launcher 2",
+        "x": 0.06,
+        "y": -0.01,
+        "drawing": "pulsar:launcher",
+        "size": [0.073, 0.12],
         "health": 25.0,
         "points": 400
       }
@@ -186,43 +194,43 @@
     "name": "ROCKBREAKER",
     "boss": true,
     "drawing": "rockbreaker",
-    "size": [0.327, 0.273],
+    "size": [0.327, 0.267],
     "health": 60.0,
     "points": 2000,
     "parts": [
       {
-        "name": "reactor 1",
-        "x": -0.16,
-        "y": 0.047,
-        "drawing": "rockbreaker:reactor",
-        "size": [0.06, 0.06],
+        "name": "turret 1",
+        "x": -0.053,
+        "y": 0.0,
+        "drawing": "rockbreaker:turret",
+        "size": [0.06, 0.107],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 2",
-        "x": 0.16,
-        "y": 0.047,
-        "drawing": "rockbreaker:reactor",
-        "size": [0.06, 0.06],
+        "name": "turret 2",
+        "x": 0.053,
+        "y": 0.0,
+        "drawing": "rockbreaker:turret",
+        "size": [0.06, 0.107],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 3",
-        "x": -0.087,
-        "y": 0.113,
-        "drawing": "rockbreaker:reactor2",
-        "size": [0.073, 0.073],
+        "name": "emitter 3",
+        "x": -0.113,
+        "y": 0.02,
+        "drawing": "rockbreaker:emitter",
+        "size": [0.073, 0.04],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 4",
-        "x": 0.087,
-        "y": 0.113,
-        "drawing": "rockbreaker:reactor2",
-        "size": [0.073, 0.073],
+        "name": "emitter 4",
+        "x": 0.113,
+        "y": 0.02,
+        "drawing": "rockbreaker:emitter",
+        "size": [0.073, 0.04],
         "health": 25.0,
         "points": 400
       }
@@ -231,17 +239,17 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"]},
+        "until": {"parts": ["turret 1", "turret 2", "emitter 3", "emitter 4"]},
         "guns": [
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["turret 1", "turret 2", "emitter 3", "emitter 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.55,
             "volley": 2
           },
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["turret 1", "turret 2", "emitter 3", "emitter 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.55,
@@ -264,7 +272,7 @@
     "name": "WARDEN",
     "boss": true,
     "drawing": "warden",
-    "size": [0.46, 0.3],
+    "size": [0.46, 0.287],
     "health": 140.0,
     "points": 5000,
     "phases": [
@@ -286,56 +294,56 @@
     ],
     "parts": [
       {
-        "name": "reactor 1",
-        "x": -0.027,
-        "y": 0.147,
-        "drawing": "warden:reactor",
-        "size": [0.073, 0.073],
+        "name": "launcher 1",
+        "x": -0.087,
+        "y": -0.047,
+        "drawing": "warden:launcher",
+        "size": [0.127, 0.18],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 2",
-        "x": 0.027,
-        "y": 0.147,
-        "drawing": "warden:reactor",
-        "size": [0.073, 0.073],
+        "name": "launcher 2",
+        "x": 0.087,
+        "y": -0.047,
+        "drawing": "warden:launcher",
+        "size": [0.127, 0.18],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "flak 3",
-        "x": -0.113,
-        "y": -0.013,
-        "drawing": "warden:flak",
-        "size": [0.047, 0.067],
+        "name": "turret 3",
+        "x": -0.2,
+        "y": 0.067,
+        "drawing": "warden:turret",
+        "size": [0.047, 0.073],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "flak 4",
-        "x": 0.113,
-        "y": -0.013,
-        "drawing": "warden:flak",
-        "size": [0.047, 0.067],
+        "name": "turret 4",
+        "x": 0.2,
+        "y": 0.067,
+        "drawing": "warden:turret",
+        "size": [0.047, 0.073],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "emitter 5",
-        "x": -0.053,
-        "y": 0.047,
-        "drawing": "warden:emitter",
-        "size": [0.06, 0.12],
+        "name": "launcher 5",
+        "x": -0.153,
+        "y": 0.01,
+        "drawing": "warden:launcher2",
+        "size": [0.047, 0.093],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "emitter 6",
-        "x": 0.053,
-        "y": 0.047,
-        "drawing": "warden:emitter",
-        "size": [0.06, 0.12],
+        "name": "launcher 6",
+        "x": 0.153,
+        "y": 0.01,
+        "drawing": "warden:launcher2",
+        "size": [0.047, 0.093],
         "health": 25.0,
         "points": 400
       }
@@ -346,7 +354,7 @@
     "name": "PATROL DRONE",
     "boss": true,
     "drawing": "patrol_drone",
-    "size": [0.3, 0.193],
+    "size": [0.3, 0.187],
     "health": 80.0,
     "points": 2000,
     "phases": [
@@ -365,20 +373,20 @@
     ],
     "parts": [
       {
-        "name": "gatling 1",
-        "x": -0.053,
-        "y": 0.027,
-        "drawing": "patrol_drone:gatling",
-        "size": [0.033, 0.067],
+        "name": "turret 1",
+        "x": -0.093,
+        "y": 0.003,
+        "drawing": "patrol_drone:turret",
+        "size": [0.06, 0.113],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "gatling 2",
-        "x": 0.053,
-        "y": 0.027,
-        "drawing": "patrol_drone:gatling",
-        "size": [0.033, 0.067],
+        "name": "turret 2",
+        "x": 0.093,
+        "y": 0.003,
+        "drawing": "patrol_drone:turret",
+        "size": [0.06, 0.113],
         "health": 25.0,
         "points": 400
       }
@@ -389,7 +397,7 @@
     "name": "CYCLONE",
     "boss": true,
     "drawing": "cyclone",
-    "size": [0.3, 0.28],
+    "size": [0.287, 0.26],
     "health": 100.0,
     "points": 2500,
     "phases": [
@@ -415,39 +423,23 @@
       }
     ],
     "parts": [
+      {"name": "tank 1", "x": -0.1, "y": 0.017, "drawing": "cyclone:tank", "size": [0.06, 0.08], "health": 25.0, "points": 400},
+      {"name": "tank 2", "x": 0.1, "y": 0.017, "drawing": "cyclone:tank", "size": [0.06, 0.08], "health": 25.0, "points": 400},
       {
-        "name": "turret 1",
-        "x": -0.133,
-        "y": 0.037,
-        "drawing": "cyclone:turret",
-        "size": [0.06, 0.087],
+        "name": "launcher 3",
+        "x": -0.033,
+        "y": -0.01,
+        "drawing": "cyclone:launcher",
+        "size": [0.06, 0.16],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "turret 2",
-        "x": 0.133,
-        "y": 0.037,
-        "drawing": "cyclone:turret",
-        "size": [0.06, 0.087],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "turret 3",
-        "x": -0.04,
-        "y": -0.097,
-        "drawing": "cyclone:turret2",
-        "size": [0.06, 0.087],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "turret 4",
-        "x": 0.04,
-        "y": -0.097,
-        "drawing": "cyclone:turret2",
-        "size": [0.06, 0.087],
+        "name": "launcher 4",
+        "x": 0.033,
+        "y": -0.01,
+        "drawing": "cyclone:launcher",
+        "size": [0.06, 0.16],
         "health": 25.0,
         "points": 400
       }
@@ -458,7 +450,7 @@
     "name": "SIEGE POD",
     "boss": true,
     "drawing": "siege_pod",
-    "size": [0.3, 0.3],
+    "size": [0.3, 0.287],
     "health": 110.0,
     "points": 2500,
     "phases": [
@@ -478,38 +470,38 @@
     ],
     "parts": [
       {
-        "name": "reactor 1",
+        "name": "tank 1",
         "x": -0.087,
-        "y": -0.08,
-        "drawing": "siege_pod:reactor",
-        "size": [0.06, 0.06],
+        "y": -0.017,
+        "drawing": "siege_pod:tank",
+        "size": [0.033, 0.04],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 2",
+        "name": "tank 2",
         "x": 0.087,
-        "y": -0.08,
-        "drawing": "siege_pod:reactor",
-        "size": [0.06, 0.06],
+        "y": -0.017,
+        "drawing": "siege_pod:tank",
+        "size": [0.033, 0.04],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 3",
-        "x": -0.027,
-        "y": 0.1,
-        "drawing": "siege_pod:reactor2",
-        "size": [0.073, 0.073],
+        "name": "tank 3",
+        "x": -0.04,
+        "y": -0.017,
+        "drawing": "siege_pod:tank2",
+        "size": [0.06, 0.08],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 4",
-        "x": 0.027,
-        "y": 0.1,
-        "drawing": "siege_pod:reactor2",
-        "size": [0.073, 0.073],
+        "name": "tank 4",
+        "x": 0.04,
+        "y": -0.017,
+        "drawing": "siege_pod:tank2",
+        "size": [0.06, 0.08],
         "health": 25.0,
         "points": 400
       }
@@ -520,7 +512,7 @@
     "name": "DELTA RAIDER",
     "boss": true,
     "drawing": "delta_raider",
-    "size": [0.407, 0.24],
+    "size": [0.393, 0.22],
     "health": 110.0,
     "points": 2600,
     "phases": [
@@ -547,38 +539,38 @@
     ],
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.053,
-        "y": 0.097,
-        "drawing": "delta_raider:flak",
-        "size": [0.06, 0.087],
+        "name": "sensor 1",
+        "x": -0.08,
+        "y": -0.017,
+        "drawing": "delta_raider:sensor",
+        "size": [0.073, 0.08],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "flak 2",
-        "x": 0.053,
-        "y": 0.097,
-        "drawing": "delta_raider:flak",
-        "size": [0.06, 0.087],
+        "name": "sensor 2",
+        "x": 0.08,
+        "y": -0.017,
+        "drawing": "delta_raider:sensor",
+        "size": [0.073, 0.08],
         "health": 25.0,
         "points": 400
       },
       {
         "name": "cannon 3",
-        "x": -0.033,
-        "y": 0.01,
+        "x": -0.04,
+        "y": -0.02,
         "drawing": "delta_raider:cannon",
-        "size": [0.047, 0.1],
+        "size": [0.06, 0.14],
         "health": 25.0,
         "points": 400
       },
       {
         "name": "cannon 4",
-        "x": 0.033,
-        "y": 0.01,
+        "x": 0.04,
+        "y": -0.02,
         "drawing": "delta_raider:cannon",
-        "size": [0.047, 0.1],
+        "size": [0.06, 0.14],
         "health": 25.0,
         "points": 400
       }
@@ -589,61 +581,43 @@
     "name": "BREACHER",
     "boss": true,
     "drawing": "breacher",
-    "size": [0.38, 0.393],
+    "size": [0.38, 0.4],
     "health": 70.0,
     "points": 2000,
     "parts": [
       {
-        "name": "launcher 1",
-        "x": -0.173,
+        "name": "turret 1",
+        "x": -0.053,
+        "y": -0.027,
+        "drawing": "breacher:turret",
+        "size": [0.087, 0.213],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 2",
+        "x": 0.053,
+        "y": -0.027,
+        "drawing": "breacher:turret",
+        "size": [0.087, 0.213],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 3",
+        "x": -0.133,
         "y": 0.107,
-        "drawing": "breacher:launcher",
-        "size": [0.047, 0.053],
+        "drawing": "breacher:turret2",
+        "size": [0.06, 0.067],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "launcher 2",
-        "x": 0.173,
+        "name": "turret 4",
+        "x": 0.133,
         "y": 0.107,
-        "drawing": "breacher:launcher",
-        "size": [0.047, 0.053],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "launcher 3",
-        "x": -0.087,
-        "y": 0.027,
-        "drawing": "breacher:launcher2",
-        "size": [0.047, 0.053],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "launcher 4",
-        "x": 0.087,
-        "y": 0.027,
-        "drawing": "breacher:launcher2",
-        "size": [0.047, 0.053],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "gatling 5",
-        "x": -0.087,
-        "y": -0.047,
-        "drawing": "breacher:gatling",
-        "size": [0.033, 0.067],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "gatling 6",
-        "x": 0.087,
-        "y": -0.047,
-        "drawing": "breacher:gatling",
-        "size": [0.033, 0.067],
+        "drawing": "breacher:turret2",
+        "size": [0.06, 0.067],
         "health": 25.0,
         "points": 400
       }
@@ -652,17 +626,17 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["gatling 5", "gatling 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"]},
+        "until": {"parts": ["turret 1", "turret 2", "turret 3", "turret 4"]},
         "guns": [
           {
-            "from": ["gatling 5", "gatling 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.55,
             "volley": 2
           },
           {
-            "from": ["gatling 5", "gatling 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.55,
@@ -686,97 +660,79 @@
     "name": "HARVESTER",
     "boss": true,
     "drawing": "harvester",
-    "size": [0.567, 0.447],
+    "size": [0.58, 0.427],
     "health": 100.0,
     "points": 6000,
     "parts": [
       {
         "name": "cannon 1",
-        "x": -0.027,
-        "y": 0.04,
+        "x": -0.18,
+        "y": 0.033,
         "drawing": "harvester:cannon",
-        "size": [0.06, 0.133],
+        "size": [0.087, 0.133],
         "health": 40.0,
         "points": 800
       },
       {
         "name": "cannon 2",
-        "x": 0.027,
-        "y": 0.04,
+        "x": 0.18,
+        "y": 0.033,
         "drawing": "harvester:cannon",
-        "size": [0.06, 0.133],
+        "size": [0.087, 0.133],
         "health": 40.0,
         "points": 800
       },
       {
-        "name": "turret 3",
-        "x": -0.133,
-        "y": 0.173,
-        "drawing": "harvester:turret",
-        "size": [0.073, 0.107],
-        "health": 40.0,
-        "points": 800
-      },
-      {
-        "name": "turret 4",
-        "x": 0.133,
-        "y": 0.173,
-        "drawing": "harvester:turret",
-        "size": [0.073, 0.107],
-        "health": 40.0,
-        "points": 800
-      },
-      {
-        "name": "turret 5",
+        "name": "sensor 3",
         "x": -0.06,
-        "y": 0.213,
-        "drawing": "harvester:turret2",
-        "size": [0.073, 0.107],
+        "y": -0.037,
+        "drawing": "harvester:sensor",
+        "size": [0.087, 0.087],
         "health": 40.0,
         "points": 800
       },
       {
-        "name": "turret 6",
+        "name": "sensor 4",
         "x": 0.06,
-        "y": 0.213,
-        "drawing": "harvester:turret2",
-        "size": [0.073, 0.107],
+        "y": -0.037,
+        "drawing": "harvester:sensor",
+        "size": [0.087, 0.087],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "cannon 5",
+        "x": -0.107,
+        "y": 0.03,
+        "drawing": "harvester:cannon2",
+        "size": [0.06, 0.14],
+        "health": 40.0,
+        "points": 800
+      },
+      {
+        "name": "cannon 6",
+        "x": 0.107,
+        "y": 0.03,
+        "drawing": "harvester:cannon2",
+        "size": [0.06, 0.14],
         "health": 40.0,
         "points": 800
       },
       {
         "name": "cannon 7",
-        "x": -0.253,
-        "y": 0.16,
-        "drawing": "harvester:cannon2",
-        "size": [0.073, 0.167],
+        "x": -0.027,
+        "y": -0.137,
+        "drawing": "harvester:cannon3",
+        "size": [0.047, 0.127],
         "health": 40.0,
         "points": 800
       },
       {
         "name": "cannon 8",
-        "x": 0.253,
-        "y": 0.16,
-        "drawing": "harvester:cannon2",
-        "size": [0.073, 0.167],
-        "health": 40.0,
-        "points": 800
-      },
-      {
-        "name": "cannon 9",
-        "x": -0.253,
-        "y": 0.073,
+        "x": 0.027,
+        "y": -0.137,
         "drawing": "harvester:cannon3",
-        "size": [0.073, 0.167],
-        "health": 40.0,
-        "points": 800
-      },
-      {
-        "name": "cannon 10",
-        "x": 0.253,
-        "y": 0.073,
-        "drawing": "harvester:cannon3",
-        "size": [0.073, 0.167],
+        "size": [0.047, 0.127],
         "health": 40.0,
         "points": 800
       }
@@ -785,52 +741,17 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {
-          "parts": [
-            "cannon 1",
-            "cannon 2",
-            "cannon 9",
-            "cannon 10",
-            "cannon 7",
-            "cannon 8",
-            "turret 3",
-            "turret 4",
-            "turret 5",
-            "turret 6"
-          ]
-        },
+        "until": {"parts": ["cannon 7", "cannon 8", "sensor 3", "sensor 4", "cannon 5", "cannon 6", "cannon 1", "cannon 2"]},
         "guns": [
           {
-            "from": [
-              "cannon 1",
-              "cannon 2",
-              "cannon 9",
-              "cannon 10",
-              "cannon 7",
-              "cannon 8",
-              "turret 3",
-              "turret 4",
-              "turret 5",
-              "turret 6"
-            ],
+            "from": ["cannon 7", "cannon 8", "sensor 3", "sensor 4", "cannon 5", "cannon 6", "cannon 1", "cannon 2"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.65,
             "volley": 3
           },
           {
-            "from": [
-              "cannon 1",
-              "cannon 2",
-              "cannon 9",
-              "cannon 10",
-              "cannon 7",
-              "cannon 8",
-              "turret 3",
-              "turret 4",
-              "turret 5",
-              "turret 6"
-            ],
+            "from": ["cannon 7", "cannon 8", "sensor 3", "sensor 4", "cannon 5", "cannon 6", "cannon 1", "cannon 2"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.65,
@@ -854,7 +775,7 @@
     "name": "TURBINE",
     "boss": true,
     "drawing": "turbine",
-    "size": [0.3, 0.293],
+    "size": [0.3, 0.287],
     "health": 110.0,
     "points": 2600,
     "phases": [
@@ -878,38 +799,38 @@
     ],
     "parts": [
       {
-        "name": "reactor 1",
-        "x": -0.027,
-        "y": -0.017,
-        "drawing": "turbine:reactor",
-        "size": [0.073, 0.073],
+        "name": "tank 1",
+        "x": -0.08,
+        "y": -0.043,
+        "drawing": "turbine:tank",
+        "size": [0.127, 0.067],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "reactor 2",
-        "x": 0.027,
-        "y": -0.017,
-        "drawing": "turbine:reactor",
-        "size": [0.073, 0.073],
+        "name": "tank 2",
+        "x": 0.08,
+        "y": -0.043,
+        "drawing": "turbine:tank",
+        "size": [0.127, 0.067],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "launcher 3",
-        "x": -0.093,
-        "y": -0.023,
-        "drawing": "turbine:launcher",
-        "size": [0.047, 0.053],
+        "name": "emitter 3",
+        "x": -0.073,
+        "y": -0.1,
+        "drawing": "turbine:emitter",
+        "size": [0.047, 0.047],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "launcher 4",
-        "x": 0.093,
-        "y": -0.023,
-        "drawing": "turbine:launcher",
-        "size": [0.047, 0.053],
+        "name": "emitter 4",
+        "x": 0.073,
+        "y": -0.1,
+        "drawing": "turbine:emitter",
+        "size": [0.047, 0.047],
         "health": 25.0,
         "points": 400
       }
@@ -920,61 +841,61 @@
     "name": "CLAMP BARGE",
     "boss": true,
     "drawing": "clamp_barge",
-    "size": [0.42, 0.313],
+    "size": [0.433, 0.313],
     "health": 70.0,
     "points": 2000,
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.087,
-        "y": 0.06,
-        "drawing": "clamp_barge:cannon",
-        "size": [0.06, 0.133],
+        "name": "tank 1",
+        "x": -0.1,
+        "y": 0.037,
+        "drawing": "clamp_barge:tank",
+        "size": [0.033, 0.053],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 2",
-        "x": 0.087,
-        "y": 0.06,
-        "drawing": "clamp_barge:cannon",
-        "size": [0.06, 0.133],
+        "name": "tank 2",
+        "x": 0.1,
+        "y": 0.037,
+        "drawing": "clamp_barge:tank",
+        "size": [0.033, 0.053],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "flak 3",
-        "x": -0.107,
-        "y": 0.12,
-        "drawing": "clamp_barge:flak",
-        "size": [0.06, 0.087],
+        "name": "tank 3",
+        "x": -0.033,
+        "y": -0.047,
+        "drawing": "clamp_barge:tank2",
+        "size": [0.06, 0.073],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "flak 4",
-        "x": 0.107,
-        "y": 0.12,
-        "drawing": "clamp_barge:flak",
-        "size": [0.06, 0.087],
+        "name": "tank 4",
+        "x": 0.033,
+        "y": -0.047,
+        "drawing": "clamp_barge:tank2",
+        "size": [0.06, 0.073],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "launcher 5",
-        "x": -0.06,
-        "y": -0.013,
-        "drawing": "clamp_barge:launcher",
-        "size": [0.047, 0.053],
+        "name": "tank 5",
+        "x": -0.14,
+        "y": 0.04,
+        "drawing": "clamp_barge:tank3",
+        "size": [0.047, 0.073],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "launcher 6",
-        "x": 0.06,
-        "y": -0.013,
-        "drawing": "clamp_barge:launcher",
-        "size": [0.047, 0.053],
+        "name": "tank 6",
+        "x": 0.14,
+        "y": 0.04,
+        "drawing": "clamp_barge:tank3",
+        "size": [0.047, 0.073],
         "health": 25.0,
         "points": 400
       }
@@ -983,10 +904,10 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["launcher 5", "launcher 6", "cannon 1", "cannon 2", "flak 3", "flak 4"]},
+        "until": {"parts": ["tank 3", "tank 4", "tank 1", "tank 2", "tank 5", "tank 6"]},
         "guns": [
           {
-            "from": ["launcher 5", "launcher 6", "cannon 1", "cannon 2", "flak 3", "flak 4"],
+            "from": ["tank 3", "tank 4", "tank 1", "tank 2", "tank 5", "tank 6"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.55,
@@ -994,7 +915,7 @@
             "spread": 10
           },
           {
-            "from": ["launcher 5", "launcher 6", "cannon 1", "cannon 2", "flak 3", "flak 4"],
+            "from": ["tank 3", "tank 4", "tank 1", "tank 2", "tank 5", "tank 6"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.55,
@@ -1019,7 +940,7 @@
     "name": "SPIRE",
     "boss": true,
     "drawing": "spire",
-    "size": [0.353, 0.56],
+    "size": [0.327, 0.553],
     "health": 120.0,
     "points": 2800,
     "phases": [
@@ -1046,74 +967,74 @@
     ],
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.04,
+        "name": "emitter 1",
+        "x": -0.14,
+        "y": -0.073,
+        "drawing": "spire:emitter",
+        "size": [0.047, 0.06],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "emitter 2",
+        "x": 0.14,
+        "y": -0.073,
+        "drawing": "spire:emitter",
+        "size": [0.047, 0.06],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "sensor 3",
+        "x": -0.087,
+        "y": -0.02,
+        "drawing": "spire:sensor",
+        "size": [0.127, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "sensor 4",
+        "x": 0.087,
+        "y": -0.02,
+        "drawing": "spire:sensor",
+        "size": [0.127, 0.087],
+        "health": 25.0,
+        "points": 400
+      },
+      {
+        "name": "turret 5",
+        "x": -0.067,
         "y": -0.157,
-        "drawing": "spire:cannon",
-        "size": [0.06, 0.133],
+        "drawing": "spire:turret",
+        "size": [0.087, 0.213],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 2",
-        "x": 0.04,
+        "name": "turret 6",
+        "x": 0.067,
         "y": -0.157,
-        "drawing": "spire:cannon",
-        "size": [0.06, 0.133],
+        "drawing": "spire:turret",
+        "size": [0.087, 0.213],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 3",
-        "x": -0.073,
-        "y": 0.063,
-        "drawing": "spire:cannon2",
-        "size": [0.06, 0.133],
+        "name": "sensor 7",
+        "x": -0.107,
+        "y": 0.057,
+        "drawing": "spire:sensor2",
+        "size": [0.06, 0.067],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 4",
-        "x": 0.073,
-        "y": 0.063,
-        "drawing": "spire:cannon2",
-        "size": [0.06, 0.133],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 5",
-        "x": -0.04,
-        "y": -0.097,
-        "drawing": "spire:cannon3",
-        "size": [0.047, 0.1],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 6",
-        "x": 0.04,
-        "y": -0.097,
-        "drawing": "spire:cannon3",
-        "size": [0.047, 0.1],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 7",
-        "x": -0.16,
-        "y": -0.01,
-        "drawing": "spire:cannon4",
-        "size": [0.06, 0.133],
-        "health": 25.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 8",
-        "x": 0.16,
-        "y": -0.01,
-        "drawing": "spire:cannon4",
-        "size": [0.06, 0.133],
+        "name": "sensor 8",
+        "x": 0.107,
+        "y": 0.057,
+        "drawing": "spire:sensor2",
+        "size": [0.06, 0.067],
         "health": 25.0,
         "points": 400
       }
@@ -1124,79 +1045,79 @@
     "name": "TWIN FANG",
     "boss": true,
     "drawing": "twin_fang",
-    "size": [0.42, 0.467],
+    "size": [0.407, 0.453],
     "health": 90.0,
     "points": 2600,
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.107,
-        "y": 0.09,
-        "drawing": "twin_fang:flak",
-        "size": [0.06, 0.087],
+        "name": "tank 1",
+        "x": -0.167,
+        "y": 0.073,
+        "drawing": "twin_fang:tank",
+        "size": [0.073, 0.08],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 2",
-        "x": 0.107,
-        "y": 0.09,
-        "drawing": "twin_fang:flak",
-        "size": [0.06, 0.087],
+        "name": "tank 2",
+        "x": 0.167,
+        "y": 0.073,
+        "drawing": "twin_fang:tank",
+        "size": [0.073, 0.08],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 3",
-        "x": -0.093,
-        "y": -0.037,
-        "drawing": "twin_fang:flak2",
-        "size": [0.06, 0.087],
+        "name": "tank 3",
+        "x": -0.113,
+        "y": 0.04,
+        "drawing": "twin_fang:tank2",
+        "size": [0.047, 0.053],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 4",
-        "x": 0.093,
-        "y": -0.037,
-        "drawing": "twin_fang:flak2",
-        "size": [0.06, 0.087],
+        "name": "tank 4",
+        "x": 0.113,
+        "y": 0.04,
+        "drawing": "twin_fang:tank2",
+        "size": [0.047, 0.053],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 5",
-        "x": -0.193,
-        "y": 0.063,
-        "drawing": "twin_fang:flak3",
-        "size": [0.047, 0.067],
+        "name": "sensor 5",
+        "x": -0.1,
+        "y": -0.077,
+        "drawing": "twin_fang:sensor",
+        "size": [0.127, 0.1],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 6",
-        "x": 0.193,
-        "y": 0.063,
-        "drawing": "twin_fang:flak3",
-        "size": [0.047, 0.067],
+        "name": "sensor 6",
+        "x": 0.1,
+        "y": -0.077,
+        "drawing": "twin_fang:sensor",
+        "size": [0.127, 0.1],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 7",
+        "name": "sensor 7",
         "x": -0.06,
-        "y": -0.137,
-        "drawing": "twin_fang:flak4",
-        "size": [0.06, 0.087],
+        "y": -0.01,
+        "drawing": "twin_fang:sensor2",
+        "size": [0.073, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 8",
+        "name": "sensor 8",
         "x": 0.06,
-        "y": -0.137,
-        "drawing": "twin_fang:flak4",
-        "size": [0.06, 0.087],
+        "y": -0.01,
+        "drawing": "twin_fang:sensor2",
+        "size": [0.073, 0.087],
         "health": 30.0,
         "points": 500
       }
@@ -1207,14 +1128,14 @@
         "until": {"health_below": 0.5},
         "guns": [
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "from": ["tank 1", "tank 2", "tank 3", "tank 4", "sensor 5", "sensor 6", "sensor 7", "sensor 8"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.6,
             "volley": 2
           },
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "from": ["tank 1", "tank 2", "tank 3", "tank 4", "sensor 5", "sensor 6", "sensor 7", "sensor 8"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.6,
@@ -1229,14 +1150,14 @@
         "guns": [
           {"pattern": "ring", "interval": 0.15, "speed": 0.42, "count": 3, "turn": 12},
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "from": ["tank 1", "tank 2", "tank 3", "tank 4", "sensor 5", "sensor 6", "sensor 7", "sensor 8"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
             "count": 3
           },
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "flak 7", "flak 8"],
+            "from": ["tank 1", "tank 2", "tank 3", "tank 4", "sensor 5", "sensor 6", "sensor 7", "sensor 8"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
@@ -1252,79 +1173,43 @@
     "name": "FRIGATE",
     "boss": true,
     "drawing": "frigate",
-    "size": [0.34, 0.567],
+    "size": [0.34, 0.553],
     "health": 90.0,
     "points": 2400,
     "parts": [
       {
-        "name": "turret 1",
-        "x": -0.107,
-        "y": 0.107,
-        "drawing": "frigate:turret",
-        "size": [0.047, 0.067],
+        "name": "launcher 1",
+        "x": -0.1,
+        "y": 0.047,
+        "drawing": "frigate:launcher",
+        "size": [0.127, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "turret 2",
-        "x": 0.107,
-        "y": 0.107,
-        "drawing": "frigate:turret",
-        "size": [0.047, 0.067],
+        "name": "launcher 2",
+        "x": 0.1,
+        "y": 0.047,
+        "drawing": "frigate:launcher",
+        "size": [0.127, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 3",
-        "x": -0.053,
-        "y": 0.187,
-        "drawing": "frigate:flak",
-        "size": [0.047, 0.067],
+        "name": "launcher 3",
+        "x": -0.027,
+        "y": 0.053,
+        "drawing": "frigate:launcher2",
+        "size": [0.047, 0.127],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 4",
-        "x": 0.053,
-        "y": 0.187,
-        "drawing": "frigate:flak",
-        "size": [0.047, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "turret 5",
-        "x": -0.033,
-        "y": -0.16,
-        "drawing": "frigate:turret2",
-        "size": [0.047, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "turret 6",
-        "x": 0.033,
-        "y": -0.16,
-        "drawing": "frigate:turret2",
-        "size": [0.047, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "turret 7",
-        "x": -0.067,
-        "y": -0.067,
-        "drawing": "frigate:turret3",
-        "size": [0.047, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "turret 8",
-        "x": 0.067,
-        "y": -0.067,
-        "drawing": "frigate:turret3",
-        "size": [0.047, 0.067],
+        "name": "launcher 4",
+        "x": 0.027,
+        "y": 0.053,
+        "drawing": "frigate:launcher2",
+        "size": [0.047, 0.127],
         "health": 30.0,
         "points": 500
       }
@@ -1333,17 +1218,17 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["turret 5", "turret 6", "turret 7", "turret 8", "turret 1", "turret 2", "flak 3", "flak 4"]},
+        "until": {"parts": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"]},
         "guns": [
           {
-            "from": ["turret 5", "turret 6", "turret 7", "turret 8", "turret 1", "turret 2", "flak 3", "flak 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "aimed",
             "interval": 2.0,
             "speed": 0.6,
             "volley": 3
           },
           {
-            "from": ["turret 5", "turret 6", "turret 7", "turret 8", "turret 1", "turret 2", "flak 3", "flak 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "aimed",
             "interval": 2.0,
             "speed": 0.6,
@@ -1367,97 +1252,79 @@
     "name": "TIDEBREAKER",
     "boss": true,
     "drawing": "tidebreaker",
-    "size": [0.46, 0.547],
+    "size": [0.46, 0.553],
     "health": 120.0,
     "points": 7000,
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.04,
-        "y": 0.257,
-        "drawing": "tidebreaker:cannon",
-        "size": [0.06, 0.133],
+        "name": "sensor 1",
+        "x": -0.173,
+        "y": -0.01,
+        "drawing": "tidebreaker:sensor",
+        "size": [0.073, 0.133],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "cannon 2",
-        "x": 0.04,
-        "y": 0.257,
-        "drawing": "tidebreaker:cannon",
-        "size": [0.06, 0.133],
+        "name": "sensor 2",
+        "x": 0.173,
+        "y": -0.01,
+        "drawing": "tidebreaker:sensor",
+        "size": [0.073, 0.133],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "flak 3",
-        "x": -0.147,
-        "y": 0.197,
-        "drawing": "tidebreaker:flak",
-        "size": [0.047, 0.067],
+        "name": "sensor 3",
+        "x": -0.053,
+        "y": 0.053,
+        "drawing": "tidebreaker:sensor2",
+        "size": [0.047, 0.06],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "flak 4",
-        "x": 0.147,
-        "y": 0.197,
-        "drawing": "tidebreaker:flak",
-        "size": [0.047, 0.067],
+        "name": "sensor 4",
+        "x": 0.053,
+        "y": 0.053,
+        "drawing": "tidebreaker:sensor2",
+        "size": [0.047, 0.06],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "flak 5",
-        "x": -0.067,
-        "y": 0.043,
-        "drawing": "tidebreaker:flak2",
-        "size": [0.06, 0.087],
+        "name": "launcher 5",
+        "x": -0.1,
+        "y": -0.007,
+        "drawing": "tidebreaker:launcher",
+        "size": [0.127, 0.18],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "flak 6",
-        "x": 0.067,
-        "y": 0.043,
-        "drawing": "tidebreaker:flak2",
-        "size": [0.06, 0.087],
+        "name": "launcher 6",
+        "x": 0.1,
+        "y": -0.007,
+        "drawing": "tidebreaker:launcher",
+        "size": [0.127, 0.18],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "flak 7",
-        "x": -0.067,
-        "y": -0.057,
-        "drawing": "tidebreaker:flak3",
-        "size": [0.047, 0.067],
+        "name": "tank 7",
+        "x": -0.047,
+        "y": -0.013,
+        "drawing": "tidebreaker:tank",
+        "size": [0.033, 0.033],
         "health": 40.0,
         "points": 900
       },
       {
-        "name": "flak 8",
-        "x": 0.067,
-        "y": -0.057,
-        "drawing": "tidebreaker:flak3",
-        "size": [0.047, 0.067],
-        "health": 40.0,
-        "points": 900
-      },
-      {
-        "name": "cannon 9",
-        "x": -0.2,
-        "y": -0.017,
-        "drawing": "tidebreaker:cannon2",
-        "size": [0.047, 0.1],
-        "health": 40.0,
-        "points": 900
-      },
-      {
-        "name": "cannon 10",
-        "x": 0.2,
-        "y": -0.017,
-        "drawing": "tidebreaker:cannon2",
-        "size": [0.047, 0.1],
+        "name": "tank 8",
+        "x": 0.047,
+        "y": -0.013,
+        "drawing": "tidebreaker:tank",
+        "size": [0.033, 0.033],
         "health": 40.0,
         "points": 900
       }
@@ -1466,12 +1333,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {
-          "parts": ["flak 7", "flak 8", "cannon 9", "cannon 10", "flak 5", "flak 6", "flak 3", "flak 4", "cannon 1", "cannon 2"]
-        },
+        "until": {"parts": ["tank 7", "tank 8", "sensor 1", "sensor 2", "launcher 5", "launcher 6", "sensor 3", "sensor 4"]},
         "guns": [
           {
-            "from": ["flak 7", "flak 8", "cannon 9", "cannon 10", "flak 5", "flak 6", "flak 3", "flak 4", "cannon 1", "cannon 2"],
+            "from": ["tank 7", "tank 8", "sensor 1", "sensor 2", "launcher 5", "launcher 6", "sensor 3", "sensor 4"],
             "pattern": "fan",
             "interval": 1.1,
             "speed": 0.5,
@@ -1480,7 +1345,7 @@
             "sweep": 30
           },
           {
-            "from": ["flak 7", "flak 8", "cannon 9", "cannon 10", "flak 5", "flak 6", "flak 3", "flak 4", "cannon 1", "cannon 2"],
+            "from": ["tank 7", "tank 8", "sensor 1", "sensor 2", "launcher 5", "launcher 6", "sensor 3", "sensor 4"],
             "pattern": "fan",
             "interval": 1.1,
             "speed": 0.5,
@@ -1514,43 +1379,43 @@
     "name": "PICKET",
     "boss": true,
     "drawing": "picket",
-    "size": [0.327, 0.407],
+    "size": [0.313, 0.387],
     "health": 80.0,
     "points": 2200,
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.12,
-        "y": 0.147,
-        "drawing": "picket:cannon",
-        "size": [0.047, 0.1],
+        "name": "sensor 1",
+        "x": -0.06,
+        "y": -0.003,
+        "drawing": "picket:sensor",
+        "size": [0.073, 0.047],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 2",
-        "x": 0.12,
-        "y": 0.147,
-        "drawing": "picket:cannon",
-        "size": [0.047, 0.1],
+        "name": "sensor 2",
+        "x": 0.06,
+        "y": -0.003,
+        "drawing": "picket:sensor",
+        "size": [0.073, 0.047],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 3",
-        "x": -0.04,
-        "y": 0.02,
-        "drawing": "picket:cannon2",
-        "size": [0.06, 0.133],
+        "name": "turret 3",
+        "x": -0.093,
+        "y": 0.0,
+        "drawing": "picket:turret",
+        "size": [0.073, 0.093],
         "health": 25.0,
         "points": 400
       },
       {
-        "name": "cannon 4",
-        "x": 0.04,
-        "y": 0.02,
-        "drawing": "picket:cannon2",
-        "size": [0.06, 0.133],
+        "name": "turret 4",
+        "x": 0.093,
+        "y": 0.0,
+        "drawing": "picket:turret",
+        "size": [0.073, 0.093],
         "health": 25.0,
         "points": 400
       }
@@ -1559,10 +1424,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["cannon 3", "cannon 4", "cannon 1", "cannon 2"]},
+        "until": {"parts": ["sensor 1", "sensor 2", "turret 3", "turret 4"]},
         "guns": [
           {
-            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2"],
+            "from": ["sensor 1", "sensor 2", "turret 3", "turret 4"],
             "pattern": "fan",
             "interval": 1.7,
             "speed": 0.45,
@@ -1570,7 +1435,7 @@
             "spread": 18
           },
           {
-            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2"],
+            "from": ["sensor 1", "sensor 2", "turret 3", "turret 4"],
             "pattern": "fan",
             "interval": 1.7,
             "speed": 0.45,
@@ -1595,61 +1460,61 @@
     "name": "BULWARK",
     "boss": true,
     "drawing": "bulwark",
-    "size": [0.367, 0.373],
+    "size": [0.367, 0.36],
     "health": 90.0,
     "points": 2400,
     "parts": [
       {
-        "name": "launcher 1",
-        "x": -0.1,
+        "name": "emitter 1",
+        "x": -0.067,
+        "y": 0.087,
+        "drawing": "bulwark:emitter",
+        "size": [0.1, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 2",
+        "x": 0.067,
+        "y": 0.087,
+        "drawing": "bulwark:emitter",
+        "size": [0.1, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.073,
+        "y": 0.053,
+        "drawing": "bulwark:cannon",
+        "size": [0.06, 0.04],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.073,
+        "y": 0.053,
+        "drawing": "bulwark:cannon",
+        "size": [0.06, 0.04],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.12,
         "y": 0.083,
-        "drawing": "bulwark:launcher",
-        "size": [0.06, 0.067],
+        "drawing": "bulwark:emitter2",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "launcher 2",
-        "x": 0.1,
+        "name": "emitter 6",
+        "x": 0.12,
         "y": 0.083,
-        "drawing": "bulwark:launcher",
-        "size": [0.06, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "launcher 3",
-        "x": -0.027,
-        "y": 0.003,
-        "drawing": "bulwark:launcher2",
-        "size": [0.06, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "launcher 4",
-        "x": 0.027,
-        "y": 0.003,
-        "drawing": "bulwark:launcher2",
-        "size": [0.06, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "launcher 5",
-        "x": -0.093,
-        "y": -0.123,
-        "drawing": "bulwark:launcher3",
-        "size": [0.06, 0.067],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "launcher 6",
-        "x": 0.093,
-        "y": -0.123,
-        "drawing": "bulwark:launcher3",
-        "size": [0.06, 0.067],
+        "drawing": "bulwark:emitter2",
+        "size": [0.06, 0.06],
         "health": 30.0,
         "points": 500
       }
@@ -1658,17 +1523,17 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["launcher 5", "launcher 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"]},
+        "until": {"parts": ["cannon 3", "cannon 4", "emitter 5", "emitter 6", "emitter 1", "emitter 2"]},
         "guns": [
           {
-            "from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "from": ["cannon 3", "cannon 4", "emitter 5", "emitter 6", "emitter 1", "emitter 2"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.6,
             "volley": 2
           },
           {
-            "from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4", "launcher 1", "launcher 2"],
+            "from": ["cannon 3", "cannon 4", "emitter 5", "emitter 6", "emitter 1", "emitter 2"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.6,
@@ -1692,61 +1557,61 @@
     "name": "BORER",
     "boss": true,
     "drawing": "borer",
-    "size": [0.393, 0.407],
+    "size": [0.393, 0.413],
     "health": 90.0,
     "points": 2400,
     "parts": [
       {
-        "name": "emitter 1",
-        "x": -0.14,
-        "y": 0.06,
-        "drawing": "borer:emitter",
-        "size": [0.06, 0.12],
+        "name": "cannon 1",
+        "x": -0.127,
+        "y": 0.05,
+        "drawing": "borer:cannon",
+        "size": [0.047, 0.14],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 2",
-        "x": 0.14,
-        "y": 0.06,
-        "drawing": "borer:emitter",
-        "size": [0.06, 0.12],
+        "name": "cannon 2",
+        "x": 0.127,
+        "y": 0.05,
+        "drawing": "borer:cannon",
+        "size": [0.047, 0.14],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 3",
-        "x": -0.093,
-        "y": -0.04,
-        "drawing": "borer:emitter2",
-        "size": [0.06, 0.12],
+        "name": "cannon 3",
+        "x": -0.04,
+        "y": 0.057,
+        "drawing": "borer:cannon2",
+        "size": [0.047, 0.127],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 4",
-        "x": 0.093,
-        "y": -0.04,
-        "drawing": "borer:emitter2",
-        "size": [0.06, 0.12],
+        "name": "cannon 4",
+        "x": 0.04,
+        "y": 0.057,
+        "drawing": "borer:cannon2",
+        "size": [0.047, 0.127],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 5",
-        "x": -0.08,
-        "y": -0.14,
-        "drawing": "borer:emitter3",
-        "size": [0.047, 0.093],
+        "name": "cannon 5",
+        "x": -0.087,
+        "y": 0.003,
+        "drawing": "borer:cannon3",
+        "size": [0.127, 0.047],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 6",
-        "x": 0.08,
-        "y": -0.14,
-        "drawing": "borer:emitter3",
-        "size": [0.047, 0.093],
+        "name": "cannon 6",
+        "x": 0.087,
+        "y": 0.003,
+        "drawing": "borer:cannon3",
+        "size": [0.127, 0.047],
         "health": 30.0,
         "points": 500
       }
@@ -1755,10 +1620,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"]},
+        "until": {"parts": ["cannon 5", "cannon 6", "cannon 1", "cannon 2", "cannon 3", "cannon 4"]},
         "guns": [
           {
-            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "from": ["cannon 5", "cannon 6", "cannon 1", "cannon 2", "cannon 3", "cannon 4"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.38,
@@ -1766,7 +1631,7 @@
             "turn": 20
           },
           {
-            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "from": ["cannon 5", "cannon 6", "cannon 1", "cannon 2", "cannon 3", "cannon 4"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.38,
@@ -1791,61 +1656,61 @@
     "name": "SILO HAULER",
     "boss": true,
     "drawing": "silo_hauler",
-    "size": [0.433, 0.4],
+    "size": [0.42, 0.393],
     "health": 100.0,
     "points": 2800,
     "parts": [
       {
-        "name": "radar 1",
-        "x": -0.047,
-        "y": 0.03,
-        "drawing": "silo_hauler:radar",
-        "size": [0.047, 0.047],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "radar 2",
-        "x": 0.047,
-        "y": 0.03,
-        "drawing": "silo_hauler:radar",
-        "size": [0.047, 0.047],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "gatling 3",
-        "x": -0.093,
-        "y": -0.097,
-        "drawing": "silo_hauler:gatling",
-        "size": [0.033, 0.067],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "gatling 4",
-        "x": 0.093,
-        "y": -0.097,
-        "drawing": "silo_hauler:gatling",
-        "size": [0.033, 0.067],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "gatling 5",
+        "name": "launcher 1",
         "x": -0.073,
-        "y": 0.103,
-        "drawing": "silo_hauler:gatling2",
-        "size": [0.047, 0.087],
+        "y": -0.11,
+        "drawing": "silo_hauler:launcher",
+        "size": [0.1, 0.133],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "gatling 6",
+        "name": "launcher 2",
         "x": 0.073,
-        "y": 0.103,
-        "drawing": "silo_hauler:gatling2",
-        "size": [0.047, 0.087],
+        "y": -0.11,
+        "drawing": "silo_hauler:launcher",
+        "size": [0.1, 0.133],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 3",
+        "x": -0.133,
+        "y": 0.01,
+        "drawing": "silo_hauler:launcher2",
+        "size": [0.1, 0.173],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 4",
+        "x": 0.133,
+        "y": 0.01,
+        "drawing": "silo_hauler:launcher2",
+        "size": [0.1, 0.173],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 5",
+        "x": -0.033,
+        "y": 0.11,
+        "drawing": "silo_hauler:launcher3",
+        "size": [0.047, 0.133],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "launcher 6",
+        "x": 0.033,
+        "y": 0.11,
+        "drawing": "silo_hauler:launcher3",
+        "size": [0.047, 0.133],
         "health": 35.0,
         "points": 600
       }
@@ -1854,10 +1719,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["gatling 3", "gatling 4", "radar 1", "radar 2", "gatling 5", "gatling 6"]},
+        "until": {"parts": ["launcher 1", "launcher 2", "launcher 3", "launcher 4", "launcher 5", "launcher 6"]},
         "guns": [
           {
-            "from": ["gatling 3", "gatling 4", "radar 1", "radar 2", "gatling 5", "gatling 6"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4", "launcher 5", "launcher 6"],
             "pattern": "ring",
             "interval": 1.8,
             "speed": 0.4,
@@ -1865,7 +1730,7 @@
             "turn": 15
           },
           {
-            "from": ["gatling 3", "gatling 4", "radar 1", "radar 2", "gatling 5", "gatling 6"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4", "launcher 5", "launcher 6"],
             "pattern": "ring",
             "interval": 1.8,
             "speed": 0.4,
@@ -1890,45 +1755,61 @@
     "name": "BASTION",
     "boss": true,
     "drawing": "bastion",
-    "size": [0.5, 0.347],
+    "size": [0.473, 0.32],
     "health": 110.0,
     "points": 2800,
     "parts": [
-      {"name": "flak 1", "x": -0.04, "y": 0.03, "drawing": "bastion:flak", "size": [0.047, 0.067], "health": 30.0, "points": 500},
-      {"name": "flak 2", "x": 0.04, "y": 0.03, "drawing": "bastion:flak", "size": [0.047, 0.067], "health": 30.0, "points": 500},
       {
-        "name": "flak 3",
-        "x": -0.08,
-        "y": -0.083,
-        "drawing": "bastion:flak2",
-        "size": [0.06, 0.087],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "flak 4",
-        "x": 0.08,
-        "y": -0.083,
-        "drawing": "bastion:flak2",
-        "size": [0.06, 0.087],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "flak 5",
+        "name": "emitter 1",
         "x": -0.093,
-        "y": 0.103,
-        "drawing": "bastion:flak3",
-        "size": [0.06, 0.087],
+        "y": 0.007,
+        "drawing": "bastion:emitter",
+        "size": [0.06, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 6",
+        "name": "emitter 2",
         "x": 0.093,
-        "y": 0.103,
-        "drawing": "bastion:flak3",
-        "size": [0.06, 0.087],
+        "y": 0.007,
+        "drawing": "bastion:emitter",
+        "size": [0.06, 0.067],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 3",
+        "x": -0.073,
+        "y": -0.043,
+        "drawing": "bastion:emitter2",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 4",
+        "x": 0.073,
+        "y": -0.043,
+        "drawing": "bastion:emitter2",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 5",
+        "x": -0.027,
+        "y": -0.123,
+        "drawing": "bastion:emitter3",
+        "size": [0.033, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 6",
+        "x": 0.027,
+        "y": -0.123,
+        "drawing": "bastion:emitter3",
+        "size": [0.033, 0.06],
         "health": 30.0,
         "points": 500
       }
@@ -1937,10 +1818,10 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["flak 3", "flak 4", "flak 1", "flak 2", "flak 5", "flak 6"]},
+        "until": {"parts": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"]},
         "guns": [
           {
-            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "flak 5", "flak 6"],
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.6,
@@ -1948,7 +1829,7 @@
             "spread": 10
           },
           {
-            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "flak 5", "flak 6"],
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.6,
@@ -1973,71 +1854,79 @@
     "name": "REAPER",
     "boss": true,
     "drawing": "reaper",
-    "size": [0.487, 0.387],
+    "size": [0.473, 0.387],
     "health": 120.0,
     "points": 7500,
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.113,
-        "y": 0.003,
-        "drawing": "reaper:flak",
-        "size": [0.047, 0.067],
+        "name": "launcher 1",
+        "x": -0.133,
+        "y": 0.073,
+        "drawing": "reaper:launcher",
+        "size": [0.127, 0.2],
         "health": 25.0,
         "points": 500
       },
-      {"name": "flak 2", "x": 0.113, "y": 0.003, "drawing": "reaper:flak", "size": [0.047, 0.067], "health": 25.0, "points": 500},
+      {
+        "name": "launcher 2",
+        "x": 0.133,
+        "y": 0.073,
+        "drawing": "reaper:launcher",
+        "size": [0.127, 0.2],
+        "health": 25.0,
+        "points": 500
+      },
       {
         "name": "launcher 3",
-        "x": -0.107,
-        "y": 0.117,
-        "drawing": "reaper:launcher",
-        "size": [0.06, 0.067],
+        "x": -0.033,
+        "y": 0.057,
+        "drawing": "reaper:launcher2",
+        "size": [0.06, 0.1],
         "health": 25.0,
         "points": 500
       },
       {
         "name": "launcher 4",
-        "x": 0.107,
-        "y": 0.117,
-        "drawing": "reaper:launcher",
-        "size": [0.06, 0.067],
+        "x": 0.033,
+        "y": 0.057,
+        "drawing": "reaper:launcher2",
+        "size": [0.06, 0.1],
         "health": 25.0,
         "points": 500
       },
       {
         "name": "launcher 5",
-        "x": -0.193,
-        "y": -0.01,
-        "drawing": "reaper:launcher2",
-        "size": [0.06, 0.067],
+        "x": -0.107,
+        "y": -0.077,
+        "drawing": "reaper:launcher3",
+        "size": [0.047, 0.1],
         "health": 20.0,
         "points": 400
       },
       {
         "name": "launcher 6",
-        "x": 0.193,
-        "y": -0.01,
-        "drawing": "reaper:launcher2",
-        "size": [0.06, 0.067],
+        "x": 0.107,
+        "y": -0.077,
+        "drawing": "reaper:launcher3",
+        "size": [0.047, 0.1],
         "health": 20.0,
         "points": 400
       },
       {
         "name": "launcher 7",
-        "x": -0.047,
-        "y": -0.09,
-        "drawing": "reaper:launcher3",
-        "size": [0.06, 0.067],
+        "x": -0.187,
+        "y": -0.127,
+        "drawing": "reaper:launcher4",
+        "size": [0.047, 0.107],
         "health": 20.0,
         "points": 400
       },
       {
         "name": "launcher 8",
-        "x": 0.047,
-        "y": -0.09,
-        "drawing": "reaper:launcher3",
-        "size": [0.06, 0.067],
+        "x": 0.187,
+        "y": -0.127,
+        "drawing": "reaper:launcher4",
+        "size": [0.047, 0.107],
         "health": 20.0,
         "points": 400
       }
@@ -2078,10 +1967,10 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["flak 1", "flak 2", "launcher 3", "launcher 4"]},
+        "until": {"parts": ["launcher 3", "launcher 4", "launcher 1", "launcher 2"]},
         "guns": [
           {
-            "from": ["flak 1", "flak 2", "launcher 3", "launcher 4"],
+            "from": ["launcher 3", "launcher 4", "launcher 1", "launcher 2"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.38,
@@ -2089,7 +1978,7 @@
             "turn": 18
           },
           {
-            "from": ["flak 1", "flak 2", "launcher 3", "launcher 4"],
+            "from": ["launcher 3", "launcher 4", "launcher 1", "launcher 2"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.38,
@@ -2114,43 +2003,43 @@
     "name": "ENFORCER",
     "boss": true,
     "drawing": "enforcer",
-    "size": [0.313, 0.36],
+    "size": [0.3, 0.34],
     "health": 90.0,
     "points": 2400,
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.087,
-        "y": -0.01,
-        "drawing": "enforcer:flak",
-        "size": [0.06, 0.087],
+        "name": "cannon 1",
+        "x": -0.073,
+        "y": -0.043,
+        "drawing": "enforcer:cannon",
+        "size": [0.06, 0.147],
         "health": 35.0,
         "points": 500
       },
       {
-        "name": "flak 2",
-        "x": 0.087,
-        "y": -0.01,
-        "drawing": "enforcer:flak",
-        "size": [0.06, 0.087],
+        "name": "cannon 2",
+        "x": 0.073,
+        "y": -0.043,
+        "drawing": "enforcer:cannon",
+        "size": [0.06, 0.147],
         "health": 35.0,
         "points": 500
       },
       {
-        "name": "radar 3",
+        "name": "cannon 3",
         "x": -0.027,
-        "y": -0.063,
-        "drawing": "enforcer:radar",
-        "size": [0.06, 0.06],
+        "y": -0.017,
+        "drawing": "enforcer:cannon2",
+        "size": [0.033, 0.04],
         "health": 35.0,
         "points": 500
       },
       {
-        "name": "radar 4",
+        "name": "cannon 4",
         "x": 0.027,
-        "y": -0.063,
-        "drawing": "enforcer:radar",
-        "size": [0.06, 0.06],
+        "y": -0.017,
+        "drawing": "enforcer:cannon2",
+        "size": [0.033, 0.04],
         "health": 35.0,
         "points": 500
       }
@@ -2159,7 +2048,7 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["radar 3", "radar 4", "flak 1", "flak 2"]},
+        "until": {"parts": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"]},
         "guns": [
           {"pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2},
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 3, "spread": 25, "delay": 1.2}
@@ -2179,61 +2068,61 @@
     "name": "HIVE CARRIER",
     "boss": true,
     "drawing": "hive_carrier",
-    "size": [0.313, 0.44],
+    "size": [0.3, 0.42],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "radar 1",
+        "name": "emitter 1",
+        "x": -0.047,
+        "y": -0.14,
+        "drawing": "hive_carrier:emitter",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 2",
+        "x": 0.047,
+        "y": -0.14,
+        "drawing": "hive_carrier:emitter",
+        "size": [0.06, 0.087],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 3",
+        "x": -0.033,
+        "y": -0.073,
+        "drawing": "hive_carrier:emitter2",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 4",
+        "x": 0.033,
+        "y": -0.073,
+        "drawing": "hive_carrier:emitter2",
+        "size": [0.06, 0.06],
+        "health": 30.0,
+        "points": 500
+      },
+      {
+        "name": "emitter 5",
         "x": -0.08,
-        "y": 0.023,
-        "drawing": "hive_carrier:radar",
-        "size": [0.06, 0.06],
+        "y": 0.12,
+        "drawing": "hive_carrier:emitter3",
+        "size": [0.1, 0.087],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "radar 2",
+        "name": "emitter 6",
         "x": 0.08,
-        "y": 0.023,
-        "drawing": "hive_carrier:radar",
-        "size": [0.06, 0.06],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "radar 3",
-        "x": -0.133,
-        "y": 0.163,
-        "drawing": "hive_carrier:radar2",
-        "size": [0.047, 0.047],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "radar 4",
-        "x": 0.133,
-        "y": 0.163,
-        "drawing": "hive_carrier:radar2",
-        "size": [0.047, 0.047],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "radar 5",
-        "x": -0.027,
-        "y": -0.09,
-        "drawing": "hive_carrier:radar3",
-        "size": [0.06, 0.06],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "radar 6",
-        "x": 0.027,
-        "y": -0.09,
-        "drawing": "hive_carrier:radar3",
-        "size": [0.06, 0.06],
+        "y": 0.12,
+        "drawing": "hive_carrier:emitter3",
+        "size": [0.1, 0.087],
         "health": 30.0,
         "points": 500
       }
@@ -2242,10 +2131,10 @@
       {
         "sway": 0.14,
         "armored": true,
-        "until": {"parts": ["radar 5", "radar 6", "radar 1", "radar 2", "radar 3", "radar 4"]},
+        "until": {"parts": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "emitter 5", "emitter 6"]},
         "guns": [
           {
-            "from": ["radar 5", "radar 6", "radar 1", "radar 2", "radar 3", "radar 4"],
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "emitter 5", "emitter 6"],
             "pattern": "fan",
             "interval": 1.2,
             "speed": 0.5,
@@ -2254,7 +2143,7 @@
             "sweep": 25
           },
           {
-            "from": ["radar 5", "radar 6", "radar 1", "radar 2", "radar 3", "radar 4"],
+            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "emitter 5", "emitter 6"],
             "pattern": "fan",
             "interval": 1.2,
             "speed": 0.5,
@@ -2285,79 +2174,79 @@
     "name": "HOVER TANK",
     "boss": true,
     "drawing": "hover_tank",
-    "size": [0.447, 0.453],
+    "size": [0.46, 0.467],
     "health": 110.0,
     "points": 2800,
     "parts": [
       {
-        "name": "reactor 1",
-        "x": -0.147,
-        "y": -0.143,
-        "drawing": "hover_tank:reactor",
-        "size": [0.06, 0.06],
+        "name": "emitter 1",
+        "x": -0.167,
+        "y": 0.043,
+        "drawing": "hover_tank:emitter",
+        "size": [0.047, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "reactor 2",
-        "x": 0.147,
-        "y": -0.143,
-        "drawing": "hover_tank:reactor",
-        "size": [0.06, 0.06],
+        "name": "emitter 2",
+        "x": 0.167,
+        "y": 0.043,
+        "drawing": "hover_tank:emitter",
+        "size": [0.047, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 3",
-        "x": -0.187,
-        "y": -0.037,
-        "drawing": "hover_tank:gatling",
-        "size": [0.047, 0.087],
+        "name": "emitter 3",
+        "x": -0.053,
+        "y": 0.013,
+        "drawing": "hover_tank:emitter2",
+        "size": [0.06, 0.04],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 4",
-        "x": 0.187,
-        "y": -0.037,
-        "drawing": "hover_tank:gatling",
-        "size": [0.047, 0.087],
+        "name": "emitter 4",
+        "x": 0.053,
+        "y": 0.013,
+        "drawing": "hover_tank:emitter2",
+        "size": [0.06, 0.04],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 5",
-        "x": -0.033,
-        "y": -0.03,
-        "drawing": "hover_tank:gatling2",
-        "size": [0.047, 0.087],
+        "name": "emitter 5",
+        "x": -0.113,
+        "y": -0.07,
+        "drawing": "hover_tank:emitter3",
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 6",
-        "x": 0.033,
-        "y": -0.03,
-        "drawing": "hover_tank:gatling2",
-        "size": [0.047, 0.087],
+        "name": "emitter 6",
+        "x": 0.113,
+        "y": -0.07,
+        "drawing": "hover_tank:emitter3",
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 7",
-        "x": -0.047,
-        "y": 0.083,
-        "drawing": "hover_tank:gatling3",
-        "size": [0.047, 0.087],
+        "name": "emitter 7",
+        "x": -0.06,
+        "y": 0.167,
+        "drawing": "hover_tank:emitter4",
+        "size": [0.06, 0.067],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 8",
-        "x": 0.047,
-        "y": 0.083,
-        "drawing": "hover_tank:gatling3",
-        "size": [0.047, 0.087],
+        "name": "emitter 8",
+        "x": 0.06,
+        "y": 0.167,
+        "drawing": "hover_tank:emitter4",
+        "size": [0.06, 0.067],
         "health": 30.0,
         "points": 500
       }
@@ -2367,18 +2256,18 @@
         "sway": 0.1,
         "armored": true,
         "until": {
-          "parts": ["reactor 1", "reactor 2", "gatling 3", "gatling 4", "gatling 5", "gatling 6", "gatling 7", "gatling 8"]
+          "parts": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2", "emitter 7", "emitter 8"]
         },
         "guns": [
           {
-            "from": ["reactor 1", "reactor 2", "gatling 3", "gatling 4", "gatling 5", "gatling 6", "gatling 7", "gatling 8"],
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2", "emitter 7", "emitter 8"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.65,
             "volley": 3
           },
           {
-            "from": ["reactor 1", "reactor 2", "gatling 3", "gatling 4", "gatling 5", "gatling 6", "gatling 7", "gatling 8"],
+            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2", "emitter 7", "emitter 8"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.65,
@@ -2402,79 +2291,61 @@
     "name": "CRYO FORTRESS",
     "boss": true,
     "drawing": "cryo_fortress",
-    "size": [0.46, 0.407],
+    "size": [0.473, 0.38],
     "health": 110.0,
     "points": 2800,
     "parts": [
       {
-        "name": "gatling 1",
-        "x": -0.153,
-        "y": 0.093,
-        "drawing": "cryo_fortress:gatling",
-        "size": [0.047, 0.087],
+        "name": "turret 1",
+        "x": -0.133,
+        "y": 0.067,
+        "drawing": "cryo_fortress:turret",
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "gatling 2",
-        "x": 0.153,
-        "y": 0.093,
-        "drawing": "cryo_fortress:gatling",
-        "size": [0.047, 0.087],
+        "name": "turret 2",
+        "x": 0.133,
+        "y": 0.067,
+        "drawing": "cryo_fortress:turret",
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "gatling 3",
-        "x": -0.127,
-        "y": -0.04,
-        "drawing": "cryo_fortress:gatling2",
-        "size": [0.047, 0.087],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "gatling 4",
-        "x": 0.127,
-        "y": -0.04,
-        "drawing": "cryo_fortress:gatling2",
-        "size": [0.047, 0.087],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "reactor 5",
-        "x": -0.093,
-        "y": 0.06,
-        "drawing": "cryo_fortress:reactor",
-        "size": [0.06, 0.06],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "reactor 6",
-        "x": 0.093,
-        "y": 0.06,
-        "drawing": "cryo_fortress:reactor",
-        "size": [0.06, 0.06],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "reactor 7",
+        "name": "turret 3",
         "x": -0.047,
-        "y": 0.147,
-        "drawing": "cryo_fortress:reactor2",
-        "size": [0.073, 0.073],
+        "y": -0.083,
+        "drawing": "cryo_fortress:turret2",
+        "size": [0.047, 0.12],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "reactor 8",
+        "name": "turret 4",
         "x": 0.047,
-        "y": 0.147,
-        "drawing": "cryo_fortress:reactor2",
-        "size": [0.073, 0.073],
+        "y": -0.083,
+        "drawing": "cryo_fortress:turret2",
+        "size": [0.047, 0.12],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "turret 5",
+        "x": -0.193,
+        "y": -0.117,
+        "drawing": "cryo_fortress:turret3",
+        "size": [0.087, 0.067],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "turret 6",
+        "x": 0.193,
+        "y": -0.117,
+        "drawing": "cryo_fortress:turret3",
+        "size": [0.087, 0.067],
         "health": 35.0,
         "points": 600
       }
@@ -2483,12 +2354,10 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {
-          "parts": ["gatling 3", "gatling 4", "reactor 5", "reactor 6", "gatling 1", "gatling 2", "reactor 7", "reactor 8"]
-        },
+        "until": {"parts": ["turret 5", "turret 6", "turret 3", "turret 4", "turret 1", "turret 2"]},
         "guns": [
           {
-            "from": ["gatling 3", "gatling 4", "reactor 5", "reactor 6", "gatling 1", "gatling 2", "reactor 7", "reactor 8"],
+            "from": ["turret 5", "turret 6", "turret 3", "turret 4", "turret 1", "turret 2"],
             "pattern": "ring",
             "interval": 1.6,
             "speed": 0.42,
@@ -2496,7 +2365,7 @@
             "turn": 10
           },
           {
-            "from": ["gatling 3", "gatling 4", "reactor 5", "reactor 6", "gatling 1", "gatling 2", "reactor 7", "reactor 8"],
+            "from": ["turret 5", "turret 6", "turret 3", "turret 4", "turret 1", "turret 2"],
             "pattern": "ring",
             "interval": 1.6,
             "speed": 0.42,
@@ -2521,61 +2390,61 @@
     "name": "SENTRY GRID",
     "boss": true,
     "drawing": "sentry_grid",
-    "size": [0.38, 0.36],
+    "size": [0.38, 0.393],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "launcher 1",
+        "name": "tank 1",
         "x": -0.113,
-        "y": 0.103,
-        "drawing": "sentry_grid:launcher",
-        "size": [0.06, 0.067],
+        "y": 0.073,
+        "drawing": "sentry_grid:tank",
+        "size": [0.1, 0.113],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "launcher 2",
+        "name": "tank 2",
         "x": 0.113,
-        "y": 0.103,
-        "drawing": "sentry_grid:launcher",
-        "size": [0.06, 0.067],
+        "y": 0.073,
+        "drawing": "sentry_grid:tank",
+        "size": [0.1, 0.113],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "launcher 3",
-        "x": -0.1,
-        "y": -0.097,
-        "drawing": "sentry_grid:launcher2",
-        "size": [0.06, 0.067],
+        "name": "tank 3",
+        "x": -0.153,
+        "y": -0.017,
+        "drawing": "sentry_grid:tank2",
+        "size": [0.073, 0.08],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "launcher 4",
-        "x": 0.1,
-        "y": -0.097,
-        "drawing": "sentry_grid:launcher2",
-        "size": [0.06, 0.067],
+        "name": "tank 4",
+        "x": 0.153,
+        "y": -0.017,
+        "drawing": "sentry_grid:tank2",
+        "size": [0.073, 0.08],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "launcher 5",
-        "x": -0.033,
-        "y": -0.11,
-        "drawing": "sentry_grid:launcher3",
-        "size": [0.06, 0.067],
+        "name": "tank 5",
+        "x": -0.04,
+        "y": -0.043,
+        "drawing": "sentry_grid:tank3",
+        "size": [0.047, 0.053],
         "health": 22.0,
         "points": 400
       },
       {
-        "name": "launcher 6",
-        "x": 0.033,
-        "y": -0.11,
-        "drawing": "sentry_grid:launcher3",
-        "size": [0.06, 0.067],
+        "name": "tank 6",
+        "x": 0.04,
+        "y": -0.043,
+        "drawing": "sentry_grid:tank3",
+        "size": [0.047, 0.053],
         "health": 22.0,
         "points": 400
       }
@@ -2584,43 +2453,21 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["launcher 5", "launcher 6", "launcher 3", "launcher 4"]},
+        "until": {"parts": ["tank 5", "tank 6", "tank 3", "tank 4"]},
         "guns": [
-          {"from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.4, "speed": 0.65},
-          {
-            "from": ["launcher 5", "launcher 6", "launcher 3", "launcher 4"],
-            "pattern": "aimed",
-            "interval": 1.4,
-            "speed": 0.65,
-            "delay": 0.7
-          },
-          {
-            "from": ["launcher 1", "launcher 2"],
-            "pattern": "ring",
-            "interval": 2.0,
-            "speed": 0.4,
-            "count": 6,
-            "turn": 20,
-            "delay": 0.3
-          },
-          {
-            "from": ["launcher 1", "launcher 2"],
-            "pattern": "ring",
-            "interval": 2.0,
-            "speed": 0.4,
-            "count": 6,
-            "turn": -20,
-            "delay": 1.3
-          }
+          {"from": ["tank 5", "tank 6", "tank 3", "tank 4"], "pattern": "aimed", "interval": 1.4, "speed": 0.65},
+          {"from": ["tank 5", "tank 6", "tank 3", "tank 4"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "delay": 0.7},
+          {"from": ["tank 1", "tank 2"], "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 6, "turn": 20, "delay": 0.3},
+          {"from": ["tank 1", "tank 2"], "pattern": "ring", "interval": 2.0, "speed": 0.4, "count": 6, "turn": -20, "delay": 1.3}
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["launcher 1", "launcher 2"]},
+        "until": {"parts": ["tank 1", "tank 2"]},
         "guns": [
-          {"from": ["launcher 1", "launcher 2"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2},
-          {"from": ["launcher 1", "launcher 2"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2, "delay": 0.7},
+          {"from": ["tank 1", "tank 2"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2},
+          {"from": ["tank 1", "tank 2"], "pattern": "aimed", "interval": 1.4, "speed": 0.65, "volley": 2, "delay": 0.7},
           {"pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 5, "delay": 1.0}
         ]
       },
@@ -2638,98 +2485,98 @@
     "name": "LEVIATHAN",
     "boss": true,
     "drawing": "leviathan",
-    "size": [0.42, 0.587],
+    "size": [0.447, 0.593],
     "health": 130.0,
     "points": 8500,
     "parts": [
       {
-        "name": "turret 1",
+        "name": "cannon 1",
+        "x": -0.167,
+        "y": -0.02,
+        "drawing": "leviathan:cannon",
+        "size": [0.1, 0.127],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 2",
+        "x": 0.167,
+        "y": -0.02,
+        "drawing": "leviathan:cannon",
+        "size": [0.1, 0.127],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 3",
+        "x": -0.073,
+        "y": -0.073,
+        "drawing": "leviathan:cannon2",
+        "size": [0.06, 0.207],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 4",
+        "x": 0.073,
+        "y": -0.073,
+        "drawing": "leviathan:cannon2",
+        "size": [0.06, 0.207],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 5",
         "x": -0.153,
-        "y": 0.023,
-        "drawing": "leviathan:turret",
-        "size": [0.06, 0.087],
-        "health": 25.0,
+        "y": -0.127,
+        "drawing": "leviathan:cannon3",
+        "size": [0.1, 0.207],
+        "health": 20.0,
         "points": 500
       },
       {
-        "name": "turret 2",
+        "name": "cannon 6",
         "x": 0.153,
-        "y": 0.023,
-        "drawing": "leviathan:turret",
-        "size": [0.06, 0.087],
+        "y": -0.127,
+        "drawing": "leviathan:cannon3",
+        "size": [0.1, 0.207],
+        "health": 20.0,
+        "points": 500
+      },
+      {
+        "name": "cannon 7",
+        "x": -0.1,
+        "y": -0.173,
+        "drawing": "leviathan:cannon4",
+        "size": [0.073, 0.127],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "turret 3",
-        "x": -0.093,
-        "y": 0.117,
-        "drawing": "leviathan:turret2",
-        "size": [0.047, 0.067],
+        "name": "cannon 8",
+        "x": 0.1,
+        "y": -0.173,
+        "drawing": "leviathan:cannon4",
+        "size": [0.073, 0.127],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "turret 4",
-        "x": 0.093,
-        "y": 0.117,
-        "drawing": "leviathan:turret2",
-        "size": [0.047, 0.067],
+        "name": "cannon 9",
+        "x": -0.167,
+        "y": -0.167,
+        "drawing": "leviathan:cannon5",
+        "size": [0.047, 0.127],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "turret 5",
-        "x": -0.153,
-        "y": 0.29,
-        "drawing": "leviathan:turret3",
-        "size": [0.06, 0.087],
-        "health": 20.0,
-        "points": 500
-      },
-      {
-        "name": "turret 6",
-        "x": 0.153,
-        "y": 0.29,
-        "drawing": "leviathan:turret3",
-        "size": [0.06, 0.087],
-        "health": 20.0,
-        "points": 500
-      },
-      {
-        "name": "turret 7",
-        "x": -0.187,
-        "y": 0.23,
-        "drawing": "leviathan:turret4",
-        "size": [0.047, 0.067],
-        "health": 20.0,
-        "points": 500
-      },
-      {
-        "name": "turret 8",
-        "x": 0.187,
-        "y": 0.23,
-        "drawing": "leviathan:turret4",
-        "size": [0.047, 0.067],
-        "health": 20.0,
-        "points": 500
-      },
-      {
-        "name": "turret 9",
-        "x": -0.053,
-        "y": 0.25,
-        "drawing": "leviathan:turret5",
-        "size": [0.047, 0.067],
-        "health": 20.0,
-        "points": 500
-      },
-      {
-        "name": "turret 10",
-        "x": 0.053,
-        "y": 0.25,
-        "drawing": "leviathan:turret5",
-        "size": [0.047, 0.067],
-        "health": 20.0,
+        "name": "cannon 10",
+        "x": 0.167,
+        "y": -0.167,
+        "drawing": "leviathan:cannon5",
+        "size": [0.047, 0.127],
+        "health": 25.0,
         "points": 500
       }
     ],
@@ -2737,17 +2584,17 @@
       {
         "sway": 0.07,
         "armored": true,
-        "until": {"parts": ["turret 1", "turret 2", "turret 3", "turret 4"]},
+        "until": {"parts": ["cannon 7", "cannon 8", "cannon 9", "cannon 10"]},
         "guns": [
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["cannon 7", "cannon 8", "cannon 9", "cannon 10"],
             "pattern": "aimed",
             "interval": 1.7,
             "speed": 0.65,
             "volley": 3
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["cannon 7", "cannon 8", "cannon 9", "cannon 10"],
             "pattern": "aimed",
             "interval": 1.7,
             "speed": 0.65,
@@ -2755,7 +2602,7 @@
             "delay": 0.85
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["cannon 7", "cannon 8", "cannon 9", "cannon 10"],
             "pattern": "fan",
             "interval": 2.2,
             "speed": 0.45,
@@ -2764,7 +2611,7 @@
             "delay": 0.4
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["cannon 7", "cannon 8", "cannon 9", "cannon 10"],
             "pattern": "fan",
             "interval": 2.2,
             "speed": 0.45,
@@ -2777,10 +2624,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["turret 7", "turret 8", "turret 9", "turret 10", "turret 5", "turret 6"]},
+        "until": {"parts": ["cannon 5", "cannon 6", "cannon 3", "cannon 4", "cannon 1", "cannon 2"]},
         "guns": [
           {
-            "from": ["turret 7", "turret 8", "turret 9", "turret 10", "turret 5", "turret 6"],
+            "from": ["cannon 5", "cannon 6", "cannon 3", "cannon 4", "cannon 1", "cannon 2"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.4,
@@ -2788,7 +2635,7 @@
             "turn": 15
           },
           {
-            "from": ["turret 7", "turret 8", "turret 9", "turret 10", "turret 5", "turret 6"],
+            "from": ["cannon 5", "cannon 6", "cannon 3", "cannon 4", "cannon 1", "cannon 2"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.4,
@@ -2813,61 +2660,61 @@
     "name": "RELAY ARRAY",
     "boss": true,
     "drawing": "relay_array",
-    "size": [0.473, 0.373],
+    "size": [0.46, 0.353],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "emitter 1",
-        "x": -0.027,
-        "y": -0.103,
-        "drawing": "relay_array:emitter",
-        "size": [0.06, 0.12],
+        "name": "cannon 1",
+        "x": -0.067,
+        "y": -0.073,
+        "drawing": "relay_array:cannon",
+        "size": [0.047, 0.127],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 2",
-        "x": 0.027,
-        "y": -0.103,
-        "drawing": "relay_array:emitter",
-        "size": [0.06, 0.12],
+        "name": "cannon 2",
+        "x": 0.067,
+        "y": -0.073,
+        "drawing": "relay_array:cannon",
+        "size": [0.047, 0.127],
         "health": 35.0,
         "points": 600
       },
       {
         "name": "emitter 3",
-        "x": -0.1,
-        "y": -0.063,
-        "drawing": "relay_array:emitter2",
-        "size": [0.06, 0.12],
+        "x": -0.04,
+        "y": 0.04,
+        "drawing": "relay_array:emitter",
+        "size": [0.06, 0.06],
         "health": 35.0,
         "points": 600
       },
       {
         "name": "emitter 4",
-        "x": 0.1,
-        "y": -0.063,
-        "drawing": "relay_array:emitter2",
-        "size": [0.06, 0.12],
+        "x": 0.04,
+        "y": 0.04,
+        "drawing": "relay_array:emitter",
+        "size": [0.06, 0.06],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "gatling 5",
-        "x": -0.093,
-        "y": 0.177,
-        "drawing": "relay_array:gatling",
-        "size": [0.033, 0.067],
+        "name": "tank 5",
+        "x": -0.2,
+        "y": -0.113,
+        "drawing": "relay_array:tank",
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "gatling 6",
-        "x": 0.093,
-        "y": 0.177,
-        "drawing": "relay_array:gatling",
-        "size": [0.033, 0.067],
+        "name": "tank 6",
+        "x": 0.2,
+        "y": -0.113,
+        "drawing": "relay_array:tank",
+        "size": [0.047, 0.1],
         "health": 35.0,
         "points": 600
       }
@@ -2876,10 +2723,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "gatling 5", "gatling 6"]},
+        "until": {"parts": ["tank 5", "tank 6", "cannon 1", "cannon 2", "emitter 3", "emitter 4"]},
         "guns": [
           {
-            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "gatling 5", "gatling 6"],
+            "from": ["tank 5", "tank 6", "cannon 1", "cannon 2", "emitter 3", "emitter 4"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.38,
@@ -2887,7 +2734,7 @@
             "turn": 20
           },
           {
-            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4", "gatling 5", "gatling 6"],
+            "from": ["tank 5", "tank 6", "cannon 1", "cannon 2", "emitter 3", "emitter 4"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.38,
@@ -2912,61 +2759,61 @@
     "name": "SCAVENGER",
     "boss": true,
     "drawing": "scavenger",
-    "size": [0.38, 0.5],
+    "size": [0.38, 0.473],
     "health": 110.0,
     "points": 3000,
     "parts": [
       {
-        "name": "emitter 1",
-        "x": -0.06,
-        "y": 0.187,
-        "drawing": "scavenger:emitter",
-        "size": [0.047, 0.093],
+        "name": "launcher 1",
+        "x": -0.093,
+        "y": -0.013,
+        "drawing": "scavenger:launcher",
+        "size": [0.1, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 2",
-        "x": 0.06,
-        "y": 0.187,
-        "drawing": "scavenger:emitter",
-        "size": [0.047, 0.093],
+        "name": "launcher 2",
+        "x": 0.093,
+        "y": -0.013,
+        "drawing": "scavenger:launcher",
+        "size": [0.1, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 3",
-        "x": -0.14,
-        "y": 0.1,
-        "drawing": "scavenger:emitter2",
-        "size": [0.06, 0.12],
+        "name": "launcher 3",
+        "x": -0.12,
+        "y": 0.103,
+        "drawing": "scavenger:launcher2",
+        "size": [0.073, 0.16],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 4",
-        "x": 0.14,
-        "y": 0.1,
-        "drawing": "scavenger:emitter2",
-        "size": [0.06, 0.12],
+        "name": "launcher 4",
+        "x": 0.12,
+        "y": 0.103,
+        "drawing": "scavenger:launcher2",
+        "size": [0.073, 0.16],
         "health": 35.0,
         "points": 600
       },
       {
         "name": "emitter 5",
-        "x": -0.12,
-        "y": -0.013,
-        "drawing": "scavenger:emitter3",
-        "size": [0.06, 0.12],
+        "x": -0.053,
+        "y": -0.137,
+        "drawing": "scavenger:emitter",
+        "size": [0.1, 0.067],
         "health": 35.0,
         "points": 600
       },
       {
         "name": "emitter 6",
-        "x": 0.12,
-        "y": -0.013,
-        "drawing": "scavenger:emitter3",
-        "size": [0.06, 0.12],
+        "x": 0.053,
+        "y": -0.137,
+        "drawing": "scavenger:emitter",
+        "size": [0.1, 0.067],
         "health": 35.0,
         "points": 600
       }
@@ -2975,10 +2822,10 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"]},
+        "until": {"parts": ["emitter 5", "emitter 6", "launcher 1", "launcher 2", "launcher 3", "launcher 4"]},
         "guns": [
           {
-            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "from": ["emitter 5", "emitter 6", "launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "fan",
             "interval": 1.3,
             "speed": 0.5,
@@ -2987,7 +2834,7 @@
             "sweep": 25
           },
           {
-            "from": ["emitter 5", "emitter 6", "emitter 3", "emitter 4", "emitter 1", "emitter 2"],
+            "from": ["emitter 5", "emitter 6", "launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "fan",
             "interval": 1.3,
             "speed": 0.5,
@@ -3021,79 +2868,79 @@
     "name": "MINE CARRIER",
     "boss": true,
     "drawing": "mine_carrier",
-    "size": [0.487, 0.4],
+    "size": [0.473, 0.393],
     "health": 130.0,
     "points": 3500,
     "parts": [
       {
-        "name": "emitter 1",
-        "x": -0.047,
-        "y": -0.023,
-        "drawing": "mine_carrier:emitter",
-        "size": [0.047, 0.093],
+        "name": "launcher 1",
+        "x": -0.08,
+        "y": -0.013,
+        "drawing": "mine_carrier:launcher",
+        "size": [0.06, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 2",
-        "x": 0.047,
-        "y": -0.023,
-        "drawing": "mine_carrier:emitter",
-        "size": [0.047, 0.093],
+        "name": "launcher 2",
+        "x": 0.08,
+        "y": -0.013,
+        "drawing": "mine_carrier:launcher",
+        "size": [0.06, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "turret 3",
-        "x": -0.167,
-        "y": -0.03,
-        "drawing": "mine_carrier:turret",
-        "size": [0.06, 0.087],
+        "name": "launcher 3",
+        "x": -0.147,
+        "y": 0.04,
+        "drawing": "mine_carrier:launcher2",
+        "size": [0.047, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "turret 4",
-        "x": 0.167,
-        "y": -0.03,
-        "drawing": "mine_carrier:turret",
-        "size": [0.06, 0.087],
+        "name": "launcher 4",
+        "x": 0.147,
+        "y": 0.04,
+        "drawing": "mine_carrier:launcher2",
+        "size": [0.047, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "radar 5",
-        "x": -0.133,
-        "y": 0.063,
-        "drawing": "mine_carrier:radar",
-        "size": [0.047, 0.047],
+        "name": "launcher 5",
+        "x": -0.033,
+        "y": -0.08,
+        "drawing": "mine_carrier:launcher3",
+        "size": [0.047, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "radar 6",
-        "x": 0.133,
-        "y": 0.063,
-        "drawing": "mine_carrier:radar",
-        "size": [0.047, 0.047],
+        "name": "launcher 6",
+        "x": 0.033,
+        "y": -0.08,
+        "drawing": "mine_carrier:launcher3",
+        "size": [0.047, 0.073],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "radar 7",
-        "x": -0.113,
-        "y": -0.103,
-        "drawing": "mine_carrier:radar2",
-        "size": [0.06, 0.06],
+        "name": "launcher 7",
+        "x": -0.06,
+        "y": 0.06,
+        "drawing": "mine_carrier:launcher4",
+        "size": [0.087, 0.087],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "radar 8",
-        "x": 0.113,
-        "y": -0.103,
-        "drawing": "mine_carrier:radar2",
-        "size": [0.06, 0.06],
+        "name": "launcher 8",
+        "x": 0.06,
+        "y": 0.06,
+        "drawing": "mine_carrier:launcher4",
+        "size": [0.087, 0.087],
         "health": 35.0,
         "points": 600
       }
@@ -3102,10 +2949,30 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["radar 7", "radar 8", "turret 3", "turret 4", "emitter 1", "emitter 2", "radar 5", "radar 6"]},
+        "until": {
+          "parts": [
+            "launcher 5",
+            "launcher 6",
+            "launcher 1",
+            "launcher 2",
+            "launcher 3",
+            "launcher 4",
+            "launcher 7",
+            "launcher 8"
+          ]
+        },
         "guns": [
           {
-            "from": ["radar 7", "radar 8", "turret 3", "turret 4", "emitter 1", "emitter 2", "radar 5", "radar 6"],
+            "from": [
+              "launcher 5",
+              "launcher 6",
+              "launcher 1",
+              "launcher 2",
+              "launcher 3",
+              "launcher 4",
+              "launcher 7",
+              "launcher 8"
+            ],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.5,
@@ -3113,7 +2980,16 @@
             "spread": 20
           },
           {
-            "from": ["radar 7", "radar 8", "turret 3", "turret 4", "emitter 1", "emitter 2", "radar 5", "radar 6"],
+            "from": [
+              "launcher 5",
+              "launcher 6",
+              "launcher 1",
+              "launcher 2",
+              "launcher 3",
+              "launcher 4",
+              "launcher 7",
+              "launcher 8"
+            ],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.5,
@@ -3146,79 +3022,79 @@
     "name": "FOUNDRY",
     "boss": true,
     "drawing": "foundry",
-    "size": [0.42, 0.44],
+    "size": [0.42, 0.453],
     "health": 140.0,
     "points": 3400,
     "parts": [
       {
         "name": "cannon 1",
-        "x": -0.04,
-        "y": 0.163,
+        "x": -0.12,
+        "y": -0.023,
         "drawing": "foundry:cannon",
-        "size": [0.047, 0.1],
+        "size": [0.047, 0.127],
         "health": 35.0,
         "points": 600
       },
       {
         "name": "cannon 2",
-        "x": 0.04,
-        "y": 0.163,
+        "x": 0.12,
+        "y": -0.023,
         "drawing": "foundry:cannon",
-        "size": [0.047, 0.1],
+        "size": [0.047, 0.127],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "cannon 3",
-        "x": -0.127,
-        "y": -0.01,
+        "name": "sensor 3",
+        "x": -0.153,
+        "y": -0.023,
+        "drawing": "foundry:sensor",
+        "size": [0.073, 0.113],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "sensor 4",
+        "x": 0.153,
+        "y": -0.023,
+        "drawing": "foundry:sensor",
+        "size": [0.073, 0.113],
+        "health": 35.0,
+        "points": 600
+      },
+      {
+        "name": "cannon 5",
+        "x": -0.073,
+        "y": -0.123,
         "drawing": "foundry:cannon2",
-        "size": [0.06, 0.133],
+        "size": [0.073, 0.207],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "cannon 4",
-        "x": 0.127,
-        "y": -0.01,
+        "name": "cannon 6",
+        "x": 0.073,
+        "y": -0.123,
         "drawing": "foundry:cannon2",
-        "size": [0.06, 0.133],
+        "size": [0.073, 0.207],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 5",
-        "x": -0.027,
-        "y": 0.077,
-        "drawing": "foundry:emitter",
-        "size": [0.047, 0.093],
+        "name": "sensor 7",
+        "x": -0.167,
+        "y": 0.08,
+        "drawing": "foundry:sensor2",
+        "size": [0.087, 0.093],
         "health": 35.0,
         "points": 600
       },
       {
-        "name": "emitter 6",
-        "x": 0.027,
-        "y": 0.077,
-        "drawing": "foundry:emitter",
-        "size": [0.047, 0.093],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "cannon 7",
-        "x": -0.187,
-        "y": -0.01,
-        "drawing": "foundry:cannon3",
-        "size": [0.047, 0.1],
-        "health": 35.0,
-        "points": 600
-      },
-      {
-        "name": "cannon 8",
-        "x": 0.187,
-        "y": -0.01,
-        "drawing": "foundry:cannon3",
-        "size": [0.047, 0.1],
+        "name": "sensor 8",
+        "x": 0.167,
+        "y": 0.08,
+        "drawing": "foundry:sensor2",
+        "size": [0.087, 0.093],
         "health": 35.0,
         "points": 600
       }
@@ -3227,10 +3103,10 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["cannon 3", "cannon 4", "cannon 7", "cannon 8", "emitter 5", "emitter 6", "cannon 1", "cannon 2"]},
+        "until": {"parts": ["cannon 5", "cannon 6", "cannon 1", "cannon 2", "sensor 3", "sensor 4", "sensor 7", "sensor 8"]},
         "guns": [
           {
-            "from": ["cannon 3", "cannon 4", "cannon 7", "cannon 8", "emitter 5", "emitter 6", "cannon 1", "cannon 2"],
+            "from": ["cannon 5", "cannon 6", "cannon 1", "cannon 2", "sensor 3", "sensor 4", "sensor 7", "sensor 8"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.42,
@@ -3239,7 +3115,7 @@
             "style": "heavy"
           },
           {
-            "from": ["cannon 3", "cannon 4", "cannon 7", "cannon 8", "emitter 5", "emitter 6", "cannon 1", "cannon 2"],
+            "from": ["cannon 5", "cannon 6", "cannon 1", "cannon 2", "sensor 3", "sensor 4", "sensor 7", "sensor 8"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.42,
@@ -3273,79 +3149,79 @@
     "name": "GUNSHIP PRIME",
     "boss": true,
     "drawing": "gunship_prime",
-    "size": [0.367, 0.52],
+    "size": [0.353, 0.52],
     "health": 140.0,
     "points": 3600,
     "parts": [
       {
         "name": "emitter 1",
-        "x": -0.027,
-        "y": -0.003,
+        "x": -0.033,
+        "y": 0.107,
         "drawing": "gunship_prime:emitter",
-        "size": [0.06, 0.12],
+        "size": [0.06, 0.08],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "emitter 2",
-        "x": 0.027,
-        "y": -0.003,
+        "x": 0.033,
+        "y": 0.107,
         "drawing": "gunship_prime:emitter",
-        "size": [0.06, 0.12],
+        "size": [0.06, 0.08],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "emitter 3",
         "x": -0.14,
-        "y": 0.177,
+        "y": -0.083,
         "drawing": "gunship_prime:emitter2",
-        "size": [0.047, 0.093],
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "emitter 4",
         "x": 0.14,
-        "y": 0.177,
+        "y": -0.083,
         "drawing": "gunship_prime:emitter2",
-        "size": [0.047, 0.093],
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 5",
-        "x": -0.093,
-        "y": -0.183,
-        "drawing": "gunship_prime:emitter3",
-        "size": [0.047, 0.093],
+        "name": "turret 5",
+        "x": -0.133,
+        "y": 0.047,
+        "drawing": "gunship_prime:turret",
+        "size": [0.087, 0.2],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 6",
-        "x": 0.093,
-        "y": -0.183,
-        "drawing": "gunship_prime:emitter3",
-        "size": [0.047, 0.093],
+        "name": "turret 6",
+        "x": 0.133,
+        "y": 0.047,
+        "drawing": "gunship_prime:turret",
+        "size": [0.087, 0.2],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "emitter 7",
-        "x": -0.073,
-        "y": -0.11,
-        "drawing": "gunship_prime:emitter4",
-        "size": [0.06, 0.12],
+        "x": -0.02,
+        "y": -0.163,
+        "drawing": "gunship_prime:emitter3",
+        "size": [0.033, 0.073],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "emitter 8",
-        "x": 0.073,
-        "y": -0.11,
-        "drawing": "gunship_prime:emitter4",
-        "size": [0.06, 0.12],
+        "x": 0.02,
+        "y": -0.163,
+        "drawing": "gunship_prime:emitter3",
+        "size": [0.033, 0.073],
         "health": 30.0,
         "points": 500
       }
@@ -3354,17 +3230,17 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["emitter 5", "emitter 6", "emitter 7", "emitter 8"]},
+        "until": {"parts": ["emitter 7", "emitter 8", "emitter 3", "emitter 4"]},
         "guns": [
           {
-            "from": ["emitter 5", "emitter 6", "emitter 7", "emitter 8"],
+            "from": ["emitter 7", "emitter 8", "emitter 3", "emitter 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.65,
             "volley": 3
           },
           {
-            "from": ["emitter 5", "emitter 6", "emitter 7", "emitter 8"],
+            "from": ["emitter 7", "emitter 8", "emitter 3", "emitter 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.65,
@@ -3372,7 +3248,7 @@
             "delay": 0.9
           },
           {
-            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "from": ["turret 5", "turret 6", "emitter 1", "emitter 2"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.45,
@@ -3381,7 +3257,7 @@
             "delay": 0.4
           },
           {
-            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "from": ["turret 5", "turret 6", "emitter 1", "emitter 2"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.45,
@@ -3394,10 +3270,10 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"]},
+        "until": {"parts": ["turret 5", "turret 6", "emitter 1", "emitter 2"]},
         "guns": [
           {
-            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "from": ["turret 5", "turret 6", "emitter 1", "emitter 2"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.4,
@@ -3405,7 +3281,7 @@
             "turn": 18
           },
           {
-            "from": ["emitter 1", "emitter 2", "emitter 3", "emitter 4"],
+            "from": ["turret 5", "turret 6", "emitter 1", "emitter 2"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.4,
@@ -3430,79 +3306,61 @@
     "name": "COLOSSUS",
     "boss": true,
     "drawing": "colossus",
-    "size": [0.473, 0.407],
+    "size": [0.487, 0.427],
     "health": 150.0,
     "points": 8000,
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.04,
-        "y": -0.04,
-        "drawing": "colossus:flak",
-        "size": [0.047, 0.067],
+        "name": "cannon 1",
+        "x": -0.06,
+        "y": 0.027,
+        "drawing": "colossus:cannon",
+        "size": [0.1, 0.213],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "flak 2",
-        "x": 0.04,
-        "y": -0.04,
-        "drawing": "colossus:flak",
-        "size": [0.047, 0.067],
+        "name": "cannon 2",
+        "x": 0.06,
+        "y": 0.027,
+        "drawing": "colossus:cannon",
+        "size": [0.1, 0.213],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "launcher 3",
-        "x": -0.167,
-        "y": -0.127,
-        "drawing": "colossus:launcher",
-        "size": [0.06, 0.067],
+        "name": "cannon 3",
+        "x": -0.14,
+        "y": 0.107,
+        "drawing": "colossus:cannon2",
+        "size": [0.1, 0.213],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "launcher 4",
-        "x": 0.167,
-        "y": -0.127,
-        "drawing": "colossus:launcher",
-        "size": [0.06, 0.067],
+        "name": "cannon 4",
+        "x": 0.14,
+        "y": 0.107,
+        "drawing": "colossus:cannon2",
+        "size": [0.1, 0.213],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "launcher 5",
-        "x": -0.04,
-        "y": 0.12,
-        "drawing": "colossus:launcher2",
-        "size": [0.047, 0.053],
+        "name": "cannon 5",
+        "x": -0.033,
+        "y": -0.113,
+        "drawing": "colossus:cannon3",
+        "size": [0.033, 0.04],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "launcher 6",
-        "x": 0.04,
-        "y": 0.12,
-        "drawing": "colossus:launcher2",
-        "size": [0.047, 0.053],
-        "health": 30.0,
-        "points": 600
-      },
-      {
-        "name": "flak 7",
-        "x": -0.08,
-        "y": 0.04,
-        "drawing": "colossus:flak2",
-        "size": [0.047, 0.067],
-        "health": 30.0,
-        "points": 600
-      },
-      {
-        "name": "flak 8",
-        "x": 0.08,
-        "y": 0.04,
-        "drawing": "colossus:flak2",
-        "size": [0.047, 0.067],
+        "name": "cannon 6",
+        "x": 0.033,
+        "y": -0.113,
+        "drawing": "colossus:cannon3",
+        "size": [0.033, 0.04],
         "health": 30.0,
         "points": 600
       }
@@ -3511,56 +3369,35 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["launcher 3", "launcher 4", "flak 1", "flak 2"]},
+        "until": {"parts": ["cannon 5", "cannon 6", "cannon 1", "cannon 2"]},
         "guns": [
           {
-            "from": ["launcher 3", "launcher 4", "flak 1", "flak 2"],
+            "from": ["cannon 5", "cannon 6", "cannon 1", "cannon 2"],
             "pattern": "aimed",
             "interval": 2.0,
             "speed": 0.7,
             "volley": 3
           },
           {
-            "from": ["launcher 3", "launcher 4", "flak 1", "flak 2"],
+            "from": ["cannon 5", "cannon 6", "cannon 1", "cannon 2"],
             "pattern": "aimed",
             "interval": 2.0,
             "speed": 0.7,
             "volley": 3,
             "delay": 1.0
           },
-          {
-            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
-            "pattern": "fan",
-            "interval": 1.6,
-            "speed": 0.5,
-            "count": 3,
-            "delay": 0.5
-          },
-          {
-            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
-            "pattern": "fan",
-            "interval": 1.6,
-            "speed": 0.5,
-            "count": 3,
-            "delay": 1.3
-          }
+          {"from": ["cannon 3", "cannon 4"], "pattern": "fan", "interval": 1.6, "speed": 0.5, "count": 3, "delay": 0.5},
+          {"from": ["cannon 3", "cannon 4"], "pattern": "fan", "interval": 1.6, "speed": 0.5, "count": 3, "delay": 1.3}
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["flak 7", "flak 8", "launcher 5", "launcher 6"]},
+        "until": {"parts": ["cannon 3", "cannon 4"]},
         "guns": [
+          {"from": ["cannon 3", "cannon 4"], "pattern": "ring", "interval": 1.3, "speed": 0.45, "count": 8, "turn": 22},
           {
-            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
-            "pattern": "ring",
-            "interval": 1.3,
-            "speed": 0.45,
-            "count": 8,
-            "turn": 22
-          },
-          {
-            "from": ["flak 7", "flak 8", "launcher 5", "launcher 6"],
+            "from": ["cannon 3", "cannon 4"],
             "pattern": "ring",
             "interval": 1.3,
             "speed": 0.45,
@@ -3585,61 +3422,53 @@
     "name": "GRAPPLER",
     "boss": true,
     "drawing": "grappler",
-    "size": [0.367, 0.373],
+    "size": [0.367, 0.347],
     "health": 130.0,
     "points": 3200,
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.073,
-        "y": -0.07,
-        "drawing": "grappler:cannon",
-        "size": [0.06, 0.133],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 2",
-        "x": 0.073,
-        "y": -0.07,
-        "drawing": "grappler:cannon",
-        "size": [0.06, 0.133],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 3",
-        "x": -0.12,
-        "y": -0.003,
-        "drawing": "grappler:cannon2",
-        "size": [0.047, 0.1],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 4",
-        "x": 0.12,
-        "y": -0.003,
-        "drawing": "grappler:cannon2",
-        "size": [0.047, 0.1],
-        "health": 20.0,
-        "points": 400
-      },
-      {
-        "name": "cannon 5",
+        "name": "tank 1",
         "x": -0.053,
-        "y": 0.07,
-        "drawing": "grappler:cannon3",
-        "size": [0.06, 0.133],
+        "y": -0.083,
+        "drawing": "grappler:tank",
+        "size": [0.047, 0.047],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "cannon 6",
+        "name": "tank 2",
         "x": 0.053,
-        "y": 0.07,
-        "drawing": "grappler:cannon3",
-        "size": [0.06, 0.133],
+        "y": -0.083,
+        "drawing": "grappler:tank",
+        "size": [0.047, 0.047],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "tank 3",
+        "x": -0.12,
+        "y": 0.063,
+        "drawing": "grappler:tank2",
+        "size": [0.087, 0.1],
+        "health": 20.0,
+        "points": 400
+      },
+      {"name": "tank 4", "x": 0.12, "y": 0.063, "drawing": "grappler:tank2", "size": [0.087, 0.1], "health": 20.0, "points": 400},
+      {
+        "name": "tank 5",
+        "x": -0.04,
+        "y": -0.043,
+        "drawing": "grappler:tank3",
+        "size": [0.073, 0.047],
+        "health": 20.0,
+        "points": 400
+      },
+      {
+        "name": "tank 6",
+        "x": 0.04,
+        "y": -0.043,
+        "drawing": "grappler:tank3",
+        "size": [0.073, 0.047],
         "health": 20.0,
         "points": 400
       }
@@ -3648,17 +3477,17 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"]},
+        "until": {"parts": ["tank 1", "tank 2", "tank 5", "tank 6", "tank 3", "tank 4"]},
         "guns": [
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "from": ["tank 1", "tank 2", "tank 5", "tank 6", "tank 3", "tank 4"],
             "pattern": "fan",
             "interval": 1.6,
             "speed": 0.5,
             "count": 3
           },
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "from": ["tank 1", "tank 2", "tank 5", "tank 6", "tank 3", "tank 4"],
             "pattern": "fan",
             "interval": 1.6,
             "speed": 0.5,
@@ -3666,14 +3495,14 @@
             "delay": 0.8
           },
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "from": ["tank 1", "tank 2", "tank 5", "tank 6", "tank 3", "tank 4"],
             "pattern": "aimed",
             "interval": 1.4,
             "speed": 0.6,
             "delay": 0.4
           },
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4", "cannon 5", "cannon 6"],
+            "from": ["tank 1", "tank 2", "tank 5", "tank 6", "tank 3", "tank 4"],
             "pattern": "aimed",
             "interval": 1.4,
             "speed": 0.6,
@@ -3703,61 +3532,43 @@
     "name": "TUGMASTER",
     "boss": true,
     "drawing": "tugmaster",
-    "size": [0.407, 0.373],
+    "size": [0.393, 0.347],
     "health": 130.0,
     "points": 3500,
     "parts": [
       {
-        "name": "radar 1",
-        "x": -0.18,
-        "y": 0.11,
-        "drawing": "tugmaster:radar",
-        "size": [0.06, 0.06],
+        "name": "launcher 1",
+        "x": -0.107,
+        "y": 0.063,
+        "drawing": "tugmaster:launcher",
+        "size": [0.127, 0.167],
         "health": 40.0,
         "points": 700
       },
       {
-        "name": "radar 2",
-        "x": 0.18,
-        "y": 0.11,
-        "drawing": "tugmaster:radar",
-        "size": [0.06, 0.06],
+        "name": "launcher 2",
+        "x": 0.107,
+        "y": 0.063,
+        "drawing": "tugmaster:launcher",
+        "size": [0.127, 0.167],
         "health": 40.0,
         "points": 700
       },
       {
-        "name": "radar 3",
-        "x": -0.133,
-        "y": -0.003,
-        "drawing": "tugmaster:radar2",
-        "size": [0.06, 0.06],
+        "name": "launcher 3",
+        "x": -0.047,
+        "y": -0.06,
+        "drawing": "tugmaster:launcher2",
+        "size": [0.073, 0.093],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "radar 4",
-        "x": 0.133,
-        "y": -0.003,
-        "drawing": "tugmaster:radar2",
-        "size": [0.06, 0.06],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "reactor 5",
-        "x": -0.027,
-        "y": -0.103,
-        "drawing": "tugmaster:reactor",
-        "size": [0.073, 0.073],
-        "health": 30.0,
-        "points": 500
-      },
-      {
-        "name": "reactor 6",
-        "x": 0.027,
-        "y": -0.103,
-        "drawing": "tugmaster:reactor",
-        "size": [0.073, 0.073],
+        "name": "launcher 4",
+        "x": 0.047,
+        "y": -0.06,
+        "drawing": "tugmaster:launcher2",
+        "size": [0.073, 0.093],
         "health": 30.0,
         "points": 500
       }
@@ -3766,32 +3577,19 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["reactor 5", "reactor 6", "radar 3", "radar 4"]},
+        "until": {"parts": ["launcher 3", "launcher 4"]},
         "guns": [
-          {
-            "from": ["reactor 5", "reactor 6", "radar 3", "radar 4"],
-            "pattern": "aimed",
-            "interval": 1.6,
-            "speed": 0.6,
-            "volley": 2
-          },
-          {
-            "from": ["reactor 5", "reactor 6", "radar 3", "radar 4"],
-            "pattern": "aimed",
-            "interval": 1.6,
-            "speed": 0.6,
-            "volley": 2,
-            "delay": 0.8
-          },
-          {"from": ["radar 1", "radar 2"], "pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 5, "delay": 0.4}
+          {"from": ["launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2},
+          {"from": ["launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.6, "volley": 2, "delay": 0.8},
+          {"from": ["launcher 1", "launcher 2"], "pattern": "fan", "interval": 2.0, "speed": 0.45, "count": 5, "delay": 0.4}
         ]
       },
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["radar 1", "radar 2"]},
+        "until": {"parts": ["launcher 1", "launcher 2"]},
         "guns": [
-          {"from": ["radar 1", "radar 2"], "pattern": "ring", "interval": 1.6, "speed": 0.4, "count": 10, "turn": 18},
+          {"from": ["launcher 1", "launcher 2"], "pattern": "ring", "interval": 1.6, "speed": 0.4, "count": 10, "turn": 18},
           {"pattern": "fan", "interval": 2.2, "speed": 0.4, "count": 3, "spread": 30, "delay": 0.8, "style": "heavy"}
         ]
       },
@@ -3809,43 +3607,43 @@
     "name": "MAGMA RIG",
     "boss": true,
     "drawing": "magma_rig",
-    "size": [0.367, 0.347],
+    "size": [0.367, 0.32],
     "health": 150.0,
     "points": 4000,
     "parts": [
       {
-        "name": "emitter 1",
-        "x": -0.107,
-        "y": 0.09,
-        "drawing": "magma_rig:emitter",
-        "size": [0.06, 0.12],
+        "name": "turret 1",
+        "x": -0.047,
+        "y": -0.037,
+        "drawing": "magma_rig:turret",
+        "size": [0.073, 0.167],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 2",
-        "x": 0.107,
-        "y": 0.09,
-        "drawing": "magma_rig:emitter",
-        "size": [0.06, 0.12],
+        "name": "turret 2",
+        "x": 0.047,
+        "y": -0.037,
+        "drawing": "magma_rig:turret",
+        "size": [0.073, 0.167],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 3",
-        "x": -0.12,
-        "y": -0.023,
-        "drawing": "magma_rig:emitter2",
-        "size": [0.047, 0.093],
+        "name": "launcher 3",
+        "x": -0.14,
+        "y": -0.037,
+        "drawing": "magma_rig:launcher",
+        "size": [0.087, 0.127],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 4",
-        "x": 0.12,
-        "y": -0.023,
-        "drawing": "magma_rig:emitter2",
-        "size": [0.047, 0.093],
+        "name": "launcher 4",
+        "x": 0.14,
+        "y": -0.037,
+        "drawing": "magma_rig:launcher",
+        "size": [0.087, 0.127],
         "health": 30.0,
         "points": 500
       }
@@ -3854,11 +3652,11 @@
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["emitter 3", "emitter 4"]},
+        "until": {"parts": ["turret 1", "turret 2"]},
         "guns": [
-          {"from": ["emitter 3", "emitter 4"], "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": 15},
+          {"from": ["turret 1", "turret 2"], "pattern": "ring", "interval": 2.0, "speed": 0.38, "count": 8, "turn": 15},
           {
-            "from": ["emitter 3", "emitter 4"],
+            "from": ["turret 1", "turret 2"],
             "pattern": "ring",
             "interval": 2.0,
             "speed": 0.38,
@@ -3866,17 +3664,17 @@
             "turn": -15,
             "delay": 1.0
           },
-          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 0.5},
-          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 1.3}
+          {"from": ["launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 0.5},
+          {"from": ["launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.65, "delay": 1.3}
         ]
       },
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["emitter 1", "emitter 2"]},
+        "until": {"parts": ["launcher 3", "launcher 4"]},
         "guns": [
-          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
-          {"from": ["emitter 1", "emitter 2"], "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
+          {"from": ["launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3},
+          {"from": ["launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.8, "speed": 0.65, "volley": 3, "delay": 0.9},
           {"pattern": "fan", "interval": 2.4, "speed": 0.4, "count": 5, "spread": 18, "delay": 0.5, "style": "heavy"}
         ]
       },
@@ -3895,80 +3693,80 @@
     "name": "DREADNOUGHT",
     "boss": true,
     "drawing": "dreadnought",
-    "size": [0.313, 0.513],
+    "size": [0.313, 0.507],
     "health": 150.0,
     "points": 4000,
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.06,
-        "y": -0.22,
-        "drawing": "dreadnought:cannon",
-        "size": [0.047, 0.1],
-        "health": 25.0,
-        "points": 500
-      },
-      {
-        "name": "cannon 2",
-        "x": 0.06,
-        "y": -0.22,
-        "drawing": "dreadnought:cannon",
-        "size": [0.047, 0.1],
-        "health": 25.0,
-        "points": 500
-      },
-      {
-        "name": "cannon 3",
+        "name": "turret 1",
         "x": -0.1,
-        "y": -0.02,
-        "drawing": "dreadnought:cannon2",
-        "size": [0.047, 0.1],
-        "health": 25.0,
-        "points": 500
+        "y": -0.023,
+        "drawing": "dreadnought:turret",
+        "size": [0.087, 0.22],
+        "health": 35.0,
+        "points": 700
       },
       {
-        "name": "cannon 4",
+        "name": "turret 2",
         "x": 0.1,
-        "y": -0.02,
-        "drawing": "dreadnought:cannon2",
-        "size": [0.047, 0.1],
+        "y": -0.023,
+        "drawing": "dreadnought:turret",
+        "size": [0.087, 0.22],
+        "health": 35.0,
+        "points": 700
+      },
+      {
+        "name": "turret 3",
+        "x": -0.047,
+        "y": -0.153,
+        "drawing": "dreadnought:turret2",
+        "size": [0.06, 0.12],
         "health": 25.0,
         "points": 500
       },
       {
-        "name": "cannon 5",
-        "x": -0.04,
-        "y": 0.12,
-        "drawing": "dreadnought:cannon3",
-        "size": [0.06, 0.133],
-        "health": 35.0,
-        "points": 700
+        "name": "turret 4",
+        "x": 0.047,
+        "y": -0.153,
+        "drawing": "dreadnought:turret2",
+        "size": [0.06, 0.12],
+        "health": 25.0,
+        "points": 500
       },
       {
-        "name": "cannon 6",
-        "x": 0.04,
-        "y": 0.12,
-        "drawing": "dreadnought:cannon3",
-        "size": [0.06, 0.133],
-        "health": 35.0,
-        "points": 700
+        "name": "turret 5",
+        "x": -0.113,
+        "y": -0.107,
+        "drawing": "dreadnought:turret3",
+        "size": [0.087, 0.173],
+        "health": 25.0,
+        "points": 500
+      },
+      {
+        "name": "turret 6",
+        "x": 0.113,
+        "y": -0.107,
+        "drawing": "dreadnought:turret3",
+        "size": [0.087, 0.173],
+        "health": 25.0,
+        "points": 500
       }
     ],
     "phases": [
       {
         "sway": 0.08,
         "armored": true,
-        "until": {"parts": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"]},
+        "until": {"parts": ["turret 3", "turret 4", "turret 5", "turret 6"]},
         "guns": [
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.6,
             "volley": 2
           },
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.6,
@@ -3976,7 +3774,7 @@
             "delay": 0.9
           },
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6"],
             "pattern": "fan",
             "interval": 2.2,
             "speed": 0.45,
@@ -3985,7 +3783,7 @@
             "delay": 0.4
           },
           {
-            "from": ["cannon 1", "cannon 2", "cannon 3", "cannon 4"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6"],
             "pattern": "fan",
             "interval": 2.2,
             "speed": 0.45,
@@ -3993,16 +3791,16 @@
             "spread": 20,
             "delay": 1.5
           },
-          {"from": ["cannon 5", "cannon 6"], "pattern": "aimed", "interval": 2.6, "speed": 0.5, "delay": 1.2, "style": "heavy"}
+          {"from": ["turret 1", "turret 2"], "pattern": "aimed", "interval": 2.6, "speed": 0.5, "delay": 1.2, "style": "heavy"}
         ]
       },
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["cannon 5", "cannon 6"]},
+        "until": {"parts": ["turret 1", "turret 2"]},
         "guns": [
           {
-            "from": ["cannon 5", "cannon 6"],
+            "from": ["turret 1", "turret 2"],
             "pattern": "fan",
             "interval": 1.0,
             "speed": 0.5,
@@ -4027,43 +3825,43 @@
     "name": "FLARE RIG",
     "boss": true,
     "drawing": "flare_rig",
-    "size": [0.38, 0.353],
+    "size": [0.367, 0.32],
     "health": 165.0,
     "points": 4300,
     "parts": [
       {
-        "name": "turret 1",
-        "x": -0.06,
-        "y": 0.0,
-        "drawing": "flare_rig:turret",
-        "size": [0.047, 0.067],
+        "name": "launcher 1",
+        "x": -0.127,
+        "y": -0.073,
+        "drawing": "flare_rig:launcher",
+        "size": [0.1, 0.093],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "turret 2",
-        "x": 0.06,
-        "y": 0.0,
-        "drawing": "flare_rig:turret",
-        "size": [0.047, 0.067],
+        "name": "launcher 2",
+        "x": 0.127,
+        "y": -0.073,
+        "drawing": "flare_rig:launcher",
+        "size": [0.1, 0.093],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "turret 3",
-        "x": -0.06,
-        "y": 0.107,
-        "drawing": "flare_rig:turret2",
-        "size": [0.047, 0.067],
+        "name": "launcher 3",
+        "x": -0.04,
+        "y": 0.07,
+        "drawing": "flare_rig:launcher2",
+        "size": [0.06, 0.167],
         "health": 20.0,
         "points": 400
       },
       {
-        "name": "turret 4",
-        "x": 0.06,
-        "y": 0.107,
-        "drawing": "flare_rig:turret2",
-        "size": [0.047, 0.067],
+        "name": "launcher 4",
+        "x": 0.04,
+        "y": 0.07,
+        "drawing": "flare_rig:launcher2",
+        "size": [0.06, 0.167],
         "health": 20.0,
         "points": 400
       }
@@ -4072,12 +3870,12 @@
       {
         "sway": 0.09,
         "armored": true,
-        "until": {"parts": ["turret 1", "turret 2"]},
+        "until": {"parts": ["launcher 1", "launcher 2"]},
         "guns": [
-          {"from": ["turret 1", "turret 2"], "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2},
-          {"from": ["turret 1", "turret 2"], "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2, "delay": 0.75},
+          {"from": ["launcher 1", "launcher 2"], "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2},
+          {"from": ["launcher 1", "launcher 2"], "pattern": "aimed", "interval": 1.5, "speed": 0.65, "volley": 2, "delay": 0.75},
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
@@ -4086,7 +3884,7 @@
             "delay": 0.4
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
@@ -4099,11 +3897,18 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["turret 3", "turret 4"]},
+        "until": {"parts": ["launcher 3", "launcher 4"]},
         "guns": [
-          {"from": ["turret 3", "turret 4"], "pattern": "aimed", "interval": 2.0, "speed": 0.55, "volley": 2, "style": "heavy"},
           {
-            "from": ["turret 3", "turret 4"],
+            "from": ["launcher 3", "launcher 4"],
+            "pattern": "aimed",
+            "interval": 2.0,
+            "speed": 0.55,
+            "volley": 2,
+            "style": "heavy"
+          },
+          {
+            "from": ["launcher 3", "launcher 4"],
             "pattern": "aimed",
             "interval": 2.0,
             "speed": 0.55,
@@ -4112,7 +3917,7 @@
             "style": "heavy"
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "ring",
             "interval": 2.4,
             "speed": 0.4,
@@ -4120,7 +3925,7 @@
             "turn": 18
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "ring",
             "interval": 2.4,
             "speed": 0.4,
@@ -4144,61 +3949,61 @@
     "name": "CRUCIBLE",
     "boss": true,
     "drawing": "crucible",
-    "size": [0.38, 0.447],
+    "size": [0.367, 0.473],
     "health": 170.0,
     "points": 9000,
     "parts": [
       {
-        "name": "launcher 1",
-        "x": -0.087,
-        "y": 0.153,
-        "drawing": "crucible:launcher",
-        "size": [0.06, 0.067],
+        "name": "sensor 1",
+        "x": -0.113,
+        "y": -0.05,
+        "drawing": "crucible:sensor",
+        "size": [0.06, 0.093],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "launcher 2",
-        "x": 0.087,
-        "y": 0.153,
-        "drawing": "crucible:launcher",
-        "size": [0.06, 0.067],
+        "name": "sensor 2",
+        "x": 0.113,
+        "y": -0.05,
+        "drawing": "crucible:sensor",
+        "size": [0.06, 0.093],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "radar 3",
-        "x": -0.067,
-        "y": 0.08,
-        "drawing": "crucible:radar",
-        "size": [0.06, 0.06],
+        "name": "sensor 3",
+        "x": -0.107,
+        "y": 0.13,
+        "drawing": "crucible:sensor2",
+        "size": [0.073, 0.053],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "radar 4",
-        "x": 0.067,
-        "y": 0.08,
-        "drawing": "crucible:radar",
-        "size": [0.06, 0.06],
+        "name": "sensor 4",
+        "x": 0.107,
+        "y": 0.13,
+        "drawing": "crucible:sensor2",
+        "size": [0.073, 0.053],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "reactor 5",
-        "x": -0.153,
-        "y": 0.127,
-        "drawing": "crucible:reactor",
-        "size": [0.073, 0.073],
+        "name": "sensor 5",
+        "x": -0.1,
+        "y": -0.137,
+        "drawing": "crucible:sensor3",
+        "size": [0.073, 0.027],
         "health": 30.0,
         "points": 600
       },
       {
-        "name": "reactor 6",
-        "x": 0.153,
-        "y": 0.127,
-        "drawing": "crucible:reactor",
-        "size": [0.073, 0.073],
+        "name": "sensor 6",
+        "x": 0.1,
+        "y": -0.137,
+        "drawing": "crucible:sensor3",
+        "size": [0.073, 0.027],
         "health": 30.0,
         "points": 600
       }
@@ -4207,17 +4012,17 @@
       {
         "sway": 0.09,
         "armored": true,
-        "until": {"parts": ["radar 3", "radar 4", "reactor 5", "reactor 6", "launcher 1", "launcher 2"]},
+        "until": {"parts": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"]},
         "guns": [
           {
-            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.7,
             "volley": 2
           },
           {
-            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.7,
@@ -4225,7 +4030,7 @@
             "delay": 0.75
           },
           {
-            "from": ["radar 3", "radar 4", "reactor 5", "reactor 6", "launcher 1", "launcher 2"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "ring",
             "interval": 2.3,
             "speed": 0.38,
@@ -4233,7 +4038,7 @@
             "turn": 16
           },
           {
-            "from": ["radar 3", "radar 4", "reactor 5", "reactor 6", "launcher 1", "launcher 2"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "ring",
             "interval": 2.3,
             "speed": 0.38,
@@ -4249,7 +4054,7 @@
         "guns": [
           {"pattern": "ring", "interval": 0.15, "speed": 0.46, "count": 3, "turn": 13},
           {
-            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.55,
@@ -4257,7 +4062,7 @@
             "spread": 18
           },
           {
-            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.55,
@@ -4273,13 +4078,13 @@
           {"pattern": "ring", "interval": 1.4, "speed": 0.4, "count": 16, "turn": 10},
           {"pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3, "gap": 0.2, "delay": 0.7, "style": "heavy"},
           {
-            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7
           },
           {
-            "from": ["launcher 1", "launcher 2", "radar 3", "radar 4", "reactor 5", "reactor 6"],
+            "from": ["sensor 5", "sensor 6", "sensor 1", "sensor 2", "sensor 3", "sensor 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7,
@@ -4294,61 +4099,61 @@
     "name": "EXECUTOR",
     "boss": true,
     "drawing": "executor",
-    "size": [0.393, 0.413],
+    "size": [0.393, 0.38],
     "health": 160.0,
     "points": 4500,
     "parts": [
       {
-        "name": "gatling 1",
-        "x": -0.18,
-        "y": 0.03,
-        "drawing": "executor:gatling",
-        "size": [0.033, 0.067],
+        "name": "launcher 1",
+        "x": -0.167,
+        "y": 0.057,
+        "drawing": "executor:launcher",
+        "size": [0.047, 0.093],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 2",
-        "x": 0.18,
-        "y": 0.03,
-        "drawing": "executor:gatling",
-        "size": [0.033, 0.067],
+        "name": "launcher 2",
+        "x": 0.167,
+        "y": 0.057,
+        "drawing": "executor:launcher",
+        "size": [0.047, 0.093],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 3",
+        "name": "turret 3",
         "x": -0.027,
-        "y": -0.057,
-        "drawing": "executor:gatling2",
-        "size": [0.033, 0.067],
+        "y": -0.127,
+        "drawing": "executor:turret",
+        "size": [0.047, 0.1],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 4",
+        "name": "turret 4",
         "x": 0.027,
-        "y": -0.057,
-        "drawing": "executor:gatling2",
-        "size": [0.033, 0.067],
+        "y": -0.127,
+        "drawing": "executor:turret",
+        "size": [0.047, 0.1],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "turret 5",
-        "x": -0.033,
-        "y": -0.123,
-        "drawing": "executor:turret",
-        "size": [0.047, 0.067],
+        "x": -0.047,
+        "y": -0.067,
+        "drawing": "executor:turret2",
+        "size": [0.073, 0.127],
         "health": 30.0,
         "points": 500
       },
       {
         "name": "turret 6",
-        "x": 0.033,
-        "y": -0.123,
-        "drawing": "executor:turret",
-        "size": [0.047, 0.067],
+        "x": 0.047,
+        "y": -0.067,
+        "drawing": "executor:turret2",
+        "size": [0.073, 0.127],
         "health": 30.0,
         "points": 500
       }
@@ -4357,10 +4162,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["turret 5", "turret 6", "gatling 3", "gatling 4", "gatling 1", "gatling 2"]},
+        "until": {"parts": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"]},
         "guns": [
           {
-            "from": ["turret 5", "turret 6", "gatling 3", "gatling 4", "gatling 1", "gatling 2"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.38,
@@ -4368,7 +4173,7 @@
             "turn": 18
           },
           {
-            "from": ["turret 5", "turret 6", "gatling 3", "gatling 4", "gatling 1", "gatling 2"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.38,
@@ -4377,7 +4182,7 @@
             "delay": 1.1
           },
           {
-            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.65,
@@ -4385,7 +4190,7 @@
             "delay": 0.5
           },
           {
-            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.65,
@@ -4400,7 +4205,7 @@
         "guns": [
           {"pattern": "ring", "interval": 0.14, "speed": 0.45, "count": 3, "turn": 12},
           {
-            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.5,
@@ -4408,7 +4213,7 @@
             "spread": 18
           },
           {
-            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.5,
@@ -4424,13 +4229,13 @@
           {"pattern": "ring", "interval": 1.5, "speed": 0.4, "count": 14, "turn": 11},
           {"pattern": "aimed", "interval": 2.2, "speed": 0.55, "volley": 3, "delay": 0.7, "style": "heavy"},
           {
-            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.7
           },
           {
-            "from": ["gatling 1", "gatling 2", "gatling 3", "gatling 4", "turret 5", "turret 6"],
+            "from": ["turret 3", "turret 4", "turret 5", "turret 6", "launcher 1", "launcher 2"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.7,
@@ -4445,61 +4250,61 @@
     "name": "INTERDICTOR",
     "boss": true,
     "drawing": "interdictor",
-    "size": [0.353, 0.4],
+    "size": [0.353, 0.413],
     "health": 160.0,
     "points": 4200,
     "parts": [
       {
-        "name": "turret 1",
-        "x": -0.107,
-        "y": -0.117,
-        "drawing": "interdictor:turret",
-        "size": [0.06, 0.087],
+        "name": "cannon 1",
+        "x": -0.047,
+        "y": -0.027,
+        "drawing": "interdictor:cannon",
+        "size": [0.087, 0.16],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "turret 2",
-        "x": 0.107,
-        "y": -0.117,
-        "drawing": "interdictor:turret",
-        "size": [0.06, 0.087],
+        "name": "cannon 2",
+        "x": 0.047,
+        "y": -0.027,
+        "drawing": "interdictor:cannon",
+        "size": [0.087, 0.16],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "turret 3",
-        "x": -0.033,
-        "y": 0.037,
-        "drawing": "interdictor:turret2",
-        "size": [0.06, 0.087],
+        "name": "cannon 3",
+        "x": -0.067,
+        "y": -0.113,
+        "drawing": "interdictor:cannon2",
+        "size": [0.1, 0.16],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "turret 4",
-        "x": 0.033,
-        "y": 0.037,
-        "drawing": "interdictor:turret2",
-        "size": [0.06, 0.087],
+        "name": "cannon 4",
+        "x": 0.067,
+        "y": -0.113,
+        "drawing": "interdictor:cannon2",
+        "size": [0.1, 0.16],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "turret 5",
-        "x": -0.16,
-        "y": 0.09,
-        "drawing": "interdictor:turret3",
-        "size": [0.047, 0.067],
+        "name": "cannon 5",
+        "x": -0.133,
+        "y": 0.083,
+        "drawing": "interdictor:cannon3",
+        "size": [0.073, 0.127],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "turret 6",
-        "x": 0.16,
-        "y": 0.09,
-        "drawing": "interdictor:turret3",
-        "size": [0.047, 0.067],
+        "name": "cannon 6",
+        "x": 0.133,
+        "y": 0.083,
+        "drawing": "interdictor:cannon3",
+        "size": [0.073, 0.127],
         "health": 30.0,
         "points": 500
       }
@@ -4508,17 +4313,17 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"]},
+        "until": {"parts": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"]},
         "guns": [
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"],
             "pattern": "aimed",
             "interval": 1.4,
             "speed": 0.7,
             "volley": 2
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"],
             "pattern": "aimed",
             "interval": 1.4,
             "speed": 0.7,
@@ -4526,7 +4331,7 @@
             "delay": 0.7
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
@@ -4535,7 +4340,7 @@
             "sweep": 20
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"],
             "pattern": "fan",
             "interval": 2.0,
             "speed": 0.5,
@@ -4551,13 +4356,13 @@
         "guns": [
           {"pattern": "ring", "interval": 0.14, "speed": 0.45, "count": 3, "turn": -12},
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7
           },
           {
-            "from": ["turret 1", "turret 2", "turret 3", "turret 4", "turret 5", "turret 6"],
+            "from": ["cannon 3", "cannon 4", "cannon 1", "cannon 2", "cannon 5", "cannon 6"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7,
@@ -4572,61 +4377,61 @@
     "name": "NIGHTWATCH",
     "boss": true,
     "drawing": "nightwatch",
-    "size": [0.34, 0.513],
+    "size": [0.367, 0.513],
     "health": 165.0,
     "points": 4400,
     "parts": [
       {
-        "name": "gatling 1",
-        "x": -0.08,
-        "y": -0.047,
-        "drawing": "nightwatch:gatling",
-        "size": [0.047, 0.087],
+        "name": "emitter 1",
+        "x": -0.04,
+        "y": -0.08,
+        "drawing": "nightwatch:emitter",
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 2",
-        "x": 0.08,
-        "y": -0.047,
-        "drawing": "nightwatch:gatling",
-        "size": [0.047, 0.087],
+        "name": "emitter 2",
+        "x": 0.04,
+        "y": -0.08,
+        "drawing": "nightwatch:emitter",
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 3",
-        "x": -0.087,
-        "y": 0.127,
-        "drawing": "nightwatch:gatling2",
-        "size": [0.047, 0.087],
+        "name": "emitter 3",
+        "x": -0.14,
+        "y": -0.053,
+        "drawing": "nightwatch:emitter2",
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "gatling 4",
-        "x": 0.087,
-        "y": 0.127,
-        "drawing": "nightwatch:gatling2",
-        "size": [0.047, 0.087],
+        "name": "emitter 4",
+        "x": 0.14,
+        "y": -0.053,
+        "drawing": "nightwatch:emitter2",
+        "size": [0.073, 0.06],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "launcher 5",
-        "x": -0.08,
-        "y": 0.067,
-        "drawing": "nightwatch:launcher",
-        "size": [0.047, 0.053],
+        "name": "emitter 5",
+        "x": -0.153,
+        "y": -0.113,
+        "drawing": "nightwatch:emitter3",
+        "size": [0.06, 0.073],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "launcher 6",
-        "x": 0.08,
-        "y": 0.067,
-        "drawing": "nightwatch:launcher",
-        "size": [0.047, 0.053],
+        "name": "emitter 6",
+        "x": 0.153,
+        "y": -0.113,
+        "drawing": "nightwatch:emitter3",
+        "size": [0.06, 0.073],
         "health": 30.0,
         "points": 500
       }
@@ -4635,10 +4440,10 @@
       {
         "sway": 0.12,
         "armored": true,
-        "until": {"parts": ["gatling 1", "gatling 2", "launcher 5", "launcher 6"]},
+        "until": {"parts": ["emitter 5", "emitter 6", "emitter 1", "emitter 2"]},
         "guns": [
           {
-            "from": ["gatling 1", "gatling 2", "launcher 5", "launcher 6"],
+            "from": ["emitter 5", "emitter 6", "emitter 1", "emitter 2"],
             "pattern": "aimed",
             "interval": 1.3,
             "speed": 0.72,
@@ -4646,7 +4451,7 @@
             "style": "sniper"
           },
           {
-            "from": ["gatling 1", "gatling 2", "launcher 5", "launcher 6"],
+            "from": ["emitter 5", "emitter 6", "emitter 1", "emitter 2"],
             "pattern": "aimed",
             "interval": 1.3,
             "speed": 0.72,
@@ -4654,9 +4459,9 @@
             "delay": 0.65,
             "style": "sniper"
           },
-          {"from": ["gatling 3", "gatling 4"], "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 16},
+          {"from": ["emitter 3", "emitter 4"], "pattern": "fan", "interval": 1.8, "speed": 0.5, "count": 3, "spread": 16},
           {
-            "from": ["gatling 3", "gatling 4"],
+            "from": ["emitter 3", "emitter 4"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.5,
@@ -4669,11 +4474,11 @@
       {
         "sway": 0.15,
         "armored": true,
-        "until": {"parts": ["gatling 3", "gatling 4"]},
+        "until": {"parts": ["emitter 3", "emitter 4"]},
         "guns": [
-          {"from": ["gatling 3", "gatling 4"], "pattern": "ring", "interval": 2.2, "speed": 0.42, "count": 10, "turn": 18},
+          {"from": ["emitter 3", "emitter 4"], "pattern": "ring", "interval": 2.2, "speed": 0.42, "count": 10, "turn": 18},
           {
-            "from": ["gatling 3", "gatling 4"],
+            "from": ["emitter 3", "emitter 4"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.42,
@@ -4698,79 +4503,79 @@
     "name": "ARC TOWER",
     "boss": true,
     "drawing": "arc_tower",
-    "size": [0.527, 0.387],
+    "size": [0.527, 0.367],
     "health": 170.0,
     "points": 4600,
     "parts": [
       {
-        "name": "flak 1",
-        "x": -0.153,
-        "y": -0.003,
-        "drawing": "arc_tower:flak",
-        "size": [0.047, 0.067],
+        "name": "turret 1",
+        "x": -0.06,
+        "y": -0.097,
+        "drawing": "arc_tower:turret",
+        "size": [0.113, 0.173],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 2",
-        "x": 0.153,
-        "y": -0.003,
-        "drawing": "arc_tower:flak",
-        "size": [0.047, 0.067],
+        "name": "turret 2",
+        "x": 0.06,
+        "y": -0.097,
+        "drawing": "arc_tower:turret",
+        "size": [0.113, 0.173],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 3",
-        "x": -0.053,
-        "y": -0.037,
-        "drawing": "arc_tower:flak2",
-        "size": [0.047, 0.067],
+        "name": "tank 3",
+        "x": -0.107,
+        "y": -0.09,
+        "drawing": "arc_tower:tank",
+        "size": [0.087, 0.08],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 4",
-        "x": 0.053,
-        "y": -0.037,
-        "drawing": "arc_tower:flak2",
-        "size": [0.047, 0.067],
+        "name": "tank 4",
+        "x": 0.107,
+        "y": -0.09,
+        "drawing": "arc_tower:tank",
+        "size": [0.087, 0.08],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 5",
-        "x": -0.08,
-        "y": 0.097,
-        "drawing": "arc_tower:flak3",
-        "size": [0.06, 0.087],
+        "name": "turret 5",
+        "x": -0.193,
+        "y": -0.12,
+        "drawing": "arc_tower:turret2",
+        "size": [0.06, 0.113],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "flak 6",
-        "x": 0.08,
-        "y": 0.097,
-        "drawing": "arc_tower:flak3",
-        "size": [0.06, 0.087],
+        "name": "turret 6",
+        "x": 0.193,
+        "y": -0.12,
+        "drawing": "arc_tower:turret2",
+        "size": [0.06, 0.113],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 7",
-        "x": -0.24,
-        "y": 0.03,
-        "drawing": "arc_tower:emitter",
-        "size": [0.06, 0.12],
+        "name": "turret 7",
+        "x": -0.067,
+        "y": 0.037,
+        "drawing": "arc_tower:turret3",
+        "size": [0.06, 0.093],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "emitter 8",
-        "x": 0.24,
-        "y": 0.03,
-        "drawing": "arc_tower:emitter",
-        "size": [0.06, 0.12],
+        "name": "turret 8",
+        "x": 0.067,
+        "y": 0.037,
+        "drawing": "arc_tower:turret3",
+        "size": [0.06, 0.093],
         "health": 30.0,
         "points": 500
       }
@@ -4779,10 +4584,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["flak 3", "flak 4", "flak 1", "flak 2", "emitter 7", "emitter 8", "flak 5", "flak 6"]},
+        "until": {"parts": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"]},
         "guns": [
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "from": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"],
             "pattern": "fan",
             "interval": 1.6,
             "speed": 0.55,
@@ -4791,7 +4596,7 @@
             "sweep": 25
           },
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "from": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"],
             "pattern": "fan",
             "interval": 1.6,
             "speed": 0.55,
@@ -4801,7 +4606,7 @@
             "delay": 0.8
           },
           {
-            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "emitter 7", "emitter 8", "flak 5", "flak 6"],
+            "from": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"],
             "pattern": "ring",
             "interval": 2.4,
             "speed": 0.38,
@@ -4809,7 +4614,7 @@
             "turn": 18
           },
           {
-            "from": ["flak 3", "flak 4", "flak 1", "flak 2", "emitter 7", "emitter 8", "flak 5", "flak 6"],
+            "from": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"],
             "pattern": "ring",
             "interval": 2.4,
             "speed": 0.38,
@@ -4825,14 +4630,14 @@
         "guns": [
           {"pattern": "ring", "interval": 0.13, "speed": 0.46, "count": 3, "turn": 14},
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "from": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7,
             "volley": 2
           },
           {
-            "from": ["flak 1", "flak 2", "flak 3", "flak 4", "flak 5", "flak 6", "emitter 7", "emitter 8"],
+            "from": ["turret 5", "turret 6", "turret 1", "turret 2", "tank 3", "tank 4", "turret 7", "turret 8"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7,
@@ -4855,43 +4660,43 @@
     "name": "APEX",
     "boss": true,
     "drawing": "apex",
-    "size": [0.433, 0.287],
+    "size": [0.433, 0.273],
     "health": 175.0,
     "points": 4800,
     "parts": [
       {
-        "name": "reactor 1",
-        "x": -0.073,
-        "y": -0.013,
-        "drawing": "apex:reactor",
-        "size": [0.06, 0.06],
+        "name": "launcher 1",
+        "x": -0.08,
+        "y": -0.047,
+        "drawing": "apex:launcher",
+        "size": [0.14, 0.18],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "reactor 2",
-        "x": 0.073,
-        "y": -0.013,
-        "drawing": "apex:reactor",
-        "size": [0.06, 0.06],
+        "name": "launcher 2",
+        "x": 0.08,
+        "y": -0.047,
+        "drawing": "apex:launcher",
+        "size": [0.14, 0.18],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "reactor 3",
-        "x": -0.053,
-        "y": 0.06,
-        "drawing": "apex:reactor2",
-        "size": [0.06, 0.06],
+        "name": "launcher 3",
+        "x": -0.153,
+        "y": 0.053,
+        "drawing": "apex:launcher2",
+        "size": [0.127, 0.153],
         "health": 30.0,
         "points": 500
       },
       {
-        "name": "reactor 4",
-        "x": 0.053,
-        "y": 0.06,
-        "drawing": "apex:reactor2",
-        "size": [0.06, 0.06],
+        "name": "launcher 4",
+        "x": 0.153,
+        "y": 0.053,
+        "drawing": "apex:launcher2",
+        "size": [0.127, 0.153],
         "health": 30.0,
         "points": 500
       }
@@ -4900,10 +4705,10 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"]},
+        "until": {"parts": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"]},
         "guns": [
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.6,
@@ -4911,7 +4716,7 @@
             "style": "heavy"
           },
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "aimed",
             "interval": 1.8,
             "speed": 0.6,
@@ -4920,7 +4725,7 @@
             "style": "heavy"
           },
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.4,
@@ -4928,7 +4733,7 @@
             "turn": 16
           },
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "ring",
             "interval": 2.2,
             "speed": 0.4,
@@ -4944,7 +4749,7 @@
         "guns": [
           {"pattern": "ring", "interval": 0.14, "speed": 0.46, "count": 3, "turn": 13},
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "fan",
             "interval": 1.7,
             "speed": 0.55,
@@ -4953,7 +4758,7 @@
             "sweep": 25
           },
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "fan",
             "interval": 1.7,
             "speed": 0.55,
@@ -4969,9 +4774,9 @@
         "guns": [
           {"pattern": "ring", "interval": 1.4, "speed": 0.42, "count": 16, "turn": -10},
           {"pattern": "aimed", "interval": 1.9, "speed": 0.65, "volley": 3, "gap": 0.2, "delay": 0.7, "style": "heavy"},
-          {"from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.7},
+          {"from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"], "pattern": "aimed", "interval": 1.6, "speed": 0.7},
           {
-            "from": ["reactor 1", "reactor 2", "reactor 3", "reactor 4"],
+            "from": ["launcher 1", "launcher 2", "launcher 3", "launcher 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7,
@@ -4986,61 +4791,61 @@
     "name": "OVERMIND",
     "boss": true,
     "drawing": "overmind",
-    "size": [0.42, 0.413],
+    "size": [0.433, 0.427],
     "health": 160.0,
     "points": 10000,
     "parts": [
       {
-        "name": "cannon 1",
-        "x": -0.107,
-        "y": 0.097,
-        "drawing": "overmind:cannon",
-        "size": [0.047, 0.1],
+        "name": "turret 1",
+        "x": -0.16,
+        "y": -0.047,
+        "drawing": "overmind:turret",
+        "size": [0.087, 0.107],
         "health": 35.0,
         "points": 700
       },
       {
-        "name": "cannon 2",
-        "x": 0.107,
-        "y": 0.097,
-        "drawing": "overmind:cannon",
-        "size": [0.047, 0.1],
+        "name": "turret 2",
+        "x": 0.16,
+        "y": -0.047,
+        "drawing": "overmind:turret",
+        "size": [0.087, 0.107],
         "health": 35.0,
         "points": 700
       },
       {
         "name": "turret 3",
-        "x": -0.16,
-        "y": 0.183,
-        "drawing": "overmind:turret",
-        "size": [0.047, 0.067],
+        "x": -0.04,
+        "y": 0.123,
+        "drawing": "overmind:turret2",
+        "size": [0.06, 0.113],
         "health": 35.0,
         "points": 700
       },
       {
         "name": "turret 4",
-        "x": 0.16,
-        "y": 0.183,
-        "drawing": "overmind:turret",
-        "size": [0.047, 0.067],
+        "x": 0.04,
+        "y": 0.123,
+        "drawing": "overmind:turret2",
+        "size": [0.06, 0.113],
         "health": 35.0,
         "points": 700
       },
       {
-        "name": "gatling 5",
-        "x": -0.18,
-        "y": 0.063,
-        "drawing": "overmind:gatling",
-        "size": [0.047, 0.087],
+        "name": "cannon 5",
+        "x": -0.027,
+        "y": -0.013,
+        "drawing": "overmind:cannon",
+        "size": [0.033, 0.053],
         "health": 35.0,
         "points": 700
       },
       {
-        "name": "gatling 6",
-        "x": 0.18,
-        "y": 0.063,
-        "drawing": "overmind:gatling",
-        "size": [0.047, 0.087],
+        "name": "cannon 6",
+        "x": 0.027,
+        "y": -0.013,
+        "drawing": "overmind:cannon",
+        "size": [0.033, 0.053],
         "health": 35.0,
         "points": 700
       }
@@ -5049,17 +4854,17 @@
       {
         "sway": 0.1,
         "armored": true,
-        "until": {"parts": ["gatling 5", "gatling 6", "cannon 1", "cannon 2", "turret 3", "turret 4"]},
+        "until": {"parts": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"]},
         "guns": [
           {
-            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.7,
             "volley": 2
           },
           {
-            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 1.5,
             "speed": 0.7,
@@ -5067,7 +4872,7 @@
             "delay": 0.75
           },
           {
-            "from": ["gatling 5", "gatling 6", "cannon 1", "cannon 2", "turret 3", "turret 4"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "ring",
             "interval": 2.4,
             "speed": 0.38,
@@ -5075,7 +4880,7 @@
             "turn": 18
           },
           {
-            "from": ["gatling 5", "gatling 6", "cannon 1", "cannon 2", "turret 3", "turret 4"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "ring",
             "interval": 2.4,
             "speed": 0.38,
@@ -5091,7 +4896,7 @@
         "guns": [
           {"pattern": "ring", "interval": 0.16, "speed": 0.45, "count": 3, "turn": 14},
           {
-            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.55,
@@ -5099,7 +4904,7 @@
             "spread": 20
           },
           {
-            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "fan",
             "interval": 1.8,
             "speed": 0.55,
@@ -5115,13 +4920,13 @@
           {"pattern": "ring", "interval": 1.4, "speed": 0.4, "count": 18, "turn": 10},
           {"pattern": "aimed", "interval": 2.0, "speed": 0.6, "volley": 3, "gap": 0.2, "delay": 0.7, "style": "heavy"},
           {
-            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7
           },
           {
-            "from": ["cannon 1", "cannon 2", "turret 3", "turret 4", "gatling 5", "gatling 6"],
+            "from": ["turret 1", "turret 2", "cannon 5", "cannon 6", "turret 3", "turret 4"],
             "pattern": "aimed",
             "interval": 1.6,
             "speed": 0.7,

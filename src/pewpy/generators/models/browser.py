@@ -12,8 +12,8 @@ from pewpy import config
 from pewpy import data as game_data
 from pewpy.generators.models.catalog import Entry, entries
 from pewpy.generators.models.common.geometry import Rng
-from pewpy.generators.models.saving import lopsided, save_boss, save_ship, write_model
-from pewpy.generators.models.sized import Size, rounded, sized_boss, sized_ship
+from pewpy.generators.models.saving import lopsided, save_boss, save_enemy, save_ship, write_model
+from pewpy.generators.models.sized import Size, rounded, sized_model
 from pewpy.graphics.models import drawing_size, parse_voxels
 
 SIZE_STEP = 1.05  # each step makes the width (or the height) this much bigger or smaller
@@ -48,7 +48,7 @@ class ModelBrowser:
     models: list[Entry] = field(init=False)
     index: int = 0
     size: Size = (0.0, 0.0)  # the size new models are made to
-    new: dict | None = None  # the new model made, not saved: a ship's drawing, or a boss's (see sized_boss)
+    new: dict | None = None  # the new model made, not saved: its drawings (see sized_model)
     saved: bool = False  # just saved
 
     def __post_init__(self) -> None:
@@ -77,37 +77,43 @@ class ModelBrowser:
         self.saved = False
 
     def generate(self) -> None:
-        """Make a new model of the size."""
-        if self.category == "bosses":
-            self.new = sized_boss(self.rng, self.size, lopsided=lopsided(self.entry.parts))
-        else:
-            self.new = sized_ship(self.rng, self.size, player=self.category == "players")
+        """Make a new model of the size (every one the same way, see sized_model): a boss lopsided if it was."""
+        bosses = self.category == "bosses"
+        self.new = sized_model(
+            self.rng,
+            self.size,
+            player=self.category == "players",
+            boss=bosses,
+            lopsided=lopsided(self.entry.parts) if bosses else None,
+        )
         self.saved = False
 
     def save(self) -> None:
         """Save the new model in place of the one on show, or only the size when there's no new model."""
         entry = self.entry
         model = read_model(entry.drawing)
-        if self.category == "bosses":
-            if self.new is None:
+        if self.new is None:
+            if self.category == "bosses":
                 write_model(entry.drawing, {**model, "size": rounded(self.size)})
             else:
-                save_boss(entry, self.new)
+                save_ship(entry, {**model, "size": rounded(self.size)}, model_size(model))
+        elif self.category == "bosses":
+            save_boss(entry, self.new)
+        elif self.category == "enemies":
+            save_enemy(entry, self.new, model_size(model))
         else:
-            save_ship(entry, {**(self.new or model), "size": rounded(self.size)}, model_size(model))
-        self.models = entries(self.category)  # a boss's parts changed
+            save_ship(entry, self.new["core"], model_size(model))
+        self.models = entries(self.category)  # its parts changed
         self._show(self.index)
         self.saved = True
 
     def pieces(self) -> list[Piece]:
-        """Return what's on show: the model (the new one, if any), and a boss's parts in their places."""
+        """Return what's on show: the model (the new one, if any), and its destroyable parts in their places."""
         entry = self.entry
         if self.new is None:
             core = Piece(entry.drawing, read_model(entry.drawing))
             parts = [Piece(part.drawing, read_model(part.drawing), part.x, part.y) for part in entry.parts]
             return [core, *parts]
-        if self.category != "bosses":
-            return [Piece(entry.drawing, self.new)]
         cube = config.MODEL_VOXEL
         parts = [
             Piece(f"part {index}", data, x * cube, y * cube) for index, (data, x, y) in enumerate(self.new["parts"])

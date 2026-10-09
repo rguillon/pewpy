@@ -8,10 +8,10 @@ def layered_drawing(cells: dict[tuple[int, int, int], str], width: int, height: 
     on it), and the color of each character it uses.
     """
     extent = max(abs(layer) for _, _, layer in cells)
-    layers = [
-        ["".join(cells.get((x, y, layer), ".") for x in range(width)) for y in range(height)]
-        for layer in range(-extent, extent + 1)
-    ]
+    grid = [[["."] * width for _ in range(height)] for _ in range(2 * extent + 1)]
+    for (x, y, layer), char in cells.items():
+        grid[layer + extent][y][x] = char
+    layers = [["".join(row) for row in layer] for layer in grid]
     used = set(cells.values())
     return {
         "layers": layers,

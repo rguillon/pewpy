@@ -13,6 +13,7 @@ from pewpy.game.enemies.kinds import MINI_BOSSES
 from pewpy.game.states import State
 from pewpy.generators.backgrounds.themes import THEMES
 from pewpy.generators.models.browser import SIZE_STEP, ModelBrowser
+from pewpy.generators.models.parts import KINDS
 from pewpy.generators.music import browser as music
 from pewpy.generators.music.browser import MusicBrowser
 from pewpy.ui.menu import Menu
@@ -51,6 +52,7 @@ def test_the_dev_menu_opens_each_category_and_goes_back(app: PewPewApp) -> None:
         "Players",
         "Enemies",
         "Bosses",
+        "Parts",
         "Music",
         "Backgrounds",
         "AI playing",
@@ -99,7 +101,8 @@ def test_the_keys_browse_reshape_make_and_save_models(app: PewPewApp, data_copy:
     new = browser(app).new
     press(app, keys.MENU_CHOOSE_KEY)
     assert texts(app)[3] == "Saved"
-    assert json.loads((data_copy / "models/player/player_heavy.json").read_text()) == new
+    assert new is not None
+    assert json.loads((data_copy / "models/player/player_heavy.json").read_text()) == new["core"]
     assert app.player_models["player_heavy"] is not None  # rebuilt from the new model
 
 
@@ -124,6 +127,39 @@ def test_a_model_that_cant_be_made_says_why(app: PewPewApp, monkeypatch: pytest.
     monkeypatch.setattr(browser(app), "generate", fail)
     press(app, keys.FIRE_KEY)
     assert texts(app)[3] == "no ship that size"
+
+
+def test_the_parts_menu_opens_the_parts_browser_on_each_kind(app: PewPewApp) -> None:
+    choose(app, "Dev")
+    choose(app, "Parts")
+    assert app.states.state is State.PARTS_MENU
+    assert menu(app).title == "PARTS"
+    assert [item.label for item in menu(app).items] == [*KINDS.values(), "Back"]
+    choose(app, "Wings")
+    assert app.states.state is State.MODEL_BROWSER
+    parts = app.part_browser
+    assert parts is not None
+    assert app.model_browser is None
+    assert texts(app)[0] == f"Swept wing, tiny  (1/{len(parts.parts)})"
+    assert texts(app)[1].startswith("Wings. ")
+    press(app, "arrow_left")  # wrapping around, within the kind
+    assert (parts.kind, parts.index) == ("wing", len(parts.parts) - 1)
+    press(app, "arrow_right")
+    press(app, "arrow_right")
+    press(app, "arrow_down")  # nothing to change
+    assert (parts.kind, parts.index) == ("wing", 1)
+    app.taskMgr.step()  # it sways
+    press(app, keys.FIRE_KEY)  # nothing to make
+    press(app, keys.MENU_CHOOSE_KEY)  # nor to save
+    assert app.states.state is State.MODEL_BROWSER
+    press(app, keys.BACK_KEY)
+    assert app.states.state is State.PARTS_MENU
+    assert app.browser_view is None
+    assert app.part_browser is None
+    assert menu(app).selected == 1  # back on Wings
+    press(app, keys.BACK_KEY)
+    assert app.states.state is State.DEV_MENU
+    assert menu(app).selected == 3  # back on Parts
 
 
 def test_the_bigger_of_the_model_and_its_size_fills_the_view() -> None:
@@ -177,7 +213,7 @@ def test_the_music_browser_plays_makes_and_saves_songs(
     press(app, keys.BACK_KEY)
     assert app.states.state is State.DEV_MENU
     assert app.music_view is None
-    assert menu(app).selected == 3  # back on Music
+    assert menu(app).selected == 4  # back on Music
     app.taskMgr.step()
     assert app.audio.wanted == MENU_MUSIC
 

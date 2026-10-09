@@ -39,7 +39,7 @@ class Entry:
     title: str
     description: str
     drawing: str
-    parts: tuple[BossPart, ...] = ()  # a boss's
+    parts: tuple[BossPart, ...] = ()  # its destroyable parts (a boss's, an enemy's)
 
 
 def read_data(name: str) -> dict:
@@ -63,7 +63,8 @@ def entries(category: str) -> list[Entry]:
             for kind, body in read_data(name).items():
                 drawing = body.get("drawing", "")
                 if drawing and drawing not in BUILT_MODELS and drawing not in found and _drawn(drawing):
-                    found[drawing] = Entry(category, kind, name, _title(kind), body.get("note", ""), drawing)
+                    note = body.get("note", "")
+                    found[drawing] = Entry(category, kind, name, _title(kind), note, drawing, _parts(body))
         return list(found.values())
     bosses = [
         Entry(category, kind, name, body["name"].title(), _boss_description(body), body["drawing"], _parts(body))
