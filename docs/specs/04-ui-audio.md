@@ -108,13 +108,15 @@ Dev menu -> AI playing: Ship select (Back: to the Dev menu) -> World select -> L
   Saving shall update the game at once. The keys shall be listed at the bottom of the screen.
 - **UIA-24** Saving a ship (a new model or a new size) shall scale its hitbox as much as its size changed (an
   enemy's width and height each by its own change; a player's square hitbox by the change of the size's area).
-- **UIA-25** Saving a boss shall save its new parts: their places and sizes, named after their kind ("drill 1",
-  "turret 2"...). A final boss is then made again from its plan (BOS-20 to BOS-25). A mini boss keeps its phases, the
-  parts they name replaced by the new ones: the phases waiting for parts to be destroyed each get a share of the new
-  parts, the front ones (nearest the bottom of the screen) to the first, a group sharing a model kept together when
-  there are enough groups; a gun fired from old parts is fired from the parts that took their place (from all of them
-  for old parts no phase waited for); new parts are as strong and worth as much as the old ones of their phase (a mini
-  boss that had none: 25 health, 400 points *(placeholder)*).
+- **UIA-25** Saving an enemy or a boss shall save its new parts (or, an enemy without any, take its old ones away):
+  their places and sizes, named after their kind ("drill 1", "turret 2"...); an enemy's go to every enemy drawn with
+  its model, each with 30% of the enemy's health and worth 25% of its points *(placeholder)*. A final boss is then
+  made again from its plan (BOS-20 to BOS-25). A mini boss keeps its phases, the parts they name replaced by the new
+  ones: the phases waiting for parts to be destroyed each get a share of the new parts, the front ones (nearest the
+  bottom of the screen) to the first, a group sharing a model kept together when there are enough groups; a gun fired
+  from old parts is fired from the parts that took their place (from all of them for old parts no phase waited for);
+  new parts are as strong and worth as much as the old ones of their phase (a mini boss that had none: 25 health, 400
+  points *(placeholder)*).
 - **UIA-26** New models shall be made as described in `05-visuals.md` ("Model makers").
 
 ### Parts browser

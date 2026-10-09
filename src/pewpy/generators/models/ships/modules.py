@@ -11,9 +11,8 @@ boss's mirrored pair of parts shares one drawing.
 from collections.abc import Callable
 
 from pewpy.generators.models.common.connect import bridges
-from pewpy.generators.models.common.geometry import Rng
+from pewpy.generators.models.common.geometry import Rng, miss
 from pewpy.generators.models.parts import Part, of_kind
-from pewpy.generators.models.ships.placing import miss
 from pewpy.generators.models.ships.ship import Ship, Spot
 
 # The kinds of destroyable parts: what their main piece can be (the catalog's symmetric parts of it).
@@ -26,7 +25,7 @@ KINDS: dict[str, Callable[[], list[Part]]] = {
     "tank": lambda: of_kind("tank", "top"),
 }
 ARMED = ("turret", "cannon", "launcher", "emitter")  # the kinds whose main piece is a weapon
-SIZES = {1: "small", 2: "medium", 3: "large", 4: "huge", 5: "gigantic", 6: "colossal"}
+SIZES = {0: "tiny", 1: "small", 2: "medium", 3: "large", 4: "huge", 5: "gigantic", 6: "colossal"}
 WIDTH = (3, 2)  # a module of size s wants a main piece about 3 + 2 s cubes wide *(placeholder)*
 PLATFORMS = ("brick", "coffin", "lozenge", "hammer", "manta", "wedge")  # hull profiles with room on top
 DETAILS = ("vent", "sensor", "antenna", "tank", "light", "greeble")  # the kinds of parts on its top
@@ -38,7 +37,7 @@ TRIES = 10  # places tried for each part before giving up on it
 
 
 def module(rng: Rng, kind: str, size: int) -> Part:
-    """Assemble a destroyable part of a kind (see KINDS) and a size (1 to 6, see SIZES), its parts picked at random."""
+    """Assemble a destroyable part of a kind (see KINDS) and a size (0 to 6, see SIZES), its parts picked at random."""
     candidates = [part for part in KINDS[kind]() if part.symmetric]
     wide = WIDTH[0] + WIDTH[1] * size
     main = rng.choice(sorted(candidates, key=lambda part: miss((part.extent()[0],), (wide,)))[:3])

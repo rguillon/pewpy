@@ -10,13 +10,15 @@ Most ships are symmetric: every part off the axis comes with its mirror image. T
 and their details are placed on one side or the other as often as in pairs.
 """
 
-import math
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
-from pewpy.generators.models.common.geometry import Rng
+from pewpy.generators.models.common.geometry import Rng, miss
 from pewpy.generators.models.parts import Part, of_kind
+from pewpy.generators.models.parts.hulls import PROFILES, hull_at, thickness
+from pewpy.generators.models.parts.wings import OUTLINES, wing_at
 from pewpy.generators.models.ships import paint
+from pewpy.generators.models.ships.modules import KINDS, SIZES, module
 from pewpy.generators.models.ships.ship import Placed, Ship, Spot
 
 SYMMETRIC = 0.75  # the share of enemies' ships that are symmetric *(placeholder)*
@@ -27,13 +29,16 @@ PLAYER_LAYOUTS = {"classic": 0.5, "flying_wing": 0.15, "pods": 0.15, "booms": 0.
 # gun on one side, a command tower off its axis.
 LOPSIDED = ("odd_wings", "one_pod", "side_gun", "tower")
 CHOICES = 4  # a part is picked among the CHOICES nearest what's wanted
-ROOM = 3  # rows the hull leaves for the engines behind it and the guns in front of it
+ROOM = (3, 0.06)  # rows the hull leaves for the engines behind it and the guns in front: 3, and 6% of the ship's
+NOSE = (2, 0.05)  # rows ahead of its frame a ship's nose guns may reach: 2, or 5% of its length *(placeholder)*
+BOOMS = ("cigar", "spindle", "needle", "dart", "teardrop")  # the hulls' profiles booms and pods are made of
 REACH = 0.5  # a part on the hull is at most this share of its length (or 4 rows)...
 TALL = 0.75  # ...and this share of its thickness (or 2 cubes) high: no big antenna on a tiny ship
 COCKPIT_TALL = 1.0  # a cockpit sticks out more: up to the hull's thickness
 THICKER = 1  # an engine or a pod is at most this many cubes thicker than the hull
 TRIES = 12  # places (and parts) tried before giving up
-SUPPORT = 0.6  # the share of a part on top that must stand on the ship
+SUPPORT = 0.6  # the share of a part on top that must stand on the ship...
+PART_SUPPORT = 0.4  # ...of a destroyable part, which may overhang more *(placeholder)*
 WING_OVERLAP = 0.5  # the share of a wing's cubes that may sink into the hull (its root)
 DETAIL_SHARES = {
     "vent": 3.0,
@@ -47,8 +52,9 @@ DETAIL_SHARES = {
     "greeble": 1.0,
 }
 AREA_PER_WEAPON = 900  # square cubes of an enemy for each weapon past the first few
+PART_WIDTH = 40  # cubes of a ship's width for each size step of its destroyable parts *(placeholder)*
 AREA_PER_DETAIL = 250  # square cubes of the ship for each detail past the first few
-MAX_DETAILS = 12
+MAX_DETAILS = 40
 
 
 @dataclass(frozen=True)
@@ -107,11 +113,6 @@ class Wing:
         return self.columns[round(share * (len(self.columns) - 1))]
 
 
-def miss(have: tuple[float, ...], want: tuple[float, ...]) -> float:
-    """Tell how far sizes are from those wanted: 0 when they're the same, more the farther (bigger or smaller)."""
-    return sum(abs(math.log(max(0.5, a) / max(0.5, b))) for a, b in zip(have, want, strict=True))
-
-
 def mirrored(spot: Spot) -> Spot:
     """Return a spot's mirror image across the ship's axis."""
     return Spot(-spot.x, spot.y, spot.z, not spot.flip)
@@ -124,6 +125,9 @@ class Maker:
     rng: Rng
     wanted: tuple[float, float]
     player: bool = False
+    parts: int = 0  # destroyable parts (a boss always has some, an enemy may)
+    forced: bool | None = None  # symmetric (True) or lopsided (False) whatever the odds, if set
+    least_armed: int = 1  # weapons it has at least, its destroyable parts' too
     ship: Ship = field(default_factory=Ship)
     symmetric: bool = field(init=False)
     lopsided: set[str] = field(init=False)
@@ -131,17 +135,25 @@ class Maker:
     hull: Hull = field(init=False)
     wings: list[Wing] = field(default_factory=list)  # the main wings: the left one first, if any
     booms: list[Spot] = field(default_factory=list)  # where the booms (or the pods) are, their tails
+    bounds: tuple[int, int, int, int] | None = None  # once framed: what the rest stays within (see `dress`)
 
     def __post_init__(self) -> None:
         """Pick whether it's symmetric (or how it's lopsided), and its layout."""
         rng = self.rng
         self.symmetric = rng.random() < (PLAYER_SYMMETRIC if self.player else SYMMETRIC)
+        if self.forced is not None:
+            self.symmetric = self.forced
         self.lopsided = set() if self.symmetric else set(rng.sample(LOPSIDED, rng.randint(1, 2)))
         layouts = PLAYER_LAYOUTS if self.player else LAYOUTS
         self.layout = rng.choices(list(layouts), list(layouts.values()))[0]
 
     def make(self) -> Ship:
-        """Make the ship: its hull, wings, pods or booms, engines, cockpit, weapons, details; then paint it."""
+        """Make the ship: its frame, then the rest (see `frame` and `dress`)."""
+        self.frame()
+        return self.dress()
+
+    def frame(self) -> Ship:
+        """Make what gives the ship its size: its hull, wings, pods or booms, engines."""
         self._hull()
         if self.layout != "wingless":
             self._wings()
@@ -152,7 +164,20 @@ class Maker:
         if self.layout == "booms" and self.wings:
             self._booms()
         self._engines()
+        return self.ship
+
+    def dress(self) -> Ship:
+        """Finish the framed ship: its cockpit, destroyable parts (a boss's), weapons, details; then paint it.
+
+        What it gets stays within its frame (its columns and rows), but for nose_room(...) rows ahead of it: its size
+        is its frame's.
+        """
+        xs = [x for x, _, _ in self.ship.cells]
+        ys = [y for _, y, _ in self.ship.cells]
+        self.bounds = (min(xs), max(xs), min(ys), max(ys) + nose_room(self.wanted[1]))
         self._cockpit()
+        if self.parts:
+            self._destroyable()
         self._arm()
         self._details()
         self._paint()
@@ -191,10 +216,25 @@ class Maker:
         return self.rng.choice([[spot, mirrored(spot)], [spot, mirrored(spot)], [spot], [mirrored(spot)]])
 
     def _put(self, part: Part, spots: list[Spot], overlap: float = 0.0) -> bool:
-        """Place a part at the spots if it fits there; tell whether it did."""
-        if not spots or not self.ship.fits(part, spots, overlap):
+        """Place a part at the spots if it fits there (and within the frame, see `dress`); tell whether it did."""
+        if not spots or not self._within(part, spots) or not self.ship.fits(part, spots, overlap):
             return False
         self.ship.place(part, spots)
+        return True
+
+    def _within(self, part: Part, spots: list[Spot]) -> bool:
+        """Tell whether a part at the spots stays within the ship's frame (anywhere, while it's being framed)."""
+        if self.bounds is None:
+            return True
+        left, right, back, front = self.bounds
+        for spot in spots:
+            x0, x1 = (
+                (spot.x - part.high[0], spot.x - part.low[0])
+                if spot.flip
+                else (spot.x + part.low[0], spot.x + part.high[0])
+            )
+            if x0 < left or x1 > right or spot.y + part.low[1] < back or spot.y + part.high[1] > front:
+                return False
         return True
 
     def _on_wings(self, share: float, spot_at: Callable[[tuple[int, int, int, int, int]], Spot | None]) -> list[Spot]:
@@ -212,12 +252,14 @@ class Maker:
             return spots
         return self.rng.choice([spots, spots, spots[:1], spots[1:]])
 
-    def _on_top(self, part: Part, x: int, y: int, *, flip: bool = False) -> Spot | None:
-        """Return the spot standing a part on what's at (x, y) (its origin there), or None if too little is there."""
+    def _on_top(self, part: Part, x: int, y: int, *, flip: bool = False, support: float = SUPPORT) -> Spot | None:
+        """Return the spot standing a part on what's at (x, y) (its origin there), or None if too little is there (less
+        than `support` of it).
+        """  # noqa: D205 - the summary needs two lines
         spot = Spot(x, y, 0, flip)
         columns = {spot.cell((px, py, 0))[:2] for px, py in part.footprint}
         under = [self.ship.tops[column] for column in columns if column in self.ship.tops]
-        if len(under) < SUPPORT * len(columns):
+        if len(under) < support * len(columns):
             return None
         return Spot(x, y, max(under) + 1 - part.low[2], flip)
 
@@ -247,9 +289,9 @@ class Maker:
             "flying_wing": rng.uniform(0.2, 0.4),
             "pods": rng.uniform(0.2, 0.4),
         }.get(self.layout, rng.uniform(0.15, 0.35))
-        length = rng.uniform(0.55, 0.8) if self.layout == "flying_wing" else rng.uniform(0.7, 0.92)
-        length = max(4.0, rows * length - ROOM)  # room for the engines behind it and the guns in front
-        part = self._pick(of_kind("hull"), lambda part: part.extent()[:2], (columns * width, length))
+        length = rng.uniform(0.55, 0.8) if self.layout == "flying_wing" else rng.uniform(0.75, 0.95)
+        length = max(4.0, rows * length - ROOM[0] - rows * ROOM[1])  # room for the engines and the guns
+        part = _made_hull(rng.choice(list(PROFILES)), length, columns * width / 2)
         self.ship.place(part, [Spot(0, 0, 0)])
         self.hull = Hull(part)
 
@@ -259,10 +301,10 @@ class Maker:
         flying = self.layout == "flying_wing"
         chord = hull.length * (rng.uniform(0.6, 0.95) if flying else rng.uniform(0.25, 0.5))
         reach = max(2.0, self.wanted[0] / 2 - hull.widest(0, hull.length - 1) * 0.8)
-        left = self._pick(of_kind("wing"), _span, (reach, chord))
-        right = left
-        if "odd_wings" in self.lopsided:
-            right = self._pick([part for part in of_kind("wing") if part is not left], _span, (reach, chord))
+        outlines = rng.sample(list(OUTLINES), 2)
+        span, long = max(1, round(reach) - 1), max(2, round(chord))
+        left = wing_at(outlines[0], span, long)
+        right = wing_at(outlines[1], span, long) if "odd_wings" in self.lopsided else left
         for _ in range(TRIES):
             back = round(hull.length * (rng.uniform(0.0, 0.12) if flying else rng.uniform(0.05, 0.4)))
             lift = rng.choice([0, 0, 1, -1])  # its root a cube above or below the hull's middle, sometimes
@@ -288,7 +330,7 @@ class Maker:
         """Put a small pair of wings near the nose (canards) or the tail (a tailplane)."""
         rng, hull = self.rng, self.hull
         reach = max(1.5, (self.wanted[0] / 2 - hull.widest(0, hull.length - 1)) * rng.uniform(0.2, 0.4))
-        part = self._pick(of_kind("wing"), _span, (reach, hull.length * 0.15))
+        part = wing_at(rng.choice(list(OUTLINES)), max(1, round(reach)), max(2, round(hull.length * 0.15)))
         canards = rng.random() < 0.5
         for _ in range(TRIES):
             back = round(hull.length * (rng.uniform(0.62, 0.78) if canards else rng.uniform(0.0, 0.08)))
@@ -299,8 +341,14 @@ class Maker:
     def _pods(self) -> None:
         """Put a pod beside the hull on each side (on one side only on a one-podded ship): engines or small hulls."""
         rng, hull = self.rng, self.hull
-        pods = self._thin(of_kind("engine", "pod") + [part for part in of_kind("hull") if part.extent()[0] <= 7])
-        part = self._pick(pods, lambda part: (part.extent()[1],), (hull.length * rng.uniform(0.4, 0.7),))
+        long = hull.length * rng.uniform(0.4, 0.7)
+        nacelles = self._thin(of_kind("engine", "pod"))
+        if nacelles and rng.random() < 0.5:
+            part = self._pick(nacelles, lambda part: (part.extent()[1],), (long,))
+        else:
+            part = _made_hull(
+                rng.choice(BOOMS), long, max(1.0, hull.widest(0, hull.length - 1) * rng.uniform(0.2, 0.4))
+            )
         for _ in range(TRIES):
             back = round(hull.length * rng.uniform(0.0, 0.3))
             inner = self._side(part, back, gap=rng.choice([0, 1, 2]))
@@ -313,8 +361,8 @@ class Maker:
     def _booms(self) -> None:
         """Put a boom on each wing (on one only on a one-podded ship), sticking out behind it, a fin on its tail."""
         rng, hull = self.rng, self.hull
-        thin = self._thin([part for part in of_kind("hull") if part.extent()[0] <= 7])
-        part = self._pick(thin, lambda part: (part.extent()[1],), (hull.length * rng.uniform(0.5, 0.8),))
+        half = max(1.0, hull.widest(0, hull.length - 1) * rng.uniform(0.2, 0.35))
+        part = _made_hull(rng.choice(BOOMS), hull.length * rng.uniform(0.5, 0.8), half)
         behind = round(part.extent()[1] * rng.uniform(0.3, 0.55))
         spots = self._on_wings(rng.uniform(0.4, 0.75), lambda column: Spot(column[0], column[1] - behind, column[3]))
         if "one_pod" in self.lopsided:
@@ -426,9 +474,73 @@ class Maker:
             self._weapon("side")
         for mount in rng.choices(mounts, k=count):
             self._weapon(mount)
-        if not self.ship.weapons and not self._weapon("nose"):  # nothing fitted: a barrel out of the nose
-            part = of_kind("gun", "nose")[0]
-            self.ship.place(part, [Spot(0, self.ship.size()[1] + min(y for _, y, _ in self.ship.cells), 0)])
+        for _ in range(TRIES):  # as many as it needs at least
+            if self.ship.armed() >= max(1, self.least_armed):
+                return
+            self._weapon(rng.choice(mounts))
+        barrel = of_kind("gun", "nose")[0]  # nothing fitted: barrels out of the nose, side by side
+        front = max(y for _, y, _ in self.ship.cells) + 1
+        for x in range(self.least_armed):
+            if self.ship.armed() >= max(1, self.least_armed):
+                return
+            self.ship.place(barrel, [Spot(x, front, 0)] if x == 0 else [Spot(-x, front, 0), Spot(x, front, 0)])
+
+    def _destroyable(self) -> None:
+        """Stand its destroyable parts on it: modules of one to three kinds (see modules.py), sized to the ship, in
+        mirrored pairs (one on the axis for an odd count; a lopsided ship's anywhere, alone or in pairs). One that
+        fits nowhere is left out; if none fits, one stands on the axis all the same (a ship asked for parts has some).
+        """  # noqa: D205 - the summary needs two lines
+        rng = self.rng
+        kinds = rng.sample(list(KINDS), rng.randint(1, 3))
+        size = min(max(SIZES), rng.randint(0, 1) + round(self.wanted[0] / PART_WIDTH))
+        left, group = self.parts, 0
+        while left:
+            pair = left >= 2 and (self.symmetric or rng.random() < 0.5)
+            if self._stand(rng.choice(kinds), size, group, pair=pair):
+                group += 1
+            left -= 2 if pair else 1
+        if not self.ship.destroyable:
+            self._force(rng.choice(kinds))
+
+    def _stand(self, kind: str, size: int, group: int, *, pair: bool) -> bool:
+        """Stand a destroyable part (or a pair) on the hull, or a pair on the wings, where it fits, smaller if it must;
+        tell whether it did.
+        """  # noqa: D205 - the summary needs two lines
+        rng, hull = self.rng, self.hull
+        for smaller in range(size, -1, -1):
+            part = module(rng, kind, smaller)
+            for _ in range(TRIES):
+                if pair and self.wings and rng.random() < 0.5:  # on the wings, a part on each
+                    spots = self._on_wings(
+                        rng.uniform(0.2, 0.7), lambda column, part=part: self._on_chord(part, column)
+                    )
+                    spots = spots if len(spots) == 2 else []
+                else:
+                    y = round(hull.length * rng.uniform(0.15, 0.85)) - part.high[1] // 2
+                    half = hull.half(y + part.high[1] // 2)
+                    if pair:
+                        x = -rng.randint(part.high[0] + 1, max(part.high[0] + 1, half + part.high[0]))
+                    else:
+                        x = 0 if self.symmetric else rng.randint(-half, half)
+                    spot = self._on_top(part, x, y, support=PART_SUPPORT)
+                    spots = [spot, mirrored(spot)] if spot and pair else [spot] if spot else []
+                if spots and self._within(part, spots) and self.ship.fits(part, spots):
+                    self.ship.reserve(part, spots, group, kind)
+                    return True
+        return False
+
+    def _on_chord(self, part: Part, column: tuple[int, int, int, int, int]) -> Spot | None:
+        """Return the spot standing a part on a wing's column (see Wing), its middle on the column's middle row."""
+        x, back, front, _, _ = column
+        return self._on_top(part, x, (back + front) // 2 - part.high[1] // 2, support=PART_SUPPORT)
+
+    def _force(self, kind: str) -> None:
+        """Stand the smallest destroyable part of a kind on the axis, halfway along, on what's under it."""
+        part = module(self.rng, kind, 0)
+        y = self.hull.length // 2 - part.high[1] // 2
+        columns = [(px, y + py) for px, py in part.footprint]
+        z = max(self.ship.tops.get(column, 0) for column in columns) + 1 - part.low[2]
+        self.ship.reserve(part, [Spot(0, y, z)], 0, kind)
 
     def _weapon(self, mount: str) -> bool:
         """Put a gun or missiles mounting a way (see parts.MOUNTS); tell whether it fitted."""
@@ -555,11 +667,28 @@ def _crosses(part: Part, spot: Spot) -> bool:
     return min(xs) <= 0 <= max(xs)
 
 
-def _span(part: Part) -> tuple[float, float]:
-    """Return how far a wing reaches out and how long it is."""
-    return part.extent()[0], part.extent()[1]
+def nose_room(rows: float) -> int:
+    """Return the rows a ship `rows` long gets ahead of its frame: for the guns on its nose."""
+    return max(NOSE[0], round(rows * NOSE[1]))
 
 
-def make_ship(rng: Rng, wanted: tuple[float, float], *, player: bool = False) -> Ship:
-    """Make a ship of about `wanted` cubes, across and along (an enemy's, or the player's if `player`)."""
-    return Maker(rng, wanted, player=player).make()
+def _made_hull(profile: str, length: float, half: float) -> Part:
+    """Return a profile's hull made to a size (half widths to the half cube, so sizes repeat: see hulls.hull_at)."""
+    half = max(0.5, round(half * 2) / 2)
+    return hull_at(profile, max(4, round(length)), half, thickness(half))
+
+
+def make_ship(
+    rng: Rng,
+    wanted: tuple[float, float],
+    *,
+    player: bool = False,
+    parts: int = 0,
+    symmetric: bool | None = None,
+    least_armed: int = 1,
+) -> Ship:
+    """Make a ship of about `wanted` cubes, across and along: an enemy's, the player's (`player`), or a boss (with
+    `parts` destroyable parts, `least_armed` weapons at least, symmetric or lopsided as it was if `symmetric` is set).
+    Only the size differs: it's made the same way.
+    """  # noqa: D205 - the summary needs two lines
+    return Maker(rng, wanted, player=player, parts=parts, forced=symmetric, least_armed=least_armed).make()

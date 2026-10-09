@@ -54,5 +54,7 @@
   a size each model registers, every model with the same cubes (`04-ui-audio.md`, `05-visuals.md`)
 - [x] Ships assembled from a catalog of over 400 built-in parts (hulls, wings, cockpits, engines, guns, details) placed
   where they fit, some ships lopsided; a parts browser in the Dev menu (`05-visuals.md`, `04-ui-audio.md`)
-- [x] Bosses covered in the same catalog's parts, their destructible parts modules assembled at random from it; gigantic guns,
-  bigger wings, hulls and engines (`05-visuals.md`)
+- [x] Bosses made like every other ship, only bigger, their destructible parts modules assembled at random from the
+  catalog; gigantic guns, bigger wings, hulls and engines (`05-visuals.md`)
+- [x] Any enemy may have destructible parts, by its size alone, made and saved like a boss's (`05-visuals.md`,
+  `04-ui-audio.md`)

@@ -101,7 +101,8 @@ def test_the_keys_browse_reshape_make_and_save_models(app: PewPewApp, data_copy:
     new = browser(app).new
     press(app, keys.MENU_CHOOSE_KEY)
     assert texts(app)[3] == "Saved"
-    assert json.loads((data_copy / "models/player/player_heavy.json").read_text()) == new
+    assert new is not None
+    assert json.loads((data_copy / "models/player/player_heavy.json").read_text()) == new["core"]
     assert app.player_models["player_heavy"] is not None  # rebuilt from the new model
 
 

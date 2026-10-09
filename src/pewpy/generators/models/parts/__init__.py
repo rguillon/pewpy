@@ -1,11 +1,11 @@
-"""The catalog of built-in parts the ships are assembled from and the bosses are covered in.
+"""The catalog of built-in parts every ship is assembled from: the player's, the enemies', the bosses'.
 
-Hulls, wings, cockpits, engines, guns, missiles and details. Every part is drawn once, by hand in code, and named
-("dart hull, large", "twin barrels, short", "radar dome"...); the ship maker (pewpy.generators.models.ships.placing)
-picks among them and places them, the boss maker stamps them on its cores' hulls and assembles its destroyable parts
-from them (pewpy.generators.models.bosses). Each family in its own module: hulls.py, wings.py, cockpits.py, engines.py,
-weapons.py (guns and missiles), heavy_weapons.py (gigantic guns and missile batteries), details.py (vents, intakes,
-fins, antennas, sensors, tanks, armor, lights, machinery). part.py: what a part is.
+Hulls, wings, cockpits, engines, guns, missiles and details. Every part is drawn once, by hand in code, and named ("dart
+hull, large", "twin barrels, short", "radar dome"...); the ship maker (pewpy.generators.models.ships.placing) picks
+among them and places them, and assembles a boss's destroyable parts from them (see ships/modules.py). Each family in
+its own module: hulls.py, wings.py, cockpits.py, engines.py, weapons.py (guns and missiles), heavy_weapons.py (gigantic
+guns and missile batteries), details.py (vents, intakes, fins, antennas, sensors, tanks, armor, lights, machinery).
+part.py: what a part is.
 """
 
 from functools import cache

@@ -1,4 +1,4 @@
-"""The hulls: profiles from the tail to the nose, each in six sizes.
+"""The hulls: profiles from the tail to the nose, made to any size; the catalog has each in six sizes.
 
 A profile is a list of (share of the way from the tail to the nose, half width, height on top, depth underneath),
 each a share of the hull's; between two points it goes straight. Its cross-section is round (an ellipse), boxy (flat
@@ -8,6 +8,8 @@ across the top, a spine, plates on its sides, the underside darker. Small hulls 
 
 import itertools
 import math
+from dataclasses import replace
+from functools import cache
 
 from pewpy.generators.models.parts.part import Part, Sketch
 
@@ -91,10 +93,29 @@ SIZES = {  # (length, half width, height) of a profile's hull, before its own sh
 
 
 def hull(name: str, size: str) -> Part:
-    """Build a profile's hull of a size: see PROFILES and SIZES."""
-    profile, section, long, wide, what = PROFILES[name]
+    """Return a profile's hull of one of the catalog's sizes: see PROFILES and SIZES."""
+    _, _, long, wide, what = PROFILES[name]
     base_length, base_half, height = SIZES[size]
-    length, half = max(4, round(base_length * long)), base_half * wide
+    made = hull_at(name, max(4, round(base_length * long)), round(base_half * wide, 2), height)
+    return replace(made, name=f"{name} hull, {size}", description=f"A {size} hull: {what}.")
+
+
+TALLEST = 8.0  # cubes: the highest a hull gets on top, however wide (a boss's hull stays a hull) *(placeholder)*
+
+
+def thickness(half: float) -> float:
+    """Return how high a hull `half` cubes from its axis to its side is on top: as the catalog's sizes are, at most
+    TALLEST.
+    """  # noqa: D205 - the summary needs two lines
+    return round(min(TALLEST, 0.9 * max(0.5, half) ** 0.75), 2)
+
+
+@cache
+def hull_at(name: str, length: int, half: float, height: float) -> Part:
+    """Build a profile's hull of any size: `length` rows, `half` cubes from its axis to its side at its widest,
+    `height` cubes high on top at its highest (see `thickness`). Made once for each size.
+    """  # noqa: D205 - the summary needs two lines
+    profile, section, _, _, what = PROFILES[name]
     sketch = Sketch()
     for y in range(length):
         _, w, top, bottom = _along(profile, y / (length - 1))
@@ -104,7 +125,7 @@ def hull(name: str, size: str) -> Part:
             low, high = _section(section, x / (w + 0.5), x >= round(w) and w >= 1.5, top_z, bottom_z)
             for z in range(low, high + 1):
                 sketch.put(x, y, z, _paint(x, y, z, high, length, round(w), spine=section != "boxy"))
-    return sketch.part(f"{name} hull, {size}", "hull", "hull", f"A {size} hull: {what}.")
+    return sketch.part(f"{name} hull, {length} long", "hull", "hull", f"A hull {length} cubes long: {what}.")
 
 
 def _section(section: str, across: float, edge: bool, top: int, bottom: int) -> tuple[int, int]:

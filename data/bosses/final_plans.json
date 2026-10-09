@@ -4294,88 +4294,88 @@
     },
     "parts": [
       {
-        "drawing": "singularity:flak",
-        "x": -0.173,
-        "y": -0.24,
+        "drawing": "singularity:cannon",
+        "x": -0.047,
+        "y": 0.087,
         "width": 0.087,
+        "height": 0.207
+      },
+      {
+        "drawing": "singularity:cannon",
+        "x": 0.047,
+        "y": 0.087,
+        "width": 0.087,
+        "height": 0.207
+      },
+      {
+        "drawing": "singularity:cannon2",
+        "x": -0.14,
+        "y": 0.1,
+        "width": 0.127,
+        "height": 0.153
+      },
+      {
+        "drawing": "singularity:cannon2",
+        "x": 0.14,
+        "y": 0.1,
+        "width": 0.127,
+        "height": 0.153
+      },
+      {
+        "drawing": "singularity:cannon3",
+        "x": -0.193,
+        "y": 0.007,
+        "width": 0.113,
+        "height": 0.207
+      },
+      {
+        "drawing": "singularity:cannon3",
+        "x": 0.193,
+        "y": 0.007,
+        "width": 0.113,
+        "height": 0.207
+      },
+      {
+        "drawing": "singularity:cannon4",
+        "x": -0.113,
+        "y": -0.09,
+        "width": 0.087,
+        "height": 0.16
+      },
+      {
+        "drawing": "singularity:cannon4",
+        "x": 0.113,
+        "y": -0.09,
+        "width": 0.087,
+        "height": 0.16
+      },
+      {
+        "drawing": "singularity:cannon5",
+        "x": -0.073,
+        "y": -0.18,
+        "width": 0.047,
         "height": 0.127
       },
       {
-        "drawing": "singularity:flak",
-        "x": 0.173,
-        "y": -0.24,
-        "width": 0.087,
+        "drawing": "singularity:cannon5",
+        "x": 0.073,
+        "y": -0.18,
+        "width": 0.047,
         "height": 0.127
       },
       {
-        "drawing": "singularity:flak2",
-        "x": -0.027,
-        "y": 0.14,
-        "width": 0.073,
-        "height": 0.107
+        "drawing": "singularity:cannon6",
+        "x": -0.033,
+        "y": 0.07,
+        "width": 0.06,
+        "height": 0.067
       },
       {
-        "drawing": "singularity:flak2",
-        "x": 0.027,
-        "y": 0.14,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "singularity:flak3",
-        "x": -0.153,
-        "y": -0.08,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "singularity:flak3",
-        "x": 0.153,
-        "y": -0.08,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "singularity:flak4",
-        "x": -0.12,
-        "y": 0.027,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "singularity:flak4",
-        "x": 0.12,
-        "y": 0.027,
-        "width": 0.073,
-        "height": 0.107
-      },
-      {
-        "drawing": "singularity:flak5",
-        "x": -0.287,
-        "y": 0.207,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "singularity:flak5",
-        "x": 0.287,
-        "y": 0.207,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "singularity:flak6",
-        "x": -0.173,
-        "y": 0.307,
-        "width": 0.087,
-        "height": 0.127
-      },
-      {
-        "drawing": "singularity:flak6",
-        "x": 0.173,
-        "y": 0.307,
-        "width": 0.087,
-        "height": 0.127
+        "drawing": "singularity:cannon6",
+        "x": 0.033,
+        "y": 0.07,
+        "width": 0.06,
+        "height": 0.067
       }
     ]
   }

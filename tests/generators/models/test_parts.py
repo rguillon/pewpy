@@ -10,11 +10,11 @@ from pewpy.generators.models.parts.cockpits import cockpits
 from pewpy.generators.models.parts.details import details
 from pewpy.generators.models.parts.engines import engines
 from pewpy.generators.models.parts.heavy_weapons import heavy_guns, heavy_missiles
-from pewpy.generators.models.parts.hulls import PROFILES, hull, hulls
+from pewpy.generators.models.parts.hulls import PROFILES, TALLEST, hull, hull_at, hulls, thickness
 from pewpy.generators.models.parts.hulls import SIZES as HULL_SIZES
 from pewpy.generators.models.parts.part import Sketch
 from pewpy.generators.models.parts.weapons import guns, missiles
-from pewpy.generators.models.parts.wings import OUTLINES, wing, wings
+from pewpy.generators.models.parts.wings import OUTLINES, RISE_SPAN, wing, wing_at, wings
 
 PARTS = list(catalog().values())
 COLORS = palette(GREYS, Colors((1.0, 1.0, 1.0), "red", LIVERIES[0]))
@@ -112,3 +112,15 @@ def test_the_heavy_weapons_and_the_biggest_sizes_dwarf_the_others() -> None:
     assert all(part.weapons for part in [*heavy_guns(), *heavy_missiles()])
     assert wing("swept", "titanic").extent()[0] > wing("swept", "giant").extent()[0]
     assert hull("dart", "colossal").extent()[1] > hull("dart", "huge").extent()[1]
+
+
+def test_hulls_and_wings_are_made_to_any_size_once() -> None:
+    big = hull_at("dart", 120, 30.0, thickness(30.0))
+    assert big.extent()[:2] == (61, 120)
+    assert big.extent()[2] <= 2 * TALLEST + 1  # however wide, a hull stays a hull: no taller than TALLEST on top
+    assert hull_at("dart", 120, 30.0, thickness(30.0)) is big  # made once
+    assert len(pieces(big.cells)) == 1
+    wide = wing_at("gull", 60, 20)
+    assert wide.extent()[0] == 61
+    assert wide.high[2] <= round(OUTLINES["gull"][1] * RISE_SPAN)  # a long rising wing rises no more than a short one
+    assert hull("dart", "huge").name == "dart hull, huge"  # the catalog's sizes keep their names

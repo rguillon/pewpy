@@ -6,6 +6,7 @@ from collections import Counter
 import pytest
 
 from pewpy.generators.models.common.connect import pieces
+from pewpy.generators.models.common.geometry import miss
 from pewpy.generators.models.parts import of_kind
 from pewpy.generators.models.ships.placing import (
     COCKPIT_TALL,
@@ -16,7 +17,7 @@ from pewpy.generators.models.ships.placing import (
     THICKER,
     Maker,
     make_ship,
-    miss,
+    nose_room,
 )
 from pewpy.generators.models.ships.selection import build, finish
 from pewpy.generators.models.ships.ship import Ship, Spot
@@ -27,7 +28,7 @@ SIZES = [(9, 9), (18, 18), (30, 21), (50, 30), (15, 45), (60, 15)]
 
 def made(seed: int, wanted: tuple[float, float], *, player: bool = False) -> dict:
     rng = random.Random(seed)
-    return finish(rng, build(rng, wanted, player=player), player=player)()
+    return finish(rng, build(rng, wanted, player=player), player=player)()["core"]
 
 
 @pytest.mark.parametrize("wanted", SIZES)
@@ -65,7 +66,7 @@ def test_a_symmetric_ship_keeps_its_axis_in_its_drawings_middle() -> None:
     for seed in range(30):
         ship = make_ship(random.Random(seed), (25, 20))
         if ship.symmetric():
-            drawing = ship.drawing({}, 5)
+            drawing = ship.drawing({}, 5)["core"]
             assert all(row == row[::-1] for layer in drawing["layers"] for row in layer)
 
 
@@ -124,3 +125,18 @@ def test_a_flipped_spot_mirrors_a_part() -> None:
     ship.place(wing, [Spot(-1, 0, 0), Spot(1, 0, 0, flip=True)])
     assert ship.symmetric()
     assert min(x for x, _, _ in ship.cells) == -1 + wing.low[0]
+
+
+def test_what_a_ship_gets_once_framed_stays_within_its_frame_but_its_nose_guns() -> None:
+    for seed in range(20):
+        maker = Maker(random.Random(seed), (40, 30))
+        framed = maker.frame().size()
+        made = maker.dress().size()
+        assert made[0] == framed[0]
+        assert framed[1] <= made[1] <= framed[1] + nose_room(30)
+
+
+def test_the_frame_is_aimed_at_the_size() -> None:
+    for wanted in [(40, 30), (120, 90)]:
+        sizes = [Maker(random.Random(seed), wanted).frame().size() for seed in range(6)]
+        assert min(miss(size, (wanted[0], wanted[1] - nose_room(wanted[1]))) for size in sizes) < 0.15

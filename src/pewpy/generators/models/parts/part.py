@@ -67,11 +67,19 @@ class Part:
     @cached_property
     def rows(self) -> dict[int, tuple[int, int, int]]:
         """Return, for each y, its half width on x = 0's side and its top and bottom (a hull's profile)."""
-        found: dict[int, tuple[int, int, int]] = {}
+        halves: dict[int, int] = {}
+        tops: dict[int, int] = {}
+        bottoms: dict[int, int] = {}
         for x, y, z in self.cells:
-            half, top, bottom = found.get(y, (0, z, z))
-            found[y] = (max(half, abs(x)), max(top, z), min(bottom, z))
-        return found
+            if y not in halves:
+                halves[y], tops[y], bottoms[y] = abs(x), z, z
+                continue
+            halves[y] = max(halves[y], abs(x))
+            if z > tops[y]:
+                tops[y] = z
+            elif z < bottoms[y]:
+                bottoms[y] = z
+        return {y: (halves[y], tops[y], bottoms[y]) for y in halves}
 
 
 @dataclass

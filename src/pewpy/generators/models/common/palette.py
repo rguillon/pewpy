@@ -1,7 +1,7 @@
 """The made models' colors: greys for the hull, tinted; a cockpit; an accent for markings and sensors; a livery.
 
-Each character of a drawing is one color: the enemies' GREYS, the boss cores' CORE_GREYS or their parts' PART_GREYS,
-and the same colors on top of them for everyone (see `palette`).
+Each character of a drawing is one color: the greys (GREYS), tinted, and the same colors on top of them for everyone
+(see `palette`); the player's ships, the enemies and the bosses alike.
 """
 
 from dataclasses import dataclass
@@ -37,7 +37,7 @@ LIVERIES = [
     (0.3, 0.3, 0.33),
     (0.45, 0.2, 0.45),
 ]
-GREYS: dict[str, Color] = {  # the enemies'
+GREYS: dict[str, Color] = {
     "N": (0.26, 0.27, 0.29),  # heavy plates
     "h": (0.37, 0.38, 0.41),  # hull
     "H": (0.5, 0.51, 0.54),  # lighter hull bands
@@ -48,32 +48,6 @@ GREYS: dict[str, Color] = {  # the enemies'
     "W": (0.45, 0.46, 0.49),  # lighter wing panels, leading edges
     "o": (0.08, 0.08, 0.09),  # engine nozzles
     "t": (0.3, 0.31, 0.33),  # turrets, containers
-}
-CORE_GREYS: dict[str, Color] = {  # a boss's core
-    "N": (0.26, 0.27, 0.29),  # armor bands
-    "h": (0.37, 0.38, 0.41),  # hull
-    "H": (0.5, 0.51, 0.54),  # lighter hull bands
-    "S": (0.6, 0.61, 0.63),  # superstructure
-    "T": (0.55, 0.56, 0.59),  # superstructure, lower decks
-    "k": (0.17, 0.18, 0.2),  # dark panel lines, hangar bays
-    "r": (0.13, 0.13, 0.15),  # recesses, gun barrels
-    "w": (0.32, 0.33, 0.36),  # wings, sponsons
-    "W": (0.45, 0.46, 0.49),
-    "o": (0.08, 0.08, 0.09),  # engine nozzles
-    "t": (0.3, 0.31, 0.33),  # containers, domes
-    "x": (0.22, 0.23, 0.25),  # sockets under the parts
-}
-PART_GREYS: dict[str, Color] = {  # a boss's parts
-    "N": (0.26, 0.27, 0.29),
-    "t": (0.3, 0.31, 0.33),  # housing
-    "S": (0.6, 0.61, 0.63),  # dome, raised top
-    "h": (0.37, 0.38, 0.41),
-    "H": (0.5, 0.51, 0.54),
-    "k": (0.17, 0.18, 0.2),
-    "r": (0.13, 0.13, 0.15),  # barrels, tubes
-    "W": (0.45, 0.46, 0.49),
-    "w": (0.32, 0.33, 0.36),  # stub wings
-    "o": (0.08, 0.08, 0.09),  # engine nozzles
 }
 COCKPIT: Color = (0.08, 0.2, 0.28)  # a cockpit's glass, a bridge's windows
 GLINT: Color = (0.3, 0.55, 0.66)  # the light on a canopy's glass

@@ -1,10 +1,13 @@
-"""The wings: outlines of a left wing, each in eight sizes (its span and its root's chord).
+"""The wings: outlines of a left wing, made to any size (its span and its root's chord); the catalog has eight.
 
 An outline is a polygon of (share of the span from the root to the tip, share of the root's chord from its trailing
 edge towards the nose). A wing is one cube thick (two at its root), rises or droops towards its tip, and is painted: a
 light leading edge, dark flaps along the trailing edge, panels, a marking on its tip. The right wing is its mirror
 image.
 """
+
+from dataclasses import replace
+from functools import cache
 
 from pewpy.generators.models.common.geometry import Point, inside
 from pewpy.generators.models.parts.part import Part, Sketch
@@ -28,6 +31,7 @@ OUTLINES: dict[str, tuple[list[Point], float, str]] = {
     "gull": ([(0, 0), (0, 1), (1, 0.6), (1, 0.05)], 0.35, "rising to its tip"),
     "anhedral": ([(0, 0), (0, 1), (1, 0.45), (1, -0.05)], -0.3, "drooping to its tip"),
 }
+RISE_SPAN = 12  # a longer rising wing rises no more than one this long
 SIZES = {  # (span, chord)
     "tiny": (1, 3),
     "small": (3, 4),
@@ -41,14 +45,25 @@ SIZES = {  # (span, chord)
 
 
 def wing(name: str, size: str) -> Part:
-    """Build a left wing (x <= 0) of an outline and a size: see OUTLINES and SIZES."""
-    points, rise, what = OUTLINES[name]
+    """Return a left wing of an outline and one of the catalog's sizes: see OUTLINES and SIZES."""
     span, chord = SIZES[size]
+    made = wing_at(name, span, chord)
+    what = OUTLINES[name][2]
+    return replace(made, name=f"{name} wing, {size}", description=f"A {size} wing, {what}: {span + 1} cubes long.")
+
+
+@cache
+def wing_at(name: str, span: int, chord: int) -> Part:
+    """Build a left wing (x <= 0) of an outline of any size: `span` cubes out past its root, its root `chord` long.
+
+    A rising (or drooping) wing rises at most as much as one RISE_SPAN cubes long. Made once for each size.
+    """
+    points, rise, what = OUTLINES[name]
     heights: dict[tuple[int, int], int] = {}
     for i in range(span + 1):
         for y in range(-chord, 2 * chord + 1):
             if inside((i + 0.5) / (span + 1), (y + 0.5) / chord, points):
-                heights[i, y] = round(i * rise)
+                heights[i, y] = round(i * rise * min(1.0, RISE_SPAN / max(1, span)))
     tip = max(i for i, _ in heights)
     sketch = Sketch()
     for (i, y), z in heights.items():
@@ -63,7 +78,7 @@ def wing(name: str, size: str) -> Part:
         inner = heights.get((i - 1, y), z)  # a step up or down: the cube beside it too, so they touch
         for level in range(min(z, inner) - (1 if i < 2 else 0), max(z, inner) + 1):
             sketch.put(-i, y, level, paint, mirror=False)
-    return sketch.part(f"{name} wing, {size}", "wing", "wing", f"A {size} wing, {what}: {span + 1} cubes long.")
+    return sketch.part(f"{name} wing, {span + 1} long", "wing", "wing", f"A wing, {what}: {span + 1} cubes long.")
 
 
 def wings() -> list[Part]:
