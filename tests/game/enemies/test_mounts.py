@@ -123,11 +123,14 @@ def test_a_gun_fires_from_its_origins_or_its_weapons_not_both() -> None:
 
 @pytest.mark.usefixtures("models")
 def test_the_weapons_turn_with_a_model_facing_its_way() -> None:
+    def places(enemy: Enemy) -> dict[int, tuple[float, float]]:
+        return {number: (mount.x, mount.y) for number, mount in enemy.mounts().items()}
+
     still = gunner([SHOT], facing="travel")
-    assert still.mounts() == {1: pytest.approx((-2 * V, -2 * V)), 2: pytest.approx((2 * V, -2 * V))}
+    assert places(still) == {1: pytest.approx((-2 * V, -2 * V)), 2: pytest.approx((2 * V, -2 * V))}
     flying_right = gunner([SHOT], facing="travel", velocity=[0.5, 0.0])
     # Its nose, down the screen, now points right (a quarter turn counterclockwise): its front on the right.
-    assert flying_right.mounts() == {1: pytest.approx((2 * V, -2 * V)), 2: pytest.approx((2 * V, 2 * V))}
+    assert places(flying_right) == {1: pytest.approx((2 * V, -2 * V)), 2: pytest.approx((2 * V, 2 * V))}
 
 
 @pytest.mark.usefixtures("models")
@@ -157,3 +160,28 @@ def test_a_wrong_model_makes_a_wrong_enemy(models: Path) -> None:
     (models / "broken.json").write_text(json.dumps({**GUNNER, "weapons": {"number": 1}}))
     with pytest.raises(EnemySpecError, match="'weapons' must be a list"):
         parse_enemy("test", {"drawing": "broken", "states": [{"name": "a", "guns": [{**SHOT, "weapon": 1}]}]}, "test")
+
+
+def test_a_weapons_muzzle_is_at_its_barrels_height() -> None:
+    # Seen from the side: a hull on the middle plane reaching past a thick cannon on top (layers 0 to 2, nearest the
+    # camera first), a single-cube gun under it; the cannon's tip on row 1, the gun's on row 2.
+    hull, cannon, gun = ["..", "..", "x."], ["x.", "x.", ".."], [".x", ".x", ".x"]
+    layers = [cannon, cannon, cannon, hull, gun, ["..", "..", ".."], ["..", "..", ".."]]
+    drawing = {
+        "layers": layers,
+        "palette": {"x": {"color": [1, 1, 1]}},
+        "weapons": [{"number": 1, "kind": "cannon", "x": 0, "y": 1}, {"number": 2, "kind": "gun", "x": 1, "y": 2}],
+    }
+    found = parse_mounts(drawing, "side.json")
+    assert found[1].depth == pytest.approx(-2 * V)  # the middle of the cannon's three layers, 2 above the middle one
+    assert found[2].depth == pytest.approx(V)  # under it, away from the camera
+    assert parse_mounts(GUNNER, "gunner.json")[1].depth == 0.0  # nothing drawn at its tip: on the middle plane
+
+
+@pytest.mark.usefixtures("models")
+def test_shots_leave_at_their_muzzles_depth(models: Path) -> None:
+    raised = {**GUNNER, "layers": [[".....", ".....", ".....", "x...."], [".....", ".....", ".....", "....."]]}
+    (models / "gunner.json").write_text(json.dumps({**raised, "palette": {"x": {"color": [1, 1, 1]}}}))
+    model_mounts.cache_clear()
+    (bullet,) = [entity for entity in gunner([SHOT]).update(DT, TARGET, 0.0) if isinstance(entity, Bullet)]
+    assert bullet.depth == pytest.approx(-V)

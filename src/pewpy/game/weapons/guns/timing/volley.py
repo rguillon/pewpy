@@ -57,7 +57,7 @@ def shoot(item: Gun, state: GunState, shooter: Shooter) -> list[Entity]:
         state.volleys += 1
     if item.pattern == "laser":
         state.charge = LASER_WARNING
-        return list(laser_beams(item, shooter.piece, warning=True))
+        return list(laser_beams(item, shooter, warning=True))
     shots = fire(item, shooter, state)
     state.volley_index += 1
     state.turned += item.turn

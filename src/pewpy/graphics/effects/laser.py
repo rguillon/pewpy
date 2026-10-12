@@ -27,7 +27,8 @@ class LaserGlow:
     """A laser beam this frame, as the effects see it: from `bottom` to `top` at `x`.
 
     `hits`: heights where it burns something. The player's (not `hostile`) goes up from its bottom; an enemy's goes down
-    from its top, red. `key` tells the beams apart, from one frame to the next.
+    from its top, red. `key` tells the beams apart, from one frame to the next. `depth`: where it's drawn, from the
+    play plane, away from the camera (an enemy's muzzle above the plane: negative).
     """
 
     x: float
@@ -37,6 +38,7 @@ class LaserGlow:
     hits: tuple[float, ...] = ()
     hostile: bool = False
     key: int = 0
+    depth: float = 0.0
 
     @property
     def source(self) -> float:
@@ -68,6 +70,7 @@ class Photon:
     wave: float  # phase of its sideways wobble
     x: float = 0.0  # where it is: follows the beam while it's on, flies on straight once it's cut
     y: float = 0.0
+    depth: float = 0.0  # its laser's (see LaserGlow.depth)
     fade: float = 1.0  # 1 while the beam is on, then down to 0
 
 
@@ -100,6 +103,7 @@ class LaserLight:
                         wave=rng.uniform(0.0, 2 * math.pi),
                         x=laser.x,
                         y=laser.source,
+                        depth=laser.depth,
                     )
                 )
 

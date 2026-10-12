@@ -41,7 +41,7 @@ def test_a_new_ship_shows_until_it_is_saved_or_dropped(data_copy: Path) -> None:
     before = read_model("drone")
     browser.generate()
     assert browser.new is not None
-    assert browser.pieces()[0].data is browser.new
+    assert browser.pieces()[0].data is browser.new["core"]
     browser.move(1)
     browser.move(-1)
     assert browser.new is None  # dropped
@@ -51,7 +51,9 @@ def test_a_new_ship_shows_until_it_is_saved_or_dropped(data_copy: Path) -> None:
     browser.save()
     assert browser.saved
     assert browser.new is None
-    assert json.loads((data_copy / "models/enemies/drone.json").read_text()) == new != before
+    assert new is not None
+    assert not new["parts"]  # a drone is too small to have any
+    assert json.loads((data_copy / "models/enemies/drone.json").read_text()) == new["core"] != before
 
 
 def test_enter_without_a_new_model_saves_the_size(data_copy: Path) -> None:  # noqa: ARG001 - its data
@@ -75,7 +77,7 @@ def test_a_new_boss_shows_with_its_parts_and_saves_them(data_copy: Path) -> None
     browser.generate()
     core, *parts = browser.pieces()
     assert core.data is browser.new["core"]  # ty: ignore[not-subscriptable] - made
-    assert len(parts) == parts_for(browser.size)
+    assert 1 <= len(parts) <= parts_for(browser.size)  # those that fit
     browser.save()
     assert [round(part.x, 3) for part in parts] == [part.x for part in browser.entry.parts]
 

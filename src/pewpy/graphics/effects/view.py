@@ -144,19 +144,28 @@ class EffectsView:
         sprites = []
         for photon in self.effects.light.photons:
             width = photon.size * GLOW_SIZE * photon.fade
-            sprites.append(Sprite(photon.x, photon.y, width, width * PHOTON_STRETCH, photon.color))
+            sprites.append(Sprite(photon.x, photon.y, width, width * PHOTON_STRETCH, photon.color, photon.depth))
         time = self.effects.time
         for laser in self.effects.light.lasers.values():
             halo = laser.width * HALO_WIDTH
             steps = min(int((laser.top - laser.bottom) / laser.width), HALO_SPRITES)
             step = (laser.top - laser.bottom) / max(steps, 1)
             color = ENEMY_HALO_COLOR if laser.hostile else HALO_COLOR
-            sprites += [Sprite(laser.x, laser.bottom + i * step, halo, halo, color) for i in range(steps + 1)]
+            sprites += [
+                Sprite(laser.x, laser.bottom + i * step, halo, halo, color, laser.depth) for i in range(steps + 1)
+            ]
             muzzle = (MUZZLE_GLOW[0] + laser.width * MUZZLE_GLOW[1]) * (1.0 + 0.15 * math.sin(time * 31.0))
             sprites.append(
-                Sprite(laser.x, laser.source, muzzle, muzzle, ENEMY_LASER_COLOR if laser.hostile else LASER_COLOR)
+                Sprite(
+                    laser.x,
+                    laser.source,
+                    muzzle,
+                    muzzle,
+                    ENEMY_LASER_COLOR if laser.hostile else LASER_COLOR,
+                    laser.depth,
+                )
             )
             flicker = 1.0 + 0.25 * math.sin(time * 47.0) * math.sin(time * 13.0)
             hit = (HIT_GLOW[0] + laser.width * HIT_GLOW[1]) * flicker
-            sprites += [Sprite(laser.x, y, hit, hit, HIT_COLOR) for y in laser.hits]
+            sprites += [Sprite(laser.x, y, hit, hit, HIT_COLOR, laser.depth) for y in laser.hits]
         return sprites

@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 import pytest
 
 from pewpy.scenery import params
@@ -54,3 +56,30 @@ def test_a_ground_can_go_bare_without_outposts_or_flora() -> None:
     terrain = Terrain(AREA, 1.0, bare, seed=0)
     assert terrain.props == []
     assert terrain.relief.rows == terrain.relief_rows * terrain.chunks
+
+
+def savanna() -> Terrain:
+    return Terrain(AREA, 1.0, params.resolve("savanna"), seed=0)
+
+
+def test_ground_chunks_follow_each_other_down_and_loop() -> None:
+    terrain = savanna()
+    tops = [terrain.chunk_top(chunk) for chunk in range(CHUNKS)]
+    for upper, lower in pairwise(tops):
+        assert upper - lower == pytest.approx(terrain.chunk_height)
+    terrain.update(1.0, scroll_speed=0.1)
+    assert terrain.chunk_top(0) == pytest.approx(tops[0] - 0.1)
+    terrain.update(terrain.loop_length / 0.1 - 1.0, scroll_speed=0.1)  # one full loop in total
+    assert terrain.chunk_top(0) == pytest.approx(tops[0])
+
+
+def test_ground_always_covers_the_screen() -> None:
+    terrain = savanna()
+    for _ in range(50):
+        terrain.update(0.37, scroll_speed=0.5)
+        spans = sorted((top - terrain.chunk_height, top) for top in map(terrain.chunk_top, range(CHUNKS)))
+        covered_to = AREA.bottom
+        for bottom, top in spans:
+            if bottom <= covered_to + 1e-9:
+                covered_to = max(covered_to, top)
+        assert covered_to >= AREA.top

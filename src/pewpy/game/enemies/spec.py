@@ -142,6 +142,8 @@ def parse_enemy(kind: str, data: dict[str, Any], source: str) -> EnemySpec:
             data["width"], data["height"] = columns * config.MODEL_VOXEL, rows * config.MODEL_VOXEL
         elif "size" in data:
             data["width"], data["height"] = data.pop("size")
+        if "points" in data:
+            data["points"] = _whole(data["points"])
         if "velocity" in data:
             data["velocity"] = tuple(data["velocity"])
         data["start"] = tuple(parse_action(action) for action in data.get("start", []))
@@ -176,6 +178,14 @@ def _check_weapons(spec: EnemySpec, source: str) -> None:
                     raise EnemySpecError(source, msg)
     except (OSError, TypeError, ValueError) as error:
         raise EnemySpecError(source, str(error)) from error
+
+
+def _whole(points: object) -> int:
+    """Return points as a whole number (110.0 is 110); anything else is a mistake (ValueError)."""
+    if isinstance(points, bool) or not isinstance(points, int | float) or points != int(points):
+        msg = f"points must be a whole number, not {points!r}"
+        raise ValueError(msg)
+    return int(points)
 
 
 def parse_part(data: dict[str, Any], source: str) -> Part:

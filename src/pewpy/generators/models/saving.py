@@ -1,6 +1,7 @@
 """Saving a new model in place of one of the game's (see browser.py), and what goes with it.
 
-A ship's model file is replaced, its "size" the one it was made to, its hitbox following (see `save_ship`). A boss is
+A ship's model file is replaced, its "size" the one it was made to, its hitbox following (see `save_ship`); an enemy's
+destroyable parts, if it has some, with it (see `save_enemy`). A boss is
 replaced whole: its model file, its core's drawing and new parts (as many as its size has, see
 pewpy.generators.models.sized.parts_for) with their drawings in it, under "parts", named after their kind
 ("<boss>:drill", "<boss>:turret2"...). Its description in its file (data/bosses/) follows: its size, its parts
@@ -17,7 +18,7 @@ from typing import Any
 
 from pewpy import config
 from pewpy.data import PART_SEPARATOR, data_folder, model_path, split_model_name
-from pewpy.game.enemies.kinds import ENEMIES
+from pewpy.game.enemies.kinds import ENEMIES, ENEMY_FILES
 from pewpy.generators.compact_json import compact_json
 from pewpy.generators.models.catalog import FINAL_BOSSES_FILE, FINAL_PLANS_FILE, BossPart, Entry, read_data
 from pewpy.generators.models.final_bosses.plans import plan_boss
@@ -26,8 +27,9 @@ from pewpy.graphics.models import parse_voxels
 
 PAIRED = 0.005  # world units: two parts this close to mirroring each other are a pair
 DECIMALS = 3  # of a place or a size in the enemies' and bosses' files
-PART_LABELS = {"twin_cannon": "cannon", "missile_rack": "launcher", "beam": "emitter"}  # a kind, as part names say it
 DEFAULT_PART = {"health": 25.0, "points": 400}  # a new part of a mini boss that had none (placeholder)
+PART_HEALTH = 0.3  # an enemy's destroyable part has this share of the enemy's health... *(placeholder)*
+PART_POINTS = 0.25  # ...and is worth this share of its points *(placeholder)*
 
 
 def lopsided(parts: tuple[BossPart, ...]) -> bool:
@@ -76,8 +78,36 @@ def save_ship(entry: Entry, data: dict, old_size: tuple[float, float]) -> None:
     _write_data(entry.file, compact_json(file))
 
 
+def save_enemy(entry: Entry, made: dict, old_size: tuple[float, float]) -> None:
+    """Write an enemy's new model (made by models.sized.sized_model) in place of the entry's, its hitbox following (see
+    `save_ship`), with its destroyable parts if it has some: their drawings in its model file, under "parts", and the
+    parts themselves in the files of every enemy drawn with it (each PART_HEALTH of its health, worth PART_POINTS of
+    its points); the parts those enemies had go.
+    """  # noqa: D205 - the summary needs two lines
+    parts = new_parts(entry.drawing, made)
+    data = dict(made["core"])
+    if parts:
+        data["parts"] = {
+            split_model_name(part["drawing"])[1]: {**drawing, "size": part["size"]} for part, drawing in parts
+        }
+    save_ship(entry, data, old_size)
+    for name in ENEMY_FILES:
+        file = read_data(name)
+        drawn = [body for body in file.values() if body.get("drawing") == entry.drawing]
+        for body in drawn:
+            body.pop("parts", None)
+            if parts:
+                stats = {
+                    "health": round(max(1.0, body.get("health", 1.0) * PART_HEALTH), 1),
+                    "points": int(round(body.get("points", 0) * PART_POINTS, -1)),  # a whole number of points
+                }
+                body["parts"] = [{**part, **stats} for part, _ in parts]
+        if drawn:
+            _write_data(name, compact_json(file))
+
+
 def new_parts(boss: str, made: dict) -> list[tuple[dict[str, Any], dict]]:
-    """Name a new boss's parts (made by models.sized.sized_boss): each with its place, size and drawing.
+    """Name a new model's parts (made by models.sized.sized_model): each with its place, size and drawing.
 
     Return each part as its boss's file writes it ({"name", "x", "y", "drawing", "size"}) and its drawing's data. The
     parts of a group share a drawing: "<boss>:<kind>", then "<boss>:<kind>2"... for the next group of that kind.
@@ -89,7 +119,7 @@ def new_parts(boss: str, made: dict) -> list[tuple[dict[str, Any], dict]]:
     for number, ((data, x, up), group, kind) in enumerate(
         zip(made["parts"], made["groups"], made["kinds"], strict=True), start=1
     ):
-        label = PART_LABELS.get(kind, kind)
+        label = kind
         if group not in drawings:
             kinds_seen[label] = kinds_seen.get(label, 0) + 1
             drawings[group] = f"{boss}{PART_SEPARATOR}{label}" + (
@@ -158,7 +188,7 @@ def remap_phases(body: dict[str, Any], parts: list[dict[str, Any]]) -> None:
 
 
 def save_boss(entry: Entry, made: dict) -> None:
-    """Write a new boss (made by models.sized.sized_boss) in place of the entry's, its parts new too."""
+    """Write a new boss (made by models.sized.sized_model) in place of the entry's, its parts new too."""
     parts = new_parts(entry.drawing, made)
     drawings = {split_model_name(part["drawing"])[1]: {**data, "size": part["size"]} for part, data in parts}
     write_model(entry.drawing, {**made["core"], "parts": drawings})

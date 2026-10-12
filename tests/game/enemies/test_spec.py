@@ -168,3 +168,12 @@ def test_any_enemy_can_have_phases_and_parts_without_the_bosses_usual_fields() -
     assert gun.reload != "carry"
     pod = spec.parts[0].spec
     assert (pod.placeable, pod.leaves_screen, pod.rammable, pod.drop_chance) == (False, False, True, 0.0)
+
+
+def test_points_are_whole_numbers_even_written_with_a_point() -> None:
+    spec = parse_enemy("test", {"points": 110.0, "parts": [{"name": "a", "x": 0, "y": 0, "points": 50.0}]}, "test")
+    assert spec.points == 110
+    assert isinstance(spec.points, int)
+    assert isinstance(spec.parts[0].spec.points, int)
+    with pytest.raises(EnemySpecError, match="whole number"):
+        parse_enemy("test", {"points": 12.5}, "test")

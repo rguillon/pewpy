@@ -1,4 +1,4 @@
-"""The Dev menu's model browser on screen (see pewpy.generators.models.browser).
+"""The Dev menu's model browser on screen (see pewpy.generators.models.browser), also the parts browser's.
 
 The model in the middle (a boss with its parts in place, the parts blinking slowly so they stand out), swaying a
 little to show its depth, inside a frame: the size
@@ -32,6 +32,7 @@ INFO_SCALE = 0.04
 STATUS_HEIGHT = -0.8
 KEYS_HEIGHT = -0.9
 KEYS = "Left/Right: model   Z/S: height   Q/D: width   Space: new model   Enter: save   Escape: back"
+PART_KEYS = "Left/Right: part   Escape: back"  # the parts browser's
 
 
 def fit_scale(extent: float) -> float:
@@ -42,8 +43,8 @@ def fit_scale(extent: float) -> float:
 class ModelBrowserView:
     """The model, its frame and the texts."""
 
-    def __init__(self, camera: NodePath, aspect2d: NodePath) -> None:
-        """Make the view: nothing on show until `show`."""
+    def __init__(self, camera: NodePath, aspect2d: NodePath, keys: str = KEYS) -> None:
+        """Make the view, listing `keys`: nothing on show until `show`."""
         self.root = camera.attachNewNode("model_browser")
         self.root.setPos(0, DISTANCE, VIEW_HEIGHT)
         self.scaled = self.root.attachNewNode("scaled")
@@ -54,14 +55,15 @@ class ModelBrowserView:
         self.info = self.texts.centered_text(INFO_HEIGHT, INFO_SCALE, TITLE_COLOR)
         self.status = self.texts.centered_text(STATUS_HEIGHT, INFO_SCALE, SELECTED_COLOR)
         self.keys = self.texts.centered_text(KEYS_HEIGHT, INFO_SCALE, ITEM_COLOR)
-        self.keys.setText(KEYS)
+        self.keys.setText(keys)
         self.time = 0.0
         self.parts: list[NodePath] = []  # a boss's destroyable parts on show, blinking
 
-    def show(self, pieces: list[tuple[NodePath, float, float]], size: tuple[float, float]) -> None:
+    def show(self, pieces: list[tuple[NodePath, float, float]], size: tuple[float, float], least: float = 0.0) -> None:
         """Show the model's pieces (each model, and where its middle goes, in world units) in a frame of `size`.
 
-        The first piece is the model (a boss's core), the others a boss's destroyable parts.
+        The first piece is the model (a boss's core), the others a boss's destroyable parts. They're drawn to the scale
+        fitting the bigger of the model and its frame, or `least` (world units) if bigger, so a small one looks small.
         """
         for child in self.scaled.getChildren():
             child.removeNode()
@@ -80,7 +82,7 @@ class ModelBrowserView:
         frame.setBin("fixed", 10)
         frame.setDepthTest(False)
         bounds = self.model.getTightBounds()
-        extent = max(size)
+        extent = max(*size, least)
         if bounds is not None:
             low, high = bounds
             extent = max(extent, high.x - low.x, high.z - low.z)

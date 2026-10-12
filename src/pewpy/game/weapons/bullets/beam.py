@@ -6,8 +6,11 @@ from pewpy.game.weapons.bullets.bullet import Bullet
 BEAM_BOTTOM = -config.PLAY_HEIGHT / 2 - 0.1  # beams go down past the bottom of the screen
 
 
-def beam(x: float, top: float, width: float, duration: float) -> Bullet:
-    """Make a laser beam from `top` straight down past the bottom of the screen (like the Lancer's)."""
+def beam(x: float, top: float, width: float, duration: float, depth: float = 0.0) -> Bullet:
+    """Make a laser beam from `top` straight down past the bottom of the screen (like the Lancer's).
+
+    `depth`: its muzzle's: the whole beam is drawn there (see Bullet.depth).
+    """
     return Bullet(
         x=x,
         y=(top + BEAM_BOTTOM) / 2,
@@ -18,4 +21,6 @@ def beam(x: float, top: float, width: float, duration: float) -> Bullet:
         style="beam",
         life=duration,
         pierces=True,
+        depth=depth,
+        settle=0.0,
     )
