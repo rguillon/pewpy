@@ -42,7 +42,7 @@ winrate: ## Play every level with the current brain and show its win rates, savi
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"
-	@uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml
+	@uv run python -m pytest -n auto --dist worksteal --cov --cov-config=pyproject.toml --cov-report=xml
 
 .PHONY: mutate
 mutate: ## Test the tests: mutate the code with mutmut and report the mutants the tests let survive (options: ARGS="pewpy.game.score*")

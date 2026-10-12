@@ -15,7 +15,8 @@ from pewpy import data
 from pewpy.app import PewPewApp
 from pewpy.audio.library import Library
 from pewpy.game.enemies import spec
-from pewpy.game.enemies.kinds import reload_kinds
+from pewpy.game.enemies.kinds import BOSSES, ENEMIES, FINAL_BOSSES, KINDS, MINI_BOSSES
+from pewpy.game.enemies.mounts import model_mounts
 from pewpy.game.states import State
 from pewpy.generators.models import catalog, saving
 
@@ -56,10 +57,15 @@ def data_copy(tmp_path: Path, request: pytest.FixtureRequest) -> Iterator[Path]:
         shutil.copytree(source / name, root / name)
     shutil.copy(source / "ships.json", root / "ships.json")
     app = request.getfixturevalue("game_app") if "app" in request.fixturenames else None
+    kinds = (ENEMIES, MINI_BOSSES, FINAL_BOSSES, BOSSES, KINDS)
+    read = [dict(each) for each in kinds]  # the specs are frozen: putting them back is faster than reading them again
     with pytest.MonkeyPatch.context() as patch:
         for module in (data, catalog, saving, spec):
             patch.setattr(module, "data_folder", lambda: root)
         yield root
-    reload_kinds()
+    for each, before in zip(kinds, read, strict=True):
+        each.clear()
+        each.update(before)
+    model_mounts.cache_clear()  # it may hold the weapons of the changed models
     if app is not None:
         app._build_models()
