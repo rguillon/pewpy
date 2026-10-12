@@ -38,12 +38,15 @@
 ## Testing
 
 - **TEC-12** Every line and branch of the game shall be covered by unit tests (100%); the test run shall fail below it.
-  Code that cannot happen shall be removed rather than tested. Content (levels, bosses, drawings) needs no tests of its
-  own: the tests cover the code loading and building it.
+  Code that cannot happen shall be removed rather than tested. Content (levels, bosses, drawings) is tested through the
+  code loading and building it, and through the plans the tools make it from (the worlds' levels, the final bosses).
 - **TEC-13** The app itself (screens, drawing, HUD) shall be tested too, without a display (an offscreen buffer),
   silent, without rendering songs.
-- **TEC-14** The development tools (making the levels, tidying data) shall get no unit tests, but shall be linted and
-  type-checked like the game.
+- **TEC-14** Every module shall have its own test file, the development tools' too (`src/pewpy/generators/`), and be
+  linted and type-checked like the game. The tests mirror the code: `src/pewpy/a/b.py` is tested in `tests/a/test_b.py`,
+  a package's `__init__.py` holding code in `test_init.py`, a `__main__.py` in `test_main.py` (an `__init__.py` that only
+  gathers its modules needs none). Helpers the tests share are modules without the `test_` prefix. A test checks the
+  layout (`tests/test_layout.py`, the one test file without a module of its own).
 
 ## Crash reports
 

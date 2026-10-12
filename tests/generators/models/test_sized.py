@@ -5,12 +5,15 @@ import random
 import pytest
 
 from pewpy.generators.models.common.geometry import miss
+from pewpy.generators.models.ships.placing import nose_room
+from pewpy.generators.models.ships.selection import Asked
 from pewpy.generators.models.sized import (
     MAX_PARTS,
     MIN_PARTS,
     MIN_WEAPONS,
     PARTS_ALWAYS,
     PARTS_FROM,
+    _aimed,
     cubes,
     parts_chance,
     parts_for,
@@ -76,3 +79,10 @@ def test_the_players_ships_never_have_destroyable_parts_and_bosses_always_do() -
     for seed in range(4):
         assert not sized_model(random.Random(seed), (0.3, 0.25), player=True)["parts"]
         assert sized_model(random.Random(seed), (0.1, 0.1), boss=True)["parts"]
+
+
+def test_the_frame_is_aimed_at_the_size() -> None:
+    for wanted in [(40, 30), (120, 90)]:
+        framed = (wanted[0], wanted[1] - nose_room(wanted[1]))
+        sizes = [_aimed(seed, wanted, framed, player=False, asked=Asked()).ship.size() for seed in range(6)]
+        assert min(miss(size, framed) for size in sizes) < 0.1

@@ -25,8 +25,10 @@ def game_app(tmp_path_factory: pytest.TempPathFactory) -> Iterator:
     loadPrcFileData("", "window-type offscreen\nload-display p3headlessgl\naudio-library-name null\nsync-video false")
     with pytest.MonkeyPatch.context() as patch:
         patch.setenv("XDG_CACHE_HOME", str(tmp_path_factory.mktemp("cache")))
-        patch.setattr(Library, "request", lambda *_, **__: None)  # no songs rendered
-        app = PewPewApp()
+        with pytest.MonkeyPatch.context() as building:
+            building.setattr(Library, "request", lambda *_, **__: None)  # no songs rendered...
+            app = PewPewApp()
+        patch.setattr(app.audio.library, "request", lambda *_, **__: None)  # ...by this app only: the tests of Library
         yield app
     app.destroy()
     FontPool.releaseAllFonts()  # a later session in the same process (mutmut runs pytest twice) loads the font afresh

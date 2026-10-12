@@ -33,3 +33,11 @@ def test_every_part_is_drawn_as_the_game_reads_drawings() -> None:
         assert (voxels.width, voxels.height) == part.extent()[:2]
         assert len(voxels.cells) == len(part.cells)
         assert len(drawing["engines"]) == len(part.nozzles)
+
+
+def test_the_parts_browser_counts_a_parts_weapons() -> None:
+    browser = PartBrowser(list(KINDS).index("gun"))
+    browser.index = next(index for index, part in enumerate(browser.parts) if len(part.weapons) > 1)
+    assert f"{len(browser.part.weapons)} weapons" in browser.info()
+    browser.index = next(index for index, part in enumerate(browser.parts) if len(part.weapons) == 1)
+    assert browser.info().endswith("1 weapon")

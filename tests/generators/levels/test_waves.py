@@ -11,12 +11,6 @@ from pewpy.generators.levels.enemies import SHAPES, UNLOCK, WARM_UP
 from pewpy.generators.levels.waves import HALF_TIME, LINE_SPAN, SIDE_SPAN, make_half, make_wave, threat
 
 
-def test_every_enemy_sent_has_shapes_and_an_unlock() -> None:
-    assert set(SHAPES) == set(UNLOCK)
-    assert set(UNLOCK) <= set(ENEMY_TYPES)
-    assert all(UNLOCK[enemy] == 1 for enemy in WARM_UP)
-
-
 def test_a_group_grows_with_the_difficulty(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setitem(SHAPES, "drone", ({"formation": "column", "x": 0.5, "count": 2.0},))
     rng = random.Random(1)

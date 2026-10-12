@@ -25,3 +25,10 @@ def test_a_long_menu_goes_up_to_stay_on_the_screen() -> None:
     low, high = bounds
     assert low.z >= LOWEST - 1e-6
     assert high.z < 1.0
+
+
+def test_a_menu_view_without_a_menu_has_nothing_to_highlight() -> None:
+    view = MenuView(NodePath("aspect2d"))
+    view.show(None)
+    view.refresh()
+    assert view.texts == []

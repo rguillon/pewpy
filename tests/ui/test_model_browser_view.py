@@ -1,7 +1,16 @@
 import pytest
 from panda3d.core import NodePath
 
-from pewpy.ui.model_browser_view import KEYS, PART_BLINK, PART_KEYS, PART_LIT, ModelBrowserView, fit_scale
+from pewpy.ui.model_browser_view import (
+    KEYS,
+    PART_BLINK,
+    PART_KEYS,
+    PART_LIT,
+    ROOM,
+    VIEW_SIZE,
+    ModelBrowserView,
+    fit_scale,
+)
 
 
 def test_with_nothing_to_show_the_frame_fills_the_view() -> None:
@@ -35,3 +44,7 @@ def test_the_view_lists_the_keys_of_its_browser() -> None:
     assert (models.keys.getText(), parts.keys.getText()) == (KEYS, PART_KEYS)
     models.destroy()
     parts.destroy()
+
+
+def test_the_bigger_of_the_model_and_its_size_fills_the_view() -> None:
+    assert fit_scale(0.5) * 0.5 * ROOM == pytest.approx(VIEW_SIZE)

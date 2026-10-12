@@ -64,3 +64,7 @@ def test_a_sound_doesnt_start_again_too_soon() -> None:
 )
 def test_each_screen_has_its_song(state: State, world: int, boss: bool, expected: Music) -> None:
     assert music(state, world, boss) == expected
+
+
+def test_the_ai_plays_to_the_worlds_music() -> None:
+    assert music(State.AI_PLAYING, 2, boss=False).song == "world_3"

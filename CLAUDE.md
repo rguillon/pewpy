@@ -38,7 +38,8 @@ Rules:
 ## Project conventions
 
 - Package layout: the game in `src/pewpy/`, its data files (JSON, drawings, props, music, the AI's brain) in `data/`;
-  tests in `tests/`, mirroring `src/pewpy/`. The AI player that flies a ship is `src/pewpy/ai/`. Everything that makes
+  tests in `tests/`, mirroring `src/pewpy/`: one test file per module (`a/b.py` → `tests/a/test_b.py`, an `__init__.py`
+  with code → `test_init.py`, `__main__.py` → `test_main.py`; see TEC-14, checked by `tests/test_layout.py`). The AI player that flies a ship is `src/pewpy/ai/`. Everything that makes
   the game's data is in `src/pewpy/generators/`, one subpackage per kind of data: `models/` (ships, bosses, final
   bosses, and the Dev menu's model browser), `music/` (songs, music browser), `backgrounds/` (background candidates,
   backgrounds browser), `levels/` (`make levels`), `ai_training/` (`make learn`), `compact_json/`, plus
