@@ -30,7 +30,9 @@ def test_learn_prints_each_generation_and_the_checks(
         report(Report(1, 10.0, 5.0, won=0.25))
         report(Report(10, 20.0, 8.0, checks={"vanguard": (0.5, 0.75)}, worlds=2))
         report(Report(20, 30.0, 9.0, checks={"vanguard": (1.0, 1.0)}, worlds=1, levels=1))
-        report(Report(30, 30.0, 9.0, checks={"vanguard": (1.0, 1.0)}, levels=3, kept=False, score=900, top=1000))
+        report(
+            Report(30, 30.0, 9.0, checks={"vanguard": (1.0, 1.0)}, levels=3, kept=False, score=900, grade=900, top=1000)
+        )
 
     monkeypatch.setattr(command, "learn", learn)
     run(monkeypatch, "learn", "--generations", "3", "--ships", "vanguard", "--folder", str(tmp_path), "--new")
@@ -42,8 +44,8 @@ def test_learn_prints_each_generation_and_the_checks(
     assert "clears 100% of the runs" in out
     assert "(trains on 1 level)" in out
     assert "(trains on 3 levels)" in out
-    assert out.count("on average: kept, the best so far") == 2
-    assert "scores 900 on average, less than the best (1000): back to it" in out
+    assert out.count("on average): kept, the best so far") == 2
+    assert "grade 900 (clears 100% x scores 900 on average), less than the best (1000): back to it" in out
 
 
 @pytest.mark.usefixtures("tiny_levels")

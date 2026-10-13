@@ -45,6 +45,12 @@ def test_tries_and_checks_play_their_runs() -> None:
     assert check_level((BRAIN.weights, BRAIN.hidden, "vanguard", 0, 1)) == (True, 1.0, 0)
 
 
+def test_a_brain_is_graded_by_how_often_it_survives_times_its_score() -> None:
+    plays = {"vanguard": [(True, 1.0, 1000), (False, 0.5, 200)], "phantom": [(True, 1.0, 900), (True, 1.0, 1100)]}
+    assert learning.mean_score(plays) == 800
+    assert learning.grade(plays) == 0.75 * 800
+
+
 def test_the_cores_but_one_play(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(learning.os, "cpu_count", lambda: 8)
     assert default_workers() == 7
@@ -102,7 +108,7 @@ def test_a_brain_doing_worse_than_the_best_is_dropped(tmp_path: Path, monkeypatc
     monkeypatch.setattr(learning, "grade", lambda _plays: next(grades))
     worse = learner.step()
     assert not worse.kept
-    assert (worse.score, worse.top) == (400.0, 500.0)
+    assert (worse.grade, worse.top) == (400.0, 500.0)
     assert learner.brain is start
     assert np.array_equal(learner.evolution.weights, start.weights)  # training goes on from the best
     assert learner.trainee is start

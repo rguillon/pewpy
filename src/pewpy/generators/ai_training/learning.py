@@ -5,9 +5,10 @@ One brain flies all the ships, seeing which one it flies (sensors.py).
 Each generation, every try of the population plays the same runs, RUNS_PER_SHIP per ship, each on a level drawn
 among the worlds open to it, with one life; its fitness is the mean of its runs' (episode.py). The tries play in
 worker processes, in parallel. Every CHECK_EVERY generations the brain itself plays every level once with each ship:
-the share it clears and how far it gets are its progress. It is kept if it scores as much as the best brain so far
-(on average), else training goes back to that one: the training's noise can't undo what it learned. The best brain
-is saved (files.py), so learning can stop at any time and go on later.
+the share it clears and how far it gets are its progress. It is kept if its grade (the share of runs it clears
+times its mean score: it must survive and score) is as good as the best brain's so far, else training goes back to
+that one: the training's noise can't undo what it learned. The best brain is saved (files.py), so learning can stop
+at any time and go on later.
 
 A curriculum: a new brain trains on world 1 only; the next world opens once it gets OPEN_NEXT of the way into the
 open worlds' levels on average (every ship's) at a check. Or no curriculum: training on the levels given (`make
@@ -108,9 +109,18 @@ def summary(plays: Plays) -> Check:
     }
 
 
-def grade(plays: Plays) -> float:
-    """Grade a check, to compare brains: its runs' mean score (every ship's; a run dying early scores less)."""
+def mean_score(plays: Plays) -> float:
+    """Return a check's mean score (every ship's runs)."""
     return float(np.mean([score for runs in plays.values() for _, _, score in runs]))
+
+
+def grade(plays: Plays) -> float:
+    """Grade a check, to compare brains: the share of its runs cleared times their mean score.
+
+    A brain must both survive and score: clearing a tenth fewer runs costs as much as scoring a tenth less.
+    """
+    cleared = float(np.mean([won for runs in plays.values() for won, _, _ in runs]))
+    return cleared * mean_score(plays)
 
 
 @dataclass(frozen=True)
@@ -124,9 +134,10 @@ class Report:
     checks: Check | None = None  # when the brain was checked this generation
     worlds: int = 1  # the worlds it trains on
     levels: int = 0  # how many levels it trains on, when they are given (no curriculum)
-    kept: bool = True  # at a check: whether the brain scored as much as the best so far (else training went back to it)
+    kept: bool = True  # at a check: whether the brain graded as well as the best so far (else training went back to it)
     score: float = 0.0  # at a check: the brain's mean score
-    top: float = 0.0  # at a check: the best brain's mean score (after the check)
+    grade: float = 0.0  # at a check: the brain's grade (the share of runs cleared times the mean score)
+    top: float = 0.0  # at a check: the best brain's grade (after the check)
 
 
 class Learner:
@@ -181,7 +192,7 @@ class Learner:
         self.trainee = Brain(self.evolution.weights.copy(), hidden)
         self.training.generation = self.evolution.generation
         checks = None
-        kept, score = True, 0.0
+        kept, score, graded = True, 0.0, 0.0
         record: dict[str, Any] = {
             "generation": self.training.generation,
             "best": float(fitness.max()),
@@ -189,11 +200,12 @@ class Learner:
             "won": won,
         }
         if self.training.generation % CHECK_EVERY == 0:
-            checks, score, kept = self.check()
+            checks, score, graded, kept = self.check()
             record |= {
                 "cleared": float(np.mean([cleared for cleared, _ in checks.values()])),
                 "progress": float(np.mean([gone for _, gone in checks.values()])),
                 "score": score,
+                "grade": graded,
                 "kept": kept,
                 "worlds": self.training.worlds,
                 **({"levels": len(self.levels)} if self.levels else {}),
@@ -213,13 +225,15 @@ class Learner:
             levels=trained,
             kept=kept,
             score=score,
+            grade=graded,
             top=top,
         )
 
-    def check(self) -> tuple[Check, float, bool]:
-        """Check the brain being trained, keep it if it scores as much as the best so far, else go back to the best.
+    def check(self) -> tuple[Check, float, float, bool]:
+        """Check the brain being trained: keep it if it grades as well as the best so far, else go back to that one.
 
-        Its check, its mean score and whether it was kept. A kept brain may open the next world (the curriculum).
+        Its check, its mean score, its grade and whether it was kept. A kept brain may open the next world (the
+        curriculum).
         """
         if self.best is None:
             self.best = grade(self.play_checks(self.training.brain))
@@ -232,7 +246,7 @@ class Learner:
         else:  # it got worse (or was unlucky): its training's last steps are dropped
             self.trainee = self.training.brain
             self.evolution.restart(self.trainee.weights)
-        return summary(plays), graded, kept
+        return summary(plays), mean_score(plays), graded, kept
 
     def play_checks(self, brain: Brain) -> Plays:
         """For each ship, how a brain does on its check, with one life each and the same randomness every check.
