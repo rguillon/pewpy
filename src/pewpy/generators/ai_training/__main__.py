@@ -51,6 +51,11 @@ def main() -> None:
                     print(f"  (trains on {step.levels} level{'s' if step.levels > 1 else ''})")
                 else:
                     print(f"  (trains on {step.worlds} world{'s' if step.worlds > 1 else ''})")
+                scores = f"scores {step.score:.0f} on average"
+                if step.kept:
+                    print(f"  {scores}: kept, the best so far")
+                else:
+                    print(f"  {scores}, less than the best ({step.top:.0f}): back to it")
 
         levels = None
         if args.levels:

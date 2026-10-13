@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 POPULATION = 64  # tries per generation (even)
-NOISE = 0.02  # how big the nudges are
+NOISE = 0.1  # how big the nudges are: smaller ones change too little for it to show through the game's chaos
 LEARNING_RATE = 0.01  # Adam moves every weight about this much a step: small, or the brain it starts from is lost
 WEIGHT_DECAY = 0.005  # keeps the weights small
 BETAS = (0.9, 0.999)  # Adam's
@@ -35,14 +35,21 @@ class Evolution:
     generation: int = 0
     moment: np.ndarray = field(init=False)
     velocity: np.ndarray = field(init=False)
+    steps: int = field(init=False)  # Adam's steps since its moments started at zero
 
     def __post_init__(self) -> None:
         """Check the population is even and start the step's moments at zero."""
         if self.population < 2 or self.population % 2:
             msg = "the population must be even"
             raise ValueError(msg)
+        self.restart(self.weights)
+
+    def restart(self, weights: np.ndarray) -> None:
+        """Go on from these weights, Adam's moments back at zero (the generations still count)."""
+        self.weights = weights.copy()
         self.moment = np.zeros_like(self.weights)
         self.velocity = np.zeros_like(self.weights)
+        self.steps = 0
 
     def ask(self) -> tuple[np.ndarray, list[np.ndarray]]:
         """Return the generation's nudges (half of them, the other half are their opposites) and the weights to try."""
@@ -56,8 +63,9 @@ class Evolution:
         gradient = (shaped[:, 0] - shaped[:, 1]) @ nudges / (self.population * self.noise)
         gradient -= WEIGHT_DECAY * self.weights
         self.generation += 1
+        self.steps += 1
         beta1, beta2 = BETAS
         self.moment = beta1 * self.moment + (1 - beta1) * gradient
         self.velocity = beta2 * self.velocity + (1 - beta2) * gradient**2
-        corrected = self.learning_rate * np.sqrt(1 - beta2**self.generation) / (1 - beta1**self.generation)
+        corrected = self.learning_rate * np.sqrt(1 - beta2**self.steps) / (1 - beta1**self.steps)
         self.weights = self.weights + corrected * self.moment / (np.sqrt(self.velocity) + 1e-8)

@@ -25,6 +25,16 @@ def test_the_tries_are_mirrored_nudges() -> None:
     assert np.allclose(tries[0] - 1, -(tries[1] - 1))  # a nudge and its opposite
 
 
+def test_a_restart_goes_on_from_other_weights() -> None:
+    evolution = Evolution(np.zeros(3), np.random.default_rng(3), population=4)
+    nudges, _ = evolution.ask()
+    evolution.tell(nudges, np.array([1.0, 0.0, 0.0, 1.0]))
+    evolution.restart(np.ones(3))
+    assert np.array_equal(evolution.weights, np.ones(3))
+    assert not evolution.moment.any()
+    assert (evolution.generation, evolution.steps) == (1, 0)
+
+
 def test_the_weights_move_towards_the_better_tries() -> None:
     target = np.array([0.5, -0.3, 0.2])
     evolution = Evolution(np.zeros(3), np.random.default_rng(2), population=16, learning_rate=0.02)
