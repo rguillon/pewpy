@@ -39,7 +39,9 @@ def test_levels_are_named_by_their_place() -> None:
 
 @pytest.mark.usefixtures("tiny_levels")
 def test_tries_and_checks_play_their_runs() -> None:
-    assert try_weights((BRAIN.weights, BRAIN.hidden, (("vanguard", 0, 1), ("phantom", 1, 2)))) > 100  # cleared
+    fitness, won = try_weights((BRAIN.weights, BRAIN.hidden, (("vanguard", 0, 1), ("phantom", 1, 2))))
+    assert fitness > 100  # cleared
+    assert won == 1.0
     assert check_level((BRAIN.weights, BRAIN.hidden, "vanguard", 0, 1)) == (True, 1.0, 0)
 
 
@@ -59,6 +61,7 @@ def test_the_curriculum_opens_the_next_world_and_the_brain_is_saved(
     first = learner.step()
     assert first.generation == 1
     assert first.checks is None
+    assert first.won == 1.0  # the tiny levels are cleared at once
     assert not files.brain_path(tmp_path).exists()
     second = learner.step()
     assert second.checks is not None

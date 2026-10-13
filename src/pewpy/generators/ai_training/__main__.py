@@ -41,7 +41,8 @@ def main() -> None:
     if args.mode == "learn":
 
         def report(step: Report) -> None:
-            print(f"generation {step.generation:4}  best {step.best:7.1f}  mean {step.mean:7.1f}")
+            wins = f"wins {100 * step.won:3.0f}%"
+            print(f"generation {step.generation:4}  best {step.best:7.1f}  mean {step.mean:7.1f}  {wins}")
             if step.checks is not None:
                 runs = "runs" if step.levels else "levels"
                 for ship, (cleared, progress) in step.checks.items():

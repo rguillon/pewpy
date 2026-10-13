@@ -27,16 +27,16 @@ def test_learn_prints_each_generation_and_the_checks(
 
     def learn(ships: list[str], generations: int, folder: Path, _workers: int | None, report: Any, **kw: Any) -> None:  # noqa: ANN401
         calls.append({"ships": ships, "generations": generations, "folder": folder, **kw})
-        report(Report(1, 10.0, 5.0))
-        report(Report(10, 20.0, 8.0, {"vanguard": (0.5, 0.75)}, worlds=2))
-        report(Report(20, 30.0, 9.0, {"vanguard": (1.0, 1.0)}, worlds=1, levels=1))
-        report(Report(30, 30.0, 9.0, {"vanguard": (1.0, 1.0)}, worlds=1, levels=3, kept=False, score=900, top=1000))
+        report(Report(1, 10.0, 5.0, won=0.25))
+        report(Report(10, 20.0, 8.0, checks={"vanguard": (0.5, 0.75)}, worlds=2))
+        report(Report(20, 30.0, 9.0, checks={"vanguard": (1.0, 1.0)}, worlds=1, levels=1))
+        report(Report(30, 30.0, 9.0, checks={"vanguard": (1.0, 1.0)}, levels=3, kept=False, score=900, top=1000))
 
     monkeypatch.setattr(command, "learn", learn)
     run(monkeypatch, "learn", "--generations", "3", "--ships", "vanguard", "--folder", str(tmp_path), "--new")
     out = capsys.readouterr().out
     assert calls == [{"ships": ["vanguard"], "generations": 3, "folder": tmp_path, "levels": None, "new": True}]
-    assert "generation    1  best    10.0  mean     5.0" in out
+    assert "generation    1  best    10.0  mean     5.0  wins  25%" in out
     assert "clears  50% of the levels, gets  75% of the way" in out
     assert "(trains on 2 worlds)" in out
     assert "clears 100% of the runs" in out

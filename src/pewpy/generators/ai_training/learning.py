@@ -75,12 +75,13 @@ def open_levels(worlds: int) -> int:
 Run = tuple[str, int, int]  # a ship, a level (its index) and the randomness's seed
 
 
-def try_weights(task: tuple[np.ndarray, tuple[int, ...], tuple[Run, ...]]) -> float:
-    """Play some runs with a brain's weights (in a worker process): its mean fitness."""
+def try_weights(task: tuple[np.ndarray, tuple[int, ...], tuple[Run, ...]]) -> tuple[float, float]:
+    """Play some runs with a brain's weights (in a worker process): its mean fitness, the share of runs cleared."""
     weights, hidden, runs = task
     brain = Brain(weights, hidden)
     levels = _levels()
-    return float(np.mean([play(levels[index], brain, ship, seed).fitness for ship, index, seed in runs]))
+    outcomes = [play(levels[index], brain, ship, seed) for ship, index, seed in runs]
+    return float(np.mean([outcome.fitness for outcome in outcomes])), float(np.mean([o.cleared for o in outcomes]))
 
 
 def check_level(task: tuple[np.ndarray, tuple[int, ...], str, int, int]) -> tuple[bool, float, int]:
@@ -119,6 +120,7 @@ class Report:
     generation: int
     best: float  # the best try's fitness
     mean: float
+    won: float = 0.0  # the share of the generation's runs cleared (every try's)
     checks: Check | None = None  # when the brain was checked this generation
     worlds: int = 1  # the worlds it trains on
     levels: int = 0  # how many levels it trains on, when they are given (no curriculum)
@@ -173,7 +175,8 @@ class Learner:
         )
         nudges, tries = self.evolution.ask()
         hidden = self.trainee.hidden
-        fitness = np.array(list(self.executor.map(try_weights, [(w, hidden, runs) for w in tries])))
+        results = np.array(list(self.executor.map(try_weights, [(w, hidden, runs) for w in tries])))
+        fitness, won = results[:, 0], float(results[:, 1].mean())
         self.evolution.tell(nudges, fitness)
         self.trainee = Brain(self.evolution.weights.copy(), hidden)
         self.training.generation = self.evolution.generation
@@ -183,6 +186,7 @@ class Learner:
             "generation": self.training.generation,
             "best": float(fitness.max()),
             "mean": float(fitness.mean()),
+            "won": won,
         }
         if self.training.generation % CHECK_EVERY == 0:
             checks, score, kept = self.check()
@@ -203,12 +207,13 @@ class Learner:
             self.training.generation,
             record["best"],
             record["mean"],
-            checks,
-            self.training.worlds,
-            trained,
-            kept,
-            score,
-            top,
+            won=won,
+            checks=checks,
+            worlds=self.training.worlds,
+            levels=trained,
+            kept=kept,
+            score=score,
+            top=top,
         )
 
     def check(self) -> tuple[Check, float, bool]:
